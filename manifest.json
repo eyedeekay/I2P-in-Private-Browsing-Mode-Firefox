@@ -5,7 +5,7 @@
       "strict_min_version": "60.0"
     }
   },
-  "permissions": ["theme", "proxy"],
+  "permissions": ["theme", "proxy", "privacy"],
   "manifest_version": 2,
   "name": "I2P Proxy",
   "version": "1.0",

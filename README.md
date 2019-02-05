@@ -10,5 +10,6 @@ fingerprintable resources.
 Features
 --------
 
-  * [Firefox] **Set** the http proxy to use the local i2p proxy
-  * [Firefox] **Change** the color of the browser window to indicate that i2p is in use
+  * [done] **Set** the http proxy to use the local i2p proxy
+  * [done] **Disable** risky webRTC features
+  * [done] **Change** the color of the browser window to indicate that i2p is in use

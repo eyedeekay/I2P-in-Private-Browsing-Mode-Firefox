@@ -10,6 +10,10 @@ function isFirefox() {
     return false
 }
 
+browser.privacy.network.peerConnectionEnabled.set({value: false});
+browser.privacy.network.networkPredictionEnabled.set({value: false});
+browser.privacy.network.webRTCIPHandlingPolicy.set({value: "disable_non_proxied_udp"});
+
 if (isFirefox()) {
     var proxySettings = {
         proxyType: "manual",
