@@ -14,6 +14,8 @@ browser.privacy.network.peerConnectionEnabled.set({value: false});
 browser.privacy.network.networkPredictionEnabled.set({value: false});
 browser.privacy.network.webRTCIPHandlingPolicy.set({value: "disable_non_proxied_udp"});
 
+console.log("Preliminarily disabled WebRTC.")
+
 if (isFirefox()) {
     var proxySettings = {
         proxyType: "manual",
@@ -22,6 +24,7 @@ if (isFirefox()) {
         httpProxyAll: true
     };
     browser.proxy.settings.set({value:proxySettings});
+    console.log("i2p settings created for Firefox")
 }else{
     var config = {
         mode: "fixed_servers",
@@ -51,4 +54,5 @@ if (isFirefox()) {
     chrome.proxy.settings.set(
       {value: config, scope: 'regular'},
       function() {});
+    console.log("i2p settings created for Chromium")
 }
