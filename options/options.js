@@ -13,10 +13,10 @@ function storeSettings() {
     const textboxes = document.querySelectorAll(".proxy-options [type=text]");
     for (let item of textboxes) {
       if (item.getAttribute("data") == "host") {
-        proxy_host.push(item.getAttribute("value"));
+        proxy_host = item.getAttribute("value");
       }
     }
-    return proxy_value;
+    return proxy_host;
   }
 
   function getPort() {
@@ -24,10 +24,10 @@ function storeSettings() {
     const textboxes = document.querySelectorAll(".proxy-options [type=text]");
     for (let item of textboxes) {
       if (item.getAttribute("data") == "port") {
-        proxy_port.push(item.getAttribute("value"));
+        proxy_port = item.getAttribute("value");
       }
     }
-    return proxy_value;
+    return proxy_port;
   }
 
   const proxy_scheme = getSince();
