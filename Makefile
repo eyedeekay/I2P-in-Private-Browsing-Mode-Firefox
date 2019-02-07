@@ -20,3 +20,6 @@ uninstall:
 
 zip:
 	zip -r -FS ../i2psetproxy.js.zip *
+
+clobber:
+	rm -f ../i2psetproxy.js.zip ../i2p_proxy*.xpi

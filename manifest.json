@@ -5,11 +5,14 @@
       "strict_min_version": "60.0"
     }
   },
-  "permissions": ["theme", "proxy", "privacy"],
+  "permissions": ["theme", "proxy", "privacy", "storage"],
   "manifest_version": 2,
   "name": "I2P Proxy",
   "version": "1.11",
   "description": "Set up a browser to use the i2p http proxy automatically",
+  "options_ui": {
+    "page": "options/options.html"
+  },
   "background": {
     "scripts": ["background.js", "proxy.js"]
   }

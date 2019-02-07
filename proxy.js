@@ -16,43 +16,67 @@ browser.privacy.network.webRTCIPHandlingPolicy.set({value: "disable_non_proxied_
 
 console.log("Preliminarily disabled WebRTC.")
 
+let proxy_scheme = "http"
+let proxy_host = "127.0.0.1"
+let proxy_port = 4444
+
+var defaultSettings = {
+    proxy_scheme: proxy_scheme,
+    proxy_value: [proxy_host, proxy_port]
+};
+
+function checkStoredSettings(storedSettings) {
+    if (!storedSettings.proxy_scheme || !storedSettings.proxy_value) {
+        browser.storage.local.set(defaultSettings);
+    }
+}
+
+function onError(e) {
+  console.error(e);
+}
+
+const gettingStoredSettings = browser.storage.local.get();
+gettingStoredSettings.then(checkStoredSettings, onError);
+
 if (isFirefox()) {
-    var proxySettings = {
-        proxyType: "manual",
-        http: "http://127.0.0.1:4444",
-        passthrough: "",
-        httpProxyAll: true
-    };
-    browser.proxy.settings.set({value:proxySettings});
-    console.log("i2p settings created for Firefox")
+    if (proxy_scheme == "http") {
+        var proxySettings = {
+            proxyType: "manual",
+            http: proxy_host+":"+proxy_port,
+            passthrough: "",
+            httpProxyAll: true
+        };
+        browser.proxy.settings.set({value:proxySettings});
+        console.log("i2p settings created for Firefox")
+    }
 }else{
     var config = {
         mode: "fixed_servers",
         rules: {
             proxyForHttp: {
-                scheme: "http",
-                host: "127.0.0.1",
-                port: 4444
+                scheme: proxy_scheme,
+                host: proxy_host,
+                port: proxy_port
             },
             proxyForFtp: {
-                scheme: "http",
-                host: "127.0.0.1",
-                port: 4444
+                scheme: proxy_scheme,
+                host: proxy_host,
+                port: proxy_port
             },
             proxyForHttps: {
-                scheme: "http",
-                host: "127.0.0.1",
-                port: 4444
+                scheme: proxy_scheme,
+                host: proxy_host,
+                port: proxy_port
             },
             fallbackProxy: {
-                scheme: "http",
-                host: "127.0.0.1",
-                port: 4444
+                scheme: proxy_scheme,
+                host: proxy_host,
+                port: proxy_port
             }
         }
     };
     chrome.proxy.settings.set(
-      {value: config, scope: 'regular'},
-      function() {});
+        {value: config, scope: 'regular'},
+        function() {});
     console.log("i2p settings created for Chromium")
 }
