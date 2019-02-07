@@ -8,22 +8,35 @@ function storeSettings() {
     return proxy_scheme.value;
   }
 
-  function getTypes() {
-    let proxy_value = [];
+  function getHost() {
+    let proxy_host = "";
     const textboxes = document.querySelectorAll(".proxy-options [type=text]");
     for (let item of textboxes) {
-      if (item.checked) {
-        proxy_value.push(item.getAttribute("value"));
+      if (item.getAttribute("data") == "host") {
+        proxy_host.push(item.getAttribute("value"));
+      }
+    }
+    return proxy_value;
+  }
+
+  function getPort() {
+    let proxy_port = "";
+    const textboxes = document.querySelectorAll(".proxy-options [type=text]");
+    for (let item of textboxes) {
+      if (item.getAttribute("data") == "port") {
+        proxy_port.push(item.getAttribute("value"));
       }
     }
     return proxy_value;
   }
 
   const proxy_scheme = getSince();
-  const proxy_value = getTypes();
+  const proxy_host = getHost();
+  const proxy_port = getPort();
   browser.storage.local.set({
     proxy_scheme,
-    proxy_value
+    proxy_host,
+    proxy_port,
   });
 }
 
@@ -37,7 +50,10 @@ function updateUI(restoredSettings) {
 
   const textboxes = document.querySelectorAll(".proxy-options [type=text]");
   for (let item of textboxes) {
-    if (restoredSettings.proxy_value.indexOf(item.getAttribute("value")) != -1) {
+    if (restoredSettings.proxy_value.indexOf(item.getAttribute("data")) != -1) {
+      item.value = restoredSettings.proxy_value.indexOf(item.getAttribute("value"));
+    }
+    if (restoredSettings.proxy_value.indexOf(item.getAttribute("data")) != -1 ) {
       item.value = restoredSettings.proxy_value.indexOf(item.getAttribute("value"));
     }
   }
