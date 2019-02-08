@@ -17,34 +17,11 @@ browser.privacy.network.webRTCIPHandlingPolicy.set({value: "disable_non_proxied_
 console.log("Preliminarily disabled WebRTC.")
 
 function setupProxy() {
-
-    let proxy_scheme = "http"
-    let proxy_host = "127.0.0.1"
-    let proxy_port = 4444
-
-    var defaultSettings = {
-        proxy_scheme: proxy_scheme,
-        proxy_value: [proxy_host, proxy_port]
-    };
-
-    function checkStoredSettings(storedSettings) {
-        if (!storedSettings.proxy_scheme || !storedSettings.proxy_value) {
-            browser.storage.local.set(defaultSettings);
-        }
-    }
-
-    function onError(e) {
-      console.error(e);
-    }
-
-    const gettingStoredSettings = browser.storage.local.get();
-    gettingStoredSettings.then(checkStoredSettings, onError);
-
     if (isFirefox()) {
-        if (proxy_scheme == "http") {
+        if (getScheme() == "http") {
             var proxySettings = {
                 proxyType: "manual",
-                http: proxy_host+":"+proxy_port,
+                http: getHost()+":"+getPort(),
                 passthrough: "",
                 httpProxyAll: true
             };
@@ -56,24 +33,24 @@ function setupProxy() {
             mode: "fixed_servers",
             rules: {
                 proxyForHttp: {
-                    scheme: proxy_scheme,
-                    host: proxy_host,
-                    port: proxy_port
+                    scheme: getScheme(),
+                    host: getHost(),
+                    port: getPort()
                 },
                 proxyForFtp: {
-                    scheme: proxy_scheme,
-                    host: proxy_host,
-                    port: proxy_port
+                    scheme: getScheme(),
+                    host: getHost(),
+                    port: getPort()
                 },
                 proxyForHttps: {
-                    scheme: proxy_scheme,
-                    host: proxy_host,
-                    port: proxy_port
+                    scheme: getScheme(),
+                    host: getHost(),
+                    port: getPort()
                 },
                 fallbackProxy: {
-                    scheme: proxy_scheme,
-                    host: proxy_host,
-                    port: proxy_port
+                    scheme: getScheme(),
+                    host: getHost(),
+                    port: getPort()
                 }
             }
         };
@@ -82,7 +59,4 @@ function setupProxy() {
             function() {});
         console.log("i2p settings created for Chromium")
     }
-
 }
-
-setupProxy()

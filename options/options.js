@@ -1,4 +1,28 @@
 
+function getScheme() {
+    const proxy_scheme = document.querySelector("#proxy_scheme");
+    console.log("Got i2p proxy scheme:", proxy_scheme.value);
+    return proxy_scheme.value;
+}
+
+function getHost() {
+    proxy_host = document.getElementById("host").value
+    console.log("Got i2p proxy host:", proxy_host);
+    if (proxy_host == undefined){
+        return "127.0.0.1"
+    }
+    return proxy_host;
+}
+
+function getPort() {
+    proxy_port = document.getElementById("port").value
+    console.log("Got i2p proxy port:", proxy_port);
+    if (proxy_port == undefined){
+        return 4444
+    }
+    return proxy_port;
+}
+
 function isFirefox() {
     testPlain = navigator.userAgent.indexOf('Firefox') !== -1;
     if (testPlain) {
@@ -11,35 +35,30 @@ function isFirefox() {
     return false
 }
 
+function checkStoredSettings(storedSettings) {
+    let defaultSettings = {};
+    if (!storedSettings.proxy_scheme){
+        defaultSettings["proxy_scheme"] = "http"
+    }
+    if (!storedSettings.proxy_host) {
+        defaultSettings["proxy_host"] = "127.0.0.1"
+    }
+    if (!storedSettings.proxy_port) {
+        defaultSettings["proxy_port"] = 4444
+    }
+    browser.storage.local.set(defaultSettings);
+}
+
+function onError(e) {
+  console.error(e);
+}
+
 function setupProxy() {
-
-    let proxy_scheme = "http"
-    let proxy_host = "127.0.0.1"
-    let proxy_port = 4444
-
-    var defaultSettings = {
-        proxy_scheme: proxy_scheme,
-        proxy_value: [proxy_host, proxy_port]
-    };
-
-    function checkStoredSettings(storedSettings) {
-        if (!storedSettings.proxy_scheme || !storedSettings.proxy_value) {
-            browser.storage.local.set(defaultSettings);
-        }
-    }
-
-    function onError(e) {
-      console.error(e);
-    }
-
-    const gettingStoredSettings = browser.storage.local.get();
-    gettingStoredSettings.then(checkStoredSettings, onError);
-
     if (isFirefox()) {
-        if (proxy_scheme == "http") {
+        if (getScheme() == "http") {
             var proxySettings = {
                 proxyType: "manual",
-                http: proxy_host+":"+proxy_port,
+                http: getHost()+":"+getPort(),
                 passthrough: "",
                 httpProxyAll: true
             };
@@ -51,24 +70,24 @@ function setupProxy() {
             mode: "fixed_servers",
             rules: {
                 proxyForHttp: {
-                    scheme: proxy_scheme,
-                    host: proxy_host,
-                    port: proxy_port
+                    scheme: getScheme(),
+                    host: getHost(),
+                    port: getPort()
                 },
                 proxyForFtp: {
-                    scheme: proxy_scheme,
-                    host: proxy_host,
-                    port: proxy_port
+                    scheme: getScheme(),
+                    host: getHost(),
+                    port: getPort()
                 },
                 proxyForHttps: {
-                    scheme: proxy_scheme,
-                    host: proxy_host,
-                    port: proxy_port
+                    scheme: getScheme(),
+                    host: getHost(),
+                    port: getPort()
                 },
                 fallbackProxy: {
-                    scheme: proxy_scheme,
-                    host: proxy_host,
-                    port: proxy_port
+                    scheme: getScheme(),
+                    host: getHost(),
+                    port: getPort()
                 }
             }
         };
@@ -77,85 +96,50 @@ function setupProxy() {
             function() {});
         console.log("i2p settings created for Chromium")
     }
-
 }
 
-
-/*
-Store the currently selected settings using browser.storage.local.
-*/
 function storeSettings() {
-
-  function getSince() {
-    const proxy_scheme = document.querySelector("#proxy_scheme");
-    return proxy_scheme.value;
-  }
-
-  function getHost() {
-    let proxy_host = "";
-    const textboxes = document.querySelectorAll(".proxy-options [type=text]");
-    for (let item of textboxes) {
-      if (item.getAttribute("data") == "host") {
-        proxy_host = item.getAttribute("value");
-      }
-    }
-    return proxy_host;
-  }
-
-  function getPort() {
-    let proxy_port = "";
-    const textboxes = document.querySelectorAll(".proxy-options [type=text]");
-    for (let item of textboxes) {
-      if (item.getAttribute("data") == "port") {
-        proxy_port = item.getAttribute("value");
-      }
-    }
-    return proxy_port;
-  }
-
-  const proxy_scheme = getSince();
-  const proxy_host = getHost();
-  const proxy_port = getPort();
-  browser.storage.local.set({
-    proxy_scheme,
-    proxy_host,
-    proxy_port,
-  });
-  setupProxy()
+    let proxy_scheme = getScheme()
+    let proxy_host = getHost()
+    let proxy_port = getPort()
+    browser.storage.local.set({
+        proxy_scheme,
+        proxy_host,
+        proxy_port,
+    });
+    console.log("storing proxy host:", proxy_scheme)
+    console.log("storing proxy host:", proxy_host)
+    console.log("storing proxy port:", proxy_port)
+    setupProxy()
 }
 
-/*
-Update the options UI with the settings values retrieved from storage,
-or the default settings if the stored settings are empty.
-*/
 function updateUI(restoredSettings) {
-  const selectList = document.querySelector("#proxy_scheme");
-  selectList.value = restoredSettings.proxy_scheme;
 
-  const textboxes = document.querySelectorAll(".proxy-options [type=text]");
-  for (let item of textboxes) {
-    if (restoredSettings.proxy_value.indexOf(item.getAttribute("data")) != -1) {
-      item.value = restoredSettings.proxy_value.indexOf(item.getAttribute("value"));
-    }
-    if (restoredSettings.proxy_value.indexOf(item.getAttribute("data")) != -1 ) {
-      item.value = restoredSettings.proxy_value.indexOf(item.getAttribute("value"));
-    }
-  }
+    const selectList = document.querySelector("#proxy_scheme")
+    selectList.value = restoredSettings.proxy_scheme
+    console.log("showing proxy scheme:", selectList.value)
+
+    const hostitem = document.getElementById("host")
+    hostitem.value = restoredSettings.proxy_host.getAttribute("value")
+    console.log("showing proxy host:", hostitem.value)
+
+    const portitem = document.getElementById("port")
+    portitem.value = restoredSettings.proxy_port.getAttribute("value")
+    console.log("showing proxy port:", portitem.value)
+
+
 }
 
 function onError(e) {
-  console.error(e);
+    console.error(e);
 }
 
-/*
-On opening the options page, fetch stored settings and update the UI with them.
-*/
+const assureStoredSettings = browser.storage.local.get();
+assureStoredSettings.then(checkStoredSettings, onError);
+
 const gettingStoredSettings = browser.storage.local.get();
 gettingStoredSettings.then(updateUI, onError);
 
-/*
-On clicking the save button, save the currently selected settings.
-*/
 const saveButton = document.querySelector("#save-button");
 saveButton.addEventListener("click", storeSettings);
 

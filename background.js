@@ -33,3 +33,10 @@ function themeWindow(window) {
         });
     }
 }
+
+
+
+browser.windows.onCreated.addListener(() => {
+    const gettingStoredSettings = browser.storage.local.get();
+    gettingStoredSettings.then(setupProxy, onError);
+});
