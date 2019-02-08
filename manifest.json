@@ -10,6 +10,13 @@
   "name": "i2psetproxy.js",
   "version": "1.12",
   "description": "Set up a browser to use the i2p http proxy automatically",
+  "icons": {
+    "48": "icons/toopie.png"
+  },
+  "browser_action": {
+    "default_icon": "icons/toopie.png",
+    "default_title": "Reset Tunnel"
+  },
   "options_ui": {
     "page": "options/options.html"
   },

@@ -1,8 +1,9 @@
 
-install:
+install: uninstall
 	mkdir -p /usr/share/webext/i2psetproxy.js@eyedeekay.github.io \
-		/usr/share/mozilla/extensions/i2psetproxy.js@eyedeekay.github.io
+		/usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/
 	cp -rv options /usr/share/webext/i2psetproxy.js@eyedeekay.github.io/options
+	cp -rv icons /usr/share/webext/i2psetproxy.js@eyedeekay.github.io/icons
 	cp background.js /usr/share/webext/i2psetproxy.js@eyedeekay.github.io
 	cp proxy.js /usr/share/webext/i2psetproxy.js@eyedeekay.github.io
 	cp manifest.json /usr/share/webext/i2psetproxy.js@eyedeekay.github.io/
@@ -16,7 +17,7 @@ uninstall:
 		/usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/i2psetproxy.js@eyedeekay.github.io
 
 zip:
-	zip -r -FS ../i2psetproxy.js.zip *
+	zip --exclude="./i2psetproxy.js@eyedeekay.github.io.xpi" -r -FS ../i2psetproxy.js.zip *
 
 clobber:
 	rm -f ../i2psetproxy.js.zip ../i2p_proxy*.xpi
