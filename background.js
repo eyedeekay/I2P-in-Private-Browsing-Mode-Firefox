@@ -6,9 +6,9 @@ browser.windows.getAll().then(wins => wins.forEach(themeWindow));
 function themeWindow(window) {
     // Check if the window is in private browsing
     if (window.incognito) {
-            browser.theme.update(window.id, {
-                images: {
-                headerURL: "",
+        browser.theme.update(window.id, {
+            images: {
+                headerURL: "icons/toopie.png",
             },
             colors: {
                 accentcolor: "#A0A0DE",
@@ -17,12 +17,14 @@ function themeWindow(window) {
                 toolbar_text: "white"
             }
         });
+        browser.windows.update(window.id, {
+            titlePreface: "I2P Browser (Private Browsing) - "
+        });
     }
-    // Reset to the default theme otherwise
     else {
         browser.theme.update(window.id, {
             images: {
-                headerURL: "",
+                headerURL: "icons/toopie.png",
             },
             colors: {
                 accentcolor: "#BFA0DE",
@@ -31,12 +33,35 @@ function themeWindow(window) {
                 toolbar_text: "white"
             }
         });
+        browser.windows.update(window.id, {
+            titlePreface: "I2P Browser - "
+        });
     }
 }
 
+function setTitle(window){
+    if (window.incognito) {
+        browser.windows.update(window.id, {
+            titlePreface: "I2P Browser (Private Browsing) - "
+        });
+    }
+    else {
+        browser.windows.update(window.id, {
+            titlePreface: "I2P Browser - "
+        });
+    }
+}
 
+function setTitleError(window){
+    alert("plugin error setting title on", window.id)
+}
 
 browser.windows.onCreated.addListener(() => {
     const gettingStoredSettings = browser.storage.local.get();
     gettingStoredSettings.then(setupProxy, onError);
+});
+
+browser.tabs.onCreated.addListener(() => {
+    const getting = browser.windows.getCurrent({populate: true});
+    getting.then(setTitle, setTitleError);
 });
