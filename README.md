@@ -3,7 +3,7 @@ i2psetproxy.js
 
 WebExtension that does extended configuration of a dedicated i2p browser. It's
 still not good enough to use on it's own, but except for internationalization
-it does what it's supposed to.
+it does what it's supposed to do on it's own.
 
 Features
 --------
