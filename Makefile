@@ -17,7 +17,8 @@ uninstall:
 		/usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/i2psetproxy.js@eyedeekay.github.io
 
 zip:
-	zip --exclude="./i2psetproxy.js@eyedeekay.github.io.xpi" -r -FS ../i2psetproxy.js.zip *
+	zip --exclude="./i2psetproxy.js@eyedeekay.github.io.xpi" \
+		--exclude="i2psetproxy.js.png" -r -FS ../i2psetproxy.js.zip *
 
 clobber:
 	rm -f ../i2psetproxy.js.zip ../i2p_proxy*.xpi
