@@ -7,20 +7,21 @@
   },
   "permissions": ["theme", "proxy", "privacy", "storage"],
   "manifest_version": 2,
-  "name": "i2psetproxy.js",
-  "version": "1.12",
-  "description": "Set up a browser to use the i2p http proxy automatically",
+  "name": "__MSG_extensionName__",
+  "version": "1.13",
+  "description": "__MSG_extensionDescription__",
   "icons": {
     "48": "icons/toopie.png"
   },
   "browser_action": {
     "default_icon": "icons/toopie.png",
-    "default_title": "Reset Tunnel"
+    "default_title": "__MSG_resetMessage__"
   },
   "options_ui": {
     "page": "options/options.html"
   },
   "background": {
     "scripts": ["background.js", "proxy.js"]
-  }
+  },
+  "default_locale": "en"
 }

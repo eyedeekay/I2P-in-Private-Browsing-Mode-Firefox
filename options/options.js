@@ -1,4 +1,7 @@
 
+var hosttext = browser.i18n.getMessage("hostText");
+var porttext = browser.i18n.getMessage("portText");
+
 function getScheme() {
     const proxy_scheme = document.querySelector("#proxy_scheme");
     console.log("Got i2p proxy scheme:", proxy_scheme.value);
@@ -122,11 +125,16 @@ function updateUI(restoredSettings) {
     const hostitem = document.getElementById("host")
     hostitem.value = restoredSettings.proxy_host.getAttribute("value")
     console.log("showing proxy host:", hostitem.value)
+    var hostid = document.getElementById('hostText');
+    var hostlabel = usersec.getElementsByTagName('label')[0];
+    hostlabel.innerHTML = hosttext;
 
     const portitem = document.getElementById("port")
     portitem.value = restoredSettings.proxy_port.getAttribute("value")
     console.log("showing proxy port:", portitem.value)
-
+    var portid = document.getElementById('portText');
+    var portlabel = usersec.getElementsByTagName('label')[0];
+    portlabel.innerHTML = porttext;
 
 }
 
@@ -142,4 +150,3 @@ gettingStoredSettings.then(updateUI, onError);
 
 const saveButton = document.querySelector("#save-button");
 saveButton.addEventListener("click", storeSettings);
-

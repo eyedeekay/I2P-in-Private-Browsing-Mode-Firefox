@@ -1,0 +1,31 @@
+{
+  "extensionName": {
+    "message": "i2psetproxy.js",
+    "description": "Name of the extension."
+  },
+
+  "extensionDescription": {
+    "message": "Set up a browser to use the i2p http proxy automatically",
+    "description": "Description of the extension."
+  },
+  "titlePreface": {
+    "message": "I2P Browser - ",
+    "description": "Preface for the browser titlebar"
+  },
+  "titlePrefacePrivate": {
+    "message": "I2P Browser (Private) - ",
+    "description": "Preface for the browser titlebar"
+  },
+  "resetMessage": {
+    "message": "Reset Tunnel",
+    "description": "Message for the Reset Tunnel button"
+  },
+  "hostText": {
+    "message": "Host: ",
+    "description": "Message for the Reset Tunnel button"
+  },
+  "portText": {
+    "message": "Port: ",
+    "description": "Message for the Reset Tunnel button"
+  }
+}

@@ -3,6 +3,9 @@ browser.windows.onCreated.addListener(themeWindow);
 // Theme all currently open windows
 browser.windows.getAll().then(wins => wins.forEach(themeWindow));
 
+var titlepref = browser.i18n.getMessage("titlePreface");
+var titleprefpriv = browser.i18n.getMessage("titlePrefacePrivate");
+
 function themeWindow(window) {
     // Check if the window is in private browsing
     if (window.incognito) {
@@ -18,7 +21,7 @@ function themeWindow(window) {
             }
         });
         browser.windows.update(window.id, {
-            titlePreface: "I2P Browser (Private Browsing) - "
+            titlePreface: titleprefpriv
         });
     }
     else {
@@ -34,7 +37,7 @@ function themeWindow(window) {
             }
         });
         browser.windows.update(window.id, {
-            titlePreface: "I2P Browser - "
+            titlePreface: titlepref
         });
     }
 }
@@ -42,12 +45,12 @@ function themeWindow(window) {
 function setTitle(window){
     if (window.incognito) {
         browser.windows.update(window.id, {
-            titlePreface: "I2P Browser (Private Browsing) - "
+            titlePreface: titleprefpriv
         });
     }
     else {
         browser.windows.update(window.id, {
-            titlePreface: "I2P Browser - "
+            titlePreface: titlepref
         });
     }
 }
