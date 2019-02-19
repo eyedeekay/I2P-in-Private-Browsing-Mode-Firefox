@@ -135,12 +135,12 @@ function updateUI(restoredSettings) {
 
 function SetHostText(){
     var hostid = document.getElementById('hostText');
-    hostid.innerHTML = hosttext;
+    hostid.textContent = hosttext;
 }
 
 function SetPortText(){
     var portid = document.getElementById('portText');
-    portid.innerHTML = porttext;
+    portid.textContent = porttext;
 }
 
 function onError(e) {
