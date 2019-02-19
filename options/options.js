@@ -123,19 +123,24 @@ function updateUI(restoredSettings) {
     console.log("showing proxy scheme:", selectList.value)
 
     const hostitem = document.getElementById("host")
-    hostitem.value = restoredSettings.proxy_host.getAttribute("value")
+    hostitem.value = restoredSettings.proxy_host
     console.log("showing proxy host:", hostitem.value)
-    var hostid = document.getElementById('hostText');
-    var hostlabel = usersec.getElementsByTagName('label')[0];
-    hostlabel.innerHTML = hosttext;
+
 
     const portitem = document.getElementById("port")
-    portitem.value = restoredSettings.proxy_port.getAttribute("value")
+    portitem.value = restoredSettings.proxy_port
     console.log("showing proxy port:", portitem.value)
-    var portid = document.getElementById('portText');
-    var portlabel = usersec.getElementsByTagName('label')[0];
-    portlabel.innerHTML = porttext;
 
+}
+
+function SetHostText(){
+    var hostid = document.getElementById('hostText');
+    hostid.innerHTML = hosttext;
+}
+
+function SetPortText(){
+    var portid = document.getElementById('portText');
+    portid.innerHTML = porttext;
 }
 
 function onError(e) {
@@ -150,3 +155,6 @@ gettingStoredSettings.then(updateUI, onError);
 
 const saveButton = document.querySelector("#save-button");
 saveButton.addEventListener("click", storeSettings);
+
+SetHostText()
+SetPortText()
