@@ -12,6 +12,7 @@ Features
   * [done] **Set** the http proxy to use the local i2p proxy
   * [done] **Disable** risky webRTC features
   * [done] **Change** the color of the browser window to indicate that i2p is in use
+  * [done] **Reset** the HTTP Proxy tunnel to generate a new destination on-demand
   * [started] **Provide** help in a variety of languages.
 
 Screenshot

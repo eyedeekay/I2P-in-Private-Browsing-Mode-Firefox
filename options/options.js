@@ -1,6 +1,8 @@
 
 var hosttext = browser.i18n.getMessage("hostText");
 var porttext = browser.i18n.getMessage("portText");
+var controlhosttext = browser.i18n.getMessage("hostText");
+var controlporttext = browser.i18n.getMessage("portText");
 
 function getScheme() {
     const proxy_scheme = document.querySelector("#proxy_scheme");
@@ -26,6 +28,24 @@ function getPort() {
     return proxy_port;
 }
 
+function getControlHost() {
+    control_host = document.getElementById("controlhost").value
+    console.log("Got i2p control host:", control_host);
+    if (control_host == undefined){
+        return "127.0.0.1"
+    }
+    return control_host;
+}
+
+function getControlPort() {
+    control_port = document.getElementById("controlport").value
+    console.log("Got i2p control port:", control_port);
+    if (control_port == undefined){
+        return 4444
+    }
+    return control_port;
+}
+
 function isFirefox() {
     testPlain = navigator.userAgent.indexOf('Firefox') !== -1;
     if (testPlain) {
@@ -48,6 +68,12 @@ function checkStoredSettings(storedSettings) {
     }
     if (!storedSettings.proxy_port) {
         defaultSettings["proxy_port"] = 4444
+    }
+    if (!storedSettings.control_host) {
+        defaultSettings["control_host"] = "127.0.0.1"
+    }
+    if (!storedSettings.control_port) {
+        defaultSettings["control_port"] = 4444
     }
     browser.storage.local.set(defaultSettings);
 }
@@ -105,14 +131,20 @@ function storeSettings() {
     let proxy_scheme = getScheme()
     let proxy_host = getHost()
     let proxy_port = getPort()
+    let control_host = getControlHost()
+    let control_port = getControlPort()
     browser.storage.local.set({
         proxy_scheme,
         proxy_host,
         proxy_port,
+        control_host,
+        control_port,
     });
-    console.log("storing proxy host:", proxy_scheme)
+    console.log("storing proxy scheme:", proxy_scheme)
     console.log("storing proxy host:", proxy_host)
     console.log("storing proxy port:", proxy_port)
+    console.log("storing control host:", control_host)
+    console.log("storing control port:", control_port)
     setupProxy()
 }
 
@@ -126,10 +158,17 @@ function updateUI(restoredSettings) {
     hostitem.value = restoredSettings.proxy_host
     console.log("showing proxy host:", hostitem.value)
 
-
     const portitem = document.getElementById("port")
     portitem.value = restoredSettings.proxy_port
     console.log("showing proxy port:", portitem.value)
+
+    const controlhostitem = document.getElementById("controlhost")
+    controlhostitem.value = restoredSettings.control_host
+    console.log("showing control host:", controlhostitem.value)
+
+    const controlportitem = document.getElementById("controlport")
+    controlportitem.value = restoredSettings.control_port
+    console.log("showing control port:", controlportitem.value)
 
 }
 
@@ -140,6 +179,16 @@ function SetHostText(){
 
 function SetPortText(){
     var portid = document.getElementById('portText');
+    portid.textContent = porttext;
+}
+
+function SetControlHostText(){
+    var hostid = document.getElementById('controlHostText');
+    hostid.textContent = hosttext;
+}
+
+function SetControlPortText(){
+    var portid = document.getElementById('controlPortText');
     portid.textContent = porttext;
 }
 
@@ -158,3 +207,5 @@ saveButton.addEventListener("click", storeSettings);
 
 SetHostText()
 SetPortText()
+SetControlHostText()
+SetControlPortText()

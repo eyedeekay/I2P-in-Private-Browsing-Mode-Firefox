@@ -27,5 +27,13 @@
   "portText": {
     "message": "Port: ",
     "description": "Message for the Reset Tunnel button"
+  },
+  "controlHostText": {
+    "message": "Host: ",
+    "description": "Message for the Reset Tunnel button"
+  },
+  "controlPortText": {
+    "message": "Port: ",
+    "description": "Message for the Reset Tunnel button"
   }
 }

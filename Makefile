@@ -4,6 +4,7 @@ install: uninstall
 		/usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/
 	cp -rv options /usr/share/webext/i2psetproxy.js@eyedeekay.github.io/options
 	cp -rv icons /usr/share/webext/i2psetproxy.js@eyedeekay.github.io/icons
+	cp -rv _locales /usr/share/webext/i2psetproxy.js@eyedeekay.github.io/_locales
 	cp background.js /usr/share/webext/i2psetproxy.js@eyedeekay.github.io
 	cp proxy.js /usr/share/webext/i2psetproxy.js@eyedeekay.github.io
 	cp manifest.json /usr/share/webext/i2psetproxy.js@eyedeekay.github.io/
@@ -13,7 +14,7 @@ install: uninstall
 		/usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/i2psetproxy.js@eyedeekay.github.io
 
 uninstall:
-	rm -rf /usr/share/webext/i2psetproxy.js/i2psetproxy.js@eyedeekay.github.io \
+	rm -rf /usr/share/webext/i2psetproxy.js@eyedeekay.github.io \
 		/usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/i2psetproxy.js@eyedeekay.github.io
 
 zip:
