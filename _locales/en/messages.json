@@ -22,18 +22,22 @@
   },
   "hostText": {
     "message": "Host: ",
-    "description": "Message for the Reset Tunnel button"
+    "description": "Host for the HTTP or SOCKS5 Proxy"
   },
   "portText": {
     "message": "Port: ",
-    "description": "Message for the Reset Tunnel button"
+    "description": "Port for the HTTP or SOCKS5 Proxy"
+  },
+  "controlHelpText": {
+    "message": "These options will be inert if used with the default i2p HTTP or SOCKS proxy.",
+    "description": "Help for configuring the options for the Reset Tunnel button"
   },
   "controlHostText": {
-    "message": "Host: ",
-    "description": "Message for the Reset Tunnel button"
+    "message": "Control Host: ",
+    "description": "Host for the Reset Tunnel button"
   },
   "controlPortText": {
-    "message": "Port: ",
-    "description": "Message for the Reset Tunnel button"
+    "message": "Control Port: ",
+    "description": "Port for the Reset Tunnel button"
   }
 }

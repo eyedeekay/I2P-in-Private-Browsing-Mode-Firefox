@@ -3,6 +3,7 @@ var hosttext = browser.i18n.getMessage("hostText");
 var porttext = browser.i18n.getMessage("portText");
 var controlhosttext = browser.i18n.getMessage("controlHostText");
 var controlporttext = browser.i18n.getMessage("controlPortText");
+var controlhelptext = browser.i18n.getMessage("controlHelpText");
 
 function getScheme() {
     const proxy_scheme = document.querySelector("#proxy_scheme");
@@ -79,7 +80,7 @@ function checkStoredSettings(storedSettings) {
 }
 
 function onError(e) {
-  console.error(e);
+    console.error(e);
 }
 
 function setupProxy() {
@@ -192,6 +193,11 @@ function SetControlPortText(){
     portid.textContent = controlporttext;
 }
 
+function SetControlHelpText(){
+    var portid = document.getElementById('controlHelpText');
+    portid.textContent = controlhelptext;
+}
+
 function onError(e) {
     console.error(e);
 }
@@ -209,6 +215,7 @@ SetHostText()
 SetPortText()
 SetControlHostText()
 SetControlPortText()
+SetControlHelpText()
 
 function RefreshIdentity(){
     console.log("Generating new identity")
