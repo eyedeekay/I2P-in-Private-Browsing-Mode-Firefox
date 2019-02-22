@@ -1,8 +1,8 @@
 
 var hosttext = browser.i18n.getMessage("hostText");
 var porttext = browser.i18n.getMessage("portText");
-var controlhosttext = browser.i18n.getMessage("hostText");
-var controlporttext = browser.i18n.getMessage("portText");
+var controlhosttext = browser.i18n.getMessage("controlHostText");
+var controlporttext = browser.i18n.getMessage("controlPortText");
 
 function getScheme() {
     const proxy_scheme = document.querySelector("#proxy_scheme");
@@ -184,12 +184,12 @@ function SetPortText(){
 
 function SetControlHostText(){
     var hostid = document.getElementById('controlHostText');
-    hostid.textContent = hosttext;
+    hostid.textContent = controlhosttext;
 }
 
 function SetControlPortText(){
     var portid = document.getElementById('controlPortText');
-    portid.textContent = porttext;
+    portid.textContent = controlporttext;
 }
 
 function onError(e) {
@@ -209,3 +209,18 @@ SetHostText()
 SetPortText()
 SetControlHostText()
 SetControlPortText()
+
+function RefreshIdentity(){
+    console.log("Generating new identity")
+    const controlhost = getControlHost();
+    const controlport = getControlPort();
+    const Http = new XMLHttpRequest();
+    const url='http://' + controlhost + ":" + controlport
+    Http.open("GET", url);
+    Http.send();
+    Http.onreadystatechange=(e)=>{
+        console.log(Http.responseText)
+    }
+}
+
+browser.browserAction.onClicked.addListener(RefreshIdentity);
