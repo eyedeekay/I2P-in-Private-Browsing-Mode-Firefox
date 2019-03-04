@@ -83,7 +83,12 @@ function onError(e) {
     console.error(e);
 }
 
+var controlHost = "127.0.0.1" //getControlHost()
+var controlPort = "7951" //getControlPort();
+
 function setupProxy() {
+    var controlHost = getControlHost();
+    var controlPort = getControlPort();
     if (isFirefox()) {
         if (getScheme() == "http") {
             var proxySettings = {
@@ -170,7 +175,7 @@ function updateUI(restoredSettings) {
     const controlportitem = document.getElementById("controlport")
     controlportitem.value = restoredSettings.control_port
     console.log("showing control port:", controlportitem.value)
-
+    setupProxy()
 }
 
 function SetHostText(){
@@ -219,10 +224,8 @@ SetControlHelpText()
 
 function RefreshIdentity(){
     console.log("Generating new identity")
-    const controlhost = getControlHost();
-    const controlport = getControlPort();
     const Http = new XMLHttpRequest();
-    const url='http://' + controlhost + ":" + controlport
+    const url='http://' + controlHost + ":" + controlPort
     Http.open("GET", url);
     Http.send();
     Http.onreadystatechange=(e)=>{
