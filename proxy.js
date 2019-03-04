@@ -16,6 +16,9 @@ browser.privacy.network.webRTCIPHandlingPolicy.set({value: "disable_non_proxied_
 
 console.log("Preliminarily disabled WebRTC.")
 
+var controlHost = "127.0.0.1"
+var controlPort = "7951"
+
 function setupProxy() {
     if (isFirefox()) {
         if (getScheme() == "http") {
@@ -63,8 +66,8 @@ function setupProxy() {
 
 function RefreshIdentity(){
     console.log("Generating new identity")
-    const controlhost = getControlHost();
-    const controlport = getControlPort();
+    const controlhost = controlHost;
+    const controlport = controlPort;
     const Http = new XMLHttpRequest();
     const url='http://' + controlhost + ":" + controlport
     Http.open("GET", url);
