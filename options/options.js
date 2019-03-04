@@ -184,13 +184,13 @@ function SetPortText(){
 }
 
 function SetControlHostText(){
-    var hostid = document.getElementById('controlHostText');
-    hostid.textContent = controlhosttext;
+    var controlhostid = document.getElementById('controlHostText');
+    controlhostid.textContent = controlhosttext;
 }
 
 function SetControlPortText(){
-    var portid = document.getElementById('controlPortText');
-    portid.textContent = controlporttext;
+    var controlportid = document.getElementById('controlPortText');
+    controlportid.textContent = controlporttext;
 }
 
 function SetControlHelpText(){
