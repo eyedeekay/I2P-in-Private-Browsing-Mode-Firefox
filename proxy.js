@@ -61,3 +61,17 @@ function setupProxy() {
     }
 }
 
+function RefreshIdentity(){
+    console.log("Generating new identity")
+    const controlhost = getControlHost();
+    const controlport = getControlPort();
+    const Http = new XMLHttpRequest();
+    const url='http://' + controlhost + ":" + controlport
+    Http.open("GET", url);
+    Http.send();
+    Http.onreadystatechange=(e)=>{
+        console.log(Http.responseText)
+    }
+}
+
+browser.browserAction.onClicked.addListener(RefreshIdentity);

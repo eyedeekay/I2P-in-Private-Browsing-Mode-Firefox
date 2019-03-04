@@ -8,7 +8,7 @@
   "permissions": ["theme", "proxy", "privacy", "storage"],
   "manifest_version": 2,
   "name": "__MSG_extensionName__",
-  "version": "1.14",
+  "version": 1.15
   "description": "__MSG_extensionDescription__",
   "icons": {
     "48": "icons/toopie.png"

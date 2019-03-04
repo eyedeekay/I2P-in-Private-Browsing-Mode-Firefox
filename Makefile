@@ -21,15 +21,15 @@ clobber:
 	rm -f ../i2psetproxy.js.zip ../i2p_proxy*.xpi
 
 xpi:
-	mv ../i2p_proxy*.xpi ../i2psetproxy.js@eyedeekay.github.io.xpi
+	mv ~/Downloads/i2p_proxy*.xpi ../i2psetproxy.js@eyedeekay.github.io.xpi
 
 cp:
 	cp ../i2psetproxy.js@eyedeekay.github.io.xpi ./i2psetproxy.js@eyedeekay.github.io.xpi
 
-VERSION=1.14
+VERSION=1.15
 
 version:
-	sed 's|$(shell grep "\"version\": " manifest.json)|  \"version\": $(VERSION)|g' manifest.json
+	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": $(VERSION)|g' manifest.json
 	
 zip: version
 	zip --exclude="./i2psetproxy.js@eyedeekay.github.io.xpi" \
