@@ -13,7 +13,17 @@ Features
   * [done] **Disable** risky webRTC features
   * [done] **Change** the color of the browser window to indicate that i2p is in use
   * [done] **Reset** the HTTP Proxy tunnel to generate a new destination on-demand
+   * it does this by working in conjunction with this [standalone HTTP proxy](https://github.com/eyedeekay/httptunnel)*
   * [started] **Provide** help in a variety of languages.
+
+Usage with standalone HTTP Proxy
+--------------------------------
+
+I developed a simple HTTP proxy that can be used with this extension to enable the
+user to initiate a re-start of the HTTP proxy tunnel, with a new set of keys and a
+new destination. This, combined with re-setting the browser settings back to the
+original defaults(which is also done by the HTTP Proxy when re-initiated), amounts
+to a "Fresh Identity" feature for the I2P browser.
 
 Screenshot
 ----------
