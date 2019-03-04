@@ -17,10 +17,6 @@ uninstall:
 	rm -rf /usr/share/webext/i2psetproxy.js@eyedeekay.github.io \
 		/usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/i2psetproxy.js@eyedeekay.github.io
 
-zip:
-	zip --exclude="./i2psetproxy.js@eyedeekay.github.io.xpi" \
-		--exclude="i2psetproxy.js.png" -r -FS ../i2psetproxy.js.zip *
-
 clobber:
 	rm -f ../i2psetproxy.js.zip ../i2p_proxy*.xpi
 
@@ -29,3 +25,12 @@ xpi:
 
 cp:
 	cp ../i2psetproxy.js@eyedeekay.github.io.xpi ./i2psetproxy.js@eyedeekay.github.io.xpi
+
+VERSION=1.14
+
+version:
+	sed 's|$(shell grep "\"version\": " manifest.json)|  \"version\": $(VERSION)|g' manifest.json
+	
+zip: version
+	zip --exclude="./i2psetproxy.js@eyedeekay.github.io.xpi" \
+		--exclude="i2psetproxy.js.png" -r -FS ../i2psetproxy.js.zip *
