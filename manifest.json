@@ -10,18 +10,21 @@
   "name": "__MSG_extensionName__",
   "version": "1.17",
   "description": "__MSG_extensionDescription__",
+  "homepage_url": "https://github.com/eyedeekay/i2psetproxy.js",
   "icons": {
     "48": "icons/toopie.png"
   },
   "browser_action": {
+    "browser_style": true,
     "default_icon": "icons/toopie.png",
-    "default_title": "__MSG_resetMessage__"
+    "default_title": "__MSG_extensionName__",
+    "default_popup": "window.html"
   },
   "options_ui": {
     "page": "options/options.html"
   },
   "background": {
-    "scripts": ["background.js", "proxy.js"]
+    "scripts": ["background.js", "proxy.js", "info.js" ]
   },
   "default_locale": "en"
 }

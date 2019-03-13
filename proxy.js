@@ -20,7 +20,7 @@ var controlHost = "127.0.0.1" //getControlHost()
 var controlPort = "7951" //getControlPort();
 
 function setupProxy() {
-    var controlHost = getControlHost()
+    var controlHost = getControlHost();
     var controlPort = getControlPort();
     if (isFirefox()) {
         if (getScheme() == "http") {

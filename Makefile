@@ -7,6 +7,9 @@ install: uninstall
 	cp -rv _locales /usr/share/webext/i2psetproxy.js@eyedeekay.github.io/_locales
 	cp background.js /usr/share/webext/i2psetproxy.js@eyedeekay.github.io
 	cp proxy.js /usr/share/webext/i2psetproxy.js@eyedeekay.github.io
+	cp info.js /usr/share/webext/i2psetproxy.js@eyedeekay.github.io
+	cp info.css /usr/share/webext/i2psetproxy.js@eyedeekay.github.io
+	cp window.html /usr/share/webext/i2psetproxy.js@eyedeekay.github.io
 	cp manifest.json /usr/share/webext/i2psetproxy.js@eyedeekay.github.io/
 	cp README.md /usr/share/webext/i2psetproxy.js@eyedeekay.github.io
 	cp LICENSE /usr/share/webext/i2psetproxy.js@eyedeekay.github.io
@@ -20,7 +23,7 @@ uninstall:
 clobber:
 	rm -f ../i2psetproxy.js.zip ../i2p_proxy*.xpi
 
-VERSION=1.17
+VERSION=1.18
 
 xpi:
 	mv ~/Downloads/i2p_proxy-$(VERSION)-an+fx.xpi ../i2psetproxy.js@eyedeekay.github.io.xpi
@@ -30,7 +33,7 @@ cp:
 
 version:
 	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(VERSION)\",|g' manifest.json
-	
+
 zip: version
 	zip --exclude="./i2psetproxy.js@eyedeekay.github.io.xpi" \
 		--exclude="i2psetproxy.js.png" -r -FS ../i2psetproxy.js.zip *

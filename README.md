@@ -12,12 +12,14 @@ Features
   * [done] **Set** the http proxy to use the local i2p proxy
   * [done] **Disable** risky webRTC features
   * [done] **Change** the color of the browser window to indicate that i2p is in use
-  * [done] **Reset** the HTTP Proxy tunnel to generate a new destination on-demand
-   * it does this by working in conjunction with this [standalone HTTP proxy](https://github.com/eyedeekay/httptunnel)*
-  * [started] **Provide** help in a variety of languages.
+  * [done-ish] **Reset** the HTTP Proxy tunnel to generate a new destination on-demand
+   * it does this by working in conjunction with this [standalone HTTP proxy](https://github.com/eyedeekay/httptunnel), currently disabled*
+  * [soon] **Provide** help in a variety of languages.
 
 Usage with standalone HTTP Proxy
 --------------------------------
+
+This functionality is currently disabled.
 
 I developed a simple HTTP proxy that can be used with this extension to enable the
 user to initiate a re-start of the HTTP proxy tunnel, with a new set of keys and a
@@ -46,9 +48,9 @@ to
 
         Host: 127.0.0.1
         Port: 7950
-        
+
 and change the "Control" configuration from:
-        
+
         Host: 127.0.0.1
         Port: 4444
 

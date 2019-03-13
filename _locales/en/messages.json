@@ -3,7 +3,6 @@
     "message": "i2psetproxy.js",
     "description": "Name of the extension."
   },
-
   "extensionDescription": {
     "message": "Set up a browser to use the i2p http proxy automatically",
     "description": "Description of the extension."
@@ -19,6 +18,18 @@
   "resetMessage": {
     "message": "Reset Tunnel",
     "description": "Message for the Reset Tunnel button"
+  },
+  "infoTitle": {
+    "message": "I2P Help",
+    "description": "Title for the help menu"
+  },
+  "infoMessage": {
+    "message": "You are now free to browse the eepWeb! Your browser is now configured to browse anonymously on the I2P network. As you browse, your traffic will be routed through other network nodes to disguise it's origin, both from the server and from the nodes themselves.",
+    "description": "Help Message"
+  },
+  "newsMessage": {
+    "message": "Visit the I2P News to learn the latest about i2p.",
+    "description": "Help Message"
   },
   "hostText": {
     "message": "Host: ",

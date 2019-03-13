@@ -175,6 +175,11 @@ function updateUI(restoredSettings) {
     const controlportitem = document.getElementById("controlport")
     controlportitem.value = restoredSettings.control_port
     console.log("showing control port:", controlportitem.value)
+    SetHostText()
+    SetPortText()
+    SetControlHostText()
+    SetControlPortText()
+    SetControlHelpText()
     setupProxy()
 }
 
@@ -215,12 +220,6 @@ gettingStoredSettings.then(updateUI, onError);
 
 const saveButton = document.querySelector("#save-button");
 saveButton.addEventListener("click", storeSettings);
-
-SetHostText()
-SetPortText()
-SetControlHostText()
-SetControlPortText()
-SetControlHelpText()
 
 function RefreshIdentity(){
     console.log("Generating new identity")
