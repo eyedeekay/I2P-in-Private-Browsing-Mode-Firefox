@@ -220,16 +220,3 @@ gettingStoredSettings.then(updateUI, onError);
 
 const saveButton = document.querySelector("#save-button");
 saveButton.addEventListener("click", storeSettings);
-
-function RefreshIdentity(){
-    console.log("Generating new identity")
-    const Http = new XMLHttpRequest();
-    const url='http://' + controlHost + ":" + controlPort
-    Http.open("GET", url);
-    Http.send();
-    Http.onreadystatechange=(e)=>{
-        console.log(Http.responseText)
-    }
-}
-
-browser.browserAction.onClicked.addListener(RefreshIdentity);

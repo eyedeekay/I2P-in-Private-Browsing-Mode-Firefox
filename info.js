@@ -1,10 +1,4 @@
 document.addEventListener("click", (e) => {
-  var helpInfoTitle = browser.i18n.getMessage("infoTitle");
-  var helpInfoMessage = browser.i18n.getMessage("infoMessage");
-  var helpNewsMessage = browser.i18n.getMessage("newsMessage");
-  //var helpResetMessage q2= browser.i18n.getMessage("resetMessage");
- // console.log(helpInfoTitle);
-
   function getCurrentWindow() {
     return browser.windows.getCurrent();
   }
@@ -18,12 +12,18 @@ document.addEventListener("click", (e) => {
     creating.then(() => {
       console.log("The panel has been created");
     });
-  }
-
-  else if (e.target.id === "window-remove") {
-    getCurrentWindow().then((currentWindow) => {
-      browser.windows.remove(currentWindow.id);
-    });
+  } else if (e.target.id === "generate-fresh-tunnel") {
+    function RefreshIdentity(){
+        console.log("Generating new identity")
+        const Http = new XMLHttpRequest();
+        const url='http://' + controlHost + ":" + controlPort
+        Http.open("GET", url);
+        Http.send();
+        Http.onreadystatechange=(e)=>{
+            console.log(Http.responseText)
+        }
+    }
+    RefreshIdentity();
   } else if (e.target.id === "window-preface-title") {
     getCurrentWindow().then((currentWindow) => {
       let updateInfo = {
@@ -35,16 +35,10 @@ document.addEventListener("click", (e) => {
 
   e.preventDefault();
 
-  var infoTitle = document.getElementById('text-section-header');
-  infoTitle.textContent = helpInfoTitle;
-
-  var infoMessage = document.getElementById('panel-section-helptext');
-  infoMessage.textContent = helpInfoMessage;
-
-  //var newsMessage = document.getElementById('window-create-help-panel');
-  //newsMessage.textContent = helpNewsMessage;
-
-  //var resetLinkID = document.getElementById('controlHostText');
-  //resetLinkId.textContent = controlhosttext;
-
 });
+
+//var newsMessage = document.getElementById('window-create-help-panel');
+//newsMessage.textContent = browser.i18n.getMessage("newsMessage");
+
+//var resetLinkID = document.getElementById('controlHostText');
+//resetLinkId.textContent = controlhosttext;
