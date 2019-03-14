@@ -3,14 +3,23 @@ document.addEventListener("click", (e) => {
     return browser.windows.getCurrent();
   }
 
-  if (e.target.id === "window-create-panel") {
+  if (e.target.id === "window-create-help-panel") {
     let createData = {
       type: "panel",
       incognito: true,
     };
     let creating = browser.windows.create(createData);
     creating.then(() => {
-      console.log("The panel has been created");
+      console.log("The help panel has been created");
+    });
+  } else if (e.target.id === "window-create-news-panel") {
+    let createData = {
+      type: "panel",
+      incognito: true,
+    };
+    let creating = browser.windows.create(createData);
+    creating.then(() => {
+      console.log("The news panel has been created");
     });
   } else if (e.target.id === "generate-fresh-tunnel") {
     function RefreshIdentity(){
@@ -36,9 +45,3 @@ document.addEventListener("click", (e) => {
   e.preventDefault();
 
 });
-
-//var newsMessage = document.getElementById('window-create-help-panel');
-//newsMessage.textContent = browser.i18n.getMessage("newsMessage");
-
-//var resetLinkID = document.getElementById('controlHostText');
-//resetLinkId.textContent = controlhosttext;

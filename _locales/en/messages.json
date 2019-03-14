@@ -27,6 +27,10 @@
     "message": "You are now free to browse the eepWeb! Your browser is now configured to browse anonymously on the I2P network. As you browse, your traffic will be routed through other network nodes to disguise it's origin, both from the server and from the nodes themselves.",
     "description": "Help Message"
   },
+  "helpMessage": {
+    "message": "Get additional help",
+    "description": "Help Message"
+  },
   "newsMessage": {
     "message": "Visit the I2P News to learn the latest about i2p.",
     "description": "Help Message"

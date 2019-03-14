@@ -14,7 +14,7 @@ Features
   * [done] **Change** the color of the browser window to indicate that i2p is in use
   * [done-ish] **Reset** the HTTP Proxy tunnel to generate a new destination on-demand
    * it does this by working in conjunction with this [standalone HTTP proxy](https://github.com/eyedeekay/httptunnel), currently disabled*
-  * [soon] **Provide** help in a variety of languages.
+  * [ready] **Provide** help in a variety of languages.
 
 Usage with standalone HTTP Proxy
 --------------------------------

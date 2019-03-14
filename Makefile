@@ -8,6 +8,7 @@ install: uninstall
 	cp background.js /usr/share/webext/i2psetproxy.js@eyedeekay.github.io
 	cp proxy.js /usr/share/webext/i2psetproxy.js@eyedeekay.github.io
 	cp info.js /usr/share/webext/i2psetproxy.js@eyedeekay.github.io
+	cp content.js /usr/share/webext/i2psetproxy.js@eyedeekay.github.io
 	cp info.css /usr/share/webext/i2psetproxy.js@eyedeekay.github.io
 	cp window.html /usr/share/webext/i2psetproxy.js@eyedeekay.github.io
 	cp manifest.json /usr/share/webext/i2psetproxy.js@eyedeekay.github.io/
