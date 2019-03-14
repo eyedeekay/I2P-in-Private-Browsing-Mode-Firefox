@@ -1,9 +1,28 @@
 
-var hosttext = browser.i18n.getMessage("hostText");
-var porttext = browser.i18n.getMessage("portText");
-var controlhosttext = browser.i18n.getMessage("controlHostText");
-var controlporttext = browser.i18n.getMessage("controlPortText");
-var controlhelptext = browser.i18n.getMessage("controlHelpText");
+function SetHostText(){
+    var hostid = document.getElementById('hostText');
+    hostid.textContent = browser.i18n.getMessage("hostText");
+}
+
+function SetPortText(){
+    var portid = document.getElementById('portText');
+    portid.textContent = browser.i18n.getMessage("portText");
+}
+
+function SetControlHostText(){
+    var controlhostid = document.getElementById('controlHostText');
+    controlhostid.textContent = browser.i18n.getMessage("controlHostText");
+}
+
+function SetControlPortText(){
+    var controlportid = document.getElementById('controlPortText');
+    controlportid.textContent = browser.i18n.getMessage("controlPortText");
+}
+
+function SetControlHelpText(){
+    var portid = document.getElementById('controlHelpText');
+    portid.textContent = browser.i18n.getMessage("controlHelpText");
+}
 
 function getScheme() {
     const proxy_scheme = document.querySelector("#proxy_scheme");
@@ -28,7 +47,7 @@ function getPort() {
     }
     return proxy_port;
 }
-
+/*
 function getControlHost() {
     control_host = document.getElementById("controlhost").value
     console.log("Got i2p control host:", control_host);
@@ -46,7 +65,7 @@ function getControlPort() {
     }
     return control_port;
 }
-
+*/
 function isFirefox() {
     testPlain = navigator.userAgent.indexOf('Firefox') !== -1;
     if (testPlain) {
@@ -83,12 +102,12 @@ function onError(e) {
     console.error(e);
 }
 
-var controlHost = "127.0.0.1" //getControlHost()
-var controlPort = "7951" //getControlPort();
+//var controlHost = "127.0.0.1" //getControlHost()
+//var controlPort = "7951" //getControlPort();
 
 function setupProxy() {
-    var controlHost = getControlHost();
-    var controlPort = getControlPort();
+    //var controlHost = getControlHost();
+    //var controlPort = getControlPort();
     if (isFirefox()) {
         if (getScheme() == "http") {
             var proxySettings = {
@@ -168,44 +187,19 @@ function updateUI(restoredSettings) {
     portitem.value = restoredSettings.proxy_port
     console.log("showing proxy port:", portitem.value)
 
-    const controlhostitem = document.getElementById("controlhost")
+    /*const controlhostitem = document.getElementById("controlhost")
     controlhostitem.value = restoredSettings.control_host
     console.log("showing control host:", controlhostitem.value)
 
     const controlportitem = document.getElementById("controlport")
     controlportitem.value = restoredSettings.control_port
-    console.log("showing control port:", controlportitem.value)
+    console.log("showing control port:", controlportitem.value)*/
     SetHostText()
     SetPortText()
-    SetControlHostText()
+    /*SetControlHostText()
     SetControlPortText()
-    SetControlHelpText()
+    SetControlHelpText()*/
     setupProxy()
-}
-
-function SetHostText(){
-    var hostid = document.getElementById('hostText');
-    hostid.textContent = hosttext;
-}
-
-function SetPortText(){
-    var portid = document.getElementById('portText');
-    portid.textContent = porttext;
-}
-
-function SetControlHostText(){
-    var controlhostid = document.getElementById('controlHostText');
-    controlhostid.textContent = controlhosttext;
-}
-
-function SetControlPortText(){
-    var controlportid = document.getElementById('controlPortText');
-    controlportid.textContent = controlporttext;
-}
-
-function SetControlHelpText(){
-    var portid = document.getElementById('controlHelpText');
-    portid.textContent = controlhelptext;
 }
 
 function onError(e) {
