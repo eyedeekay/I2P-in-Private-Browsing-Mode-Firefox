@@ -1,9 +1,5 @@
 chrome.windows.onCreated.addListener(themeWindow);
 
-// Theme all currently open windows
-//browser.windows.getAll().then(wins => wins.forEach(themeWindow));
-
-
 var titlepref = chrome.i18n.getMessage("titlePreface");
 var titleprefpriv = chrome.i18n.getMessage("titlePrefacePrivate");
 
@@ -12,10 +8,10 @@ function themeWindow(window) {
     if (window.incognito) {
         chrome.theme.update(window.id, {
             images: {
-                headerURL: "icons/toopie.png",
+                theme_frame: "icons/toopie.png",
             },
             colors: {
-                accentcolor: "#A0A0DE",
+                frame: "#A0A0DE",
                 textcolor: "white",
                 toolbar: "#A0A0DE",
                 toolbar_text: "white"
@@ -28,10 +24,10 @@ function themeWindow(window) {
     else {
         chrome.theme.update(window.id, {
             images: {
-                headerURL: "icons/toopie.png",
+                theme_frame: "icons/toopie.png",
             },
             colors: {
-                accentcolor: "#BFA0DE",
+                frame: "#BFA0DE",
                 textcolor: "white",
                 toolbar: "#BFA0DE",
                 toolbar_text: "white"

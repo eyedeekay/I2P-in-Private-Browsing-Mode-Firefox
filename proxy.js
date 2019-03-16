@@ -9,6 +9,14 @@ function isFirefox() {
     }
     return false
 }
+function isDroid() {
+    testPlain = navigator.userAgent.indexOf('Android') !== -1;
+    if (testPlain) {
+        return testPlain
+    }
+    return false
+}
+
 if (isFirefox()) {
     browser.privacy.network.peerConnectionEnabled.set({value: false});
 }
@@ -20,19 +28,24 @@ console.log("Preliminarily disabled WebRTC.")
 var controlHost = "127.0.0.1" //getControlHost()
 var controlPort = "7951" //getControlPort();
 
+
 function setupProxy() {
     var controlHost = getControlHost();
     var controlPort = getControlPort();
     if (isFirefox()) {
-        if (getScheme() == "http") {
-            var proxySettings = {
-                proxyType: "manual",
-                http: getHost()+":"+getPort(),
-                passthrough: "",
-                httpProxyAll: true
-            };
-            chrome.proxy.settings.set({value:proxySettings});
-            console.log("i2p settings created for Firefox")
+        if (isDroid()) {
+            browser.proxy.register("android.pac");
+        }else{
+            if (getScheme() == "http") {
+                var proxySettings = {
+                    proxyType: "manual",
+                    http: getHost()+":"+getPort(),
+                    passthrough: "",
+                    httpProxyAll: true
+                };
+                chrome.proxy.settings.set({value:proxySettings});
+                console.log("i2p settings created for Firefox")
+            }
         }
     }else{
         var config = {
