@@ -34,7 +34,11 @@ function setupProxy() {
     var controlPort = getControlPort();
     if (isFirefox()) {
         if (isDroid()) {
-            browser.proxy.register("android.pac");
+            if (getPort() == "7950") {
+                browser.proxy.register("android-ext.pac");
+            }else{
+                browser.proxy.register("android.pac");
+            }
         }else{
             if (getScheme() == "http") {
                 var proxySettings = {
