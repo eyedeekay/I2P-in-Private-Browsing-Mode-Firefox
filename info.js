@@ -1,6 +1,6 @@
 document.addEventListener("click", (e) => {
   function getCurrentWindow() {
-    return browser.windows.getCurrent();
+    return chrome.windows.getCurrent();
   }
 
   if (e.target.id === "window-create-help-panel") {
@@ -8,7 +8,7 @@ document.addEventListener("click", (e) => {
       type: "panel",
       incognito: true,
     };
-    let creating = browser.windows.create(createData);
+    let creating = chrome.windows.create(createData);
     creating.then(() => {
       console.log("The help panel has been created");
     });
@@ -17,7 +17,7 @@ document.addEventListener("click", (e) => {
       type: "panel",
       incognito: true,
     };
-    let creating = browser.windows.create(createData);
+    let creating = chrome.windows.create(createData);
     creating.then(() => {
       console.log("The news panel has been created");
     });
@@ -38,7 +38,7 @@ document.addEventListener("click", (e) => {
       let updateInfo = {
         titlePreface: "I2P Help | "
       }
-      browser.windows.update(currentWindow.id, updateInfo);
+      chrome.windows.update(currentWindow.id, updateInfo);
     });
   }
 

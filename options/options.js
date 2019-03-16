@@ -1,27 +1,27 @@
 
 function SetHostText(){
     var hostid = document.getElementById('hostText');
-    hostid.textContent = browser.i18n.getMessage("hostText");
+    hostid.textContent = chrome.i18n.getMessage("hostText");
 }
 
 function SetPortText(){
     var portid = document.getElementById('portText');
-    portid.textContent = browser.i18n.getMessage("portText");
+    portid.textContent = chrome.i18n.getMessage("portText");
 }
 
 function SetControlHostText(){
     var controlhostid = document.getElementById('controlHostText');
-    controlhostid.textContent = browser.i18n.getMessage("controlHostText");
+    controlhostid.textContent = chrome.i18n.getMessage("controlHostText");
 }
 
 function SetControlPortText(){
     var controlportid = document.getElementById('controlPortText');
-    controlportid.textContent = browser.i18n.getMessage("controlPortText");
+    controlportid.textContent = chrome.i18n.getMessage("controlPortText");
 }
 
 function SetControlHelpText(){
     var portid = document.getElementById('controlHelpText');
-    portid.textContent = browser.i18n.getMessage("controlHelpText");
+    portid.textContent = chrome.i18n.getMessage("controlHelpText");
 }
 
 function getScheme() {
@@ -95,7 +95,7 @@ function checkStoredSettings(storedSettings) {
     if (!storedSettings.control_port) {
         defaultSettings["control_port"] = 4444
     }
-    browser.storage.local.set(defaultSettings);
+    chrome.storage.local.set(defaultSettings);
 }
 
 function onError(e) {
@@ -116,7 +116,7 @@ function setupProxy() {
                 passthrough: "",
                 httpProxyAll: true
             };
-            browser.proxy.settings.set({value:proxySettings});
+            chrome.proxy.settings.set({value:proxySettings});
             console.log("i2p settings created for Firefox")
         }
     }else{
@@ -158,7 +158,7 @@ function storeSettings() {
     let proxy_port = getPort()
     let control_host = getControlHost()
     let control_port = getControlPort()
-    browser.storage.local.set({
+    chrome.storage.local.set({
         proxy_scheme,
         proxy_host,
         proxy_port,
@@ -206,10 +206,10 @@ function onError(e) {
     console.error(e);
 }
 
-const assureStoredSettings = browser.storage.local.get();
+const assureStoredSettings = chrome.storage.local.get();
 assureStoredSettings.then(checkStoredSettings, onError);
 
-const gettingStoredSettings = browser.storage.local.get();
+const gettingStoredSettings = chrome.storage.local.get();
 gettingStoredSettings.then(updateUI, onError);
 
 const saveButton = document.querySelector("#save-button");

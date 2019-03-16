@@ -9,10 +9,11 @@ function isFirefox() {
     }
     return false
 }
-
-browser.privacy.network.peerConnectionEnabled.set({value: false});
-browser.privacy.network.networkPredictionEnabled.set({value: false});
-browser.privacy.network.webRTCIPHandlingPolicy.set({value: "disable_non_proxied_udp"});
+if (isFirefox()) {
+    browser.privacy.network.peerConnectionEnabled.set({value: false});
+}
+chrome.privacy.network.networkPredictionEnabled.set({value: false});
+chrome.privacy.network.webRTCIPHandlingPolicy.set({value: "disable_non_proxied_udp"});
 
 console.log("Preliminarily disabled WebRTC.")
 
@@ -30,7 +31,7 @@ function setupProxy() {
                 passthrough: "",
                 httpProxyAll: true
             };
-            browser.proxy.settings.set({value:proxySettings});
+            chrome.proxy.settings.set({value:proxySettings});
             console.log("i2p settings created for Firefox")
         }
     }else{
@@ -66,15 +67,8 @@ function setupProxy() {
     }
 }
 
-function RefreshIdentity(){
-    console.log("Generating new identity")
-    const Http = new XMLHttpRequest();
-    const url='http://' + controlHost + ":" + controlPort
-    Http.open("GET", url);
-    Http.send();
-    Http.onreadystatechange=(e)=>{
-        console.log(Http.responseText)
-    }
-}
 
-browser.browserAction.onClicked.addListener(RefreshIdentity);
+if (isFirefox()){
+    // Theme all currently open windows
+    browser.windows.getAll().then(wins => wins.forEach(themeWindow));
+}
