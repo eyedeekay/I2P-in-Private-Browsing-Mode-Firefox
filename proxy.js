@@ -1,4 +1,8 @@
 function isFirefox() {
+    testDroid = navigator.userAgent.indexOf('Android') !== -1;
+    if (testDroid) {
+        return false
+    }
     testPlain = navigator.userAgent.indexOf('Firefox') !== -1;
     if (testPlain) {
         return testPlain
