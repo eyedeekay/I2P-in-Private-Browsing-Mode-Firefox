@@ -7,14 +7,9 @@ function themeWindow(window) {
     // Check if the window is in private browsing
     if (window.incognito) {
         chrome.theme.update(window.id, {
-            images: {
-                theme_frame: "icons/toopie.png",
-            },
             colors: {
                 frame: "#A0A0DE",
-                textcolor: "white",
                 toolbar: "#A0A0DE",
-                toolbar_text: "white"
             }
         });
         chrome.windows.update(window.id, {
@@ -23,14 +18,9 @@ function themeWindow(window) {
     }
     else {
         chrome.theme.update(window.id, {
-            images: {
-                theme_frame: "icons/toopie.png",
-            },
             colors: {
                 frame: "#BFA0DE",
-                textcolor: "white",
                 toolbar: "#BFA0DE",
-                toolbar_text: "white"
             }
         });
         chrome.windows.update(window.id, {
@@ -62,6 +52,6 @@ chrome.windows.onCreated.addListener(() => {
 });
 
 chrome.tabs.onCreated.addListener(() => {
-    const getting = chrome.windows.getCurrent({populate: true});
+    const getting = browser.windows.getCurrent({populate: true});
     getting.then(setTitle, setTitleError);
 });

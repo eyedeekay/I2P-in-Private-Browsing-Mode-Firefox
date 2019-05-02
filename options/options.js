@@ -1,4 +1,13 @@
 
+function isDroid() {
+    var gettingInfo = browser.runtime.getPlatformInfo();
+    gettingInfo.then((got) => {
+        if (got.os == "android") {
+            return true
+        }
+    });
+}
+
 function SetHostText(){
     var hostid = document.getElementById('hostText');
     hostid.textContent = chrome.i18n.getMessage("hostText");
@@ -47,7 +56,7 @@ function getPort() {
     }
     return proxy_port;
 }
-/*
+
 function getControlHost() {
     control_host = document.getElementById("controlhost").value
     console.log("Got i2p control host:", control_host);
@@ -65,7 +74,7 @@ function getControlPort() {
     }
     return control_port;
 }
-*/
+
 function isFirefox() {
     testPlain = navigator.userAgent.indexOf('Firefox') !== -1;
     if (testPlain) {
@@ -106,49 +115,27 @@ function onError(e) {
 //var controlPort = "7951" //getControlPort();
 
 function setupProxy() {
-    //var controlHost = getControlHost();
-    //var controlPort = getControlPort();
-    if (isFirefox()) {
-        if (getScheme() == "http") {
-            var proxySettings = {
-                proxyType: "manual",
-                http: getHost()+":"+getPort(),
-                passthrough: "",
-                httpProxyAll: true
-            };
-            chrome.proxy.settings.set({value:proxySettings});
-            console.log("i2p settings created for Firefox")
+    //var controlHost = getControlHost()
+    //var controlPort = getControlPort()
+    var Host = getHost()
+    var Port = getPort()
+    console.log("Setting up Firefox Desktop proxy")
+    var proxySettings = {
+        proxyType: "manual",
+        http: Host+":"+Port,
+        passthrough: "",
+        httpProxyAll: true
+    };
+    browser.proxy.settings.set({value:proxySettings});
+    console.log("i2p settings created for Firefox Desktop")
+    if (isDroid()) {
+        console.log("Setting up Firefox Android proxy")
+        if (Port == "7950") {
+            browser.proxy.register("android-ext.pac");
+        }else{
+            browser.proxy.register("android.pac");
         }
-    }else{
-        var config = {
-            mode: "fixed_servers",
-            rules: {
-                proxyForHttp: {
-                    scheme: getScheme(),
-                    host: getHost(),
-                    port: getPort()
-                },
-                proxyForFtp: {
-                    scheme: getScheme(),
-                    host: getHost(),
-                    port: getPort()
-                },
-                proxyForHttps: {
-                    scheme: getScheme(),
-                    host: getHost(),
-                    port: getPort()
-                },
-                fallbackProxy: {
-                    scheme: getScheme(),
-                    host: getHost(),
-                    port: getPort()
-                }
-            }
-        };
-        chrome.proxy.settings.set(
-            {value: config, scope: 'regular'},
-            function() {});
-        console.log("i2p settings created for Chromium")
+        console.log("i2p settings created for Firefox Android")
     }
 }
 
@@ -205,12 +192,10 @@ function updateUI(restoredSettings) {
 function onError(e) {
     console.error(e);
 }
-
-const assureStoredSettings = chrome.storage.local.get();
-assureStoredSettings.then(checkStoredSettings, onError);
-
-const gettingStoredSettings = chrome.storage.local.get();
-gettingStoredSettings.then(updateUI, onError);
+chrome.storage.local.get(function(got){
+    checkStoredSettings(got)
+    updateUI(got)
+});
 
 const saveButton = document.querySelector("#save-button");
 saveButton.addEventListener("click", storeSettings);

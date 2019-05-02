@@ -5,10 +5,10 @@
       "strict_min_version": "60.0"
     }
   },
-  "permissions": ["theme", "proxy", "privacy", "storage"],
+  "permissions": ["theme", "browsingData", "notifications", "proxy", "privacy", "storage"],
   "manifest_version": 2,
   "name": "__MSG_extensionName__",
-  "version": "1.21",
+  "version": "1.23",
   "description": "__MSG_extensionDescription__",
   "homepage_url": "https://github.com/eyedeekay/i2psetproxy.js",
   "icons": {
@@ -24,7 +24,7 @@
     "page": "options/options.html"
   },
   "background": {
-    "scripts": ["background.js", "proxy.js", "info.js" ]
+    "scripts": ["background.js", "proxy.js", "info.js", "privacy.js" ]
   },
   "default_locale": "en"
 }

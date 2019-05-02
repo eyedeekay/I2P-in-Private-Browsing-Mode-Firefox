@@ -8,7 +8,7 @@ Browser or the I2P Firefox Profile for now.
 Features
 --------
 
-  * [done] **Indicate** the i2p browser is in use verbally and symbolically.
+  * [done] **Indicate** the i2p browser is in use visually
   * [done] **Set** the http proxy to use the local i2p proxy
   * [done] **Disable** risky webRTC features
   * [done] **Change** the color of the browser window to indicate that i2p is in use

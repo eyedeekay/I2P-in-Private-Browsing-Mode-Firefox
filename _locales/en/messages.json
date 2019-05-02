@@ -32,7 +32,15 @@
     "description": "Help Message"
   },
   "newsMessage": {
-    "message": "Visit the I2P News to learn the latest about i2p.",
+    "message": "Visit the I2P Blog to learn the latest about i2p.",
+    "description": "Help Message"
+  },
+  "forumMessage": {
+    "message": "Visit the I2P Forum to learn more or ask for assistance",
+    "description": "Help Message"
+  },
+  "clearData": {
+    "message": "Clear all browsing data",
     "description": "Help Message"
   },
   "hostText": {

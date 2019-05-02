@@ -40,6 +40,8 @@ document.addEventListener("click", (e) => {
       }
       chrome.windows.update(currentWindow.id, updateInfo);
     });
+  }else if (e.target.id === "clear-browser-data") {
+      forgetBrowsingData()
   }
 
   e.preventDefault();

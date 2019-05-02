@@ -1,3 +1,4 @@
+default: zip
 
 install: uninstall
 	mkdir -p /usr/share/webext/i2psetproxy.js@eyedeekay.github.io \
@@ -24,7 +25,7 @@ uninstall:
 clobber:
 	rm -f ../i2psetproxy.js.zip ../i2p_proxy*.xpi
 
-VERSION=1.21
+VERSION=1.23
 
 xpi:
 	mv ~/Downloads/i2p_proxy-$(VERSION)-an+fx.xpi ../i2psetproxy.js@eyedeekay.github.io.xpi
