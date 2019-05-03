@@ -24,28 +24,36 @@ chrome.privacy.network.webRTCIPHandlingPolicy.set({value: "disable_non_proxied_u
 
 console.log("Preliminarily disabled WebRTC.")
 
+function shouldProxyRequest(requestInfo) {
+  return true; //requestInfo.parentFrameId != -1;
+}
+
 function setupProxy() {
     var controlHost = "127.0.0.1" //getControlHost()
     var controlPort = "7951" //getControlPort();
-    var Host = getHost()
-    var Port = getPort()
-    console.log("Setting up Firefox Desktop proxy")
-    var proxySettings = {
-        proxyType: "manual",
-        http: Host+":"+Port,
-        passthrough: "",
-        httpProxyAll: true
-    };
-    browser.proxy.settings.set({value:proxySettings});
-    console.log("i2p settings created for Firefox Desktop")
+    var Host = "127.0.0.1" //getHost()
+    var Port = "4444" //getPort()
     if (isDroid()) {
         console.log("Setting up Firefox Android proxy")
-        if (Port == "7950") {
-            browser.proxy.register("android-ext.pac");
-        }else{
-            browser.proxy.register("android.pac");
+        function handleProxyRequest(requestInfo) {
+            if (shouldProxyRequest(requestInfo)) {
+            console.log(`Proxying: ${requestInfo.url}`);
+                return {type: "http", host: Host, port: Port};
+            }
+            return {type: "http", host: Host, port: Port};
         }
+        browser.proxy.onRequest.addListener(handleProxyRequest, {urls: ["<all_urls>"]});
         console.log("i2p settings created for Firefox Android")
+    }else{
+        console.log("Setting up Firefox Desktop proxy")
+        var proxySettings = {
+            proxyType: "manual",
+            http: Host+":"+Port,
+            passthrough: "",
+            httpProxyAll: true
+        };
+        browser.proxy.settings.set({value:proxySettings});
+        console.log("i2p settings created for Firefox Desktop")
     }
 }
 
@@ -55,6 +63,5 @@ if (isFirefox()){
 }
 
 if (isFirefox()) {
-    setAllPrivacy()
     setupProxy()
 }

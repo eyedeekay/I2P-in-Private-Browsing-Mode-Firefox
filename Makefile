@@ -46,3 +46,11 @@ profile-install:
 	sudo cp ./i2psetproxy.js@eyedeekay.github.io.xpi /usr/local/lib/firefox.profile.i2p/firefox.profile.i2p/extensions/
 
 pi: profile-install
+
+DESC="A simple plugin for configuring an i2p browser."
+
+release:
+	gothub release -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n $(VERSION) -d $(DESC)
+
+upload:
+	gothub upload -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n "i2psetproxy.js@eyedeekay.github.io.xpi" -f "../i2psetproxy.js@eyedeekay.github.io.xpi"
