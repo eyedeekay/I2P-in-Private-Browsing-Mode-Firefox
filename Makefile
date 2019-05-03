@@ -25,7 +25,7 @@ uninstall:
 clobber:
 	rm -f ../i2psetproxy.js.zip ../i2p_proxy*.xpi
 
-VERSION=1.24
+VERSION=1.25
 
 xpi:
 	mv ~/Downloads/i2p_proxy-$(VERSION)-an+fx.xpi ../i2psetproxy.js@eyedeekay.github.io.xpi
