@@ -1,4 +1,20 @@
-chrome.windows.onCreated.addListener(themeWindow);
+
+function isDroid() {
+    var gettingInfo = browser.runtime.getPlatformInfo();
+    gettingInfo.then((got) => {
+        if (got.os == "android") {
+            console.log("android detected")
+            return true
+        }else{
+            console.log("desktop detected")
+            return false
+        }
+    });
+}
+
+if (!isDroid()) {
+    chrome.windows.onCreated.addListener(themeWindow);
+}
 
 var titlepref = chrome.i18n.getMessage("titlePreface");
 var titleprefpriv = chrome.i18n.getMessage("titlePrefacePrivate");
@@ -8,8 +24,8 @@ function themeWindow(window) {
     if (window.incognito) {
         chrome.theme.update(window.id, {
             colors: {
-                frame: "#A0A0DE",
-                toolbar: "#A0A0DE",
+                frame: "#2D4470",
+                toolbar: "#2D4470",
             }
         });
         chrome.windows.update(window.id, {
@@ -19,8 +35,8 @@ function themeWindow(window) {
     else {
         chrome.theme.update(window.id, {
             colors: {
-                frame: "#BFA0DE",
-                toolbar: "#BFA0DE",
+                frame: "#9DABD5",
+                toolbar: "#9DABD5",
             }
         });
         chrome.windows.update(window.id, {

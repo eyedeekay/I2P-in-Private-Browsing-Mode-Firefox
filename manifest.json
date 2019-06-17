@@ -5,7 +5,17 @@
       "strict_min_version": "60.0"
     }
   },
-  "permissions": ["theme", "browsingData", "notifications", "proxy", "privacy", "storage"],
+  "permissions": [
+    "theme",
+    "browsingData",
+    "notifications",
+    "proxy",
+    "privacy",
+    "storage",
+    "webRequest",
+    "contextualIdentities",
+    "<all_urls>"
+  ],
   "manifest_version": 2,
   "name": "__MSG_extensionName__",
   "version": "1.26",

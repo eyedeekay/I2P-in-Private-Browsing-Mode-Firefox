@@ -1,67 +1,144 @@
-function isFirefox() {
-    testPlain = navigator.userAgent.indexOf('Firefox') !== -1;
-    if (testPlain) {
-        console.log("firefox")
-        return testPlain
-    }
-    return false
-}
 
 function isDroid() {
     var gettingInfo = browser.runtime.getPlatformInfo();
     gettingInfo.then((got) => {
         if (got.os == "android") {
             return true
+        }else{
+            return false
         }
     });
 }
 
-if (isFirefox()) {
-    browser.privacy.network.peerConnectionEnabled.set({value: false});
-}
+browser.privacy.network.peerConnectionEnabled.set({value: false});
+
 chrome.privacy.network.networkPredictionEnabled.set({value: false});
 chrome.privacy.network.webRTCIPHandlingPolicy.set({value: "disable_non_proxied_udp"});
 
 console.log("Preliminarily disabled WebRTC.")
 
 function shouldProxyRequest(requestInfo) {
-  return true; //requestInfo.parentFrameId != -1;
+  return requestInfo.parentFrameId != -1;
+}
+
+function handleProxyRequest(requestInfo) {
+    console.log(`Proxying: ${requestInfo.url}`);
+    console.log("   ", getScheme(), getHost(), ":", getPort(),)
+    return {type: getScheme(), host: getHost(), port: getPort()};
+}
+
+var proxy_scheme = "HTTP"
+
+function getScheme() {
+    if (proxy_scheme == undefined) {
+        proxy_scheme = "http"
+    }
+    if (proxy_scheme == "HTTP") {
+        proxy_scheme = "http"
+    }
+    if (proxy_scheme == "SOCKS") {
+        proxy_scheme = "socks"
+    }
+    console.log("Got i2p proxy scheme:", proxy_scheme);
+    return proxy_scheme;
+}
+
+var proxy_host = "127.0.0.1"
+
+function getHost() {
+    if (proxy_host == undefined){
+        proxy_host = "127.0.0.1"
+    }
+    console.log("Got i2p proxy host:", proxy_host);
+    return proxy_host;
+}
+
+var proxy_port = "4444"
+
+function getPort() {
+    if (proxy_port == undefined){
+        proxy_port = "4444"
+    }
+    console.log("Got i2p proxy port:", proxy_port);
+    return proxy_port;
+}
+
+var control_host = "127.0.0.1"
+
+function getControlHost() {
+    if (control_host == undefined){
+        return "127.0.0.1"
+    }
+    console.log("Got i2p control host:", control_host);
+    return control_host;
+}
+
+var control_port = "4444"
+
+function getControlPort() {
+    if (control_port == undefined){
+        return "4444"
+    }
+    console.log("Got i2p control port:", control_port);
+    return control_port;
 }
 
 function setupProxy() {
-    var controlHost = "127.0.0.1" //getControlHost()
-    var controlPort = "7951" //getControlPort();
-    var Host = "127.0.0.1" //getHost()
-    var Port = "4444" //getPort()
-    if (isDroid()) {
-        console.log("Setting up Firefox Android proxy")
-        function handleProxyRequest(requestInfo) {
-            if (shouldProxyRequest(requestInfo)) {
-            console.log(`Proxying: ${requestInfo.url}`);
-                return {type: "http", host: Host, port: Port};
-            }
-            return {type: "http", host: Host, port: Port};
-        }
-        browser.proxy.onRequest.addListener(handleProxyRequest, {urls: ["<all_urls>"]});
-        console.log("i2p settings created for Firefox Android")
-    }else{
-        console.log("Setting up Firefox Desktop proxy")
-        var proxySettings = {
-            proxyType: "manual",
-            http: Host+":"+Port,
-            passthrough: "",
-            httpProxyAll: true
-        };
-        browser.proxy.settings.set({value:proxySettings});
-        console.log("i2p settings created for Firefox Desktop")
+    var controlHost = getControlHost()
+    var controlPort = getControlPort();
+    var Host = getHost()
+    var Port = getPort()
+    var Scheme = getScheme()
+    function handleProxyRequest(requestInfo) {
+        console.log("proxying request via listener")
+        console.log("   ", Scheme, Host, ":", Port,)
+        return {type: Scheme, host: Host, port: Port, proxyDns: true}
     }
+    console.log("Setting up Firefox WebExtension proxy")
+    browser.proxy.onRequest.addListener(handleProxyRequest, {urls: ["<all_urls>"]});
+    console.log("i2p settings created for WebExtension Proxy")
 }
 
-if (isFirefox()){
-    // Theme all currently open windows
-    browser.windows.getAll().then(wins => wins.forEach(themeWindow));
+function checkStoredSettings(storedSettings) {
+    let defaultSettings = {};
+    if (!storedSettings.proxy_scheme){
+        defaultSettings["proxy_scheme"] = "http"
+    }
+    if (!storedSettings.proxy_host) {
+        defaultSettings["proxy_host"] = "127.0.0.1"
+    }
+    if (!storedSettings.proxy_port) {
+        defaultSettings["proxy_port"] = 4444
+    }
+    if (!storedSettings.control_host) {
+        defaultSettings["control_host"] = "127.0.0.1"
+    }
+    if (!storedSettings.control_port) {
+        defaultSettings["control_port"] = 4444
+    }
+    chrome.storage.local.set(defaultSettings);
 }
 
-if (isFirefox()) {
+function update(restoredSettings) {
+    proxy_scheme = restoredSettings.proxy_scheme
+    console.log("restoring proxy scheme:", proxy_scheme)
+    proxy_host = restoredSettings.proxy_host
+    console.log("restoring proxy host:", proxy_host)
+    proxy_port = restoredSettings.proxy_port
+    console.log("restoring proxy port:", proxy_port)
+    control_host = restoredSettings.control_host
+    console.log("restoring control host:", control_host)
+    control_port = restoredSettings.control_port
+    console.log("restoring control port:", control_port)
+}
+
+chrome.storage.local.get(function(got){
+    checkStoredSettings(got)
+    update(got)
     setupProxy()
+});
+
+// Theme all currently open windows
+if (!isDroid()) {
+    browser.windows.getAll().then(wins => wins.forEach(themeWindow));
 }
