@@ -1,68 +1,42 @@
 i2psetproxy.js
 ==============
 
-WebExtension that does extended configuration of a dedicated i2p browser. It's
-still not good enough to use on it's own, and should be combined with the Tor
-Browser or the I2P Firefox Profile for now.
+WebExtension that does extended configuration of a dedicated I2P browser. While
+**experimental**, it's capable of enforcing the use of the I2P Proxy without
+needing to touch about:config and disables several
+fingerprinting/de-anonymization vectors on it's own. It is also the easiest way
+to configure an I2P browser on Android without requiring the user to root their
+device.
 
-Features
---------
+Android usage:
+--------------
 
-  * [done] **Indicate** the i2p browser is in use visually
-  * [done] **Set** the http proxy to use the local i2p proxy
+Open the following link [Github Releases Version](https://github.com/eyedeekay/i2psetproxy.js/releases/download/1.26/i2psetproxy.js@eyedeekay.github.io.xpi)
+in the browser you want to use for I2P. Firefox will warn you that it is about
+to install an extension and indicate the permissions required. Read them over
+and when you're ready, accept them. That's all it should take, your browser is
+now configured to use I2P.
+
+### addons.mozilla.org
+
+If you would prefer to recieve automatic updates from AMO, the correct product
+page for this plugin is [I2P-proxy](https://addons.mozilla.org/en-US/firefox/addon/I2P-proxy/).
+This absolutely requires a working outproxy. If you want to avoid the use of AMO
+for updates, you can download the identical plugin from this repository's
+releases page. The latest AMO Plugin will always be identical to the latest
+github release, except for the version number, which must be incremented for
+submission to AMO.
+
+### Features
+
+  * [done] **Indicate** the I2P browser is in use visually
+  * [done] **Set** the http proxy to use the local I2P proxy
   * [done] **Disable** risky webRTC features
-  * [done] **Change** the color of the browser window to indicate that i2p is in use
+  * [done] **Change** the color of the browser window to indicate that I2P is in use
   * [done-ish] **Reset** the HTTP Proxy tunnel to generate a new destination on-demand
    * it does this by working in conjunction with this [standalone HTTP proxy](https://github.com/eyedeekay/httptunnel), currently disabled*
   * [ready] **Provide** help in a variety of languages.
 
-Usage with standalone HTTP Proxy
---------------------------------
+### Screenshot
 
-This functionality is currently disabled.
-
-I developed a simple HTTP proxy that can be used with this extension to enable the
-user to initiate a re-start of the HTTP proxy tunnel, with a new set of keys and a
-new destination. This, combined with re-setting the browser settings back to the
-original defaults(which is also done by the HTTP Proxy when re-initiated), amounts
-to a "Fresh Identity" feature for the I2P browser.
-
-Before you begin, get the [Standalone HTTP proxy from here](http://github.com/eyedeekay/httptunnel)
-and run it like so:
-
-        httpproxy -littleboss=start
-
-You can also use 'go get'
-
-        go get -u github.com/eyedeekay/httptunnel/httpproxy
-
-If you change the default host and port, you will need to alter the following guide.
-
-In order to use it with the custom HTTP proxy, open the "Add-On's" menu and select
-the options for the i2psetproxy.js plugin. Change the "Proxy" configuration from
-
-        Host: 127.0.0.1
-        Port: 4444
-
-to
-
-        Host: 127.0.0.1
-        Port: 7950
-
-and change the "Control" configuration from:
-
-        Host: 127.0.0.1
-        Port: 4444
-
-to
-
-        Host: 127.0.0.1
-        Port: 7951
-
-Now, when you press the Toopie button in the toolbar, you will see in the output
-of the HTTP proxy that it has been re-started.
-
-Screenshot
-----------
-
-![Visiting i2p-projekt.i2p](i2psetproxy.js.png)
+![Visiting i2p-projekt.I2P](i2psetproxy.js.png)

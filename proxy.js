@@ -1,16 +1,33 @@
 
-function isDroid() {
-    var gettingInfo = browser.runtime.getPlatformInfo();
-    gettingInfo.then((got) => {
-        if (got.os == "android") {
-            return true
-        }else{
-            return false
-        }
-    });
+function getChrome() {
+  if (typeof chrome !== "undefined") {
+    if (typeof browser !== "undefined") {
+      return false;
+    } else {
+      return true;
+    }
+  }
 }
 
-browser.privacy.network.peerConnectionEnabled.set({value: false});
+function isDroid() {
+    if (!getChrome()) {
+        var gettingInfo = browser.runtime.getPlatformInfo();
+        gettingInfo.then((got) => {
+            if (got.os == "android") {
+                console.log("android detected")
+                return true
+            }else{
+                console.log("desktop detected")
+                return false
+            }
+        });
+    }
+    return false
+}
+
+if (!getChrome()) {
+    browser.privacy.network.peerConnectionEnabled.set({value: false});
+}
 
 chrome.privacy.network.networkPredictionEnabled.set({value: false});
 chrome.privacy.network.webRTCIPHandlingPolicy.set({value: "disable_non_proxied_udp"});
@@ -139,6 +156,8 @@ chrome.storage.local.get(function(got){
 });
 
 // Theme all currently open windows
-if (!isDroid()) {
-    browser.windows.getAll().then(wins => wins.forEach(themeWindow));
+if (!getChrome()) {
+    if (!isDroid()) {
+        browser.windows.getAll().then(wins => wins.forEach(themeWindow));
+    }
 }

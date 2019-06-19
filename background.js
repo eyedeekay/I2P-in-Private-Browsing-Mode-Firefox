@@ -1,15 +1,28 @@
 
+function getChrome() {
+  if (typeof chrome !== "undefined") {
+    if (typeof browser !== "undefined") {
+      return false;
+    } else {
+      return true;
+    }
+  }
+}
+
 function isDroid() {
-    var gettingInfo = browser.runtime.getPlatformInfo();
-    gettingInfo.then((got) => {
-        if (got.os == "android") {
-            console.log("android detected")
-            return true
-        }else{
-            console.log("desktop detected")
-            return false
-        }
-    });
+    if (!getChrome()) {
+        var gettingInfo = browser.runtime.getPlatformInfo();
+        gettingInfo.then((got) => {
+            if (got.os == "android") {
+                console.log("android detected")
+                return true
+            }else{
+                console.log("desktop detected")
+                return false
+            }
+        });
+    }
+    return false
 }
 
 if (!isDroid()) {
