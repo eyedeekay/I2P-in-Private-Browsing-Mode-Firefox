@@ -56,6 +56,9 @@ function getScheme() {
     if (proxy_scheme == "SOCKS") {
         proxy_scheme = "socks"
     }
+    if ( proxy_scheme != "http" && proxy_scheme != "socks" ){
+        proxy_scheme = "http"
+    }
     console.log("Got i2p proxy scheme:", proxy_scheme);
     return proxy_scheme;
 }
@@ -74,7 +77,12 @@ var proxy_port = "4444"
 
 function getPort() {
     if (proxy_port == undefined){
-        proxy_port = "4444"
+        var scheme = getScheme()
+        if (scheme == "socks") {
+            proxy_port = "4446"
+        }else{
+            proxy_port = "4444"
+        }
     }
     console.log("Got i2p proxy port:", proxy_port);
     return proxy_port;

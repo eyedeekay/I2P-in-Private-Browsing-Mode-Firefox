@@ -10,7 +10,7 @@ function onSet(result) {
 // This disables queries to centralized databases of bad URLs to screen for
 // risky sites in your browser
 function disableHyperlinkAuditing() {
-    var setting = chrome.privacy.websites.hyperlinkAuditingEnabled.set({
+    var setting = browser.privacy.websites.hyperlinkAuditingEnabled.set({
       value: false
     });
     console.log("Disabling hyperlink auditing/val=", {
@@ -21,7 +21,7 @@ function disableHyperlinkAuditing() {
 
 // This enables first-party isolation
 function enableFirstPartyIsolation() {
-    var setting = chrome.privacy.websites.firstPartyIsolate.set({
+    var setting = browser.privacy.websites.firstPartyIsolate.set({
       value: true
     });
     console.log("Enabling first party isolation/val=", {
@@ -34,7 +34,7 @@ function enableFirstPartyIsolation() {
 // LEAVES "Persistent" Cookies unmodified in favor of an option in the content
 // interface for now
 function disableEvilCookies() {
-    var getting = chrome.privacy.websites.cookieConfig.get({});
+    var getting = browser.privacy.websites.cookieConfig.get({});
     getting.then((got) => {
         var setting = browser.privacy.websites.cookieConfig.set(
             {value: {behavior: "reject_third_party",
@@ -59,7 +59,7 @@ function disableEvilCookies() {
 
 // this disables the use of referrer headers
 function disableReferrers() {
-    var setting = chrome.privacy.websites.referrersEnabled.set({
+    var setting = browser.privacy.websites.referrersEnabled.set({
       value: false
     });
     console.log("Disabling referrer headers/val=", {
@@ -70,7 +70,7 @@ function disableReferrers() {
 
 // enable fingerprinting resistent features(letterboxing and stuff)
 function enableResistFingerprinting() {
-    var setting = chrome.privacy.websites.referrersEnabled.set({
+    var setting = browser.privacy.websites.referrersEnabled.set({
       value: true
     });
     console.log("Enabling resist fingerprinting/val=", {
