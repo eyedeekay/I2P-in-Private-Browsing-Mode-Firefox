@@ -22,15 +22,15 @@ document.addEventListener("click", (e) => {
       console.log("The news panel has been created");
     });
   } else if (e.target.id === "generate-fresh-tunnel") {
-    function RefreshIdentity(){
-        console.log("Generating new identity")
-        const Http = new XMLHttpRequest();
-        const url='http://' + controlHost + ":" + controlPort
-        Http.open("GET", url);
-        Http.send();
-        Http.onreadystatechange=(e)=>{
-            console.log(Http.responseText)
-        }
+    function RefreshIdentity() {
+      console.log("Generating new identity")
+      const Http = new XMLHttpRequest();
+      const url = 'http://' + controlHost + ":" + controlPort
+      Http.open("GET", url);
+      Http.send();
+      Http.onreadystatechange = (e) => {
+        console.log(Http.responseText)
+      }
     }
     RefreshIdentity();
   } else if (e.target.id === "window-preface-title") {
@@ -40,8 +40,8 @@ document.addEventListener("click", (e) => {
       }
       chrome.windows.update(currentWindow.id, updateInfo);
     });
-  }else if (e.target.id === "clear-browser-data") {
-      forgetBrowsingData()
+  } else if (e.target.id === "clear-browser-data") {
+    forgetBrowsingData()
   }
 
   e.preventDefault();
