@@ -54,7 +54,7 @@ span.identity {
 }
 
 .control-options {
-  display: none;
+  display: block;
 }
 
 .identity-options {

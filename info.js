@@ -1,3 +1,62 @@
+
+var control_host = "127.0.0.1"
+
+function getControlHost() {
+  if (control_host == undefined) {
+    return "127.0.0.1"
+  }
+  console.log("Got i2p control host:", control_host);
+  return control_host;
+}
+
+var control_port = "7951"
+
+function getControlPort() {
+  if (control_port == undefined) {
+    return "7951"
+  }
+  console.log("Got i2p control port:", control_port);
+  return control_port;
+}
+
+function checkStoredSettings(storedSettings) {
+  let defaultSettings = {};
+  if (!storedSettings.proxy_scheme) {
+    defaultSettings["proxy_scheme"] = "http"
+  }
+  if (!storedSettings.proxy_host) {
+    defaultSettings["proxy_host"] = "127.0.0.1"
+  }
+  if (!storedSettings.proxy_port) {
+    defaultSettings["proxy_port"] = 7950
+  }
+  if (!storedSettings.control_host) {
+    defaultSettings["control_host"] = "127.0.0.1"
+  }
+  if (!storedSettings.control_port) {
+    defaultSettings["control_port"] = 7951
+  }
+  chrome.storage.local.set(defaultSettings);
+}
+
+function update(restoredSettings) {
+  proxy_scheme = restoredSettings.proxy_scheme
+  console.log("restoring proxy scheme:", proxy_scheme)
+  proxy_host = restoredSettings.proxy_host
+  console.log("restoring proxy host:", proxy_host)
+  proxy_port = restoredSettings.proxy_port
+  console.log("restoring proxy port:", proxy_port)
+  control_host = restoredSettings.control_host
+  console.log("restoring control host:", control_host)
+  control_port = restoredSettings.control_port
+  console.log("restoring control port:", control_port)
+}
+
+chrome.storage.local.get(function(got) {
+  checkStoredSettings(got)
+  update(got)
+});
+
 document.addEventListener("click", (e) => {
   function getCurrentWindow() {
     return chrome.windows.getCurrent();
@@ -25,7 +84,7 @@ document.addEventListener("click", (e) => {
     function RefreshIdentity() {
       console.log("Generating new identity")
       const Http = new XMLHttpRequest();
-      const url = 'http://' + controlHost + ":" + controlPort
+      const url = 'http://' + getControlHost() + ":" + getControlPort()
       Http.open("GET", url);
       Http.send();
       Http.onreadystatechange = (e) => {

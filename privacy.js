@@ -211,4 +211,5 @@ function forgetBrowsingData(storedSettings) {
 
   setAllPrivacy()
   ResetPeerConnection()
+
 }

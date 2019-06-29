@@ -83,7 +83,7 @@ function getPort() {
   proxy_port = document.getElementById("port").value
   console.log("Got i2p proxy port:", proxy_port);
   if (proxy_port == undefined) {
-    return "4444"
+    return "7950"
   }
   return proxy_port;
 }
@@ -101,7 +101,7 @@ function getControlPort() {
   control_port = document.getElementById("controlport").value
   console.log("Got i2p control port:", control_port);
   if (control_port == undefined) {
-    return "4444"
+    return "7951"
   }
   return control_port;
 }
@@ -115,13 +115,13 @@ function checkStoredSettings(storedSettings) {
     defaultSettings["proxy_host"] = "127.0.0.1"
   }
   if (!storedSettings.proxy_port) {
-    defaultSettings["proxy_port"] = 4444
+    defaultSettings["proxy_port"] = "7950"
   }
   if (!storedSettings.control_host) {
     defaultSettings["control_host"] = "127.0.0.1"
   }
   if (!storedSettings.control_port) {
-    defaultSettings["control_port"] = 4444
+    defaultSettings["control_port"] = "7951"
   }
   chrome.storage.local.set(defaultSettings);
 }

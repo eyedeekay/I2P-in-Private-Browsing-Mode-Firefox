@@ -83,7 +83,7 @@ function getHost() {
   return proxy_host;
 }
 
-var proxy_port = "4444"
+var proxy_port = "7950"
 
 function getPort() {
   if (proxy_port == undefined) {
@@ -91,7 +91,7 @@ function getPort() {
     if (scheme == "socks") {
       proxy_port = "4446"
     } else {
-      proxy_port = "4444"
+      proxy_port = "7950"
     }
   }
   console.log("Got i2p proxy port:", proxy_port);
@@ -108,11 +108,11 @@ function getControlHost() {
   return control_host;
 }
 
-var control_port = "4444"
+var control_port = "7951"
 
 function getControlPort() {
   if (control_port == undefined) {
-    return "4444"
+    return "7951"
   }
   console.log("Got i2p control port:", control_port);
   return control_port;
@@ -127,6 +127,16 @@ function setupProxy() {
   function handleProxyRequest(requestInfo) {
     console.log("proxying request via listener")
     console.log("   ", Scheme, Host, ":", Port,)
+    if (Host == "127.0.0.1") {
+    if (Port == "7951"){
+        return {
+            type: "none",
+            host: "",
+            port: "",
+            proxyDns: true
+        }
+    }
+    }
     return {
       type: Scheme,
       host: Host,
@@ -150,13 +160,13 @@ function checkStoredSettings(storedSettings) {
     defaultSettings["proxy_host"] = "127.0.0.1"
   }
   if (!storedSettings.proxy_port) {
-    defaultSettings["proxy_port"] = 4444
+    defaultSettings["proxy_port"] = 7950
   }
   if (!storedSettings.control_host) {
     defaultSettings["control_host"] = "127.0.0.1"
   }
   if (!storedSettings.control_port) {
-    defaultSettings["control_port"] = 4444
+    defaultSettings["control_port"] = 7951
   }
   chrome.storage.local.set(defaultSettings);
 }
