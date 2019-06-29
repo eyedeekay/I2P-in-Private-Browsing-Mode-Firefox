@@ -61,3 +61,6 @@ lib: libpolyfill
 
 libpolyfill:
 	wget -O chromium/browser-polyfill.min.js https://unpkg.com/webextension-polyfill/dist/browser-polyfill.min.js
+
+fmt:
+	find . -name '*.js' -exec jsfmt -w {} \;
