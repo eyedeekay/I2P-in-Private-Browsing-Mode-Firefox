@@ -144,8 +144,8 @@ function setupProxy() {
         singleProxy: {
           scheme: Scheme,
           host: Host,
-          port: Port,
-        },
+          port: parseInt(Port),
+        }
       }
     };
     chrome.proxy.settings.set(

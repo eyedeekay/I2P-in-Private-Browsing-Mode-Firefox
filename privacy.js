@@ -72,6 +72,7 @@ function disableEvilCookies() {
 
 // this disables the use of referrer headers
 function disableReferrers() {
+    if (!getChrome()){
     var setting = browser.privacy.websites.referrersEnabled.set({
       value: false
     });
@@ -79,10 +80,12 @@ function disableReferrers() {
       value: false
     })
     setting.then(onSet);
+    }
 }
 
 // enable fingerprinting resistent features(letterboxing and stuff)
 function enableResistFingerprinting() {
+    if (!getChrome()){
     var setting = browser.privacy.websites.referrersEnabled.set({
       value: true
     });
@@ -90,6 +93,7 @@ function enableResistFingerprinting() {
       value: true
     })
     setting.then(onSet);
+    }
 }
 
 // This is essentially a blocklist of clearnet web-sites known to do bad tracking
@@ -108,6 +112,7 @@ function enableTrackingProtection() {
 // This disables protected content, which is a form of digital restrictions
 // management dependent on identifying information
 function disableDigitalRestrictionsManagement() {
+    if (!getChrome()){
     var gettingInfo = browser.runtime.getPlatformInfo();
     gettingInfo.then((got) => {
         if (got.os == "win") {
@@ -120,6 +125,7 @@ function disableDigitalRestrictionsManagement() {
             setting.then(onSet);
         }
     });
+    }
 }
 
 function setAllPrivacy() {
@@ -137,18 +143,18 @@ setAllPrivacy()
 function ResetPeerConnection(){
     if (!getChrome()) {
         browser.privacy.network.peerConnectionEnabled.set({value: false});
+        browser.privacy.network.networkPredictionEnabled.set({value: false});
     }
-    browser.privacy.network.networkPredictionEnabled.set({value: false});
-    browser.privacy.network.webRTCIPHandlingPolicy.set({value: "disable_non_proxied_udp"});
+    chrome.privacy.network.webRTCIPHandlingPolicy.set({value: "disable_non_proxied_udp"});
     console.log("Re-disabled WebRTC")
 }
 
 function EnablePeerConnection(){
     if (!getChrome()) {
         browser.privacy.network.peerConnectionEnabled.set({value: true});
+        browser.privacy.network.networkPredictionEnabled.set({value: false});
     }
-    browser.privacy.network.networkPredictionEnabled.set({value: false});
-    browser.privacy.network.webRTCIPHandlingPolicy.set({value: "disable_non_proxied_udp"});
+    chrome.privacy.network.webRTCIPHandlingPolicy.set({value: "disable_non_proxied_udp"});
     console.log("Enabled WebRTC")
 }
 

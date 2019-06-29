@@ -13,5 +13,5 @@ helpMessage.textContent = chrome.i18n.getMessage("helpMessage")
 var newsMessage = document.getElementById('window-create-news-panel');
 newsMessage.textContent = chrome.i18n.getMessage("newsMessage");
 
-var clearData = document.getElementByID("clear-browser-data")
-cleardata.textContent = chrome.i18n.getMessage("clearData");
+var clearData = document.getElementById("clear-browser-data")
+clearData.textContent = chrome.i18n.getMessage("clearData");
