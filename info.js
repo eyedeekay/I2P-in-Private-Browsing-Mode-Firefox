@@ -21,15 +21,6 @@ function getControlPort() {
 
 function checkStoredSettings(storedSettings) {
   let defaultSettings = {};
-  if (!storedSettings.proxy_scheme) {
-    defaultSettings["proxy_scheme"] = "http"
-  }
-  if (!storedSettings.proxy_host) {
-    defaultSettings["proxy_host"] = "127.0.0.1"
-  }
-  if (!storedSettings.proxy_port) {
-    defaultSettings["proxy_port"] = 7950
-  }
   if (!storedSettings.control_host) {
     defaultSettings["control_host"] = "127.0.0.1"
   }
@@ -40,13 +31,6 @@ function checkStoredSettings(storedSettings) {
 }
 
 function update(restoredSettings) {
-  proxy_scheme = restoredSettings.proxy_scheme
-  console.log("restoring proxy scheme:", proxy_scheme)
-  proxy_host = restoredSettings.proxy_host
-  console.log("restoring proxy host:", proxy_host)
-  proxy_port = restoredSettings.proxy_port
-  console.log("restoring proxy port:", proxy_port)
-  control_host = restoredSettings.control_host
   console.log("restoring control host:", control_host)
   control_port = restoredSettings.control_port
   console.log("restoring control port:", control_port)

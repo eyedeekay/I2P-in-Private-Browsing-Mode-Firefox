@@ -127,15 +127,11 @@ function setupProxy() {
   function handleProxyRequest(requestInfo) {
     console.log("proxying request via listener")
     console.log("   ", Scheme, Host, ":", Port,)
-    if (Host == "127.0.0.1") {
-    if (Port == "7951"){
-        return {
-            type: "none",
-            host: "",
-            port: "",
-            proxyDns: true
-        }
-    }
+    if (requestInfo.IP == controlHost) {
+      var r = requestInfo.url.split(":",2)[1]
+      if (r == controlPort) {
+        return
+      }
     }
     return {
       type: Scheme,
