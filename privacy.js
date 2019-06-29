@@ -191,8 +191,10 @@ function checkStoredSettings(storedSettings) {
   chrome.storage.local.set(appSettings);
 }
 
-const gettingStoredSettings = browser.storage.local.get();
-gettingStoredSettings.then(checkStoredSettings, onError);
+if (!getChrome()){
+    const gettingStoredSettings = browser.storage.local.get();
+    gettingStoredSettings.then(checkStoredSettings, onError);
+}
 
 function forgetBrowsingData(storedSettings) {
 
