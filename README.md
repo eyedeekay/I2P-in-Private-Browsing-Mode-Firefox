@@ -39,4 +39,4 @@ submission to AMO.
 
 ### Screenshot
 
-![Visiting i2p-projekt.I2P](i2psetproxy.js.png)
+![Visiting i2p-projekt.i2p](i2psetproxy.js.png)
