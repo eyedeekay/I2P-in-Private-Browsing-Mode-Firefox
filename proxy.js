@@ -1,12 +1,19 @@
 
 function getChrome() {
-  if (typeof chrome !== "undefined") {
-    if (typeof browser !== "undefined") {
-      return false;
-    } else {
-      return true;
-    }
+  if (browser.runtime.getBrowserInfo == undefined) {
+    return true
   }
+  return false
+  /*var gettingInfo = browser.runtime.getBrowserInfo();
+    gettingInfo.then((got) => {
+      if (got.name == "Firefox") {
+        console.log("Firefox detected")
+        return false
+      } else {
+        console.log("Non-Firefox detected")
+        return true
+      }
+    });*/
 }
 
 function isDroid() {
@@ -119,6 +126,7 @@ function getControlPort() {
 }
 
 function setupProxy() {
+  if (!getChrome()){
   var controlHost = getControlHost()
   var controlPort = getControlPort();
   var Host = getHost()
@@ -128,7 +136,7 @@ function setupProxy() {
     console.log("proxying request via listener")
     console.log("   ", Scheme, Host, ":", Port,)
     if (requestInfo.IP == controlHost) {
-      var r = requestInfo.url.split(":",2)[1]
+      var r = requestInfo.url.split(":", 2)[1]
       if (r == controlPort) {
         return
       }
@@ -145,6 +153,7 @@ function setupProxy() {
     urls: ["<all_urls>"]
   });
   console.log("i2p settings created for WebExtension Proxy")
+  }
 }
 
 function checkStoredSettings(storedSettings) {
