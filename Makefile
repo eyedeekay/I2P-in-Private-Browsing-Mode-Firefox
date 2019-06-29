@@ -25,7 +25,7 @@ uninstall:
 clobber:
 	rm -f ../i2psetproxy.js.zip ../i2p_proxy*.xpi
 
-VERSION=1.28
+VERSION=1.28-sp
 
 xpi:
 	mv ~/Downloads/i2p_proxy-$(VERSION)-an+fx.xpi ../i2psetproxy.js@eyedeekay.github.io.xpi
@@ -56,3 +56,8 @@ release:
 
 upload:
 	gothub upload -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n "i2psetproxy.js@eyedeekay.github.io.xpi" -f "../i2psetproxy.js@eyedeekay.github.io.xpi"
+
+lib: libpolyfill
+
+libpolyfill:
+	wget -O chromium/browser-polyfill.min.js https://unpkg.com/webextension-polyfill/dist/browser-polyfill.min.js

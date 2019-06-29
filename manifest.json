@@ -34,7 +34,7 @@
     "page": "options/options.html"
   },
   "background": {
-    "scripts": ["background.js", "proxy.js", "info.js", "privacy.js" ]
+    "scripts": ["chromium/browser-polyfill.min.js", "background.js", "proxy.js", "info.js", "privacy.js" ]
   },
   "default_locale": "en"
 }

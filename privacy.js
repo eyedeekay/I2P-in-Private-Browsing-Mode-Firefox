@@ -21,29 +21,33 @@ function disableHyperlinkAuditing() {
 
 // This enables first-party isolation
 function enableFirstPartyIsolation() {
-    var setting = browser.privacy.websites.firstPartyIsolate.set({
-      value: true
-    });
-    console.log("Enabling first party isolation/val=", {
-      value: true
-    })
-    setting.then(onSet);
+    if (!getChrome()) {
+        var setting = browser.privacy.websites.firstPartyIsolate.set({
+          value: true
+        });
+        console.log("Enabling first party isolation/val=", {
+          value: true
+        })
+        setting.then(onSet);
+    }
 }
 
 // This rejects tracking cookies and third-party cookies but it
 // LEAVES "Persistent" Cookies unmodified in favor of an option in the content
 // interface for now
 function disableEvilCookies() {
-    var getting = browser.privacy.websites.cookieConfig.get({});
-    getting.then((got) => {
-        var setting = browser.privacy.websites.cookieConfig.set(
-            {value: {behavior: "reject_third_party",
-            nonPersistentCookies: got.value.nonPersistentCookies}}
-        );
-        console.log("Setting cookie behavior/val=", {value: {behavior: "reject_third_party",
-            nonPersistentCookies: got.value.nonPersistentCookies}})
-        setting.then(onSet);
-    });
+    if (!getChrome()) {
+        var getting = browser.privacy.websites.cookieConfig.get({});
+        getting.then((got) => {
+            var setting = browser.privacy.websites.cookieConfig.set(
+                {value: {behavior: "reject_third_party",
+                nonPersistentCookies: got.value.nonPersistentCookies}}
+            );
+            console.log("Setting cookie behavior/val=", {value: {behavior: "reject_third_party",
+                nonPersistentCookies: got.value.nonPersistentCookies}})
+            setting.then(onSet);
+        });
+    }
 }
 
 // Make sure that they're gone
@@ -81,13 +85,15 @@ function enableResistFingerprinting() {
 
 // This is essentially a blocklist of clearnet web-sites known to do bad tracking
 function enableTrackingProtection() {
-    var setting = browser.privacy.websites.trackingProtectionMode.set({
-      value: "always"
-    });
-    console.log("Enabling tracking protection/val=", {
-      value: "always"
-    })
-    setting.then(onSet);
+    if (!getChrome()) {
+        var setting = browser.privacy.websites.trackingProtectionMode.set({
+          value: "always"
+        });
+        console.log("Enabling tracking protection/val=", {
+          value: "always"
+        })
+        setting.then(onSet);
+    }
 }
 
 // This disables protected content, which is a form of digital restrictions
@@ -120,14 +126,18 @@ function setAllPrivacy() {
 setAllPrivacy()
 
 function ResetPeerConnection(){
-    browser.privacy.network.peerConnectionEnabled.set({value: false});
+    if (!getChrome()) {
+        browser.privacy.network.peerConnectionEnabled.set({value: false});
+    }
     browser.privacy.network.networkPredictionEnabled.set({value: false});
     browser.privacy.network.webRTCIPHandlingPolicy.set({value: "disable_non_proxied_udp"});
     console.log("Re-disabled WebRTC")
 }
 
 function EnablePeerConnection(){
-    browser.privacy.network.peerConnectionEnabled.set({value: true});
+    if (!getChrome()) {
+        browser.privacy.network.peerConnectionEnabled.set({value: true});
+    }
     browser.privacy.network.networkPredictionEnabled.set({value: false});
     browser.privacy.network.webRTCIPHandlingPolicy.set({value: "disable_non_proxied_udp"});
     console.log("Enabled WebRTC")
@@ -211,4 +221,5 @@ function forgetBrowsingData(storedSettings) {
 
   setAllPrivacy()
   ResetPeerConnection()
+
 }
