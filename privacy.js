@@ -1,4 +1,11 @@
 
+function getChrome() {
+  if (chrome.runtime.getBrowserInfo == undefined) {
+    return true
+  }
+  return false
+}
+
 function onSet(result) {
   if (result) {
     console.log("->: Value was updated");
@@ -10,13 +17,15 @@ function onSet(result) {
 // This disables queries to centralized databases of bad URLs to screen for
 // risky sites in your browser
 function disableHyperlinkAuditing() {
-    var setting = browser.privacy.websites.hyperlinkAuditingEnabled.set({
-      value: false
-    });
-    console.log("Disabling hyperlink auditing/val=", {
-      value: false
-    })
-    setting.then(onSet);
+    if (!getChrome()){
+        var setting = browser.privacy.websites.hyperlinkAuditingEnabled.set({
+          value: false
+        });
+        console.log("Disabling hyperlink auditing/val=", {
+          value: false
+        })
+        setting.then(onSet);
+    }
 }
 
 // This enables first-party isolation

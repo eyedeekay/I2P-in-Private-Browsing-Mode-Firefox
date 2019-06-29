@@ -4,16 +4,6 @@ function getChrome() {
     return true
   }
   return false
-  /*var gettingInfo = browser.runtime.getBrowserInfo();
-    gettingInfo.then((got) => {
-      if (got.name == "Firefox") {
-        console.log("Firefox detected")
-        return false
-      } else {
-        console.log("Non-Firefox detected")
-        return true
-      }
-    });*/
 }
 
 function isDroid() {
@@ -126,35 +116,46 @@ function getControlPort() {
 }
 
 function setupProxy() {
-  if (!getChrome()){
   var controlHost = getControlHost()
   var controlPort = getControlPort();
   var Host = getHost()
   var Port = getPort()
   var Scheme = getScheme()
-  function handleProxyRequest(requestInfo) {
-    console.log("proxying request via listener")
-    console.log("   ", Scheme, Host, ":", Port,)
-    if (requestInfo.IP == controlHost) {
-      var r = requestInfo.url.split(":", 2)[1]
-      if (r == controlPort) {
-        return
+  if (!getChrome()) {
+    function handleProxyRequest(requestInfo) {
+      console.log("proxying request via listener")
+      console.log("   ", Scheme, Host, ":", Port,)
+      return {
+        type: Scheme,
+        host: Host,
+        port: Port,
+        proxyDns: true
       }
     }
-    return {
-      type: Scheme,
-      host: Host,
-      port: Port,
-      proxyDns: true
-    }
-  }
-  console.log("Setting up Firefox WebExtension proxy")
-  browser.proxy.onRequest.addListener(handleProxyRequest, {
-    urls: ["<all_urls>"]
-  });
-  console.log("i2p settings created for WebExtension Proxy")
+    console.log("Setting up Firefox WebExtension proxy")
+    browser.proxy.onRequest.addListener(handleProxyRequest, {
+      urls: ["<all_urls>"]
+    });
+    console.log("i2p settings created for WebExtension Proxy")
+  } else {
+    var config = {
+      mode: "fixed_servers",
+      rules: {
+        singleProxy: {
+          scheme: Scheme,
+          host: Host,
+          port: Port,
+        },
+      }
+    };
+    chrome.proxy.settings.set(
+      {
+        value: config,
+        scope: 'regular'
+      }, function() {});
   }
 }
+
 
 function checkStoredSettings(storedSettings) {
   let defaultSettings = {};

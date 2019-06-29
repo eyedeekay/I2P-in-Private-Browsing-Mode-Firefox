@@ -1,12 +1,9 @@
 
 function getChrome() {
-  if (typeof chrome !== "undefined") {
-    if (typeof browser !== "undefined") {
-      return false;
-    } else {
-      return true;
-    }
+  if (browser.runtime.getBrowserInfo == undefined) {
+    return true
   }
+  return false
 }
 
 function isDroid() {
