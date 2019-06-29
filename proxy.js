@@ -1,12 +1,9 @@
 
 function getChrome() {
-  if (typeof chrome !== "undefined") {
-    if (typeof browser !== "undefined") {
-      return false;
-    } else {
-      return true;
-    }
+  if (browser.runtime.getBrowserInfo == undefined) {
+    return true
   }
+  return false
 }
 
 function isDroid() {
@@ -124,21 +121,39 @@ function setupProxy() {
   var Host = getHost()
   var Port = getPort()
   var Scheme = getScheme()
-  function handleProxyRequest(requestInfo) {
-    console.log("proxying request via listener")
-    console.log("   ", Scheme, Host, ":", Port,)
-    return {
-      type: Scheme,
-      host: Host,
-      port: Port,
-      proxyDns: true
+  if (!getChrome()) {
+    function handleProxyRequest(requestInfo) {
+      console.log("proxying request via listener")
+      console.log("   ", Scheme, Host, ":", Port,)
+      return {
+        type: Scheme,
+        host: Host,
+        port: Port,
+        proxyDns: true
+      }
     }
+    console.log("Setting up Firefox WebExtension proxy")
+    browser.proxy.onRequest.addListener(handleProxyRequest, {
+      urls: ["<all_urls>"]
+    });
+    console.log("i2p settings created for WebExtension Proxy")
+  } else {
+    var config = {
+      mode: "fixed_servers",
+      rules: {
+        singleProxy: {
+          scheme: Scheme,
+          host: Host,
+          port: Port,
+        },
+      }
+    };
+    chrome.proxy.settings.set(
+      {
+        value: config,
+        scope: 'regular'
+      }, function() {});
   }
-  console.log("Setting up Firefox WebExtension proxy")
-  browser.proxy.onRequest.addListener(handleProxyRequest, {
-    urls: ["<all_urls>"]
-  });
-  console.log("i2p settings created for WebExtension Proxy")
 }
 
 function checkStoredSettings(storedSettings) {
