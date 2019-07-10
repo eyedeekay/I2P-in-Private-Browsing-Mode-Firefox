@@ -123,8 +123,8 @@ function setupProxy() {
   var Scheme = getScheme()
   if (!getChrome()) {
     function handleProxyRequest(requestInfo) {
-//      console.log("proxying request via listener")
-//      console.log("   ", Scheme, Host, ":", Port,)
+      //      console.log("proxying request via listener")
+      //      console.log("   ", Scheme, Host, ":", Port,)
       return {
         type: Scheme,
         host: Host,

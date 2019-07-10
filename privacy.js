@@ -240,3 +240,16 @@ function forgetBrowsingData(storedSettings) {
   ResetPeerConnection()
 
 }
+
+
+function onGot(contexts) {
+  for (let context of contexts) {
+    console.log(context);
+  }
+}
+
+function onError(e) {
+  console.error(e);
+}
+
+browser.contextualIdentities.query({}).then(onGot, onError);

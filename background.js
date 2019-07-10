@@ -1,7 +1,6 @@
 
 function onGot(contexts) {
   var ids = []
-  console.log("CONTEXT")
   for (let context of contexts) {
     console.log(`Name: ${context.name}`);
     ids.push(context.name)
@@ -51,7 +50,6 @@ function isDroid() {
 
 if (!isDroid()) {
   chrome.windows.onCreated.addListener(themeWindow);
-  chrome.tabs.onActivated.addListener(themeWindow);
 }
 
 var titlepref = chrome.i18n.getMessage("titlePreface");
@@ -61,41 +59,47 @@ function themeWindow(window) {
   // Check if the window is in private browsing
   function logTabs(tabInfo) {
     console.log(tabInfo)
-    if (tabInfo[0].cookieStoreId == "i2pbrowser") {
-      console.log("Active in I2P window")
-      if (window.incognito) {
-        chrome.theme.update(window.id, {
-          colors: {
-            frame: "#2D4470",
-            toolbar: "#2D4470",
+    function onGot(context) {
+        if (context.name == "i2pbrowser") {
+          console.log("Active in I2P window")
+          if (window.incognito) {
+            chrome.theme.update(window.id, {
+              colors: {
+                frame: "#2D4470",
+                toolbar: "#2D4470",
+              }
+            });
+          } else {
+            chrome.theme.update(window.id, {
+              colors: {
+                frame: "#9DABD5",
+                toolbar: "#9DABD5",
+              }
+            });
           }
-        });
-      } else {
-        chrome.theme.update(window.id, {
-          colors: {
-            frame: "#9DABD5",
-            toolbar: "#9DABD5",
+        }else{
+          console.log("Not active in I2P window")
+          if (window.incognito) {
+            chrome.theme.update(window.id, {
+              colors: {
+                frame: undefined,
+                toolbar: undefined,
+              }
+            });
+          } else {
+            chrome.theme.update(window.id, {
+              colors: {
+                frame: undefined,
+                toolbar: undefined,
+              }
+            });
           }
-        });
-      }
-    }else{
-      console.log("Not active in I2P window")
-      if (window.incognito) {
-        chrome.theme.update(window.id, {
-          colors: {
-            frame: undefined,
-            toolbar: undefined,
-          }
-        });
-      } else {
-        chrome.theme.update(window.id, {
-          colors: {
-            frame: undefined,
-            toolbar: undefined,
-          }
-        });
-      }
+        }
     }
+    function onError(e) {
+      console.error(e);
+    }
+    browser.contextualIdentities.get(tabInfo[0].cookieStoreId).then(onGot, onError);
   }
   function onError(error) {
     console.log(`Error: ${error}`);
@@ -110,7 +114,10 @@ function themeWindow(window) {
 function setTitle(window) {
   function logTabs(tabInfo) {
     console.log(tabInfo)
-    if (tabInfo[0].cookieStoreId == "firefox-container-1") {
+    function onGot(context) {
+        if (context.name == "i2pbrowser") {
+          console.log("Active in I2P window")
+
       console.log("Active in I2P window")
       if (window.incognito) {
         chrome.windows.update(window.id, {
@@ -122,6 +129,11 @@ function setTitle(window) {
         });
       }
     }
+    }
+    function onError(e) {
+      console.error(e);
+    }
+    browser.contextualIdentities.get(tabInfo[0].cookieStoreId).then(onGot, onError);
   }
   function onError(error) {
     console.log(`Error: ${error}`);
@@ -138,12 +150,12 @@ function setTitleError(window) {
 }
 
 chrome.windows.onCreated.addListener(() => {
-  const gettingStoredSettings = chrome.storage.local.get();
+  var gettingStoredSettings = chrome.storage.local.get();
   gettingStoredSettings.then(setupProxy, onError);
 });
 
 chrome.tabs.onCreated.addListener(() => {
-  const getting = browser.windows.getCurrent({
+  var getting = browser.windows.getCurrent({
     populate: true
   });
   getting.then(setTitle, setTitleError);

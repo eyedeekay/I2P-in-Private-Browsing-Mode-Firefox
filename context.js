@@ -1,4 +1,5 @@
 
+//var windowIds = []
 
 function eventHandler(event) {
   if (event.target.dataset.action == 'create') {
@@ -14,7 +15,6 @@ function eventHandler(event) {
       console.log(`Error: ${error}`);
     }
     var creating = browser.windows.create({
-        //tabId: tab.id,
         cookieStoreId: event.target.dataset.identity
     });
     creating.then(onCreated, onError);
