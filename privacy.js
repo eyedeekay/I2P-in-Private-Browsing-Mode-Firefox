@@ -1,4 +1,22 @@
 
+var ua = "MYOB/6.66 (AN/ON)";
+
+function rewriteUserAgentHeader(e) {
+  for (var header of e.requestHeaders) {
+    if (header.name.toLowerCase() === "user-agent") {
+      header.value = ua;
+      console.log(header.value)
+    }
+  }
+  return {requestHeaders: e.requestHeaders};
+}
+
+browser.webRequest.onBeforeSendHeaders.addListener(
+  rewriteUserAgentHeader,
+  {urls: ["<all_urls>"]},
+  ["blocking", "requestHeaders"]
+);
+
 function getChrome() {
   if (chrome.runtime.getBrowserInfo == undefined) {
     return true

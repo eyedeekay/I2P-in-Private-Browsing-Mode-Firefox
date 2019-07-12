@@ -99,7 +99,8 @@ function themeWindow(window) {
     function onError(e) {
       console.error(e);
     }
-    browser.contextualIdentities.get(tabInfo[0].cookieStoreId).then(onGot, onError);
+    //if (tabInfo[0].cookieStoreId == "firefox-default")
+      browser.contextualIdentities.get(tabInfo[0].cookieStoreId).then(onGot, onError);
   }
   function onError(error) {
     console.log(`Error: ${error}`);
@@ -115,7 +116,7 @@ function setTitle(window) {
   function logTabs(tabInfo) {
     console.log(tabInfo)
     function onGot(context) {
-        if (context.name == "i2pbrowser") {
+      if (context.name == "i2pbrowser") {
           console.log("Active in I2P window")
 
       console.log("Active in I2P window")

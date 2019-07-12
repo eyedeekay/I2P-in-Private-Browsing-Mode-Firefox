@@ -156,6 +156,55 @@ function setupProxy() {
   }
 }
 
+function contextProxy(requestDetails) {
+  try {
+
+    function onGot(context) {
+      if (!context) {
+        console.error("Context not found");
+      } else {
+        var controlHost = getControlHost()
+        var controlPort = getControlPort();
+        var Host = getHost()
+        var Port = getPort()
+        var Scheme = getScheme()
+        if (context.name = "i2pbrowser") {
+          requestDetails.proxyInfo = {host:Host, port:Port, type:Scheme, proxyDns:true }
+          console.log("PROXY INFO", requestDetails);
+        }
+      }
+    }
+
+    function onError(e) {
+      console.error(e);
+    }
+
+    function tabGot(tab) {
+      if (!tab) {
+        console.error("Tab not found");
+      } else {
+        if (tab.cookieStoreId != "firefox-default")
+          browser.contextualIdentities.get(tab.cookieStoreId).then(onGot, onError);
+      }
+    }
+
+    function tabError(e) {
+      console.error(e);
+    }
+
+    browser.tabs.get(requestDetails.tabId).then(tabGot, tabError);
+
+  } catch (error) {
+    console.error(error);
+  }
+  console.log(requestDetails);
+}
+
+browser.webRequest.onBeforeRequest.addListener(
+  contextProxy,
+  {urls: ["<all_urls>"]}
+);
+
 function checkStoredSettings(storedSettings) {
   let defaultSettings = {};
   if (!storedSettings.proxy_scheme) {
