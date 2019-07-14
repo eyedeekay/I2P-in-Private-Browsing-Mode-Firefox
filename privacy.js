@@ -1,46 +1,27 @@
-
-var ua = "MYOB/6.66 (AN/ON)";
-
-function rewriteUserAgentHeader(e) {
-  for (var header of e.requestHeaders) {
-    if (header.name.toLowerCase() === "user-agent") {
-      header.value = ua;
-      console.log(header.value)
-    }
-  }
-  return {requestHeaders: e.requestHeaders};
-}
-
-browser.webRequest.onBeforeSendHeaders.addListener(
-  rewriteUserAgentHeader,
-  {urls: ["<all_urls>"]},
-  ["blocking", "requestHeaders"]
-);
-
 function getChrome() {
-  if (chrome.runtime.getBrowserInfo == undefined) {
-    return true
-  }
-  return false
+    if (chrome.runtime.getBrowserInfo == undefined) {
+        return true
+    }
+    return false
 }
 
 function onSet(result) {
-  if (result) {
-    console.log("->: Value was updated");
-  } else {
-    console.log("-X: Value was not updated");
-  }
+    if (result) {
+        console.log("->: Value was updated");
+    } else {
+        console.log("-X: Value was not updated");
+    }
 }
 
 // This disables queries to centralized databases of bad URLs to screen for
 // risky sites in your browser
 function disableHyperlinkAuditing() {
-    if (!getChrome()){
+    if (!getChrome()) {
         var setting = browser.privacy.websites.hyperlinkAuditingEnabled.set({
-          value: false
+            value: false
         });
         console.log("Disabling hyperlink auditing/val=", {
-          value: false
+            value: false
         })
         setting.then(onSet);
     }
@@ -50,10 +31,10 @@ function disableHyperlinkAuditing() {
 function enableFirstPartyIsolation() {
     if (!getChrome()) {
         var setting = browser.privacy.websites.firstPartyIsolate.set({
-          value: true
+            value: true
         });
         console.log("Enabling first party isolation/val=", {
-          value: true
+            value: true
         })
         setting.then(onSet);
     }
@@ -66,12 +47,18 @@ function disableEvilCookies() {
     if (!getChrome()) {
         var getting = browser.privacy.websites.cookieConfig.get({});
         getting.then((got) => {
-            var setting = browser.privacy.websites.cookieConfig.set(
-                {value: {behavior: "reject_third_party",
-                nonPersistentCookies: got.value.nonPersistentCookies}}
-            );
-            console.log("Setting cookie behavior/val=", {value: {behavior: "reject_third_party",
-                nonPersistentCookies: got.value.nonPersistentCookies}})
+            var setting = browser.privacy.websites.cookieConfig.set({
+                value: {
+                    behavior: "reject_third_party",
+                    nonPersistentCookies: got.value.nonPersistentCookies
+                }
+            });
+            console.log("Setting cookie behavior/val=", {
+                value: {
+                    behavior: "reject_third_party",
+                    nonPersistentCookies: got.value.nonPersistentCookies
+                }
+            })
             setting.then(onSet);
         });
     }
@@ -90,27 +77,27 @@ function disableEvilCookies() {
 
 // this disables the use of referrer headers
 function disableReferrers() {
-    if (!getChrome()){
-    var setting = browser.privacy.websites.referrersEnabled.set({
-      value: false
-    });
-    console.log("Disabling referrer headers/val=", {
-      value: false
-    })
-    setting.then(onSet);
+    if (!getChrome()) {
+        var setting = browser.privacy.websites.referrersEnabled.set({
+            value: false
+        });
+        console.log("Disabling referrer headers/val=", {
+            value: false
+        })
+        setting.then(onSet);
     }
 }
 
 // enable fingerprinting resistent features(letterboxing and stuff)
 function enableResistFingerprinting() {
-    if (!getChrome()){
-    var setting = browser.privacy.websites.referrersEnabled.set({
-      value: true
-    });
-    console.log("Enabling resist fingerprinting/val=", {
-      value: true
-    })
-    setting.then(onSet);
+    if (!getChrome()) {
+        var setting = browser.privacy.websites.referrersEnabled.set({
+            value: true
+        });
+        console.log("Enabling resist fingerprinting/val=", {
+            value: true
+        })
+        setting.then(onSet);
     }
 }
 
@@ -118,10 +105,10 @@ function enableResistFingerprinting() {
 function enableTrackingProtection() {
     if (!getChrome()) {
         var setting = browser.privacy.websites.trackingProtectionMode.set({
-          value: "always"
+            value: "always"
         });
         console.log("Enabling tracking protection/val=", {
-          value: "always"
+            value: "always"
         })
         setting.then(onSet);
     }
@@ -130,19 +117,19 @@ function enableTrackingProtection() {
 // This disables protected content, which is a form of digital restrictions
 // management dependent on identifying information
 function disableDigitalRestrictionsManagement() {
-    if (!getChrome()){
-    var gettingInfo = browser.runtime.getPlatformInfo();
-    gettingInfo.then((got) => {
-        if (got.os == "win") {
-            var setting = browser.privacy.websites.protectedContentEnabled.set({
-              value: false
-            });
-            console.log("Setting Protected Content(Digital Restrictions Management) false/val=", {
-              value: false
-            })
-            setting.then(onSet);
-        }
-    });
+    if (!getChrome()) {
+        var gettingInfo = browser.runtime.getPlatformInfo();
+        gettingInfo.then((got) => {
+            if (got.os == "win") {
+                var setting = browser.privacy.websites.protectedContentEnabled.set({
+                    value: false
+                });
+                console.log("Setting Protected Content(Digital Restrictions Management) false/val=", {
+                    value: false
+                })
+                setting.then(onSet);
+            }
+        });
     }
 }
 
@@ -158,33 +145,49 @@ function setAllPrivacy() {
 
 setAllPrivacy()
 
-function ResetPeerConnection(){
+function ResetPeerConnection() {
     if (!getChrome()) {
-        browser.privacy.network.peerConnectionEnabled.set({value: false});
-        browser.privacy.network.networkPredictionEnabled.set({value: false});
+        browser.privacy.network.peerConnectionEnabled.set({
+            value: false
+        });
+        browser.privacy.network.networkPredictionEnabled.set({
+            value: false
+        });
     }
-    chrome.privacy.network.webRTCIPHandlingPolicy.set({value: "disable_non_proxied_udp"});
+    chrome.privacy.network.webRTCIPHandlingPolicy.set({
+        value: "disable_non_proxied_udp"
+    });
     console.log("Re-disabled WebRTC")
 }
 
-function EnablePeerConnection(){
+function EnablePeerConnection() {
     if (!getChrome()) {
-        browser.privacy.network.peerConnectionEnabled.set({value: true});
-        browser.privacy.network.networkPredictionEnabled.set({value: false});
+        browser.privacy.network.peerConnectionEnabled.set({
+            value: true
+        });
+        browser.privacy.network.networkPredictionEnabled.set({
+            value: false
+        });
     }
-    chrome.privacy.network.webRTCIPHandlingPolicy.set({value: "disable_non_proxied_udp"});
+    chrome.privacy.network.webRTCIPHandlingPolicy.set({
+        value: "disable_non_proxied_udp"
+    });
     console.log("Enabled WebRTC")
 }
 
 ResetPeerConnection()
 
-function ResetDisableSavePasswords(){
-    browser.privacy.services.passwordSavingEnabled.set({value: false});
+function ResetDisableSavePasswords() {
+    browser.privacy.services.passwordSavingEnabled.set({
+        value: false
+    });
     console.log("Re-disabled saved passwords")
 }
 
-function EnableSavePasswords(){
-    browser.privacy.services.passwordSavingEnabled.set({value: true});
+function EnableSavePasswords() {
+    browser.privacy.services.passwordSavingEnabled.set({
+        value: true
+    });
     console.log("Enabled saved passwords")
 }
 
@@ -192,82 +195,90 @@ function EnableSavePasswords(){
 
 
 var defaultSettings = {
-  since: "forever",
-  dataTypes: ["history", "downloads", "cache", "cookies", "passwords", "pluginData", "formData", "serviceWorkers"]
+    since: "forever",
+    dataTypes: ["history", "downloads", "cache", "cookies", "passwords", "pluginData", "formData", "serviceWorkers"]
 };
 
 var appSettings = {
-  since: "forever",
-  dataTypes: [""]
+    since: "forever",
+    dataTypes: [""]
 };
 
 function onError(e) {
-  console.error(e);
+    console.error(e);
 }
 
 function checkStoredSettings(storedSettings) {
-  chrome.storage.local.set(appSettings);
+    chrome.storage.local.set(appSettings);
 }
 
-if (!getChrome()){
+if (!getChrome()) {
     const gettingStoredSettings = browser.storage.local.get();
     gettingStoredSettings.then(checkStoredSettings, onError);
 }
 
 function forgetBrowsingData(storedSettings) {
 
-  function getSince(selectedSince) {
-    if (selectedSince === "forever") {
-      return 0;
+    function getSince(selectedSince) {
+        if (selectedSince === "forever") {
+            return 0;
+        }
+
+        const times = {
+            hour: () => {
+                return 1000 * 60 * 60
+            },
+            day: () => {
+                return 1000 * 60 * 60 * 24
+            },
+            week: () => {
+                return 1000 * 60 * 60 * 24 * 7
+            }
+        }
+
+        const sinceMilliseconds = times[selectedSince].call();
+        return Date.now() - sinceMilliseconds;
     }
 
-    const times = {
-      hour: () => { return 1000 * 60 * 60 },
-      day: () => { return 1000 * 60 * 60 * 24 },
-      week: () => { return 1000 * 60 * 60 * 24 * 7}
+    function getTypes(selectedTypes) {
+        let dataTypes = {};
+        for (let item of selectedTypes) {
+            dataTypes[item] = true;
+        }
+        return dataTypes;
     }
 
-    const sinceMilliseconds = times[selectedSince].call();
-    return Date.now() - sinceMilliseconds;
-  }
+    const since = getSince(defaultSettings.since);
+    const dataTypes = getTypes(defaultSettings.dataTypes);
 
-  function getTypes(selectedTypes) {
-    let dataTypes = {};
-    for (let item of selectedTypes) {
-      dataTypes[item] = true;
+    function notify() {
+        let dataTypesString = Object.keys(dataTypes).join(", ");
+        let sinceString = new Date(since).toLocaleString();
+        browser.notifications.create({
+            "type": "basic",
+            "title": "Removed browsing data",
+            "message": `Removed ${dataTypesString}\nsince ${sinceString}`
+        });
     }
-    return dataTypes;
-  }
 
-  const since = getSince(defaultSettings.since);
-  const dataTypes = getTypes(defaultSettings.dataTypes);
+    browser.browsingData.remove({
+        since
+    }, dataTypes).then(notify);
 
-  function notify() {
-    let dataTypesString = Object.keys(dataTypes).join(", ");
-    let sinceString = new Date(since).toLocaleString();
-    browser.notifications.create({
-      "type": "basic",
-      "title": "Removed browsing data",
-      "message": `Removed ${dataTypesString}\nsince ${sinceString}`
-    });
-  }
-
-  browser.browsingData.remove({since}, dataTypes).then(notify);
-
-  setAllPrivacy()
-  ResetPeerConnection()
+    setAllPrivacy()
+    ResetPeerConnection()
 
 }
 
 
 function onGot(contexts) {
-  for (let context of contexts) {
-    console.log(context);
-  }
+    for (let context of contexts) {
+        console.log(context);
+    }
 }
 
 function onError(e) {
-  console.error(e);
+    console.error(e);
 }
 
 browser.contextualIdentities.query({}).then(onGot, onError);

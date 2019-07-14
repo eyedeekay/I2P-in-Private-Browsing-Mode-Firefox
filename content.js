@@ -15,4 +15,3 @@ newsMessage.textContent = chrome.i18n.getMessage("newsMessage");
 
 var clearData = document.getElementById("clear-browser-data")
 clearData.textContent = chrome.i18n.getMessage("clearData");
-
