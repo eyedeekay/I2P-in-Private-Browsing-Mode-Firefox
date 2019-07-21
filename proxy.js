@@ -50,9 +50,10 @@ function handleProxyRequest(requestInfo) {
     }
 }
 
+var proxyInfo = {}
+
 function handleContextProxyRequest(requestDetails) {
     console.log("Searching for context");
-    var proxyInfo = handleProxyRequest(requestDetails)
     try {
         function onGot(context) {
             if (!context) {
@@ -63,7 +64,7 @@ function handleContextProxyRequest(requestDetails) {
                 console.log("Found context", context.name);
                 if (context.name = "i2pbrowser") {
                     proxyInfo = handleProxyRequest(requestDetails)
-                    console.log("Using I2P proxy", proxyInfo);
+                    console.log("Using I2P proxy");
                     return proxyInfo
                 }
             }
@@ -88,8 +89,8 @@ function handleContextProxyRequest(requestDetails) {
     } catch (error) {
         console.error(error);
     }
-    console.log(proxyInfo);
-    return proxyInfo
+    console.log("Selected Proxy", proxyInfo);
+    //return proxyInfo
 }
 
 var proxy_scheme = "HTTP"
