@@ -25,7 +25,7 @@ uninstall:
 clobber:
 	rm -f ../i2psetproxy.js.zip ../i2p_proxy*.xpi
 
-VERSION=1.28-sp
+VERSION=1.27
 
 xpi:
 	mv ~/Downloads/i2p_proxy-$(VERSION)-an+fx.xpi ../i2psetproxy.js@eyedeekay.github.io.xpi
@@ -64,3 +64,8 @@ libpolyfill:
 
 fmt:
 	find . -name '*.js' -exec jsfmt -w {} \;
+
+deborig:
+	rm -rfv ../i2psetproxy.js-$(VERSION)
+	cp -rv . ../i2psetproxy.js-$(VERSION)
+	tar --exclude=.git -cvzf ../i2psetproxy.js-$(VERSION).tar.gz .
