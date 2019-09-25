@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: i2psetproxy.js
-Source: <url://example.com>
+Source: https://github.com/eyedeekay/i2psetproxy.js
 #
 # Please double check copyright with the licensecheck(1) command.
 
@@ -22,8 +22,8 @@ Files:     .gitignore
            options/options.js
            privacy.js
            proxy.js
-Copyright: __NO_COPYRIGHT_NOR_LICENSE__
-License:   __NO_COPYRIGHT_NOR_LICENSE__
+Copyright: MIT
+License:   MIT
 
 Files:     chromium/browser-polyfill.min.js
 Copyright: __NO_COPYRIGHT__ in: chromium/browser-polyfill.min.js
