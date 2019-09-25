@@ -1,0 +1,16 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: debian:stretch
+
+    steps:
+      - checkout
+
+      - run:
+          name: Dependencies
+          command: apt-get -yq install devscripts build-essential lintian zip make
+
+      - run:
+          name: Build
+          command: make zip deb
