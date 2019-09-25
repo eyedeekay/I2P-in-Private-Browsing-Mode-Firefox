@@ -1,0 +1,66 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: i2psetproxy.js
+Source: https://github.com/eyedeekay/i2psetproxy.js
+#
+# Please double check copyright with the licensecheck(1) command.
+
+Files:     .gitignore
+           Makefile
+           README.md
+           _locales/en/messages.json
+           background.js
+           content.js
+           experiments/i2ptab.md
+           experiments/tunblink.md
+           i2psetproxy.js.png
+           i2psetproxy.js@eyedeekay.github.io.xpi
+           icons/toopie.png
+           info.css
+           info.js
+           manifest.json
+           options/options.css
+           options/options.js
+           privacy.js
+           proxy.js
+Copyright: MIT
+License:   MIT
+
+Files:     chromium/browser-polyfill.min.js
+Copyright: __NO_COPYRIGHT__ in: chromium/browser-polyfill.min.js
+License:   MPL-2.0
+ This Source Code Form is subject to the terms of the Mozilla Public
+ License, v. 2.0. If a copy of the MPL was not distributed with this
+ file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+#----------------------------------------------------------------------------
+# xml and html files (skipped):
+#         window.html
+#         options/options.html
+
+#----------------------------------------------------------------------------
+# Files marked as NO_LICENSE_TEXT_FOUND may be covered by the following
+# license/copyright files.
+
+#----------------------------------------------------------------------------
+# License file: LICENSE
+ MIT License
+ .
+ Copyright (c) 2019 idk
+ .
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ .
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+ .
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.

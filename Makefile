@@ -1,31 +1,33 @@
+PREFIX:=/usr
+
 default: zip
 
 install: uninstall
-	mkdir -p /usr/share/webext/i2psetproxy.js@eyedeekay.github.io \
-		/usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/
-	cp -rv options /usr/share/webext/i2psetproxy.js@eyedeekay.github.io/options
-	cp -rv icons /usr/share/webext/i2psetproxy.js@eyedeekay.github.io/icons
-	cp -rv _locales /usr/share/webext/i2psetproxy.js@eyedeekay.github.io/_locales
-	cp background.js /usr/share/webext/i2psetproxy.js@eyedeekay.github.io
-	cp proxy.js /usr/share/webext/i2psetproxy.js@eyedeekay.github.io
-	cp info.js /usr/share/webext/i2psetproxy.js@eyedeekay.github.io
-	cp content.js /usr/share/webext/i2psetproxy.js@eyedeekay.github.io
-	cp info.css /usr/share/webext/i2psetproxy.js@eyedeekay.github.io
-	cp window.html /usr/share/webext/i2psetproxy.js@eyedeekay.github.io
-	cp manifest.json /usr/share/webext/i2psetproxy.js@eyedeekay.github.io/
-	cp README.md /usr/share/webext/i2psetproxy.js@eyedeekay.github.io
-	cp LICENSE /usr/share/webext/i2psetproxy.js@eyedeekay.github.io
-	ln -sf /usr/share/webext/i2psetproxy.js@eyedeekay.github.io \
-		/usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/i2psetproxy.js@eyedeekay.github.io
+	install -d $(PREFIX)/share/webext/i2psetproxy.js@eyedeekay.github.io \
+		$(PREFIX)/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/
+	install -d options $(PREFIX)/share/webext/i2psetproxy.js@eyedeekay.github.io/options
+	install -d icons $(PREFIX)/share/webext/i2psetproxy.js@eyedeekay.github.io/icons
+	install -d _locales $(PREFIX)/share/webext/i2psetproxy.js@eyedeekay.github.io/_locales
+	install background.js $(PREFIX)/share/webext/i2psetproxy.js@eyedeekay.github.io
+	install proxy.js $(PREFIX)/share/webext/i2psetproxy.js@eyedeekay.github.io
+	install info.js $(PREFIX)/share/webext/i2psetproxy.js@eyedeekay.github.io
+	install content.js $(PREFIX)/share/webext/i2psetproxy.js@eyedeekay.github.io
+	install info.css $(PREFIX)/share/webext/i2psetproxy.js@eyedeekay.github.io
+	install window.html $(PREFIX)/share/webext/i2psetproxy.js@eyedeekay.github.io
+	install manifest.json $(PREFIX)/share/webext/i2psetproxy.js@eyedeekay.github.io/
+	install README.md $(PREFIX)/share/webext/i2psetproxy.js@eyedeekay.github.io
+	install LICENSE $(PREFIX)/share/webext/i2psetproxy.js@eyedeekay.github.io
+	ln -sf $(PREFIX)/share/webext/i2psetproxy.js@eyedeekay.github.io \
+		$(PREFIX)/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/i2psetproxy.js@eyedeekay.github.io
 
 uninstall:
-	rm -rf /usr/share/webext/i2psetproxy.js@eyedeekay.github.io \
-		/usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/i2psetproxy.js@eyedeekay.github.io
+	rm -rf $(PREFIX)/share/webext/i2psetproxy.js@eyedeekay.github.io \
+		$(PREFIX)/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/i2psetproxy.js@eyedeekay.github.io
 
 clobber:
 	rm -f ../i2psetproxy.js.zip ../i2p_proxy*.xpi
 
-VERSION=1.28-sp
+VERSION=1.27
 
 xpi:
 	mv ~/Downloads/i2p_proxy-$(VERSION)-an+fx.xpi ../i2psetproxy.js@eyedeekay.github.io.xpi
@@ -45,7 +47,7 @@ profile-install:
 	cp ./i2psetproxy.js@eyedeekay.github.io.xpi $(HOME)/.mozilla/firefox/.firefox.profile.i2p.default/extensions
 
 to-profile:
-	 cp ./i2psetproxy.js@eyedeekay.github.io.xpi /usr/local/lib/firefox.profile.i2p/firefox.profile.i2p/extensions/
+	 cp ./i2psetproxy.js@eyedeekay.github.io.xpi $(PREFIX)/local/lib/firefox.profile.i2p/firefox.profile.i2p/extensions/
 
 pi: profile-install
 
@@ -63,4 +65,12 @@ libpolyfill:
 	wget -O chromium/browser-polyfill.min.js https://unpkg.com/webextension-polyfill/dist/browser-polyfill.min.js
 
 fmt:
-	find . -name '*.js' -exec js-beautify -r -f {} \;
+	find . -name '*.js' -exec jsfmt -w {} \;
+
+deborig:
+	rm -rfv ../i2psetproxy.js-$(VERSION)
+	cp -rv . ../i2psetproxy.js-$(VERSION)
+	tar --exclude='./.git' -cvzf ../i2psetproxy.js-$(VERSION).tar.gz .
+
+deb: deborig
+	cd ../i2psetproxy.js-$(VERSION) && debuild -us -uc -rfakeroot

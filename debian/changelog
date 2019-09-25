@@ -1,0 +1,6 @@
+i2psetproxy.js (1.27-1) UNRELEASED; urgency=low
+
+  * Initial release. Closes: #nnnn
+    <nnnn is the bug number of your ITP>
+
+ -- idk <hankhill19580@gmail.com>  Thu, 01 Aug 2019 00:32:39 -0400
