@@ -19,6 +19,13 @@
     "tabs",
     "<all_urls>"
   ],
+  "protocol_handlers": [
+    {
+      "protocol": "rc",
+      "name": "I2P Router Console",
+      "uriTemplate": "http://localhost:7657/%s"
+    }
+  ],
   "manifest_version": 2,
   "name": "__MSG_extensionName__",
   "version": "1.27",
