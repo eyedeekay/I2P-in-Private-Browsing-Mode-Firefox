@@ -58,6 +58,7 @@ release:
 
 upload:
 	gothub upload -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n "i2psetproxy.js@eyedeekay.github.io.xpi" -f "../i2psetproxy.js@eyedeekay.github.io.xpi"
+	gothub upload -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n "i2psetproxy.js_$(VERSION)-1_amd64.deb" -f "../i2psetproxy.js_$(VERSION)-1_amd64.deb"
 
 lib: libpolyfill
 
