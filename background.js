@@ -23,31 +23,8 @@ function onGot(contexts) {
 function onError(e) {
     console.error(e);
 }
+
 browser.contextualIdentities.query({}).then(onGot, onError);
-
-
-function getChrome() {
-    if (browser.runtime.getBrowserInfo == undefined) {
-        return true
-    }
-    return false
-}
-
-function isDroid() {
-    if (!getChrome()) {
-        var gettingInfo = browser.runtime.getPlatformInfo();
-        gettingInfo.then((got) => {
-            if (got.os == "android") {
-                console.log("android detected")
-                return true
-            } else {
-                console.log("desktop detected")
-                return false
-            }
-        });
-    }
-    return false
-}
 
 if (!isDroid()) {
     chrome.windows.onCreated.addListener(themeWindow);
@@ -154,10 +131,6 @@ function setTitle(window) {
     querying.then(logTabs, onError);
 }
 
-function setTitleError(window) {
-    alert("plugin error setting title on", window.id)
-}
-
 chrome.windows.onCreated.addListener(() => {
     //var gettingStoredSettings = chrome.storage.local.get();
     //gettingStoredSettings.then(setupProxy, onError);
@@ -170,5 +143,5 @@ chrome.tabs.onCreated.addListener(() => {
     var getting = browser.windows.getCurrent({
         populate: true
     });
-    getting.then(setTitle, setTitleError);
+    getting.then(setTitle, onError);
 });
