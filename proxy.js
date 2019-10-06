@@ -47,7 +47,7 @@ var onError = function(e) {
 }
 
 var handleContextProxyRequest = async function(requestDetails) {
-    console.log("Searching for proxy by context");
+    console.log("(proxy)Searching for proxy by context");
     try {
         var handleProxyRequest = function(context) {
             proxy = {
@@ -61,38 +61,38 @@ var handleContextProxyRequest = async function(requestDetails) {
                     host: getHost(),
                     port: getPort(),
                 }
-                console.log("Using", proxy.type, "proxy ", proxy.host + ":" + proxy.port);
+                console.log("(proxy)Using", proxy.type, "proxy ", proxy.host + ":" + proxy.port);
                 return proxy
             }
             return proxy
         }
         var contextGet = async function(tabInfo){
             try {
-                console.log("Tab info from Function", tabInfo)
+                console.log("(proxy)Tab info from Function", tabInfo)
                 context = await browser.contextualIdentities.get(tabInfo.cookieStoreId)
                 return context
             } catch(error) {
-                console.log("Conext Error", error)
+                console.log("(proxy)Conext Error", error)
             }
         }
         var tabGet = async function(tabId) {
             try {
-                console.log("Tab ID from Request", tabId)
+                console.log("(proxy)Tab ID from Request", tabId)
                 let tabInfo = await browser.tabs.get(tabId)
                 return tabInfo
             }catch(error){
-                console.log("Tab error", error)
+                console.log("(proxy)Tab error", error)
             }
         }
         if (requestDetails.tabId > 0) {
             var tab = tabGet(requestDetails.tabId)
             var context = tab.then(contextGet)
             var proxy = await context.then(handleProxyRequest)
-            console.log("Returning I2P Proxy", proxy)
+            console.log("(proxy)Returning I2P Proxy", proxy)
             return proxy
         }
     } catch (error) {
-        console.log("Not using I2P Proxy.", error);
+        console.log("(proxy)Not using I2P Proxy.", error);
     }
 }
 
@@ -184,56 +184,6 @@ function setupProxy() {
         }, function() {});
     }
 }
-
-function contextScrub(requestDetails) {
-    try {
-        function onGot(context) {
-            if (!context) {
-                console.error("Context not found");
-            } else {
-                if (context.name = "i2pbrowser") {
-                    var ua = "MYOB/6.66 (AN/ON)";
-                    for (var header of requestDetails.requestHeaders) {
-                        if (header.name.toLowerCase() === "user-agent") {
-                            header.value = ua;
-                            console.log(header.value)
-                        }
-                    }
-                    return {
-                        requestHeaders: requestDetails.requestHeaders
-                    };
-                }
-            }
-        }
-
-        function onError(e) {
-            console.error(e);
-        }
-
-        function tabGot(tab) {
-            if (!tab) {
-                console.error("Tab not found");
-            } else {
-                if (tab.cookieStoreId != "firefox-default")
-                    browser.contextualIdentities.get(tab.cookieStoreId).then(onGot, onError);
-            }
-        }
-
-        function tabError(e) {
-            console.error(e);
-        }
-        browser.tabs.get(requestDetails.tabId).then(tabGot, tabError);
-    } catch (error) {
-        console.error(error);
-    }
-    console.log(requestDetails);
-}
-
-/*browser.webRequest.onBeforeSendHeaders.addListener(
-  contextScrub,
-  {urls: ["<all_urls>"]},
-  ["blocking", "requestHeaders"]
-);*/
 
 function checkStoredSettings(storedSettings) {
     let defaultSettings = {};
