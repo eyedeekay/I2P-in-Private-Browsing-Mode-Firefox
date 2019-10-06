@@ -66,7 +66,7 @@ libpolyfill:
 	wget -O chromium/browser-polyfill.min.js https://unpkg.com/webextension-polyfill/dist/browser-polyfill.min.js
 
 fmt:
-	find . -path ./node_modules -prune -o -name '*.js' -exec jsfmt -w {} \;
+	find . -path ./node_modules -prune -o -name '*.js' -exec prettier --write {} \;
 
 deborig:
 	rm -rfv ../i2psetproxy.js-$(VERSION)
