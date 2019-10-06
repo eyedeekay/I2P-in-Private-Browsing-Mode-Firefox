@@ -40,57 +40,60 @@ function shouldProxyRequest(requestInfo) {
     return requestInfo.parentFrameId != -1;
 }
 
-function handleProxyRequest(requestInfo) {
-    return {
-        failoverTimeout: -1,
-        type: getScheme(),
-        host: getHost(),
-        port: getPort(),
-        proxyDns: true
-    }
+
+
+var onError = function(e) {
+    console.error(e);
 }
 
-var proxyInfo = {}
-
-function handleContextProxyRequest(requestDetails) {
-    console.log("Searching for context");
+var handleContextProxyRequest = async function(requestDetails) {
+    console.log("Searching for proxy by context");
     try {
-        function onGot(context) {
-            if (!context) {
-                console.error("Context not found");
-                proxyInfo = {}
-                return
-            } else {
-                console.log("Found context", context.name);
-                if (context.name = "i2pbrowser") {
-                    proxyInfo = handleProxyRequest(requestDetails)
-                    console.log("Using I2P proxy");
-                    return proxyInfo
+        var handleProxyRequest = function(context) {
+            proxy = {
+                failoverTimeout: 0,
+                type: "direct",
+                proxyDns: false
+            }
+            if (context.name == "i2pbrowser") {
+                proxy = {
+                    type: getScheme(),
+                    host: getHost(),
+                    port: getPort(),
                 }
+                console.log("Using", proxy.type, "proxy ", proxy.host + ":" + proxy.port);
+                return proxy
+            }
+            return proxy
+        }
+        var contextGet = async function(tabInfo){
+            try {
+                console.log("Tab info from Function", tabInfo)
+                context = await browser.contextualIdentities.get(tabInfo.cookieStoreId)
+                return context
+            } catch(error) {
+                console.log("Conext Error", error)
             }
         }
-        function onError(e) {
-            console.error(e);
-        }
-        function tabGot(tab) {
-            if (!tab) {
-                console.error("Tab not found");
-            } else {
-                console.log("Found cookieStoreId", tab.cookieStoreId);
-                if (tab.cookieStoreId != "firefox-default")
-                    browser.contextualIdentities.get(tab.cookieStoreId).then(onGot, onError);
+        var tabGet = async function(tabId) {
+            try {
+                console.log("Tab ID from Request", tabId)
+                let tabInfo = await browser.tabs.get(tabId)
+                return tabInfo
+            }catch(error){
+                console.log("Tab error", error)
             }
         }
-        function tabError(e) {
-            console.error(e);
+        if (requestDetails.tabId > 0) {
+            var tab = tabGet(requestDetails.tabId)
+            var context = tab.then(contextGet)
+            var proxy = await context.then(handleProxyRequest)
+            console.log("Returning I2P Proxy", proxy)
+            return proxy
         }
-        if (requestDetails.tabId > 0)
-            browser.tabs.get(requestDetails.tabId).then(tabGot, tabError);
     } catch (error) {
-        console.error(error);
+        console.log("Not using I2P Proxy.", error);
     }
-    console.log("Selected Proxy", proxyInfo);
-    //return proxyInfo
 }
 
 var proxy_scheme = "HTTP"

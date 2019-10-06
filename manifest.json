@@ -19,13 +19,6 @@
     "tabs",
     "<all_urls>"
   ],
-  "protocol_handlers": [
-    {
-      "protocol": "rc",
-      "name": "I2P Router Console",
-      "uriTemplate": "http://localhost:7657/%s"
-    }
-  ],
   "manifest_version": 2,
   "name": "__MSG_extensionName__",
   "version": "1.27",
@@ -46,6 +39,11 @@
   "background": {
     "scripts": ["chromium/browser-polyfill.min.js", "background.js", "proxy.js", "info.js", "privacy.js" ]
   },
+  "protocol_handlers": [{
+    "protocol": "web+rc",
+    "name": "RouterConsole",
+    "uriTemplate": "http://router.console/?%s"
+  }],
   "default_locale": "en"
 }
 
