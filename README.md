@@ -8,6 +8,13 @@ fingerprinting/de-anonymization vectors on it's own. It is also the easiest way
 to configure an I2P browser on Android without requiring the user to root their
 device.
 
+The Old Version
+---------------
+
+New versions of this extension create an I2P in Private Browsing mode instead.
+Since this is a drastic change to the behavior of the old plugin, a new entry
+for the new plugin has been made at a new location on addons.mozilla.org.
+
 Android usage:
 --------------
 
@@ -29,6 +36,7 @@ submission to AMO.
 
 ### Features
 
+  * [done] **Provide** a way to launch into an I2P-Specific contextual identity/profile
   * [done] **Indicate** the I2P browser is in use visually
   * [done] **Set** the http proxy to use the local I2P proxy
   * [done] **Disable** risky webRTC features
@@ -36,6 +44,11 @@ submission to AMO.
   * [done-ish] **Reset** the HTTP Proxy tunnel to generate a new destination on-demand
    * it does this by working in conjunction with this [standalone HTTP proxy](https://github.com/eyedeekay/httptunnel), currently disabled*
   * [ready] **Provide** help in a variety of languages.
+  * [wip] **Monitor** the health and readiness of the I2P router it is
+   instructed to use.
+  * [wip] **Handle** router console applications under their own origins and
+   within their own contextual identity.
+
 
 ### Screenshot
 

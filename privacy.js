@@ -228,6 +228,8 @@ if (!getChrome()) {
   gettingStoredSettings.then(checkStoredSettings, onError);
 }
 
+function clearCookiesContext(cookieStoreId) {}
+
 function forgetBrowsingData(storedSettings) {
   function getSince(selectedSince) {
     if (selectedSince === "forever") {
@@ -294,4 +296,4 @@ function onError(e) {
   console.error(e);
 }
 
-browser.contextualIdentities.query({}).then(onGot, onError);
+//browser.contextualIdentities.query("i2pbrowser").then(clearCookiesContext, onError);

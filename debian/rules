@@ -4,19 +4,17 @@
 	dh $@
 
 override_dh_auto_install:
-	install -d $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2psetproxy.js@eyedeekay.github.io \
-		$$(pwd)/debian/i2psetproxy.js/usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/
-	install -d options $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2psetproxy.js@eyedeekay.github.io/options
-	install -d icons $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2psetproxy.js@eyedeekay.github.io/icons
-	install -d _locales $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2psetproxy.js@eyedeekay.github.io/_locales
-	install background.js $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2psetproxy.js@eyedeekay.github.io
-	install proxy.js $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2psetproxy.js@eyedeekay.github.io
-	install info.js $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2psetproxy.js@eyedeekay.github.io
-	install content.js $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2psetproxy.js@eyedeekay.github.io
-	install info.css $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2psetproxy.js@eyedeekay.github.io
-	install window.html $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2psetproxy.js@eyedeekay.github.io
-	install manifest.json $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2psetproxy.js@eyedeekay.github.io/
-	install README.md $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2psetproxy.js@eyedeekay.github.io
-	install LICENSE $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2psetproxy.js@eyedeekay.github.io
+	mkdir -p $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2psetproxy.js@eyedeekay.github.io \
+		$$(pwd)/debian/i2psetproxy.js/usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}
+	cp -r ./chromium/ $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2psetproxy.js@eyedeekay.github.io/
+	cp -r ./icons/ $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2psetproxy.js@eyedeekay.github.io/
+	cp -r ./options/ $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2psetproxy.js@eyedeekay.github.io/
+	cp -r ./_locales/ $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2psetproxy.js@eyedeekay.github.io/
+	cp ./*.js $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2psetproxy.js@eyedeekay.github.io/
+	cp ./*.html $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2psetproxy.js@eyedeekay.github.io/
+	cp ./*.css $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2psetproxy.js@eyedeekay.github.io/
+	cp ./*.md $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2psetproxy.js@eyedeekay.github.io/
+	cp ./manifest.json $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2psetproxy.js@eyedeekay.github.io/
+	cp ./LICENSE $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2psetproxy.js@eyedeekay.github.io/
 	ln -sf $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2psetproxy.js@eyedeekay.github.io \
-		$$(pwd)/debian/i2psetproxy.js/usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/i2psetproxy.js@eyedeekay.github.io
+		$$(pwd)/debian/i2psetproxy.js/usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}

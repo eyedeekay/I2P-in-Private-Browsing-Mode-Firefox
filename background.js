@@ -4,7 +4,7 @@ function onGot(contexts) {
     console.log(`Name: ${context.name}`);
     ids.push(context.name);
   }
-  console.log("Checking new contexts")
+  console.log("Checking new contexts");
   if (ids.indexOf("i2pbrowser") == -1) {
     function onCreated(context) {
       console.log(`New identity's ID: ${context.cookieStoreId}.`);
@@ -47,6 +47,7 @@ browser.contextualIdentities.query({}).then(onGot, onError);
 
 if (!isDroid()) {
   chrome.windows.onCreated.addListener(themeWindow);
+  chrome.tabs.onUpdated.addListener(themeWindow);
 }
 
 var titlepref = chrome.i18n.getMessage("titlePreface");
