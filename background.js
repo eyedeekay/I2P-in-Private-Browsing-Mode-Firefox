@@ -4,6 +4,7 @@ function onGot(contexts) {
     console.log(`Name: ${context.name}`);
     ids.push(context.name);
   }
+  console.log("Checking new contexts")
   if (ids.indexOf("i2pbrowser") == -1) {
     function onCreated(context) {
       console.log(`New identity's ID: ${context.cookieStoreId}.`);
@@ -17,6 +18,22 @@ function onGot(contexts) {
         name: "i2pbrowser",
         color: "purple",
         icon: "fingerprint"
+      })
+      .then(onCreated, onError);
+  }
+  if (ids.indexOf("routerconsole") == -1) {
+    function onCreated(context) {
+      console.log(`New identity's ID: ${context.cookieStoreId}.`);
+    }
+
+    function onError(e) {
+      console.error(e);
+    }
+    browser.contextualIdentities
+      .create({
+        name: "routerconsole",
+        color: "turquoise",
+        icon: "briefcase"
       })
       .then(onCreated, onError);
   }

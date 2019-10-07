@@ -90,10 +90,13 @@ function getScheme() {
   return proxy_scheme;
 }
 
+/*
 var proxy_host = "127.0.0.1";
 var proxy_port = "4444";
 var control_host = "127.0.0.1";
 var control_port = "4444";
+*/
+
 
 function getHost() {
   if (proxy_host == undefined) {

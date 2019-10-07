@@ -37,7 +37,15 @@
     "page": "options/options.html"
   },
   "background": {
-    "scripts": ["chromium/browser-polyfill.min.js", "platform.js", "background.js", "proxy.js", "info.js", "privacy.js", "scrub.js" ]
+    "scripts": [
+      "chromium/browser-polyfill.js",
+      "privacy.js",
+      "platform.js",
+      "background.js",
+      "proxy.js",
+      "info.js",
+      "scrub.js"
+    ]
   },
   "protocol_handlers": [{
     "protocol": "web+rc",

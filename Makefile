@@ -63,7 +63,7 @@ upload:
 lib: libpolyfill
 
 libpolyfill:
-	wget -O chromium/browser-polyfill.min.js https://unpkg.com/webextension-polyfill/dist/browser-polyfill.min.js
+	wget -O chromium/browser-polyfill.js https://unpkg.com/webextension-polyfill/dist/browser-polyfill.js
 
 fmt:
 	find . -path ./node_modules -prune -o -name '*.js' -exec prettier --write {} \;
@@ -71,7 +71,7 @@ fmt:
 deborig:
 	rm -rfv ../i2psetproxy.js-$(VERSION)
 	cp -rv . ../i2psetproxy.js-$(VERSION)
-	tar --exclude='./.git' -cvzf ../i2psetproxy.js-$(VERSION).tar.gz .
+	tar --exclude='./.git' --exclude="./node_modules" -cvzf ../i2psetproxy.js-$(VERSION).tar.gz .
 
 deb: deborig
 	cd ../i2psetproxy.js-$(VERSION) && debuild -us -uc -rfakeroot
