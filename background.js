@@ -78,31 +78,17 @@ function themeWindow(window) {
         }
       } else {
         console.log("Not active in I2P window");
-        if (window.incognito) {
-          chrome.theme.update(window.id, {
-            colors: {
-              frame: undefined,
-              toolbar: undefined
-            }
-          });
-        } else {
-          chrome.theme.update(window.id, {
-            colors: {
-              frame: undefined,
-              toolbar: undefined
-            }
-          });
-        }
+        chrome.theme.reset(window.id);
       }
     }
 
     function onError(e) {
       console.error(e);
     }
-    if (tabInfo[0].cookieStoreId != "firefox-default")
-      browser.contextualIdentities
-        .get(tabInfo[0].cookieStoreId)
-        .then(onGot, onError);
+    //if (tabInfo[0].cookieStoreId != "firefox-default")
+    browser.contextualIdentities
+      .get(tabInfo[0].cookieStoreId)
+      .then(onGot, onError);
   }
 
   function onError(error) {

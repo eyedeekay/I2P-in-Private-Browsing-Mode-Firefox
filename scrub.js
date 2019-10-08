@@ -30,8 +30,10 @@ var contextScrub = async function(requestDetails) {
     };
     var tabFind = async function(tabId) {
       try {
-        context = await browser.contextualIdentities.query({name:"i2pbrowser"});
-        tabId.cookieStoreId = context[0].cookieStoreId
+        context = await browser.contextualIdentities.query({
+          name: "i2pbrowser"
+        });
+        tabId.cookieStoreId = context[0].cookieStoreId;
         console.log("(scrub) forcing context", tabId.cookieStoreId);
         return tabId;
       } catch (error) {
@@ -52,7 +54,7 @@ var contextScrub = async function(requestDetails) {
         console.log("(Proxy)I2P URL detected, ");
         var tab = tabGet(requestDetails.tabId);
         var mtab = tab.then(tabFind);
-        requestDetails.tabId = mtab
+        requestDetails.tabId = mtab;
         var context = mtab.then(contextGet);
         var req = await context.then(headerScrub);
         console.log("(scrub)Scrubbing I2P Request", req);
@@ -61,7 +63,7 @@ var contextScrub = async function(requestDetails) {
         console.log("(Proxy)I2P URL detected, ");
         var tab = tabGet(requestDetails.tabId);
         var mtab = tab.then(tabFind);
-        requestDetails.tabId = mtab
+        requestDetails.tabId = mtab;
         var context = mtab.then(contextGet);
         var req = await context.then(headerScrub);
         console.log("(scrub)Scrubbing I2P Request", req);
@@ -70,7 +72,7 @@ var contextScrub = async function(requestDetails) {
         console.log("(Proxy)I2P URL detected, ");
         var tab = tabGet(requestDetails.tabId);
         var mtab = tab.then(tabFind);
-        requestDetails.tabId = mtab
+        requestDetails.tabId = mtab;
         var context = mtab.then(contextGet);
         var req = await context.then(headerScrub);
         console.log("(scrub)Scrubbing I2P Request", req);
@@ -93,22 +95,36 @@ var contextSetup = async function(requestDetails) {
   try {
     var tabFind = async function(tabId) {
       try {
-        context = await browser.contextualIdentities.query({name:"i2pbrowser"});
+        context = await browser.contextualIdentities.query({
+          name: "i2pbrowser"
+        });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
-          console.log("(isolate) forcing", requestDetails.url, " context", tabId.cookieStoreId, context[0].cookieStoreId);
-          created = browser.tabs.create({
-            active: true,
-            cookieStoreId: context[0].cookieStoreId,
-            url: requestDetails.url,
-          });
-          function onCreated(tab) {
-            console.log("(isolate) Closing old, un-isolated tab")
-            browser.tabs.remove(tabId.id)
+          console.log(
+            "(isolate) forcing",
+            requestDetails.url,
+            " context",
+            tabId.cookieStoreId,
+            context[0].cookieStoreId
+          );
+          function Create(window) {
+            function onCreated(tab) {
+              console.log("(isolate) Closing old, un-isolated tab");
+              browser.tabs.remove(tabId.id);
+              browser.tabs.remove(window.tabs[0].id)
+            }
+            function onError(error) {
+              console.log(`Error: ${error}`);
+            }
+            created = browser.tabs.create({
+              active: true,
+              cookieStoreId: context[0].cookieStoreId,
+              url: requestDetails.url,
+              windowId: window.id
+            });
+            created.then(onCreated, onError);
           }
-          function onError(error) {
-            console.log(`Error: ${error}`);
-          }
-          created.then(onCreated, onError)
+          getting = browser.windows.create();
+          getting.then(Create);
           return tabId;
         }
       } catch (error) {
@@ -140,7 +156,10 @@ var contextSetup = async function(requestDetails) {
       }
     }
   } catch (error) {
-    console.log("(isolate)Not an I2P request, no need to force into alternate cookiestore.", error);
+    console.log(
+      "(isolate)Not an I2P request, no need to force into alternate cookiestore.",
+      error
+    );
   }
 };
 

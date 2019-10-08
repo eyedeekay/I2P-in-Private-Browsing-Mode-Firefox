@@ -52,8 +52,10 @@ var handleContextProxyRequest = async function(requestDetails) {
     };
     var tabFind = async function(tabId) {
       try {
-        context = await browser.contextualIdentities.query({name:"i2pbrowser"});
-        tabId.cookieStoreId = context[0].cookieStoreId
+        context = await browser.contextualIdentities.query({
+          name: "i2pbrowser"
+        });
+        tabId.cookieStoreId = context[0].cookieStoreId;
         console.log("(proxy) forcing context", tabId.cookieStoreId);
         return tabId;
       } catch (error) {
