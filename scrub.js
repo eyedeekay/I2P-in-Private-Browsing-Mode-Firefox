@@ -50,25 +50,7 @@ var contextScrub = async function(requestDetails) {
       }
     };
     if (requestDetails.tabId > 0) {
-      if (requestDetails.url.endsWith(".i2p")) {
-        console.log("(Proxy)I2P URL detected, ");
-        var tab = tabGet(requestDetails.tabId);
-        var mtab = tab.then(tabFind);
-        requestDetails.tabId = mtab;
-        var context = mtab.then(contextGet);
-        var req = await context.then(headerScrub);
-        console.log("(scrub)Scrubbing I2P Request", req);
-        return req;
-      } else if (requestDetails.url.endsWith(".b32.i2p")) {
-        console.log("(Proxy)I2P URL detected, ");
-        var tab = tabGet(requestDetails.tabId);
-        var mtab = tab.then(tabFind);
-        requestDetails.tabId = mtab;
-        var context = mtab.then(contextGet);
-        var req = await context.then(headerScrub);
-        console.log("(scrub)Scrubbing I2P Request", req);
-        return req;
-      } else if (requestDetails.url.includes(".i2p/")) {
+      if (i2pHost(requestDetails.url)) {
         console.log("(Proxy)I2P URL detected, ");
         var tab = tabGet(requestDetails.tabId);
         var mtab = tab.then(tabFind);
@@ -110,7 +92,45 @@ var contextSetup = async function(requestDetails) {
             function onCreated(tab) {
               console.log("(isolate) Closing old, un-isolated tab");
               browser.tabs.remove(tabId.id);
-              browser.tabs.remove(window.tabs[0].id)
+              browser.tabs.remove(window.tabs[0].id);
+            }
+            function onError(error) {
+              console.log(`Error: ${error}`);
+            }
+            created = browser.tabs.create({
+              active: true,
+              cookieStoreId: context[0].cookieStoreId,
+              url: requestDetails.url,
+              windowId: window.id
+            });
+            created.then(onCreated, onError);
+          }
+          getting = browser.windows.create();
+          getting.then(Create);
+          return tabId;
+        }
+      } catch (error) {
+        console.log("(isolate)Context Error", error);
+      }
+    };
+    var routerTabFind = async function(tabId) {
+      try {
+        context = await browser.contextualIdentities.query({
+          name: "routerconsole"
+        });
+        if (tabId.cookieStoreId != context[0].cookieStoreId) {
+          console.log(
+            "(isolate) forcing",
+            requestDetails.url,
+            " context",
+            tabId.cookieStoreId,
+            context[0].cookieStoreId
+          );
+          function Create(window) {
+            function onCreated(tab) {
+              console.log("(isolate) Closing old, un-isolated tab");
+              browser.tabs.remove(tabId.id);
+              browser.tabs.remove(window.tabs[0].id);
             }
             function onError(error) {
               console.log(`Error: ${error}`);
@@ -141,17 +161,14 @@ var contextSetup = async function(requestDetails) {
       }
     };
     if (requestDetails.tabId > 0) {
-      if (requestDetails.url.endsWith(".i2p")) {
+      if (i2pHost(requestDetails.url)) {
         var tab = tabGet(requestDetails.tabId);
         var mtab = tab.then(tabFind);
         return requestDetails;
-      } else if (requestDetails.url.endsWith(".b32.i2p")) {
+      }
+      if (routerHost(requestDetails.url)) {
         var tab = tabGet(requestDetails.tabId);
-        var mtab = tab.then(tabFind);
-        return requestDetails;
-      } else if (requestDetails.url.includes(".i2p/")) {
-        var tab = tabGet(requestDetails.tabId);
-        var mtab = tab.then(tabFind);
+        var mtab = tab.then(routerTabFind);
         return requestDetails;
       }
     }
@@ -162,6 +179,31 @@ var contextSetup = async function(requestDetails) {
     );
   }
 };
+
+function i2pHost(url) {
+  let hostname = "";
+  if (url.indexOf("://") > -1) {
+    hostname = url.split("/")[2];
+  } else {
+    hostname = url.split("/")[0];
+  }
+  return hostname.endsWith(".i2p");
+}
+
+function routerHost(url) {
+  let hostname = "";
+  if (url.indexOf("://") > -1) {
+    hostname = url.split("/")[2];
+  } else {
+    hostname = url.split("/")[0];
+  }
+  if (hostname === "127.0.0.1:7657") {
+    return true;
+  } else if (hostname === "localhost:7657") {
+    return true;
+  }
+  return false;
+}
 
 browser.webRequest.onBeforeRequest.addListener(
   contextSetup,

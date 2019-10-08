@@ -55,8 +55,8 @@ var titlepref = chrome.i18n.getMessage("titlePreface");
 var titleprefpriv = chrome.i18n.getMessage("titlePrefacePrivate");
 
 function themeWindowByTab(tab) {
-    getwindow = browser.windows.get(tab.windowId)
-    getwindow.then(themeWindow)
+  getwindow = browser.windows.get(tab.windowId);
+  getwindow.then(themeWindow);
 }
 
 function themeWindow(window) {
@@ -82,6 +82,23 @@ function themeWindow(window) {
             }
           });
         }
+      } else if (context.name == "routerconsole") {
+        console.log("Active in I2P window");
+        if (window.incognito) {
+          chrome.theme.update(window.id, {
+            colors: {
+              frame: "#00CED1",
+              toolbar: "#00CED1"
+            }
+          });
+        } else {
+          chrome.theme.update(window.id, {
+            colors: {
+              frame: "#40E0D0",
+              toolbar: "#40E0D0"
+            }
+          });
+        }
       } else {
         console.log("Not active in I2P window");
       }
@@ -92,10 +109,10 @@ function themeWindow(window) {
     }
     if (tabInfo[0].cookieStoreId != "firefox-default") {
       browser.contextualIdentities
-      .get(tabInfo[0].cookieStoreId)
-      .then(onGot, onError);
-    }else{
-        chrome.theme.reset(window.id);
+        .get(tabInfo[0].cookieStoreId)
+        .then(onGot, onError);
+    } else {
+      chrome.theme.reset(window.id);
     }
   }
 

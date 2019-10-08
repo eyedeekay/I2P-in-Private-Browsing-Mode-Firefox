@@ -31,12 +31,16 @@ ls:
 clean:
 	rm -f ../i2psetproxy.js.zip ../i2p_proxy*.xpi
 
-VERSION=0.31
+## EVEN RELEASES are AMO RELEASES
+## ODD RELEASES are SELFHOSTED RELEASES
+
+MOZ_VERSION=0.30
+VERSION=0.30
 #VERSION=1.27
 
 xpi:
-	wget -O i2ppb@eyedeekay.github.io.xpi \
-		https://addons.mozilla.org/firefox/downloads/file/3420119/i2p_in_private_browsing-$(VERSION)-an+fx.xpi
+	wget -O ../i2ppb@eyedeekay.github.io.xpi \
+		https://addons.mozilla.org/firefox/downloads/file/3419789/i2psetproxyjs-$(MOZ_VERSION)-an+fx.xpi
 	cp ../i2ppb@eyedeekay.github.io.xpi ./i2ppb@eyedeekay.github.io.xpi
 
 version:
@@ -47,26 +51,18 @@ zip: version
 		--exclude="./i2psetproxy.js.png" \
 		--exclude="./.git" -r -FS ../i2psetproxy.js.zip *
 
-
-define DESC
-I2P in Private Browsing Mode
-============================
-
-A simple plugin for configuring a Firefox based web browser to isolate I2P
-Browsing to a single contextual identity, thus creating an I2P in Private
-Browsing mode. It requires the use of a pre-installed I2P Router.
-
-endef
-
-export DESC
-
 release:
-	gothub release -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n $(VERSION) -d $(DESC)
+	cat desc | gothub release -p -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n $(VERSION) -d -
+
+delete-release:
+	gothub delete -u eyedeekay -r i2psetproxy.js -t $(VERSION); true
+
+recreate-release: delete-release release upload
 
 upload: upload-xpi upload-deb
 
 upload-xpi:
-	gothub upload -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n "i2ppb@eyedeekay.github.io.xpi" -f "../i2ppb@eyedeekay.github.io.xpi"
+	gothub upload -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n "i2ppb@eyedeekay.github.io.xpi" -f "./i2ppb@eyedeekay.github.io.xpi"
 
 upload-deb:
 	gothub upload -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n "i2psetproxy.js_$(VERSION)-1_amd64.deb" -f "../i2psetproxy.js_$(VERSION)-1_amd64.deb"
