@@ -47,11 +47,17 @@ browser.contextualIdentities.query({}).then(onGot, onError);
 
 if (!isDroid()) {
   chrome.windows.onCreated.addListener(themeWindow);
-  chrome.tabs.onUpdated.addListener(themeWindow);
+  chrome.tabs.onUpdated.addListener(themeWindowByTab);
+  chrome.tabs.onActivated.addListener(themeWindowByTab);
 }
 
 var titlepref = chrome.i18n.getMessage("titlePreface");
 var titleprefpriv = chrome.i18n.getMessage("titlePrefacePrivate");
+
+function themeWindowByTab(tab) {
+    getwindow = browser.windows.get(tab.windowId)
+    getwindow.then(themeWindow)
+}
 
 function themeWindow(window) {
   // Check if the window is in private browsing
@@ -78,17 +84,19 @@ function themeWindow(window) {
         }
       } else {
         console.log("Not active in I2P window");
-        chrome.theme.reset(window.id);
       }
     }
 
     function onError(e) {
       console.error(e);
     }
-    //if (tabInfo[0].cookieStoreId != "firefox-default")
-    browser.contextualIdentities
+    if (tabInfo[0].cookieStoreId != "firefox-default") {
+      browser.contextualIdentities
       .get(tabInfo[0].cookieStoreId)
       .then(onGot, onError);
+    }else{
+        chrome.theme.reset(window.id);
+    }
   }
 
   function onError(error) {
