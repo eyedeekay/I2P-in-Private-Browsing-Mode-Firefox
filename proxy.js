@@ -73,25 +73,7 @@ var handleContextProxyRequest = async function(requestDetails) {
     };
 
     if (requestDetails.tabId > 0) {
-      if (requestDetails.url.endsWith(".i2p")) {
-        console.log("(Proxy)I2P URL detected, ");
-        var tab = tabGet(requestDetails.tabId);
-        var mtab = tab.then(tabFind);
-        requestDetails.tabId = mtab;
-        var context = mtab.then(contextGet);
-        var proxy = await context.then(handleProxyRequest);
-        console.log("(proxy)Returning I2P Proxy", proxy);
-        return proxy;
-      } else if (requestDetails.url.endsWith(".b32.i2p")) {
-        console.log("(Proxy)I2P URL detected, ");
-        var tab = tabGet(requestDetails.tabId);
-        var mtab = tab.then(tabFind);
-        requestDetails.tabId = mtab;
-        var context = mtab.then(contextGet);
-        var proxy = await context.then(handleProxyRequest);
-        console.log("(proxy)Returning I2P Proxy", proxy);
-        return proxy;
-      } else if (requestDetails.url.includes(".i2p/")) {
+      if (i2pHost(requestDetails.url)) {
         console.log("(Proxy)I2P URL detected, ");
         var tab = tabGet(requestDetails.tabId);
         var mtab = tab.then(tabFind);

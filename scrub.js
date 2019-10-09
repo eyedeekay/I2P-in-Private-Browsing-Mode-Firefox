@@ -202,6 +202,13 @@ function routerHost(url) {
   } else if (hostname === "localhost:7657") {
     return true;
   }
+
+  if (hostname === "127.0.0.1:7070") {
+    return true;
+  } else if (hostname === "localhost:7070") {
+    return true;
+  }
+
   return false;
 }
 
