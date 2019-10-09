@@ -10,3 +10,9 @@ a {
 .panel {
   margin: 5px;
 }
+
+span.identity {
+  width: 100px;
+  display: inline-block;
+  margin-left: 1em;
+}

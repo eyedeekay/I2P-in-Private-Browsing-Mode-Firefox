@@ -1,4 +1,4 @@
-i2psetproxy.js (1.27-1) UNRELEASED; urgency=low
+i2psetproxy.js (0.31-1) UNRELEASED; urgency=low
 
   * Initial release. Closes: #nnnn
     <nnnn is the bug number of your ITP>
