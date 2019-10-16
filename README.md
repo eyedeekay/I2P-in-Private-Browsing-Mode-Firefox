@@ -46,9 +46,14 @@ submission to AMO.
   * [ready] **Provide** help in a variety of languages.
   * [wip] **Monitor** the health and readiness of the I2P router it is
    instructed to use.
-  * [wip] **Handle** router console applications under their own origins and
-   within their own contextual identity.
-
+  * [1/2] **Handle** router console applications under their own origins and
+   within their own contextual identity. (1) The router console is automatically
+   confined to it's own container tab. (2) Use a custom protocol handler to
+   place each i2p application/plugin under it's own origin, shortening router
+   console URL's and placing applications under their own origin.
+  * [not started] **Handle Torrents** by talking to i2psnark-rpc plugin and then
+   adding them directly into the Firefox downloads drop-downs, menus, etc. If I
+   can.
 
 ### Screenshot
 
