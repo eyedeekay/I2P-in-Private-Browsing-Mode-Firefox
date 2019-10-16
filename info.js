@@ -42,6 +42,8 @@ document.addEventListener("click", e => {
     });
   } else if (e.target.id === "clear-browser-data") {
     forgetBrowsingData();
+  } else if (e.target.id === "check-i2p-control") {
+    echo("I2P Router Detected", "panel-section-i2pcontrol-check");
   }
 
   e.preventDefault();

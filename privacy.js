@@ -199,13 +199,8 @@ function EnableSavePasswords() {
 var defaultSettings = {
   since: "forever",
   dataTypes: [
-    "history",
     "downloads",
-    "cache",
-    "cookies",
     "passwords",
-    "pluginData",
-    "formData",
     "serviceWorkers"
   ]
 };
@@ -269,21 +264,73 @@ function forgetBrowsingData(storedSettings) {
     browser.notifications.create({
       type: "basic",
       title: "Removed browsing data",
-      message: `Removed ${dataTypesString}\nsince ${sinceString}`
+      message: `Removed ${dataTypesString}\n`
     });
   }
 
-  browser.browsingData
-    .remove(
-      {
-        since
-      },
-      dataTypes
-    )
-    .then(notify);
+  function deepCleanCookies(cookie) {
+    var removing = browser.cookies.remove({
+      firstPartyDomain: cookie.firstPartyDomain,
+      name: cookie.name
+    });
+    removing.then(onRemoved, onError);
+  }
+
+  function deepCleanContext(cookieStoreId) {
+    var removing = browser.cookies.getAll({
+      storeId: cookieStoreId.cookieStoreId
+    });
+    removing.then(deepCleanCookies, onError);
+  }
+
+  browser.contextualIdentities
+    .query({
+      name: "i2pbrowser"
+    })
+    .then(deepCleanContext, onError);
+
+  function deepCleanHistory(historyItems) {
+    for (item of historyItems) {
+      if (i2pHost(item.url)) {
+        browser.history.deleteUrl({
+          url: item.url
+        });
+        browser.browsingData
+          .remove(
+            {
+              hostnames: [i2pHostName(item.url)]
+            },
+            dataTypes
+          )
+          .then(notify);
+      }
+    }
+  }
+
+  var searching = browser.history.search({
+    text: "i2p",
+    startTime: 0
+  });
+
+  searching.then(deepCleanHistory);
 
   setAllPrivacy();
   ResetPeerConnection();
+}
+
+function i2pHostName(url) {
+  let hostname = "";
+  if (url.indexOf("://") > -1) {
+    hostname = url.split("/")[2];
+  } else {
+    hostname = url.split("/")[0];
+  }
+  return hostname;
+}
+
+function i2pHost(url) {
+  let hostname = i2pHostName(url);
+  return hostname.endsWith(".i2p");
 }
 
 function onGot(contexts) {

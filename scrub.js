@@ -7,10 +7,12 @@ var contextScrub = async function(requestDetails) {
       } else {
         if ((context.name = "i2pbrowser")) {
           var ua = "MYOB/6.66 (AN/ON)";
-          for (var header of requestDetails.requestHeaders) {
-            if (header.name.toLowerCase() === "user-agent") {
-              header.value = ua;
-              console.log("(scrub)User-Agent header modified", header.value);
+          if (i2pHost(requestUrl.url)) {
+            for (var header of requestDetails.requestHeaders) {
+              if (header.name.toLowerCase() === "user-agent") {
+                header.value = ua;
+                console.log("(scrub)User-Agent header modified", header.value);
+              }
             }
           }
           return {
@@ -180,13 +182,18 @@ var contextSetup = async function(requestDetails) {
   }
 };
 
-function i2pHost(url) {
+function i2pHostName(url) {
   let hostname = "";
   if (url.indexOf("://") > -1) {
     hostname = url.split("/")[2];
   } else {
     hostname = url.split("/")[0];
   }
+  return hostname;
+}
+
+function i2pHost(url) {
+  let hostname = i2pHostName(url);
   return hostname.endsWith(".i2p");
 }
 
