@@ -198,16 +198,7 @@ function EnableSavePasswords() {
 
 var defaultSettings = {
   since: "forever",
-  dataTypes: [
-    "history",
-    "downloads",
-    "cache",
-    "cookies",
-    "passwords",
-    "pluginData",
-    "formData",
-    "serviceWorkers"
-  ]
+  dataTypes: ["downloads", "passwords", "formData", "localStorage", "history"]
 };
 
 var appSettings = {
@@ -269,26 +260,111 @@ function forgetBrowsingData(storedSettings) {
     browser.notifications.create({
       type: "basic",
       title: "Removed browsing data",
-      message: `Removed ${dataTypesString}\nsince ${sinceString}`
+      message: `Removed ${dataTypesString}\n for i2pbrowser`
     });
   }
 
-  browser.browsingData
-    .remove(
-      {
-        since
-      },
-      dataTypes
-    )
-    .then(notify);
+  function deepCleanHistory(historyItems) {
+    console.log("Deep cleaning history");
+    for (item of historyItems) {
+      if (i2pHost(item.url)) {
+        browser.history.deleteUrl({
+          url: item.url
+        });
+        browser.browsingData.removeCache({});
+        console.log("cleared Cache");
+        browser.browsingData
+          .removePasswords({
+            hostnames: [i2pHostName(item.url)],
+            since: since
+          })
+          .then(onGot);
+        console.log("cleared Passwords");
+        browser.browsingData
+          .removeDownloads({
+            hostnames: [i2pHostName(item.url)],
+            since: since
+          })
+          .then(onGot);
+        console.log("cleared Downloads");
+        browser.browsingData
+          .removeFormData({
+            hostnames: [i2pHostName(item.url)],
+            since: since
+          })
+          .then(onGot);
+        console.log("cleared Form Data");
+        browser.browsingData
+          .removeLocalStorage({
+            hostnames: [i2pHostName(item.url)],
+            since: since
+          })
+          .then(onGot);
+        console.log("cleared Local Storage");
+
+        contexts = browser.contextualIdentities.query({
+          name: "i2pbrowser"
+        });
+
+        function deepCleanCookies(cookies) {
+          for (cookie of cookies) {
+            var removing = browser.cookies.remove({
+              firstPartyDomain: cookie.firstPartyDomain,
+              name: cookie.name,
+              url: item.url
+            });
+            removing.then(onGot, onError);
+          }
+          console.log("Cleared cookies")
+        }
+
+        function deepCleanContext(cookieStoreIds) {
+          for (cookieStoreId of cookieStoreIds) {
+            var removing = browser.cookies.getAll({
+              firstPartyDomain: null,
+              storeId: cookieStoreId.cookieStoreId
+            });
+            removing.then(deepCleanCookies, onError);
+          }
+        }
+
+        contexts.then(deepCleanContext, onError);
+      }
+    }
+    notify();
+  }
+
+  var searching = browser.history.search({
+    text: "i2p",
+    startTime: 0
+  });
+
+  searching.then(deepCleanHistory);
 
   setAllPrivacy();
   ResetPeerConnection();
 }
 
+function i2pHostName(url) {
+  let hostname = "";
+  if (url.indexOf("://") > -1) {
+    hostname = url.split("/")[2];
+  } else {
+    hostname = url.split("/")[0];
+  }
+  return hostname;
+}
+
+function i2pHost(url) {
+  let hostname = i2pHostName(url);
+  return hostname.endsWith(".i2p");
+}
+
 function onGot(contexts) {
-  for (let context of contexts) {
-    console.log(context);
+  if (contexts != null) {
+    for (let context of contexts) {
+      console.log(context);
+    }
   }
 }
 

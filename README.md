@@ -53,3 +53,26 @@ submission to AMO.
 ### Screenshot
 
 ![Visiting i2p-projekt.i2p](i2psetproxy.js.png)
+
+Super Extra Important Background Info:
+--------------------------------------
+
+This plugin's viability is directly related to the viability of Mozilla and
+Tor's work on hardening Firefox itself and of particular interest are the
+"Uplift" and "Fusion(Firefox Using Onions)" projects.
+
+### Links about Project Uplift
+
+ * https://wiki.mozilla.org/Security/Tor_Uplift
+ * https://wiki.mozilla.org/Security/FirstPartyIsolation
+ * https://wiki.mozilla.org/Security/Fingerprinting
+ * https://wiki.mozilla.org/Security/Fennec%2BTor_Project
+ * https://wiki.mozilla.org/Security/Tor_Uplift/Tracking
+
+Project uplift seems to have largely been accomplished?
+
+### Links about Project Fusion
+
+ * https://wiki.mozilla.org/Security/Fusion
+ * https://trac.torproject.org/projects/tor/wiki/org/meetings/2018Rome/Notes/FusionProject
+ * https://blog.torproject.org/tor-heart-firefox
