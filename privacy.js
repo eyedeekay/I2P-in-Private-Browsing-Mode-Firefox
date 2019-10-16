@@ -198,13 +198,7 @@ function EnableSavePasswords() {
 
 var defaultSettings = {
   since: "forever",
-  dataTypes: [
-    "downloads",
-    "passwords",
-    "formData",
-    "localStorage",
-    "serviceWorkers"
-  ]
+  dataTypes: ["downloads", "passwords", "formData", "localStorage", "history"]
 };
 
 var appSettings = {
@@ -266,49 +260,82 @@ function forgetBrowsingData(storedSettings) {
     browser.notifications.create({
       type: "basic",
       title: "Removed browsing data",
-      message: `Removed ${dataTypesString}\n`
+      message: `Removed ${dataTypesString}\n for i2pbrowser`
     });
   }
-
-  function deepCleanCookies(cookie) {
-    browser.browsingData.RemoveCache();
-    var removing = browser.cookies.remove({
-      firstPartyDomain: cookie.firstPartyDomain,
-      name: cookie.name
-    });
-    removing.then(onRemoved, onError);
-  }
-
-  function deepCleanContext(cookieStoreId) {
-    var removing = browser.cookies.getAll({
-      storeId: cookieStoreId.cookieStoreId
-    });
-    removing.then(deepCleanCookies, onError);
-  }
-
-  browser.contextualIdentities
-    .query({
-      name: "i2pbrowser"
-    })
-    .then(deepCleanContext, onError);
 
   function deepCleanHistory(historyItems) {
+    console.log("Deep cleaning history");
     for (item of historyItems) {
       if (i2pHost(item.url)) {
+        console.log(item);
         browser.history.deleteUrl({
           url: item.url
         });
+        browser.browsingData.removeCache({});
+        console.log("cleared Cache");
         browser.browsingData
-          .remove(
-            {
-              hostnames: [i2pHostName(item.url)],
-              since: since
-            },
-            dataTypes
-          )
-          .then(notify);
+          .removePasswords({
+            hostnames: [i2pHostName(item.url)],
+            since: since
+          })
+          .then(onGot);
+        console.log("cleared Passwords");
+        browser.browsingData
+          .removeDownloads({
+            hostnames: [i2pHostName(item.url)],
+            since: since
+          })
+          .then(onGot);
+        console.log("cleared Downloads");
+        browser.browsingData
+          .removeFormData({
+            hostnames: [i2pHostName(item.url)],
+            since: since
+          })
+          .then(onGot);
+        console.log("cleared Form Data");
+        browser.browsingData
+          .removeLocalStorage({
+            hostnames: [i2pHostName(item.url)],
+            since: since
+          })
+          .then(onGot);
+        console.log("cleared Local Storage");
+
+        contexts = browser.contextualIdentities.query({
+          name: "i2pbrowser"
+        });
+
+        function deepCleanCookies(cookies) {
+          console.log("COOKIES cookies", cookies);
+          for (cookie of cookies) {
+            console.log("COOKIE cookie", cookie);
+            var removing = browser.cookies.remove({
+              firstPartyDomain: cookie.firstPartyDomain,
+              name: cookie.name,
+              url: item.url
+            });
+            removing.then(onGot, onError);
+          }
+        }
+
+        function deepCleanContext(cookieStoreIds) {
+          console.log("CLEANING cleaning,", cookieStoreIds);
+          for (cookieStoreId of cookieStoreIds) {
+            console.log("CONTEXT context", cookieStoreId);
+            var removing = browser.cookies.getAll({
+              firstPartyDomain: null,
+              storeId: cookieStoreId.cookieStoreId
+            });
+            removing.then(deepCleanCookies, onError);
+          }
+        }
+
+        contexts.then(deepCleanContext, onError);
       }
     }
+    notify();
   }
 
   var searching = browser.history.search({
@@ -338,8 +365,10 @@ function i2pHost(url) {
 }
 
 function onGot(contexts) {
-  for (let context of contexts) {
-    console.log(context);
+  if (contexts != null) {
+    for (let context of contexts) {
+      console.log(context);
+    }
   }
 }
 
