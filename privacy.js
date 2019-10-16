@@ -271,7 +271,7 @@ function forgetBrowsingData(storedSettings) {
   }
 
   function deepCleanCookies(cookie) {
-    browser.browsingData.RemoveCache()
+    browser.browsingData.RemoveCache();
     var removing = browser.cookies.remove({
       firstPartyDomain: cookie.firstPartyDomain,
       name: cookie.name
