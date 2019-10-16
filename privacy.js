@@ -268,7 +268,6 @@ function forgetBrowsingData(storedSettings) {
     console.log("Deep cleaning history");
     for (item of historyItems) {
       if (i2pHost(item.url)) {
-        console.log(item);
         browser.history.deleteUrl({
           url: item.url
         });
@@ -308,9 +307,7 @@ function forgetBrowsingData(storedSettings) {
         });
 
         function deepCleanCookies(cookies) {
-          console.log("COOKIES cookies", cookies);
           for (cookie of cookies) {
-            console.log("COOKIE cookie", cookie);
             var removing = browser.cookies.remove({
               firstPartyDomain: cookie.firstPartyDomain,
               name: cookie.name,
@@ -318,12 +315,11 @@ function forgetBrowsingData(storedSettings) {
             });
             removing.then(onGot, onError);
           }
+          console.log("Cleared cookies")
         }
 
         function deepCleanContext(cookieStoreIds) {
-          console.log("CLEANING cleaning,", cookieStoreIds);
           for (cookieStoreId of cookieStoreIds) {
-            console.log("CONTEXT context", cookieStoreId);
             var removing = browser.cookies.getAll({
               firstPartyDomain: null,
               storeId: cookieStoreId.cookieStoreId
