@@ -201,6 +201,8 @@ var defaultSettings = {
   dataTypes: [
     "downloads",
     "passwords",
+    "formData",
+    "localStorage",
     "serviceWorkers"
   ]
 };
@@ -269,6 +271,7 @@ function forgetBrowsingData(storedSettings) {
   }
 
   function deepCleanCookies(cookie) {
+    browser.browsingData.RemoveCache()
     var removing = browser.cookies.remove({
       firstPartyDomain: cookie.firstPartyDomain,
       name: cookie.name
@@ -298,7 +301,8 @@ function forgetBrowsingData(storedSettings) {
         browser.browsingData
           .remove(
             {
-              hostnames: [i2pHostName(item.url)]
+              hostnames: [i2pHostName(item.url)],
+              since: since
             },
             dataTypes
           )
