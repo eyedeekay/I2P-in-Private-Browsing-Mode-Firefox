@@ -36,13 +36,21 @@ submission to AMO.
 
 ### Features
 
-  * [done] **Provide** a way to launch into an I2P-Specific contextual identity/profile
-  * [done] **Indicate** the I2P browser is in use visually
-  * [done] **Set** the http proxy to use the local I2P proxy
-  * [done] **Disable** risky webRTC features
+  * [done] **Provide** a way to launch into an I2P-Specific contextual identity
+   (container). Intercept requests to .i2p domains and automatically route them
+   to the I2P container. Isolate the router console from other local
+   applications by automatically intercepting requests to the router console to
+   another container.
+  * [done/wip] **Indicate** the I2P browser is in use visually. Find an
+   acceptable way to indicate it on Android.
+  * [done] **Set** the http proxy to use the local I2P proxy automatically.
+   Provide specific configuration for other types of I2P proxies(SOCKS,
+   isolating HTTP)
+  * [done/wip] **Disable** risky webRTC features/offer the option to re-enable
+   them with the proxy enforced.
   * [done] **Change** the color of the browser window to indicate that I2P is in use
   * [done-ish] **Reset** the HTTP Proxy tunnel to generate a new destination on-demand
-   * it does this by working in conjunction with this [standalone HTTP proxy](https://github.com/eyedeekay/httptunnel), currently disabled*
+   * it does this by working in conjunction with this [standalone HTTP proxy](https://github.com/eyedeekay/httptunnel), currently disabled*.
   * [ready] **Provide** help in a variety of languages.
   * [wip] **Monitor** the health and readiness of the I2P router it is
    instructed to use.
