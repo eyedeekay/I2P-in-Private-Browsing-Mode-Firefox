@@ -1,0 +1,6 @@
+I2P in Private Browsing Mode
+============================
+
+A simple plugin for configuring a Firefox based web browser to isolate I2P
+Browsing to a single contextual identity, thus creating an I2P in Private
+Browsing mode. It requires the use of a pre-installed I2P Router.
