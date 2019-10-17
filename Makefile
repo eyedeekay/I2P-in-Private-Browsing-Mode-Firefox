@@ -35,7 +35,7 @@ clean:
 ## ODD RELEASES are SELFHOSTED RELEASES
 
 MOZ_VERSION=0.36
-VERSION=0.36
+VERSION=0.37
 #VERSION=1.27
 
 xpi:
@@ -78,9 +78,14 @@ fmt:
 	find . -path ./node_modules -prune -o -name '*.js' -exec prettier --write {} \;
 
 deborig:
-	rm -rfv ../i2psetproxy.js-$(VERSION)
-	cp -rv . ../i2psetproxy.js-$(VERSION)
-	tar --exclude='./.git' --exclude="./node_modules" -cvzf ../i2psetproxy.js_$(VERSION).orig.tar.gz .
+	rm -rf ../i2psetproxy.js-$(VERSION)
+	cp -r . ../i2psetproxy.js-$(VERSION)
+	tar \
+		-cvz \
+		--exclude=.git \
+		--exclude=i2psetproxy.js.gif \
+		-f ../i2psetproxy.js_$(VERSION).orig.tar.gz \
+		.
 
 deb: deborig
 	cd ../i2psetproxy.js-$(VERSION) && debuild -us -uc -rfakeroot
