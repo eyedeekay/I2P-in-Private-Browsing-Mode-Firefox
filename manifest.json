@@ -39,7 +39,6 @@
   },
   "background": {
     "scripts": [
-      "chromium/browser-polyfill.js",
       "privacy.js",
       "platform.js",
       "background.js",

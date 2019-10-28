@@ -18,7 +18,7 @@ for the new plugin has been made at a new location on addons.mozilla.org.
 Android usage:
 --------------
 
-Open the following link [Github Releases Version](https://github.com/eyedeekay/i2psetproxy.js/releases/download/1.26/i2psetproxy.js@eyedeekay.github.io.xpi)
+Open the following link [Github Releases Version](https://github.com/eyedeekay/i2psetproxy.js/releases/)
 in the browser you want to use for I2P. Firefox will warn you that it is about
 to install an extension and indicate the permissions required. Read them over
 and when you're ready, accept them. That's all it should take, your browser is
