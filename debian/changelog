@@ -1,3 +1,9 @@
+i2psetproxy.js (0.37-1) UNRELEASED; urgency=low
+
+  * Honor contextual ID when deleting history
+
+ -- idk <hankhill19580@gmail.com>  Thu, 17 OCT 2019 00:52:19 -0400
+
 i2psetproxy.js (0.35-1) UNRELEASED; urgency=low
 
   * Automatically activate contexts

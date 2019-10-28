@@ -1,9 +1,7 @@
-if (!getChrome()) {
-  browser.privacy.network.peerConnectionEnabled.set({
-    value: false
-  });
-  console.log("Preliminarily disabled WebRTC.");
-}
+browser.privacy.network.peerConnectionEnabled.set({
+  value: false
+});
+console.log("Preliminarily disabled WebRTC.");
 
 chrome.privacy.network.networkPredictionEnabled.set({
   value: false
@@ -73,7 +71,13 @@ var handleContextProxyRequest = async function(requestDetails) {
     };
 
     if (requestDetails.tabId > 0) {
-      if (i2pHost(requestDetails.url)) {
+      if (proxyHost(requestDetails.url)) {
+        return {
+          type: getScheme(),
+          host: getHost(),
+          port: getPort()
+        };
+      } else if (i2pHost(requestDetails.url)) {
         console.log("(Proxy)I2P URL detected, ");
         var tab = tabGet(requestDetails.tabId);
         var mtab = tab.then(tabFind);
@@ -160,33 +164,14 @@ function setupProxy() {
   var Host = getHost();
   var Port = getPort();
   var Scheme = getScheme();
-  if (!getChrome()) {
-    /**/
-    console.log("Setting up Firefox WebExtension proxy");
-    browser.proxy.onRequest.addListener(handleContextProxyRequest, {
-      urls: ["<all_urls>"]
-    });
-    console.log("i2p settings created for WebExtension Proxy");
-    /**/
-  } else {
-    var config = {
-      mode: "fixed_servers",
-      rules: {
-        singleProxy: {
-          scheme: Scheme,
-          host: Host,
-          port: parseInt(Port)
-        }
-      }
-    };
-    chrome.proxy.settings.set(
-      {
-        value: config,
-        scope: "regular"
-      },
-      function() {}
-    );
-  }
+
+  /**/
+  console.log("Setting up Firefox WebExtension proxy");
+  browser.proxy.onRequest.addListener(handleContextProxyRequest, {
+    urls: ["<all_urls>"]
+  });
+  console.log("i2p settings created for WebExtension Proxy");
+  /**/
 }
 
 function checkStoredSettings(storedSettings) {
@@ -229,8 +214,6 @@ chrome.storage.local.get(function(got) {
 });
 
 // Theme all currently open windows
-if (!getChrome()) {
-  if (!isDroid()) {
-    browser.windows.getAll().then(wins => wins.forEach(themeWindow));
-  }
+if (!isDroid()) {
+  browser.windows.getAll().then(wins => wins.forEach(themeWindow));
 }

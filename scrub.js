@@ -197,6 +197,19 @@ function i2pHost(url) {
   return hostname.endsWith(".i2p");
 }
 
+function proxyHost(url) {
+  let hostname = "";
+  if (url.indexOf("://") > -1) {
+    hostname = url.split("/")[2];
+  } else {
+    hostname = url.split("/")[0];
+  }
+  if (hostname == "proxy.i2p") {
+    return true;
+  }
+  return false;
+}
+
 function routerHost(url) {
   let hostname = "";
   if (url.indexOf("://") > -1) {
@@ -230,3 +243,25 @@ browser.webRequest.onBeforeSendHeaders.addListener(
   { urls: ["<all_urls>"] },
   ["blocking", "requestHeaders"]
 );
+
+/*
+function notify(message) {
+  var response = await fetch('https://proxy.i2p', {
+      credentials: 'include'
+    });
+    const myJson = await response.json();
+    console.log(JSON.stringify(myJson));
+
+  console.log(message);
+  const Http = new XMLHttpRequest();
+  Http.mozAnon = true;
+  Http.withCredentials = true;
+  const url = "http://proxy.i2p";
+  Http.open("GET", url);
+  Http.send();
+  Http.onreadystatechange = e => {
+    console.log(Http.responseText);
+    browser.runtime.sendMessage(Http.responseText);
+  };
+}
+*/

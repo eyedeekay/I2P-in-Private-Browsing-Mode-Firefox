@@ -22,7 +22,7 @@
   ],
   "manifest_version": 2,
   "name": "__MSG_extensionName__",
-  "version": "0.36",
+  "version": "0.37",
   "description": "__MSG_extensionDescription__",
   "homepage_url": "https://github.com/eyedeekay/i2psetproxy.js",
   "icons": {
@@ -39,7 +39,6 @@
   },
   "background": {
     "scripts": [
-      "chromium/browser-polyfill.js",
       "privacy.js",
       "platform.js",
       "background.js",

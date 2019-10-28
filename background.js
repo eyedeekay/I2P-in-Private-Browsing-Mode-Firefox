@@ -6,13 +6,6 @@ function onGot(contexts) {
   }
   console.log("Checking new contexts");
   if (ids.indexOf("i2pbrowser") == -1) {
-    function onCreated(context) {
-      console.log(`New identity's ID: ${context.cookieStoreId}.`);
-    }
-
-    function onError(e) {
-      console.error(e);
-    }
     browser.contextualIdentities
       .create({
         name: "i2pbrowser",
@@ -22,13 +15,6 @@ function onGot(contexts) {
       .then(onCreated, onError);
   }
   if (ids.indexOf("routerconsole") == -1) {
-    function onCreated(context) {
-      console.log(`New identity's ID: ${context.cookieStoreId}.`);
-    }
-
-    function onError(e) {
-      console.error(e);
-    }
     browser.contextualIdentities
       .create({
         name: "routerconsole",
@@ -39,6 +25,10 @@ function onGot(contexts) {
   }
 }
 
+function onCreated(context) {
+  console.log(`New identity's ID: ${context.cookieStoreId}.`);
+}
+
 function onError(e) {
   console.error(e);
 }
@@ -47,6 +37,8 @@ browser.contextualIdentities.query({}).then(onGot, onError);
 
 if (!isDroid()) {
   chrome.windows.onCreated.addListener(themeWindow);
+  chrome.windows.onFocusChanged.addListener(themeWindow);
+  chrome.windows.onRemoved.addListener(themeWindow);
   chrome.tabs.onUpdated.addListener(themeWindowByTab);
   chrome.tabs.onActivated.addListener(themeWindowByTab);
 }
@@ -54,16 +46,22 @@ if (!isDroid()) {
 var titlepref = chrome.i18n.getMessage("titlePreface");
 var titleprefpriv = chrome.i18n.getMessage("titlePrefacePrivate");
 
-function themeWindowByTab(tab) {
-  getwindow = browser.windows.get(tab.windowId);
-  getwindow.then(themeWindow);
+function themeWindowByTab(tabId) {
+  function tabWindow(tab) {
+    getwindow = browser.windows.get(tab.windowId);
+    getwindow.then(themeWindow);
+  }
+  if (typeof tabId === "number") {
+    tab = browser.tabs.get(tabId);
+    tab.then(tabWindow);
+  } else {
+    tabWindow(tabId);
+  }
 }
 
 function themeWindow(window) {
   // Check if the window is in private browsing
   function logTabs(tabInfo) {
-    console.log(tabInfo);
-
     function onGot(context) {
       if (context.name == "i2pbrowser") {
         console.log("Active in I2P window");
@@ -103,10 +101,6 @@ function themeWindow(window) {
         console.log("Not active in I2P window");
       }
     }
-
-    function onError(e) {
-      console.error(e);
-    }
     if (tabInfo[0].cookieStoreId != "firefox-default") {
       browser.contextualIdentities
         .get(tabInfo[0].cookieStoreId)
@@ -116,9 +110,6 @@ function themeWindow(window) {
     }
   }
 
-  function onError(error) {
-    console.log(`Error: ${error}`);
-  }
   var querying = browser.tabs.query({
     currentWindow: true,
     active: true
@@ -147,18 +138,12 @@ function setTitle(window) {
       }
     }
 
-    function onError(e) {
-      console.error(e);
-    }
     if (tabInfo[0].cookieStoreId != "firefox-default")
       browser.contextualIdentities
         .get(tabInfo[0].cookieStoreId)
         .then(onGot, onError);
   }
 
-  function onError(error) {
-    console.log(`Error: ${error}`);
-  }
   var querying = browser.tabs.query({
     currentWindow: true,
     active: true
