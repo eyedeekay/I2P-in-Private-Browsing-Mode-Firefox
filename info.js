@@ -45,14 +45,13 @@ document.addEventListener("click", e => {
   } else if (e.target.id === "check-i2p-control") {
     echo("I2P Router Detected", "panel-section-i2pcontrol-check");
   } else if (e.target.id === "enable-web-rtc") {
-    if (e.target.checked){
-        browser.runtime.sendMessage({ rtc: "enableWebRTC" });
-    }else{
-        browser.runtime.sendMessage({ rtc: "disableWebRTC" });
+    if (e.target.checked) {
+      browser.runtime.sendMessage({ rtc: "enableWebRTC" });
+    } else {
+      browser.runtime.sendMessage({ rtc: "disableWebRTC" });
     }
-    return
+    return;
   }
 
   e.preventDefault();
 });
-

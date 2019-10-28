@@ -343,13 +343,13 @@ function onGot(contexts) {
 
 browser.runtime.onMessage.addListener(message);
 
-function message(message){
-    console.log(message)
-    if (message.rtc === "enableWebRTC") {
-        console.log("enableWebRTC")
-        EnablePeerConnection()
-    } else {
-        console.log("disableWebRTC")
-        ResetPeerConnection()
-    }
+function message(message) {
+  console.log(message);
+  if (message.rtc === "enableWebRTC") {
+    console.log("enableWebRTC");
+    EnablePeerConnection();
+  } else {
+    console.log("disableWebRTC");
+    ResetPeerConnection();
+  }
 }
