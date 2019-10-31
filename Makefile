@@ -29,20 +29,21 @@ ls:
 	ls -lah $(PREFIX)/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}
 
 clean:
-	rm -f ../i2psetproxy.js.zip ../i2p_proxy*.xpi
+	rm -f ../i2psetproxy.js.zip ../i2p_proxy*.xpi ../i2p*.xpi ../i2psetproxy.js_*.* ../i2psetproxy.js-*
 
 ## EVEN RELEASES are AMO RELEASES
 ## ODD RELEASES are SELFHOSTED RELEASES
 
-MOZ_VERSION=0.38
-VERSION=0.39
-VERSION=$(MOZ_VERSION)
+MOZ_VERSION=0.40
+VERSION=0.41
+#VERSION=$(MOZ_VERSION)
 #VERSION=1.27
 
 xpi:
-	wget -O ../i2ppb@eyedeekay.github.io.xpi \
-		https://addons.mozilla.org/firefox/downloads/file/3419789/i2psetproxyjs-$(MOZ_VERSION)-an+fx.xpi
-	cp ../i2ppb@eyedeekay.github.io.xpi ./i2ppb@eyedeekay.github.io.xpi
+	#wget -O ../i2ppb@eyedeekay.github.io.xpi \
+		#https://addons.mozilla.org/firefox/downloads/file/3419789/i2psetproxyjs-$(MOZ_VERSION)-an+fx.xpi
+	#cp ../i2ppb@eyedeekay.github.io.xpi ./i2ppb@eyedeekay.github.io.xpi
+	cp ~/Downloads/i2p_in_private_browsing-$(VERSION)-an+fx.xpi ./i2ppb@eyedeekay.github.io.xpi
 
 version:
 	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(VERSION)\",|g' manifest.json
