@@ -15,10 +15,15 @@ New versions of this extension create an I2P in Private Browsing mode instead.
 Since this is a drastic change to the behavior of the old plugin, a new entry
 for the new plugin has been made at a new location on addons.mozilla.org.
 
+ * This is the new version: [[link]](https://addons.mozilla.org/en-US/firefox/addon/i2p-in-private-browsing/)
+
+ * This is the old version: [[link]](https://addons.mozilla.org/en-US/firefox/addon/I2P-Proxy/)
+
 Android usage:
 --------------
 
-Open the following link [Github Releases Version](https://github.com/eyedeekay/i2psetproxy.js/releases/)
+Open the following link
+[Github Releases Version](https://github.com/eyedeekay/i2psetproxy.js/releases/)
 in the browser you want to use for I2P. Firefox will warn you that it is about
 to install an extension and indicate the permissions required. Read them over
 and when you're ready, accept them. That's all it should take, your browser is
@@ -27,7 +32,8 @@ now configured to use I2P.
 ### addons.mozilla.org
 
 If you would prefer to recieve automatic updates from AMO, the correct product
-page for this plugin is [I2P-proxy](https://addons.mozilla.org/en-US/firefox/addon/I2P-proxy/).
+page for this plugin is
+[I2P In Private Browsing](https://addons.mozilla.org/en-US/firefox/addon/i2p-in-private-browsing/).
 This absolutely requires a working outproxy. If you want to avoid the use of AMO
 for updates, you can download the identical plugin from this repository's
 releases page. The latest AMO Plugin will always be identical to the latest
@@ -48,9 +54,13 @@ submission to AMO.
    isolating HTTP)
   * [done/wip] **Disable** risky webRTC features/offer the option to re-enable
    them with the proxy enforced.
-  * [done] **Change** the color of the browser window to indicate that I2P is in use
-  * [done-ish] **Reset** the HTTP Proxy tunnel to generate a new destination on-demand
-   * it does this by working in conjunction with this [standalone HTTP proxy](https://github.com/eyedeekay/httptunnel), currently disabled*.
+  * [done] **Change** the color of the browser window to indicate that I2P is in
+   use
+  * [done-ish] **Reset** the HTTP Proxy tunnel to generate a new destination
+   on-demand
+   * it does this by working in conjunction with this
+    [standalone HTTP proxy](https://github.com/eyedeekay/httptunnel), currently
+    disabled*.
   * [ready] **Provide** help in a variety of languages.
   * [wip] **Monitor** the health and readiness of the I2P router it is
    instructed to use.
