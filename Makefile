@@ -29,7 +29,7 @@ ls:
 	ls -lah $(PREFIX)/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}
 
 clean:
-	rm -f ../i2psetproxy.js.zip ../i2p_proxy*.xpi ../i2p*.xpi ../i2psetproxy.js_*.* ../i2psetproxy.js-*
+	rm -fr ../i2psetproxy.js.zip ../i2p_proxy*.xpi ../i2p*.xpi #../i2psetproxy.js_*.*
 
 ## EVEN RELEASES are AMO RELEASES
 ## ODD RELEASES are SELFHOSTED RELEASES
