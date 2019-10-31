@@ -39,6 +39,18 @@ VERSION=0.41
 #VERSION=$(MOZ_VERSION)
 #VERSION=1.27
 
+amo-readme:
+	markdown README.md | \
+		sed 's|<p>||g' | \
+		sed 's|</p>||g' | \
+		sed 's|<h1>|<strong>|g' | \
+		sed 's|</h1>|</strong>|g' | \
+		sed 's|<h2>|<strong>|g' | \
+		sed 's|</h2>|</strong>|g' | \
+		sed 's|<h3>|<strong>|g' | \
+		sed 's|</h3>|</strong>|g' | \
+		grep -v '<img' > index.html
+
 xpi:
 	#wget -O ../i2ppb@eyedeekay.github.io.xpi \
 		#https://addons.mozilla.org/firefox/downloads/file/3419789/i2psetproxyjs-$(MOZ_VERSION)-an+fx.xpi
