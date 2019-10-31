@@ -107,7 +107,7 @@ var contextSetup = async function(requestDetails) {
             });
             created.then(onCreated, onError);
           }
-          getting = browser.windows.create();
+          getting = browser.windows.getCurrent();
           getting.then(Create);
           return tabId;
         }
@@ -145,7 +145,7 @@ var contextSetup = async function(requestDetails) {
             });
             created.then(onCreated, onError);
           }
-          getting = browser.windows.create();
+          getting = browser.windows.getCurrent();
           getting.then(Create);
           return tabId;
         }

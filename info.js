@@ -8,7 +8,7 @@ document.addEventListener("click", e => {
       type: "panel",
       incognito: true
     };
-    let creating = chrome.windows.create(createData);
+    let creating = browser.windows.create(createData);
     creating.then(() => {
       console.log("The help panel has been created");
     });
@@ -17,7 +17,7 @@ document.addEventListener("click", e => {
       type: "panel",
       incognito: true
     };
-    let creating = chrome.windows.create(createData);
+    let creating = browser.windows.create(createData);
     creating.then(() => {
       console.log("The news panel has been created");
     });
