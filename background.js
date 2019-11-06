@@ -165,3 +165,4 @@ chrome.tabs.onCreated.addListener(() => {
   });
   getting.then(setTitle, onError);
 });
+
