@@ -6,8 +6,8 @@ function onSet(result) {
   }
 }
 
-// This disables queries to centralized databases of bad URLs to screen for
-// risky sites in your browser
+/* This disables queries to centralized databases of bad URLs to screen for
+   risky sites in your browser */
 function disableHyperlinkAuditing() {
   var setting = browser.privacy.websites.hyperlinkAuditingEnabled.set({
     value: false
@@ -29,9 +29,9 @@ function enableFirstPartyIsolation() {
   setting.then(onSet);
 }
 
-// This rejects tracking cookies and third-party cookies but it
-// LEAVES "Persistent" Cookies unmodified in favor of an option in the content
-// interface for now
+/* This rejects tracking cookies and third-party cookies but it
+   LEAVES "Persistent" Cookies unmodified in favor of an option in the content
+   interface for now */
 function disableEvilCookies() {
   var getting = browser.privacy.websites.cookieConfig.get({});
   getting.then(got => {
@@ -95,8 +95,8 @@ function enableTrackingProtection() {
   setting.then(onSet);
 }
 
-// This disables protected content, which is a form of digital restrictions
-// management dependent on identifying information
+/* This disables protected content, which is a form of digital restrictions
+   management dependent on identifying information */
 function disableDigitalRestrictionsManagement() {
   var gettingInfo = browser.runtime.getPlatformInfo();
   gettingInfo.then(got => {
@@ -201,15 +201,9 @@ function forgetBrowsingData(storedSettings) {
     }
 
     const times = {
-      hour: () => {
-        return 1000 * 60 * 60;
-      },
-      day: () => {
-        return 1000 * 60 * 60 * 24;
-      },
-      week: () => {
-        return 1000 * 60 * 60 * 24 * 7;
-      }
+      hour: () => 1000 * 60 * 60,
+      day: () => 1000 * 60 * 60 * 24,
+      week: () => 1000 * 60 * 60 * 24 * 7
     };
 
     const sinceMilliseconds = times[selectedSince].call();
@@ -249,28 +243,28 @@ function forgetBrowsingData(storedSettings) {
         browser.browsingData
           .removePasswords({
             hostnames: [i2pHostName(item.url)],
-            since: since
+            since
           })
           .then(onGot);
         console.log("cleared Passwords");
         browser.browsingData
           .removeDownloads({
             hostnames: [i2pHostName(item.url)],
-            since: since
+            since
           })
           .then(onGot);
         console.log("cleared Downloads");
         browser.browsingData
           .removeFormData({
             hostnames: [i2pHostName(item.url)],
-            since: since
+            since
           })
           .then(onGot);
         console.log("cleared Form Data");
         browser.browsingData
           .removeLocalStorage({
             hostnames: [i2pHostName(item.url)],
-            since: since
+            since
           })
           .then(onGot);
         console.log("cleared Local Storage");

@@ -17,6 +17,7 @@
   /* This Source Code Form is subject to the terms of the Mozilla Public
    * License, v. 2.0. If a copy of the MPL was not distributed with this
    * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
   "use strict";
 
   if (
@@ -28,15 +29,15 @@
     const SEND_RESPONSE_DEPRECATION_WARNING =
       "Returning a Promise is the preferred way to send a reply from an onMessage/onMessageExternal listener, as the sendResponse will be removed from the specs (See https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/onMessage)";
 
-    // Wrapping the bulk of this polyfill in a one-time-use function is a minor
-    // optimization for Firefox. Since Spidermonkey does not fully parse the
-    // contents of a function until the first time it's called, and since it will
-    // never actually need to be called, this allows the polyfill to be included
-    // in Firefox nearly for free.
+    /* Wrapping the bulk of this polyfill in a one-time-use function is a minor
+       optimization for Firefox. Since Spidermonkey does not fully parse the
+       contents of a function until the first time it's called, and since it will
+       never actually need to be called, this allows the polyfill to be included
+       in Firefox nearly for free. */
     const wrapAPIs = extensionAPIs => {
-      // NOTE: apiMetadata is associated to the content of the api-metadata.json file
-      // at build time by replacing the following "include" with the content of the
-      // JSON file.
+      /* NOTE: apiMetadata is associated to the content of the api-metadata.json file
+         at build time by replacing the following "include" with the content of the
+         JSON file. */
       const apiMetadata = {
         alarms: {
           clear: {
@@ -734,12 +735,8 @@
        * @param {*} value The value to test.
        * @returns {boolean} True if the value is thenable.
        */
-      const isThenable = value => {
-        return (
-          value && typeof value === "object" && typeof value.then === "function"
-        );
-      };
-
+      const isThenable = value =>
+        value && typeof value === "object" && typeof value.then === "function";
       /**
        * Creates and returns a function which, when called, will resolve or reject
        * the given promise based on how it is called:
@@ -767,19 +764,17 @@
        * @returns {function}
        *        The generated callback function.
        */
-      const makeCallback = (promise, metadata) => {
-        return (...callbackArgs) => {
-          if (extensionAPIs.runtime.lastError) {
-            promise.reject(extensionAPIs.runtime.lastError);
-          } else if (
-            metadata.singleCallbackArg ||
-            (callbackArgs.length <= 1 && metadata.singleCallbackArg !== false)
-          ) {
-            promise.resolve(callbackArgs[0]);
-          } else {
-            promise.resolve(callbackArgs);
-          }
-        };
+      const makeCallback = (promise, metadata) => (...callbackArgs) => {
+        if (extensionAPIs.runtime.lastError) {
+          promise.reject(extensionAPIs.runtime.lastError);
+        } else if (
+          metadata.singleCallbackArg ||
+          (callbackArgs.length <= 1 && metadata.singleCallbackArg !== false)
+        ) {
+          promise.resolve(callbackArgs[0]);
+        } else {
+          promise.resolve(callbackArgs);
+        }
       };
 
       const pluralizeArguments = numArgs =>
@@ -807,8 +802,8 @@
        * @returns {function(object, ...*)}
        *       The generated wrapper function.
        */
-      const wrapAsyncFunction = (name, metadata) => {
-        return function asyncFunctionWrapper(target, ...args) {
+      const wrapAsyncFunction = (name, metadata) =>
+        function asyncFunctionWrapper(target, ...args) {
           if (args.length < metadata.minArgs) {
             throw new Error(
               `Expected at least ${metadata.minArgs} ${pluralizeArguments(
@@ -827,9 +822,9 @@
 
           return new Promise((resolve, reject) => {
             if (metadata.fallbackToNoCallback) {
-              // This API method has currently no callback on Chrome, but it return a promise on Firefox,
-              // and so the polyfill will try to call it with a callback first, and it will fallback
-              // to not passing the callback if the first call fails.
+              /* This API method has currently no callback on Chrome, but it return a promise on Firefox,
+                 and so the polyfill will try to call it with a callback first, and it will fallback
+                 to not passing the callback if the first call fails. */
               try {
                 target[name](
                   ...args,
@@ -844,8 +839,8 @@
 
                 target[name](...args);
 
-                // Update the API method metadata, so that the next API calls will not try to
-                // use the unsupported callback anymore.
+                /* Update the API method metadata, so that the next API calls will not try to
+                   use the unsupported callback anymore. */
                 metadata.fallbackToNoCallback = false;
                 metadata.noCallback = true;
 
@@ -862,7 +857,6 @@
             }
           });
         };
-      };
 
       /**
        * Wraps an existing method of the target object, so that calls to it are
@@ -883,13 +877,12 @@
        *        A Proxy object for the given method, which invokes the given wrapper
        *        method in its place.
        */
-      const wrapMethod = (target, method, wrapper) => {
-        return new Proxy(method, {
+      const wrapMethod = (target, method, wrapper) =>
+        new Proxy(method, {
           apply(targetMethod, thisObj, args) {
             return wrapper.call(thisObj, target, ...args);
           }
         });
-      };
 
       let hasOwnProperty = Function.call.bind(Object.prototype.hasOwnProperty);
 
@@ -935,20 +928,20 @@
             let value = target[prop];
 
             if (typeof value === "function") {
-              // This is a method on the underlying object. Check if we need to do
-              // any wrapping.
+              /* This is a method on the underlying object. Check if we need to do
+                 any wrapping. */
 
               if (typeof wrappers[prop] === "function") {
                 // We have a special-case wrapper for this method.
                 value = wrapMethod(target, target[prop], wrappers[prop]);
               } else if (hasOwnProperty(metadata, prop)) {
-                // This is an async method that we have metadata for. Create a
-                // Promise wrapper for it.
+                /* This is an async method that we have metadata for. Create a
+                   Promise wrapper for it. */
                 let wrapper = wrapAsyncFunction(prop, metadata[prop]);
                 value = wrapMethod(target, target[prop], wrapper);
               } else {
-                // This is a method that we don't know or care about. Return the
-                // original method, bound to the underlying object.
+                /* This is a method that we don't know or care about. Return the
+                   original method, bound to the underlying object. */
                 value = value.bind(target);
               }
             } else if (
@@ -956,13 +949,13 @@
               value !== null &&
               (hasOwnProperty(wrappers, prop) || hasOwnProperty(metadata, prop))
             ) {
-              // This is an object that we need to do some wrapping for the children
-              // of. Create a sub-object wrapper for it with the appropriate child
-              // metadata.
+              /* This is an object that we need to do some wrapping for the children
+                 of. Create a sub-object wrapper for it with the appropriate child
+                 metadata. */
               value = wrapObject(value, wrappers[prop], metadata[prop]);
             } else {
-              // We don't need to do any wrapping for this property,
-              // so just forward all access to the underlying object.
+              /* We don't need to do any wrapping for this property,
+                 so just forward all access to the underlying object. */
               Object.defineProperty(cache, prop, {
                 configurable: true,
                 enumerable: true,
@@ -999,16 +992,15 @@
           }
         };
 
-        // Per contract of the Proxy API, the "get" proxy handler must return the
-        // original value of the target if that value is declared read-only and
-        // non-configurable. For this reason, we create an object with the
-        // prototype set to `target` instead of using `target` directly.
-        // Otherwise we cannot return a custom object for APIs that
-        // are declared read-only and non-configurable, such as `chrome.devtools`.
-        //
-        // The proxy handlers themselves will still use the original `target`
-        // instead of the `proxyTarget`, so that the methods and properties are
-        // dereferenced via the original targets.
+        /* Per contract of the Proxy API, the "get" proxy handler must return the
+           original value of the target if that value is declared read-only and
+           non-configurable. For this reason, we create an object with the
+           prototype set to `target` instead of using `target` directly.
+           Otherwise we cannot return a custom object for APIs that
+           are declared read-only and non-configurable, such as `chrome.devtools`.
+           The proxy handlers themselves will still use the original `target`
+           instead of the `proxyTarget`, so that the methods and properties are
+           dereferenced via the original targets. */
         let proxyTarget = Object.create(target);
         return new Proxy(proxyTarget, handlers);
       };
@@ -1095,17 +1087,17 @@
 
           const isResultThenable = result !== true && isThenable(result);
 
-          // If the listener didn't returned true or a Promise, or called
-          // wrappedSendResponse synchronously, we can exit earlier
-          // because there will be no response sent from this listener.
+          /* If the listener didn't returned true or a Promise, or called
+             wrappedSendResponse synchronously, we can exit earlier
+             because there will be no response sent from this listener. */
           if (result !== true && !isResultThenable && !didCallSendResponse) {
             return false;
           }
 
-          // A small helper to send the message if the promise resolves
-          // and an error if the promise rejects (a wrapped sendMessage has
-          // to translate the message into a resolved promise or a rejected
-          // promise).
+          /* A small helper to send the message if the promise resolves
+             and an error if the promise rejects (a wrapped sendMessage has
+             to translate the message into a resolved promise or a rejected
+             promise). */
           const sendPromisedResult = promise => {
             promise
               .then(
@@ -1114,8 +1106,8 @@
                   sendResponse(msg);
                 },
                 error => {
-                  // Send a JSON representation of the error if the rejected value
-                  // is an instance of error, or the object itself otherwise.
+                  /* Send a JSON representation of the error if the rejected value
+                     is an instance of error, or the object itself otherwise. */
                   let message;
                   if (
                     error &&
@@ -1139,9 +1131,9 @@
               });
           };
 
-          // If the listener returned a Promise, send the resolved value as a
-          // result, otherwise wait the promise related to the wrappedSendResponse
-          // callback to resolve and send it as a response.
+          /* If the listener returned a Promise, send the resolved value as a
+             result, otherwise wait the promise related to the wrappedSendResponse
+             callback to resolve and send it as a response. */
           if (isResultThenable) {
             sendPromisedResult(result);
           } else {
@@ -1155,9 +1147,9 @@
 
       const wrappedSendMessageCallback = ({ reject, resolve }, reply) => {
         if (extensionAPIs.runtime.lastError) {
-          // Detect when none of the listeners replied to the sendMessage call and resolve
-          // the promise to undefined as in Firefox.
-          // See https://github.com/mozilla/webextension-polyfill/issues/130
+          /* Detect when none of the listeners replied to the sendMessage call and resolve
+             the promise to undefined as in Firefox.
+             See https://github.com/mozilla/webextension-polyfill/issues/130 */
           if (
             extensionAPIs.runtime.lastError.message ===
             CHROME_SEND_MESSAGE_CALLBACK_NO_RESPONSE_MESSAGE
@@ -1167,8 +1159,8 @@
             reject(extensionAPIs.runtime.lastError);
           }
         } else if (reply && reply.__mozWebExtensionPolyfillReject__) {
-          // Convert back the JSON representation of the error into
-          // an Error instance.
+          /* Convert back the JSON representation of the error into
+             an Error instance. */
           reject(new Error(reply.message));
         } else {
           resolve(reply);
@@ -1251,8 +1243,8 @@
       );
     }
 
-    // The build process adds a UMD wrapper around this file, which makes the
-    // `module` variable available.
+    /* The build process adds a UMD wrapper around this file, which makes the
+       `module` variable available. */
     module.exports = wrapAPIs(chrome);
   } else {
     module.exports = browser;

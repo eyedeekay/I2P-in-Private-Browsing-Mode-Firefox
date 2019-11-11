@@ -9,7 +9,7 @@ function onGot(contexts) {
     browser.contextualIdentities
       .create({
         name: "i2pbrowser",
-        color: "purple",
+        color: "orange",
         icon: "fingerprint"
       })
       .then(onCreated, onError);
@@ -18,7 +18,7 @@ function onGot(contexts) {
     browser.contextualIdentities
       .create({
         name: "routerconsole",
-        color: "turquoise",
+        color: "blue",
         icon: "briefcase"
       })
       .then(onCreated, onError);
@@ -68,15 +68,15 @@ function themeWindow(window) {
         if (window.incognito) {
           chrome.theme.update(window.id, {
             colors: {
-              frame: "#2D4470",
-              toolbar: "#2D4470"
+              frame: "#FFC56D",
+              toolbar: "#FFC56D"
             }
           });
         } else {
           chrome.theme.update(window.id, {
             colors: {
-              frame: "#9DABD5",
-              toolbar: "#9DABD5"
+              frame: "#FFC56D",
+              toolbar: "#FFC56D"
             }
           });
         }
@@ -85,15 +85,15 @@ function themeWindow(window) {
         if (window.incognito) {
           chrome.theme.update(window.id, {
             colors: {
-              frame: "#00CED1",
-              toolbar: "#00CED1"
+              frame: "#A4C8E1",
+              toolbar: "#A4C8E1"
             }
           });
         } else {
           chrome.theme.update(window.id, {
             colors: {
-              frame: "#40E0D0",
-              toolbar: "#40E0D0"
+              frame: "#A4C8E1",
+              toolbar: "#A4C8E1"
             }
           });
         }
@@ -101,7 +101,10 @@ function themeWindow(window) {
         console.log("Not active in I2P window");
       }
     }
-    if (tabInfo[0].cookieStoreId != "firefox-default") {
+    if (
+      tabInfo[0].cookieStoreId != "firefox-default" &&
+      tabInfo[0].cookieStoreId != "firefox-private"
+    ) {
       browser.contextualIdentities
         .get(tabInfo[0].cookieStoreId)
         .then(onGot, onError);
@@ -138,10 +141,14 @@ function setTitle(window) {
       }
     }
 
-    if (tabInfo[0].cookieStoreId != "firefox-default")
+    if (
+      tabInfo[0].cookieStoreId != "firefox-default" &&
+      tabInfo[0].cookieStoreId != "firefox-private"
+    ) {
       browser.contextualIdentities
         .get(tabInfo[0].cookieStoreId)
         .then(onGot, onError);
+    }
   }
 
   var querying = browser.tabs.query({
@@ -152,8 +159,8 @@ function setTitle(window) {
 }
 
 chrome.windows.onCreated.addListener(() => {
-  //var gettingStoredSettings = chrome.storage.local.get();
-  //gettingStoredSettings.then(setupProxy, onError);
+  /* var gettingStoredSettings = chrome.storage.local.get();
+     gettingStoredSettings.then(setupProxy, onError); */
   chrome.storage.local.get(function(got) {
     setupProxy();
   });

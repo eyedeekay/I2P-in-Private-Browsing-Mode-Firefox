@@ -4,21 +4,33 @@ var contextScrub = async function(requestDetails) {
     var headerScrub = function(context) {
       if (!context) {
         console.error("Context not found");
-      } else {
-        if ((context.name = "i2pbrowser")) {
-          var ua = "MYOB/6.66 (AN/ON)";
-          if (i2pHost(requestUrl.url)) {
-            for (var header of requestDetails.requestHeaders) {
-              if (header.name.toLowerCase() === "user-agent") {
-                header.value = ua;
-                console.log("(scrub)User-Agent header modified", header.value);
-              }
+      } else if (context.name == "i2pbrowser") {
+        var ua = "MYOB/6.66 (AN/ON)";
+        if (i2pHost(requestDetails.url)) {
+          for (var header of requestDetails.requestHeaders) {
+            if (header.name.toLowerCase() === "user-agent") {
+              header.value = ua;
+              console.log("(scrub)User-Agent header modified", header.value);
             }
           }
-          return {
-            requestHeaders: requestDetails.requestHeaders
-          };
         }
+        return {
+          requestHeaders: requestDetails.requestHeaders
+        };
+      } else if (context.name == "routerconsole") {
+        var ua = "MYOB/6.66 (AN/ON)";
+        if (i2pHost(requestDetails.url)) {
+          for (var header of requestDetails.requestHeaders) {
+            if (header.name.toLowerCase() === "user-agent") {
+              header.value = ua;
+              console.log("(scrub)User-Agent header modified", header.value);
+            }
+          }
+        } else if (routerHost(requestDetails.url)) {
+        }
+        return {
+          requestHeaders: requestDetails.requestHeaders
+        };
       }
     };
     var contextGet = async function(tabInfo) {
@@ -52,19 +64,22 @@ var contextScrub = async function(requestDetails) {
       }
     };
     if (requestDetails.tabId > 0) {
+      var tab = {};
+      var context = {};
+      var req = {};
       if (i2pHost(requestDetails.url)) {
         console.log("(Proxy)I2P URL detected, ");
-        var tab = tabGet(requestDetails.tabId);
+        tab = tabGet(requestDetails.tabId);
         var mtab = tab.then(tabFind);
         requestDetails.tabId = mtab;
-        var context = mtab.then(contextGet);
-        var req = await context.then(headerScrub);
+        context = mtab.then(contextGet);
+        req = await context.then(headerScrub);
         console.log("(scrub)Scrubbing I2P Request", req);
         return req;
       } else {
-        var tab = tabGet(requestDetails.tabId);
-        var context = tab.then(contextGet);
-        var req = await context.then(headerScrub);
+        tab = tabGet(requestDetails.tabId);
+        context = tab.then(contextGet);
+        req = await context.then(headerScrub);
         console.log("(scrub)Scrubbing I2P Request", req);
         return req;
       }
@@ -79,7 +94,7 @@ var contextSetup = async function(requestDetails) {
   try {
     var tabFind = async function(tabId) {
       try {
-        context = await browser.contextualIdentities.query({
+        var context = await browser.contextualIdentities.query({
           name: "i2pbrowser"
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
@@ -92,14 +107,14 @@ var contextSetup = async function(requestDetails) {
           );
           function Create(window) {
             function onCreated(tab) {
-              console.log("(isolate) Closing old, un-isolated tab");
+              console.log("(isolate) Closing old, un-isolated tab", window);
               browser.tabs.remove(tabId.id);
               browser.tabs.remove(window.tabs[0].id);
             }
             function onError(error) {
               console.log(`Error: ${error}`);
             }
-            created = browser.tabs.create({
+            var created = browser.tabs.create({
               active: true,
               cookieStoreId: context[0].cookieStoreId,
               url: requestDetails.url,
@@ -107,7 +122,7 @@ var contextSetup = async function(requestDetails) {
             });
             created.then(onCreated, onError);
           }
-          getting = browser.windows.getCurrent();
+          var getting = browser.windows.getCurrent();
           getting.then(Create);
           return tabId;
         }
@@ -117,7 +132,7 @@ var contextSetup = async function(requestDetails) {
     };
     var routerTabFind = async function(tabId) {
       try {
-        context = await browser.contextualIdentities.query({
+        var context = await browser.contextualIdentities.query({
           name: "routerconsole"
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
@@ -137,7 +152,7 @@ var contextSetup = async function(requestDetails) {
             function onError(error) {
               console.log(`Error: ${error}`);
             }
-            created = browser.tabs.create({
+            var created = browser.tabs.create({
               active: true,
               cookieStoreId: context[0].cookieStoreId,
               url: requestDetails.url,
@@ -145,7 +160,7 @@ var contextSetup = async function(requestDetails) {
             });
             created.then(onCreated, onError);
           }
-          getting = browser.windows.getCurrent();
+          var getting = browser.windows.getCurrent();
           getting.then(Create);
           return tabId;
         }
@@ -175,10 +190,7 @@ var contextSetup = async function(requestDetails) {
       }
     }
   } catch (error) {
-    console.log(
-      "(isolate)Not an I2P request, no need to force into alternate cookiestore.",
-      error
-    );
+    console.log("(isolate)Not an I2P request, blackholing", error);
   }
 };
 

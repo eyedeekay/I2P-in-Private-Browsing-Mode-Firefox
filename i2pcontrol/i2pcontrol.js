@@ -4,7 +4,7 @@ function send(json) {
   const url = "http://" + "127.0.0.1" + ":" + "7650";
   Http.open("POST", url);
   Http.send(json);
-  console.log(Http);
+  //console.log(Http);
   return Http;
 }
 
@@ -21,11 +21,12 @@ function authenticate(user, password) {
   return send(json);
 }
 
-username = "";
-password = "";
+var username = "";
+var password = "";
 
 function echo(string, section) {
   var xhr = authenticate(username, password);
+  console.log("(i2pcontrol) echo", xhr);
   xhr.onload = function() {
     resp = JSON.Parse(xhr.responseText);
     json = {
@@ -38,6 +39,9 @@ function echo(string, section) {
       }
     };
     var controlMessage = document.getElementById(section);
+    console.log("(i2pcontrol) reply", xhr.responseText);
     infoMessage.textContent = xhr.responseText;
   };
 }
+
+echo("test", "test");

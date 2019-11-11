@@ -1,19 +1,20 @@
 //var windowIds = []
 
+function onCreated(windowInfo) {
+  console.log(`Created window: ${windowInfo.id}`);
+  browser.tabs.create({
+    windowId: windowInfo.id,
+    url: "about:blank",
+    cookieStoreId: event.target.dataset.identity
+  });
+}
+
+function onError(error) {
+  console.log(`Error: ${error}`);
+}
+
 function eventHandler(event) {
   if (event.target.dataset.action == "create") {
-    function onCreated(windowInfo) {
-      console.log(`Created window: ${windowInfo.id}`);
-      browser.tabs.create({
-        windowId: windowInfo.id,
-        url: "about:blank",
-        cookieStoreId: event.target.dataset.identity
-      });
-    }
-
-    function onError(error) {
-      console.log(`Error: ${error}`);
-    }
     var creating = browser.windows.create({
       cookieStoreId: event.target.dataset.identity
     });
