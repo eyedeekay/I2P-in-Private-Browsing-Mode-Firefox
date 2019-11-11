@@ -35,7 +35,11 @@
           <input type="checkbox" id="enable-web-rtc" name="enablewebrtc" value="webrtc">
           <label for="enable-web-rtc">Enable WebRTC <strong>with Proxy?</strong></label>
       <div class="panel-section-separator"></div>
-          <a href="#" id="check-i2p-control">Check I2P Router Health</a><div id="panel-section-i2pcontrol-check"></div>
+          <!--<a href="#" id="check-i2p-control">Check I2P Router Health</a><div id="panel-section-i2pcontrol-check"></div>-->
+          <figure>
+            <img src="http://proxy.i2p/themes/console/images/favicon.ico" id="panel-proxy-check" alt="Proxy is not ready yet"/>
+            <figcaption>I2P Proxy is Ready</figcaption>
+          </figure>
       <div class="panel-section-separator"></div>
       <div class="panel-section-identity">
           <div id="identity-list"></div>
@@ -47,7 +51,7 @@
   <script src="privacy.js"></script>
   <script src="info.js"></script>
   <script src="content.js" crossorigin="anonymous"></script>
-  <script src="i2pcontrol.js"></script>
+  <script src="i2pcontrol/i2pcontrol.js"></script>
 
 </body>
 

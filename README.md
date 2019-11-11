@@ -77,6 +77,10 @@ submission to AMO.
 
 ![Visiting i2p-projekt.i2p](i2psetproxy.js.png)
 
+![Visiting clearweb](clearweb.png)
+
+![Visiting routerconsole](routerconsole.png)
+
 ![Video of the plugin in action](i2psetproxy.js.gif)
 
 Super Extra Important Background Info:

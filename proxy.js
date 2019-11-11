@@ -39,18 +39,38 @@ var handleContextProxyRequest = async function(requestDetails) {
           );
           return proxy;
         } else if (context.name == "routerconsole") {
-          if (i2pHost(requestDetails.url)) {
-            proxy = {
-              type: getScheme(),
-              host: getHost(),
-              port: getPort()
-            };
+          if (routerHost(requestDetails.url)) {
+            return proxy;
           } else if (!routerHost(requestDetails.url)) {
             proxy = {
               type: "http",
               host: "localhost",
-              port: "1"
+              port: "65535"
             };
+          }
+          proxy = {
+            type: getScheme(),
+            host: getHost(),
+            port: getPort()
+          };
+          console.log(
+            "(proxy)",
+            context.name,
+            "Using",
+            proxy.type,
+            "proxy ",
+            proxy.host + ":" + proxy.port
+          );
+          return proxy;
+        } else if (context.name == "Personal") {
+          if (localHost(requestDetails.url)) {
+            if (!routerHost(requestDetails.url)) {
+              proxy = {
+                type: "http",
+                host: "localhost",
+                port: "65535"
+              };
+            }
           }
           console.log(
             "(proxy)",
@@ -63,17 +83,17 @@ var handleContextProxyRequest = async function(requestDetails) {
           return proxy;
         }
       }
-      if (i2pHost(requestDetails.url)) {
+      if (!routerHost(requestDetails.url)) {
+        proxy = {
+          type: "http",
+          host: "localhost",
+          port: "65535"
+        };
+      } else if (i2pHost(requestDetails.url)) {
         proxy = {
           type: getScheme(),
           host: getHost(),
           port: getPort()
-        };
-      } else if (!routerHost(requestDetails.url)) {
-        proxy = {
-          type: "http",
-          host: "localhost",
-          port: "1"
         };
       }
       return proxy;
@@ -111,6 +131,7 @@ var handleContextProxyRequest = async function(requestDetails) {
 
     if (requestDetails.tabId > 0) {
       if (proxyHost(requestDetails.url)) {
+        console.log("(Proxy)I2P Proxy test URL detected, ", requestDetails.url);
         return {
           type: getScheme(),
           host: getHost(),
@@ -132,6 +153,13 @@ var handleContextProxyRequest = async function(requestDetails) {
         console.log("(proxy)Returning I2P Proxy", proxy);
         return proxy;
       }
+      proxy = {
+        type: getScheme(),
+        host: getHost(),
+        port: getPort()
+      };
+      console.log("(proxy)Returning I2P Proxy", proxy);
+      return proxy;
     }
   } catch (error) {
     console.log("(proxy)Not using I2P Proxy.", error);
