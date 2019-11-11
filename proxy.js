@@ -23,7 +23,7 @@ var handleContextProxyRequest = async function(requestDetails) {
         proxyDns: false
       };
       if (context != undefined) {
-        if (context.name == "i2pbrowser") {
+        if (context.name == "I2P Browsing") {
           proxy = {
             type: getScheme(),
             host: getHost(),
@@ -38,7 +38,7 @@ var handleContextProxyRequest = async function(requestDetails) {
             proxy.host + ":" + proxy.port
           );
           return proxy;
-        } else if (context.name == "routerconsole") {
+        } else if (context.name == "Router Console") {
           if (routerHost(requestDetails.url)) {
             return proxy;
           } else if (!routerHost(requestDetails.url)) {
@@ -62,7 +62,7 @@ var handleContextProxyRequest = async function(requestDetails) {
             proxy.host + ":" + proxy.port
           );
           return proxy;
-        } else if (context.name == "fenced-default") {
+        } else if (context.name == "Web Browsing") {
           if (localHost(requestDetails.url)) {
             if (!routerHost(requestDetails.url)) {
               proxy = {
@@ -85,6 +85,10 @@ var handleContextProxyRequest = async function(requestDetails) {
       }
       if (!routerHost(requestDetails.url)) {
         if (localHost(requestDetails.url)) {
+          console.log(
+            "(proxy) non-routerconsole localhost url, dropping",
+            requestDetails.url
+          );
           proxy = {
             type: "http",
             host: "localhost",
@@ -111,10 +115,6 @@ var handleContextProxyRequest = async function(requestDetails) {
     };
     var tabFind = async function(tabId) {
       try {
-        context = await browser.contextualIdentities.query({
-          name: "i2pbrowser"
-        });
-        tabId.cookieStoreId = context[0].cookieStoreId;
         console.log("(proxy) forcing context", tabId.cookieStoreId);
         return tabId;
       } catch (error) {

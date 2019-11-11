@@ -227,7 +227,7 @@ function forgetBrowsingData(storedSettings) {
     browser.notifications.create({
       type: "basic",
       title: "Removed browsing data",
-      message: `Removed ${dataTypesString}\n for i2pbrowser`
+      message: `Removed ${dataTypesString}\n for I2P Browsing`
     });
   }
 
@@ -270,7 +270,7 @@ function forgetBrowsingData(storedSettings) {
         console.log("cleared Local Storage");
 
         contexts = browser.contextualIdentities.query({
-          name: "i2pbrowser"
+          name: "I2P Browsing"
         });
 
         function deepCleanCookies(cookies) {

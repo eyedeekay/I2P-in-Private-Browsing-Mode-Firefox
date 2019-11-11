@@ -5,30 +5,57 @@ function onGot(contexts) {
     ids.push(context.name);
   }
   console.log("Checking new contexts");
-  if (ids.indexOf("i2pbrowser") == -1) {
+  if (ids.indexOf("I2P Browsing") == -1) {
     browser.contextualIdentities
       .create({
-        name: "i2pbrowser",
+        name: "I2P Browsing",
         color: "orange",
         icon: "fingerprint"
       })
       .then(onCreated, onError);
   }
-  if (ids.indexOf("fenced-default") == -1) {
+  if (ids.indexOf("Web Browsing") == -1) {
     browser.contextualIdentities
       .create({
-        name: "fenced-default",
-        color: "toolbar",
-        icon: "fence"
+        name: "Web Browsing",
+        color: "red",
+        icon: "circle"
       })
       .then(onCreated, onError);
   }
-  if (ids.indexOf("routerconsole") == -1) {
+  if (ids.indexOf("Router Console") == -1) {
     browser.contextualIdentities
       .create({
-        name: "routerconsole",
+        name: "Router Console",
         color: "blue",
         icon: "briefcase"
+      })
+      .then(onCreated, onError);
+  }
+  if (ids.indexOf("Hidden Services Manager") == -1) {
+    browser.contextualIdentities
+      .create({
+        name: "Hidden Services Manager",
+        color: "green",
+        icon: "tree"
+      })
+      .then(onCreated, onError);
+  }
+  if (ids.indexOf("Web Mail") == -1) {
+    browser.contextualIdentities
+      .create({
+        name: "Web Mail",
+        color: "yellow",
+        icon: "briefcase"
+      })
+      .then(onCreated, onError);
+  }
+  if (ids.indexOf("Bittorrent") == -1) {
+    browser.contextualIdentities
+      .create({
+        name: "Bittorrent",
+        color: "purple",
+        icon: "chill"
       })
       .then(onCreated, onError);
   }
@@ -72,7 +99,7 @@ function themeWindow(window) {
   // Check if the window is in private browsing
   function logTabs(tabInfo) {
     function onGot(context) {
-      if (context.name == "i2pbrowser") {
+      if (context.name == "I2P Browsing") {
         console.log("Active in I2P window");
         if (window.incognito) {
           chrome.theme.update(window.id, {
@@ -89,8 +116,8 @@ function themeWindow(window) {
             }
           });
         }
-      } else if (context.name == "routerconsole") {
-        console.log("Active in I2P window");
+      } else if (context.name == "Router Console") {
+        console.log("Active in Router Console window");
         if (window.incognito) {
           chrome.theme.update(window.id, {
             colors: {
@@ -103,6 +130,57 @@ function themeWindow(window) {
             colors: {
               frame: "#A4C8E1",
               toolbar: "#A4C8E1"
+            }
+          });
+        }
+      } else if (context.name == "Hidden Services Manager") {
+        console.log("Active in Hidden Services Manager window");
+        if (window.incognito) {
+          chrome.theme.update(window.id, {
+            colors: {
+              frame: "#D9D9D6",
+              toolbar: "#D9D9D6"
+            }
+          });
+        } else {
+          chrome.theme.update(window.id, {
+            colors: {
+              frame: "#D9D9D6",
+              toolbar: "#D9D9D6"
+            }
+          });
+        }
+      } else if (context.name == "Web Mail") {
+        console.log("Active in Web Mail window");
+        if (window.incognito) {
+          chrome.theme.update(window.id, {
+            colors: {
+              frame: "#F7E59A",
+              toolbar: "#F7E59A"
+            }
+          });
+        } else {
+          chrome.theme.update(window.id, {
+            colors: {
+              frame: "#F7E59A",
+              toolbar: "#F7E59A"
+            }
+          });
+        }
+      } else if (context.name == "Bittorrent") {
+        console.log("Active in Bittorrent window");
+        if (window.incognito) {
+          chrome.theme.update(window.id, {
+            colors: {
+              frame: "#A48FE1",
+              toolbar: "#A48FE1"
+            }
+          });
+        } else {
+          chrome.theme.update(window.id, {
+            colors: {
+              frame: "#A48FE1",
+              toolbar: "#A48FE1"
             }
           });
         }
@@ -135,7 +213,67 @@ function setTitle(window) {
     console.log(tabInfo);
 
     function onGot(context) {
-      if (context.name == "i2pbrowser") {
+      if (context.name == "I2P Browsing") {
+        console.log("Active in I2P window");
+
+        if (window.incognito) {
+          chrome.windows.update(window.id, {
+            titlePreface: titleprefpriv
+          });
+        } else {
+          chrome.windows.update(window.id, {
+            titlePreface: titlepref
+          });
+        }
+      } else if (context.name == "Web Browsing") {
+        console.log("Active in Web window");
+
+        if (window.incognito) {
+          chrome.windows.update(window.id, {
+            titlePreface: titleprefpriv
+          });
+        } else {
+          chrome.windows.update(window.id, {
+            titlePreface: titlepref
+          });
+        }
+      } else if (context.name == "Router Console") {
+        console.log("Active in Router Console window");
+
+        if (window.incognito) {
+          chrome.windows.update(window.id, {
+            titlePreface: titleprefpriv
+          });
+        } else {
+          chrome.windows.update(window.id, {
+            titlePreface: titlepref
+          });
+        }
+      } else if (context.name == "Hidden Services Manager") {
+        console.log("Active in Hidden Services Manager window");
+
+        if (window.incognito) {
+          chrome.windows.update(window.id, {
+            titlePreface: titleprefpriv
+          });
+        } else {
+          chrome.windows.update(window.id, {
+            titlePreface: titlepref
+          });
+        }
+      } else if (context.name == "Web Mail") {
+        console.log("Active in Web Mail window");
+
+        if (window.incognito) {
+          chrome.windows.update(window.id, {
+            titlePreface: titleprefpriv
+          });
+        } else {
+          chrome.windows.update(window.id, {
+            titlePreface: titlepref
+          });
+        }
+      } else if (context.name == "Bittorrent") {
         console.log("Active in I2P window");
 
         if (window.incognito) {
