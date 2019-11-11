@@ -48,7 +48,7 @@
       "background.js",
       "proxy.js",
       "info.js",
-      "i2pcontrol.js",
+      "i2pcontrol/i2pcontrol.js",
       "scrub.js",
       "bookmarks.js"
     ]

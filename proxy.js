@@ -242,24 +242,85 @@ function setupProxy() {
 }
 
 function checkStoredSettings(storedSettings) {
-  let defaultSettings = {};
-  if (!storedSettings.proxy_scheme) {
-    defaultSettings["proxy_scheme"] = "http";
+  function gotProxyInfo(info) {
+    let defaultSettings = {};
+    let host = info.value.http.split(":")[0];
+    let port = info.value.http.split(":")[1];
+    console.log("proxy", "'" + host + "'", ":", port);
+    if (!storedSettings.proxy_scheme) {
+      defaultSettings["proxy_scheme"] = "http";
+    }
+    if (!storedSettings.proxy_host) {
+      if (host == "") {
+        defaultSettings["proxy_host"] = "127.0.0.1";
+      } else {
+        defaultSettings["proxy_host"] = host;
+      }
+    } else {
+      if (host != "") {
+        defaultSettings["proxy_host"] = host;
+      } else {
+        defaultSettings["proxy_host"] = storedSettings.proxy_host;
+      }
+    }
+    if (!storedSettings.proxy_port) {
+      if (port == undefined) {
+        defaultSettings["proxy_port"] = 4444;
+      } else {
+        defaultSettings["proxy_port"] = port;
+      }
+    } else {
+      if (port != undefined) {
+        defaultSettings["proxy_port"] = port;
+      } else {
+        defaultSettings["proxy_port"] = storedSettings.proxy_port;
+      }
+    }
+    if (!storedSettings.control_host) {
+      if (host == "") {
+        defaultSettings["control_host"] = "127.0.0.1";
+      } else {
+        defaultSettings["control_host"] = host;
+      }
+    } else {
+      if (host != "") {
+        defaultSettings["control_host"] = host;
+      } else {
+        defaultSettings["control_host"] = storedSettings.control_host;
+      }
+    }
+    if (!storedSettings.control_port) {
+      if (port == undefined) {
+        defaultSettings["control_port"] = 4444;
+      } else {
+        defaultSettings["control_port"] = port;
+      }
+    } else {
+      if (port != undefined) {
+        defaultSettings["control_port"] = port;
+      } else {
+        defaultSettings["control_port"] = storedSettings.control_port;
+      }
+    }
+    console.log("(browserinfo) NATIVE PROXYSETTINGS", info.value);
+    console.log(
+      defaultSettings["proxy_host"],
+      defaultSettings["proxy_port"],
+      defaultSettings["control_host"],
+      defaultSettings["control_port"]
+    );
+    chrome.storage.local.set(defaultSettings);
   }
-  if (!storedSettings.proxy_host) {
-    defaultSettings["proxy_host"] = "127.0.0.1";
-  }
-  if (!storedSettings.proxy_port) {
-    defaultSettings["proxy_port"] = 4444;
-  }
-  if (!storedSettings.control_host) {
-    defaultSettings["control_host"] = "127.0.0.1";
-  }
-  if (!storedSettings.control_port) {
-    defaultSettings["control_port"] = 4444;
-  }
-  chrome.storage.local.set(defaultSettings);
+  var gettingInfo = browser.proxy.settings.get({});
+  gettingInfo.then(gotProxyInfo);
 }
+
+//function gotProxyInfo(info) {
+//console.log("(browserinfo)", info.value);
+//}
+
+//var gettingInfo = browser.proxy.settings.get({});
+//gettingInfo.then(gotProxyInfo);
 
 function update(restoredSettings) {
   proxy_scheme = restoredSettings.proxy_scheme;
