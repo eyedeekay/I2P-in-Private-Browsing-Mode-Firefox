@@ -108,6 +108,7 @@ function themeWindow(window) {
         }
       } else {
         console.log("Not active in I2P window");
+        chrome.theme.reset(window.id);
       }
     }
     if (

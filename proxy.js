@@ -84,11 +84,13 @@ var handleContextProxyRequest = async function(requestDetails) {
         }
       }
       if (!routerHost(requestDetails.url)) {
-        proxy = {
-          type: "http",
-          host: "localhost",
-          port: "65535"
-        };
+        if (localHost(requestDetails.url)) {
+          proxy = {
+            type: "http",
+            host: "localhost",
+            port: "65535"
+          };
+        }
       } else if (i2pHost(requestDetails.url)) {
         proxy = {
           type: getScheme(),
@@ -153,12 +155,8 @@ var handleContextProxyRequest = async function(requestDetails) {
         console.log("(proxy)Returning I2P Proxy", proxy);
         return proxy;
       }
-      proxy = {
-        type: getScheme(),
-        host: getHost(),
-        port: getPort()
-      };
-      console.log("(proxy)Returning I2P Proxy", proxy);
+      proxy = {};
+      console.log("(proxy)Returning unset Proxy", proxy);
       return proxy;
     }
   } catch (error) {
