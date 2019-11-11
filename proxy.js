@@ -20,22 +20,61 @@ var handleContextProxyRequest = async function(requestDetails) {
     var handleProxyRequest = function(context) {
       proxy = {
         failoverTimeout: 0,
-        type: "direct",
         proxyDns: false
       };
-      if (context.name == "i2pbrowser") {
+      if (context != undefined) {
+        if (context.name == "i2pbrowser") {
+          proxy = {
+            type: getScheme(),
+            host: getHost(),
+            port: getPort()
+          };
+          console.log(
+            "(proxy)",
+            context.name,
+            "Using",
+            proxy.type,
+            "proxy ",
+            proxy.host + ":" + proxy.port
+          );
+          return proxy;
+        } else if (context.name == "routerconsole") {
+          if (i2pHost(requestDetails.url)) {
+            proxy = {
+              type: getScheme(),
+              host: getHost(),
+              port: getPort()
+            };
+          } else if (!routerHost(requestDetails.url)) {
+            proxy = {
+              type: "http",
+              host: "localhost",
+              port: "1"
+            };
+          }
+          console.log(
+            "(proxy)",
+            context.name,
+            "Using",
+            proxy.type,
+            "proxy ",
+            proxy.host + ":" + proxy.port
+          );
+          return proxy;
+        }
+      }
+      if (i2pHost(requestDetails.url)) {
         proxy = {
           type: getScheme(),
           host: getHost(),
           port: getPort()
         };
-        console.log(
-          "(proxy)Using",
-          proxy.type,
-          "proxy ",
-          proxy.host + ":" + proxy.port
-        );
-        return proxy;
+      } else if (!routerHost(requestDetails.url)) {
+        proxy = {
+          type: "http",
+          host: "localhost",
+          port: "1"
+        };
       }
       return proxy;
     };

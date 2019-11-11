@@ -39,6 +39,15 @@ VERSION=0.41
 #VERSION=$(MOZ_VERSION)
 #VERSION=1.27
 
+YELLOW=F7E59A
+ORANGE=FFC56D
+GREY=D9D9D6
+BLUE=A4C8E1
+PURPLE=A48fE1
+
+colors:
+	@echo " yellow $(YELLOW) \n orange $(ORANGE) \n grey $(GREY) \n blue $(BLUE) \n purple $(PURPLE)"
+
 amo-readme:
 	markdown README.md | \
 		sed 's|<p>||g' | \
@@ -90,6 +99,9 @@ libpolyfill:
 
 fmt:
 	find . -path ./node_modules -prune -o -name '*.js' -exec prettier --write {} \;
+
+lint:
+	eslint --fix *.js
 
 deborig:
 	rm -rf ../i2psetproxy.js-$(VERSION)
