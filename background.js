@@ -14,6 +14,15 @@ function onGot(contexts) {
       })
       .then(onCreated, onError);
   }
+  if (ids.indexOf("fenced-default") == -1) {
+    browser.contextualIdentities
+      .create({
+        name: "fenced-default",
+        color: "toolbar",
+        icon: "fence"
+      })
+      .then(onCreated, onError);
+  }
   if (ids.indexOf("routerconsole") == -1) {
     browser.contextualIdentities
       .create({

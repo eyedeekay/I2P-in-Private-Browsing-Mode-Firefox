@@ -171,36 +171,39 @@ var contextSetup = async function(requestDetails) {
     var anyTabFind = async function(tabId) {
       try {
         var context = await browser.contextualIdentities.query({
-          name: "Personal"
+          name: "fenced-default"
         });
-        if (tabId.cookieStoreId != context[0].cookieStoreId) {
-          console.log(
-            "(isolate) forcing",
-            requestDetails.url,
-            " context",
-            tabId.cookieStoreId,
-            context[0].cookieStoreId
-          );
-          function Create(window) {
-            function onCreated(tab) {
-              console.log("(isolate) Closing old, un-isolated tab");
-              browser.tabs.remove(tabId.id);
-              browser.tabs.remove(window.tabs[0].id);
+        console.log("(ISOLATE)", tabId.cookieStoreId);
+        if (tabId.cookieStoreId == "firefox-default") {
+          if (tabId.cookieStoreId != context[0].cookieStoreId) {
+            console.log(
+              "(isolate) forcing",
+              requestDetails.url,
+              " context",
+              tabId.cookieStoreId,
+              context[0].cookieStoreId
+            );
+            function Create(window) {
+              function onCreated(tab) {
+                console.log("(isolate) Closing old, un-isolated tab");
+                browser.tabs.remove(tabId.id);
+                browser.tabs.remove(window.tabs[0].id);
+              }
+              function onError(error) {
+                console.log(`Error: ${error}`);
+              }
+              var created = browser.tabs.create({
+                active: true,
+                cookieStoreId: context[0].cookieStoreId,
+                url: requestDetails.url,
+                windowId: window.id
+              });
+              created.then(onCreated, onError);
             }
-            function onError(error) {
-              console.log(`Error: ${error}`);
-            }
-            var created = browser.tabs.create({
-              active: true,
-              cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url,
-              windowId: window.id
-            });
-            created.then(onCreated, onError);
+            var getting = browser.windows.getCurrent();
+            getting.then(Create);
+            return tabId;
           }
-          var getting = browser.windows.getCurrent();
-          getting.then(Create);
-          return tabId;
         }
       } catch (error) {
         console.log("(isolate)Context Error", error);

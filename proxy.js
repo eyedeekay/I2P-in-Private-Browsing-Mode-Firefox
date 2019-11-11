@@ -62,7 +62,7 @@ var handleContextProxyRequest = async function(requestDetails) {
             proxy.host + ":" + proxy.port
           );
           return proxy;
-        } else if (context.name == "Personal") {
+        } else if (context.name == "fenced-default") {
           if (localHost(requestDetails.url)) {
             if (!routerHost(requestDetails.url)) {
               proxy = {
