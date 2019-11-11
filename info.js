@@ -55,3 +55,47 @@ document.addEventListener("click", e => {
 
   e.preventDefault();
 });
+
+function proxyReadiness() {
+  console.log(this.responseText);
+}
+
+//document.addEventListener("onpageshow", e => {
+console.log("(Check) Checking Proxy Readiness");
+const Http = new XMLHttpRequest();
+Http.addEventListener("load", proxyReadiness);
+const url = "http://proxy.i2p"; ///themes/console/images/favicon.ico";
+Http.open("GET", url);
+Http.send();
+//});
+
+function transferComplete(evt) {
+  console.log(
+    "The transfer is complete.",
+    this.status,
+    this.statusText,
+    this.responseText
+  );
+}
+
+function transferFailed(evt) {
+  console.log(
+    "An error occurred while transferring the file.",
+    this.status,
+    this.statusText,
+    this.responseText
+  );
+}
+
+function transferCanceled(evt) {
+  console.log(
+    "The transfer has been canceled by the user.",
+    this.status,
+    this.statusText,
+    this.responseText
+  );
+}
+
+Http.addEventListener("load", transferComplete);
+Http.addEventListener("error", transferFailed);
+Http.addEventListener("abort", transferCanceled);

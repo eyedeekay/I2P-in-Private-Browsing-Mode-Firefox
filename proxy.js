@@ -23,7 +23,7 @@ var handleContextProxyRequest = async function(requestDetails) {
         proxyDns: false
       };
       if (context != undefined) {
-        if (context.name == "i2pbrowser") {
+        if (context.name == "I2P Browsing") {
           proxy = {
             type: getScheme(),
             host: getHost(),
@@ -38,19 +38,39 @@ var handleContextProxyRequest = async function(requestDetails) {
             proxy.host + ":" + proxy.port
           );
           return proxy;
-        } else if (context.name == "routerconsole") {
-          if (i2pHost(requestDetails.url)) {
-            proxy = {
-              type: getScheme(),
-              host: getHost(),
-              port: getPort()
-            };
+        } else if (context.name == "Router Console") {
+          if (routerHost(requestDetails.url)) {
+            return proxy;
           } else if (!routerHost(requestDetails.url)) {
             proxy = {
               type: "http",
               host: "localhost",
-              port: "1"
+              port: "65535"
             };
+          }
+          proxy = {
+            type: getScheme(),
+            host: getHost(),
+            port: getPort()
+          };
+          console.log(
+            "(proxy)",
+            context.name,
+            "Using",
+            proxy.type,
+            "proxy ",
+            proxy.host + ":" + proxy.port
+          );
+          return proxy;
+        } else if (context.name == "Web Browsing") {
+          if (localHost(requestDetails.url)) {
+            if (!routerHost(requestDetails.url)) {
+              proxy = {
+                type: "http",
+                host: "localhost",
+                port: "65535"
+              };
+            }
           }
           console.log(
             "(proxy)",
@@ -63,17 +83,23 @@ var handleContextProxyRequest = async function(requestDetails) {
           return proxy;
         }
       }
-      if (i2pHost(requestDetails.url)) {
+      if (!routerHost(requestDetails.url)) {
+        if (localHost(requestDetails.url)) {
+          console.log(
+            "(proxy) non-routerconsole localhost url, dropping",
+            requestDetails.url
+          );
+          proxy = {
+            type: "http",
+            host: "localhost",
+            port: "65535"
+          };
+        }
+      } else if (i2pHost(requestDetails.url)) {
         proxy = {
           type: getScheme(),
           host: getHost(),
           port: getPort()
-        };
-      } else if (!routerHost(requestDetails.url)) {
-        proxy = {
-          type: "http",
-          host: "localhost",
-          port: "1"
         };
       }
       return proxy;
@@ -89,10 +115,6 @@ var handleContextProxyRequest = async function(requestDetails) {
     };
     var tabFind = async function(tabId) {
       try {
-        context = await browser.contextualIdentities.query({
-          name: "i2pbrowser"
-        });
-        tabId.cookieStoreId = context[0].cookieStoreId;
         console.log("(proxy) forcing context", tabId.cookieStoreId);
         return tabId;
       } catch (error) {
@@ -111,6 +133,7 @@ var handleContextProxyRequest = async function(requestDetails) {
 
     if (requestDetails.tabId > 0) {
       if (proxyHost(requestDetails.url)) {
+        console.log("(Proxy)I2P Proxy test URL detected, ", requestDetails.url);
         return {
           type: getScheme(),
           host: getHost(),
@@ -132,6 +155,9 @@ var handleContextProxyRequest = async function(requestDetails) {
         console.log("(proxy)Returning I2P Proxy", proxy);
         return proxy;
       }
+      proxy = {};
+      console.log("(proxy)Returning unset Proxy", proxy);
+      return proxy;
     }
   } catch (error) {
     console.log("(proxy)Not using I2P Proxy.", error);
@@ -214,24 +240,85 @@ function setupProxy() {
 }
 
 function checkStoredSettings(storedSettings) {
-  let defaultSettings = {};
-  if (!storedSettings.proxy_scheme) {
-    defaultSettings["proxy_scheme"] = "http";
+  function gotProxyInfo(info) {
+    let defaultSettings = {};
+    let host = info.value.http.split(":")[0];
+    let port = info.value.http.split(":")[1];
+    console.log("proxy", "'" + host + "'", ":", port);
+    if (!storedSettings.proxy_scheme) {
+      defaultSettings["proxy_scheme"] = "http";
+    }
+    if (!storedSettings.proxy_host) {
+      if (host == "") {
+        defaultSettings["proxy_host"] = "127.0.0.1";
+      } else {
+        defaultSettings["proxy_host"] = host;
+      }
+    } else {
+      if (host != "") {
+        defaultSettings["proxy_host"] = host;
+      } else {
+        defaultSettings["proxy_host"] = storedSettings.proxy_host;
+      }
+    }
+    if (!storedSettings.proxy_port) {
+      if (port == undefined) {
+        defaultSettings["proxy_port"] = 4444;
+      } else {
+        defaultSettings["proxy_port"] = port;
+      }
+    } else {
+      if (port != undefined) {
+        defaultSettings["proxy_port"] = port;
+      } else {
+        defaultSettings["proxy_port"] = storedSettings.proxy_port;
+      }
+    }
+    if (!storedSettings.control_host) {
+      if (host == "") {
+        defaultSettings["control_host"] = "127.0.0.1";
+      } else {
+        defaultSettings["control_host"] = host;
+      }
+    } else {
+      if (host != "") {
+        defaultSettings["control_host"] = host;
+      } else {
+        defaultSettings["control_host"] = storedSettings.control_host;
+      }
+    }
+    if (!storedSettings.control_port) {
+      if (port == undefined) {
+        defaultSettings["control_port"] = 4444;
+      } else {
+        defaultSettings["control_port"] = port;
+      }
+    } else {
+      if (port != undefined) {
+        defaultSettings["control_port"] = port;
+      } else {
+        defaultSettings["control_port"] = storedSettings.control_port;
+      }
+    }
+    console.log("(browserinfo) NATIVE PROXYSETTINGS", info.value);
+    console.log(
+      defaultSettings["proxy_host"],
+      defaultSettings["proxy_port"],
+      defaultSettings["control_host"],
+      defaultSettings["control_port"]
+    );
+    chrome.storage.local.set(defaultSettings);
   }
-  if (!storedSettings.proxy_host) {
-    defaultSettings["proxy_host"] = "127.0.0.1";
-  }
-  if (!storedSettings.proxy_port) {
-    defaultSettings["proxy_port"] = 4444;
-  }
-  if (!storedSettings.control_host) {
-    defaultSettings["control_host"] = "127.0.0.1";
-  }
-  if (!storedSettings.control_port) {
-    defaultSettings["control_port"] = 4444;
-  }
-  chrome.storage.local.set(defaultSettings);
+  var gettingInfo = browser.proxy.settings.get({});
+  gettingInfo.then(gotProxyInfo);
 }
+
+//function gotProxyInfo(info) {
+//console.log("(browserinfo)", info.value);
+//}
+
+//var gettingInfo = browser.proxy.settings.get({});
+//gettingInfo.then(gotProxyInfo);
 
 function update(restoredSettings) {
   proxy_scheme = restoredSettings.proxy_scheme;
