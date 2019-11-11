@@ -70,15 +70,30 @@ Http.send();
 //});
 
 function transferComplete(evt) {
-  console.log("The transfer is complete.", this.status, this.statusText, this.responseText);
+  console.log(
+    "The transfer is complete.",
+    this.status,
+    this.statusText,
+    this.responseText
+  );
 }
 
 function transferFailed(evt) {
-  console.log("An error occurred while transferring the file.", this.status, this.statusText, this.responseText);
+  console.log(
+    "An error occurred while transferring the file.",
+    this.status,
+    this.statusText,
+    this.responseText
+  );
 }
 
 function transferCanceled(evt) {
-  console.log("The transfer has been canceled by the user.", this.status, this.statusText, this.responseText);
+  console.log(
+    "The transfer has been canceled by the user.",
+    this.status,
+    this.statusText,
+    this.responseText
+  );
 }
 
 Http.addEventListener("load", transferComplete);

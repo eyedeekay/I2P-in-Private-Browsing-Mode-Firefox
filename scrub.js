@@ -216,7 +216,7 @@ var contextSetup = async function(requestDetails) {
       }
     };
     if (requestDetails.tabId > 0) {
-      if (proxyHost(requestDetails.url)){
+      if (proxyHost(requestDetails.url)) {
         return requestDetails;
       }
       if (i2pHost(requestDetails.url)) {
@@ -233,9 +233,9 @@ var contextSetup = async function(requestDetails) {
       var mtab = tab.then(anyTabFind);
       return requestDetails;
     }
-      //var tab = tabGet(requestDetails.tabId);
-      //var mtab = tab.then(anyTabFind);
-      return requestDetails;
+    //var tab = tabGet(requestDetails.tabId);
+    //var mtab = tab.then(anyTabFind);
+    return requestDetails;
   } catch (error) {
     console.log("(isolate)Not an I2P request, blackholing", error);
   }
