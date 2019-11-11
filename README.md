@@ -40,6 +40,15 @@ releases page. The latest AMO Plugin will always be identical to the latest
 github release, except for the version number, which must be incremented for
 submission to AMO.
 
+Debian usage:
+-------------
+
+Should you prefer, it is possible to install this extension system-wide by
+side-loading it into Debian. You can generate your own deb file by running the
+command:
+
+        make deb
+
 ### Features
 
   * [done] **Provide** a way to launch into an I2P-Specific contextual identity

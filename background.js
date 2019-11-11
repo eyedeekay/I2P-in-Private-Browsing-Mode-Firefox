@@ -137,7 +137,6 @@ function setTitle(window) {
       if (context.name == "i2pbrowser") {
         console.log("Active in I2P window");
 
-        console.log("Active in I2P window");
         if (window.incognito) {
           chrome.windows.update(window.id, {
             titlePreface: titleprefpriv
@@ -157,6 +156,16 @@ function setTitle(window) {
       browser.contextualIdentities
         .get(tabInfo[0].cookieStoreId)
         .then(onGot, onError);
+    } else {
+      if (window.incognito) {
+        chrome.windows.update(window.id, {
+          titlePreface: ""
+        });
+      } else {
+        chrome.windows.update(window.id, {
+          titlePreface: ""
+        });
+      }
     }
   }
 
