@@ -1,3 +1,16 @@
+var titlepref = chrome.i18n.getMessage("titlePreface");
+var titleprefpriv = chrome.i18n.getMessage("titlePrefacePrivate");
+var webpref = chrome.i18n.getMessage("webPreface");
+var webprefpriv = chrome.i18n.getMessage("webPrefacePrivate");
+var routerpref = chrome.i18n.getMessage("routerPreface");
+var routerprefpriv = chrome.i18n.getMessage("routerPrefacePrivate");
+var mailpref = chrome.i18n.getMessage("mailPreface");
+var mailprefpriv = chrome.i18n.getMessage("mailPrefacePrivate");
+var torrentpref = chrome.i18n.getMessage("torrentPreface");
+var torrentprefpriv = chrome.i18n.getMessage("torrentPrefacePrivate");
+var tunnelpref = chrome.i18n.getMessage("i2ptunnelPreface");
+var tunnelprefpriv = chrome.i18n.getMessage("i2ptunnelPrefacePrivate");
+
 function onGot(contexts) {
   var ids = [];
   for (let context of contexts) {
@@ -5,55 +18,55 @@ function onGot(contexts) {
     ids.push(context.name);
   }
   console.log("Checking new contexts");
-  if (ids.indexOf("I2P Browsing") == -1) {
+  if (ids.indexOf(titlepref) == -1) {
     browser.contextualIdentities
       .create({
-        name: "I2P Browsing",
+        name: titlepref,
         color: "orange",
         icon: "fingerprint"
       })
       .then(onCreated, onError);
   }
-  if (ids.indexOf("Web Browsing") == -1) {
+  if (ids.indexOf(webpref) == -1) {
     browser.contextualIdentities
       .create({
-        name: "Web Browsing",
+        name: webpref,
         color: "red",
         icon: "circle"
       })
       .then(onCreated, onError);
   }
-  if (ids.indexOf("Router Console") == -1) {
+  if (ids.indexOf(routerpref) == -1) {
     browser.contextualIdentities
       .create({
-        name: "Router Console",
+        name: routerpref,
         color: "blue",
         icon: "briefcase"
       })
       .then(onCreated, onError);
   }
-  if (ids.indexOf("Hidden Services Manager") == -1) {
+  if (ids.indexOf(tunnelpref) == -1) {
     browser.contextualIdentities
       .create({
-        name: "Hidden Services Manager",
+        name: tunnelpref,
         color: "green",
         icon: "tree"
       })
       .then(onCreated, onError);
   }
-  if (ids.indexOf("Web Mail") == -1) {
+  if (ids.indexOf(mailpref) == -1) {
     browser.contextualIdentities
       .create({
-        name: "Web Mail",
+        name: mailpref,
         color: "yellow",
         icon: "briefcase"
       })
       .then(onCreated, onError);
   }
-  if (ids.indexOf("Bittorrent") == -1) {
+  if (ids.indexOf(torrentpref) == -1) {
     browser.contextualIdentities
       .create({
-        name: "Bittorrent",
+        name: torrentpref,
         color: "purple",
         icon: "chill"
       })
@@ -79,9 +92,6 @@ if (!isDroid()) {
   chrome.tabs.onActivated.addListener(themeWindowByTab);
 }
 
-var titlepref = chrome.i18n.getMessage("titlePreface");
-var titleprefpriv = chrome.i18n.getMessage("titlePrefacePrivate");
-
 function themeWindowByTab(tabId) {
   function tabWindow(tab) {
     getwindow = browser.windows.get(tab.windowId);
@@ -99,7 +109,7 @@ function themeWindow(window) {
   // Check if the window is in private browsing
   function logTabs(tabInfo) {
     function onGot(context) {
-      if (context.name == "I2P Browsing") {
+      if (context.name == titlepref) {
         console.log("Active in I2P window");
         if (window.incognito) {
           chrome.theme.update(window.id, {
@@ -116,7 +126,7 @@ function themeWindow(window) {
             }
           });
         }
-      } else if (context.name == "Router Console") {
+      } else if (context.name == routerpref) {
         console.log("Active in Router Console window");
         if (window.incognito) {
           chrome.theme.update(window.id, {
@@ -133,7 +143,7 @@ function themeWindow(window) {
             }
           });
         }
-      } else if (context.name == "Hidden Services Manager") {
+      } else if (context.name == tunnelpref) {
         console.log("Active in Hidden Services Manager window");
         if (window.incognito) {
           chrome.theme.update(window.id, {
@@ -150,7 +160,7 @@ function themeWindow(window) {
             }
           });
         }
-      } else if (context.name == "Web Mail") {
+      } else if (context.name == mailpref) {
         console.log("Active in Web Mail window");
         if (window.incognito) {
           chrome.theme.update(window.id, {
@@ -167,7 +177,7 @@ function themeWindow(window) {
             }
           });
         }
-      } else if (context.name == "Bittorrent") {
+      } else if (context.name == torrentpref) {
         console.log("Active in Bittorrent window");
         if (window.incognito) {
           chrome.theme.update(window.id, {
@@ -213,7 +223,7 @@ function setTitle(window) {
     console.log(tabInfo);
 
     function onGot(context) {
-      if (context.name == "I2P Browsing") {
+      if (context.name == titlepref) {
         console.log("Active in I2P window");
 
         if (window.incognito) {
@@ -225,64 +235,63 @@ function setTitle(window) {
             titlePreface: titlepref
           });
         }
-      } else if (context.name == "Web Browsing") {
+      } else if (context.name == webpref) {
         console.log("Active in Web window");
 
         if (window.incognito) {
           chrome.windows.update(window.id, {
-            titlePreface: titleprefpriv
+            titlePreface: ""
           });
         } else {
           chrome.windows.update(window.id, {
-            titlePreface: titlepref
+            titlePreface: ""
           });
         }
-      } else if (context.name == "Router Console") {
+      } else if (context.name == routerpref) {
         console.log("Active in Router Console window");
-
         if (window.incognito) {
           chrome.windows.update(window.id, {
-            titlePreface: titleprefpriv
+            titlePreface: routerprefpriv
           });
         } else {
           chrome.windows.update(window.id, {
-            titlePreface: titlepref
+            titlePreface: routerpref
           });
         }
-      } else if (context.name == "Hidden Services Manager") {
+      } else if (context.name == tunnelpref) {
         console.log("Active in Hidden Services Manager window");
 
         if (window.incognito) {
           chrome.windows.update(window.id, {
-            titlePreface: titleprefpriv
+            titlePreface: tunnelprefpriv
           });
         } else {
           chrome.windows.update(window.id, {
-            titlePreface: titlepref
+            titlePreface: tunnelpref
           });
         }
-      } else if (context.name == "Web Mail") {
+      } else if (context.name == mailpref) {
         console.log("Active in Web Mail window");
 
         if (window.incognito) {
           chrome.windows.update(window.id, {
-            titlePreface: titleprefpriv
+            titlePreface: mailprefpriv
           });
         } else {
           chrome.windows.update(window.id, {
-            titlePreface: titlepref
+            titlePreface: mailpref
           });
         }
-      } else if (context.name == "Bittorrent") {
+      } else if (context.name == torrentpref) {
         console.log("Active in I2P window");
 
         if (window.incognito) {
           chrome.windows.update(window.id, {
-            titlePreface: titleprefpriv
+            titlePreface: torrentprefpriv
           });
         } else {
           chrome.windows.update(window.id, {
-            titlePreface: titlepref
+            titlePreface: torrentpref
           });
         }
       }
@@ -329,3 +338,20 @@ chrome.tabs.onCreated.addListener(() => {
   });
   getting.then(setTitle, onError);
 });
+
+chrome.tabs.onActivated.addListener(() => {
+  var getting = browser.windows.getCurrent({
+    populate: true
+  });
+  getting.then(setTitle, onError);
+});
+
+function handleUpdated(updateInfo) {
+  if (updateInfo.theme.colors) {
+    console.log(`Theme was applied: ${updateInfo.theme}`);
+  } else {
+    console.log(`Theme was removed`);
+  }
+}
+
+browser.theme.onUpdated.addListener(handleUpdated);

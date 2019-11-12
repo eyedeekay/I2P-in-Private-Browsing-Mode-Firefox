@@ -89,6 +89,12 @@ command:
 
 ![Visiting i2p-projekt.i2p](i2psetproxy.js.png)
 
+![Visiting webmail](susimail.png)
+
+![Visiting i2psnark](i2psnark.png)
+
+![Visiting routerconsole](routerconsole.png)
+
 ![Visiting clearweb](clearweb.png)
 
 ![Visiting routerconsole](routerconsole.png)
