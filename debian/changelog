@@ -1,3 +1,9 @@
+i2psetproxy.js (0.43-1) UNRELEASED; urgency=low
+
+  * Contextualize All the Things
+
+ -- idk <hankhill19580@gmail.com>  Thu, 31 OCT 2019 12:41:33 -0400
+
 i2psetproxy.js (0.41-1) UNRELEASED; urgency=low
 
   * Only open tabs, not windows
