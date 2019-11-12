@@ -1,10 +1,23 @@
+var titlepref = chrome.i18n.getMessage("titlePreface");
+var titleprefpriv = chrome.i18n.getMessage("titlePrefacePrivate");
+var webpref = chrome.i18n.getMessage("webPreface");
+var webprefpriv = chrome.i18n.getMessage("webPrefacePrivate");
+var routerpref = chrome.i18n.getMessage("routerPreface");
+var routerprefpriv = chrome.i18n.getMessage("routerPrefacePrivate");
+var mailpref = chrome.i18n.getMessage("mailPreface");
+var mailprefpriv = chrome.i18n.getMessage("mailPrefacePrivate");
+var torrentpref = chrome.i18n.getMessage("torrentPreface");
+var torrentprefpriv = chrome.i18n.getMessage("torrentPrefacePrivate");
+var tunnelpref = chrome.i18n.getMessage("i2ptunnelPreface");
+var tunnelprefpriv = chrome.i18n.getMessage("i2ptunnelPrefacePrivate");
+
 var contextScrub = async function(requestDetails) {
   console.log("(scrub)Scrubbing info from contextualized request");
   try {
     var headerScrub = function(context) {
       if (!context) {
         console.error("Context not found");
-      } else if (context.name == "I2P Browsing") {
+      } else if (context.name == titlepref) {
         var ua = "MYOB/6.66 (AN/ON)";
         if (i2pHost(requestDetails.url)) {
           for (var header of requestDetails.requestHeaders) {
@@ -17,7 +30,7 @@ var contextScrub = async function(requestDetails) {
         return {
           requestHeaders: requestDetails.requestHeaders
         };
-      } else if (context.name == "Router Console") {
+      } else if (context.name == routerpref) {
         var ua = "MYOB/6.66 (AN/ON)";
         if (i2pHost(requestDetails.url)) {
           for (var header of requestDetails.requestHeaders) {
@@ -45,7 +58,7 @@ var contextScrub = async function(requestDetails) {
     var tabFind = async function(tabId) {
       try {
         context = await browser.contextualIdentities.query({
-          name: "I2P Browsing"
+          name: titlepref
         });
         tabId.cookieStoreId = context[0].cookieStoreId;
         console.log("(scrub) forcing context", tabId.cookieStoreId);
@@ -96,7 +109,7 @@ var contextSetup = async function(requestDetails) {
     var tabFind = async function(tabId) {
       try {
         var context = await browser.contextualIdentities.query({
-          name: "I2P Browsing"
+          name: titlepref
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
           console.log(
@@ -134,7 +147,7 @@ var contextSetup = async function(requestDetails) {
     var routerTabFind = async function(tabId) {
       try {
         var context = await browser.contextualIdentities.query({
-          name: "Router Console"
+          name: routerpref
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
           console.log(
@@ -172,7 +185,7 @@ var contextSetup = async function(requestDetails) {
     var i2ptunnelTabFind = async function(tabId) {
       try {
         var context = await browser.contextualIdentities.query({
-          name: "Hidden Services Manager"
+          name: tunnelpref
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
           console.log(
@@ -212,7 +225,7 @@ var contextSetup = async function(requestDetails) {
     var snarkTabFind = async function(tabId) {
       try {
         var context = await browser.contextualIdentities.query({
-          name: "Bittorrent"
+          name: torrentpref
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
           console.log(
@@ -250,7 +263,7 @@ var contextSetup = async function(requestDetails) {
     var mailTabFind = async function(tabId) {
       try {
         var context = await browser.contextualIdentities.query({
-          name: "Web Mail"
+          name: mailpref
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
           console.log(
@@ -288,7 +301,7 @@ var contextSetup = async function(requestDetails) {
     var anyTabFind = async function(tabId) {
       try {
         var context = await browser.contextualIdentities.query({
-          name: "Web Browsing"
+          name: webpref
         });
         console.log("(ISOLATE)", tabId.cookieStoreId);
         if (

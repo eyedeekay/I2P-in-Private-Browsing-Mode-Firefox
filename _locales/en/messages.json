@@ -8,11 +8,51 @@
     "description": "Description of the extension."
   },
   "titlePreface": {
-    "message": "I2P Browser - ",
+    "message": "I2P Browser",
     "description": "Preface for the browser titlebar"
   },
   "titlePrefacePrivate": {
-    "message": "I2P Browser (Private) - ",
+    "message": "I2P Browser (Private)",
+    "description": "Preface for the browser titlebar"
+  },
+  "webPreface": {
+    "message": "Web Browser",
+    "description": "Preface for the browser titlebar"
+  },
+  "webPrefacePrivate": {
+    "message": "Web Browser (Private)",
+    "description": "Preface for the browser titlebar"
+  },
+  "routerPreface": {
+    "message": "Router Console",
+    "description": "Preface for the browser titlebar"
+  },
+  "routerPrefacePrivate": {
+    "message": "Router Console (Private)",
+    "description": "Preface for the browser titlebar"
+  },
+  "torrentsPreface": {
+    "message": "Bittorrent",
+    "description": "Preface for the browser titlebar"
+  },
+  "torrentsPrefacePrivate": {
+    "message": "Bittorrent (Private)",
+    "description": "Preface for the browser titlebar"
+  },
+  "mailPreface": {
+    "message": "Web Mail",
+    "description": "Preface for the browser titlebar"
+  },
+  "mailPrefacePrivate": {
+    "message": "Web Mail (Private)",
+    "description": "Preface for the browser titlebar"
+  },
+  "i2ptunnelPreface": {
+    "message": "Hidden Services Manager",
+    "description": "Preface for the browser titlebar"
+  },
+  "i2ptunnelPrefacePrivate": {
+    "message": "Hidden Services Manager (Private)",
     "description": "Preface for the browser titlebar"
   },
   "resetMessage": {

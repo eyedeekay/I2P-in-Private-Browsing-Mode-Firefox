@@ -1,3 +1,15 @@
+var webpref = chrome.i18n.getMessage("webPreface");
+var webprefpriv = chrome.i18n.getMessage("webPrefacePrivate");
+var routerpref = chrome.i18n.getMessage("routerPreface");
+var routerprefpriv = chrome.i18n.getMessage("routerPrefacePrivate");
+var mailpref = chrome.i18n.getMessage("mailPreface");
+var mailprefpriv = chrome.i18n.getMessage("mailPrefacePrivate");
+var torrentpref = chrome.i18n.getMessage("torrentPreface");
+var torrentprefpriv = chrome.i18n.getMessage("torrentPrefacePrivate");
+var tunnelpref = chrome.i18n.getMessage("i2ptunnelPreface");
+var tunnelprefpriv = chrome.i18n.getMessage("i2ptunnelPrefacePrivate");
+
+
 function onSet(result) {
   if (result) {
     console.log("->: Value was updated");
@@ -270,7 +282,7 @@ function forgetBrowsingData(storedSettings) {
         console.log("cleared Local Storage");
 
         contexts = browser.contextualIdentities.query({
-          name: "I2P Browsing"
+          name: titlepref
         });
 
         function deepCleanCookies(cookies) {
