@@ -95,6 +95,8 @@ command:
 
 ![Visiting i2psnark](i2psnark.png)
 
+![Visiting i2ptunnel](i2ptunnel.png)
+
 ![Visiting clearweb](clearweb.png)
 
 ![Video of the plugin in action](i2psetproxy.js.gif)
