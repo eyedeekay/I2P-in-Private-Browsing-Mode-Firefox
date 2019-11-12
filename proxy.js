@@ -132,15 +132,15 @@ var handleContextProxyRequest = async function(requestDetails) {
     };
 
     if (requestDetails.tabId > 0) {
-      console.log("manifest", requestDetails)
+      console.log("manifest", requestDetails);
       if (proxyHost(requestDetails.url)) {
         proxy = {
           type: getScheme(),
           host: getHost(),
           port: getPort()
         };
-        return proxy
-      }else if (i2pHost(requestDetails.url)) {
+        return proxy;
+      } else if (i2pHost(requestDetails.url)) {
         console.log("(Proxy)I2P URL detected, ");
         var tab = tabGet(requestDetails.tabId);
         var mtab = tab.then(tabFind);

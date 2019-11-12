@@ -14,8 +14,7 @@ function bookmarks(bookmarkToolbar) {
           createBookmark.then(onCreated);
         } else {
           var createBookmark = browser.bookmarks.create({
-            url:
-              "http://localhost:7657",
+            url: "http://localhost:7657",
             title: "Home Page",
             parentId: bookmarkToolbar[0].id
           });
