@@ -36,8 +36,8 @@ clean:
 ## EVEN RELEASES are AMO RELEASES
 ## ODD RELEASES are SELFHOSTED RELEASES
 
-MOZ_VERSION=0.40
-VERSION=0.41
+MOZ_VERSION=0.42
+VERSION=0.43
 #VERSION=$(MOZ_VERSION)
 #VERSION=1.27
 
@@ -76,6 +76,8 @@ zip: version
 		--exclude="./i2psetproxy.js@eyedeekay.github.io.xpi" \
 		--exclude="./i2psetproxy.js.png" \
 		--exclude="./i2psetproxy.js.gif" \
+		--exclude="./package.json" \
+		--exclude="./package-lock.json" \
 		--exclude="./.git" -r -FS ../i2psetproxy.js.zip *
 
 release:
