@@ -31,11 +31,11 @@
     "message": "Router Console (Private)",
     "description": "Preface for the browser titlebar"
   },
-  "torrentsPreface": {
+  "torrentPreface": {
     "message": "Bittorrent",
     "description": "Preface for the browser titlebar"
   },
-  "torrentsPrefacePrivate": {
+  "torrentPrefacePrivate": {
     "message": "Bittorrent (Private)",
     "description": "Preface for the browser titlebar"
   },

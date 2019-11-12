@@ -339,6 +339,12 @@ chrome.tabs.onCreated.addListener(() => {
   getting.then(setTitle, onError);
 });
 
+chrome.tabs.onActivated.addListener(() => {
+  var getting = browser.windows.getCurrent({
+    populate: true
+  });
+  getting.then(setTitle, onError);
+});
 
 function handleUpdated(updateInfo) {
   if (updateInfo.theme.colors) {
