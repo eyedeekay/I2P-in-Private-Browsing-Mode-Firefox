@@ -1,0 +1,62 @@
+body {
+  font-family: sans-serif;
+  background: paleturquoise;
+  color: blue;
+}
+
+img {
+  display: inline-block;
+}
+
+h1 {
+  display: inline-block;
+}
+
+a {
+
+}
+
+figcaption {
+  display: inline;
+}
+
+.panel {
+  border: solid;
+  border-radius: 15%;
+  border-color: blue;
+  width: 20%;
+  height: 10%;
+  max-height: 10%;
+  background: deepskyblue;
+  text-align: center;
+  font-family: sans-serif;
+  font-stretch: expanded;
+}
+
+#logo {
+  width: 20%;
+  max-width: 20%;
+}
+
+#headline {
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 600%;
+    width: 100%;
+    top: 0%;
+    position: absolute;
+    margin: auto;
+}
+
+#torrents {
+  right: 5%;
+  top: 20%;
+  position: absolute;
+
+}
+
+#webmail {
+  right: 5%;
+  top: 35%;
+  position: absolute;
+}
