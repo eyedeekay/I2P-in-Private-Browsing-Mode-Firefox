@@ -78,6 +78,8 @@ zip: version
 		--exclude="./i2psetproxy.js.gif" \
 		--exclude="./package.json" \
 		--exclude="./package-lock.json" \
+		--exclude="./.node_modules" \
+		--exclude="./node_modules" \
 		--exclude="./.git" -r -FS ../i2psetproxy.js.zip *
 
 release:
@@ -89,6 +91,26 @@ delete-release:
 recreate-release: delete-release release upload
 
 upload: upload-xpi upload-deb
+
+
+WEB_EXT_API_KEY=AMO_KEY
+WEB_EXT_API_SECRET=AMO_SECRET
+include ../api_keys_moz.mk
+
+##ODD NUMBERED, SELF-DISTRIBUTED VERSIONS HERE!
+sign:
+	@echo "Using the 'sign' target to instantly sign an extension for self-distribution"
+	@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
+	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
+	web-ext sign --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET)
+
+##EVEN NUMBERED, MOZILLA-DISTRIBUTED VERSIONS HERE!
+submit:
+	@echo "Using the 'submit' target to instantly sign an extension for self-distribution"
+	@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
+	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
+	web-ext sign --channel listed --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET)
+
 
 upload-xpi:
 	gothub upload -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n "i2ppb@eyedeekay.github.io.xpi" -f "./i2ppb@eyedeekay.github.io.xpi"
@@ -120,3 +142,62 @@ deborig:
 
 deb: deborig
 	cd ../i2psetproxy.js-$(VERSION) && debuild -us -uc -rfakeroot
+
+i2pversion=`curl -s https://launchpad.net/i2p/trunk/+rdf | grep specifiedAt | head -n 3 | tail -n 1 | sed 's|                <lp:specifiedAt rdf:resource="||g' | sed 's|+rdf"/>||g' | sed 's|/i2p/trunk/||g' | tr -d '/'`
+file=i2pinstall_$(i2pversion)
+winhash=9b20c38a392d5153759d2044ecdac7a90e79675738ead97bbcc731d972c47792
+machash=cbda1767ef4156fc44168e87cd2475e6ba49792c11f6dcdf6fe76d2984cd0e00
+jarhash=e5eb3db08dcc594e2fb01ada63303ff48096a454db1c7659c928ddb07736c84a
+drdhash=93e39b46001da498c9dad1ee94e5cb6301942a5dd2fe6b8405c7ccbed936d2bf
+
+url:
+	#echo -n 'https://launchpad.net' | tee .geti2p.url
+
+	#echo -n '+download/i2pinstall_' | tee -a .geti2p.url
+	#curl -s https://launchpad.net/i2p/trunk/+rdf | \
+	#	grep specifiedAt | \
+	#	head -n 3 | \
+	#	tail -n 1 | \
+	#	sed 's|                <lp:specifiedAt rdf:resource="/i2p/trunk/||g' | \
+	#	sed 's|/+rdf"/>||g' | tee -a .geti2p.url
+	#echo '_windows.exe' | tee -a .geti2p.url
+	cat .geti2p.url | tr -d '\n' | tee geti2p.url
+
+mirrors:
+	@echo "I2P Mirrors"
+	@echo "==========="
+	@echo ""
+	@echo "The software in this repository requires an I2P router to work. You can get it"
+	@echo "the main i2p site, [https://geti2p.net](https://geti2p.net), but if that site"
+	@echo "is blocked in your region, you can get it from one of these alternate"
+	@echo "locations:"
+	@echo ""
+	@echo "Windows"
+	@echo "-------"
+	@echo ""
+	@echo " * [Launchpad Mirror](https://launchpad.net/i2p/trunk/$(i2pversion)/+download/$(file)_windows.exe)"
+	@echo " * [In-I2P Mirror(sigterm.no)](http://whnxvjwjhzsske5yevyokhskllvtisv5ueokw6yvh6t7zqrpra2q.b32.i2p/releases/$(i2pversion)/$(file)_windows.exe)"
+	@echo " * [download.i2p2.de(sigterm.no)](http://download.i2p2.de/releases/$(i2pversion)/$(file)_windows.exe)"
+	@echo " * [download.i2p2.no(sigterm.no](http://download.i2p2.no/releases/$(i2pversion)/$(file)_windows.exe)"
+	@echo " * [Dropbox](https://dl.dropboxusercontent.com/u/18621288/I2P/$(i2pversion)/$(file)_windows.exe)"
+	@echo " * [Google Drive](https://googledrive.com/host/0B4jHEq5G7_EPWV9UeERwdGplZXc/$(i2pversion)/$(file)_windows.exe)"
+	@echo ""
+	@echo "OSX Jar"
+	@echo "-------"
+	@echo ""
+	@echo " * [Launchpad Mirror](https://launchpad.net/i2p/trunk/$(i2pversion)/+download/$(file).jar)"
+	@echo " * [In-I2P Mirror(sigterm.no)](http://whnxvjwjhzsske5yevyokhskllvtisv5ueokw6yvh6t7zqrpra2q.b32.i2p/releases/$(i2pversion)/$(file).jar)"
+	@echo " * [download.i2p2.de(sigterm.no)](http://download.i2p2.de/releases/$(i2pversion)/$(file).jar)"
+	@echo " * [download.i2p2.no(sigterm.no](http://download.i2p2.no/releases/$(i2pversion)/$(file).jar)"
+	@echo " * [Dropbox](https://dl.dropboxusercontent.com/u/18621288/I2P/$(i2pversion)/$(file).jar)"
+	@echo " * [Google Drive](https://googledrive.com/host/0B4jHEq5G7_EPWV9UeERwdGplZXc/$(i2pversion)/$(file).jar)"
+	@echo ""
+	@echo "Linux Jar"
+	@echo "---------"
+	@echo ""
+	@echo " * [Launchpad Mirror](https://launchpad.net/i2p/trunk/$(i2pversion)/+download/$(file).jar)"
+	@echo " * [In-I2P Mirror(sigterm.no)](http://whnxvjwjhzsske5yevyokhskllvtisv5ueokw6yvh6t7zqrpra2q.b32.i2p/releases/$(i2pversion)/$(file).jar)"
+	@echo " * [download.i2p2.de(sigterm.no)](http://download.i2p2.de/releases/$(i2pversion)/$(file).jar)"
+	@echo " * [download.i2p2.no(sigterm.no](http://download.i2p2.no/releases/$(i2pversion)/$(file).jar)"
+	@echo " * [Dropbox](https://dl.dropboxusercontent.com/u/18621288/I2P/$(i2pversion)/$(file).jar)"
+	@echo " * [Google Drive](https://googledrive.com/host/0B4jHEq5G7_EPWV9UeERwdGplZXc/$(i2pversion)/$(file).jar)"

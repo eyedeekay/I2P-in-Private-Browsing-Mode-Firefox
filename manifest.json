@@ -5,9 +5,6 @@
       "strict_min_version": "60.0"
     }
   },
-  "chrome_settings_overrides": {
-    "homepage": "home.html"
-  },
   "permissions": [
     "theme",
     "browsingData",
