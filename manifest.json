@@ -5,6 +5,10 @@
       "strict_min_version": "60.0"
     }
   },
+  "chrome_settings_overrides": {
+    "homepage": "home.html"
+  },
+  "content_security_policy": "script-src 'self' 'sha256-AT9pbzcnD9T9Agf3fMgPh55nsx/xONoULxPFvOb93Uo='; object-src 'self'",
   "permissions": [
     "theme",
     "browsingData",
@@ -45,6 +49,7 @@
       "background.js",
       "proxy.js",
       "info.js",
+      "home.js",
       "i2pcontrol/i2pcontrol.js",
       "scrub.js",
       "bookmarks.js"

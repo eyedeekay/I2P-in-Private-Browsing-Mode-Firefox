@@ -9,7 +9,6 @@ var torrentprefpriv = chrome.i18n.getMessage("torrentPrefacePrivate");
 var tunnelpref = chrome.i18n.getMessage("i2ptunnelPreface");
 var tunnelprefpriv = chrome.i18n.getMessage("i2ptunnelPrefacePrivate");
 
-
 browser.privacy.network.peerConnectionEnabled.set({
   value: false
 });
