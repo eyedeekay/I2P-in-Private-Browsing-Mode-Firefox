@@ -281,3 +281,17 @@ li {
   font-size: .8rem!important;
   text-align: left
 }
+#proxy-check {
+  visibility: hidden;
+}
+.consoleOn:hover #proxy-check {
+  visibility: visible;
+  opacity: 1;
+}
+.proxyReady:hover #proxy-check {
+  visibility: visible;
+  opacity: 1;
+}
+img.readyness {
+  height: 3rem;
+}
