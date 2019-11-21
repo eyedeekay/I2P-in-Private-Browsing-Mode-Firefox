@@ -71,6 +71,9 @@ xpi:
 version:
 	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(VERSION)\",|g' manifest.json
 
+moz-version:
+	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(MOZ_VERSION)\",|g' manifest.json
+
 zip: version
 	zip --exclude="./i2ppb@eyedeekay.github.io.xpi" \
 		--exclude="./i2psetproxy.js@eyedeekay.github.io.xpi" \
@@ -98,19 +101,18 @@ WEB_EXT_API_SECRET=AMO_SECRET
 include ../api_keys_moz.mk
 
 ##ODD NUMBERED, SELF-DISTRIBUTED VERSIONS HERE!
-sign:
+sign: version
 	@echo "Using the 'sign' target to instantly sign an extension for self-distribution"
 	@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
 	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
 	web-ext sign --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET)
 
 ##EVEN NUMBERED, MOZILLA-DISTRIBUTED VERSIONS HERE!
-submit:
-	@echo "Using the 'submit' target to instantly sign an extension for self-distribution"
+submit: moz-version
+	@echo "Using the 'submit' target to instantly sign an extension for Mozilla distribution"
 	@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
 	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
 	web-ext sign --channel listed --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET)
-
 
 upload-xpi:
 	gothub upload -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n "i2ppb@eyedeekay.github.io.xpi" -f "./i2ppb@eyedeekay.github.io.xpi"
