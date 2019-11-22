@@ -1,10 +1,10 @@
 html, body {
-  width: 350px;
+  width: 50rem;
 }
 
 a {
   margin: 10px;
-  display: inline-block;
+  /*display: inline-block;*/
 }
 
 .panel {
@@ -19,4 +19,42 @@ span.identity {
 
 figcaption {
   display: inline;
+}
+
+.section-header {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 8px
+}
+
+p {
+  font-size: 12px;
+}
+h1 {
+  font-size: 25px;
+}
+h2,
+h3 {
+  font-size: 18px;
+}
+h4 {
+  font-size: 13px!important;
+}
+#links .showhider {
+  font-size: 18px
+}
+#onboarding {
+  font-size: 2rem;
+}
+img.readyness {
+  height: 2rem;
+}
+#proxyUnready {
+  min-height: 2rem;
+}
+#proxyReady {
+  min-height: 2rem;
+}
+#consoleOn {
+  min-height: 2rem;
 }

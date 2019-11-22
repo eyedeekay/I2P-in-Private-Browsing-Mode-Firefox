@@ -60,6 +60,14 @@ function proxyReadiness() {
   console.log(this.responseText);
 }
 
+function goHome() {
+  let createData = {
+    url: "home.html"
+  };
+  console.log("visiting homepage");
+  let creating = browser.tabs.create(createData);
+}
+/*
 //document.addEventListener("onpageshow", e => {
 console.log("(Check) Checking Proxy Readiness");
 const Http = new XMLHttpRequest();
@@ -99,3 +107,4 @@ function transferCanceled(evt) {
 Http.addEventListener("load", transferComplete);
 Http.addEventListener("error", transferFailed);
 Http.addEventListener("abort", transferCanceled);
+*/

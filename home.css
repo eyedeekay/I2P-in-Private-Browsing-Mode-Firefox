@@ -293,5 +293,6 @@ li {
   opacity: 1;
 }
 img.readyness {
-  height: 3rem;
+  height: 100%;
+  width: auto
 }

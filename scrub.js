@@ -353,9 +353,21 @@ var contextSetup = async function(requestDetails) {
     };
     if (requestDetails.tabId > 0) {
       if (proxyHost(requestDetails.url)) {
+        setcookie = browser.cookies.set({
+          firstPartyDomain: i2pHostName(requestDetails.url),
+          url: requestDetails.url,
+          secure: true
+        });
+        setcookie.then(onGot, onError);
         return requestDetails;
       }
       if (i2pHost(requestDetails.url)) {
+        var setcookie = browser.cookies.set({
+          firstPartyDomain: i2pHostName(requestDetails.url),
+          url: requestDetails.url,
+          secure: true
+        });
+        setcookie.then(onGot, onError);
         var tab = tabGet(requestDetails.tabId);
         var mtab = tab.then(tabFind);
         return requestDetails;
