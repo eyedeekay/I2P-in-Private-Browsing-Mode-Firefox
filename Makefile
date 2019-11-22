@@ -98,7 +98,11 @@ upload: upload-xpi upload-deb
 
 WEB_EXT_API_KEY=AMO_KEY
 WEB_EXT_API_SECRET=AMO_SECRET
-include ../api_keys_moz.mk
+
+-include ../api_keys_moz.mk
+
+tk:
+	echo $(WEB_EXT_API_KEY)
 
 ##ODD NUMBERED, SELF-DISTRIBUTED VERSIONS HERE!
 sign: version

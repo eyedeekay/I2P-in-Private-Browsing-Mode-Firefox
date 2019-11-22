@@ -121,19 +121,16 @@ function bookmarks(bookmarkToolbar) {
   b0.then(bookHome, onRejected);
 
   var b1 = browser.bookmarks.search({
-    url: "http://localhost:7657/i2psnark",
     title: "Bittorrent"
   });
   b1.then(bookTorrent, onRejected);
 
   var b2 = browser.bookmarks.search({
-    url: "http://localhost:7657/i2ptunnelmgr",
     title: "Hidden Services Manager"
   });
   b2.then(bookI2PTunnel, onRejected);
 
   var b3 = browser.bookmarks.search({
-    url: "http://localhost:7657/webmail",
     title: "Web Mail"
   });
   b3.then(bookMail, onRejected);
