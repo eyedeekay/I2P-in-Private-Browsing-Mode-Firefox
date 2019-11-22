@@ -1,64 +1,54 @@
-html, body {
-  width: 50rem;
+body,
+html {
+  width: 50rem
 }
-
 a {
-  margin: 10px;
-  /*display: inline-block;*/
+  margin: 10px
 }
-
 .panel {
-  margin: 5px;
+  margin: 5px
 }
-
 span.identity {
   width: 100px;
   display: inline-block;
-  margin-left: 1em;
+  margin-left: 1em
 }
-
 figcaption {
-  display: inline;
+  display: inline
 }
-
 .section-header {
   display: flex;
   flex-direction: row;
   margin-bottom: 8px
 }
-
 p {
-  font-size: 12px;
+  font-size: 12px
 }
 h1 {
-  font-size: 25px;
+  font-size: 25px
 }
 h2,
 h3 {
-  font-size: 18px;
+  font-size: 18px
 }
 h4 {
-  font-size: 13px!important;
+  font-size: 13px!important
 }
 #links .showhider {
   font-size: 18px
 }
 #onboarding {
-  font-size: 2rem;
+  font-size: 2rem
 }
 img.readyness {
-  height: 2rem;
+  height: 2rem
 }
 #proxyUnready {
-  min-height: 2rem;
+  min-height: 2rem
 }
 #proxyReady {
-  min-height: 2rem;
+  min-height: 2rem
 }
 #consoleOn {
-  min-height: 2rem;
-}
-#window-visit-homepage {
-  max-width: 70%;
-  margin-left: 0rem;
+  min-height: 2rem
 }

@@ -41,17 +41,17 @@ document.addEventListener("click", e => {
       chrome.windows.update(currentWindow.id, updateInfo);
     });
   } else if (e.target.id === "window-visit-homepage") {
-    console.log("attempting to create homepage tab")
-    goHome()
+    console.log("attempting to create homepage tab");
+    goHome();
   } else if (e.target.id === "window-visit-i2ptunnel") {
-    console.log("attempting to create i2ptunnel tab")
-    goTunnel()
+    console.log("attempting to create i2ptunnel tab");
+    goTunnel();
   } else if (e.target.id === "window-visit-susimail") {
-    console.log("attempting to create susimail tab")
-    goMail()
+    console.log("attempting to create susimail tab");
+    goMail();
   } else if (e.target.id === "window-visit-snark") {
-    console.log("attempting to create snark tab")
-    goSnark()
+    console.log("attempting to create snark tab");
+    goSnark();
   } else if (e.target.id === "clear-browser-data") {
     forgetBrowsingData();
   } else if (e.target.id === "check-i2p-control") {

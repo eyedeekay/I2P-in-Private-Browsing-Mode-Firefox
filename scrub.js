@@ -462,7 +462,7 @@ function routerHost(url) {
       } else if (final === "i2psnark" || final === "torrents") {
         console.log("(urlcheck) application path", final);
         return "i2psnark";
-      } else if (final === "webmail" || final === "susimail" ) {
+      } else if (final === "webmail" || final === "susimail") {
         console.log("(urlcheck) application path", final);
         return "webmail";
       } else if (final == "") {
