@@ -150,4 +150,4 @@ deborig:
 deb: deborig
 	cd ../i2psetproxy.js-$(VERSION) && debuild -us -uc -rfakeroot
 
-include mirrors.mk
+-include mirrors.mk
