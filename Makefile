@@ -131,6 +131,7 @@ libpolyfill:
 	wget -O chromium/browser-polyfill.js https://unpkg.com/webextension-polyfill/dist/browser-polyfill.js
 
 fmt:
+	find . -path ./node_modules -prune -o -name '*.css' -exec cleancss -O1 --format beautify {} \;
 	find . -path ./node_modules -prune -o -name '*.js' -exec prettier --write {} \;
 
 lint:

@@ -58,3 +58,7 @@ img.readyness {
 #consoleOn {
   min-height: 2rem;
 }
+#window-visit-homepage {
+  max-width: 70%;
+  margin-left: 0rem;
+}

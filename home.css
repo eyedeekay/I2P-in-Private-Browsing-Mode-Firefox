@@ -5,7 +5,8 @@
 html {
   height: 100%
 }
-a {
+a,
+button {
   color: #3b6bbf;
   text-decoration: none;
   font-weight: 700;
@@ -20,8 +21,18 @@ a {
   outline: 0
 }
 .applicationDesc:hover,
-a:hover {
+a:hover,
+button:hover {
   color: #495057;
+  text-decoration: none;
+  font-weight: 700;
+  word-wrap: break-word;
+  outline: 0
+}
+button {
+  border: none;
+  cursor: pointer;
+  color: #3b6bbf;
   text-decoration: none;
   font-weight: 700;
   word-wrap: break-word;
@@ -43,9 +54,6 @@ body {
   word-wrap: break-word;
   outline: 0
 }
-/*body:not([initialized]) {
-  display: none
-}*/
 .background {
   background-color: #f8f8ff;
   height: 100%
@@ -146,21 +154,10 @@ h4 {
 #links .showhider {
   font-size: 25px
 }
-#info-content {
-  /*display: none;*/
-}
 .section-header {
   display: flex;
   flex-direction: row;
   margin-bottom: 80px
-}
-body:not([i2pconsoleon]) .hideIfI2PConsoleOff,
-body:not([i2pon]) .hideIfI2POff,
-body:not([i2pproxyon]) .hideIfI2PProxyOff,
-body[i2pconsoleon] .hideIfI2PConsoleOn,
-body[i2pon] .hideIfI2POn,
-body[i2pproxyon] .hideIfI2PProxyOn {
-  /*display: none!important*/
 }
 ul {
   margin-left: 2rem;
@@ -270,27 +267,17 @@ li {
   background: #f7e59a;
   box-shadow: inset 0 0 0 1px #fff,0 0 1px #ccc
 }
-#onboardingContentFour,
-#onboardingContentOne,
-#onboardingContentThree,
-#onboardingContentTwo,
-#onboardingContentZero {
-  /*display: none;*/
-}
 .onboardingContent {
   font-size: .8rem!important;
   text-align: left
 }
 #proxy-check {
-  visibility: hidden;
+  visibility: hidden
 }
-.consoleOn:hover #proxy-check {
-  visibility: visible;
-  opacity: 1;
-}
+.consoleOn:hover #proxy-check,
 .proxyReady:hover #proxy-check {
   visibility: visible;
-  opacity: 1;
+  opacity: 1
 }
 img.readyness {
   height: 100%;

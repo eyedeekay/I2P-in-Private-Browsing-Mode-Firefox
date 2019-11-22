@@ -459,10 +459,10 @@ function routerHost(url) {
       if (final === "i2ptunnelmgr" || final === "i2ptunnel") {
         console.log("(urlcheck) application path", final);
         return "i2ptunnelmgr";
-      } else if (final === "i2psnark" || final == "torrents") {
+      } else if (final === "i2psnark" || final === "torrents") {
         console.log("(urlcheck) application path", final);
         return "i2psnark";
-      } else if (final === "webmail") {
+      } else if (final === "webmail" || final === "susimail" ) {
         console.log("(urlcheck) application path", final);
         return "webmail";
       } else if (final == "") {

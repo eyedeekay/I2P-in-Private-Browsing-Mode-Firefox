@@ -40,6 +40,18 @@ document.addEventListener("click", e => {
       };
       chrome.windows.update(currentWindow.id, updateInfo);
     });
+  } else if (e.target.id === "window-visit-homepage") {
+    console.log("attempting to create homepage tab")
+    goHome()
+  } else if (e.target.id === "window-visit-i2ptunnel") {
+    console.log("attempting to create i2ptunnel tab")
+    goTunnel()
+  } else if (e.target.id === "window-visit-susimail") {
+    console.log("attempting to create susimail tab")
+    goMail()
+  } else if (e.target.id === "window-visit-snark") {
+    console.log("attempting to create snark tab")
+    goSnark()
   } else if (e.target.id === "clear-browser-data") {
     forgetBrowsingData();
   } else if (e.target.id === "check-i2p-control") {
@@ -63,6 +75,30 @@ function proxyReadiness() {
 function goHome() {
   let createData = {
     url: "home.html"
+  };
+  console.log("visiting homepage");
+  let creating = browser.tabs.create(createData);
+}
+
+function goTunnel() {
+  let createData = {
+    url: "http://127.0.0.1:7657/i2ptunnel"
+  };
+  console.log("visiting homepage");
+  let creating = browser.tabs.create(createData);
+}
+
+function goMail() {
+  let createData = {
+    url: "http://127.0.0.1:7657/susimail"
+  };
+  console.log("visiting homepage");
+  let creating = browser.tabs.create(createData);
+}
+
+function goSnark() {
+  let createData = {
+    url: "http://127.0.0.1:7657/i2psnark"
   };
   console.log("visiting homepage");
   let creating = browser.tabs.create(createData);
