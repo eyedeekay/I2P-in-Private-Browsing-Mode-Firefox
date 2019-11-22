@@ -9,7 +9,6 @@ var torrentprefpriv = chrome.i18n.getMessage("torrentPrefacePrivate");
 var tunnelpref = chrome.i18n.getMessage("i2ptunnelPreface");
 var tunnelprefpriv = chrome.i18n.getMessage("i2ptunnelPrefacePrivate");
 
-
 function onSet(result) {
   if (result) {
     console.log("->: Value was updated");

@@ -71,6 +71,9 @@ xpi:
 version:
 	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(VERSION)\",|g' manifest.json
 
+moz-version:
+	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(MOZ_VERSION)\",|g' manifest.json
+
 zip: version
 	zip --exclude="./i2ppb@eyedeekay.github.io.xpi" \
 		--exclude="./i2psetproxy.js@eyedeekay.github.io.xpi" \
@@ -78,6 +81,8 @@ zip: version
 		--exclude="./i2psetproxy.js.gif" \
 		--exclude="./package.json" \
 		--exclude="./package-lock.json" \
+		--exclude="./.node_modules" \
+		--exclude="./node_modules" \
 		--exclude="./.git" -r -FS ../i2psetproxy.js.zip *
 
 release:
@@ -89,6 +94,30 @@ delete-release:
 recreate-release: delete-release release upload
 
 upload: upload-xpi upload-deb
+
+
+WEB_EXT_API_KEY=AMO_KEY
+WEB_EXT_API_SECRET=AMO_SECRET
+
+
+-include ../api_keys_moz.mk
+
+tk:
+	echo $(WEB_EXT_API_KEY)
+
+##ODD NUMBERED, SELF-DISTRIBUTED VERSIONS HERE!
+sign: version
+	@echo "Using the 'sign' target to instantly sign an extension for self-distribution"
+	@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
+	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
+	web-ext sign --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET)
+
+##EVEN NUMBERED, MOZILLA-DISTRIBUTED VERSIONS HERE!
+submit: moz-version
+	@echo "Using the 'submit' target to instantly sign an extension for Mozilla distribution"
+	@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
+	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
+	web-ext sign --channel listed --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET)
 
 upload-xpi:
 	gothub upload -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n "i2ppb@eyedeekay.github.io.xpi" -f "./i2ppb@eyedeekay.github.io.xpi"
@@ -102,6 +131,9 @@ libpolyfill:
 	wget -O chromium/browser-polyfill.js https://unpkg.com/webextension-polyfill/dist/browser-polyfill.js
 
 fmt:
+	cleancss -O1 all -O2 all --format beautify home.css -o .home.css && mv .home.css home.css
+	cleancss -O1 all -O2 all --format beautify info.css -o .info.css && mv .info.css info.css
+	#find . -path ./node_modules -prune -o -name '*.css' -exec cleancss -O1 --format beautify {} \;
 	find . -path ./node_modules -prune -o -name '*.js' -exec prettier --write {} \;
 
 lint:
@@ -120,3 +152,5 @@ deborig:
 
 deb: deborig
 	cd ../i2psetproxy.js-$(VERSION) && debuild -us -uc -rfakeroot
+
+-include mirrors.mk

@@ -8,14 +8,14 @@ function bookmarks(bookmarkToolbar) {
         if (port == "7644") {
           var createBookmark = browser.bookmarks.create({
             url: "about:I2p",
-            title: "Home Page",
+            title: "I2P Home Page",
             parentId: bookmarkToolbar[0].id
           });
           createBookmark.then(onCreated);
         } else {
           var createBookmark = browser.bookmarks.create({
-            url: "http://localhost:7657",
-            title: "Home Page",
+            url: browser.runtime.getURL("home.html"),
+            title: "I2P Home Page",
             parentId: bookmarkToolbar[0].id
           });
           createBookmark.then(onCreated);
@@ -116,24 +116,21 @@ function bookmarks(bookmarkToolbar) {
   }
 
   var b0 = browser.bookmarks.search({
-    title: "Home Page"
+    title: "I2P Home Page"
   });
   b0.then(bookHome, onRejected);
 
   var b1 = browser.bookmarks.search({
-    url: "http://localhost:7657/i2psnark",
     title: "Bittorrent"
   });
   b1.then(bookTorrent, onRejected);
 
   var b2 = browser.bookmarks.search({
-    url: "http://localhost:7657/i2ptunnelmgr",
     title: "Hidden Services Manager"
   });
   b2.then(bookI2PTunnel, onRejected);
 
   var b3 = browser.bookmarks.search({
-    url: "http://localhost:7657/webmail",
     title: "Web Mail"
   });
   b3.then(bookMail, onRejected);
@@ -144,3 +141,13 @@ var bt = browser.bookmarks.search({
 });
 
 bt.then(bookmarks);
+
+function handleCreated(id, bookmarkInfo) {
+  var propValue;
+  for (var propName in bookmarkInfo) {
+    propValue = bookmarkInfo[propName];
+    console.log(propName, propValue);
+  }
+}
+
+browser.bookmarks.onCreated.addListener(handleCreated);

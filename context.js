@@ -52,7 +52,7 @@ if (browser.contextualIdentities === undefined) {
 } else {
   browser.contextualIdentities
     .query({
-      name: "I2P Browsing"
+      name: "I2P Browser"
     })
     .then(identities => {
       if (!identities.length) {

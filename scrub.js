@@ -353,9 +353,21 @@ var contextSetup = async function(requestDetails) {
     };
     if (requestDetails.tabId > 0) {
       if (proxyHost(requestDetails.url)) {
+        setcookie = browser.cookies.set({
+          firstPartyDomain: i2pHostName(requestDetails.url),
+          url: requestDetails.url,
+          secure: true
+        });
+        setcookie.then(onGot, onError);
         return requestDetails;
       }
       if (i2pHost(requestDetails.url)) {
+        var setcookie = browser.cookies.set({
+          firstPartyDomain: i2pHostName(requestDetails.url),
+          url: requestDetails.url,
+          secure: true
+        });
+        setcookie.then(onGot, onError);
         var tab = tabGet(requestDetails.tabId);
         var mtab = tab.then(tabFind);
         return requestDetails;
@@ -447,10 +459,10 @@ function routerHost(url) {
       if (final === "i2ptunnelmgr" || final === "i2ptunnel") {
         console.log("(urlcheck) application path", final);
         return "i2ptunnelmgr";
-      } else if (final === "i2psnark" || final == "torrents") {
+      } else if (final === "i2psnark" || final === "torrents") {
         console.log("(urlcheck) application path", final);
         return "i2psnark";
-      } else if (final === "webmail") {
+      } else if (final === "webmail" || final === "susimail") {
         console.log("(urlcheck) application path", final);
         return "webmail";
       } else if (final == "") {
