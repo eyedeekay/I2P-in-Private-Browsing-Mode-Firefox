@@ -87,7 +87,7 @@ zip: version
 		--exclude="./.git" -r -FS ../i2psetproxy.js.zip *
 
 release:
-	cat desc | gothub release -p -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n $(VERSION) -d -
+	cat desc debian/changelog | gothub release -p -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n $(VERSION) -d -
 
 delete-release:
 	gothub delete -u eyedeekay -r i2psetproxy.js -t $(VERSION); true
@@ -106,30 +106,27 @@ WEB_EXT_API_SECRET=AMO_SECRET
 tk:
 	echo $(WEB_EXT_API_KEY)
 
+submit: moz-sign moz-submit
+
 ##ODD NUMBERED, SELF-DISTRIBUTED VERSIONS HERE!
-sign: version
+moz-sign: version
 	@echo "Using the 'sign' target to instantly sign an extension for self-distribution"
 	@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
 	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
-	web-ext sign --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET)
+	web-ext sign --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
 
 ##EVEN NUMBERED, MOZILLA-DISTRIBUTED VERSIONS HERE!
-submit: moz-version
+moz-submit: moz-version
 	@echo "Using the 'submit' target to instantly sign an extension for Mozilla distribution"
 	@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
 	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
-	web-ext sign --channel listed --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET)
+	web-ext sign --channel listed --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
 
 upload-xpi:
 	gothub upload -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n "i2ppb@eyedeekay.github.io.xpi" -f "./i2ppb@eyedeekay.github.io.xpi"
 
 upload-deb:
 	gothub upload -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n "i2psetproxy.js_$(VERSION)-1_amd64.deb" -f "../i2psetproxy.js_$(VERSION)-1_amd64.deb"
-
-lib: libpolyfill
-
-libpolyfill:
-	wget -O chromium/browser-polyfill.js https://unpkg.com/webextension-polyfill/dist/browser-polyfill.js
 
 fmt:
 	cleancss -O1 all -O2 all --format beautify home.css -o .home.css && mv .home.css home.css

@@ -1,14 +1,22 @@
+i2psetproxy.js (0.47-1) UNRELEASED; urgency=low
+
+  * Improve android compatibility
+  * Improve code organization
+  * Partial protocol handlers implementation
+
+ -- idk <hankhill19580@gmail.com>  Sat, 23 NOV 2019 18:53:11 -0400
+
 i2psetproxy.js (0.45-1) UNRELEASED; urgency=low
 
   * Improve the user interface a whole bunch
 
- -- idk <hankhill19580@gmail.com>  Thu, 22 NOV 2019 18:17:33 -0400
+ -- idk <hankhill19580@gmail.com>  Fri, 22 NOV 2019 18:17:33 -0400
 
 i2psetproxy.js (0.43-1) UNRELEASED; urgency=low
 
   * Contextualize All the Things
 
- -- idk <hankhill19580@gmail.com>  Thu, 31 OCT 2019 12:41:33 -0400
+ -- idk <hankhill19580@gmail.com>  Mon, 11 OCT 2019 12:41:33 -0400
 
 i2psetproxy.js (0.41-1) UNRELEASED; urgency=low
 
