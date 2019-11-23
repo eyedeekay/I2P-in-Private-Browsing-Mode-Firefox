@@ -283,3 +283,8 @@ img.readyness {
   height: 100%;
   width: auto
 }
+@media only screen and (max-width: 768px) {
+  .application-info {
+    display: none
+  }
+}

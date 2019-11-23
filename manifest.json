@@ -24,7 +24,7 @@
   ],
   "manifest_version": 2,
   "name": "__MSG_extensionName__",
-  "version": "0.43",
+  "version": "0.47",
   "description": "__MSG_extensionDescription__",
   "homepage_url": "https://github.com/eyedeekay/i2psetproxy.js",
   "icons": {
@@ -44,6 +44,8 @@
       "privacy.js",
       "platform.js",
       "background.js",
+      "host.js",
+      "handler.js",
       "proxy.js",
       "info.js",
       "home.js",
@@ -53,9 +55,14 @@
     ]
   },
   "protocol_handlers": [{
-    "protocol": "web+rc",
+    "protocol": "ext+rc",
     "name": "RouterConsole",
-    "uriTemplate": "http://router.console/?%s"
+    "uriTemplate": "http://127.0.0.1:7657/%s"
+  },
+  {
+    "protocol": "magnet",
+    "name": "I2PTorrent",
+    "uriTemplate": "http://127.0.0.1:7657/i2psnark/?nofilter_newURL=%s&action=Add&foo=Add+torrent"
   }],
   "default_locale": "en"
 }

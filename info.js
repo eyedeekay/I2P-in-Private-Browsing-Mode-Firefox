@@ -8,7 +8,7 @@ document.addEventListener("click", e => {
       type: "panel",
       incognito: true
     };
-    let creating = browser.windows.create(createData);
+    let creating = browser.tabs.create(createData);
     creating.then(() => {
       console.log("The help panel has been created");
     });
@@ -17,7 +17,7 @@ document.addEventListener("click", e => {
       type: "panel",
       incognito: true
     };
-    let creating = browser.windows.create(createData);
+    let creating = browser.tabs.create(createData);
     creating.then(() => {
       console.log("The news panel has been created");
     });
@@ -73,11 +73,27 @@ function proxyReadiness() {
 }
 
 function goHome() {
-  let createData = {
-    url: "home.html"
-  };
-  console.log("visiting homepage");
-  let creating = browser.tabs.create(createData);
+  function gotProxyInfo(info) {
+    let host = info.value.http.split(":")[0];
+    let port = info.value.http.split(":")[1];
+    if (port == "7644") {
+      let createData = {
+        url: "about:I2p"
+      };
+      console.log("visiting homepage");
+      let creating = browser.tabs.create(createData);
+    } else {
+      let createData = {
+        url: "home.html"
+      };
+      console.log("visiting homepage");
+      let creating = browser.tabs.create(createData);
+    }
+    console.log("(bookmarks) adding home page bookmark");
+  }
+  console.log("(bookmarks) checking if we're running in an I2P Browser");
+  var gettingInfo = browser.proxy.settings.get({});
+  gettingInfo.then(gotProxyInfo);
 }
 
 function goTunnel() {
