@@ -44,6 +44,7 @@
       "privacy.js",
       "platform.js",
       "background.js",
+      "host.js",
       "handler.js",
       "proxy.js",
       "info.js",
