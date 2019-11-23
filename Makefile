@@ -26,6 +26,7 @@ uninstall:
 		$(PREFIX)/share/webext/i2psetproxy.js@eyedeekay.github.io \
 		$(PREFIX)/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}
 
+
 ls:
 	ls -lah $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io; \
 	ls -lah $(PREFIX)/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}
@@ -36,8 +37,8 @@ clean:
 ## EVEN RELEASES are AMO RELEASES
 ## ODD RELEASES are SELFHOSTED RELEASES
 
-MOZ_VERSION=0.42
-VERSION=0.43
+MOZ_VERSION=0.44
+VERSION=0.45
 #VERSION=$(MOZ_VERSION)
 #VERSION=1.27
 

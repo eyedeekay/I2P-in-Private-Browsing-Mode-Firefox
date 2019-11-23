@@ -15,7 +15,7 @@ function onError(error) {
 
 function eventHandler(event) {
   if (event.target.dataset.action == "create") {
-    var creating = browser.windows.create({
+    var creating = browser.tabs.create({
       cookieStoreId: event.target.dataset.identity
     });
     creating.then(onCreated, onError);
