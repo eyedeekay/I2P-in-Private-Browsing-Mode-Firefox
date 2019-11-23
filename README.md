@@ -6,7 +6,8 @@ WebExtension that does extended configuration of a dedicated I2P browser. While
 needing to touch about:config and disables several
 fingerprinting/de-anonymization vectors on it's own. It is also the easiest way
 to configure an I2P browser on Android without requiring the user to root their
-device.
+device. It aims to be as similar to a fully-fledged I2P browser as possible and
+borrows some code from I2P Rhizome(Which it is also compatible with).
 
 The Old Version
 ---------------
