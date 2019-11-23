@@ -44,6 +44,7 @@
       "privacy.js",
       "platform.js",
       "background.js",
+      "handler.js",
       "proxy.js",
       "info.js",
       "home.js",
@@ -53,9 +54,14 @@
     ]
   },
   "protocol_handlers": [{
-    "protocol": "web+rc",
+    "protocol": "ext+rc",
     "name": "RouterConsole",
-    "uriTemplate": "http://router.console/?%s"
+    "uriTemplate": "http://127.0.0.1:7657/%s"
+  },
+  {
+    "protocol": "magnet",
+    "name": "I2PTorrent",
+    "uriTemplate": "http://127.0.0.1:7657/i2psnark/?nofilter_newURL=%s&action=Add&foo=Add+torrent"
   }],
   "default_locale": "en"
 }

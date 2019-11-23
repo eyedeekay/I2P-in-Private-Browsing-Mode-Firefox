@@ -90,8 +90,7 @@ if (!isDroid()) {
   chrome.windows.onRemoved.addListener(themeWindow);
   chrome.tabs.onUpdated.addListener(themeWindowByTab);
   chrome.tabs.onActivated.addListener(themeWindowByTab);
-}else{
-
+} else {
 }
 
 function themeWindowByTab(tabId) {
