@@ -1,3 +1,4 @@
+var titlepref = chrome.i18n.getMessage("titlePreface");
 var webpref = chrome.i18n.getMessage("webPreface");
 var webprefpriv = chrome.i18n.getMessage("webPrefacePrivate");
 var routerpref = chrome.i18n.getMessage("routerPreface");
@@ -126,7 +127,17 @@ var handleContextProxyRequest = async function(requestDetails) {
     };
     var tabFind = async function(tabId) {
       try {
-        console.log("(proxy) forcing context", tabId.cookieStoreId);
+        context = await browser.contextualIdentities.query({
+          name: titlepref
+        });
+        console.log(
+          "(scrub) forcing context",
+          titlepref,
+          tabId.cookieStoreId,
+          "=>",
+          context[0].cookieStoreId
+        );
+        tabId.cookieStoreId = context[0].cookieStoreId;
         return tabId;
       } catch (error) {
         console.log("(proxy)Context Error", error);
