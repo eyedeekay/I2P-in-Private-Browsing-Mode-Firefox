@@ -339,13 +339,6 @@ function setTitle(window) {
 var gettingInfo = browser.runtime.getPlatformInfo();
 gettingInfo.then(got => {
   if (got.os == "android") {
-    browser.tabs.onCreated.addListener(() => {
-      /* var gettingStoredSettings = chrome.storage.local.get();
-     gettingStoredSettings.then(setupProxy, onError); */
-      chrome.storage.local.get(function(got) {
-        setupProxy();
-      });
-    });
   } else {
     browser.windows.onCreated.addListener(() => {
       /* var gettingStoredSettings = chrome.storage.local.get();
@@ -360,12 +353,6 @@ gettingInfo.then(got => {
 var gettingInfo = browser.runtime.getPlatformInfo();
 gettingInfo.then(got => {
   if (got.os == "android") {
-    browser.tabs.onCreated.addListener(() => {
-      var getting = browser.tabs.getCurrent({
-        populate: true
-      });
-      getting.then(setTitle, onError);
-    });
   } else {
     browser.tabs.onCreated.addListener(() => {
       var getting = browser.windows.getCurrent({
@@ -379,12 +366,6 @@ gettingInfo.then(got => {
 var gettingInfo = browser.runtime.getPlatformInfo();
 gettingInfo.then(got => {
   if (got.os == "android") {
-    browser.tabs.onActivated.addListener(() => {
-      var getting = browser.tabs.getCurrent({
-        populate: true
-      });
-      getting.then(setTitle, onError);
-    });
   } else {
     browser.tabs.onActivated.addListener(() => {
       var getting = browser.windows.getCurrent({
