@@ -385,7 +385,6 @@ function checkAndroidStoredSettings(storedSettings) {
       defaultSettings["control_port"] = storedSettings.control_port;
     }
   }
-  console.log("(browserinfo) NATIVE PROXYSETTINGS", info.value);
   console.log(
     defaultSettings["proxy_host"],
     defaultSettings["proxy_port"],
