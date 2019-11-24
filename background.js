@@ -338,19 +338,36 @@ function setTitle(window) {
   querying.then(logTabs, onError);
 }
 
-browser.windows.onCreated.addListener(() => {
-  /* var gettingStoredSettings = chrome.storage.local.get();
+var gettingInfo = browser.runtime.getPlatformInfo();
+gettingInfo.then(got => {
+  if (got.os == "android") {
+    browser.tabs.onCreated.addListener(() => {
+      /* var gettingStoredSettings = chrome.storage.local.get();
      gettingStoredSettings.then(setupProxy, onError); */
-  chrome.storage.local.get(function(got) {
-    setupProxy();
-  });
+      chrome.storage.local.get(function(got) {
+        setupProxy();
+      });
+    });
+  } else {
+    browser.windows.onCreated.addListener(() => {
+      /* var gettingStoredSettings = chrome.storage.local.get();
+     gettingStoredSettings.then(setupProxy, onError); */
+      chrome.storage.local.get(function(got) {
+        setupProxy();
+      });
+    });
+  }
 });
 
 var gettingInfo = browser.runtime.getPlatformInfo();
 gettingInfo.then(got => {
   if (got.os == "android") {
-    console.log("Running in Android detected");
-    return true;
+    browser.tabs.onCreated.addListener(() => {
+      var getting = browser.tabs.getCurrent({
+        populate: true
+      });
+      getting.then(setTitle, onError);
+    });
   } else {
     browser.tabs.onCreated.addListener(() => {
       var getting = browser.windows.getCurrent({
@@ -364,8 +381,12 @@ gettingInfo.then(got => {
 var gettingInfo = browser.runtime.getPlatformInfo();
 gettingInfo.then(got => {
   if (got.os == "android") {
-    console.log("Running in Android detected");
-    return true;
+    browser.tabs.onActivated.addListener(() => {
+      var getting = browser.tabs.getCurrent({
+        populate: true
+      });
+      getting.then(setTitle, onError);
+    });
   } else {
     browser.tabs.onActivated.addListener(() => {
       var getting = browser.windows.getCurrent({
