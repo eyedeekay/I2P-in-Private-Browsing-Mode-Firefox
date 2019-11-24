@@ -325,6 +325,76 @@ function checkStoredSettings(storedSettings) {
   gettingInfo.then(gotProxyInfo);
 }
 
+function checkAndroidStoredSettings(storedSettings) {
+  let defaultSettings = {};
+  let host = "";
+  let port = "";
+  console.log("proxy", "'" + host + "'", ":", port);
+  if (!storedSettings.proxy_scheme) {
+    defaultSettings["proxy_scheme"] = "http";
+  }
+  if (!storedSettings.proxy_host) {
+    if (host == "") {
+      defaultSettings["proxy_host"] = "127.0.0.1";
+    } else {
+      defaultSettings["proxy_host"] = host;
+    }
+  } else {
+    if (host != "") {
+      defaultSettings["proxy_host"] = host;
+    } else {
+      defaultSettings["proxy_host"] = storedSettings.proxy_host;
+    }
+  }
+  if (!storedSettings.proxy_port) {
+    if (port == undefined) {
+      defaultSettings["proxy_port"] = 4444;
+    } else {
+      defaultSettings["proxy_port"] = port;
+    }
+  } else {
+    if (port != undefined) {
+      defaultSettings["proxy_port"] = port;
+    } else {
+      defaultSettings["proxy_port"] = storedSettings.proxy_port;
+    }
+  }
+  if (!storedSettings.control_host) {
+    if (host == "") {
+      defaultSettings["control_host"] = "127.0.0.1";
+    } else {
+      defaultSettings["control_host"] = host;
+    }
+  } else {
+    if (host != "") {
+      defaultSettings["control_host"] = host;
+    } else {
+      defaultSettings["control_host"] = storedSettings.control_host;
+    }
+  }
+  if (!storedSettings.control_port) {
+    if (port == undefined) {
+      defaultSettings["control_port"] = 4444;
+    } else {
+      defaultSettings["control_port"] = port;
+    }
+  } else {
+    if (port != undefined) {
+      defaultSettings["control_port"] = port;
+    } else {
+      defaultSettings["control_port"] = storedSettings.control_port;
+    }
+  }
+  console.log("(browserinfo) NATIVE PROXYSETTINGS", info.value);
+  console.log(
+    defaultSettings["proxy_host"],
+    defaultSettings["proxy_port"],
+    defaultSettings["control_host"],
+    defaultSettings["control_port"]
+  );
+  chrome.storage.local.set(defaultSettings);
+}
+
 //function gotProxyInfo(info) {
 //console.log("(browserinfo)", info.value);
 //}
@@ -345,12 +415,6 @@ function update(restoredSettings) {
   console.log("restoring control port:", control_port);
 }
 
-chrome.storage.local.get(function(got) {
-  checkStoredSettings(got);
-  update(got);
-  setupProxy();
-});
-
 // Theme all currently open windows
 if (!isDroid()) {
 }
@@ -359,5 +423,16 @@ var gettingInfo = browser.runtime.getPlatformInfo();
 gettingInfo.then(got => {
   if (got.os != "android") {
     browser.windows.getAll().then(wins => wins.forEach(themeWindow));
+    chrome.storage.local.get(function(got) {
+      checkStoredSettings(got);
+      update(got);
+      setupProxy();
+    });
+  } else {
+    chrome.storage.local.get(function(got) {
+      checkAndroidStoredSettings(got);
+      update(got);
+      setupProxy();
+    });
   }
 });

@@ -87,8 +87,6 @@ browser.contextualIdentities.query({}).then(onGot, onError);
 var gettingInfo = browser.runtime.getPlatformInfo();
 gettingInfo.then(got => {
   if (got.os == "android") {
-    console.log("Running in Android detected");
-    return true;
   } else {
     browser.windows.onCreated.addListener(themeWindow);
     browser.windows.onFocusChanged.addListener(themeWindow);
