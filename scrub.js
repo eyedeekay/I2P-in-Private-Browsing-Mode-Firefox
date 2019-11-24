@@ -85,7 +85,6 @@ var contextScrub = async function(requestDetails) {
         console.log("(Proxy)I2P URL detected, ");
         tab = tabGet(requestDetails.tabId);
         var mtab = tab.then(tabFind);
-        requestDetails.tabId = mtab;
         context = mtab.then(contextGet);
         req = await context.then(headerScrub);
         console.log("(scrub)Scrubbing I2P Request", req);
@@ -326,7 +325,7 @@ var contextSetup = async function(requestDetails) {
             var gettingInfo = browser.runtime.getPlatformInfo();
             gettingInfo.then(got => {
               if (got.os == "android") {
-                var getting = browser.tabs.getCurrent();
+                var getting = browser.windows.getCurrent();
                 getting.then(Create);
                 return tabId;
               } else {
