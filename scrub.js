@@ -338,7 +338,7 @@ var contextSetup = async function(requestDetails) {
           url: requestDetails.url,
           secure: true
         });
-        setcookie.then(onGot, onError);
+        setcookie.then(onContextGotLog, onError);
         return requestDetails;
       }
       if (i2pHost(requestDetails.url)) {
@@ -347,7 +347,7 @@ var contextSetup = async function(requestDetails) {
           url: requestDetails.url,
           secure: true
         });
-        setcookie.then(onGot, onError);
+        setcookie.then(onContextGotLog, onError);
         var tab = tabGet(requestDetails.tabId);
         var mtab = tab.then(tabFind);
         return requestDetails;
