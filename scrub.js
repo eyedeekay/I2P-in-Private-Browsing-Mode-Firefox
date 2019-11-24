@@ -61,7 +61,13 @@ var contextScrub = async function(requestDetails) {
           name: titlepref
         });
         tabId.cookieStoreId = context[0].cookieStoreId;
-        console.log("(scrub) forcing context", tabId.cookieStoreId);
+        console.log(
+          "(scrub) forcing context",
+          titlepref,
+          tabId.cookieStoreId,
+          "=>",
+          context[0].cookieStoreId
+        );
         return tabId;
       } catch (error) {
         console.log("(scrub)Context Error", error);
