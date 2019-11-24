@@ -393,7 +393,7 @@ var contextSetup = async function(requestDetails) {
         }
       } else {
         var tab = tabGet(requestDetails.tabId);
-        var mtab = tab.then(routerTabFind);
+        var mtab = tab.then(anyTabFind);
         return requestDetails;
       }
     }
