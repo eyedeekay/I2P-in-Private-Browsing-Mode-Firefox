@@ -131,7 +131,7 @@ var handleContextProxyRequest = async function(requestDetails) {
           name: titlepref
         });
         console.log(
-          "(scrub) forcing context",
+          "(proxy) forcing context",
           titlepref,
           tabId.cookieStoreId,
           "=>",
