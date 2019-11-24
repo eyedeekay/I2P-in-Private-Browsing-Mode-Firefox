@@ -36,8 +36,8 @@ clean:
 ## EVEN RELEASES are AMO RELEASES
 ## ODD RELEASES are SELFHOSTED RELEASES
 
-MOZ_VERSION=0.46
-VERSION=0.47
+MOZ_VERSION=0.48
+VERSION=0.49
 #VERSION=$(MOZ_VERSION)
 #VERSION=1.27
 
@@ -112,7 +112,8 @@ moz-sign: version
 	@echo "Using the 'sign' target to instantly sign an extension for self-distribution"
 	@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
 	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
-	web-ext sign --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
+	web-ext-submit --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
+	cp web-ext-artifacts/*.xpi ./i2ppb@eyedeekay.github.io.xpi
 
 ##EVEN NUMBERED, MOZILLA-DISTRIBUTED VERSIONS HERE!
 moz-submit: moz-version

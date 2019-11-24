@@ -21,9 +21,9 @@ function trimHost(url) {
   } else {
     hostname = url.split("/")[0];
   }
-  let path = url.replace(prefix+hostname, "")
-  console.log("(handler) path", prefix+hostname, path)
-  return path
+  let path = url.replace(prefix + hostname, "");
+  console.log("(handler) path", prefix + hostname, path);
+  return path;
 }
 
 var handlerSetup = async function(requestDetails) {

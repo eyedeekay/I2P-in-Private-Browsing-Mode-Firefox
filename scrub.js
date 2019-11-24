@@ -333,9 +333,18 @@ var contextSetup = async function(requestDetails) {
               });
               created.then(onCreated, onError);
             }
-            var getting = browser.windows.getCurrent();
-            getting.then(Create);
-            return tabId;
+            var gettingInfo = browser.runtime.getPlatformInfo();
+            gettingInfo.then(got => {
+              if (got.os == "android") {
+                var getting = browser.tabs.getCurrent();
+                getting.then(Create);
+                return tabId;
+              } else {
+                var getting = browser.windows.getCurrent();
+                getting.then(Create);
+                return tabId;
+              }
+            });
           }
         }
       } catch (error) {
