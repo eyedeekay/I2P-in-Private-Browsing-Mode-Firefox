@@ -11,7 +11,7 @@ var torrentprefpriv = chrome.i18n.getMessage("torrentPrefacePrivate");
 var tunnelpref = chrome.i18n.getMessage("i2ptunnelPreface");
 var tunnelprefpriv = chrome.i18n.getMessage("i2ptunnelPrefacePrivate");
 
-function onGot(contexts) {
+function onContextsGot(contexts) {
   var ids = [];
   for (let context of contexts) {
     console.log(`Name: ${context.name}`);
@@ -82,7 +82,15 @@ function onError(e) {
   console.error(e);
 }
 
-browser.contextualIdentities.query({}).then(onGot, onError);
+var gettingInfo = browser.runtime.getPlatformInfo();
+gettingInfo.then(got => {
+  if (got.os == "android") {
+  } else {
+    browser.windows.onCreated.addListener(() => {
+      browser.contextualIdentities.query({}).then(onContextsGot, onError);
+    });
+  }
+});
 
 var gettingInfo = browser.runtime.getPlatformInfo();
 gettingInfo.then(got => {
@@ -120,7 +128,7 @@ function themeWindowByTab(tabId) {
 function themeWindow(window) {
   // Check if the window is in private browsing
   function logTabs(tabInfo) {
-    function onGot(context) {
+    function onContextGotTheme(context) {
       if (context.name == titlepref) {
         console.log("Active in I2P window");
         if (window.incognito) {
@@ -217,7 +225,7 @@ function themeWindow(window) {
     ) {
       browser.contextualIdentities
         .get(tabInfo[0].cookieStoreId)
-        .then(onGot, onError);
+        .then(onContextGotTheme, onError);
     } else {
       browser.theme.reset(window.id);
     }
@@ -234,7 +242,7 @@ function setTitle(window) {
   function logTabs(tabInfo) {
     console.log(tabInfo);
 
-    function onGot(context) {
+    function onContextGotTitle(context) {
       if (context.name == titlepref) {
         console.log("Active in I2P window");
 
@@ -315,7 +323,7 @@ function setTitle(window) {
     ) {
       browser.contextualIdentities
         .get(tabInfo[0].cookieStoreId)
-        .then(onGot, onError);
+        .then(onContextGotTitle, onError);
     } else {
       if (window.incognito) {
         browser.windows.update(window.id, {

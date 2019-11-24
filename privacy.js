@@ -256,28 +256,28 @@ function forgetBrowsingData(storedSettings) {
             hostnames: [i2pHostName(item.url)],
             since
           })
-          .then(onGot);
+          .then(onContextGotLog);
         console.log("cleared Passwords");
         browser.browsingData
           .removeDownloads({
             hostnames: [i2pHostName(item.url)],
             since
           })
-          .then(onGot);
+          .then(onContextGotLog);
         console.log("cleared Downloads");
         browser.browsingData
           .removeFormData({
             hostnames: [i2pHostName(item.url)],
             since
           })
-          .then(onGot);
+          .then(onContextGotLog);
         console.log("cleared Form Data");
         browser.browsingData
           .removeLocalStorage({
             hostnames: [i2pHostName(item.url)],
             since
           })
-          .then(onGot);
+          .then(onContextGotLog);
         console.log("cleared Local Storage");
 
         contexts = browser.contextualIdentities.query({
@@ -291,7 +291,7 @@ function forgetBrowsingData(storedSettings) {
               name: cookie.name,
               url: item.url
             });
-            removing.then(onGot, onError);
+            removing.then(onContextGotLog, onError);
           }
           console.log("Cleared cookies");
         }
@@ -338,7 +338,7 @@ function i2pHost(url) {
   return hostname.endsWith(".i2p");
 }
 
-function onGot(contexts) {
+function onContextGotLog(contexts) {
   if (contexts != null) {
     for (let context of contexts) {
       console.log(context);
