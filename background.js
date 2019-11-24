@@ -78,10 +78,6 @@ function onCreated(context) {
   console.log(`New identity's ID: ${context.cookieStoreId}.`);
 }
 
-function onError(e) {
-  console.error(e);
-}
-
 var gettingInfo = browser.runtime.getPlatformInfo();
 gettingInfo.then(got => {
   if (got.os == "android") {
