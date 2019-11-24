@@ -353,5 +353,11 @@ chrome.storage.local.get(function(got) {
 
 // Theme all currently open windows
 if (!isDroid()) {
-  browser.windows.getAll().then(wins => wins.forEach(themeWindow));
 }
+
+var gettingInfo = browser.runtime.getPlatformInfo();
+gettingInfo.then(got => {
+  if (got.os != "android") {
+    browser.windows.getAll().then(wins => wins.forEach(themeWindow));
+  }
+});
