@@ -123,7 +123,6 @@ var contextSetup = async function(requestDetails) {
             function onCreated(tab) {
               console.log("(isolate) Closing old, un-isolated tab", window);
               browser.tabs.remove(tabId.id);
-              browser.tabs.remove(window.tabs[0].id);
             }
             function onError(error) {
               console.log(`Error: ${error}`);
@@ -131,12 +130,11 @@ var contextSetup = async function(requestDetails) {
             var created = browser.tabs.create({
               active: true,
               cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url,
-              windowId: window.id
+              url: requestDetails.url
             });
             created.then(onCreated, onError);
           }
-          var getting = browser.windows.getCurrent();
+          var getting = browser.tabs.getCurrent();
           getting.then(Create);
           return tabId;
         }
@@ -169,12 +167,12 @@ var contextSetup = async function(requestDetails) {
             var created = browser.tabs.create({
               active: true,
               cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url,
-              windowId: window.id
+              url: requestDetails.url
+              //windowId: window.id
             });
             created.then(onCreated, onError);
           }
-          var getting = browser.windows.getCurrent();
+          var getting = browser.tabs.getCurrent();
           getting.then(Create);
           return tabId;
         }
@@ -199,9 +197,6 @@ var contextSetup = async function(requestDetails) {
             function onCreated(tab) {
               console.log("(isolate) Closing old, un-isolated tab");
               browser.tabs.remove(tabId.id);
-              if (window != undefined) {
-                browser.tabs.remove(window.tabs[0].id);
-              }
             }
             function onError(error) {
               console.log(`Error: ${error}`);
@@ -209,12 +204,12 @@ var contextSetup = async function(requestDetails) {
             var created = browser.tabs.create({
               active: true,
               cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url,
-              windowId: window.id
+              url: requestDetails.url
+              //windowId: window.id
             });
             created.then(onCreated, onError);
           }
-          var getting = browser.windows.getCurrent();
+          var getting = browser.tabs.getCurrent();
           getting.then(Create);
           return tabId;
         }
@@ -239,7 +234,6 @@ var contextSetup = async function(requestDetails) {
             function onCreated(tab) {
               console.log("(isolate) Closing old, un-isolated tab");
               browser.tabs.remove(tabId.id);
-              browser.tabs.remove(window.tabs[0].id);
             }
             function onError(error) {
               console.log(`Error: ${error}`);
@@ -247,12 +241,11 @@ var contextSetup = async function(requestDetails) {
             var created = browser.tabs.create({
               active: true,
               cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url,
-              windowId: window.id
+              url: requestDetails.url
             });
             created.then(onCreated, onError);
           }
-          var getting = browser.windows.getCurrent();
+          var getting = browser.tabs.getCurrent();
           getting.then(Create);
           return tabId;
         }
@@ -277,7 +270,6 @@ var contextSetup = async function(requestDetails) {
             function onCreated(tab) {
               console.log("(isolate) Closing old, un-isolated tab");
               browser.tabs.remove(tabId.id);
-              browser.tabs.remove(window.tabs[0].id);
             }
             function onError(error) {
               console.log(`Error: ${error}`);
@@ -285,12 +277,11 @@ var contextSetup = async function(requestDetails) {
             var created = browser.tabs.create({
               active: true,
               cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url,
-              windowId: window.id
+              url: requestDetails.url
             });
             created.then(onCreated, onError);
           }
-          var getting = browser.windows.getCurrent();
+          var getting = browser.tabs.getCurrent();
           getting.then(Create);
           return tabId;
         }
@@ -320,7 +311,6 @@ var contextSetup = async function(requestDetails) {
               function onCreated(tab) {
                 console.log("(isolate) Closing old, un-isolated tab");
                 browser.tabs.remove(tabId.id);
-                browser.tabs.remove(window.tabs[0].id);
               }
               function onError(error) {
                 console.log(`Error: ${error}`);
@@ -328,8 +318,7 @@ var contextSetup = async function(requestDetails) {
               var created = browser.tabs.create({
                 active: true,
                 cookieStoreId: context[0].cookieStoreId,
-                url: requestDetails.url,
-                windowId: window.id
+                url: requestDetails.url
               });
               created.then(onCreated, onError);
             }

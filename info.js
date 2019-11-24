@@ -1,8 +1,4 @@
 document.addEventListener("click", e => {
-  function getCurrentWindow() {
-    return browser.windows.getCurrent();
-  }
-
   if (e.target.id === "window-create-help-panel") {
     let createData = {
       type: "panel",
@@ -34,12 +30,6 @@ document.addEventListener("click", e => {
     }
     RefreshIdentity();
   } else if (e.target.id === "window-preface-title") {
-    getCurrentWindow().then(currentWindow => {
-      let updateInfo = {
-        titlePreface: "I2P Help | "
-      };
-      browser.windows.update(currentWindow.id, updateInfo);
-    });
   } else if (e.target.id === "window-visit-homepage") {
     console.log("attempting to create homepage tab");
     goHome();
