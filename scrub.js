@@ -16,7 +16,7 @@ var contextScrub = async function(requestDetails) {
   try {
     var headerScrub = function(context) {
       if (!context) {
-        console.error("Context not found");
+        console.error("Context not found", context);
       } else if (context.name == titlepref) {
         var ua = "MYOB/6.66 (AN/ON)";
         if (i2pHost(requestDetails.url)) {
@@ -122,7 +122,6 @@ var contextSetup = async function(requestDetails) {
             "(isolate) forcing I2P Browsing",
             requestDetails.url,
             " context",
-            tabId.cookieStoreId,
             context[0].cookieStoreId
           );
           function Create(window) {
@@ -155,7 +154,6 @@ var contextSetup = async function(requestDetails) {
             "(isolate) forcing Router Console",
             requestDetails.url,
             " context",
-            tabId.cookieStoreId,
             context[0].cookieStoreId
           );
           function Create(window) {
@@ -190,7 +188,6 @@ var contextSetup = async function(requestDetails) {
             "(isolate) forcing HSM context",
             requestDetails.url,
             " context",
-            tabId.cookieStoreId,
             context[0].cookieStoreId
           );
           function Create(window) {
@@ -224,7 +221,6 @@ var contextSetup = async function(requestDetails) {
             "(isolate) forcing Bittorrent",
             requestDetails.url,
             " context",
-            tabId.cookieStoreId,
             context[0].cookieStoreId
           );
           function Create(window) {
@@ -257,7 +253,6 @@ var contextSetup = async function(requestDetails) {
             "(isolate) forcing Web Mail",
             requestDetails.url,
             " context",
-            tabId.cookieStoreId,
             context[0].cookieStoreId
           );
           function Create(window) {
@@ -295,7 +290,6 @@ var contextSetup = async function(requestDetails) {
               "(isolate) forcing Web Browsing",
               requestDetails.url,
               " context",
-              tabId.cookieStoreId,
               context[0].cookieStoreId
             );
             function Create(window) {
