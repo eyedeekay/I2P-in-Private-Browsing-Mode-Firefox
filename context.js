@@ -1,4 +1,5 @@
 //var windowIds = []
+var titlepref = chrome.i18n.getMessage("titlePreface");
 
 function onError(error) {
   console.log(`Error: ${error}`);
@@ -51,7 +52,7 @@ if (browser.contextualIdentities === undefined) {
 } else {
   browser.contextualIdentities
     .query({
-      name: "I2P Browser"
+      name: titlepref
     })
     .then(identities => {
       if (!identities.length) {

@@ -81,6 +81,7 @@ function onCreated(context) {
 var gettingInfo = browser.runtime.getPlatformInfo();
 gettingInfo.then(got => {
   if (got.os == "android") {
+    browser.contextualIdentities.query({}).then(onContextsGot, onError);
   } else {
     browser.windows.onCreated.addListener(() => {
       browser.contextualIdentities.query({}).then(onContextsGot, onError);
