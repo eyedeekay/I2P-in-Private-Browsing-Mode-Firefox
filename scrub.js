@@ -126,7 +126,7 @@ var contextSetup = async function(requestDetails) {
           function Create(window) {
             function onCreated(tab) {
               console.log("(isolate) Closing old, un-isolated tab", window);
-              browser.tabs.remove(tabId.id);
+              browser.tabs.remove(window.id);
             }
             var created = browser.tabs.create({
               active: true,
@@ -158,8 +158,7 @@ var contextSetup = async function(requestDetails) {
           function Create(window) {
             function onCreated(tab) {
               console.log("(isolate) Closing old, un-isolated tab");
-              browser.tabs.remove(tabId.id);
-              browser.tabs.remove(window.tabs[0].id);
+              browser.tabs.remove(window.id);
             }
             var created = browser.tabs.create({
               active: true,
@@ -192,7 +191,7 @@ var contextSetup = async function(requestDetails) {
           function Create(window) {
             function onCreated(tab) {
               console.log("(isolate) Closing old, un-isolated tab");
-              browser.tabs.remove(tabId.id);
+              browser.tabs.remove(window.id);
             }
             var created = browser.tabs.create({
               active: true,
@@ -225,7 +224,7 @@ var contextSetup = async function(requestDetails) {
           function Create(window) {
             function onCreated(tab) {
               console.log("(isolate) Closing old, un-isolated tab");
-              browser.tabs.remove(tabId.id);
+              browser.tabs.remove(window.id);
             }
             var created = browser.tabs.create({
               active: true,
@@ -257,7 +256,7 @@ var contextSetup = async function(requestDetails) {
           function Create(window) {
             function onCreated(tab) {
               console.log("(isolate) Closing old, un-isolated tab");
-              browser.tabs.remove(tabId.id);
+              browser.tabs.remove(window.id);
             }
             var created = browser.tabs.create({
               active: true,
@@ -294,7 +293,7 @@ var contextSetup = async function(requestDetails) {
             function Create(window) {
               function onCreated(tab) {
                 console.log("(isolate) Closing old, un-isolated tab");
-                browser.tabs.remove(tabId.id);
+                browser.tabs.remove(window.id);
               }
               var created = browser.tabs.create({
                 active: true,
