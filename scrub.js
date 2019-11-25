@@ -66,7 +66,6 @@ var contextScrub = async function(requestDetails) {
           "=>",
           context[0].cookieStoreId
         );
-        tabId.cookieStoreId = context[0].cookieStoreId;
         return tabId;
       } catch (error) {
         console.log("(scrub)Context Error", error);
