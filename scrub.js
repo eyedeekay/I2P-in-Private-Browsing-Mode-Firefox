@@ -52,7 +52,7 @@ var contextScrub = async function(requestDetails) {
         context = await browser.contextualIdentities.get(tabInfo.cookieStoreId);
         return context;
       } catch (error) {
-        console.log("(scrub)Conext Error", error);
+        console.log("(scrub)Context Error", error);
       }
     };
     var tabFind = async function(tabId) {

@@ -23,7 +23,7 @@ function SetControlHostText() {
   var controlhostid = document.getElementById("controlHostText");
   controlhostid.textContent = chrome.i18n.getMessage("controlHostText");
 }
-
+/*
 var handleContextProxyRequest = async function(requestDetails) {
   console.log("(proxy)Searching for proxy by context");
   try {
@@ -183,14 +183,13 @@ function setupProxy() {
   var Port = getPort();
   var Scheme = getScheme();
 
-  /**/
   console.log("Setting up Firefox WebExtension proxy");
   browser.proxy.onRequest.addListener(handleContextProxyRequest, {
     urls: ["<all_urls>"]
   });
   console.log("i2p settings created for WebExtension Proxy");
-  /**/
 }
+*/
 
 function SetControlPortText() {
   var controlportid = document.getElementById("controlPortText");
@@ -324,6 +323,75 @@ function checkStoredSettings(storedSettings) {
   gettingInfo.then(gotProxyInfo);
 }
 
+function checkAndroidStoredSettings(storedSettings) {
+  let defaultSettings = {};
+  let host = "";
+  let port = "";
+  console.log("proxy", "'" + host + "'", ":", port);
+  if (!storedSettings.proxy_scheme) {
+    defaultSettings["proxy_scheme"] = "http";
+  }
+  if (!storedSettings.proxy_host) {
+    if (host == "") {
+      defaultSettings["proxy_host"] = "127.0.0.1";
+    } else {
+      defaultSettings["proxy_host"] = host;
+    }
+  } else {
+    if (host != "") {
+      defaultSettings["proxy_host"] = host;
+    } else {
+      defaultSettings["proxy_host"] = storedSettings.proxy_host;
+    }
+  }
+  if (!storedSettings.proxy_port) {
+    if (port == undefined) {
+      defaultSettings["proxy_port"] = 4444;
+    } else {
+      defaultSettings["proxy_port"] = port;
+    }
+  } else {
+    if (port != undefined) {
+      defaultSettings["proxy_port"] = port;
+    } else {
+      defaultSettings["proxy_port"] = storedSettings.proxy_port;
+    }
+  }
+  if (!storedSettings.control_host) {
+    if (host == "") {
+      defaultSettings["control_host"] = "127.0.0.1";
+    } else {
+      defaultSettings["control_host"] = host;
+    }
+  } else {
+    if (host != "") {
+      defaultSettings["control_host"] = host;
+    } else {
+      defaultSettings["control_host"] = storedSettings.control_host;
+    }
+  }
+  if (!storedSettings.control_port) {
+    if (port == undefined) {
+      defaultSettings["control_port"] = 4444;
+    } else {
+      defaultSettings["control_port"] = port;
+    }
+  } else {
+    if (port != undefined) {
+      defaultSettings["control_port"] = port;
+    } else {
+      defaultSettings["control_port"] = storedSettings.control_port;
+    }
+  }
+  console.log(
+    defaultSettings["proxy_host"],
+    defaultSettings["proxy_port"],
+    defaultSettings["control_host"],
+    defaultSettings["control_port"]
+  );
+  chrome.storage.local.set(defaultSettings);
+}
+
 function onError(e) {
   console.error(e);
 }
@@ -383,7 +451,22 @@ function onError(e) {
 }
 chrome.storage.local.get(function(got) {
   checkStoredSettings(got);
-  updateUI(got);
+});
+
+var gettingInfo = browser.runtime.getPlatformInfo();
+gettingInfo.then(got => {
+  if (got.os != "android") {
+    browser.windows.getAll().then(wins => wins.forEach(themeWindow));
+    chrome.storage.local.get(function(got) {
+      checkStoredSettings(got);
+      updateUI(got);
+    });
+  } else {
+    chrome.storage.local.get(function(got) {
+      checkAndroidStoredSettings(got);
+      updateUI(got);
+    });
+  }
 });
 
 const saveButton = document.querySelector("#save-button");

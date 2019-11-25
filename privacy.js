@@ -86,7 +86,7 @@ function disableReferrers() {
 
 // enable fingerprinting resistent features(letterboxing and stuff)
 function enableResistFingerprinting() {
-  var setting = browser.privacy.websites.referrersEnabled.set({
+  var setting = browser.privacy.websites.resistFingerprinting.set({
     value: true
   });
   console.log("Enabling resist fingerprinting/val=", {
@@ -146,7 +146,7 @@ function ResetPeerConnection() {
     value: false
   });
   chrome.privacy.network.webRTCIPHandlingPolicy.set({
-    value: "disable_non_proxied_udp"
+    value: "proxy_only"
   });
   console.log("Re-disabled WebRTC");
 }
