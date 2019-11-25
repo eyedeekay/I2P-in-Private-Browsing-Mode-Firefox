@@ -125,14 +125,6 @@ var handleContextProxyRequest = async function(requestDetails) {
         console.log("(proxy)Context Error", error);
       }
     };
-    var tabFind = async function(tabId) {
-      try {
-        return tabId;
-      } catch (error) {
-        let tabInfo = await browser.tabs.getCurrent();
-        return tabInfo;
-      }
-    };
     var tabGet = async function(tabId) {
       try {
         console.log("(proxy)Tab ID from Request", tabId);
@@ -155,9 +147,8 @@ var handleContextProxyRequest = async function(requestDetails) {
       } else if (i2pHost(requestDetails.url)) {
         console.log("(Proxy)I2P URL detected, ");
         var tab = tabGet(requestDetails.tabId);
-        var mtab = tab.then(tabFind);
-        requestDetails.tabId = mtab;
-        var context = mtab.then(contextGet);
+        requestDetails.tabId = tab;
+        var context = tab.then(contextGet);
         var proxy = await context.then(handleProxyRequest);
         console.log("(proxy)Returning I2P Proxy", proxy);
         return proxy;

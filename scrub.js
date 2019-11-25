@@ -55,19 +55,13 @@ var contextScrub = async function(requestDetails) {
         console.log("(scrub)Context Error", error);
       }
     };
-    var tabFind = async function(tabId) {
-      try {
-        return tabId;
-      } catch (error) {
-        console.log("(scrub)Context Error", error);
-      }
-    };
     var tabGet = async function(tabId) {
       try {
         console.log("(scrub)Tab ID from Request", tabId);
         let tabInfo = await browser.tabs.get(tabId);
         return tabInfo;
       } catch (error) {
+        console.log("(scrub)Context Error", error);
         let tabInfo = await browser.tabs.getCurrent();
         return tabInfo;
       }
@@ -79,8 +73,7 @@ var contextScrub = async function(requestDetails) {
       if (i2pHost(requestDetails.url)) {
         console.log("(Proxy)I2P URL detected, ");
         tab = tabGet(requestDetails.tabId);
-        var mtab = tab.then(tabFind, onError);
-        context = mtab.then(contextGet, onError);
+        context = tab.then(contextGet, onError);
         req = await context.then(headerScrub, onError);
         console.log("(scrub)Scrubbing I2P Request", req);
         return req;
@@ -101,7 +94,7 @@ var contextScrub = async function(requestDetails) {
 var contextSetup = async function(requestDetails) {
   console.log("(isolate)Forcing I2P requests into context");
   try {
-    var tabFind = async function(tabId) {
+    var i2pTabFind = async function(tabId) {
       try {
         var context = await browser.contextualIdentities.query({
           name: titlepref
@@ -328,7 +321,7 @@ var contextSetup = async function(requestDetails) {
         });
         setcookie.then(onContextGotLog, onError);
         var tab = tabGet(requestDetails.tabId);
-        var mtab = tab.then(tabFind, onError);
+        var mtab = tab.then(i2pTabFind, onError);
         return requestDetails;
       }
       let routerhost = routerHost(requestDetails.url);
