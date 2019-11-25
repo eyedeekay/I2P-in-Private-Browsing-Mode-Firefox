@@ -127,17 +127,6 @@ var handleContextProxyRequest = async function(requestDetails) {
     };
     var tabFind = async function(tabId) {
       try {
-        context = await browser.contextualIdentities.query({
-          name: titlepref
-        });
-        console.log(
-          "(proxy) forcing context",
-          titlepref,
-          tabId.cookieStoreId,
-          "=>",
-          context[0].cookieStoreId
-        );
-        tabId.cookieStoreId = context[0].cookieStoreId;
         return tabId;
       } catch (error) {
         console.log("(proxy)Context Error", error);

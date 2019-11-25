@@ -57,15 +57,6 @@ var contextScrub = async function(requestDetails) {
     };
     var tabFind = async function(tabId) {
       try {
-        context = await browser.contextualIdentities.query({
-          name: titlepref
-        });
-        console.log(
-          "(scrub) forcing context",
-          titlepref,
-          "=>",
-          context[0].cookieStoreId
-        );
         return tabId;
       } catch (error) {
         console.log("(scrub)Context Error", error);
