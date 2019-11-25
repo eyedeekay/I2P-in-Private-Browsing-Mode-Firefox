@@ -414,7 +414,6 @@ function storeSettings() {
   console.log("storing proxy port:", proxy_port);
   console.log("storing control host:", control_host);
   console.log("storing control port:", control_port);
-  setupProxy();
 }
 
 function updateUI(restoredSettings) {
@@ -443,7 +442,6 @@ function updateUI(restoredSettings) {
   SetControlHostText();
   SetControlPortText();
   SetControlHelpText();
-  setupProxy();
 }
 
 function onError(e) {
