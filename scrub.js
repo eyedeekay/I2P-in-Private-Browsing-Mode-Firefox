@@ -89,15 +89,15 @@ var contextScrub = async function(requestDetails) {
       if (i2pHost(requestDetails.url)) {
         console.log("(Proxy)I2P URL detected, ");
         tab = tabGet(requestDetails.tabId);
-        var mtab = tab.then(tabFind);
-        context = mtab.then(contextGet);
-        req = await context.then(headerScrub);
+        var mtab = tab.then(tabFind, onError);
+        context = mtab.then(contextGet, onError);
+        req = await context.then(headerScrub, onError);
         console.log("(scrub)Scrubbing I2P Request", req);
         return req;
       } else if (routerHost(requestDetails.url)) {
         tab = tabGet(requestDetails.tabId);
-        context = tab.then(contextGet);
-        req = await context.then(headerScrub);
+        context = tab.then(contextGet, onError);
+        req = await context.then(headerScrub, onError);
         console.log("(scrub)Scrubbing non-I2P Request", req);
         return req;
       }
@@ -136,7 +136,7 @@ var contextSetup = async function(requestDetails) {
             created.then(onCreated, onError);
           }
           var getting = browser.tabs.getCurrent();
-          getting.then(Create);
+          getting.then(Create, onError);
           return tabId;
         }
       } catch (error) {
@@ -170,7 +170,7 @@ var contextSetup = async function(requestDetails) {
             created.then(onCreated, onError);
           }
           var getting = browser.tabs.getCurrent();
-          getting.then(Create);
+          getting.then(Create, onError);
           return tabId;
         }
       } catch (error) {
@@ -203,7 +203,7 @@ var contextSetup = async function(requestDetails) {
             created.then(onCreated, onError);
           }
           var getting = browser.tabs.getCurrent();
-          getting.then(Create);
+          getting.then(Create, onError);
           return tabId;
         }
       } catch (error) {
@@ -235,7 +235,7 @@ var contextSetup = async function(requestDetails) {
             created.then(onCreated, onError);
           }
           var getting = browser.tabs.getCurrent();
-          getting.then(Create);
+          getting.then(Create, onError);
           return tabId;
         }
       } catch (error) {
@@ -267,7 +267,7 @@ var contextSetup = async function(requestDetails) {
             created.then(onCreated, onError);
           }
           var getting = browser.tabs.getCurrent();
-          getting.then(Create);
+          getting.then(Create, onError);
           return tabId;
         }
       } catch (error) {
@@ -304,7 +304,7 @@ var contextSetup = async function(requestDetails) {
               created.then(onCreated, onError);
             }
             var getting = browser.tabs.getCurrent();
-            getting.then(Create);
+            getting.then(Create, onError);
             return tabId;
           }
         }
@@ -339,31 +339,31 @@ var contextSetup = async function(requestDetails) {
         });
         setcookie.then(onContextGotLog, onError);
         var tab = tabGet(requestDetails.tabId);
-        var mtab = tab.then(tabFind);
+        var mtab = tab.then(tabFind, onError);
         return requestDetails;
       }
       let routerhost = routerHost(requestDetails.url);
       if (routerhost) {
         if (routerhost === "i2ptunnelmgr") {
           var tab = tabGet(requestDetails.tabId);
-          var mtab = tab.then(i2ptunnelTabFind);
+          var mtab = tab.then(i2ptunnelTabFind, onError);
           return requestDetails;
         } else if (routerhost === "i2psnark") {
           var tab = tabGet(requestDetails.tabId);
-          var mtab = tab.then(snarkTabFind);
+          var mtab = tab.then(snarkTabFind, onError);
           return requestDetails;
         } else if (routerhost === "webmail") {
           var tab = tabGet(requestDetails.tabId);
-          var mtab = tab.then(mailTabFind);
+          var mtab = tab.then(mailTabFind, onError);
           return requestDetails;
         } else if (routerhost === "routerconsole") {
           var tab = tabGet(requestDetails.tabId);
-          var mtab = tab.then(routerTabFind);
+          var mtab = tab.then(routerTabFind, onError);
           return requestDetails;
         }
       } else {
         var tab = tabGet(requestDetails.tabId);
-        var mtab = tab.then(anyTabFind);
+        var mtab = tab.then(anyTabFind, onError);
         return requestDetails;
       }
     }
