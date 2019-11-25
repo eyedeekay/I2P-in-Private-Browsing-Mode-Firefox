@@ -129,7 +129,8 @@ var handleContextProxyRequest = async function(requestDetails) {
       try {
         return tabId;
       } catch (error) {
-        console.log("(proxy)Context Error", error);
+        let tabInfo = await browser.tabs.getCurrent();
+        return tabInfo;
       }
     };
     var tabGet = async function(tabId) {
