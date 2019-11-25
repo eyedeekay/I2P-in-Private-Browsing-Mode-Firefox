@@ -63,7 +63,6 @@ var contextScrub = async function(requestDetails) {
         console.log(
           "(scrub) forcing context",
           titlepref,
-          tabId.cookieStoreId,
           "=>",
           context[0].cookieStoreId
         );
