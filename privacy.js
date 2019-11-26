@@ -144,16 +144,25 @@ function ResetPeerConnection() {
     value: webrtc
   });
   rtc.then(AssurePeerConnection);
-  console.log("Re-disabled WebRTC");
+
 }
 
 function EnablePeerConnection() {
+  var webrtc = false;
+  var rtc = browser.privacy.network.peerConnectionEnabled.set({
+    value: webrtc
+  });
+  rtc.then(SetupPeerConnection);
+  console.log("Enabled WebRTC");
+}
+
+function SetupPeerConnection() {
   var webrtc = true;
+  console.log("Pre-disabled WebRTC");
   rtc = browser.privacy.network.peerConnectionEnabled.set({
     value: webrtc
   });
   rtc.then(AssurePeerConnection);
-  console.log("Enabled WebRTC");
 }
 
 function AssurePeerConnection() {
