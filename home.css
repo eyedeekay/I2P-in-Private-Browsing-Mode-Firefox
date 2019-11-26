@@ -76,8 +76,10 @@ p {
   border: 1px solid #d9d9d6;
   border-radius: 2px;
   box-shadow: inset 0 0 0 1px #fff,0 0 1px #ccc;
-  background: #f8f8ff
+  background: #f8f8ff;
+  min-width: 95%
 }
+.application-info,
 .extended-info {
   min-height: 3rem;
   padding: 1rem;
@@ -87,17 +89,7 @@ p {
   border-radius: 2px;
   box-shadow: inset 0 0 0 1px #fff,0 0 1px #ccc;
   background: #f8f8ff;
-  min-width: 50%
-}
-.application-info {
-  min-height: 3rem;
-  padding: 1rem;
-  margin-top: 1.5rem;
-  display: inline-block;
-  border: 1px solid #d9d9d6;
-  border-radius: 2px;
-  box-shadow: inset 0 0 0 1px #fff,0 0 1px #ccc;
-  background: #f8f8ff
+  min-width: 95%
 }
 h1 {
   margin-right: auto;
@@ -269,10 +261,14 @@ li {
 }
 .onboardingContent {
   font-size: .8rem!important;
-  text-align: left
+  text-align: left;
+  display: none
 }
 #proxy-check {
   visibility: hidden
+}
+#info-content {
+  display: none
 }
 .consoleOn:hover #proxy-check,
 .proxyReady:hover #proxy-check {
@@ -283,7 +279,7 @@ img.readyness {
   height: 100%;
   width: auto
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 399px) {
   .application-info {
     display: none
   }

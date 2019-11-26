@@ -57,12 +57,12 @@ command:
    to the I2P container. Isolate the router console from other local
    applications by automatically intercepting requests to the router console to
    another container.
-  * [done/wip] **Indicate** the I2P browser is in use visually. Find an
+  * [done] **Indicate** the I2P browser is in use visually. Find an
    acceptable way to indicate it on Android.
   * [done] **Set** the http proxy to use the local I2P proxy automatically.
    Provide specific configuration for other types of I2P proxies(SOCKS,
    isolating HTTP)
-  * [done/wip] **Disable** risky webRTC features/offer the option to re-enable
+  * [done] **Disable** risky webRTC features/offer the option to re-enable
    them with the proxy enforced.
   * [done] **Change** the color of the browser window to indicate that I2P is in
    use
@@ -71,18 +71,18 @@ command:
    * it does this by working in conjunction with this
     [standalone HTTP proxy](https://github.com/eyedeekay/httptunnel), currently
     disabled*.
-  * [ready] **Provide** help in a variety of languages.
+  * [ready/broken/wip] **Provide** help in a variety of languages.
   * [wip] **Monitor** the health and readiness of the I2P router it is
    instructed to use. Currently the plugin checks whether the HTTP Proxy is
    working by fetching an image from "http://proxy.i2p" and displaying a result.
    A work-in-progress binding to i2pcontrol is available in ./i2pcontrol, it is
    inert at this time.
-  * [1/2] **Handle** router console applications under their own origins and
+  * [Done] **Handle** router console applications under their own origins and
    within their own contextual identity. (1) The router console is automatically
    confined to it's own container tab. (2) Use a custom protocol handler to
    place each i2p application/plugin under it's own origin, shortening router
    console URL's and placing applications under their own origin.
-  * [not started] **Handle Torrents** by talking to i2psnark-rpc plugin and then
+  * [wip] **Handle Torrents** by talking to i2psnark-rpc plugin and then
    adding them directly into the Firefox downloads drop-downs, menus, etc. If I
    can.
 

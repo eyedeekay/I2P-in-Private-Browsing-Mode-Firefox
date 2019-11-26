@@ -86,7 +86,7 @@ function disableReferrers() {
 
 // enable fingerprinting resistent features(letterboxing and stuff)
 function enableResistFingerprinting() {
-  var setting = browser.privacy.websites.referrersEnabled.set({
+  var setting = browser.privacy.websites.resistFingerprinting.set({
     value: true
   });
   console.log("Enabling resist fingerprinting/val=", {
@@ -139,32 +139,48 @@ function setAllPrivacy() {
 setAllPrivacy();
 
 function ResetPeerConnection() {
-  browser.privacy.network.peerConnectionEnabled.set({
-    value: false
+  var webrtc = false;
+  var rtc = browser.privacy.network.peerConnectionEnabled.set({
+    value: webrtc
   });
-  browser.privacy.network.networkPredictionEnabled.set({
-    value: false
-  });
-  chrome.privacy.network.webRTCIPHandlingPolicy.set({
-    value: "disable_non_proxied_udp"
-  });
-  console.log("Re-disabled WebRTC");
+  rtc.then(AssurePeerConnection);
 }
 
 function EnablePeerConnection() {
-  browser.privacy.network.peerConnectionEnabled.set({
-    value: true
+  var webrtc = false;
+  var rtc = browser.privacy.network.peerConnectionEnabled.set({
+    value: webrtc
   });
-  browser.privacy.network.networkPredictionEnabled.set({
-    value: false
-  });
-  chrome.privacy.network.webRTCIPHandlingPolicy.set({
-    value: "disable_non_proxied_udp"
-  });
+  rtc.then(SetupPeerConnection);
   console.log("Enabled WebRTC");
 }
 
-ResetPeerConnection();
+function SetupPeerConnection() {
+  var webrtc = true;
+  console.log("Pre-disabled WebRTC");
+  rtc = browser.privacy.network.peerConnectionEnabled.set({
+    value: webrtc
+  });
+  rtc.then(AssurePeerConnection);
+}
+
+function AssurePeerConnection() {
+  function assure(webrtc) {
+    browser.privacy.network.peerConnectionEnabled.set({
+      value: webrtc.value
+    });
+    browser.privacy.network.networkPredictionEnabled.set({
+      value: false
+    });
+    chrome.privacy.network.webRTCIPHandlingPolicy.set({
+      value: "proxy_only"
+    });
+  }
+  rtc = browser.privacy.network.peerConnectionEnabled.get({});
+  rtc.then(assure);
+}
+
+AssurePeerConnection();
 
 function ResetDisableSavePasswords() {
   browser.privacy.services.passwordSavingEnabled.set({
@@ -195,13 +211,6 @@ var appSettings = {
 function onError(e) {
   console.error(e);
 }
-
-function checkStoredSettings(storedSettings) {
-  chrome.storage.local.set(appSettings);
-}
-
-const gettingStoredSettings = browser.storage.local.get();
-gettingStoredSettings.then(checkStoredSettings, onError);
 
 function clearCookiesContext(cookieStoreId) {}
 
@@ -256,28 +265,28 @@ function forgetBrowsingData(storedSettings) {
             hostnames: [i2pHostName(item.url)],
             since
           })
-          .then(onGot);
+          .then(onContextGotLog);
         console.log("cleared Passwords");
         browser.browsingData
           .removeDownloads({
             hostnames: [i2pHostName(item.url)],
             since
           })
-          .then(onGot);
+          .then(onContextGotLog);
         console.log("cleared Downloads");
         browser.browsingData
           .removeFormData({
             hostnames: [i2pHostName(item.url)],
             since
           })
-          .then(onGot);
+          .then(onContextGotLog);
         console.log("cleared Form Data");
         browser.browsingData
           .removeLocalStorage({
             hostnames: [i2pHostName(item.url)],
             since
           })
-          .then(onGot);
+          .then(onContextGotLog);
         console.log("cleared Local Storage");
 
         contexts = browser.contextualIdentities.query({
@@ -291,7 +300,7 @@ function forgetBrowsingData(storedSettings) {
               name: cookie.name,
               url: item.url
             });
-            removing.then(onGot, onError);
+            removing.then(onContextGotLog, onError);
           }
           console.log("Cleared cookies");
         }
@@ -338,7 +347,7 @@ function i2pHost(url) {
   return hostname.endsWith(".i2p");
 }
 
-function onGot(contexts) {
+function onContextGotLog(contexts) {
   if (contexts != null) {
     for (let context of contexts) {
       console.log(context);
@@ -348,13 +357,48 @@ function onGot(contexts) {
 
 browser.runtime.onMessage.addListener(message);
 
+function enableHistory() {
+  function checkStoredSettings(storedSettings) {
+    storedSettings["disable_history"] = false;
+    console.log(storedSettings);
+    function enablehistory(settings) {
+      console.log("Store History:", storedSettings);
+    }
+    var setting = browser.storage.local.set(storedSettings);
+    setting.then(enablehistory);
+  }
+  const gettingStoredSettings = browser.storage.local.get();
+  gettingStoredSettings.then(checkStoredSettings, onError);
+}
+
+function disableHistory() {
+  function checkStoredSettings(storedSettings) {
+    storedSettings["disable_history"] = true;
+    console.log(storedSettings);
+    function enablehistory(settings) {
+      console.log("Store History:", storedSettings);
+    }
+    var setting = browser.storage.local.set(storedSettings);
+    setting.then(enablehistory);
+  }
+  const gettingStoredSettings = browser.storage.local.get();
+  gettingStoredSettings.then(checkStoredSettings, onError);
+}
+
 function message(message) {
   console.log(message);
   if (message.rtc === "enableWebRTC") {
     console.log("enableWebRTC");
     EnablePeerConnection();
-  } else {
+  } else if (message.rtc === "disableWebRTC") {
     console.log("disableWebRTC");
     ResetPeerConnection();
+  }
+  if (message.history === "enableHistory") {
+    console.log("enableHistory");
+    enableHistory();
+  } else if (message.history === "disableHistory") {
+    console.log("disableHistory");
+    disableHistory();
   }
 }

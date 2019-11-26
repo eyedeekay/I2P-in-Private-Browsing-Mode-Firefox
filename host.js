@@ -28,6 +28,12 @@ function localHost(url) {
   return false;
 }
 
+function extensionHost(url) {
+  var res = url.startsWith(browser.runtime.getURL(""));
+  console.log("Extension URL?", res, url, browser.runtime.getURL(""));
+  return res;
+}
+
 function i2pHostName(url) {
   let hostname = "";
   if (url.indexOf("://") > -1) {

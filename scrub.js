@@ -16,7 +16,7 @@ var contextScrub = async function(requestDetails) {
   try {
     var headerScrub = function(context) {
       if (!context) {
-        console.error("Context not found");
+        console.error("Context not found", context);
       } else if (context.name == titlepref) {
         var ua = "MYOB/6.66 (AN/ON)";
         if (i2pHost(requestDetails.url)) {
@@ -52,18 +52,6 @@ var contextScrub = async function(requestDetails) {
         context = await browser.contextualIdentities.get(tabInfo.cookieStoreId);
         return context;
       } catch (error) {
-        console.log("(scrub)Conext Error", error);
-      }
-    };
-    var tabFind = async function(tabId) {
-      try {
-        context = await browser.contextualIdentities.query({
-          name: titlepref
-        });
-        tabId.cookieStoreId = context[0].cookieStoreId;
-        console.log("(scrub) forcing context", tabId.cookieStoreId);
-        return tabId;
-      } catch (error) {
         console.log("(scrub)Context Error", error);
       }
     };
@@ -73,7 +61,9 @@ var contextScrub = async function(requestDetails) {
         let tabInfo = await browser.tabs.get(tabId);
         return tabInfo;
       } catch (error) {
-        console.log("(scrub)Tab error", error);
+        console.log("(scrub)Context Error", error);
+        //let tabInfo = await browser.tabs.getCurrent();
+        //return tabInfo;
       }
     };
     if (requestDetails.tabId > 0) {
@@ -83,16 +73,14 @@ var contextScrub = async function(requestDetails) {
       if (i2pHost(requestDetails.url)) {
         console.log("(Proxy)I2P URL detected, ");
         tab = tabGet(requestDetails.tabId);
-        var mtab = tab.then(tabFind);
-        requestDetails.tabId = mtab;
-        context = mtab.then(contextGet);
-        req = await context.then(headerScrub);
+        context = tab.then(contextGet, onError);
+        req = await context.then(headerScrub, onError);
         console.log("(scrub)Scrubbing I2P Request", req);
         return req;
       } else if (routerHost(requestDetails.url)) {
         tab = tabGet(requestDetails.tabId);
-        context = tab.then(contextGet);
-        req = await context.then(headerScrub);
+        context = tab.then(contextGet, onError);
+        req = await context.then(headerScrub, onError);
         console.log("(scrub)Scrubbing non-I2P Request", req);
         return req;
       }
@@ -106,7 +94,7 @@ var contextScrub = async function(requestDetails) {
 var contextSetup = async function(requestDetails) {
   console.log("(isolate)Forcing I2P requests into context");
   try {
-    var tabFind = async function(tabId) {
+    var i2pTabFind = async function(tabId) {
       try {
         var context = await browser.contextualIdentities.query({
           name: titlepref
@@ -116,28 +104,22 @@ var contextSetup = async function(requestDetails) {
             "(isolate) forcing I2P Browsing",
             requestDetails.url,
             " context",
-            tabId.cookieStoreId,
             context[0].cookieStoreId
           );
           function Create(window) {
             function onCreated(tab) {
               console.log("(isolate) Closing old, un-isolated tab", window);
-              browser.tabs.remove(tabId.id);
-              browser.tabs.remove(window.tabs[0].id);
-            }
-            function onError(error) {
-              console.log(`Error: ${error}`);
+              if (tabId != undefined) browser.tabs.remove(tabId.id);
             }
             var created = browser.tabs.create({
               active: true,
               cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url,
-              windowId: window.id
+              url: requestDetails.url
             });
             created.then(onCreated, onError);
           }
-          var getting = browser.windows.getCurrent();
-          getting.then(Create);
+          var getting = browser.tabs.getCurrent();
+          getting.then(Create, onError);
           return tabId;
         }
       } catch (error) {
@@ -154,28 +136,23 @@ var contextSetup = async function(requestDetails) {
             "(isolate) forcing Router Console",
             requestDetails.url,
             " context",
-            tabId.cookieStoreId,
             context[0].cookieStoreId
           );
           function Create(window) {
             function onCreated(tab) {
               console.log("(isolate) Closing old, un-isolated tab");
-              browser.tabs.remove(tabId.id);
-              browser.tabs.remove(window.tabs[0].id);
-            }
-            function onError(error) {
-              console.log(`Error: ${error}`);
+              if (tabId != undefined) browser.tabs.remove(tabId.id);
             }
             var created = browser.tabs.create({
               active: true,
               cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url,
-              windowId: window.id
+              url: requestDetails.url
+              //windowId: window.id
             });
             created.then(onCreated, onError);
           }
-          var getting = browser.windows.getCurrent();
-          getting.then(Create);
+          var getting = browser.tabs.getCurrent();
+          getting.then(Create, onError);
           return tabId;
         }
       } catch (error) {
@@ -192,30 +169,23 @@ var contextSetup = async function(requestDetails) {
             "(isolate) forcing HSM context",
             requestDetails.url,
             " context",
-            tabId.cookieStoreId,
             context[0].cookieStoreId
           );
           function Create(window) {
             function onCreated(tab) {
               console.log("(isolate) Closing old, un-isolated tab");
-              browser.tabs.remove(tabId.id);
-              if (window != undefined) {
-                browser.tabs.remove(window.tabs[0].id);
-              }
-            }
-            function onError(error) {
-              console.log(`Error: ${error}`);
+              if (tabId != undefined) browser.tabs.remove(tabId.id);
             }
             var created = browser.tabs.create({
               active: true,
               cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url,
-              windowId: window.id
+              url: requestDetails.url
+              //windowId: window.id
             });
             created.then(onCreated, onError);
           }
-          var getting = browser.windows.getCurrent();
-          getting.then(Create);
+          var getting = browser.tabs.getCurrent();
+          getting.then(Create, onError);
           return tabId;
         }
       } catch (error) {
@@ -232,28 +202,22 @@ var contextSetup = async function(requestDetails) {
             "(isolate) forcing Bittorrent",
             requestDetails.url,
             " context",
-            tabId.cookieStoreId,
             context[0].cookieStoreId
           );
           function Create(window) {
             function onCreated(tab) {
               console.log("(isolate) Closing old, un-isolated tab");
-              browser.tabs.remove(tabId.id);
-              browser.tabs.remove(window.tabs[0].id);
-            }
-            function onError(error) {
-              console.log(`Error: ${error}`);
+              if (tabId != undefined) browser.tabs.remove(tabId.id);
             }
             var created = browser.tabs.create({
               active: true,
               cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url,
-              windowId: window.id
+              url: requestDetails.url
             });
             created.then(onCreated, onError);
           }
-          var getting = browser.windows.getCurrent();
-          getting.then(Create);
+          var getting = browser.tabs.getCurrent();
+          getting.then(Create, onError);
           return tabId;
         }
       } catch (error) {
@@ -270,28 +234,22 @@ var contextSetup = async function(requestDetails) {
             "(isolate) forcing Web Mail",
             requestDetails.url,
             " context",
-            tabId.cookieStoreId,
             context[0].cookieStoreId
           );
           function Create(window) {
             function onCreated(tab) {
               console.log("(isolate) Closing old, un-isolated tab");
-              browser.tabs.remove(tabId.id);
-              browser.tabs.remove(window.tabs[0].id);
-            }
-            function onError(error) {
-              console.log(`Error: ${error}`);
+              if (tabId != undefined) browser.tabs.remove(tabId.id);
             }
             var created = browser.tabs.create({
               active: true,
               cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url,
-              windowId: window.id
+              url: requestDetails.url
             });
             created.then(onCreated, onError);
           }
-          var getting = browser.windows.getCurrent();
-          getting.then(Create);
+          var getting = browser.tabs.getCurrent();
+          getting.then(Create, onError);
           return tabId;
         }
       } catch (error) {
@@ -313,28 +271,22 @@ var contextSetup = async function(requestDetails) {
               "(isolate) forcing Web Browsing",
               requestDetails.url,
               " context",
-              tabId.cookieStoreId,
               context[0].cookieStoreId
             );
             function Create(window) {
               function onCreated(tab) {
                 console.log("(isolate) Closing old, un-isolated tab");
-                browser.tabs.remove(tabId.id);
-                browser.tabs.remove(window.tabs[0].id);
-              }
-              function onError(error) {
-                console.log(`Error: ${error}`);
+                if (tabId != undefined) browser.tabs.remove(tabId.id);
               }
               var created = browser.tabs.create({
                 active: true,
                 cookieStoreId: context[0].cookieStoreId,
-                url: requestDetails.url,
-                windowId: window.id
+                url: requestDetails.url
               });
               created.then(onCreated, onError);
             }
-            var getting = browser.windows.getCurrent();
-            getting.then(Create);
+            var getting = browser.tabs.getCurrent();
+            getting.then(Create, onError);
             return tabId;
           }
         }
@@ -358,7 +310,13 @@ var contextSetup = async function(requestDetails) {
           url: requestDetails.url,
           secure: true
         });
-        setcookie.then(onGot, onError);
+        setcookie.then(onContextGotLog, onError);
+        return requestDetails;
+      }
+      console.log("(isolate)Request Details)", requestDetails);
+      if (extensionHost(requestDetails.url)) {
+        var tab = tabGet(requestDetails.tabId);
+        var mtab = tab.then(anyTabFind, onError);
         return requestDetails;
       }
       if (i2pHost(requestDetails.url)) {
@@ -367,35 +325,42 @@ var contextSetup = async function(requestDetails) {
           url: requestDetails.url,
           secure: true
         });
-        setcookie.then(onGot, onError);
+        setcookie.then(onContextGotLog, onError);
         var tab = tabGet(requestDetails.tabId);
-        var mtab = tab.then(tabFind);
+        var mtab = tab.then(i2pTabFind, onError);
         return requestDetails;
       }
       let routerhost = routerHost(requestDetails.url);
       if (routerhost) {
         if (routerhost === "i2ptunnelmgr") {
           var tab = tabGet(requestDetails.tabId);
-          var mtab = tab.then(i2ptunnelTabFind);
+          var mtab = tab.then(i2ptunnelTabFind, onError);
           return requestDetails;
         } else if (routerhost === "i2psnark") {
           var tab = tabGet(requestDetails.tabId);
-          var mtab = tab.then(snarkTabFind);
+          var mtab = tab.then(snarkTabFind, onError);
           return requestDetails;
         } else if (routerhost === "webmail") {
           var tab = tabGet(requestDetails.tabId);
-          var mtab = tab.then(mailTabFind);
+          var mtab = tab.then(mailTabFind, onError);
           return requestDetails;
         } else if (routerhost === "routerconsole") {
           var tab = tabGet(requestDetails.tabId);
-          var mtab = tab.then(routerTabFind);
+          var mtab = tab.then(routerTabFind, onError);
           return requestDetails;
         }
       } else {
         var tab = tabGet(requestDetails.tabId);
-        var mtab = tab.then(anyTabFind);
+        var mtab = tab.then(anyTabFind, onError);
         return requestDetails;
       }
+    }
+
+    console.log("(isolate)Request Details)", requestDetails);
+    if (extensionHost(requestDetails.url)) {
+      var tab = tabGet(requestDetails.tabId);
+      var mtab = tab.then(anyTabFind, onError);
+      return requestDetails;
     }
     //var tab = tabGet(requestDetails.tabId);
     //var mtab = tab.then(anyTabFind);

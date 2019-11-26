@@ -1,3 +1,9 @@
+i2psetproxy.js (0.49-1) UNRELEASED; urgency=low
+
+  * fix tabs
+
+ -- idk <hankhill19580@gmail.com>  Sat, 23 NOV 2019 22:51:11 -0400
+
 i2psetproxy.js (0.47-1) UNRELEASED; urgency=low
 
   * Improve android compatibility

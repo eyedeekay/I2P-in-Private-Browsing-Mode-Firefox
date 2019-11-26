@@ -11,7 +11,7 @@ var torrentprefpriv = chrome.i18n.getMessage("torrentPrefacePrivate");
 var tunnelpref = chrome.i18n.getMessage("i2ptunnelPreface");
 var tunnelprefpriv = chrome.i18n.getMessage("i2ptunnelPrefacePrivate");
 
-function onGot(contexts) {
+function onContextsGot(contexts) {
   var ids = [];
   for (let context of contexts) {
     console.log(`Name: ${context.name}`);
@@ -78,25 +78,41 @@ function onCreated(context) {
   console.log(`New identity's ID: ${context.cookieStoreId}.`);
 }
 
-function onError(e) {
-  console.error(e);
-}
+var gettingInfo = browser.runtime.getPlatformInfo();
+gettingInfo.then(got => {
+  if (got.os == "android") {
+    browser.contextualIdentities.query({}).then(onContextsGot, onError);
+  } else {
+    browser.windows.onCreated.addListener(() => {
+      browser.contextualIdentities.query({}).then(onContextsGot, onError);
+    });
+  }
+});
 
-browser.contextualIdentities.query({}).then(onGot, onError);
-
-if (!isDroid()) {
-  chrome.windows.onCreated.addListener(themeWindow);
-  chrome.windows.onFocusChanged.addListener(themeWindow);
-  chrome.windows.onRemoved.addListener(themeWindow);
-  chrome.tabs.onUpdated.addListener(themeWindowByTab);
-  chrome.tabs.onActivated.addListener(themeWindowByTab);
-} else {
-}
+var gettingInfo = browser.runtime.getPlatformInfo();
+gettingInfo.then(got => {
+  if (got.os == "android") {
+  } else {
+    browser.windows.onCreated.addListener(themeWindow);
+    browser.windows.onFocusChanged.addListener(themeWindow);
+    browser.windows.onRemoved.addListener(themeWindow);
+    browser.tabs.onUpdated.addListener(themeWindowByTab);
+    browser.tabs.onActivated.addListener(themeWindowByTab);
+  }
+});
 
 function themeWindowByTab(tabId) {
   function tabWindow(tab) {
-    getwindow = browser.windows.get(tab.windowId);
-    getwindow.then(themeWindow);
+    var gettingInfo = browser.runtime.getPlatformInfo();
+    gettingInfo.then(got => {
+      if (got.os == "android") {
+        getwindow = browser.tabs.get(tab.tabId);
+        getwindow.then(themeWindow);
+      } else {
+        getwindow = browser.windows.get(tab.windowId);
+        getwindow.then(themeWindow);
+      }
+    });
   }
   if (typeof tabId === "number") {
     tab = browser.tabs.get(tabId);
@@ -109,18 +125,18 @@ function themeWindowByTab(tabId) {
 function themeWindow(window) {
   // Check if the window is in private browsing
   function logTabs(tabInfo) {
-    function onGot(context) {
+    function onContextGotTheme(context) {
       if (context.name == titlepref) {
         console.log("Active in I2P window");
         if (window.incognito) {
-          chrome.theme.update(window.id, {
+          browser.theme.update(window.id, {
             colors: {
               frame: "#FFC56D",
               toolbar: "#FFC56D"
             }
           });
         } else {
-          chrome.theme.update(window.id, {
+          browser.theme.update(window.id, {
             colors: {
               frame: "#FFC56D",
               toolbar: "#FFC56D"
@@ -130,14 +146,14 @@ function themeWindow(window) {
       } else if (context.name == routerpref) {
         console.log("Active in Router Console window");
         if (window.incognito) {
-          chrome.theme.update(window.id, {
+          browser.theme.update(window.id, {
             colors: {
               frame: "#A4C8E1",
               toolbar: "#A4C8E1"
             }
           });
         } else {
-          chrome.theme.update(window.id, {
+          browser.theme.update(window.id, {
             colors: {
               frame: "#A4C8E1",
               toolbar: "#A4C8E1"
@@ -147,14 +163,14 @@ function themeWindow(window) {
       } else if (context.name == tunnelpref) {
         console.log("Active in Hidden Services Manager window");
         if (window.incognito) {
-          chrome.theme.update(window.id, {
+          browser.theme.update(window.id, {
             colors: {
               frame: "#D9D9D6",
               toolbar: "#D9D9D6"
             }
           });
         } else {
-          chrome.theme.update(window.id, {
+          browser.theme.update(window.id, {
             colors: {
               frame: "#D9D9D6",
               toolbar: "#D9D9D6"
@@ -164,14 +180,14 @@ function themeWindow(window) {
       } else if (context.name == mailpref) {
         console.log("Active in Web Mail window");
         if (window.incognito) {
-          chrome.theme.update(window.id, {
+          browser.theme.update(window.id, {
             colors: {
               frame: "#F7E59A",
               toolbar: "#F7E59A"
             }
           });
         } else {
-          chrome.theme.update(window.id, {
+          browser.theme.update(window.id, {
             colors: {
               frame: "#F7E59A",
               toolbar: "#F7E59A"
@@ -181,14 +197,14 @@ function themeWindow(window) {
       } else if (context.name == torrentpref) {
         console.log("Active in Bittorrent window");
         if (window.incognito) {
-          chrome.theme.update(window.id, {
+          browser.theme.update(window.id, {
             colors: {
               frame: "#A48FE1",
               toolbar: "#A48FE1"
             }
           });
         } else {
-          chrome.theme.update(window.id, {
+          browser.theme.update(window.id, {
             colors: {
               frame: "#A48FE1",
               toolbar: "#A48FE1"
@@ -197,7 +213,7 @@ function themeWindow(window) {
         }
       } else {
         console.log("Not active in I2P window");
-        chrome.theme.reset(window.id);
+        browser.theme.reset(window.id);
       }
     }
     if (
@@ -206,9 +222,9 @@ function themeWindow(window) {
     ) {
       browser.contextualIdentities
         .get(tabInfo[0].cookieStoreId)
-        .then(onGot, onError);
+        .then(onContextGotTheme, onError);
     } else {
-      chrome.theme.reset(window.id);
+      browser.theme.reset(window.id);
     }
   }
 
@@ -223,16 +239,16 @@ function setTitle(window) {
   function logTabs(tabInfo) {
     console.log(tabInfo);
 
-    function onGot(context) {
+    function onContextGotTitle(context) {
       if (context.name == titlepref) {
         console.log("Active in I2P window");
 
         if (window.incognito) {
-          chrome.windows.update(window.id, {
+          browser.windows.update(window.id, {
             titlePreface: titleprefpriv
           });
         } else {
-          chrome.windows.update(window.id, {
+          browser.windows.update(window.id, {
             titlePreface: titlepref
           });
         }
@@ -240,22 +256,22 @@ function setTitle(window) {
         console.log("Active in Web window");
 
         if (window.incognito) {
-          chrome.windows.update(window.id, {
+          browser.windows.update(window.id, {
             titlePreface: ""
           });
         } else {
-          chrome.windows.update(window.id, {
+          browser.windows.update(window.id, {
             titlePreface: ""
           });
         }
       } else if (context.name == routerpref) {
         console.log("Active in Router Console window");
         if (window.incognito) {
-          chrome.windows.update(window.id, {
+          browser.windows.update(window.id, {
             titlePreface: routerprefpriv
           });
         } else {
-          chrome.windows.update(window.id, {
+          browser.windows.update(window.id, {
             titlePreface: routerpref
           });
         }
@@ -263,11 +279,11 @@ function setTitle(window) {
         console.log("Active in Hidden Services Manager window");
 
         if (window.incognito) {
-          chrome.windows.update(window.id, {
+          browser.windows.update(window.id, {
             titlePreface: tunnelprefpriv
           });
         } else {
-          chrome.windows.update(window.id, {
+          browser.windows.update(window.id, {
             titlePreface: tunnelpref
           });
         }
@@ -275,11 +291,11 @@ function setTitle(window) {
         console.log("Active in Web Mail window");
 
         if (window.incognito) {
-          chrome.windows.update(window.id, {
+          browser.windows.update(window.id, {
             titlePreface: mailprefpriv
           });
         } else {
-          chrome.windows.update(window.id, {
+          browser.windows.update(window.id, {
             titlePreface: mailpref
           });
         }
@@ -287,11 +303,11 @@ function setTitle(window) {
         console.log("Active in I2P window");
 
         if (window.incognito) {
-          chrome.windows.update(window.id, {
+          browser.windows.update(window.id, {
             titlePreface: torrentprefpriv
           });
         } else {
-          chrome.windows.update(window.id, {
+          browser.windows.update(window.id, {
             titlePreface: torrentpref
           });
         }
@@ -304,14 +320,14 @@ function setTitle(window) {
     ) {
       browser.contextualIdentities
         .get(tabInfo[0].cookieStoreId)
-        .then(onGot, onError);
+        .then(onContextGotTitle, onError);
     } else {
       if (window.incognito) {
-        chrome.windows.update(window.id, {
+        browser.windows.update(window.id, {
           titlePreface: ""
         });
       } else {
-        chrome.windows.update(window.id, {
+        browser.windows.update(window.id, {
           titlePreface: ""
         });
       }
@@ -325,26 +341,44 @@ function setTitle(window) {
   querying.then(logTabs, onError);
 }
 
-chrome.windows.onCreated.addListener(() => {
-  /* var gettingStoredSettings = chrome.storage.local.get();
+var gettingInfo = browser.runtime.getPlatformInfo();
+gettingInfo.then(got => {
+  if (got.os == "android") {
+  } else {
+    browser.windows.onCreated.addListener(() => {
+      /* var gettingStoredSettings = chrome.storage.local.get();
      gettingStoredSettings.then(setupProxy, onError); */
-  chrome.storage.local.get(function(got) {
-    setupProxy();
-  });
+      chrome.storage.local.get(function(got) {
+        setupProxy();
+      });
+    });
+  }
 });
 
-chrome.tabs.onCreated.addListener(() => {
-  var getting = browser.windows.getCurrent({
-    populate: true
-  });
-  getting.then(setTitle, onError);
+var gettingInfo = browser.runtime.getPlatformInfo();
+gettingInfo.then(got => {
+  if (got.os == "android") {
+  } else {
+    browser.tabs.onCreated.addListener(() => {
+      var getting = browser.windows.getCurrent({
+        populate: true
+      });
+      getting.then(setTitle, onError);
+    });
+  }
 });
 
-chrome.tabs.onActivated.addListener(() => {
-  var getting = browser.windows.getCurrent({
-    populate: true
-  });
-  getting.then(setTitle, onError);
+var gettingInfo = browser.runtime.getPlatformInfo();
+gettingInfo.then(got => {
+  if (got.os == "android") {
+  } else {
+    browser.tabs.onActivated.addListener(() => {
+      var getting = browser.windows.getCurrent({
+        populate: true
+      });
+      getting.then(setTitle, onError);
+    });
+  }
 });
 
 function handleUpdated(updateInfo) {

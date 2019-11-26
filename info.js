@@ -1,8 +1,26 @@
-document.addEventListener("click", e => {
-  function getCurrentWindow() {
-    return chrome.windows.getCurrent();
-  }
+function checkPeerConnection() {
+  var getting = browser.privacy.network.peerConnectionEnabled.get({});
+  getting.then(got => {
+    webrtc = got.value;
+    console.log("checking webrtc", webrtc);
+    document.getElementById("enable-web-rtc").checked = webrtc;
+  });
+}
 
+checkPeerConnection();
+
+function checkHistory() {
+  var getting = browser.storage.local.get("disable_history");
+  getting.then(got => {
+    disable_history = got.disable_history;
+    console.log("checking history", disable_history);
+    document.getElementById("disable-history").checked = disable_history;
+  });
+}
+
+checkHistory();
+
+document.addEventListener("click", e => {
   if (e.target.id === "window-create-help-panel") {
     let createData = {
       type: "panel",
@@ -34,12 +52,6 @@ document.addEventListener("click", e => {
     }
     RefreshIdentity();
   } else if (e.target.id === "window-preface-title") {
-    getCurrentWindow().then(currentWindow => {
-      let updateInfo = {
-        titlePreface: "I2P Help | "
-      };
-      chrome.windows.update(currentWindow.id, updateInfo);
-    });
   } else if (e.target.id === "window-visit-homepage") {
     console.log("attempting to create homepage tab");
     goHome();
@@ -62,6 +74,15 @@ document.addEventListener("click", e => {
     } else {
       browser.runtime.sendMessage({ rtc: "disableWebRTC" });
     }
+    //checkPeerConnection()
+    return;
+  } else if (e.target.id === "disable-history") {
+    if (e.target.checked) {
+      browser.runtime.sendMessage({ history: "disableHistory" });
+    } else {
+      browser.runtime.sendMessage({ history: "enableHistory" });
+    }
+    //checkHistory()
     return;
   }
 
@@ -71,6 +92,8 @@ document.addEventListener("click", e => {
 function proxyReadiness() {
   console.log(this.responseText);
 }
+
+browser.history.onVisited.addListener(onVisited);
 
 function goHome() {
   function gotProxyInfo(info) {
@@ -119,44 +142,26 @@ function goSnark() {
   console.log("visiting homepage");
   let creating = browser.tabs.create(createData);
 }
-/*
-//document.addEventListener("onpageshow", e => {
-console.log("(Check) Checking Proxy Readiness");
-const Http = new XMLHttpRequest();
-Http.addEventListener("load", proxyReadiness);
-const url = "http://proxy.i2p"; ///themes/console/images/favicon.ico";
-Http.open("GET", url);
-Http.send();
-//});
 
-function transferComplete(evt) {
-  console.log(
-    "The transfer is complete.",
-    this.status,
-    this.statusText,
-    this.responseText
-  );
+function onVisited(historyItem) {
+  function onCleaned(results) {
+    if (!results.length) {
+      console.log(" was removed");
+    } else {
+      console.log(" was not removed");
+    }
+  }
+
+  function onRemoved() {
+    var searching = browser.history.search({
+      text: historyItem.url,
+      startTime: 0
+    });
+    searching.then(onCleaned);
+  }
+  if (!history) {
+    if (i2pHost(historyItem.url))
+      var deletingUrl = browser.history.deleteUrl(historyItem.url);
+    deletingUrl.then(onRemoved);
+  }
 }
-
-function transferFailed(evt) {
-  console.log(
-    "An error occurred while transferring the file.",
-    this.status,
-    this.statusText,
-    this.responseText
-  );
-}
-
-function transferCanceled(evt) {
-  console.log(
-    "The transfer has been canceled by the user.",
-    this.status,
-    this.statusText,
-    this.responseText
-  );
-}
-
-Http.addEventListener("load", transferComplete);
-Http.addEventListener("error", transferFailed);
-Http.addEventListener("abort", transferCanceled);
-*/
