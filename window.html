@@ -39,12 +39,17 @@
                 <li class="application">
                   <input type="checkbox" id="enable-web-rtc" name="enablewebrtc" value="webrtc">
                   <label for="enable-web-rtc">Enable WebRTC <strong>with Proxy?</strong></label>
-                  <span class="applicationDesc">For more information about this extension, go here:</span>
+                  <span class="applicationDesc">WebRTC is disabled by default, but can be enabled by checking this box.</span>
                 </li>
                 <li class="application">
                   <div class="panel-section-separator"></div>
                   <div class="panel-section-identity">
                   <div id="identity-list"></div>
+                </li>
+                <li class="application">
+                  <input type="checkbox" id="disable-history" name="disablehistory" value="history">
+                  <label for="disable-history">Disable History in I2P Tabs</label>
+                  <span class="applicationDesc">History is automatically cleared when your I2P tabs are closed. If you want to clear history as you go, check this box.</span>
                 </li>
               </ul>
             </p>
@@ -56,16 +61,16 @@
             <h3>Applications</h3>
             <p id="applicationExplain">These applications use I2P to provide them with security and privacy.</p>
               <ul>
-                <li class="application"><button id="window-visit-homepage" class="applicationName window-visit-homepage" href="#">
+                <li class="application"><button id="window-visit-homepage" target="_blank" class="applicationName window-visit-homepage" href="#">
                     Home Page <span class="applicationDesc">For more information about this extension, go here:</span>
                 </button></li>
-                <li class="application"><button id="window-visit-i2ptunnel" class="applicationName">
+                <li class="application"><button id="window-visit-i2ptunnel" target="_blank" class="applicationName">
                     Hidden Services Manager <span class="applicationDesc">I2P has a web-based interface for configuring .i2p services like web sites, to set up your own web sites, go here:</span>
                 </button></li>
-                <li class="application"><button id="window-visit-susimail" class="applicationName">
+                <li class="application"><button id="window-visit-susimail" target="_blank" class="applicationName">
                   E-Mail <span class="applicationDesc">I2P also bundles a webmail client which can be used to access in-I2P e-mail. To use it, go here:</span>
                 </button></li>
-                <li class="application"><button id="window-visit-snark" class="applicationName">
+                <li class="application"><button id="window-visit-snark" target="_blank" class="applicationName">
                   BitTorrent <span class="applicationDesc">I2P is capable of anonymous Peer-to-Peer file sharing, to use the built-in bittorrent client go here:</span>
                 </button></li>
               </ul>

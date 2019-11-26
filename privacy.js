@@ -139,32 +139,40 @@ function setAllPrivacy() {
 setAllPrivacy();
 
 function ResetPeerConnection() {
-  browser.privacy.network.peerConnectionEnabled.set({
-    value: false
+  var webrtc = false;
+  var rtc = browser.privacy.network.peerConnectionEnabled.set({
+    value: webrtc
   });
-  browser.privacy.network.networkPredictionEnabled.set({
-    value: false
-  });
-  chrome.privacy.network.webRTCIPHandlingPolicy.set({
-    value: "proxy_only"
-  });
+  rtc.then(AssurePeerConnection);
   console.log("Re-disabled WebRTC");
 }
 
 function EnablePeerConnection() {
-  browser.privacy.network.peerConnectionEnabled.set({
-    value: true
+  var webrtc = true;
+  rtc = browser.privacy.network.peerConnectionEnabled.set({
+    value: webrtc
   });
-  browser.privacy.network.networkPredictionEnabled.set({
-    value: false
-  });
-  chrome.privacy.network.webRTCIPHandlingPolicy.set({
-    value: "disable_non_proxied_udp"
-  });
+  rtc.then(AssurePeerConnection);
   console.log("Enabled WebRTC");
 }
 
-ResetPeerConnection();
+function AssurePeerConnection() {
+  function assure(webrtc) {
+    browser.privacy.network.peerConnectionEnabled.set({
+      value: webrtc.value
+    });
+    browser.privacy.network.networkPredictionEnabled.set({
+      value: false
+    });
+    chrome.privacy.network.webRTCIPHandlingPolicy.set({
+      value: "proxy_only"
+    });
+  }
+  rtc = browser.privacy.network.peerConnectionEnabled.get({});
+  rtc.then(assure);
+}
+
+AssurePeerConnection();
 
 function ResetDisableSavePasswords() {
   browser.privacy.services.passwordSavingEnabled.set({
@@ -195,13 +203,6 @@ var appSettings = {
 function onError(e) {
   console.error(e);
 }
-
-function checkStoredSettings(storedSettings) {
-  chrome.storage.local.set(appSettings);
-}
-
-const gettingStoredSettings = browser.storage.local.get();
-gettingStoredSettings.then(checkStoredSettings, onError);
 
 function clearCookiesContext(cookieStoreId) {}
 
@@ -348,13 +349,48 @@ function onContextGotLog(contexts) {
 
 browser.runtime.onMessage.addListener(message);
 
+function enableHistory() {
+  function checkStoredSettings(storedSettings) {
+    storedSettings["disable_history"] = false;
+    console.log(storedSettings);
+    function enablehistory(settings) {
+      console.log("Store History:", storedSettings);
+    }
+    var setting = browser.storage.local.set(storedSettings);
+    setting.then(enablehistory);
+  }
+  const gettingStoredSettings = browser.storage.local.get();
+  gettingStoredSettings.then(checkStoredSettings, onError);
+}
+
+function disableHistory() {
+  function checkStoredSettings(storedSettings) {
+    storedSettings["disable_history"] = true;
+    console.log(storedSettings);
+    function enablehistory(settings) {
+      console.log("Store History:", storedSettings);
+    }
+    var setting = browser.storage.local.set(storedSettings);
+    setting.then(enablehistory);
+  }
+  const gettingStoredSettings = browser.storage.local.get();
+  gettingStoredSettings.then(checkStoredSettings, onError);
+}
+
 function message(message) {
   console.log(message);
   if (message.rtc === "enableWebRTC") {
     console.log("enableWebRTC");
     EnablePeerConnection();
-  } else {
+  } else if (message.rtc === "disableWebRTC") {
     console.log("disableWebRTC");
     ResetPeerConnection();
+  }
+  if (message.history === "enableHistory") {
+    console.log("enableHistory");
+    enableHistory();
+  } else if (message.history === "disableHistory") {
+    console.log("disableHistory");
+    disableHistory();
   }
 }

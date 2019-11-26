@@ -269,9 +269,6 @@ function updateUI(restoredSettings) {
 function onError(e) {
   console.error(e);
 }
-chrome.storage.local.get(function(got) {
-  checkStoredSettings(got);
-});
 
 var gettingInfo = browser.runtime.getPlatformInfo();
 gettingInfo.then(got => {

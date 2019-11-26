@@ -1,4 +1,5 @@
 var titlepref = chrome.i18n.getMessage("titlePreface");
+var titleprefpriv = chrome.i18n.getMessage("titlePrefacePrivate");
 var webpref = chrome.i18n.getMessage("webPreface");
 var webprefpriv = chrome.i18n.getMessage("webPrefacePrivate");
 var routerpref = chrome.i18n.getMessage("routerPreface");
@@ -173,37 +174,58 @@ var proxy_host = "127.0.0.1";
 var proxy_port = "4444";
 var control_host = "127.0.0.1";
 var control_port = "4444";
+var disable_history = false;
 
 function SetupSettings() {
   console.log("Initialising Settings");
   //
   function checkSchemeStoredSettings(storedSettings) {
+    if (storedSettings.proxy_scheme != undefined) {
+      proxy_scheme = storedSettings.proxy_scheme;
+    } else {
+      proxy_scheme = "http";
+      storedSettings.proxy_scheme = proxy_scheme;
+    }
     console.log("Initialising Proxy Scheme", storedSettings.proxy_scheme);
-    proxy_scheme = storedSettings.proxy_scheme;
   }
   var gettingSchemeStoredSettings = browser.storage.local.get("proxy_scheme");
   gettingSchemeStoredSettings.then(checkSchemeStoredSettings, onError);
 
   //
   function checkHostStoredSettings(storedSettings) {
+    if (storedSettings.proxy_host != undefined) {
+      proxy_host = storedSettings.proxy_host;
+    } else {
+      proxy_host = "127.0.0.1";
+      storedSettings.proxy_host = proxy_host;
+    }
     console.log("Initialising Host", storedSettings.proxy_host);
-    proxy_host = storedSettings.proxy_host;
   }
   var gettingHostStoredSettings = browser.storage.local.get("proxy_host");
   gettingHostStoredSettings.then(checkHostStoredSettings, onError);
 
   //
   function checkPortStoredSettings(storedSettings) {
+    if (storedSettings.proxy_port != undefined) {
+      proxy_port = storedSettings.proxy_port;
+    } else {
+      proxy_port = "4444";
+      storedSettings.proxy_port = proxy_port;
+    }
     console.log("Initialising Port", storedSettings.proxy_port);
-    proxy_port = storedSettings.proxy_port;
   }
   var gettingPortStoredSettings = browser.storage.local.get("proxy_port");
   gettingPortStoredSettings.then(checkPortStoredSettings, onError);
 
   //
   function checkControlHostStoredSettings(storedSettings) {
+    if (storedSettings.control_host != undefined) {
+      control_host = storedSettings.control_host;
+    } else {
+      control_host = "127.0.0.1";
+      storedSettings.control_host = control_host;
+    }
     console.log("Initialising Control Host", storedSettings.control_host);
-    proxy_host = storedSettings.control_host;
   }
   var gettingControlHostStoredSettings = browser.storage.local.get(
     "control_host"
@@ -215,8 +237,13 @@ function SetupSettings() {
 
   //
   function checkControlPortStoredSettings(storedSettings) {
+    if (storedSettings.control_port != undefined) {
+      contro_port = storedSettings.control_port;
+    } else {
+      control_port = "4445";
+      storedSettings.control_port = control_port;
+    }
     console.log("Initialising Control Port", storedSettings.control_port);
-    proxy_port = storedSettings.control_port;
   }
   var gettingControlPortStoredSettings = browser.storage.local.get(
     "control_port"
@@ -225,6 +252,24 @@ function SetupSettings() {
     checkControlPortStoredSettings,
     onError
   );
+
+  //
+  function checkHistoryStoredSettings(storedSettings) {
+    if (storedSettings.disable_history != undefined) {
+      disable_history = storedSettings.disable_history;
+    } else {
+      disable_history = false;
+      storedSettings.disable_history = disable_history;
+    }
+    console.log(
+      "Initialising Disabled History",
+      storedSettings.disable_history
+    );
+  }
+  var gettingHistoryStoredSettings = browser.storage.local.get(
+    "disable_history"
+  );
+  gettingHistoryStoredSettings.then(checkHistoryStoredSettings, onError);
 }
 
 function getScheme() {
@@ -323,3 +368,4 @@ function updateFromStorage() {
 }
 
 browser.storage.onChanged.addListener(updateFromStorage);
+SetupSettings();

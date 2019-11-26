@@ -32,15 +32,15 @@
           </div>
           <div id="onboarding" class="hideIfI2PConsoleOff">
             <h3 id="onboardingTitle">New to I2P? Learn more here.</h3>
-            <h4 id="onboardingZero"><button class="showhider" onclick="flipVisibility('onboardingContentZero')">Protect your Privacy</button></h4>
+            <h4 id="onboardingZero"><button id="onboardingButtonZero" class="showhider" onclick="flipVisibility('onboardingContentZero')">Protect your Privacy</button></h4>
             <p id="onboardingContentZero" class="onboardingContent">I2P Browser allows you to surf the internet using the private and secure I2P network. When using it, you are protected against tracking, surveillance, and censorship as a first-class participant in the I2P network. I2P Browser isolates cookies and deletes your browser history after your session. These modifications ensure your privacy and security are protected in the browser.</p>
-            <h4 id="onboardingOne"><button class="showhider" onclick="flipVisibility('onboardingContentOne')">Configure your Experience</button></h4>
+            <h4 id="onboardingOne"><button id="onboardingButtonOne" class="showhider" onclick="flipVisibility('onboardingContentOne')">Configure your Experience</button></h4>
             <p id="onboardingContentOne" class="onboardingContent">We also provide you with additional settings for bumping up your browser security. Our Security Settings allow you to block elements that could be used to attack your computer. Click below to see what the different options do. Note: By default, NoScript and HTTPS Everywhere are not included on the toolbar, but you can customize your toolbar to add them. With all the security and privacy features provided by I2P, your experience while browsing the internet may be a little different. Things may be a bit slower, and depending on your security level, some elements may not work or load. You may also be asked to prove you are a human and not a robot.</p>
-            <h4 id="onboardingTwo"><button class="showhider" onclick="flipVisibility('onboardingContentTwo')">Share Files</button></h4>
+            <h4 id="onboardingTwo"><button id="onboardingButtonTwo" class="showhider" onclick="flipVisibility('onboardingContentTwo')">Share Files</button></h4>
             <p id="onboardingContentTwo" class="onboardingContent">I2P is capable of using peer-to-peer applications like BitTorrent, protecting your identity when you share files. Our anonymous bittorrent client is available in the browser.</p>
-            <h4 id="onboardingThree"><button class="showhider" onclick="flipVisibility('onboardingContentThree')">Hidden e-mail</button></h4>
+            <h4 id="onboardingThree"><button id="onboardingButtonThree" class="showhider" onclick="flipVisibility('onboardingContentThree')">Hidden e-mail</button></h4>
             <p id="onboardingContentThree" class="onboardingContent">There is also an anonymous e-mail service available inside of I2P, which is accessible from our browser via the menu directly below.</p>
-            <h4 id="onboardingFour"><button class="showhider" onclick="flipVisibility('onboardingContentFour')">Experience Tips</button></h4>
+            <h4 id="onboardingFour"><button id="onboardingButtonFour" class="showhider" onclick="flipVisibility('onboardingContentFour')">Experience Tips</button></h4>
             <p id="onboardingContentFour" class="onboardingContent">With all the security and privacy features provided by I2P, your experience while browsing the internet may be a little different. Things may be a bit slower, and depending on your security level, some elements may not work or load. You may also be asked to prove you are a human and not a robot.</p>
           </div>
           <!--<p class="hideIfI2POn">&aboutI2p.warn_not_running; <a href="about:i2p">&aboutI2p.refresh_text;</a> &aboutI2p.reccommend_not_running;</p>-->
@@ -49,17 +49,17 @@
             <h3>Applications</h3>
             <p id="applicationExplain">These applications use I2P to provide them with security and privacy.</p>
               <ul>
-                <a class="applicationName" href="http://127.0.0.1:7657/i2ptunnel">
+                <a class="applicationName" target="_blank" href="http://127.0.0.1:7657/i2ptunnel">
                   <li class="application">
                     Hidden Services Manager <span class="applicationDesc">I2P has a web-based interface for configuring .i2p services like web sites, to set up your own web sites, go here:</span>
                   </li>
                 </a>
-                <a class="applicationName" href="http://127.0.0.1:7657/susimail">
+                <a class="applicationName" target="_blank" href="http://127.0.0.1:7657/susimail">
                   <li class="application">
                   E-Mail <span class="applicationDesc">I2P also bundles a webmail client which can be used to access in-I2P e-mail. To use it, go here:</span>
                   </li>
                 </a>
-                <a class="applicationName" href="http://127.0.0.1:7657/i2psnark">
+                <a class="applicationName" target="_blank" href="http://127.0.0.1:7657/i2psnark">
                   <li class="application">
                     BitTorrent <span class="applicationDesc">I2P is capable of anonymous Peer-to-Peer file sharing, to use the built-in bittorrent client go here:</span>
                   </li>
@@ -68,7 +68,7 @@
             </p>
           </div>
         <div class="extended-info">
-          <h3 id="links"><button class="showhider" onclick="flipVisibility('info-content')">Links</button></h3>
+          <h3 id="links"><button id="fliplinks" class="showhider">Links</button></h3>
             <div id="info-content">
             <p id="linksExplain">If you want to get more information about I2P, you can visit these links.</p>
             <p>
