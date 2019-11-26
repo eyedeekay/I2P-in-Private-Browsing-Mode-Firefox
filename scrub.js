@@ -313,6 +313,12 @@ var contextSetup = async function(requestDetails) {
         setcookie.then(onContextGotLog, onError);
         return requestDetails;
       }
+      console.log("(isolate)Request Details)", requestDetails);
+      if (extensionHost(requestDetails.url)) {
+        var tab = tabGet(requestDetails.tabId);
+        var mtab = tab.then(anyTabFind, onError);
+        return requestDetails;
+      }
       if (i2pHost(requestDetails.url)) {
         var setcookie = browser.cookies.set({
           firstPartyDomain: i2pHostName(requestDetails.url),
@@ -348,6 +354,13 @@ var contextSetup = async function(requestDetails) {
         var mtab = tab.then(anyTabFind, onError);
         return requestDetails;
       }
+    }
+
+    console.log("(isolate)Request Details)", requestDetails);
+    if (extensionHost(requestDetails.url)) {
+      var tab = tabGet(requestDetails.tabId);
+      var mtab = tab.then(anyTabFind, onError);
+      return requestDetails;
     }
     //var tab = tabGet(requestDetails.tabId);
     //var mtab = tab.then(anyTabFind);

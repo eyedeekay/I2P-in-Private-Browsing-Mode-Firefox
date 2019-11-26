@@ -144,7 +144,6 @@ function ResetPeerConnection() {
     value: webrtc
   });
   rtc.then(AssurePeerConnection);
-
 }
 
 function EnablePeerConnection() {
