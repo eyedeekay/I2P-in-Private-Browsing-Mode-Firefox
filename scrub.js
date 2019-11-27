@@ -63,6 +63,8 @@ var contextScrub = async function(requestDetails) {
         let tabInfo = await browser.tabs.get(tabId);
         return tabInfo;
       } catch (error) {
+        let tabInfo = await browser.tabs.getCurrent();
+        return tabInfo;
         console.log("(scrub)Context Error", error);
       }
     };
@@ -102,8 +104,10 @@ var contextSetup = async function(requestDetails) {
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
           function Create(window) {
             function onCreated(tab) {
-              console.log("(isolate) Closing old, un-isolated tab", window);
-              if (tabId != undefined) browser.tabs.remove(tabId.id);
+              if (tabId != undefined) {
+                console.log("(isolate) Closing old, un-isolated tab");
+                browser.tabs.remove(tabId.id);
+              }
             }
             var created = browser.tabs.create({
               active: true,
@@ -128,8 +132,10 @@ var contextSetup = async function(requestDetails) {
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
           function Create(window) {
             function onCreated(tab) {
-              console.log("(isolate) Closing old, un-isolated tab");
-              if (tabId != undefined) browser.tabs.remove(tabId.id);
+              if (tabId != undefined) {
+                console.log("(isolate) Closing old, un-isolated tab");
+                browser.tabs.remove(tabId.id);
+              }
             }
             var created = browser.tabs.create({
               active: true,
@@ -154,8 +160,10 @@ var contextSetup = async function(requestDetails) {
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
           function Create(window) {
             function onCreated(tab) {
-              console.log("(isolate) Closing old, un-isolated tab");
-              if (tabId != undefined) browser.tabs.remove(tabId.id);
+              if (tabId != undefined) {
+                console.log("(isolate) Closing old, un-isolated tab");
+                browser.tabs.remove(tabId.id);
+              }
             }
             var created = browser.tabs.create({
               active: true,
@@ -180,8 +188,10 @@ var contextSetup = async function(requestDetails) {
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
           function Create(window) {
             function onCreated(tab) {
-              console.log("(isolate) Closing old, un-isolated tab");
-              if (tabId != undefined) browser.tabs.remove(tabId.id);
+              if (tabId != undefined) {
+                console.log("(isolate) Closing old, un-isolated tab");
+                browser.tabs.remove(tabId.id);
+              }
             }
             var created = browser.tabs.create({
               active: true,
@@ -206,8 +216,10 @@ var contextSetup = async function(requestDetails) {
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
           function Create(window) {
             function onCreated(tab) {
-              console.log("(isolate) Closing old, un-isolated tab");
-              if (tabId != undefined) browser.tabs.remove(tabId.id);
+              if (tabId != undefined) {
+                console.log("(isolate) Closing old, un-isolated tab");
+                browser.tabs.remove(tabId.id);
+              }
             }
             var created = browser.tabs.create({
               active: true,
@@ -237,8 +249,10 @@ var contextSetup = async function(requestDetails) {
           if (tabId.cookieStoreId != context[0].cookieStoreId) {
             function Create(window) {
               function onCreated(tab) {
-                console.log("(isolate) Closing old, un-isolated tab");
-                if (tabId != undefined) browser.tabs.remove(tabId.id);
+                if (tabId != undefined) {
+                  console.log("(isolate) Closing old, un-isolated tab");
+                  browser.tabs.remove(tabId.id);
+                }
               }
               var created = browser.tabs.create({
                 active: true,

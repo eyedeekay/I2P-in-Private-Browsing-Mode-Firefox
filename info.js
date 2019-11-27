@@ -13,6 +13,7 @@ function checkHistory() {
   var getting = browser.storage.local.get("disable_history");
   getting.then(got => {
     disable_history = got.disable_history;
+    if (disable_history == undefined) disable_history = false;
     console.log("checking history", disable_history);
     document.getElementById("disable-history").checked = disable_history;
   });
