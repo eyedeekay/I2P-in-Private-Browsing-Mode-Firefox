@@ -71,7 +71,7 @@ var contextScrub = async function(requestDetails) {
       var context = {};
       var req = {};
       if (i2pHost(requestDetails.url)) {
-        console.log("(Proxy)I2P URL detected, ");
+        console.log("(scrub)I2P URL detected, ");
         tab = tabGet(requestDetails.tabId);
         context = tab.then(contextGet, onError);
         req = await context.then(headerScrub, onError);

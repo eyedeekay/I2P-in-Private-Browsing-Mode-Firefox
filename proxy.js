@@ -187,6 +187,7 @@ function SetupSettings() {
       storedSettings.proxy_scheme = proxy_scheme;
     }
     console.log("Initialising Proxy Scheme", storedSettings.proxy_scheme);
+    setupProxy();
   }
   var gettingSchemeStoredSettings = browser.storage.local.get("proxy_scheme");
   gettingSchemeStoredSettings.then(checkSchemeStoredSettings, onError);
@@ -200,6 +201,7 @@ function SetupSettings() {
       storedSettings.proxy_host = proxy_host;
     }
     console.log("Initialising Host", storedSettings.proxy_host);
+    setupProxy();
   }
   var gettingHostStoredSettings = browser.storage.local.get("proxy_host");
   gettingHostStoredSettings.then(checkHostStoredSettings, onError);
@@ -213,6 +215,7 @@ function SetupSettings() {
       storedSettings.proxy_port = proxy_port;
     }
     console.log("Initialising Port", storedSettings.proxy_port);
+    setupProxy();
   }
   var gettingPortStoredSettings = browser.storage.local.get("proxy_port");
   gettingPortStoredSettings.then(checkPortStoredSettings, onError);
@@ -226,6 +229,7 @@ function SetupSettings() {
       storedSettings.control_host = control_host;
     }
     console.log("Initialising Control Host", storedSettings.control_host);
+    setupProxy();
   }
   var gettingControlHostStoredSettings = browser.storage.local.get(
     "control_host"
@@ -244,6 +248,7 @@ function SetupSettings() {
       storedSettings.control_port = control_port;
     }
     console.log("Initialising Control Port", storedSettings.control_port);
+    setupProxy();
   }
   var gettingControlPortStoredSettings = browser.storage.local.get(
     "control_port"
@@ -265,6 +270,7 @@ function SetupSettings() {
       "Initialising Disabled History",
       storedSettings.disable_history
     );
+    setupProxy();
   }
   var gettingHistoryStoredSettings = browser.storage.local.get(
     "disable_history"
