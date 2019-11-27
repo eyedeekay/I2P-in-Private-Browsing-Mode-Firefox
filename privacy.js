@@ -179,9 +179,15 @@ function AssurePeerConnection() {
   rtc = browser.privacy.network.peerConnectionEnabled.get({});
   rtc.then(assure);
 }
-if (!isDroid()) browser.windows.onCreated.addListener(ResetPeerConnection);
-if (isDroid()) browser.tabs.onCreated.addListener(ResetPeerConnection);
 
+var gettingInfo = browser.runtime.getPlatformInfo();
+gettingInfo.then(got => {
+  if (got.os == "android") {
+    browser.tabs.onCreated.addListener(ResetPeerConnection);
+  } else {
+    browser.windows.onCreated.addListener(ResetPeerConnection);
+  }
+});
 //AssurePeerConnection();
 
 function ResetDisableSavePasswords() {
