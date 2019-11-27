@@ -35,6 +35,10 @@ var handleContextProxyRequest = async function(requestDetails) {
         failoverTimeout: 0,
         proxyDns: false
       };
+      if (context == "firefox-default" || context == "firefox-private") {
+        proxy = null;
+        return proxy;
+      }
       if (context != undefined) {
         if (context.name == titlepref) {
           proxy = {
@@ -123,7 +127,7 @@ var handleContextProxyRequest = async function(requestDetails) {
         context = await browser.contextualIdentities.get(tabInfo.cookieStoreId);
         return context;
       } catch (error) {
-        console.log("(proxy)Context Error", error);
+        return "firefox-default";
       }
     };
     var tabGet = async function(tabId) {
@@ -329,11 +333,11 @@ function getControlPort() {
 }
 
 function setupProxy() {
-  var controlHost = getControlHost();
-  var controlPort = getControlPort();
-  var Host = getHost();
-  var Port = getPort();
-  var Scheme = getScheme();
+  //var controlHost = getControlHost();
+  //var controlPort = getControlPort();
+  //var Host = getHost();
+  //var Port = getPort();
+  //var Scheme = getScheme();
 
   /**/
   console.log("Setting up Firefox WebExtension proxy");
@@ -375,3 +379,4 @@ function updateFromStorage() {
 
 browser.storage.onChanged.addListener(updateFromStorage);
 SetupSettings();
+setupProxy();

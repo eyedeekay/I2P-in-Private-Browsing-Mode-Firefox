@@ -78,16 +78,7 @@ function onCreated(context) {
   console.log(`New identity's ID: ${context.cookieStoreId}.`);
 }
 
-var gettingInfo = browser.runtime.getPlatformInfo();
-gettingInfo.then(got => {
-  if (got.os == "android") {
-    browser.contextualIdentities.query({}).then(onContextsGot, onError);
-  } else {
-    browser.windows.onCreated.addListener(() => {
-      browser.contextualIdentities.query({}).then(onContextsGot, onError);
-    });
-  }
-});
+browser.contextualIdentities.query({}).then(onContextsGot, onError);
 
 var gettingInfo = browser.runtime.getPlatformInfo();
 gettingInfo.then(got => {

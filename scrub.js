@@ -52,7 +52,7 @@ var contextScrub = async function(requestDetails) {
         context = await browser.contextualIdentities.get(tabInfo.cookieStoreId);
         return context;
       } catch (error) {
-        console.log("(scrub)Context Error", error);
+        return "firefox-default";
       }
     };
     var tabGet = async function(tabId) {
@@ -61,9 +61,9 @@ var contextScrub = async function(requestDetails) {
         let tabInfo = await browser.tabs.get(tabId);
         return tabInfo;
       } catch (error) {
-        console.log("(scrub)Context Error", error);
-        //let tabInfo = await browser.tabs.getCurrent();
-        //return tabInfo;
+        //console.log("(scrub)Context Error", error);
+        let tabInfo = await browser.tabs.getCurrent();
+        return tabInfo;
       }
     };
     if (requestDetails.tabId > 0) {
@@ -108,7 +108,8 @@ var contextSetup = async function(requestDetails) {
             var created = browser.tabs.create({
               active: true,
               cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url
+              url: requestDetails.url,
+              openerTabId: tabId.id
             });
             created.then(onCreated, onError);
           }
@@ -134,8 +135,8 @@ var contextSetup = async function(requestDetails) {
             var created = browser.tabs.create({
               active: true,
               cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url
-              //windowId: window.id
+              url: requestDetails.url,
+              openerTabId: tabId.id
             });
             created.then(onCreated, onError);
           }
@@ -161,8 +162,8 @@ var contextSetup = async function(requestDetails) {
             var created = browser.tabs.create({
               active: true,
               cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url
-              //windowId: window.id
+              url: requestDetails.url,
+              openerTabId: tabId.id
             });
             created.then(onCreated, onError);
           }
@@ -188,7 +189,8 @@ var contextSetup = async function(requestDetails) {
             var created = browser.tabs.create({
               active: true,
               cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url
+              url: requestDetails.url,
+              openerTabId: tabId.id
             });
             created.then(onCreated, onError);
           }
@@ -214,7 +216,8 @@ var contextSetup = async function(requestDetails) {
             var created = browser.tabs.create({
               active: true,
               cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url
+              url: requestDetails.url,
+              openerTabId: tabId.id
             });
             created.then(onCreated, onError);
           }
@@ -245,7 +248,8 @@ var contextSetup = async function(requestDetails) {
               var created = browser.tabs.create({
                 active: true,
                 cookieStoreId: context[0].cookieStoreId,
-                url: requestDetails.url
+                url: requestDetails.url,
+                openerTabId: tabId.id
               });
               created.then(onCreated, onError);
             }
