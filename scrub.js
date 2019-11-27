@@ -58,6 +58,8 @@ var contextScrub = async function(requestDetails) {
     var tabGet = async function(tabId) {
       try {
         console.log("(scrub)Tab ID from Request", tabId);
+        let ostype = await browser.runtime.getPlatformInfo();
+        if (ostype == android) tabId += 1;
         let tabInfo = await browser.tabs.get(tabId);
         return tabInfo;
       } catch (error) {
