@@ -93,7 +93,12 @@ function proxyReadiness() {
   console.log(this.responseText);
 }
 
-browser.history.onVisited.addListener(onVisited);
+var gettingInfo = browser.runtime.getPlatformInfo();
+gettingInfo.then(got => {
+  if (got.os != "android") {
+    browser.history.onVisited.addListener(onVisited);
+  }
+});
 
 function goHome() {
   function gotProxyInfo(info) {
