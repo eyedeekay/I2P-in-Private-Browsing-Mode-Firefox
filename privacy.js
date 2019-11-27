@@ -180,7 +180,8 @@ function AssurePeerConnection() {
   rtc.then(assure);
 }
 
-AssurePeerConnection();
+browser.windows.onCreated.addListener(ResetPeerConnection);
+//AssurePeerConnection();
 
 function ResetDisableSavePasswords() {
   browser.privacy.services.passwordSavingEnabled.set({

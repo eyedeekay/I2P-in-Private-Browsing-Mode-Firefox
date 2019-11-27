@@ -46,7 +46,8 @@ gettingInfo.then(got => {
               createBookmark.then(onCreated);
             } else {
               var createBookmark = browser.bookmarks.create({
-                url: "http://localhost:7657/i2psnark",
+                url:
+                  "http://" + control_host + ":" + control_port + "/i2psnark",
                 title: "Bittorrent",
                 parentId: bookmarkToolbar[0].id
               });
@@ -74,7 +75,7 @@ gettingInfo.then(got => {
               createBookmark.then(onCreated);
             } else {
               var createBookmark = browser.bookmarks.create({
-                url: "http://localhost:7657/webmail",
+                url: "http://" + control_host + ":" + control_port + "/webmail",
                 title: "Web Mail",
                 parentId: bookmarkToolbar[0].id
               });
@@ -103,7 +104,12 @@ gettingInfo.then(got => {
               createBookmark.then(onCreated);
             } else {
               var createBookmark = browser.bookmarks.create({
-                url: "http://localhost:7657/i2ptunnelmgr",
+                url:
+                  "http://" +
+                  control_host +
+                  ":" +
+                  control_port +
+                  "/i2ptunnelmgr",
                 title: "Hidden Services Manager",
                 parentId: bookmarkToolbar[0].id
               });

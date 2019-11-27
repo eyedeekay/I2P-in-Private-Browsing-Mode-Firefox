@@ -240,7 +240,7 @@ function SetupSettings() {
     if (storedSettings.control_port != undefined) {
       contro_port = storedSettings.control_port;
     } else {
-      control_port = "4445";
+      control_port = "7657";
       storedSettings.control_port = control_port;
     }
     console.log("Initialising Control Port", storedSettings.control_port);
@@ -317,7 +317,7 @@ function getControlHost() {
 
 function getControlPort() {
   if (control_port == undefined) {
-    return "4444";
+    return "7657";
   }
   return control_port;
 }

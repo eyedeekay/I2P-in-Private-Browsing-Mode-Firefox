@@ -121,7 +121,7 @@ function goHome() {
 
 function goTunnel() {
   let createData = {
-    url: "http://127.0.0.1:7657/i2ptunnel"
+    url: "http://" + control_host + ":" + control_port + "/i2ptunnel"
   };
   console.log("visiting homepage");
   let creating = browser.tabs.create(createData);
@@ -129,7 +129,7 @@ function goTunnel() {
 
 function goMail() {
   let createData = {
-    url: "http://127.0.0.1:7657/susimail"
+    url: "http://" + control_host + ":" + control_port + "/susimail"
   };
   console.log("visiting homepage");
   let creating = browser.tabs.create(createData);
@@ -137,7 +137,7 @@ function goMail() {
 
 function goSnark() {
   let createData = {
-    url: "http://127.0.0.1:7657/i2psnark"
+    url: "http://" + control_host + ":" + control_port + "/i2psnark"
   };
   console.log("visiting homepage");
   let creating = browser.tabs.create(createData);
