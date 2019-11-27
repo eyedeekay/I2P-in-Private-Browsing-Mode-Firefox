@@ -108,8 +108,7 @@ var contextSetup = async function(requestDetails) {
             var created = browser.tabs.create({
               active: true,
               cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url,
-              openerTabId: tabId.id
+              url: requestDetails.url
             });
             created.then(onCreated, onError);
           }
@@ -135,8 +134,7 @@ var contextSetup = async function(requestDetails) {
             var created = browser.tabs.create({
               active: true,
               cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url,
-              openerTabId: tabId.id
+              url: requestDetails.url
             });
             created.then(onCreated, onError);
           }
@@ -162,8 +160,7 @@ var contextSetup = async function(requestDetails) {
             var created = browser.tabs.create({
               active: true,
               cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url,
-              openerTabId: tabId.id
+              url: requestDetails.url
             });
             created.then(onCreated, onError);
           }
@@ -189,8 +186,7 @@ var contextSetup = async function(requestDetails) {
             var created = browser.tabs.create({
               active: true,
               cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url,
-              openerTabId: tabId.id
+              url: requestDetails.url
             });
             created.then(onCreated, onError);
           }
@@ -216,8 +212,7 @@ var contextSetup = async function(requestDetails) {
             var created = browser.tabs.create({
               active: true,
               cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url,
-              openerTabId: tabId.id
+              url: requestDetails.url
             });
             created.then(onCreated, onError);
           }
@@ -248,8 +243,7 @@ var contextSetup = async function(requestDetails) {
               var created = browser.tabs.create({
                 active: true,
                 cookieStoreId: context[0].cookieStoreId,
-                url: requestDetails.url,
-                openerTabId: tabId.id
+                url: requestDetails.url
               });
               created.then(onCreated, onError);
             }
