@@ -157,3 +157,6 @@ deb: deborig
 	cd ../i2psetproxy.js-$(VERSION) && debuild -us -uc -rfakeroot
 
 -include mirrors.mk
+
+dat:
+	wget -c -O dat.js https://bundle.run/dat-js

@@ -65,7 +65,6 @@ var contextScrub = async function(requestDetails) {
       } catch (error) {
         let tabInfo = await browser.tabs.getCurrent();
         return tabInfo;
-        console.log("(scrub)Context Error", error);
       }
     };
     if (requestDetails.tabId > 0) {
