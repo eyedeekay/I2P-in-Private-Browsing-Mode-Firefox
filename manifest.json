@@ -60,11 +60,6 @@
       "uriTemplate": "http://127.0.0.1:7657/%s"
     },
     {
-      "protocol": "ext+dati2p",
-      "name": "Dat over I2P",
-      "uriTemplate": "/dat.html/%s"
-    },
-    {
       "protocol": "magnet",
       "name": "I2PTorrent",
       "uriTemplate": "http://127.0.0.1:7657/i2psnark/?nofilter_newURL=%s&action=Add&foo=Add+torrent"
