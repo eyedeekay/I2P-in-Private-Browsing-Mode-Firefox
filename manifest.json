@@ -23,7 +23,8 @@
   ],
   "manifest_version": 2,
   "name": "__MSG_extensionName__",
-  "version": "0.48",
+  "version": "0.49",
+  "version_name": "0.49",
   "description": "__MSG_extensionDescription__",
   "homepage_url": "https://github.com/eyedeekay/i2psetproxy.js",
   "icons": {
@@ -62,12 +63,12 @@
     {
       "protocol": "ext+dati2p",
       "name": "Dat over I2P",
-      "uriTemplate": "/dat.html/%s"
+      "uriTemplate": "/dat.html#!/%s"
     },
     {
       "protocol": "magnet",
       "name": "I2PTorrent",
-      "uriTemplate": "http://127.0.0.1:7657/i2psnark/?nofilter_newURL=%s&action=Add&foo=Add+torrent"
+      "uriTemplate": "__MSG_protocolHandlerValue__"
     }
   ],
   "default_locale": "en"

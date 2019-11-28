@@ -69,10 +69,19 @@ xpi:
 	cp ~/Downloads/i2p_in_private_browsing-$(VERSION)-an+fx.xpi ./i2ppb@eyedeekay.github.io.xpi
 
 version:
+	sed -i 's|7647|7657|g' *.js* */*.js*
 	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(VERSION)\",|g' manifest.json
+	sed -i 's|$(shell grep "\"version_name\": " manifest.json)|  \"version_name\": \"$(VERSION)\",|g' manifest.json
 
 moz-version:
+	sed -i 's|7647|7657|g' *.js* */*.js*
 	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(MOZ_VERSION)\",|g' manifest.json
+	sed -i 's|$(shell grep "\"version_name\": " manifest.json)|  \"version_name\": \"$(MOZ_VERSION)\",|g' manifest.json
+
+rhz-version:
+	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(VERSION)\",|g' manifest.json
+	sed -i 's|$(shell grep "\"version_name\": " manifest.json)|  \"version_name\": \"$(VERSION)-rhizome\",|g' manifest.json
+	sed -i 's|7657|7647|g' *.js* */*.js*
 
 zip: version
 	zip --exclude="./i2ppb@eyedeekay.github.io.xpi" \
@@ -105,7 +114,7 @@ WEB_EXT_API_SECRET=AMO_SECRET
 tk:
 	echo $(WEB_EXT_API_KEY)
 
-submit: moz-sign moz-submit
+submit: moz-sign rhz-submit moz-submit
 
 ##ODD NUMBERED, SELF-DISTRIBUTED VERSIONS HERE!
 moz-sign: version
@@ -121,6 +130,13 @@ moz-submit: moz-version
 	@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
 	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
 	web-ext sign --channel listed --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
+
+rhz-submit: rhz-version
+	@echo "Using the 'sign' target to instantly sign an extension for self-distribution"
+	@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
+	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
+	web-ext-submit --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
+	#cp web-ext-artifacts/*.xpi ./i2ppb@eyedeekay.github.io.xpi
 
 upload-xpi:
 	gothub upload -R -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n "i2ppb@eyedeekay.github.io.xpi" -f "./i2ppb@eyedeekay.github.io.xpi"
