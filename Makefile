@@ -153,7 +153,7 @@ fmt:
 	cleancss -O1 all -O2 all --format beautify home.css -o .home.css && mv .home.css home.css
 	cleancss -O1 all -O2 all --format beautify info.css -o .info.css && mv .info.css info.css
 	#find . -path ./node_modules -prune -o -name '*.css' -exec cleancss -O1 --format beautify {} \;
-	find . -path ./node_modules -prune -o -name '*.js' -exec prettier --write {} \;
+	find . -path ./node_modules -prune -o -name '*.js*' -exec prettier --write {} \;
 
 lint:
 	eslint --fix *.js
