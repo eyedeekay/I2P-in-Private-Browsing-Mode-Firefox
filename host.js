@@ -86,15 +86,18 @@ function routerHost(url) {
     hostname = url.split("/")[0];
     path = url.replace(hostname + "/", "");
   }
-  if (hostname === "127.0.0.1:7657") {
+  if (hostname === control_host + ":" + control_port) {
+    console.log("(hostcheck) router console found on configured ports");
+    return pathcheck(path);
+  } else if (hostname === "127.0.0.1:7657") {
     return pathcheck(path);
   } else if (hostname === "localhost:7657") {
     return pathcheck(path);
   }
 
-  if (hostname === "127.0.0.1:7647") {
+  if (hostname === "127.0.0.1:7657") {
     return pathcheck(path);
-  } else if (hostname === "localhost:7647") {
+  } else if (hostname === "localhost:7657") {
     return pathcheck(path);
   }
 

@@ -6,8 +6,10 @@ WebExtension that does extended configuration of a dedicated I2P browser. While
 needing to touch about:config and disables several
 fingerprinting/de-anonymization vectors on it's own. It is also the easiest way
 to configure an I2P browser on Android without requiring the user to root their
-device. It aims to be as similar to a fully-fledged I2P browser as possible and
-borrows some code from I2P Rhizome(Which it is also compatible with).
+device, although this support may be somewhat spotty in recent versions it it
+beginning to improve again. It aims to be as similar to a fully-fledged I2P
+Rhizome as possible and borrows some code from I2P Rhizome(Which it is also
+compatible with).
 
 The Old Version
 ---------------
@@ -66,12 +68,7 @@ command:
    them with the proxy enforced.
   * [done] **Change** the color of the browser window to indicate that I2P is in
    use
-  * [done-ish] **Reset** the HTTP Proxy tunnel to generate a new destination
-   on-demand
-   * it does this by working in conjunction with this
-    [standalone HTTP proxy](https://github.com/eyedeekay/httptunnel), currently
-    disabled*.
-  * [ready/broken/wip] **Provide** help in a variety of languages.
+  * [ready/broken/wip] **Provide** help in a variety sof languages.
   * [wip] **Monitor** the health and readiness of the I2P router it is
    instructed to use. Currently the plugin checks whether the HTTP Proxy is
    working by fetching an image from "http://proxy.i2p" and displaying a result.
@@ -84,7 +81,23 @@ command:
    console URL's and placing applications under their own origin.
   * [wip] **Handle Torrents** by talking to i2psnark-rpc plugin and then
    adding them directly into the Firefox downloads drop-downs, menus, etc. If I
-   can.
+   can. Right now instead of talking to snark-rpc, it uses a web-based protocl
+   handler that simply auto-fills the torrent into i2psnark.
+  * [barely started] **Isolate** traffic by contextual identity to it's own HTTP
+   Proxy tunnel, each reflecting it's own pseudonymous identity within I2P. The
+   contextual identities. For now, the contextual identities used to manage
+   browsing are "I2P Browsing" and "Web Browsing" where I2P Browsing is capable
+   of using an outproxy but in the case of traffic destined for the clearnet
+   does not do header rewriting, and Web Browsing falls back to the Proxy
+   configured in Firefox. The I2P Browsing will be expanded to
+    - I2P Amnesiac Browsing: Use for General Browsing, stores no history and
+    uses an HTTP Proxy with a very short tunnel-close timeout and no key-reuse.
+    - I2P Social Networking: Use this for logging into social network accounts,
+    forums, and other interactive asynchronous public communication platforms
+    where your identity is behaviorally linkable. This has a very long
+    tunnel-close timeout and key-reuse until specifically invoked.
+    - I2P Blogging: Use this for posting content to the web interface of your
+    blog or to other similar websites that you create content on.
 
 ### Screenshot
 

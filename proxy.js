@@ -35,6 +35,10 @@ var handleContextProxyRequest = async function(requestDetails) {
         failoverTimeout: 0,
         proxyDns: false
       };
+      if (context == "firefox-default" || context == "firefox-private") {
+        proxy = null;
+        return proxy;
+      }
       if (context != undefined) {
         if (context.name == titlepref) {
           proxy = {
@@ -123,7 +127,7 @@ var handleContextProxyRequest = async function(requestDetails) {
         context = await browser.contextualIdentities.get(tabInfo.cookieStoreId);
         return context;
       } catch (error) {
-        console.log("(proxy)Context Error", error);
+        return "firefox-default";
       }
     };
     var tabGet = async function(tabId) {
@@ -187,6 +191,7 @@ function SetupSettings() {
       storedSettings.proxy_scheme = proxy_scheme;
     }
     console.log("Initialising Proxy Scheme", storedSettings.proxy_scheme);
+    setupProxy();
   }
   var gettingSchemeStoredSettings = browser.storage.local.get("proxy_scheme");
   gettingSchemeStoredSettings.then(checkSchemeStoredSettings, onError);
@@ -200,6 +205,7 @@ function SetupSettings() {
       storedSettings.proxy_host = proxy_host;
     }
     console.log("Initialising Host", storedSettings.proxy_host);
+    setupProxy();
   }
   var gettingHostStoredSettings = browser.storage.local.get("proxy_host");
   gettingHostStoredSettings.then(checkHostStoredSettings, onError);
@@ -213,6 +219,7 @@ function SetupSettings() {
       storedSettings.proxy_port = proxy_port;
     }
     console.log("Initialising Port", storedSettings.proxy_port);
+    setupProxy();
   }
   var gettingPortStoredSettings = browser.storage.local.get("proxy_port");
   gettingPortStoredSettings.then(checkPortStoredSettings, onError);
@@ -226,6 +233,7 @@ function SetupSettings() {
       storedSettings.control_host = control_host;
     }
     console.log("Initialising Control Host", storedSettings.control_host);
+    setupProxy();
   }
   var gettingControlHostStoredSettings = browser.storage.local.get(
     "control_host"
@@ -240,10 +248,11 @@ function SetupSettings() {
     if (storedSettings.control_port != undefined) {
       contro_port = storedSettings.control_port;
     } else {
-      control_port = "4445";
+      control_port = "7657";
       storedSettings.control_port = control_port;
     }
     console.log("Initialising Control Port", storedSettings.control_port);
+    setupProxy();
   }
   var gettingControlPortStoredSettings = browser.storage.local.get(
     "control_port"
@@ -265,6 +274,7 @@ function SetupSettings() {
       "Initialising Disabled History",
       storedSettings.disable_history
     );
+    setupProxy();
   }
   var gettingHistoryStoredSettings = browser.storage.local.get(
     "disable_history"
@@ -317,17 +327,17 @@ function getControlHost() {
 
 function getControlPort() {
   if (control_port == undefined) {
-    return "4444";
+    return "7657";
   }
   return control_port;
 }
 
 function setupProxy() {
-  var controlHost = getControlHost();
-  var controlPort = getControlPort();
-  var Host = getHost();
-  var Port = getPort();
-  var Scheme = getScheme();
+  //var controlHost = getControlHost();
+  //var controlPort = getControlPort();
+  //var Host = getHost();
+  //var Port = getPort();
+  //var Scheme = getScheme();
 
   /**/
   console.log("Setting up Firefox WebExtension proxy");
@@ -369,3 +379,4 @@ function updateFromStorage() {
 
 browser.storage.onChanged.addListener(updateFromStorage);
 SetupSettings();
+setupProxy();

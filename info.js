@@ -13,6 +13,7 @@ function checkHistory() {
   var getting = browser.storage.local.get("disable_history");
   getting.then(got => {
     disable_history = got.disable_history;
+    if (disable_history == undefined) disable_history = false;
     console.log("checking history", disable_history);
     document.getElementById("disable-history").checked = disable_history;
   });
@@ -93,7 +94,12 @@ function proxyReadiness() {
   console.log(this.responseText);
 }
 
-browser.history.onVisited.addListener(onVisited);
+var gettingInfo = browser.runtime.getPlatformInfo();
+gettingInfo.then(got => {
+  if (got.os != "android") {
+    browser.history.onVisited.addListener(onVisited);
+  }
+});
 
 function goHome() {
   function gotProxyInfo(info) {
@@ -121,7 +127,7 @@ function goHome() {
 
 function goTunnel() {
   let createData = {
-    url: "http://127.0.0.1:7657/i2ptunnel"
+    url: "http://" + control_host + ":" + control_port + "/i2ptunnel"
   };
   console.log("visiting homepage");
   let creating = browser.tabs.create(createData);
@@ -129,7 +135,7 @@ function goTunnel() {
 
 function goMail() {
   let createData = {
-    url: "http://127.0.0.1:7657/susimail"
+    url: "http://" + control_host + ":" + control_port + "/susimail"
   };
   console.log("visiting homepage");
   let creating = browser.tabs.create(createData);
@@ -137,7 +143,7 @@ function goMail() {
 
 function goSnark() {
   let createData = {
-    url: "http://127.0.0.1:7657/i2psnark"
+    url: "http://" + control_host + ":" + control_port + "/i2psnark"
   };
   console.log("visiting homepage");
   let creating = browser.tabs.create(createData);

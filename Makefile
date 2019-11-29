@@ -69,10 +69,19 @@ xpi:
 	cp ~/Downloads/i2p_in_private_browsing-$(VERSION)-an+fx.xpi ./i2ppb@eyedeekay.github.io.xpi
 
 version:
+	sed -i 's|7647|7657|g' *.js* */*.js*
 	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(VERSION)\",|g' manifest.json
+	sed -i 's|$(shell grep "\"version_name\": " manifest.json)|  \"version_name\": \"$(VERSION)\",|g' manifest.json
 
 moz-version:
+	sed -i 's|7647|7657|g' *.js* */*.js*
 	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(MOZ_VERSION)\",|g' manifest.json
+	sed -i 's|$(shell grep "\"version_name\": " manifest.json)|  \"version_name\": \"$(MOZ_VERSION)\",|g' manifest.json
+
+rhz-version:
+	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(VERSION)\",|g' manifest.json
+	sed -i 's|$(shell grep "\"version_name\": " manifest.json)|  \"version_name\": \"$(VERSION)-rhizome\",|g' manifest.json
+	sed -i 's|7657|7647|g' *.js* */*.js*
 
 zip: version
 	zip --exclude="./i2ppb@eyedeekay.github.io.xpi" \
@@ -105,7 +114,7 @@ WEB_EXT_API_SECRET=AMO_SECRET
 tk:
 	echo $(WEB_EXT_API_KEY)
 
-submit: moz-sign moz-submit
+submit: moz-sign rhz-submit moz-submit
 
 ##ODD NUMBERED, SELF-DISTRIBUTED VERSIONS HERE!
 moz-sign: version
@@ -122,6 +131,13 @@ moz-submit: moz-version
 	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
 	web-ext sign --channel listed --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
 
+rhz-submit: rhz-version
+	@echo "Using the 'sign' target to instantly sign an extension for self-distribution"
+	@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
+	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
+	web-ext-submit --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
+	#cp web-ext-artifacts/*.xpi ./i2ppb@eyedeekay.github.io.xpi
+
 upload-xpi:
 	gothub upload -R -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n "i2ppb@eyedeekay.github.io.xpi" -f "./i2ppb@eyedeekay.github.io.xpi"
 
@@ -137,7 +153,7 @@ fmt:
 	cleancss -O1 all -O2 all --format beautify home.css -o .home.css && mv .home.css home.css
 	cleancss -O1 all -O2 all --format beautify info.css -o .info.css && mv .info.css info.css
 	#find . -path ./node_modules -prune -o -name '*.css' -exec cleancss -O1 --format beautify {} \;
-	find . -path ./node_modules -prune -o -name '*.js' -exec prettier --write {} \;
+	find . -path ./node_modules -prune -o -name '*.js*' -exec prettier --write {} \;
 
 lint:
 	eslint --fix *.js
@@ -157,3 +173,6 @@ deb: deborig
 	cd ../i2psetproxy.js-$(VERSION) && debuild -us -uc -rfakeroot
 
 -include mirrors.mk
+
+dat:
+	wget -c -O dat.js https://bundle.run/dat-js

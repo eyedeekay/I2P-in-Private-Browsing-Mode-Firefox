@@ -97,10 +97,22 @@
   },
   "controlHostText": {
     "message": "Control Host: ",
-    "description": "Host for the Reset Tunnel button"
+    "description": "Host for the Router Console"
   },
   "controlPortText": {
     "message": "Control Port: ",
-    "description": "Port for the Reset Tunnel button"
+    "description": "Port for the Router Console"
+  },
+  "controlHostValue": {
+    "message": "127.0.0.1",
+    "description": "Host for the Router Console"
+  },
+  "controlPortValue": {
+    "message": "7657",
+    "description": "Port for the Router Console"
+  },
+  "protocolHandlerValue": {
+    "message": "http://__MSG_controlHostValue__:__MSG_controlPortValue__/i2psnark/?nofilter_newURL=%s&action=Add&foo=Add+torrent",
+    "description": "Value for the magnet protocol handler"
   }
 }

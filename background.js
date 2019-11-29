@@ -78,16 +78,7 @@ function onCreated(context) {
   console.log(`New identity's ID: ${context.cookieStoreId}.`);
 }
 
-var gettingInfo = browser.runtime.getPlatformInfo();
-gettingInfo.then(got => {
-  if (got.os == "android") {
-    browser.contextualIdentities.query({}).then(onContextsGot, onError);
-  } else {
-    browser.windows.onCreated.addListener(() => {
-      browser.contextualIdentities.query({}).then(onContextsGot, onError);
-    });
-  }
-});
+browser.contextualIdentities.query({}).then(onContextsGot, onError);
 
 var gettingInfo = browser.runtime.getPlatformInfo();
 gettingInfo.then(got => {
@@ -245,16 +236,15 @@ function setTitle(window) {
 
         if (window.incognito) {
           browser.windows.update(window.id, {
-            titlePreface: titleprefpriv
+            titlePreface: titleprefpriv + ": "
           });
         } else {
           browser.windows.update(window.id, {
-            titlePreface: titlepref
+            titlePreface: titlepref + ": "
           });
         }
       } else if (context.name == webpref) {
         console.log("Active in Web window");
-
         if (window.incognito) {
           browser.windows.update(window.id, {
             titlePreface: ""
@@ -268,11 +258,11 @@ function setTitle(window) {
         console.log("Active in Router Console window");
         if (window.incognito) {
           browser.windows.update(window.id, {
-            titlePreface: routerprefpriv
+            titlePreface: titleprefpriv + " - " + routerprefpriv + ": "
           });
         } else {
           browser.windows.update(window.id, {
-            titlePreface: routerpref
+            titlePreface: titlepref + " - " + routerpref + ": "
           });
         }
       } else if (context.name == tunnelpref) {
@@ -280,11 +270,11 @@ function setTitle(window) {
 
         if (window.incognito) {
           browser.windows.update(window.id, {
-            titlePreface: tunnelprefpriv
+            titlePreface: titleprefpriv + " - " + tunnelprefpriv + ": "
           });
         } else {
           browser.windows.update(window.id, {
-            titlePreface: tunnelpref
+            titlePreface: titlepref + " - " + tunnelpref + ": "
           });
         }
       } else if (context.name == mailpref) {
@@ -292,11 +282,11 @@ function setTitle(window) {
 
         if (window.incognito) {
           browser.windows.update(window.id, {
-            titlePreface: mailprefpriv
+            titlePreface: titleprefpriv + " - " + mailprefpriv + ": "
           });
         } else {
           browser.windows.update(window.id, {
-            titlePreface: mailpref
+            titlePreface: titlepref + " - " + mailpref + ": "
           });
         }
       } else if (context.name == torrentpref) {
@@ -304,11 +294,11 @@ function setTitle(window) {
 
         if (window.incognito) {
           browser.windows.update(window.id, {
-            titlePreface: torrentprefpriv
+            titlePreface: titleprefpriv + " - " + torrentprefpriv + ": "
           });
         } else {
           browser.windows.update(window.id, {
-            titlePreface: torrentpref
+            titlePreface: titlepref + " - " + torrentpref + ": "
           });
         }
       }

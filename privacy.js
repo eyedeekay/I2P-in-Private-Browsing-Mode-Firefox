@@ -180,7 +180,15 @@ function AssurePeerConnection() {
   rtc.then(assure);
 }
 
-AssurePeerConnection();
+var gettingInfo = browser.runtime.getPlatformInfo();
+gettingInfo.then(got => {
+  if (got.os == "android") {
+    browser.tabs.onCreated.addListener(ResetPeerConnection);
+  } else {
+    browser.windows.onCreated.addListener(ResetPeerConnection);
+  }
+});
+//AssurePeerConnection();
 
 function ResetDisableSavePasswords() {
   browser.privacy.services.passwordSavingEnabled.set({

@@ -39,14 +39,15 @@ gettingInfo.then(got => {
             let port = info.value.http.split(":")[1];
             if (port == "7644") {
               var createBookmark = browser.bookmarks.create({
-                url: "http://localhost:7647/i2psnark",
+                url: "http://localhost:7657/i2psnark",
                 title: "Bittorrent",
                 parentId: bookmarkToolbar[0].id
               });
               createBookmark.then(onCreated);
             } else {
               var createBookmark = browser.bookmarks.create({
-                url: "http://localhost:7657/i2psnark",
+                url:
+                  "http://" + control_host + ":" + control_port + "/i2psnark",
                 title: "Bittorrent",
                 parentId: bookmarkToolbar[0].id
               });
@@ -67,14 +68,14 @@ gettingInfo.then(got => {
             let port = info.value.http.split(":")[1];
             if (port == "7644") {
               var createBookmark = browser.bookmarks.create({
-                url: "http://localhost:7647/webmail",
+                url: "http://localhost:7657/webmail",
                 title: "Web Mail",
                 parentId: bookmarkToolbar[0].id
               });
               createBookmark.then(onCreated);
             } else {
               var createBookmark = browser.bookmarks.create({
-                url: "http://localhost:7657/webmail",
+                url: "http://" + control_host + ":" + control_port + "/webmail",
                 title: "Web Mail",
                 parentId: bookmarkToolbar[0].id
               });
@@ -96,14 +97,19 @@ gettingInfo.then(got => {
             let port = info.value.http.split(":")[1];
             if (port == "7644") {
               var createBookmark = browser.bookmarks.create({
-                url: "http://localhost:7647/i2ptunnelmgr",
+                url: "http://localhost:7657/i2ptunnelmgr",
                 title: "Hidden Services Manager",
                 parentId: bookmarkToolbar[0].id
               });
               createBookmark.then(onCreated);
             } else {
               var createBookmark = browser.bookmarks.create({
-                url: "http://localhost:7657/i2ptunnelmgr",
+                url:
+                  "http://" +
+                  control_host +
+                  ":" +
+                  control_port +
+                  "/i2ptunnelmgr",
                 title: "Hidden Services Manager",
                 parentId: bookmarkToolbar[0].id
               });
