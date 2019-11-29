@@ -36,8 +36,8 @@ clean:
 ## EVEN RELEASES are AMO RELEASES
 ## ODD RELEASES are SELFHOSTED RELEASES
 
-MOZ_VERSION=0.48
-VERSION=0.49
+MOZ_VERSION=0.52
+VERSION=0.53
 #VERSION=$(MOZ_VERSION)
 #VERSION=1.27
 
@@ -80,7 +80,7 @@ moz-version:
 
 rhz-version:
 	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(VERSION)\",|g' manifest.json
-	sed -i 's|$(shell grep "\"version_name\": " manifest.json)|  \"version_name\": \"$(VERSION)-rhizome\",|g' manifest.json
+	sed -i 's|$(shell grep "\"version_name\": " manifest.json)|  \"version_name\": \"$(VERSION)1-rhizome\",|g' manifest.json
 	sed -i 's|7657|7647|g' *.js* */*.js*
 
 zip: version
@@ -116,8 +116,11 @@ tk:
 
 submit: moz-sign rhz-submit moz-submit
 
+clean-artifacts:
+	rm web-ext-artifacts/*
+
 ##ODD NUMBERED, SELF-DISTRIBUTED VERSIONS HERE!
-moz-sign: version
+moz-sign: version clean-artifacts
 	@echo "Using the 'sign' target to instantly sign an extension for self-distribution"
 	@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
 	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
@@ -161,11 +164,15 @@ lint:
 deborig:
 	rm -rf ../i2psetproxy.js-$(VERSION)
 	cp -r . ../i2psetproxy.js-$(VERSION)
+	rm -rf *.xpi web-ext-artifacts
 	tar \
 		-cvz \
 		--exclude=.git \
 		--exclude=i2psetproxy.js.gif \
 		--exclude=node_modules \
+		--exclude=web-ext-artifacts \
+		--exclude=*.xpi \
+		--exclude=*/*.xpi \
 		-f ../i2psetproxy.js_$(VERSION).orig.tar.gz \
 		.
 

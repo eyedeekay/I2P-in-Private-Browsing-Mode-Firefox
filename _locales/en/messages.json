@@ -112,7 +112,7 @@
     "description": "Port for the Router Console"
   },
   "protocolHandlerValue": {
-    "message": "http://__MSG_controlHostValue__:__MSG_controlPortValue__/i2psnark/?nofilter_newURL=%s&action=Add&foo=Add+torrent",
+    "message": "http://127.0.0.1:7657/i2psnark/?nofilter_newURL=%s&action=Add&foo=Add+torrent",
     "description": "Value for the magnet protocol handler"
   }
 }
