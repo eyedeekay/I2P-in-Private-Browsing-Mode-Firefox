@@ -40,6 +40,6 @@ var handlerSetup = async function(requestDetails) {
 
 browser.webRequest.onBeforeRequest.addListener(
   handlerSetup,
-  {urls: ["<all_urls>"]},
+  { urls: ["<all_urls>"] },
   ["blocking"]
 );
