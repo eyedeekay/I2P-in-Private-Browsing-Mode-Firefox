@@ -11,6 +11,7 @@ var torrentprefpriv = chrome.i18n.getMessage("torrentPrefacePrivate");
 var tunnelpref = chrome.i18n.getMessage("i2ptunnelPreface");
 var tunnelprefpriv = chrome.i18n.getMessage("i2ptunnelPrefacePrivate");
 var localpref = chrome.i18n.getMessage("localPreface");
+var localpref = chrome.i18n.getMessage("localPrefacePrivate");
 
 function onContextsGot(contexts) {
   var ids = [];
@@ -313,7 +314,7 @@ function setTitle(window) {
           });
         }
       } else if (context.name == mailpref) {
-        console.log("Active in Web Mail window");
+        console.log("Active in I2P Web Mail window");
 
         if (window.incognito) {
           browser.windows.update(window.id, {
@@ -325,7 +326,7 @@ function setTitle(window) {
           });
         }
       } else if (context.name == torrentpref) {
-        console.log("Active in I2P window");
+        console.log("Active in I2P Torrent window");
 
         if (window.incognito) {
           browser.windows.update(window.id, {
@@ -334,6 +335,18 @@ function setTitle(window) {
         } else {
           browser.windows.update(window.id, {
             titlePreface: titlepref + " - " + torrentpref + ": "
+          });
+        }
+      } else if (context.name == localpref) {
+        console.log("Active in Localhost window");
+
+        if (window.incognito) {
+          browser.windows.update(window.id, {
+            titlePreface: localprefpriv + " - " + localprefpriv + ": "
+          });
+        } else {
+          browser.windows.update(window.id, {
+            titlePreface: localpref + " - " + localpref + ": "
           });
         }
       }

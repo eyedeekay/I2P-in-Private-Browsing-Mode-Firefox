@@ -10,6 +10,7 @@ var torrentpref = chrome.i18n.getMessage("torrentPreface");
 var torrentprefpriv = chrome.i18n.getMessage("torrentPrefacePrivate");
 var tunnelpref = chrome.i18n.getMessage("i2ptunnelPreface");
 var tunnelprefpriv = chrome.i18n.getMessage("i2ptunnelPrefacePrivate");
+var localpref = chrome.i18n.getMessage("i2ptunnelPreface");
 
 var contextScrub = async function(requestDetails) {
   console.log("(scrub)Scrubbing info from contextualized request");
@@ -241,7 +242,6 @@ var contextSetup = async function(requestDetails) {
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
           function Create(currentTab) {
             function onCreated(tab) {
-              //if (tabId.id != tab.id) {
               if (tabId.id != tab.id) {
                 console.log("(isolate) Closing old, un-isolated tab");
                 browser.tabs.remove(tabId.id);
