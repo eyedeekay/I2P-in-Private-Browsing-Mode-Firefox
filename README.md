@@ -90,8 +90,11 @@ and then you can install it with:
 Documents
 ------------
 
-[Smart Lander Design](smartlander.pdf)
-[Browser Outline](browser.pdf)
+  * **[Browser Outline](browser.pdf)**: This document is an outline of each of
+  the browser extension's feature panels in presentation form.
+  * **[Smart Lander Design](smartlander.pdf)**: This is the original outline of
+  the smart landing page which became the I2P home page within the browser and
+  the drop-down control panel.
 
 Super Extra Important Background Info:
 --------------------------------------
