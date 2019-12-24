@@ -237,6 +237,34 @@ var contextSetup = async function(requestDetails) {
         console.log("(isolate)Context Error", error);
       }
     };
+    var localTabFind = async function(tabId) {
+      try {
+        var context = await browser.contextualIdentities.query({
+          name: localpref
+        });
+        if (tabId.cookieStoreId != context[0].cookieStoreId) {
+          function Create(window) {
+            function onCreated(tab) {
+              if (tabId != undefined) {
+                console.log("(isolate) Closing old, un-isolated tab");
+                browser.tabs.remove(tabId.id);
+              }
+            }
+            var created = browser.tabs.create({
+              active: true,
+              cookieStoreId: context[0].cookieStoreId,
+              url: requestDetails.url
+            });
+            created.then(onCreated, onError);
+          }
+          var getting = browser.tabs.getCurrent();
+          getting.then(Create, onError);
+          return tabId;
+        }
+      } catch (error) {
+        console.log("(isolate)Context Error", error);
+      }
+    };
     var anyTabFind = async function(tabId) {
       try {
         var context = await browser.contextualIdentities.query({
@@ -310,7 +338,13 @@ var contextSetup = async function(requestDetails) {
         var mtab = tab.then(i2pTabFind, onError);
         return requestDetails;
       }
+      let localhost = localHost(requestDetails.url);
       let routerhost = routerHost(requestDetails.url);
+      if (localhost && !routerhost) {
+        var tab = tabGet(requestDetails.tabId);
+        var mtab = tab.then(localTabFind, onError);
+        return requestDetails;
+      }
       if (routerhost) {
         if (routerhost === "i2ptunnelmgr") {
           var tab = tabGet(requestDetails.tabId);
@@ -331,7 +365,7 @@ var contextSetup = async function(requestDetails) {
         }
       } else {
         var tab = tabGet(requestDetails.tabId);
-        var mtab = tab.then(anyTabFind, onError);
+        var mtab = tab.then(routerTabFind, onError);
         return requestDetails;
       }
     }

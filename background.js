@@ -10,6 +10,7 @@ var torrentpref = chrome.i18n.getMessage("torrentPreface");
 var torrentprefpriv = chrome.i18n.getMessage("torrentPrefacePrivate");
 var tunnelpref = chrome.i18n.getMessage("i2ptunnelPreface");
 var tunnelprefpriv = chrome.i18n.getMessage("i2ptunnelPrefacePrivate");
+var localpref = chrome.i18n.getMessage("localPreface");
 
 function onContextsGot(contexts) {
   var ids = [];
@@ -72,6 +73,15 @@ function onContextsGot(contexts) {
       })
       .then(onCreated, onError);
   }
+  if (ids.indexOf(localpref) == -1) {
+    browser.contextualIdentities
+      .create({
+        name: localpref,
+        color: "red",
+        icon: "fence"
+      })
+      .then(onCreated, onError);
+  }
 }
 
 function onCreated(context) {
@@ -113,8 +123,33 @@ function themeWindowByTab(tabId) {
   }
 }
 
+function isEmpty(obj) {
+  if (obj == undefined || obj == null) return true;
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)) return false;
+  }
+  return true;
+}
+
+var oldtheme;
+
+var getOldTheme = async function getOldTheme() {
+  foundtheme = await browser.theme.getCurrent();
+  if (!isEmpty(foundtheme)) {
+    oldtheme = foundtheme;
+    console.log("Found old theme", oldtheme);
+  }
+  return oldtheme;
+};
+
+getOldTheme();
+
 function themeWindow(window) {
   // Check if the window is in private browsing
+  function onThemeError() {
+    console.log("got theme", oldtheme);
+    browser.theme.update(oldtheme);
+  }
   function logTabs(tabInfo) {
     function onContextGotTheme(context) {
       if (context.name == titlepref) {
@@ -204,7 +239,8 @@ function themeWindow(window) {
         }
       } else {
         console.log("Not active in I2P window");
-        browser.theme.reset(window.id);
+        if (!isEmpty(oldtheme)) browser.theme.update(window.id, oldtheme);
+        else browser.theme.reset();
       }
     }
     if (
@@ -213,9 +249,10 @@ function themeWindow(window) {
     ) {
       browser.contextualIdentities
         .get(tabInfo[0].cookieStoreId)
-        .then(onContextGotTheme, onError);
+        .then(onContextGotTheme, onThemeError);
     } else {
-      browser.theme.reset(window.id);
+      if (!isEmpty(oldtheme)) browser.theme.update(window.id, oldtheme);
+      else browser.theme.reset();
     }
   }
 
@@ -228,8 +265,6 @@ function themeWindow(window) {
 
 function setTitle(window) {
   function logTabs(tabInfo) {
-    console.log(tabInfo);
-
     function onContextGotTitle(context) {
       if (context.name == titlepref) {
         console.log("Active in I2P window");
@@ -370,7 +405,7 @@ gettingInfo.then(got => {
 });
 
 function handleUpdated(updateInfo) {
-  if (updateInfo.theme.colors) {
+  if (updateInfo.theme) {
     console.log(`Theme was applied: ${updateInfo.theme}`);
   } else {
     console.log("Theme was removed");
