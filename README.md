@@ -10,15 +10,15 @@ automatically when the user requests them. It also adds convenience and
 management features specific to I2P like protocol handlers and native messaging
 systems.
 
-addons.mozilla.org
-------------------
+Installation(Cross-Platform):
+-----------------------------
 
 For desktop users this addon is available from addons.mozilla.org, where you
 will be able to recive automatic updates:
 https://addons.mozilla.org/en-US/firefox/addon/i2p-in-private-browsing/.
 
-Debian usage:
--------------
+Debian Installation:
+--------------------
 
 Should you prefer, it is possible to install this extension system-wide by
 side-loading it into Debian. You can generate your own deb file by running the
@@ -29,6 +29,25 @@ command:
 and then you can install it with:
 
         sudo apt install ../i2psetproxy.js_*.deb
+
+Usage:
+------
+
+  * Basically, it "Just Works." After you install the plugin, browsing to an I2P
+   domain will automatically stop the current tab and re-open the I2P site in an
+   I2P Browser tab.
+  * Besides that, four bookmarks are added to the "Bookmarks Toolbar," which
+   will take you to visit your Java I2P applications, or the "Simplified I2P
+   Landing Page" embedded in the plugin:
+  * ![Landing page](lander.png)
+  * Also, there's a menu for accessing I2P functionality while you're browsing.
+   It lets you control a few settings in a granular way.
+  * ![Menu](menu.png)
+  * You can re-enable WebRTC but force it to always use the proxy that is
+   enforced by the tab.
+  * You can either force the browser to delete all history for I2P sites
+   immediately, or you can close all your I2P Browser tabs at once and delete
+   the history for I2P browsing when you're done.
 
 ### Features
 
