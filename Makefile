@@ -92,7 +92,10 @@ zip: version
 		--exclude="./package-lock.json" \
 		--exclude="./.node_modules" \
 		--exclude="./node_modules" \
-		--exclude="./.git" -r -FS ../i2psetproxy.js.zip *
+		--exclude="./.git" \
+		--exclude="*/*.xpi" \
+		--exclude="web-ext-artifacts" \
+		--exclude="./*.pdf" -r -FS ../i2psetproxy.js.zip *
 
 release:
 	cat desc debian/changelog | gothub release -p -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n $(VERSION) -d -; true
