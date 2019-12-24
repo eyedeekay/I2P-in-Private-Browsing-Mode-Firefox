@@ -87,6 +87,12 @@ and then you can install it with:
 
 ![Video of the plugin in action](i2psetproxy.js.gif)
 
+Documents
+------------
+
+[Smart Lander Design](smartlander.pdf)
+[Browser Outline](browser.pdf)
+
 Super Extra Important Background Info:
 --------------------------------------
 
