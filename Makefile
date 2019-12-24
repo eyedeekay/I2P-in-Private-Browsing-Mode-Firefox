@@ -94,7 +94,7 @@ rhz-version:
 	sed -i 's|$(shell grep "\"version_name\": " manifest.json)|  \"version_name\": \"$(VERSION)1-rhizome\",|g' manifest.json
 	sed -i 's|7657|7647|g' *.js* */*.js*
 
-zip: fmt version
+zip: version
 	zip --exclude="./i2ppb@eyedeekay.github.io.xpi" \
 		--exclude="./i2psetproxy.js@eyedeekay.github.io.xpi" \
 		--exclude="./i2psetproxy.js.png" \

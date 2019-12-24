@@ -48,6 +48,8 @@ Usage:
   * You can either force the browser to delete all history for I2P sites
    immediately, or you can close all your I2P Browser tabs at once and delete
    the history for I2P browsing when you're done.
+  * That's all there is to it! Your browser is configured to safely use and
+   administer I2P
 
 ### Features
 
