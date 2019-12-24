@@ -60,7 +60,18 @@ amo-readme:
 		sed 's|</h2>|</strong>|g' | \
 		sed 's|<h3>|<strong>|g' | \
 		sed 's|</h3>|</strong>|g' | \
-		grep -v '<img' > index.html
+		grep -v '<img' > amo-index.html
+
+index:
+	markdown README.md | \
+		sed 's|<p>||g' | \
+		sed 's|</p>||g' | \
+		sed 's|<h1>|<strong>|g' | \
+		sed 's|</h1>|</strong>|g' | \
+		sed 's|<h2>|<strong>|g' | \
+		sed 's|</h2>|</strong>|g' | \
+		sed 's|<h3>|<strong>|g' | \
+		sed 's|</h3>|</strong>|g' > index.html
 
 xpi:
 	#wget -O ../i2ppb@eyedeekay.github.io.xpi \
