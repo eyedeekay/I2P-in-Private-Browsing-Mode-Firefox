@@ -58,10 +58,6 @@ var contextScrub = async function(requestDetails) {
     var tabGet = async function(tabId) {
       try {
         console.log("(scrub)Tab ID from Request", tabId);
-        let ostype = await browser.runtime.getPlatformInfo();
-        if (ostype == android) {
-          tabId += 1;
-        }
         let tabInfo = await browser.tabs.get(tabId);
         return tabInfo;
       } catch (error) {
@@ -103,9 +99,9 @@ var contextSetup = async function(requestDetails) {
           name: titlepref
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
-          function Create(window) {
+          function Create(currentTab) {
             function onCreated(tab) {
-              if (tabId != undefined) {
+              if (tabId.id != tab.id) {
                 console.log("(isolate) Closing old, un-isolated tab");
                 browser.tabs.remove(tabId.id);
               }
@@ -131,9 +127,9 @@ var contextSetup = async function(requestDetails) {
           name: routerpref
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
-          function Create(window) {
+          function Create(currentTab) {
             function onCreated(tab) {
-              if (tabId != undefined) {
+              if (tabId.id != tab.id) {
                 console.log("(isolate) Closing old, un-isolated tab");
                 browser.tabs.remove(tabId.id);
               }
@@ -159,9 +155,9 @@ var contextSetup = async function(requestDetails) {
           name: tunnelpref
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
-          function Create(window) {
+          function Create(currentTab) {
             function onCreated(tab) {
-              if (tabId != undefined) {
+              if (tabId.id != tab.id) {
                 console.log("(isolate) Closing old, un-isolated tab");
                 browser.tabs.remove(tabId.id);
               }
@@ -187,9 +183,9 @@ var contextSetup = async function(requestDetails) {
           name: torrentpref
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
-          function Create(window) {
+          function Create(currentTab) {
             function onCreated(tab) {
-              if (tabId != undefined) {
+              if (tabId.id != tab.id) {
                 console.log("(isolate) Closing old, un-isolated tab");
                 browser.tabs.remove(tabId.id);
               }
@@ -215,9 +211,9 @@ var contextSetup = async function(requestDetails) {
           name: mailpref
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
-          function Create(window) {
+          function Create(currentTab) {
             function onCreated(tab) {
-              if (tabId != undefined) {
+              if (tabId.id != tab.id) {
                 console.log("(isolate) Closing old, un-isolated tab");
                 browser.tabs.remove(tabId.id);
               }
@@ -243,9 +239,10 @@ var contextSetup = async function(requestDetails) {
           name: localpref
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
-          function Create(window) {
+          function Create(currentTab) {
             function onCreated(tab) {
-              if (tabId != undefined) {
+              //if (tabId.id != tab.id) {
+              if (tabId.id != tab.id) {
                 console.log("(isolate) Closing old, un-isolated tab");
                 browser.tabs.remove(tabId.id);
               }
@@ -276,9 +273,9 @@ var contextSetup = async function(requestDetails) {
           tabId.cookieStoreId == "firefox-private"
         ) {
           if (tabId.cookieStoreId != context[0].cookieStoreId) {
-            function Create(window) {
+            function Create(currentTab) {
               function onCreated(tab) {
-                if (tabId != undefined) {
+                if (tabId.id != tab.id) {
                   console.log("(isolate) Closing old, un-isolated tab");
                   browser.tabs.remove(tabId.id);
                 }
@@ -365,7 +362,7 @@ var contextSetup = async function(requestDetails) {
         }
       } else {
         var tab = tabGet(requestDetails.tabId);
-        var mtab = tab.then(routerTabFind, onError);
+        var mtab = tab.then(anyTabFind, onError);
         return requestDetails;
       }
     }
