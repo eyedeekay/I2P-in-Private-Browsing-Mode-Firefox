@@ -59,7 +59,9 @@ var contextScrub = async function(requestDetails) {
       try {
         console.log("(scrub)Tab ID from Request", tabId);
         let ostype = await browser.runtime.getPlatformInfo();
-        if (ostype == android) tabId += 1;
+        if (ostype == android) {
+ tabId += 1;
+}
         let tabInfo = await browser.tabs.get(tabId);
         return tabInfo;
       } catch (error) {
@@ -350,12 +352,15 @@ var contextSetup = async function(requestDetails) {
 
 browser.webRequest.onBeforeRequest.addListener(
   contextSetup,
-  { urls: ["<all_urls>"] },
+  {urls: ["<all_urls>"]},
   ["blocking"]
 );
 
 browser.webRequest.onBeforeSendHeaders.addListener(
   contextScrub,
-  { urls: ["<all_urls>"] },
-  ["blocking", "requestHeaders"]
+  {urls: ["<all_urls>"]},
+  [
+"blocking",
+"requestHeaders"
+]
 );

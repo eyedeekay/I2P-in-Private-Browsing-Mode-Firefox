@@ -208,7 +208,13 @@ function EnableSavePasswords() {
 
 var defaultSettings = {
   since: "forever",
-  dataTypes: ["downloads", "passwords", "formData", "localStorage", "history"]
+  dataTypes: [
+"downloads",
+"passwords",
+"formData",
+"localStorage",
+"history"
+]
 };
 
 var appSettings = {
@@ -268,33 +274,33 @@ function forgetBrowsingData(storedSettings) {
         });
         browser.browsingData.removeCache({});
         console.log("cleared Cache");
-        browser.browsingData
-          .removePasswords({
+        browser.browsingData.
+          removePasswords({
             hostnames: [i2pHostName(item.url)],
             since
-          })
-          .then(onContextGotLog);
+          }).
+          then(onContextGotLog);
         console.log("cleared Passwords");
-        browser.browsingData
-          .removeDownloads({
+        browser.browsingData.
+          removeDownloads({
             hostnames: [i2pHostName(item.url)],
             since
-          })
-          .then(onContextGotLog);
+          }).
+          then(onContextGotLog);
         console.log("cleared Downloads");
-        browser.browsingData
-          .removeFormData({
+        browser.browsingData.
+          removeFormData({
             hostnames: [i2pHostName(item.url)],
             since
-          })
-          .then(onContextGotLog);
+          }).
+          then(onContextGotLog);
         console.log("cleared Form Data");
-        browser.browsingData
-          .removeLocalStorage({
+        browser.browsingData.
+          removeLocalStorage({
             hostnames: [i2pHostName(item.url)],
             since
-          })
-          .then(onContextGotLog);
+          }).
+          then(onContextGotLog);
         console.log("cleared Local Storage");
 
         contexts = browser.contextualIdentities.query({

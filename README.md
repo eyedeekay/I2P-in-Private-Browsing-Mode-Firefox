@@ -1,15 +1,14 @@
 i2psetproxy.js
 ==============
 
-WebExtension that does extended configuration of a dedicated I2P browser. While
-**experimental**, it's capable of enforcing the use of the I2P Proxy without
-needing to touch about:config and disables several
-fingerprinting/de-anonymization vectors on it's own. It is also the easiest way
-to configure an I2P browser on Android without requiring the user to root their
-device, although this support may be somewhat spotty in recent versions it it
-beginning to improve again. It aims to be as similar to a fully-fledged I2P
-Rhizome as possible and borrows some code from I2P Rhizome(Which it is also
-compatible with).
+This is an **Experimental** webextension which introduces a set of new "Private
+Browsing" modes to Firefox-based browsers(Supporting webextensions) that makes
+it easier to configure a browser to use I2P securely and adds features for
+making I2P applications easier to use. It does this by isolating I2P-specific
+settings to Contextual Identities within Firefox, then loading them
+automatically when the user requests them. It also adds convenience and
+management features specific to I2P like protocol handlers and native messaging
+systems.
 
 The Old Version
 ---------------

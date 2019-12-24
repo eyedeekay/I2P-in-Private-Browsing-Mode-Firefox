@@ -23,8 +23,8 @@
   ],
   "manifest_version": 2,
   "name": "__MSG_extensionName__",
-  "version": "0.51",
-  "version_name": "0.51",
+  "version": "0.52",
+  "version_name": "0.52",
   "description": "__MSG_extensionDescription__",
   "homepage_url": "https://github.com/eyedeekay/i2psetproxy.js",
   "icons": {

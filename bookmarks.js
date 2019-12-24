@@ -25,9 +25,7 @@ gettingInfo.then(got => {
             }
             console.log("(bookmarks) adding home page bookmark");
           }
-          console.log(
-            "(bookmarks) checking if we're running in an I2P Browser"
-          );
+          console.log("(bookmarks) checking if we're running in an I2P Browser");
           var gettingInfo = browser.proxy.settings.get({});
           gettingInfo.then(gotProxyInfo);
         }
@@ -54,9 +52,7 @@ gettingInfo.then(got => {
               createBookmark.then(onCreated);
             }
           }
-          console.log(
-            "(bookmarks) checking if we're running in an I2P Browser"
-          );
+          console.log("(bookmarks) checking if we're running in an I2P Browser");
           var gettingInfo = browser.proxy.settings.get({});
           gettingInfo.then(gotProxyInfo);
         }
@@ -83,9 +79,7 @@ gettingInfo.then(got => {
             }
             console.log("(bookmarks) adding webmail bookmark");
           }
-          console.log(
-            "(bookmarks) checking if we're running in an I2P Browser"
-          );
+          console.log("(bookmarks) checking if we're running in an I2P Browser");
           var gettingInfo = browser.proxy.settings.get({});
           gettingInfo.then(gotProxyInfo);
         }
@@ -117,9 +111,7 @@ gettingInfo.then(got => {
             }
             console.log("(bookmarks) adding i2ptunnel bookmark");
           }
-          console.log(
-            "(bookmarks) checking if we're running in an I2P Browser"
-          );
+          console.log("(bookmarks) checking if we're running in an I2P Browser");
           var gettingInfo = browser.proxy.settings.get({});
           gettingInfo.then(gotProxyInfo);
         }

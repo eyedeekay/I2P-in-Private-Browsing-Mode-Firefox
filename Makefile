@@ -79,7 +79,7 @@ moz-version:
 	sed -i 's|$(shell grep "\"version_name\": " manifest.json)|  \"version_name\": \"$(MOZ_VERSION)\",|g' manifest.json
 
 rhz-version:
-	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(VERSION)\",|g' manifest.json
+	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(VERSION)1\",|g' manifest.json
 	sed -i 's|$(shell grep "\"version_name\": " manifest.json)|  \"version_name\": \"$(VERSION)1-rhizome\",|g' manifest.json
 	sed -i 's|7657|7647|g' *.js* */*.js*
 
@@ -95,7 +95,7 @@ zip: version
 		--exclude="./.git" -r -FS ../i2psetproxy.js.zip *
 
 release:
-	cat desc debian/changelog | gothub release -p -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n $(VERSION) -d -
+	cat desc debian/changelog | gothub release -p -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n $(VERSION) -d -; true
 
 delete-release:
 	gothub delete -u eyedeekay -r i2psetproxy.js -t $(VERSION); true
@@ -104,6 +104,7 @@ recreate-release: delete-release release upload
 
 upload: upload-xpi upload-deb
 
+full-release: release submit deb upload
 
 WEB_EXT_API_KEY=AMO_KEY
 WEB_EXT_API_SECRET=AMO_SECRET
@@ -117,7 +118,7 @@ tk:
 submit: moz-sign rhz-submit moz-submit
 
 clean-artifacts:
-	rm web-ext-artifacts/*
+	rm -fr web-ext-artifacts/*
 
 ##ODD NUMBERED, SELF-DISTRIBUTED VERSIONS HERE!
 moz-sign: version clean-artifacts
@@ -125,7 +126,7 @@ moz-sign: version clean-artifacts
 	@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
 	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
 	web-ext-submit --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
-	cp web-ext-artifacts/*.xpi ./i2ppb@eyedeekay.github.io.xpi
+	cp web-ext-artifacts/*.xpi ./i2ppb@eyedeekay.github.io.xpi; true
 
 ##EVEN NUMBERED, MOZILLA-DISTRIBUTED VERSIONS HERE!
 moz-submit: moz-version
@@ -140,6 +141,12 @@ rhz-submit: rhz-version
 	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
 	web-ext-submit --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
 	#cp web-ext-artifacts/*.xpi ./i2ppb@eyedeekay.github.io.xpi
+
+gettorrent:
+	wget "http://127.0.0.1:7657/i2psnark/i2ppb@eyedeekay.github.io.xpi.torrent"
+
+upload-torrent:
+	gothub upload -R -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n "i2ppb@eyedeekay.github.io.xpi.torrent" -f "./i2ppb@eyedeekay.github.io.xpi.torrent"
 
 upload-xpi:
 	gothub upload -R -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n "i2ppb@eyedeekay.github.io.xpi" -f "./i2ppb@eyedeekay.github.io.xpi"
@@ -159,11 +166,12 @@ fmt:
 	find . -path ./node_modules -prune -o -name '*.js*' -exec prettier --write {} \;
 
 lint:
-	eslint --fix *.js
+	eslint --color *.js
 
-deborig:
+deborig: version
 	rm -rf ../i2psetproxy.js-$(VERSION)
 	cp -r . ../i2psetproxy.js-$(VERSION)
+	cd ../i2psetproxy.js-$(VERSION)
 	rm -rf *.xpi web-ext-artifacts
 	tar \
 		-cvz \
@@ -173,6 +181,7 @@ deborig:
 		--exclude=web-ext-artifacts \
 		--exclude=*.xpi \
 		--exclude=*/*.xpi \
+		--exclude=*.pdf \
 		-f ../i2psetproxy.js_$(VERSION).orig.tar.gz \
 		.
 
