@@ -60,7 +60,18 @@ amo-readme:
 		sed 's|</h2>|</strong>|g' | \
 		sed 's|<h3>|<strong>|g' | \
 		sed 's|</h3>|</strong>|g' | \
-		grep -v '<img' > index.html
+		grep -v '<img' > amo-index.html
+
+index:
+	@echo "<!DOCTYPE html>" > index.html
+	@echo "<html>" >> index.html
+	@echo "<head>" >> index.html
+	@echo "  <title>I2P in Private Browsing Mode</title>" >> index.html
+	@echo "  <link rel=\"stylesheet\" type=\"text/css\" href =\"home.css\" />" >> index.html
+	@echo "</head>" >> index.html
+	markdown README.md >> index.html
+	@echo "</html>" >> index.html
+
 
 xpi:
 	#wget -O ../i2ppb@eyedeekay.github.io.xpi \
@@ -171,7 +182,7 @@ fmt:
 lint:
 	eslint --color *.js
 
-deborig: version
+deborig: fmt version
 	rm -rf ../i2psetproxy.js-$(VERSION)
 	cp -r . ../i2psetproxy.js-$(VERSION)
 	cd ../i2psetproxy.js-$(VERSION)

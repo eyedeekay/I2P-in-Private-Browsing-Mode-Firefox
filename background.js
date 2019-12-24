@@ -19,58 +19,58 @@ function onContextsGot(contexts) {
   }
   console.log("Checking new contexts");
   if (ids.indexOf(titlepref) == -1) {
-    browser.contextualIdentities.
-      create({
+    browser.contextualIdentities
+      .create({
         name: titlepref,
         color: "orange",
         icon: "fingerprint"
-      }).
-      then(onCreated, onError);
+      })
+      .then(onCreated, onError);
   }
   if (ids.indexOf(webpref) == -1) {
-    browser.contextualIdentities.
-      create({
+    browser.contextualIdentities
+      .create({
         name: webpref,
         color: "red",
         icon: "circle"
-      }).
-      then(onCreated, onError);
+      })
+      .then(onCreated, onError);
   }
   if (ids.indexOf(routerpref) == -1) {
-    browser.contextualIdentities.
-      create({
+    browser.contextualIdentities
+      .create({
         name: routerpref,
         color: "blue",
         icon: "briefcase"
-      }).
-      then(onCreated, onError);
+      })
+      .then(onCreated, onError);
   }
   if (ids.indexOf(tunnelpref) == -1) {
-    browser.contextualIdentities.
-      create({
+    browser.contextualIdentities
+      .create({
         name: tunnelpref,
         color: "green",
         icon: "tree"
-      }).
-      then(onCreated, onError);
+      })
+      .then(onCreated, onError);
   }
   if (ids.indexOf(mailpref) == -1) {
-    browser.contextualIdentities.
-      create({
+    browser.contextualIdentities
+      .create({
         name: mailpref,
         color: "yellow",
         icon: "briefcase"
-      }).
-      then(onCreated, onError);
+      })
+      .then(onCreated, onError);
   }
   if (ids.indexOf(torrentpref) == -1) {
-    browser.contextualIdentities.
-      create({
+    browser.contextualIdentities
+      .create({
         name: torrentpref,
         color: "purple",
         icon: "chill"
-      }).
-      then(onCreated, onError);
+      })
+      .then(onCreated, onError);
   }
 }
 
@@ -211,9 +211,9 @@ function themeWindow(window) {
       tabInfo[0].cookieStoreId != "firefox-default" &&
       tabInfo[0].cookieStoreId != "firefox-private"
     ) {
-      browser.contextualIdentities.
-        get(tabInfo[0].cookieStoreId).
-        then(onContextGotTheme, onError);
+      browser.contextualIdentities
+        .get(tabInfo[0].cookieStoreId)
+        .then(onContextGotTheme, onError);
     } else {
       browser.theme.reset(window.id);
     }
@@ -308,18 +308,18 @@ function setTitle(window) {
       tabInfo[0].cookieStoreId != "firefox-default" &&
       tabInfo[0].cookieStoreId != "firefox-private"
     ) {
-      browser.contextualIdentities.
-        get(tabInfo[0].cookieStoreId).
-        then(onContextGotTitle, onError);
+      browser.contextualIdentities
+        .get(tabInfo[0].cookieStoreId)
+        .then(onContextGotTitle, onError);
     } else if (window.incognito) {
-        browser.windows.update(window.id, {
-          titlePreface: ""
-        });
-      } else {
-        browser.windows.update(window.id, {
-          titlePreface: ""
-        });
-      }
+      browser.windows.update(window.id, {
+        titlePreface: ""
+      });
+    } else {
+      browser.windows.update(window.id, {
+        titlePreface: ""
+      });
+    }
   }
 
   var querying = browser.tabs.query({

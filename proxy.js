@@ -235,7 +235,9 @@ function SetupSettings() {
     console.log("Initialising Control Host", storedSettings.control_host);
     setupProxy();
   }
-  var gettingControlHostStoredSettings = browser.storage.local.get("control_host");
+  var gettingControlHostStoredSettings = browser.storage.local.get(
+    "control_host"
+  );
   gettingControlHostStoredSettings.then(
     checkControlHostStoredSettings,
     onError
@@ -252,7 +254,9 @@ function SetupSettings() {
     console.log("Initialising Control Port", storedSettings.control_port);
     setupProxy();
   }
-  var gettingControlPortStoredSettings = browser.storage.local.get("control_port");
+  var gettingControlPortStoredSettings = browser.storage.local.get(
+    "control_port"
+  );
   gettingControlPortStoredSettings.then(
     checkControlPortStoredSettings,
     onError
@@ -272,7 +276,9 @@ function SetupSettings() {
     );
     setupProxy();
   }
-  var gettingHistoryStoredSettings = browser.storage.local.get("disable_history");
+  var gettingHistoryStoredSettings = browser.storage.local.get(
+    "disable_history"
+  );
   gettingHistoryStoredSettings.then(checkHistoryStoredSettings, onError);
 }
 

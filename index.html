@@ -1,44 +1,63 @@
-<strong>i2psetproxy.js</strong>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>I2P in Private Browsing Mode</title>
+  <link rel="stylesheet" type="text/css" href ="home.css" />
+</head>
+<h1>i2psetproxy.js</h1>
 
-WebExtension that does extended configuration of a dedicated I2P browser. While
-<strong>experimental</strong>, it's capable of enforcing the use of the I2P Proxy without
-needing to touch about:config and disables several
-fingerprinting/de-anonymization vectors on it's own. It is also the easiest way
-to configure an I2P browser on Android without requiring the user to root their
-device.
+<p>This is an <strong>Experimental</strong> webextension which introduces a set of new "Private
+Browsing" modes to Firefox-based browsers(Supporting webextensions) that makes
+it easier to configure a browser to use I2P securely and adds features for
+making I2P applications easier to use. It does this by isolating I2P-specific
+settings to Contextual Identities within Firefox, then loading them
+automatically when the user requests them. It also adds convenience and
+management features specific to I2P like protocol handlers and native messaging
+systems.</p>
 
-<strong>The Old Version</strong>
+<h2>Installation(Cross-Platform):</h2>
 
-New versions of this extension create an I2P in Private Browsing mode instead.
-Since this is a drastic change to the behavior of the old plugin, a new entry
-for the new plugin has been made at a new location on addons.mozilla.org.
+<p>For desktop users this addon is available from addons.mozilla.org, where you
+will be able to recive automatic updates:
+https://addons.mozilla.org/en-US/firefox/addon/i2p-in-private-browsing/.</p>
+
+<h2>Debian Installation:</h2>
+
+<p>Should you prefer, it is possible to install this extension system-wide by
+side-loading it into Debian. You can generate your own deb file by running the
+command:</p>
+
+<pre><code>    make deb
+</code></pre>
+
+<p>and then you can install it with:</p>
+
+<pre><code>    sudo apt install ../i2psetproxy.js_*.deb
+</code></pre>
+
+<h2>Usage:</h2>
 
 <ul>
-<li>This is the new version: <a href="https://addons.mozilla.org/en-US/firefox/addon/i2p-in-private-browsing/">[link]</a></li>
-<li>This is the old version: <a href="https://addons.mozilla.org/en-US/firefox/addon/I2P-Proxy/">[link]</a></li>
+<li>Basically, it "Just Works." After you install the plugin, browsing to an I2P
+domain will automatically stop the current tab and re-open the I2P site in an
+I2P Browser tab.</li>
+<li>Besides that, four bookmarks are added to the "Bookmarks Toolbar," which
+will take you to visit your Java I2P applications, or the "Simplified I2P
+Landing Page" embedded in the plugin:</li>
+<li><img src="lander.png" alt="Landing page" title="" /></li>
+<li>Also, there's a menu for accessing I2P functionality while you're browsing.
+It lets you control a few settings in a granular way.</li>
+<li><img src="menu.png" alt="Menu" title="" /></li>
+<li>You can re-enable WebRTC but force it to always use the proxy that is
+enforced by the tab.</li>
+<li>You can either force the browser to delete all history for I2P sites
+immediately, or you can close all your I2P Browser tabs at once and delete
+the history for I2P browsing when you're done.</li>
+<li>That's all there is to it! Your browser is configured to safely use and
+administer I2P</li>
 </ul>
 
-<strong>Android usage:</strong>
-
-Open the following link
-<a href="https://github.com/eyedeekay/i2psetproxy.js/releases/">Github Releases Version</a>
-in the browser you want to use for I2P. Firefox will warn you that it is about
-to install an extension and indicate the permissions required. Read them over
-and when you're ready, accept them. That's all it should take, your browser is
-now configured to use I2P.
-
-<strong>addons.mozilla.org</strong>
-
-If you would prefer to recieve automatic updates from AMO, the correct product
-page for this plugin is
-<a href="https://addons.mozilla.org/en-US/firefox/addon/i2p-in-private-browsing/">I2P In Private Browsing</a>.
-This absolutely requires a working outproxy. If you want to avoid the use of AMO
-for updates, you can download the identical plugin from this repository's
-releases page. The latest AMO Plugin will always be identical to the latest
-github release, except for the version number, which must be incremented for
-submission to AMO.
-
-<strong>Features</strong>
+<h3>Features</h3>
 
 <ul>
 <li>[done] <strong>Provide</strong> a way to launch into an I2P-Specific contextual identity
@@ -46,46 +65,78 @@ submission to AMO.
 to the I2P container. Isolate the router console from other local
 applications by automatically intercepting requests to the router console to
 another container.</li>
-<li>[done/wip] <strong>Indicate</strong> the I2P browser is in use visually. Find an
+<li><img src="i2psetproxy.js.png" alt="Visiting i2p-projekt.i2p" title="" /></li>
+<li>[done] <strong>Indicate</strong> the I2P browser is in use visually. Find an
 acceptable way to indicate it on Android.</li>
+<li><img src="susimail.png" alt="Visiting webmail" title="" /></li>
 <li>[done] <strong>Set</strong> the http proxy to use the local I2P proxy automatically.
 Provide specific configuration for other types of I2P proxies(SOCKS,
 isolating HTTP)</li>
-<li>[done/wip] <strong>Disable</strong> risky webRTC features/offer the option to re-enable
+<li>[done] <strong>Disable</strong> risky webRTC features/offer the option to re-enable
 them with the proxy enforced.</li>
 <li>[done] <strong>Change</strong> the color of the browser window to indicate that I2P is in
 use</li>
-<li>[done-ish] <strong>Reset</strong> the HTTP Proxy tunnel to generate a new destination
-on-demand
-<ul>
-<li>it does this by working in conjunction with this
-<a href="https://github.com/eyedeekay/httptunnel">standalone HTTP proxy</a>, currently
-disabled*.</li>
-</ul></li>
-<li>[ready] <strong>Provide</strong> help in a variety of languages.</li>
+<li><img src="i2ptunnel.png" alt="Visiting i2ptunnel" title="" /></li>
+<li>[ready/broken/wip] <strong>Provide</strong> help in a variety of languages.</li>
 <li>[wip] <strong>Monitor</strong> the health and readiness of the I2P router it is
-instructed to use.</li>
-<li>[1/2] <strong>Handle</strong> router console applications under their own origins and
+instructed to use. Currently the plugin checks whether the HTTP Proxy is
+working by fetching an image from "http://proxy.i2p" and displaying a result.
+A work-in-progress binding to i2pcontrol is available in ./i2pcontrol, it is
+inert at this time.</li>
+<li>[Done] <strong>Handle</strong> router console applications under their own origins and
 within their own contextual identity. (1) The router console is automatically
 confined to it's own container tab. (2) Use a custom protocol handler to
 place each i2p application/plugin under it's own origin, shortening router
 console URL's and placing applications under their own origin.</li>
-<li>[not started] <strong>Handle Torrents</strong> by talking to i2psnark-rpc plugin and then
+<li><img src="routerconsole.png" alt="Visiting routerconsole" title="" /></li>
+<li>[wip] <strong>Handle Torrents</strong> by talking to i2psnark-rpc plugin and then
 adding them directly into the Firefox downloads drop-downs, menus, etc. If I
-can.</li>
+can. Right now instead of talking to snark-rpc, it uses a web-based protocl
+handler that simply auto-fills the torrent into i2psnark.</li>
+<li><img src="i2psnark.png" alt="Visiting i2psnark" title="" /></li>
+<li>[barely started] <strong>Isolate</strong> traffic by contextual identity to it's own HTTP
+Proxy tunnel, each reflecting it's own pseudonymous identity within I2P. The
+contextual identities. For now, the contextual identities used to manage
+browsing are "I2P Browsing" and "Web Browsing" where I2P Browsing is capable
+of using an outproxy but in the case of traffic destined for the clearnet
+does not do header rewriting, and Web Browsing falls back to the Proxy
+configured in Firefox. The I2P Browsing will be expanded to
+<ul>
+<li>I2P Amnesiac Browsing: Use for General Browsing, stores no history and
+uses an HTTP Proxy with a very short tunnel-close timeout and no key-reuse.</li>
+<li>I2P Social Networking: Use this for logging into social network accounts,
+forums, and other interactive asynchronous public communication platforms
+where your identity is behaviorally linkable. This has a very long
+tunnel-close timeout and key-reuse until specifically invoked.</li>
+<li>I2P Blogging: Use this for posting content to the web interface of your
+blog or to other similar websites that you create content on.</li>
+</ul></li>
+<li><img src="clearweb.png" alt="Visiting clearweb" title="" /></li>
 </ul>
 
-<strong>Screenshot</strong>
+<h3>Video</h3>
 
+<ul>
+<li><img src="i2psetproxy.js.gif" alt="Video of the plugin in action" title="" /></li>
+</ul>
 
+<h2>Documents</h2>
 
-<strong>Super Extra Important Background Info:</strong>
+<ul>
+<li><strong><a href="browser.pdf">Browser Outline</a></strong>: This document is an outline of each of
+the browser extension's feature panels in presentation form.</li>
+<li><strong><a href="smartlander.pdf">Smart Lander Design</a></strong>: This is the original outline of
+the smart landing page which became the I2P home page within the browser and
+the drop-down control panel.</li>
+</ul>
 
-This plugin's viability is directly related to the viability of Mozilla and
+<h2>Super Extra Important Background Info:</h2>
+
+<p>This plugin's viability is directly related to the viability of Mozilla and
 Tor's work on hardening Firefox itself and of particular interest are the
-"Uplift" and "Fusion(Firefox Using Onions)" projects.
+"Uplift" and "Fusion(Firefox Using Onions)" projects.</p>
 
-<strong>Links about Project Uplift</strong>
+<h3>Links about Project Uplift</h3>
 
 <ul>
 <li>https://wiki.mozilla.org/Security/Tor_Uplift</li>
@@ -95,12 +146,44 @@ Tor's work on hardening Firefox itself and of particular interest are the
 <li>https://wiki.mozilla.org/Security/Tor_Uplift/Tracking</li>
 </ul>
 
-Project uplift seems to have largely been accomplished?
+<p>Project uplift seems to have largely been accomplished?</p>
 
-<strong>Links about Project Fusion</strong>
+<h3>Links about Project Fusion</h3>
 
 <ul>
 <li>https://wiki.mozilla.org/Security/Fusion</li>
 <li>https://trac.torproject.org/projects/tor/wiki/org/meetings/2018Rome/Notes/FusionProject</li>
 <li>https://blog.torproject.org/tor-heart-firefox</li>
 </ul>
+
+<h2>The Old Version</h2>
+
+<p>New versions of this extension create an I2P in Private Browsing mode instead.
+Since this is a drastic change to the behavior of the old plugin, a new entry
+for the new plugin has been made at a new location on addons.mozilla.org.</p>
+
+<ul>
+<li><p>This is the new version: <a href="https://addons.mozilla.org/en-US/firefox/addon/i2p-in-private-browsing/">[link]</a></p></li>
+<li><p>This is the old version: <a href="https://addons.mozilla.org/en-US/firefox/addon/I2P-Proxy/">[link]</a></p></li>
+</ul>
+
+<h2>Android usage:</h2>
+
+<p>Open the following link
+<a href="https://github.com/eyedeekay/i2psetproxy.js/releases/">Github Releases Version</a>
+in the browser you want to use for I2P. Firefox will warn you that it is about
+to install an extension and indicate the permissions required. Read them over
+and when you're ready, accept them. That's all it should take, your browser is
+now configured to use I2P.</p>
+
+<h3>Android addons.mozilla.org(Temporarily Disabled)</h3>
+
+<p>If you would prefer to recieve automatic updates from AMO, the correct product
+page for this plugin is
+<a href="https://addons.mozilla.org/en-US/firefox/addon/i2p-in-private-browsing/">I2P In Private Browsing</a>.
+This absolutely requires a working outproxy. If you want to avoid the use of AMO
+for updates, you can download the identical plugin from this repository's
+releases page. The latest AMO Plugin will always be identical to the latest
+github release, except for the version number, which must be incremented for
+submission to AMO.</p>
+</html>

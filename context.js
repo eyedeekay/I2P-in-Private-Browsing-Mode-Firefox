@@ -21,11 +21,11 @@ function eventHandler(event) {
     creating.then(onCreated, onError);
   }
   if (event.target.dataset.action == "close-all") {
-    browser.tabs.
-      query({
+    browser.tabs
+      .query({
         cookieStoreId: event.target.dataset.identity
-      }).
-      then(tabs => {
+      })
+      .then(tabs => {
         browser.tabs.remove(tabs.map(i => i.id));
       });
   }
@@ -33,10 +33,7 @@ function eventHandler(event) {
 }
 
 function createOptions(node, identity) {
-  for (let option of [
-"Create",
-"Close All"
-]) {
+  for (let option of ["Create", "Close All"]) {
     let a = document.createElement("a");
     a.href = "#";
     a.innerText = option;
@@ -53,11 +50,11 @@ if (browser.contextualIdentities === undefined) {
   div.innerText =
     "browser.contextualIdentities not available. Check that the privacy.userContext.enabled pref is set to true, and reload the add-on.";
 } else {
-  browser.contextualIdentities.
-    query({
+  browser.contextualIdentities
+    .query({
       name: titlepref
-    }).
-    then(identities => {
+    })
+    .then(identities => {
       if (!identities.length) {
         div.innerText = "No identities returned from the API.";
         return;

@@ -275,6 +275,9 @@ li {
   visibility: visible;
   opacity: 1
 }
+img {
+  max-width: 100%
+}
 img.readyness {
   height: 100%;
   width: auto

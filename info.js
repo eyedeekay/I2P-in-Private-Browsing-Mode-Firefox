@@ -14,8 +14,8 @@ function checkHistory() {
   getting.then(got => {
     disable_history = got.disable_history;
     if (disable_history == undefined) {
-disable_history = false;
-}
+      disable_history = false;
+    }
     console.log("checking history", disable_history);
     document.getElementById("disable-history").checked = disable_history;
   });
@@ -73,17 +73,17 @@ document.addEventListener("click", e => {
     echo("I2P Router Detected", "panel-section-i2pcontrol-check");
   } else if (e.target.id === "enable-web-rtc") {
     if (e.target.checked) {
-      browser.runtime.sendMessage({rtc: "enableWebRTC"});
+      browser.runtime.sendMessage({ rtc: "enableWebRTC" });
     } else {
-      browser.runtime.sendMessage({rtc: "disableWebRTC"});
+      browser.runtime.sendMessage({ rtc: "disableWebRTC" });
     }
     //checkPeerConnection()
     return;
   } else if (e.target.id === "disable-history") {
     if (e.target.checked) {
-      browser.runtime.sendMessage({history: "disableHistory"});
+      browser.runtime.sendMessage({ history: "disableHistory" });
     } else {
-      browser.runtime.sendMessage({history: "enableHistory"});
+      browser.runtime.sendMessage({ history: "enableHistory" });
     }
     //checkHistory()
     return;
@@ -169,8 +169,8 @@ function onVisited(historyItem) {
   }
   if (!history) {
     if (i2pHost(historyItem.url)) {
-var deletingUrl = browser.history.deleteUrl(historyItem.url);
-}
+      var deletingUrl = browser.history.deleteUrl(historyItem.url);
+    }
     deletingUrl.then(onRemoved);
   }
 }
