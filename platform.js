@@ -11,7 +11,7 @@ var torrentprefpriv = chrome.i18n.getMessage("torrentPrefacePrivate");
 var tunnelpref = chrome.i18n.getMessage("i2ptunnelPreface");
 var tunnelprefpriv = chrome.i18n.getMessage("i2ptunnelPrefacePrivate");
 
-var android = false;
+var android; // = false;
 
 var gettingInfo = browser.runtime.getPlatformInfo();
 gettingInfo.then(got => {
@@ -21,10 +21,15 @@ gettingInfo.then(got => {
     return true;
   } else {
     console.log("Running in Desktop detected");
+    android = false;
     return false;
   }
 });
 
 function isDroid() {
+  console.log("android?", android);
+  if (android == undefined) {
+    return false;
+  }
   return android;
 }
