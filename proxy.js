@@ -46,14 +46,9 @@ var handleContextProxyRequest = async function(requestDetails) {
             host: getHost(),
             port: getPort()
           };
-          console.log(
-            "(proxy)",
-            context.name,
-            "Using",
-            proxy.type,
-            "proxy ",
-            proxy.host + ":" + proxy.port
-          );
+          console.log("(proxy)", context.name);
+          console.log("Using", proxy.type);
+          console.log("proxy ", proxy.host + ":" + proxy.port);
           return proxy;
         } else if (context.name == routerpref) {
           if (routerHost(requestDetails.url)) {
@@ -70,14 +65,9 @@ var handleContextProxyRequest = async function(requestDetails) {
             host: getHost(),
             port: getPort()
           };
-          console.log(
-            "(proxy)",
-            context.name,
-            "Using",
-            proxy.type,
-            "proxy ",
-            proxy.host + ":" + proxy.port
-          );
+          console.log("(proxy)", context.name);
+          console.log("Using", proxy.type);
+          console.log("proxy ", proxy.host + ":" + proxy.port);
           return proxy;
         } else if (context.name == webpref) {
           if (localHost(requestDetails.url)) {
@@ -89,14 +79,9 @@ var handleContextProxyRequest = async function(requestDetails) {
               };
             }
           }
-          console.log(
-            "(proxy)",
-            context.name,
-            "Using",
-            proxy.type,
-            "proxy ",
-            proxy.host + ":" + proxy.port
-          );
+          console.log("(proxy)", context.name);
+          console.log("Using", proxy.type);
+          console.log("proxy ", proxy.host + ":" + proxy.port);
           return proxy;
         }
       }
@@ -127,7 +112,7 @@ var handleContextProxyRequest = async function(requestDetails) {
         context = await browser.contextualIdentities.get(tabInfo.cookieStoreId);
         return context;
       } catch (error) {
-        return "firefox-default";
+        return; //"firefox-default";
       }
     };
     var tabGet = async function(tabId) {
@@ -333,12 +318,6 @@ function getControlPort() {
 }
 
 function setupProxy() {
-  /* var controlHost = getControlHost();
-     var controlPort = getControlPort();
-     var Host = getHost();
-     var Port = getPort();
-     var Scheme = getScheme(); */
-
   /**/
   console.log("Setting up Firefox WebExtension proxy");
   browser.proxy.onRequest.addListener(handleContextProxyRequest, {

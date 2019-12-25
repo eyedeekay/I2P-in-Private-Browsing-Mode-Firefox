@@ -11,7 +11,7 @@ var torrentprefpriv = chrome.i18n.getMessage("torrentPrefacePrivate");
 var tunnelpref = chrome.i18n.getMessage("i2ptunnelPreface");
 var tunnelprefpriv = chrome.i18n.getMessage("i2ptunnelPrefacePrivate");
 var localpref = chrome.i18n.getMessage("localPreface");
-var localpref = chrome.i18n.getMessage("localPrefacePrivate");
+var localprefpriv = chrome.i18n.getMessage("localPrefacePrivate");
 
 function onContextsGot(contexts) {
   var ids = [];

@@ -390,12 +390,12 @@ var contextSetup = async function(requestDetails) {
         return requestDetails;
       }
       if (i2pHost(requestDetails.url)) {
-        /*var setcookie = browser.cookies.set({
+        var setcookie = browser.cookies.set({
           firstPartyDomain: i2pHostName(requestDetails.url),
           url: requestDetails.url,
           secure: true
         });
-        setcookie.then(onContextGotLog, onError);*/
+        setcookie.then(onContextGotLog, onError);
         var tab = tabGet(requestDetails.tabId);
         var mtab = tab.then(i2pTabFind, onError);
         return requestDetails;
@@ -431,16 +431,6 @@ var contextSetup = async function(requestDetails) {
         return requestDetails;
       }
     }
-    /*if (typeof requestDetails == "number") {
-      tab = tabGet(requestDetails);
-      var mtab = tab.then(anyTabFind);
-    } else if (typeof requestDetails != undefined) {
-      if (typeof requestDetails.tabId > 0) {
-        tab = tabGet(requestDetails.tabId);
-        var mtab = tab.then(anyTabFind);
-      }
-    }
-    return requestDetails;*/
   } catch (error) {
     console.log("(isolate)Not an I2P request, blackholing", error);
   }
