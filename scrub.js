@@ -122,7 +122,7 @@ var contextSetup = async function(requestDetails) {
             created.then(onCreated, onError);
           }
           var gettab = browser.tabs.get(tabId.id);
-          getting.then(Create, onError);
+          gettab.then(Create, onError);
           return tabId;
         }
       } catch (error) {
@@ -150,7 +150,7 @@ var contextSetup = async function(requestDetails) {
             created.then(onCreated, onError);
           }
           var gettab = browser.tabs.get(tabId.id);
-          getting.then(Create, onError);
+          gettab.then(Create, onError);
           return tabId;
         }
       } catch (error) {
@@ -178,7 +178,7 @@ var contextSetup = async function(requestDetails) {
             created.then(onCreated, onError);
           }
           var gettab = browser.tabs.get(tabId.id);
-          getting.then(Create, onError);
+          gettab.then(Create, onError);
           return tabId;
         }
       } catch (error) {
@@ -206,7 +206,7 @@ var contextSetup = async function(requestDetails) {
             created.then(onCreated, onError);
           }
           var gettab = browser.tabs.get(tabId.id);
-          getting.then(Create, onError);
+          gettab.then(Create, onError);
           return tabId;
         }
       } catch (error) {
@@ -234,7 +234,7 @@ var contextSetup = async function(requestDetails) {
             created.then(onCreated, onError);
           }
           var gettab = browser.tabs.get(tabId.id);
-          getting.then(Create, onError);
+          gettab.then(Create, onError);
           return tabId;
         }
       } catch (error) {
@@ -262,7 +262,7 @@ var contextSetup = async function(requestDetails) {
             created.then(onCreated, onError);
           }
           var gettab = browser.tabs.get(tabId.id);
-          getting.then(Create, onError);
+          gettab.then(Create, onError);
           return tabId;
         }
       } catch (error) {
@@ -295,7 +295,7 @@ var contextSetup = async function(requestDetails) {
               created.then(onCreated, onError);
             }
             var gettab = browser.tabs.get(tabId.id);
-            getting.then(Create, onError);
+            gettab.then(Create, onError);
             return tabId;
           }
         }
