@@ -50,7 +50,9 @@ var contextScrub = async function(requestDetails) {
     var contextGet = async function(tabInfo) {
       try {
         console.log("(scrub)Tab info from Function", tabInfo);
-        let context = await browser.contextualIdentities.get(tabInfo.cookieStoreId);
+        let context = await browser.contextualIdentities.get(
+          tabInfo.cookieStoreId
+        );
         return context;
       } catch (error) {
         return "firefox-default";
