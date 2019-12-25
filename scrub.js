@@ -10,6 +10,7 @@ var torrentpref = chrome.i18n.getMessage("torrentPreface");
 var torrentprefpriv = chrome.i18n.getMessage("torrentPrefacePrivate");
 var tunnelpref = chrome.i18n.getMessage("i2ptunnelPreface");
 var tunnelprefpriv = chrome.i18n.getMessage("i2ptunnelPrefacePrivate");
+var localpref = chrome.i18n.getMessage("i2ptunnelPreface");
 
 var contextScrub = async function(requestDetails) {
   console.log("(scrub)Scrubbing info from contextualized request");
@@ -58,10 +59,6 @@ var contextScrub = async function(requestDetails) {
     var tabGet = async function(tabId) {
       try {
         console.log("(scrub)Tab ID from Request", tabId);
-        let ostype = await browser.runtime.getPlatformInfo();
-        if (ostype == android) {
-          tabId += 1;
-        }
         let tabInfo = await browser.tabs.get(tabId);
         return tabInfo;
       } catch (error) {
@@ -103,9 +100,9 @@ var contextSetup = async function(requestDetails) {
           name: titlepref
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
-          function Create(window) {
+          function Create(currentTab) {
             function onCreated(tab) {
-              if (tabId != undefined) {
+              if (tabId.id != tab.id) {
                 console.log("(isolate) Closing old, un-isolated tab");
                 browser.tabs.remove(tabId.id);
               }
@@ -131,9 +128,9 @@ var contextSetup = async function(requestDetails) {
           name: routerpref
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
-          function Create(window) {
+          function Create(currentTab) {
             function onCreated(tab) {
-              if (tabId != undefined) {
+              if (tabId.id != tab.id) {
                 console.log("(isolate) Closing old, un-isolated tab");
                 browser.tabs.remove(tabId.id);
               }
@@ -159,9 +156,9 @@ var contextSetup = async function(requestDetails) {
           name: tunnelpref
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
-          function Create(window) {
+          function Create(currentTab) {
             function onCreated(tab) {
-              if (tabId != undefined) {
+              if (tabId.id != tab.id) {
                 console.log("(isolate) Closing old, un-isolated tab");
                 browser.tabs.remove(tabId.id);
               }
@@ -187,9 +184,9 @@ var contextSetup = async function(requestDetails) {
           name: torrentpref
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
-          function Create(window) {
+          function Create(currentTab) {
             function onCreated(tab) {
-              if (tabId != undefined) {
+              if (tabId.id != tab.id) {
                 console.log("(isolate) Closing old, un-isolated tab");
                 browser.tabs.remove(tabId.id);
               }
@@ -215,9 +212,37 @@ var contextSetup = async function(requestDetails) {
           name: mailpref
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
-          function Create(window) {
+          function Create(currentTab) {
             function onCreated(tab) {
-              if (tabId != undefined) {
+              if (tabId.id != tab.id) {
+                console.log("(isolate) Closing old, un-isolated tab");
+                browser.tabs.remove(tabId.id);
+              }
+            }
+            var created = browser.tabs.create({
+              active: true,
+              cookieStoreId: context[0].cookieStoreId,
+              url: requestDetails.url
+            });
+            created.then(onCreated, onError);
+          }
+          var getting = browser.tabs.getCurrent();
+          getting.then(Create, onError);
+          return tabId;
+        }
+      } catch (error) {
+        console.log("(isolate)Context Error", error);
+      }
+    };
+    var localTabFind = async function(tabId) {
+      try {
+        var context = await browser.contextualIdentities.query({
+          name: localpref
+        });
+        if (tabId.cookieStoreId != context[0].cookieStoreId) {
+          function Create(currentTab) {
+            function onCreated(tab) {
+              if (tabId.id != tab.id) {
                 console.log("(isolate) Closing old, un-isolated tab");
                 browser.tabs.remove(tabId.id);
               }
@@ -248,9 +273,9 @@ var contextSetup = async function(requestDetails) {
           tabId.cookieStoreId == "firefox-private"
         ) {
           if (tabId.cookieStoreId != context[0].cookieStoreId) {
-            function Create(window) {
+            function Create(currentTab) {
               function onCreated(tab) {
-                if (tabId != undefined) {
+                if (tabId.id != tab.id) {
                   console.log("(isolate) Closing old, un-isolated tab");
                   browser.tabs.remove(tabId.id);
                 }
@@ -310,7 +335,13 @@ var contextSetup = async function(requestDetails) {
         var mtab = tab.then(i2pTabFind, onError);
         return requestDetails;
       }
+      let localhost = localHost(requestDetails.url);
       let routerhost = routerHost(requestDetails.url);
+      if (localhost && !routerhost) {
+        var tab = tabGet(requestDetails.tabId);
+        var mtab = tab.then(localTabFind, onError);
+        return requestDetails;
+      }
       if (routerhost) {
         if (routerhost === "i2ptunnelmgr") {
           var tab = tabGet(requestDetails.tabId);

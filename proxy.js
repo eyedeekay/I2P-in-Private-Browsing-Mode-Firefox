@@ -103,14 +103,14 @@ var handleContextProxyRequest = async function(requestDetails) {
       if (!routerHost(requestDetails.url)) {
         if (localHost(requestDetails.url)) {
           console.log(
-            "(proxy) non-routerconsole localhost url, dropping",
+            "(proxy) non-routerconsole localhost url, will not interfere",
             requestDetails.url
           );
-          proxy = {
+          /*proxy = {
             type: "http",
             host: "localhost",
             port: "65535"
-          };
+          };*/
         }
       } else if (i2pHost(requestDetails.url)) {
         proxy = {
