@@ -53,6 +53,9 @@ var contextScrub = async function(requestDetails) {
         let context = await browser.contextualIdentities.get(
           tabInfo.cookieStoreId
         );
+        if (context == undefined) {
+          return "firefox-default";
+        }
         return context;
       } catch (error) {
         return "firefox-default";
@@ -101,6 +104,7 @@ var contextSetup = async function(requestDetails) {
         var context = await browser.contextualIdentities.query({
           name: titlepref
         });
+        console.log(context[0].cookieStoreId);
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
           function Create(currentTab) {
             function onCreated(tab) {
