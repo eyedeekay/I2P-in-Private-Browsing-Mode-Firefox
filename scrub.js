@@ -105,7 +105,12 @@ var contextSetup = async function(requestDetails) {
           function Create(currentTab) {
             function onCreated(tab) {
               if (tabId.id != tab.id) {
-                console.log("(isolate) Closing old, un-isolated tab", tabId.id);
+                console.log(
+                  "(isolate) Closing old, un-isolated tab",
+                  tabId.id,
+                  "in favor of",
+                  tab.id
+                );
                 browser.tabs.remove(tabId.id);
               }
             }
