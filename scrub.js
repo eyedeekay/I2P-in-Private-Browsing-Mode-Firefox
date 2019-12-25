@@ -397,12 +397,12 @@ var contextSetup = async function(requestDetails) {
         return requestDetails;
       }
       if (i2pHost(requestDetails.url)) {
-        var setcookie = browser.cookies.set({
+        /*var setcookie = browser.cookies.set({
           firstPartyDomain: i2pHostName(requestDetails.url),
           url: requestDetails.url,
           secure: true
         });
-        setcookie.then(onContextGotLog, onError);
+        setcookie.then(onContextGotLog, onError);*/
         var tab = tabGet(requestDetails.tabId);
         var mtab = tab.then(i2pTabFind, onError);
         return requestDetails;
