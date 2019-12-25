@@ -100,7 +100,12 @@ var contextSetup = async function(requestDetails) {
         var context = await browser.contextualIdentities.query({
           name: titlepref
         });
-        console.log("(isolate) I2P Browser context", context[0].cookieStoreId);
+        console.log(
+          "(isolate) I2P Browser context",
+          context[0].cookieStoreId,
+          "tab context",
+          tabId.cookieStoreId
+        );
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
           function Create(currentTab) {
             function onCreated(tab) {
