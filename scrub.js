@@ -17,7 +17,7 @@ var contextScrub = async function(requestDetails) {
   try {
     var headerScrub = function(context) {
       if (!context) {
-        console.error("Context not found", context);
+        console.log("Context not found", context);
       } else if (context.name == titlepref) {
         var ua = "MYOB/6.66 (AN/ON)";
         if (i2pHost(requestDetails.url)) {
@@ -64,8 +64,9 @@ var contextScrub = async function(requestDetails) {
         let tabInfo = await browser.tabs.get(tabId);
         return tabInfo;
       } catch (error) {
-        let tabInfo = await browser.tabs.getCurrent();
-        return tabInfo;
+        //let tabInfo = await browser.tabs.getCurrent();
+        //return tabInfo;
+        return undefined;
       }
     };
     if (requestDetails.tabId > 0) {
