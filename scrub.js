@@ -110,7 +110,7 @@ var contextSetup = async function(requestDetails) {
           function Create(currentTab) {
             function onCreated(tab) {
               function closeOldTab(tab) {
-                if (!closable()) {
+                if (!notClosable()) {
                   if (tabId.id != tab.id) {
                     console.log(
                       "(isolate) Closing old, un-isolated tab",
@@ -150,7 +150,7 @@ var contextSetup = async function(requestDetails) {
           function Create(currentTab) {
             function onCreated(tab) {
               function closeOldTab(tab) {
-                if (!closable()) {
+                if (!notClosable()) {
                   if (tabId.id != tab.id) {
                     console.log(
                       "(isolate) Closing old, un-isolated tab",
@@ -188,7 +188,7 @@ var contextSetup = async function(requestDetails) {
           function Create(currentTab) {
             function onCreated(tab) {
               function closeOldTab(tab) {
-                if (!closable()) {
+                if (!notClosable()) {
                   if (tabId.id != tab.id) {
                     console.log(
                       "(isolate) Closing old, un-isolated tab",
@@ -226,7 +226,7 @@ var contextSetup = async function(requestDetails) {
           function Create(currentTab) {
             function onCreated(tab) {
               function closeOldTab(tab) {
-                if (!closable()) {
+                if (!notClosable()) {
                   if (tabId.id != tab.id) {
                     console.log(
                       "(isolate) Closing old, un-isolated tab",
@@ -264,7 +264,7 @@ var contextSetup = async function(requestDetails) {
           function Create(currentTab) {
             function onCreated(tab) {
               function closeOldTab(tab) {
-                if (!closable()) {
+                if (!notClosable()) {
                   if (tabId.id != tab.id) {
                     console.log(
                       "(isolate) Closing old, un-isolated tab",
@@ -302,7 +302,7 @@ var contextSetup = async function(requestDetails) {
           function Create(currentTab) {
             function onCreated(tab) {
               function closeOldTab(tab) {
-                if (!closable()) {
+                if (!notClosable()) {
                   if (tabId.id != tab.id) {
                     console.log(
                       "(isolate) Closing old, un-isolated tab",
@@ -345,7 +345,7 @@ var contextSetup = async function(requestDetails) {
             function Create(currentTab) {
               function onCreated(tab) {
                 function closeOldTab(tab) {
-                  if (!closable()) {
+                  if (!notClosable()) {
                     if (tabId.id != tab.id) {
                       console.log(
                         "(isolate) Closing old, un-isolated tab",
