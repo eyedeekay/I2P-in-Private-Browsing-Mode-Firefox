@@ -53,12 +53,9 @@ var contextScrub = async function(requestDetails) {
         let context = await browser.contextualIdentities.get(
           tabInfo.cookieStoreId
         );
-        if (context == undefined) {
-          return "firefox-default";
-        }
         return context;
       } catch (error) {
-        return "firefox-default";
+        return undefined;
       }
     };
     var tabGet = async function(tabId) {
