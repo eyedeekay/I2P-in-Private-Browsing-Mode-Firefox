@@ -35,5 +35,5 @@ function isDroid() {
 }
 
 function notClosable() {
-  return true;
+  return false;
 }
