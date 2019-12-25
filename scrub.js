@@ -101,12 +101,8 @@ var contextSetup = async function(requestDetails) {
           name: titlepref
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
-          console.log(
-            "(isolate) I2P Browser context",
-            context[0].cookieStoreId,
-            "tab context",
-            tabId.cookieStoreId
-          );
+          console.log("(isolate) I2P context", context[0].cookieStoreId);
+          console.log("tab context", tabId.cookieStoreId);
           function Create(currentTab) {
             function onCreated(tab) {
               function closeOldTab(tab) {
@@ -142,6 +138,8 @@ var contextSetup = async function(requestDetails) {
           name: routerpref
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
+          console.log("(isolate) I2P context", context[0].cookieStoreId);
+          console.log("tab context", tabId.cookieStoreId);
           function Create(currentTab) {
             function onCreated(tab) {
               function closeOldTab(tab) {
@@ -177,6 +175,8 @@ var contextSetup = async function(requestDetails) {
           name: tunnelpref
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
+          console.log("(isolate) I2P context", context[0].cookieStoreId);
+          console.log("tab context", tabId.cookieStoreId);
           function Create(currentTab) {
             function onCreated(tab) {
               function closeOldTab(tab) {
@@ -212,6 +212,8 @@ var contextSetup = async function(requestDetails) {
           name: torrentpref
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
+          console.log("(isolate) I2P context", context[0].cookieStoreId);
+          console.log("tab context", tabId.cookieStoreId);
           function Create(currentTab) {
             function onCreated(tab) {
               function closeOldTab(tab) {
@@ -247,6 +249,8 @@ var contextSetup = async function(requestDetails) {
           name: mailpref
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
+          console.log("(isolate) I2P context", context[0].cookieStoreId);
+          console.log("tab context", tabId.cookieStoreId);
           function Create(currentTab) {
             function onCreated(tab) {
               function closeOldTab(tab) {
@@ -282,6 +286,8 @@ var contextSetup = async function(requestDetails) {
           name: localpref
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
+          console.log("(isolate) I2P context", context[0].cookieStoreId);
+          console.log("tab context", tabId.cookieStoreId);
           function Create(currentTab) {
             function onCreated(tab) {
               function closeOldTab(tab) {
@@ -322,15 +328,15 @@ var contextSetup = async function(requestDetails) {
           tabId.cookieStoreId == "firefox-private"
         ) {
           if (tabId.cookieStoreId != context[0].cookieStoreId) {
+            console.log("(isolate) I2P context", context[0].cookieStoreId);
+            console.log("tab context", tabId.cookieStoreId);
             function Create(currentTab) {
               function onCreated(tab) {
                 function closeOldTab(tab) {
                   if (!notClosable()) {
                     if (tabId.id != tab.id) {
-                      console.log(
-                        "(isolate) Closing un-isolated tab",
-                        tabId.id
-                      );
+                      let o = tabId.id;
+                      console.log("(isolate) Closing un-isolated tab", o);
                       console.log("in favor of", tab.id);
                       console.log("with context", tab.cookieStoreId);
                       browser.tabs.remove(tabId.id);
