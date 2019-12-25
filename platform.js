@@ -34,6 +34,6 @@ function isDroid() {
   return android;
 }
 
-function closable() {
-  return true;
+function notClosable() {
+  return false;
 }
