@@ -112,14 +112,9 @@ var contextSetup = async function(requestDetails) {
               function closeOldTab(tab) {
                 if (!notClosable()) {
                   if (tabId.id != tab.id) {
-                    console.log(
-                      "(isolate) Closing old, un-isolated tab",
-                      tabId.id,
-                      "in favor of",
-                      tab.id,
-                      "with context",
-                      tab.cookieStoreId
-                    );
+                    console.log("(isolate) Closing un-isolated tab", tabId.id);
+                    console.log("in favor of", tab.id);
+                    console.log("with context", tab.cookieStoreId);
                     browser.tabs.remove(tabId.id);
                   }
                 }
@@ -152,12 +147,9 @@ var contextSetup = async function(requestDetails) {
               function closeOldTab(tab) {
                 if (!notClosable()) {
                   if (tabId.id != tab.id) {
-                    console.log(
-                      "(isolate) Closing old, un-isolated tab",
-                      tabId.id,
-                      "in favor of",
-                      tab.id
-                    );
+                    console.log("(isolate) Closing un-isolated tab", tabId.id);
+                    console.log("in favor of", tab.id);
+                    console.log("with context", tab.cookieStoreId);
                     browser.tabs.remove(tabId.id);
                   }
                 }
@@ -190,12 +182,9 @@ var contextSetup = async function(requestDetails) {
               function closeOldTab(tab) {
                 if (!notClosable()) {
                   if (tabId.id != tab.id) {
-                    console.log(
-                      "(isolate) Closing old, un-isolated tab",
-                      tabId.id,
-                      "in favor of",
-                      tab.id
-                    );
+                    console.log("(isolate) Closing un-isolated tab", tabId.id);
+                    console.log("in favor of", tab.id);
+                    console.log("with context", tab.cookieStoreId);
                     browser.tabs.remove(tabId.id);
                   }
                 }
@@ -228,12 +217,9 @@ var contextSetup = async function(requestDetails) {
               function closeOldTab(tab) {
                 if (!notClosable()) {
                   if (tabId.id != tab.id) {
-                    console.log(
-                      "(isolate) Closing old, un-isolated tab",
-                      tabId.id,
-                      "in favor of",
-                      tab.id
-                    );
+                    console.log("(isolate) Closing un-isolated tab", tabId.id);
+                    console.log("in favor of", tab.id);
+                    console.log("with context", tab.cookieStoreId);
                     browser.tabs.remove(tabId.id);
                   }
                 }
@@ -266,12 +252,9 @@ var contextSetup = async function(requestDetails) {
               function closeOldTab(tab) {
                 if (!notClosable()) {
                   if (tabId.id != tab.id) {
-                    console.log(
-                      "(isolate) Closing old, un-isolated tab",
-                      tabId.id,
-                      "in favor of",
-                      tab.id
-                    );
+                    console.log("(isolate) Closing un-isolated tab", tabId.id);
+                    console.log("in favor of", tab.id);
+                    console.log("with context", tab.cookieStoreId);
                     browser.tabs.remove(tabId.id);
                   }
                 }
@@ -304,12 +287,9 @@ var contextSetup = async function(requestDetails) {
               function closeOldTab(tab) {
                 if (!notClosable()) {
                   if (tabId.id != tab.id) {
-                    console.log(
-                      "(isolate) Closing old, un-isolated tab",
-                      tabId.id,
-                      "in favor of",
-                      tab.id
-                    );
+                    console.log("(isolate) Closing un-isolated tab", tabId.id);
+                    console.log("in favor of", tab.id);
+                    console.log("with context", tab.cookieStoreId);
                     browser.tabs.remove(tabId.id);
                   }
                 }
@@ -348,11 +328,11 @@ var contextSetup = async function(requestDetails) {
                   if (!notClosable()) {
                     if (tabId.id != tab.id) {
                       console.log(
-                        "(isolate) Closing old, un-isolated tab",
-                        tabId.id,
-                        "in favor of",
-                        tab.id
+                        "(isolate) Closing un-isolated tab",
+                        tabId.id
                       );
+                      console.log("in favor of", tab.id);
+                      console.log("with context", tab.cookieStoreId);
                       browser.tabs.remove(tabId.id);
                     }
                   }
