@@ -116,7 +116,9 @@ var contextSetup = async function(requestDetails) {
                       "(isolate) Closing old, un-isolated tab",
                       tabId.id,
                       "in favor of",
-                      tab.id
+                      tab.id,
+                      "with context",
+                      tab.cookieStoreId
                     );
                     browser.tabs.remove(tabId.id);
                   }
