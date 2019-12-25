@@ -438,7 +438,7 @@ var contextSetup = async function(requestDetails) {
         return requestDetails;
       }
     }
-    if (typeof requestDetails == "number") {
+    /*if (typeof requestDetails == "number") {
       tab = tabGet(requestDetails);
       var mtab = tab.then(anyTabFind);
     } else if (typeof requestDetails != undefined) {
@@ -447,7 +447,7 @@ var contextSetup = async function(requestDetails) {
         var mtab = tab.then(anyTabFind);
       }
     }
-    return requestDetails;
+    return requestDetails;*/
   } catch (error) {
     console.log("(isolate)Not an I2P request, blackholing", error);
   }
