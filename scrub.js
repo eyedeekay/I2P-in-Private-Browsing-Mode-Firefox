@@ -50,7 +50,7 @@ var contextScrub = async function(requestDetails) {
     var contextGet = async function(tabInfo) {
       try {
         console.log("(scrub)Tab info from Function", tabInfo);
-        context = await browser.contextualIdentities.get(tabInfo.cookieStoreId);
+        let context = await browser.contextualIdentities.get(tabInfo.cookieStoreId);
         return context;
       } catch (error) {
         return "firefox-default";
@@ -103,7 +103,7 @@ var contextSetup = async function(requestDetails) {
           function Create(currentTab) {
             function onCreated(tab) {
               if (tabId.id != tab.id) {
-                console.log("(isolate) Closing old, un-isolated tab");
+                console.log("(isolate) Closing old, un-isolated tab", tabId.id);
                 browser.tabs.remove(tabId.id);
               }
             }
