@@ -1,15 +1,7 @@
 var titlepref = chrome.i18n.getMessage("titlePreface");
-var titleprefpriv = chrome.i18n.getMessage("titlePrefacePrivate");
 var webpref = chrome.i18n.getMessage("webPreface");
-var webprefpriv = chrome.i18n.getMessage("webPrefacePrivate");
 var routerpref = chrome.i18n.getMessage("routerPreface");
 var routerprefpriv = chrome.i18n.getMessage("routerPrefacePrivate");
-var mailpref = chrome.i18n.getMessage("mailPreface");
-var mailprefpriv = chrome.i18n.getMessage("mailPrefacePrivate");
-var torrentpref = chrome.i18n.getMessage("torrentPreface");
-var torrentprefpriv = chrome.i18n.getMessage("torrentPrefacePrivate");
-var tunnelpref = chrome.i18n.getMessage("i2ptunnelPreface");
-var tunnelprefpriv = chrome.i18n.getMessage("i2ptunnelPrefacePrivate");
 
 browser.privacy.network.peerConnectionEnabled.set({
   value: false
@@ -112,7 +104,8 @@ var handleContextProxyRequest = async function(requestDetails) {
         context = await browser.contextualIdentities.get(tabInfo.cookieStoreId);
         return context;
       } catch (error) {
-        return; //"firefox-default";
+        console.error(error);
+        //return; //"firefox-default";
       }
     };
     var tabGet = async function(tabId) {
@@ -149,9 +142,9 @@ var handleContextProxyRequest = async function(requestDetails) {
         console.log("(proxy)Returning I2P Proxy", proxy);
         return proxy;
       }
-      proxy = {};
+      /*proxy = {};
       console.log("(proxy)Returning unset Proxy", proxy);
-      return proxy;
+      return proxy;*/
     }
   } catch (error) {
     console.log("(proxy)Not using I2P Proxy.", error);
@@ -167,19 +160,22 @@ var disable_history = false;
 
 function SetupSettings() {
   console.log("Initialising Settings");
+  function onSetupError() {
+    console.log("Settings initialization error");
+  }
   //
   function checkSchemeStoredSettings(storedSettings) {
-    if (storedSettings.proxy_scheme != undefined) {
-      proxy_scheme = storedSettings.proxy_scheme;
-    } else {
+    if (storedSettings.proxy_scheme === undefined) {
       proxy_scheme = "http";
       storedSettings.proxy_scheme = proxy_scheme;
+    } else {
+      proxy_scheme = storedSettings.proxy_scheme;
     }
     console.log("Initialising Proxy Scheme", storedSettings.proxy_scheme);
     setupProxy();
   }
   var gettingSchemeStoredSettings = browser.storage.local.get("proxy_scheme");
-  gettingSchemeStoredSettings.then(checkSchemeStoredSettings, onError);
+  gettingSchemeStoredSettings.then(checkSchemeStoredSettings, onSetupError);
 
   //
   function checkHostStoredSettings(storedSettings) {
@@ -193,7 +189,7 @@ function SetupSettings() {
     setupProxy();
   }
   var gettingHostStoredSettings = browser.storage.local.get("proxy_host");
-  gettingHostStoredSettings.then(checkHostStoredSettings, onError);
+  gettingHostStoredSettings.then(checkHostStoredSettings, onSetupError);
 
   //
   function checkPortStoredSettings(storedSettings) {
@@ -207,7 +203,7 @@ function SetupSettings() {
     setupProxy();
   }
   var gettingPortStoredSettings = browser.storage.local.get("proxy_port");
-  gettingPortStoredSettings.then(checkPortStoredSettings, onError);
+  gettingPortStoredSettings.then(checkPortStoredSettings, onSetupError);
 
   //
   function checkControlHostStoredSettings(storedSettings) {
@@ -225,16 +221,16 @@ function SetupSettings() {
   );
   gettingControlHostStoredSettings.then(
     checkControlHostStoredSettings,
-    onError
+    onSetupError
   );
 
   //
   function checkControlPortStoredSettings(storedSettings) {
     if (storedSettings.control_port != undefined) {
-      contro_port = storedSettings.control_port;
+      let control_port = storedSettings.control_port;
     } else {
-      control_port = "7657";
-      storedSettings.control_port = control_port;
+      let new_control_port = "7657";
+      storedSettings.control_port = new_control_port;
     }
     console.log("Initialising Control Port", storedSettings.control_port);
     setupProxy();
@@ -244,7 +240,7 @@ function SetupSettings() {
   );
   gettingControlPortStoredSettings.then(
     checkControlPortStoredSettings,
-    onError
+    onSetupError
   );
 
   //
@@ -264,7 +260,7 @@ function SetupSettings() {
   var gettingHistoryStoredSettings = browser.storage.local.get(
     "disable_history"
   );
-  gettingHistoryStoredSettings.then(checkHistoryStoredSettings, onError);
+  gettingHistoryStoredSettings.then(checkHistoryStoredSettings, onSetupError);
 }
 
 function getScheme() {
@@ -341,13 +337,13 @@ function updateFromStorage() {
   gettingInfo.then(got => {
     if (got.os != "android") {
       browser.windows.getAll().then(wins => wins.forEach(themeWindow));
-      chrome.storage.local.get(function(got) {
+      chrome.storage.local.get(function() {
         SetupSettings();
         update();
         setupProxy();
       });
     } else {
-      chrome.storage.local.get(function(got) {
+      chrome.storage.local.get(function() {
         SetupSettings();
         update();
         setupProxy();

@@ -1,24 +1,24 @@
-document.addEventListener("click", e => {
-  if (e.target.id === "onboardingButtonZero") {
+document.addEventListener("click", clickEvent => {
+  if (clickEvent.target.id === "onboardingButtonZero") {
     flipVisibility("onboardingContentZero");
-  } else if (e.target.id === "onboardingButtonOne") {
+  } else if (clickEvent.target.id === "onboardingButtonOne") {
     flipVisibility("onboardingContentOne");
-  } else if (e.target.id === "onboardingButtonTwo") {
+  } else if (clickEvent.target.id === "onboardingButtonTwo") {
     flipVisibility("onboardingContentTwo");
-  } else if (e.target.id === "onboardingButtonThree") {
+  } else if (clickEvent.target.id === "onboardingButtonThree") {
     flipVisibility("onboardingContentThree");
-  } else if (e.target.id === "onboardingButtonFour") {
+  } else if (clickEvent.target.id === "onboardingButtonFour") {
     flipVisibility("onboardingContentFour");
-  } else if (e.target.id === "fliplinks") {
+  } else if (clickEvent.target.id === "fliplinks") {
     flipVisibility("info-content");
   }
 });
 
 function flipVisibility(div) {
-  var x = document.getElementById(div);
-  if (x.style.display === "none") {
-    x.style.display = "block";
+  let flippable = document.getElementById(div);
+  if (flippable.style.display === "none") {
+    flippable.style.display = "block";
   } else {
-    x.style.display = "none";
+    flippable.style.display = "none";
   }
 }
