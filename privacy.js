@@ -1,13 +1,4 @@
-var webpref = chrome.i18n.getMessage("webPreface");
-var webprefpriv = chrome.i18n.getMessage("webPrefacePrivate");
-var routerpref = chrome.i18n.getMessage("routerPreface");
-var routerprefpriv = chrome.i18n.getMessage("routerPrefacePrivate");
-var mailpref = chrome.i18n.getMessage("mailPreface");
-var mailprefpriv = chrome.i18n.getMessage("mailPrefacePrivate");
-var torrentpref = chrome.i18n.getMessage("torrentPreface");
-var torrentprefpriv = chrome.i18n.getMessage("torrentPrefacePrivate");
-var tunnelpref = chrome.i18n.getMessage("i2ptunnelPreface");
-var tunnelprefpriv = chrome.i18n.getMessage("i2ptunnelPrefacePrivate");
+var titlepref = chrome.i18n.getMessage("titlePreface");
 
 function onSet(result) {
   if (result) {
@@ -158,7 +149,7 @@ function EnablePeerConnection() {
 function SetupPeerConnection() {
   var webrtc = true;
   console.log("Pre-disabled WebRTC");
-  rtc = browser.privacy.network.peerConnectionEnabled.set({
+  let rtc = browser.privacy.network.peerConnectionEnabled.set({
     value: webrtc
   });
   rtc.then(AssurePeerConnection);
@@ -211,16 +202,9 @@ var defaultSettings = {
   dataTypes: ["downloads", "passwords", "formData", "localStorage", "history"]
 };
 
-var appSettings = {
-  since: "forever",
-  dataTypes: [""]
-};
-
-function onError(e) {
-  console.error(e);
+function onError(therror) {
+  console.error(therror);
 }
-
-function clearCookiesContext(cookieStoreId) {}
 
 function forgetBrowsingData(storedSettings) {
   function getSince(selectedSince) {
@@ -261,7 +245,7 @@ function forgetBrowsingData(storedSettings) {
 
   function deepCleanHistory(historyItems) {
     console.log("Deep cleaning history");
-    for (item of historyItems) {
+    for (let item of historyItems) {
       if (i2pHost(item.url)) {
         browser.history.deleteUrl({
           url: item.url
@@ -297,12 +281,12 @@ function forgetBrowsingData(storedSettings) {
           .then(onContextGotLog);
         console.log("cleared Local Storage");
 
-        contexts = browser.contextualIdentities.query({
+        let contexts = browser.contextualIdentities.query({
           name: titlepref
         });
 
         function deepCleanCookies(cookies) {
-          for (cookie of cookies) {
+          for (let cookie of cookies) {
             var removing = browser.cookies.remove({
               firstPartyDomain: cookie.firstPartyDomain,
               name: cookie.name,
@@ -314,7 +298,7 @@ function forgetBrowsingData(storedSettings) {
         }
 
         function deepCleanContext(cookieStoreIds) {
-          for (cookieStoreId of cookieStoreIds) {
+          for (let cookieStoreId of cookieStoreIds) {
             var removing = browser.cookies.getAll({
               firstPartyDomain: null,
               storeId: cookieStoreId.cookieStoreId
@@ -356,7 +340,7 @@ function i2pHost(url) {
 }
 
 function onContextGotLog(contexts) {
-  if (contexts != null) {
+  if (contexts !== null) {
     for (let context of contexts) {
       console.log(context);
     }
@@ -370,9 +354,9 @@ function enableHistory() {
     storedSettings["disable_history"] = false;
     console.log(storedSettings);
     function enablehistory(settings) {
-      console.log("Store History:", storedSettings);
+      console.log("Store History:", settings);
     }
-    var setting = browser.storage.local.set(storedSettings);
+    let setting = browser.storage.local.set(storedSettings);
     setting.then(enablehistory);
   }
   const gettingStoredSettings = browser.storage.local.get();
@@ -384,7 +368,7 @@ function disableHistory() {
     storedSettings["disable_history"] = true;
     console.log(storedSettings);
     function enablehistory(settings) {
-      console.log("Store History:", storedSettings);
+      console.log("Store History:", settings);
     }
     var setting = browser.storage.local.set(storedSettings);
     setting.then(enablehistory);
@@ -393,19 +377,19 @@ function disableHistory() {
   gettingStoredSettings.then(checkStoredSettings, onError);
 }
 
-function message(message) {
-  console.log(message);
-  if (message.rtc === "enableWebRTC") {
+function message(recieved) {
+  console.log(recieved);
+  if (recieved.rtc === "enableWebRTC") {
     console.log("enableWebRTC");
     EnablePeerConnection();
-  } else if (message.rtc === "disableWebRTC") {
+  } else if (recieved.rtc === "disableWebRTC") {
     console.log("disableWebRTC");
     ResetPeerConnection();
   }
-  if (message.history === "enableHistory") {
+  if (recieved.history === "enableHistory") {
     console.log("enableHistory");
     enableHistory();
-  } else if (message.history === "disableHistory") {
+  } else if (recieved.history === "disableHistory") {
     console.log("disableHistory");
     disableHistory();
   }

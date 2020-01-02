@@ -77,11 +77,11 @@ function routerHost(url) {
   }
   if (url.indexOf("://") > -1) {
     hostname = url.split("/")[2];
-    prefix = url.substr(0, url.indexOf("://") + 3);
+    let prefix = url.substr(0, url.indexOf("://") + 3);
     path = url.replace(prefix + hostname + "/", "");
   } else if (identifyProtocolHandler(url)) {
-    url = identifyProtocolHandler(url);
-    return routerHost(url);
+    let newurl = identifyProtocolHandler(url);
+    return routerHost(newurl);
   } else {
     hostname = url.split("/")[0];
     path = url.replace(hostname + "/", "");

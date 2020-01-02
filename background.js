@@ -27,7 +27,7 @@ function onContextsGot(contexts) {
         color: "orange",
         icon: "fingerprint"
       })
-      .then(onCreated, onError);
+      .then(onCreated, onNotCreated);
   }
   if (ids.indexOf(webpref) == -1) {
     browser.contextualIdentities
@@ -36,7 +36,7 @@ function onContextsGot(contexts) {
         color: "red",
         icon: "circle"
       })
-      .then(onCreated, onError);
+      .then(onCreated, onNotCreated);
   }
   if (ids.indexOf(routerpref) == -1) {
     browser.contextualIdentities
@@ -45,7 +45,7 @@ function onContextsGot(contexts) {
         color: "blue",
         icon: "briefcase"
       })
-      .then(onCreated, onError);
+      .then(onCreated, onNotCreated);
   }
   if (ids.indexOf(tunnelpref) == -1) {
     browser.contextualIdentities
@@ -54,7 +54,7 @@ function onContextsGot(contexts) {
         color: "green",
         icon: "tree"
       })
-      .then(onCreated, onError);
+      .then(onCreated, onNotCreated);
   }
   if (ids.indexOf(mailpref) == -1) {
     browser.contextualIdentities
@@ -63,7 +63,7 @@ function onContextsGot(contexts) {
         color: "yellow",
         icon: "briefcase"
       })
-      .then(onCreated, onError);
+      .then(onCreated, onNotCreated);
   }
   if (ids.indexOf(torrentpref) == -1) {
     browser.contextualIdentities
@@ -72,7 +72,7 @@ function onContextsGot(contexts) {
         color: "purple",
         icon: "chill"
       })
-      .then(onCreated, onError);
+      .then(onCreated, onNotCreated);
   }
   if (ids.indexOf(localpref) == -1) {
     browser.contextualIdentities
@@ -81,20 +81,27 @@ function onContextsGot(contexts) {
         color: "red",
         icon: "fence"
       })
-      .then(onCreated, onError);
+      .then(onCreated, onNotCreated);
   }
+}
+
+function onContextsError() {
+  console.log("Error finding contextual identities, is the API enabled?");
 }
 
 function onCreated(context) {
   console.log(`New identity's ID: ${context.cookieStoreId}.`);
 }
 
-browser.contextualIdentities.query({}).then(onContextsGot, onError);
+function onNotCreated(context) {
+  console.log(`identity ID: ${context.cookieStoreId} not created`);
+}
+
+browser.contextualIdentities.query({}).then(onContextsGot, onContextsError);
 
 var gettingInfo = browser.runtime.getPlatformInfo();
 gettingInfo.then(got => {
-  if (got.os == "android") {
-  } else {
+  if (got.os != "android") {
     browser.windows.onCreated.addListener(themeWindow);
     browser.windows.onFocusChanged.addListener(themeWindow);
     browser.windows.onRemoved.addListener(themeWindow);
@@ -105,19 +112,19 @@ gettingInfo.then(got => {
 
 function themeWindowByTab(tabId) {
   function tabWindow(tab) {
-    var gettingInfo = browser.runtime.getPlatformInfo();
-    gettingInfo.then(got => {
+    var gettingPlatformInfo = browser.runtime.getPlatformInfo();
+    gettingPlatformInfo.then(got => {
       if (got.os == "android") {
-        getwindow = browser.tabs.get(tab.tabId);
+        let getwindow = browser.tabs.get(tab.tabId);
         getwindow.then(themeWindow);
       } else {
-        getwindow = browser.windows.get(tab.windowId);
+        let getwindow = browser.windows.get(tab.windowId);
         getwindow.then(themeWindow);
       }
     });
   }
   if (typeof tabId === "number") {
-    tab = browser.tabs.get(tabId);
+    let tab = browser.tabs.get(tabId);
     tab.then(tabWindow);
   } else {
     tabWindow(tabId);
@@ -125,17 +132,21 @@ function themeWindowByTab(tabId) {
 }
 
 function isEmpty(obj) {
-  if (obj == undefined || obj == null) return true;
+  if (obj === undefined || obj === null) {
+    return true;
+  }
   for (var key in obj) {
-    if (obj.hasOwnProperty(key)) return false;
+    if (obj.hasOwnProperty(key)) {
+      return false;
+    }
   }
   return true;
 }
 
-var oldtheme;
+var oldtheme = null;
 
 var getOldTheme = async function getOldTheme() {
-  foundtheme = await browser.theme.getCurrent();
+  let foundtheme = await browser.theme.getCurrent();
   if (!isEmpty(foundtheme)) {
     oldtheme = foundtheme;
     console.log("Found old theme", oldtheme);
@@ -240,8 +251,11 @@ function themeWindow(window) {
         }
       } else {
         console.log("Not active in I2P window");
-        if (!isEmpty(oldtheme)) browser.theme.update(window.id, oldtheme);
-        else browser.theme.reset();
+        if (isEmpty(oldtheme)) {
+          browser.theme.reset();
+        } else {
+          browser.theme.update(window.id, oldtheme);
+        }
       }
     }
     if (
@@ -252,8 +266,11 @@ function themeWindow(window) {
         .get(tabInfo[0].cookieStoreId)
         .then(onContextGotTheme, onThemeError);
     } else {
-      if (!isEmpty(oldtheme)) browser.theme.update(window.id, oldtheme);
-      else browser.theme.reset();
+      if (isEmpty(oldtheme)) {
+        browser.theme.reset();
+      } else {
+        browser.theme.update(window.id, oldtheme);
+      }
     }
   }
 
@@ -261,10 +278,14 @@ function themeWindow(window) {
     currentWindow: true,
     active: true
   });
-  querying.then(logTabs, onError);
+  querying.then(logTabs, onThemeError);
 }
 
 function setTitle(window) {
+  // Check if the window is in private browsing
+  function onContextError() {
+    console.log("Context Error");
+  }
   function logTabs(tabInfo) {
     function onContextGotTitle(context) {
       if (context.name == titlepref) {
@@ -283,11 +304,11 @@ function setTitle(window) {
         console.log("Active in Web window");
         if (window.incognito) {
           browser.windows.update(window.id, {
-            titlePreface: ""
+            titlePreface: webprefpriv + " - "
           });
         } else {
           browser.windows.update(window.id, {
-            titlePreface: ""
+            titlePreface: webpref + " - "
           });
         }
       } else if (context.name == routerpref) {
@@ -358,7 +379,7 @@ function setTitle(window) {
     ) {
       browser.contextualIdentities
         .get(tabInfo[0].cookieStoreId)
-        .then(onContextGotTitle, onError);
+        .then(onContextGotTitle, onContextError);
     } else if (window.incognito) {
       browser.windows.update(window.id, {
         titlePreface: ""
@@ -374,27 +395,38 @@ function setTitle(window) {
     currentWindow: true,
     active: true
   });
-  querying.then(logTabs, onError);
+  querying.then(logTabs, onContextError);
 }
 
-var gettingInfo = browser.runtime.getPlatformInfo();
-gettingInfo.then(got => {
-  if (got.os == "android") {
-  } else {
+var gettingListenerInfo = browser.runtime.getPlatformInfo();
+gettingListenerInfo.then(got => {
+  function onPlatformError() {
+    console.log("Error finding platform info");
+  }
+  if (got.os != "android") {
     browser.windows.onCreated.addListener(() => {
-      /* var gettingStoredSettings = chrome.storage.local.get();
-     gettingStoredSettings.then(setupProxy, onError); */
-      chrome.storage.local.get(function(got) {
+      chrome.storage.local.get(function() {
         setupProxy();
       });
     });
+    browser.tabs.onCreated.addListener(() => {
+      var getting = browser.windows.getCurrent({
+        populate: true
+      });
+      getting.then(setTitle, onPlatformError);
+    });
+    browser.tabs.onActivated.addListener(() => {
+      var getting = browser.windows.getCurrent({
+        populate: true
+      });
+      getting.then(setTitle, onPlatformError);
+    });
   }
 });
-
+/*
 var gettingInfo = browser.runtime.getPlatformInfo();
 gettingInfo.then(got => {
-  if (got.os == "android") {
-  } else {
+  if (got.os != "android") {
     browser.tabs.onCreated.addListener(() => {
       var getting = browser.windows.getCurrent({
         populate: true
@@ -403,11 +435,9 @@ gettingInfo.then(got => {
     });
   }
 });
-
 var gettingInfo = browser.runtime.getPlatformInfo();
 gettingInfo.then(got => {
-  if (got.os == "android") {
-  } else {
+  if (got.os != "android") {
     browser.tabs.onActivated.addListener(() => {
       var getting = browser.windows.getCurrent({
         populate: true
@@ -416,7 +446,7 @@ gettingInfo.then(got => {
     });
   }
 });
-
+*/
 function handleUpdated(updateInfo) {
   if (updateInfo.theme) {
     console.log(`Theme was applied: ${updateInfo.theme}`);

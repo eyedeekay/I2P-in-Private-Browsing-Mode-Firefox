@@ -26,9 +26,9 @@ function trimHost(url) {
   return path;
 }
 
-var handlerSetup = async function(requestDetails) {
+var handlerSetup = function(requestDetails) {
   //console.log("checking protocol handler listener")
-  var rwurl = identifyProtocolHandler(requestDetails.url);
+  let rwurl = identifyProtocolHandler(requestDetails.url);
   if (rwurl != false) {
     console.log("(handler) rewrite URL requested", rwurl);
     requestDetails.redirectUrl = rwurl;
