@@ -10,7 +10,8 @@ var torrentpref = chrome.i18n.getMessage("torrentPreface");
 var torrentprefpriv = chrome.i18n.getMessage("torrentPrefacePrivate");
 var tunnelpref = chrome.i18n.getMessage("i2ptunnelPreface");
 var tunnelprefpriv = chrome.i18n.getMessage("i2ptunnelPrefacePrivate");
-var localpref = chrome.i18n.getMessage("i2ptunnelPreface");
+var localpref = chrome.i18n.getMessage("localPreface");
+var localprefpriv = chrome.i18n.getMessage("localPrefacePrivate");
 
 var contextScrub = async function(requestDetails) {
   console.log("(scrub)Scrubbing info from contextualized request");
@@ -402,10 +403,12 @@ var contextSetup = async function(requestDetails) {
       }
       let localhost = localHost(requestDetails.url);
       let routerhost = routerHost(requestDetails.url);
-      if (localhost && !routerhost) {
-        var tab = tabGet(requestDetails.tabId);
-        var mtab = tab.then(localTabFind, onError);
-        return requestDetails;
+      if (!routerhost) {
+        if (localhost) {
+          var tab = tabGet(requestDetails.tabId);
+          var mtab = tab.then(localTabFind, onError);
+          return requestDetails;
+        }
       }
       if (routerhost) {
         if (routerhost === "i2ptunnelmgr") {
@@ -426,8 +429,6 @@ var contextSetup = async function(requestDetails) {
           return requestDetails;
         }
       } else {
-        var tab = tabGet(requestDetails.tabId);
-        var mtab = tab.then(anyTabFind, onError);
         return requestDetails;
       }
     }
