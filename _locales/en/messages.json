@@ -4,88 +4,8 @@
     "description": "Name of the extension."
   },
   "extensionDescription": {
-    "message": "Your browser is now set up to use I2P.",
+    "message": "Set up a browser to use the i2p http proxy automatically",
     "description": "Description of the extension."
-  },
-  "extensionStatus": {
-    "message": "It is a labs project for enhancing your I2P browsing experience.",
-    "description": "Release status of the extension."
-  },
-  "proxyFailedStatus": {
-    "message": "Proxy is not ready",
-    "description": "Proxy failed status."
-  },
-  "controlHeader": {
-    "message": "Control",
-    "description": "Headline for control panel."
-  },
-  "controlExplain": {
-    "message": "These controls are used to tailor your I2P Browsing Experience",
-    "description": "Introduce the control panel."
-  },
-  "clearData": {
-    "message": "Clear Browsing Data: ",
-    "description": "Clear Browsing Data menu item."
-  },
-  "clearDesc": {
-    "message": "Use this to erase your I2P browsing data.",
-    "description": "Clear browsing data action description."
-  },
-  "enableWebRTC": {
-    "message": "Enable WebRTC with proxy?",
-    "description": "WebRTC checkbox label."
-  },
-  "rtcDesc": {
-    "message": "WebRTC is disabled by default, but you can turn it back on and force it to honor the proxy.",
-    "description": "WebRTC action description"
-  },
-  "disableHistory": {
-    "message": "Disable History in I2P Tabs?",
-    "description": "History checkbox label."
-  },
-  "histDesc": {
-    "message": "History is automatically cleared when your I2P tabs are closed. If you want to clear history as you go, check this box.",
-    "description": "History action description"
-  },
-  "applicationHeader": {
-    "message": "Applications",
-    "description": "Header for applications section."
-  },
-  "applicationExplain": {
-    "message": "These applications work with I2P directly to provide them with security and privacy.",
-    "description": "Description for application section."
-  },
-  "windowVisitHomepage": {
-    "message": "Home Page: ",
-    "description": "Home page for the extension label."
-  },
-  "abouthome": {
-    "message": "For more information about this extension, visit this page.",
-    "description": "Description for the extension button page."
-  },
-  "windowVisitI2ptunnel": {
-    "message": "Hidden Services Manager: ",
-    "description": ""
-  },
-  "i2ptunnel": {
-    "message": "I2P has a web-based interface for configuring .i2p services like web sites which you can set up.",
-    "description": ""
-  },
-  "windowVisitSusimail": {
-    "message": "E-Mail: ",
-    "description": ""
-  },
-  "susimail": {
-    "message": "I2P also bundles a webmail client which can be used to access in-I2P e-mail.",
-    "description": ""
-  },
-  "windowVisitSnark": {
-    "message": "Bittorrent: ",
-    "description": ""
-  },
-  "snark": {
-    "message": "I2P is capable of anonymous Peer-to-Peer file sharing using the built-in bittorrent application.",
-    "description": ""
   },
   "titlePreface": {
     "message": "I2P Browser",
