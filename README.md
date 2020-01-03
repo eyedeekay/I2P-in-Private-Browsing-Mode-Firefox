@@ -111,9 +111,9 @@ Usage:
 Documents
 ------------
 
-  * **[Browser Outline](browser.pdf)**: This document is an outline of each of
+  * **[Browser Outline](https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/download/docs/Browser.Design.Documentation.pdf)**: This document is an outline of each of
   the browser extension's feature panels in presentation form.
-  * **[Smart Lander Design](smartlander.pdf)**: This is the original outline of
+  * **[Smart Lander Design](https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/download/docs/Landing.Page.Documentation.pdf)**: This is the original outline of
   the smart landing page which became the I2P home page within the browser and
   the drop-down control panel.
 
@@ -126,19 +126,34 @@ Tor's work on hardening Firefox itself and of particular interest are the
 
 ### Links about Project Uplift
 
- * https://wiki.mozilla.org/Security/Tor_Uplift
- * https://wiki.mozilla.org/Security/FirstPartyIsolation
- * https://wiki.mozilla.org/Security/Fingerprinting
- * https://wiki.mozilla.org/Security/Fennec%2BTor_Project
- * https://wiki.mozilla.org/Security/Tor_Uplift/Tracking
+ * [Tor Uplift](https://wiki.mozilla.org/Security/Tor_Uplift) is a project which
+  brings important features of the Tor Browser to the mainstream of Firefox
+  users by including patches from Tor Browser Bundle into Firefox where it is
+  appropriate.
+ * [First Party Isolation](https://wiki.mozilla.org/Security/FirstPartyIsolation)
+  is a feature in Firefox and other browsers which keeps information from
+  leaking across first-party domains.
+ * [Fingerprinting](https://wiki.mozilla.org/Security/Fingerprinting) is a
+  technique where a tracker attempts to extract unique information about a user
+  from a side-channel in order to create an identifier that can be used to
+  correlate the user across many sites.
+ * [Fennec](https://wiki.mozilla.org/Security/Fennec%2BTor_Project) is Firefox
+  for Android and this link has some analysis of the privacy consequences of the
+  Android platform.
+ * [Tracking](https://wiki.mozilla.org/Security/Tor_Uplift/Tracking) in Firefox
+  is surveyed here.
 
 Project uplift seems to have largely been accomplished?
 
 ### Links about Project Fusion
 
- * https://wiki.mozilla.org/Security/Fusion
- * https://trac.torproject.org/projects/tor/wiki/org/meetings/2018Rome/Notes/FusionProject
- * https://blog.torproject.org/tor-heart-firefox
+ * [Project Fusion](https://wiki.mozilla.org/Security/Fusion) or Firefox using
+  Onions is a joint Mozilla/Tor effort to create an enhanced Private Browsing
+  mode for Firefox which uses Tor.
+ * [Notes](https://trac.torproject.org/projects/tor/wiki/org/meetings/2018Rome/Notes/FusionProject)
+  from a meeting about Fusion.
+ * [Tor at the Heart: Firefox](https://blog.torproject.org/tor-heart-firefox) is
+  a blog about Tor and the relationship they have to Firefox re: TBB, Fusion.
 
 The Old Version
 ---------------
