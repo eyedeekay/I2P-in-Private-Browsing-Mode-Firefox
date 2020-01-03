@@ -23,6 +23,14 @@
     "message": "Web Browser (Private)",
     "description": "Preface for the browser titlebar"
   },
+  "localPreface": {
+    "message": "Localhost Browser",
+    "description": "Preface for the browser titlebar"
+  },
+  "localPrefacePrivate": {
+    "message": "Localhost Browser (Private)",
+    "description": "Preface for the browser titlebar"
+  },
   "routerPreface": {
     "message": "Router Console",
     "description": "Preface for the browser titlebar"

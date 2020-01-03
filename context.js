@@ -26,7 +26,7 @@ function eventHandler(event) {
         cookieStoreId: event.target.dataset.identity
       })
       .then(tabs => {
-        browser.tabs.remove(tabs.map(i => i.id));
+        browser.tabs.remove(tabs.map(rem => rem.id));
       });
   }
   event.preventDefault();
@@ -34,13 +34,13 @@ function eventHandler(event) {
 
 function createOptions(node, identity) {
   for (let option of ["Create", "Close All"]) {
-    let a = document.createElement("a");
-    a.href = "#";
-    a.innerText = option;
-    a.dataset.action = option.toLowerCase().replace(" ", "-");
-    a.dataset.identity = identity.cookieStoreId;
-    a.addEventListener("click", eventHandler);
-    node.appendChild(a);
+    let alink = document.createElement("a");
+    alink.href = "#";
+    alink.innerText = option;
+    alink.dataset.action = option.toLowerCase().replace(" ", "-");
+    alink.dataset.identity = identity.cookieStoreId;
+    alink.addEventListener("click", eventHandler);
+    node.appendChild(alink);
   }
 }
 

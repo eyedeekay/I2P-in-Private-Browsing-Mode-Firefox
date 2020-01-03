@@ -10,6 +10,8 @@ var torrentpref = chrome.i18n.getMessage("torrentPreface");
 var torrentprefpriv = chrome.i18n.getMessage("torrentPrefacePrivate");
 var tunnelpref = chrome.i18n.getMessage("i2ptunnelPreface");
 var tunnelprefpriv = chrome.i18n.getMessage("i2ptunnelPrefacePrivate");
+var localpref = chrome.i18n.getMessage("localPreface");
+var localprefpriv = chrome.i18n.getMessage("localPrefacePrivate");
 
 function onContextsGot(contexts) {
   var ids = [];
@@ -25,7 +27,7 @@ function onContextsGot(contexts) {
         color: "orange",
         icon: "fingerprint"
       })
-      .then(onCreated, onError);
+      .then(onCreated, onNotCreated);
   }
   if (ids.indexOf(webpref) == -1) {
     browser.contextualIdentities
@@ -34,7 +36,7 @@ function onContextsGot(contexts) {
         color: "red",
         icon: "circle"
       })
-      .then(onCreated, onError);
+      .then(onCreated, onNotCreated);
   }
   if (ids.indexOf(routerpref) == -1) {
     browser.contextualIdentities
@@ -43,7 +45,7 @@ function onContextsGot(contexts) {
         color: "blue",
         icon: "briefcase"
       })
-      .then(onCreated, onError);
+      .then(onCreated, onNotCreated);
   }
   if (ids.indexOf(tunnelpref) == -1) {
     browser.contextualIdentities
@@ -52,7 +54,7 @@ function onContextsGot(contexts) {
         color: "green",
         icon: "tree"
       })
-      .then(onCreated, onError);
+      .then(onCreated, onNotCreated);
   }
   if (ids.indexOf(mailpref) == -1) {
     browser.contextualIdentities
@@ -61,7 +63,7 @@ function onContextsGot(contexts) {
         color: "yellow",
         icon: "briefcase"
       })
-      .then(onCreated, onError);
+      .then(onCreated, onNotCreated);
   }
   if (ids.indexOf(torrentpref) == -1) {
     browser.contextualIdentities
@@ -70,20 +72,36 @@ function onContextsGot(contexts) {
         color: "purple",
         icon: "chill"
       })
-      .then(onCreated, onError);
+      .then(onCreated, onNotCreated);
   }
+  if (ids.indexOf(localpref) == -1) {
+    browser.contextualIdentities
+      .create({
+        name: localpref,
+        color: "red",
+        icon: "fence"
+      })
+      .then(onCreated, onNotCreated);
+  }
+}
+
+function onContextsError() {
+  console.log("Error finding contextual identities, is the API enabled?");
 }
 
 function onCreated(context) {
   console.log(`New identity's ID: ${context.cookieStoreId}.`);
 }
 
-browser.contextualIdentities.query({}).then(onContextsGot, onError);
+function onNotCreated(context) {
+  console.log(`identity ID: ${context.cookieStoreId} not created`);
+}
+
+browser.contextualIdentities.query({}).then(onContextsGot, onContextsError);
 
 var gettingInfo = browser.runtime.getPlatformInfo();
 gettingInfo.then(got => {
-  if (got.os == "android") {
-  } else {
+  if (got.os != "android") {
     browser.windows.onCreated.addListener(themeWindow);
     browser.windows.onFocusChanged.addListener(themeWindow);
     browser.windows.onRemoved.addListener(themeWindow);
@@ -94,27 +112,56 @@ gettingInfo.then(got => {
 
 function themeWindowByTab(tabId) {
   function tabWindow(tab) {
-    var gettingInfo = browser.runtime.getPlatformInfo();
-    gettingInfo.then(got => {
+    var gettingPlatformInfo = browser.runtime.getPlatformInfo();
+    gettingPlatformInfo.then(got => {
       if (got.os == "android") {
-        getwindow = browser.tabs.get(tab.tabId);
+        let getwindow = browser.tabs.get(tab.tabId);
         getwindow.then(themeWindow);
       } else {
-        getwindow = browser.windows.get(tab.windowId);
+        let getwindow = browser.windows.get(tab.windowId);
         getwindow.then(themeWindow);
       }
     });
   }
   if (typeof tabId === "number") {
-    tab = browser.tabs.get(tabId);
+    let tab = browser.tabs.get(tabId);
     tab.then(tabWindow);
   } else {
     tabWindow(tabId);
   }
 }
 
+function isEmpty(obj) {
+  if (obj === undefined || obj === null) {
+    return true;
+  }
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+var oldtheme = null;
+
+var getOldTheme = async function getOldTheme() {
+  let foundtheme = await browser.theme.getCurrent();
+  if (!isEmpty(foundtheme)) {
+    oldtheme = foundtheme;
+    console.log("Found old theme", oldtheme);
+  }
+  return oldtheme;
+};
+
+getOldTheme();
+
 function themeWindow(window) {
   // Check if the window is in private browsing
+  function onThemeError() {
+    console.log("got theme", oldtheme);
+    browser.theme.update(oldtheme);
+  }
   function logTabs(tabInfo) {
     function onContextGotTheme(context) {
       if (context.name == titlepref) {
@@ -204,7 +251,11 @@ function themeWindow(window) {
         }
       } else {
         console.log("Not active in I2P window");
-        browser.theme.reset(window.id);
+        if (isEmpty(oldtheme)) {
+          browser.theme.reset();
+        } else {
+          browser.theme.update(window.id, oldtheme);
+        }
       }
     }
     if (
@@ -213,9 +264,13 @@ function themeWindow(window) {
     ) {
       browser.contextualIdentities
         .get(tabInfo[0].cookieStoreId)
-        .then(onContextGotTheme, onError);
+        .then(onContextGotTheme, onThemeError);
     } else {
-      browser.theme.reset(window.id);
+      if (isEmpty(oldtheme)) {
+        browser.theme.reset();
+      } else {
+        browser.theme.update(window.id, oldtheme);
+      }
     }
   }
 
@@ -223,13 +278,15 @@ function themeWindow(window) {
     currentWindow: true,
     active: true
   });
-  querying.then(logTabs, onError);
+  querying.then(logTabs, onThemeError);
 }
 
 function setTitle(window) {
+  // Check if the window is in private browsing
+  function onContextError() {
+    console.log("Context Error");
+  }
   function logTabs(tabInfo) {
-    console.log(tabInfo);
-
     function onContextGotTitle(context) {
       if (context.name == titlepref) {
         console.log("Active in I2P window");
@@ -247,11 +304,11 @@ function setTitle(window) {
         console.log("Active in Web window");
         if (window.incognito) {
           browser.windows.update(window.id, {
-            titlePreface: ""
+            titlePreface: webprefpriv + " - "
           });
         } else {
           browser.windows.update(window.id, {
-            titlePreface: ""
+            titlePreface: webpref + " - "
           });
         }
       } else if (context.name == routerpref) {
@@ -278,7 +335,7 @@ function setTitle(window) {
           });
         }
       } else if (context.name == mailpref) {
-        console.log("Active in Web Mail window");
+        console.log("Active in I2P Web Mail window");
 
         if (window.incognito) {
           browser.windows.update(window.id, {
@@ -290,7 +347,7 @@ function setTitle(window) {
           });
         }
       } else if (context.name == torrentpref) {
-        console.log("Active in I2P window");
+        console.log("Active in I2P Torrent window");
 
         if (window.incognito) {
           browser.windows.update(window.id, {
@@ -299,6 +356,18 @@ function setTitle(window) {
         } else {
           browser.windows.update(window.id, {
             titlePreface: titlepref + " - " + torrentpref + ": "
+          });
+        }
+      } else if (context.name == localpref) {
+        console.log("Active in Localhost window");
+
+        if (window.incognito) {
+          browser.windows.update(window.id, {
+            titlePreface: localprefpriv + " - " + localprefpriv + ": "
+          });
+        } else {
+          browser.windows.update(window.id, {
+            titlePreface: localpref + " - " + localpref + ": "
           });
         }
       }
@@ -310,7 +379,7 @@ function setTitle(window) {
     ) {
       browser.contextualIdentities
         .get(tabInfo[0].cookieStoreId)
-        .then(onContextGotTitle, onError);
+        .then(onContextGotTitle, onContextError);
     } else if (window.incognito) {
       browser.windows.update(window.id, {
         titlePreface: ""
@@ -326,27 +395,38 @@ function setTitle(window) {
     currentWindow: true,
     active: true
   });
-  querying.then(logTabs, onError);
+  querying.then(logTabs, onContextError);
 }
 
-var gettingInfo = browser.runtime.getPlatformInfo();
-gettingInfo.then(got => {
-  if (got.os == "android") {
-  } else {
+var gettingListenerInfo = browser.runtime.getPlatformInfo();
+gettingListenerInfo.then(got => {
+  function onPlatformError() {
+    console.log("Error finding platform info");
+  }
+  if (got.os != "android") {
     browser.windows.onCreated.addListener(() => {
-      /* var gettingStoredSettings = chrome.storage.local.get();
-     gettingStoredSettings.then(setupProxy, onError); */
-      chrome.storage.local.get(function(got) {
+      chrome.storage.local.get(function() {
         setupProxy();
       });
     });
+    browser.tabs.onCreated.addListener(() => {
+      var getting = browser.windows.getCurrent({
+        populate: true
+      });
+      getting.then(setTitle, onPlatformError);
+    });
+    browser.tabs.onActivated.addListener(() => {
+      var getting = browser.windows.getCurrent({
+        populate: true
+      });
+      getting.then(setTitle, onPlatformError);
+    });
   }
 });
-
+/*
 var gettingInfo = browser.runtime.getPlatformInfo();
 gettingInfo.then(got => {
-  if (got.os == "android") {
-  } else {
+  if (got.os != "android") {
     browser.tabs.onCreated.addListener(() => {
       var getting = browser.windows.getCurrent({
         populate: true
@@ -355,11 +435,9 @@ gettingInfo.then(got => {
     });
   }
 });
-
 var gettingInfo = browser.runtime.getPlatformInfo();
 gettingInfo.then(got => {
-  if (got.os == "android") {
-  } else {
+  if (got.os != "android") {
     browser.tabs.onActivated.addListener(() => {
       var getting = browser.windows.getCurrent({
         populate: true
@@ -368,9 +446,9 @@ gettingInfo.then(got => {
     });
   }
 });
-
+*/
 function handleUpdated(updateInfo) {
-  if (updateInfo.theme.colors) {
+  if (updateInfo.theme) {
     console.log(`Theme was applied: ${updateInfo.theme}`);
   } else {
     console.log("Theme was removed");

@@ -6,17 +6,16 @@ gettingInfo.then(got => {
       function bookHome(bookmarkItems) {
         if (!bookmarkItems.length) {
           function gotProxyInfo(info) {
-            let host = info.value.http.split(":")[0];
             let port = info.value.http.split(":")[1];
             if (port == "7644") {
-              var createBookmark = browser.bookmarks.create({
+              let createRhizomeBookmark = browser.bookmarks.create({
                 url: "about:I2p",
                 title: "I2P Home Page",
                 parentId: bookmarkToolbar[0].id
               });
-              createBookmark.then(onCreated);
+              createRhizomeBookmark.then(onCreated);
             } else {
-              var createBookmark = browser.bookmarks.create({
+              let createBookmark = browser.bookmarks.create({
                 url: browser.runtime.getURL("home.html"),
                 title: "I2P Home Page",
                 parentId: bookmarkToolbar[0].id
@@ -28,72 +27,69 @@ gettingInfo.then(got => {
           console.log(
             "(bookmarks) checking if we're running in an I2P Browser"
           );
-          var gettingInfo = browser.proxy.settings.get({});
-          gettingInfo.then(gotProxyInfo);
+          let gettingProxyInfo = browser.proxy.settings.get({});
+          gettingProxyInfo.then(gotProxyInfo);
         }
       }
       function bookTorrent(bookmarkItems) {
         if (!bookmarkItems.length) {
           function gotProxyInfo(info) {
-            let host = info.value.http.split(":")[0];
             let port = info.value.http.split(":")[1];
             if (port == "7644") {
-              var createBookmark = browser.bookmarks.create({
+              let createBookmark = browser.bookmarks.create({
                 url: "http://localhost:7657/i2psnark",
                 title: "Bittorrent",
                 parentId: bookmarkToolbar[0].id
               });
               createBookmark.then(onCreated);
             } else {
-              var createBookmark = browser.bookmarks.create({
+              let createRhizomeBookmark = browser.bookmarks.create({
                 url:
                   "http://" + control_host + ":" + control_port + "/i2psnark",
                 title: "Bittorrent",
                 parentId: bookmarkToolbar[0].id
               });
-              createBookmark.then(onCreated);
+              createRhizomeBookmark.then(onCreated);
             }
           }
           console.log(
             "(bookmarks) checking if we're running in an I2P Browser"
           );
-          var gettingInfo = browser.proxy.settings.get({});
-          gettingInfo.then(gotProxyInfo);
+          let gettingProxyInfo = browser.proxy.settings.get({});
+          gettingProxyInfo.then(gotProxyInfo);
         }
       }
       function bookMail(bookmarkItems) {
         if (!bookmarkItems.length) {
           function gotProxyInfo(info) {
-            let host = info.value.http.split(":")[0];
             let port = info.value.http.split(":")[1];
             if (port == "7644") {
-              var createBookmark = browser.bookmarks.create({
+              let createBookmark = browser.bookmarks.create({
                 url: "http://localhost:7657/webmail",
                 title: "Web Mail",
                 parentId: bookmarkToolbar[0].id
               });
               createBookmark.then(onCreated);
             } else {
-              var createBookmark = browser.bookmarks.create({
+              let createRhizomeBookmark = browser.bookmarks.create({
                 url: "http://" + control_host + ":" + control_port + "/webmail",
                 title: "Web Mail",
                 parentId: bookmarkToolbar[0].id
               });
-              createBookmark.then(onCreated);
+              createRhizomeBookmark.then(onCreated);
             }
             console.log("(bookmarks) adding webmail bookmark");
           }
           console.log(
             "(bookmarks) checking if we're running in an I2P Browser"
           );
-          var gettingInfo = browser.proxy.settings.get({});
-          gettingInfo.then(gotProxyInfo);
+          let gettingProxyInfo = browser.proxy.settings.get({});
+          gettingProxyInfo.then(gotProxyInfo);
         }
       }
       function bookI2PTunnel(bookmarkItems) {
         if (!bookmarkItems.length) {
           function gotProxyInfo(info) {
-            let host = info.value.http.split(":")[0];
             let port = info.value.http.split(":")[1];
             if (port == "7644") {
               var createBookmark = browser.bookmarks.create({
@@ -103,7 +99,7 @@ gettingInfo.then(got => {
               });
               createBookmark.then(onCreated);
             } else {
-              var createBookmark = browser.bookmarks.create({
+              var createRhizomeBookmark = browser.bookmarks.create({
                 url:
                   "http://" +
                   control_host +
@@ -113,15 +109,15 @@ gettingInfo.then(got => {
                 title: "Hidden Services Manager",
                 parentId: bookmarkToolbar[0].id
               });
-              createBookmark.then(onCreated);
+              createRhizomeBookmark.then(onCreated);
             }
             console.log("(bookmarks) adding i2ptunnel bookmark");
           }
           console.log(
             "(bookmarks) checking if we're running in an I2P Browser"
           );
-          var gettingInfo = browser.proxy.settings.get({});
-          gettingInfo.then(gotProxyInfo);
+          var gettingProxyInfo = browser.proxy.settings.get({});
+          gettingProxyInfo.then(gotProxyInfo);
         }
       }
 
@@ -160,9 +156,9 @@ gettingInfo.then(got => {
     bt.then(bookmarks);
 
     function handleCreated(id, bookmarkInfo) {
-      var propValue;
+      //var propValue;
       for (var propName in bookmarkInfo) {
-        propValue = bookmarkInfo[propName];
+        let propValue = bookmarkInfo[propName];
         console.log(propName, propValue);
       }
     }

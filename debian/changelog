@@ -1,3 +1,12 @@
+i2psetproxy.js (0.55-1) UNRELEASED; urgency=low
+
+  * Get rid of Web Browsing context launcher
+  * Fix linter errors
+  * Tolerate themes
+  * Tolerate other containerizers
+
+ -- idk <hankhill19580@gmail.com>  Thu, 2 JAN 2019 16:47:33 -0400
+
 i2psetproxy.js (0.53-1) UNRELEASED; urgency=low
 
   * Quick Fix

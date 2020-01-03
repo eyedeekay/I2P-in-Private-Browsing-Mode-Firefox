@@ -36,8 +36,8 @@ clean:
 ## EVEN RELEASES are AMO RELEASES
 ## ODD RELEASES are SELFHOSTED RELEASES
 
-MOZ_VERSION=0.52
-VERSION=0.53
+MOZ_VERSION=0.54
+VERSION=0.55
 #VERSION=$(MOZ_VERSION)
 #VERSION=1.27
 
@@ -109,10 +109,10 @@ zip: version
 		--exclude="./*.pdf" -r -FS ../i2psetproxy.js.zip *
 
 release:
-	cat desc debian/changelog | gothub release -p -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n $(VERSION) -d -; true
+	cat desc debian/changelog | gothub release -p -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n $(VERSION) -d -; true
 
 delete-release:
-	gothub delete -u eyedeekay -r i2psetproxy.js -t $(VERSION); true
+	gothub delete -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION); true
 
 recreate-release: delete-release release upload
 
@@ -140,6 +140,9 @@ moz-sign: version clean-artifacts
 	@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
 	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
 	web-ext-submit --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
+	make copyss
+
+copyss:
 	cp web-ext-artifacts/*.xpi ./i2ppb@eyedeekay.github.io.xpi; true
 
 ##EVEN NUMBERED, MOZILLA-DISTRIBUTED VERSIONS HERE!
@@ -150,34 +153,78 @@ moz-submit: moz-version
 	web-ext sign --channel listed --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
 
 rhz-submit: rhz-version
-	@echo "Using the 'sign' target to instantly sign an extension for self-distribution"
-	@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
-	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
-	web-ext-submit --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
+	@echo "Rhizome releases are disabled while browser is completed."
+	#@echo "Using the 'sign' target to instantly sign an extension for self-distribution"
+	#@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
+	#@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
+	#web-ext-submit --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
 	#cp web-ext-artifacts/*.xpi ./i2ppb@eyedeekay.github.io.xpi
 
-gettorrent:
-	wget "http://127.0.0.1:7657/i2psnark/i2ppb@eyedeekay.github.io.xpi.torrent"
+#gettorrent:
+#	wget "http://127.0.0.1:7657/i2psnark/i2ppb@eyedeekay.github.io.xpi.torrent"
+
+getxpi:
+	gothub download -t $(VERSION) -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -n "i2ppb@eyedeekay.github.io.xpi"
+
+torrent:
+	mktorrent -a http://zviyq72xcmjupynn5y2f5qa3u7bxyu34jnqmwt6czte2l7idxm7q.b32.i2p/announce \
+		-a http://s5ikrdyjwbcgxmqetxb3nyheizftms7euacuub2hic7defkh3xhq.b32.i2p/a \
+		-a http://uajd4nctepxpac4c4bdyrdw7qvja2a5u3x25otfhkptcjgd53ioq.b32.i2p/announce \
+		-a http://w7tpbzncbcocrqtwwm3nezhnnsw4ozadvi2hmvzdhrqzfxfum7wa.b32.i2p/a \
+		-a http://explodie.org:6969/announce \
+		-a http://tracker.opentrackr.org:1337/announce \
+		-a http://tracker.kamigami.org:2710/announce \
+		-a http://tracker.internetwarriors.net:1337/announce \
+		-a http://tracker.darli.net:6611/announce \
+		-a http://tracker.corpscorp.online:80/announce \
+		-a http://tracker.bz:80/announce \
+		-a http://tracker.bt4g.com:2095/announce \
+		-a http://retracker.sevstar.net:2710/announce \
+		-a http://h4.trakx.nibba.trade:80/announce \
+		-a http://www.proxmox.com:6969/announce \
+		-a http://www.loushao.net:8080/announce \
+		-a http://vps02.net.orel.ru:80/announce \
+		-a http://tracker4.itzmx.com:2710/announce \
+		-a http://tracker3.itzmx.com:6961/announce \
+		-a http://tracker2.itzmx.com:6961/announce \
+		-a http://tracker1.itzmx.com:8080/announce \
+		-a http://tracker01.loveapp.com:6789/announce \
+		-a http://tracker.zerobytes.xyz:1337/announce \
+		-a http://tracker.yoshi210.com:6969/announce \
+		-a http://tracker.torrentyorg.pl:80/announce \
+		-a http://tracker.nyap2p.com:8080/announce \
+		-a http://tracker.lelux.fi:80/announce \
+		-a http://tracker.gbitt.info:80/announce \
+		-a http://pow7.com:80/announce \
+		-a http://opentracker.i2p.rocks:6969/announce \
+		-a http://open.acgtracker.com:1096/announce \
+		-a http://open.acgnxtracker.com:80/announce \
+		-a http://mail2.zelenaya.net:80/announce \
+		-a http://acg.rip:6699/announce \
+		-n "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi" \
+		-o "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent" \
+		-w https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/download/$(VERSION)/i2ppb@eyedeekay.github.io.xpi \
+		i2ppb@eyedeekay.github.io.xpi
 
 upload-torrent:
-	gothub upload -R -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n "i2ppb@eyedeekay.github.io.xpi.torrent" -f "./i2ppb@eyedeekay.github.io.xpi.torrent"
+	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2ppb@eyedeekay.github.io.xpi.torrent" -f "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent"
 
 upload-xpi:
-	gothub upload -R -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n "i2ppb@eyedeekay.github.io.xpi" -f "./i2ppb@eyedeekay.github.io.xpi"
+	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2ppb@eyedeekay.github.io.xpi" -f "./i2ppb@eyedeekay.github.io.xpi"
 
 upload-deb:
-	gothub upload -R -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n "i2psetproxy.js_$(VERSION)-1_amd64.deb" -f "../i2psetproxy.js_$(VERSION)-1_amd64.deb"
-	gothub upload -R -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n "i2psetproxy.js_$(VERSION).orig.tar.gz" -f "../i2psetproxy.js_$(VERSION).orig.tar.gz"
-	gothub upload -R -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n "i2psetproxy.js_$(VERSION)-1.debian.tar.xz" -f "../i2psetproxy.js_$(VERSION)-1.debian.tar.xz"
-	gothub upload -R -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n "i2psetproxy.js_$(VERSION)-1.dsc" -f "../i2psetproxy.js_$(VERSION)-1.dsc"
-	gothub upload -R -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n "i2psetproxy.js_$(VERSION)-1_amd64.changes" -f "../i2psetproxy.js_$(VERSION)-1_amd64.changes"
-	gothub upload -R -u eyedeekay -r i2psetproxy.js -t $(VERSION) -n "i2psetproxy.js_$(VERSION)-1_amd64.buildinfo" -f "../i2psetproxy.js_$(VERSION)-1_amd64.buildinfo"
+	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psetproxy.js_$(VERSION)-1_amd64.deb" -f "../i2psetproxy.js_$(VERSION)-1_amd64.deb"
+	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psetproxy.js_$(VERSION).orig.tar.gz" -f "../i2psetproxy.js_$(VERSION).orig.tar.gz"
+	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psetproxy.js_$(VERSION)-1.debian.tar.xz" -f "../i2psetproxy.js_$(VERSION)-1.debian.tar.xz"
+	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psetproxy.js_$(VERSION)-1.dsc" -f "../i2psetproxy.js_$(VERSION)-1.dsc"
+	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psetproxy.js_$(VERSION)-1_amd64.changes" -f "../i2psetproxy.js_$(VERSION)-1_amd64.changes"
+	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psetproxy.js_$(VERSION)-1_amd64.buildinfo" -f "../i2psetproxy.js_$(VERSION)-1_amd64.buildinfo"
 
 fmt:
 	cleancss -O1 all -O2 all --format beautify home.css -o .home.css && mv .home.css home.css
 	cleancss -O1 all -O2 all --format beautify info.css -o .info.css && mv .info.css info.css
-	#find . -path ./node_modules -prune -o -name '*.css' -exec cleancss -O1 --format beautify {} \;
-	find . -path ./node_modules -prune -o -name '*.js*' -exec prettier --write {} \;
+	find . -path ./node_modules -prune -o -name '*.js' -exec prettier --write {} \;
+	find . -path ./node_modules -prune -o -name '*.json' -exec prettier --write {} \;
 
 lint:
 	eslint --color *.js
@@ -185,8 +232,8 @@ lint:
 deborig: fmt version
 	rm -rf ../i2psetproxy.js-$(VERSION)
 	cp -r . ../i2psetproxy.js-$(VERSION)
-	cd ../i2psetproxy.js-$(VERSION)
-	rm -rf *.xpi web-ext-artifacts
+	cd ../i2psetproxy.js-$(VERSION) && \
+	rm -rf web-ext-artifacts && \
 	tar \
 		-cvz \
 		--exclude=.git \

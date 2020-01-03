@@ -1,7 +1,7 @@
 function checkPeerConnection() {
-  var getting = browser.privacy.network.peerConnectionEnabled.get({});
+  let getting = browser.privacy.network.peerConnectionEnabled.get({});
   getting.then(got => {
-    webrtc = got.value;
+    let webrtc = got.value;
     console.log("checking webrtc", webrtc);
     document.getElementById("enable-web-rtc").checked = webrtc;
   });
@@ -10,9 +10,9 @@ function checkPeerConnection() {
 checkPeerConnection();
 
 function checkHistory() {
-  var getting = browser.storage.local.get("disable_history");
+  let getting = browser.storage.local.get("disable_history");
   getting.then(got => {
-    disable_history = got.disable_history;
+    let disable_history = got.disable_history;
     if (disable_history == undefined) {
       disable_history = false;
     }
@@ -23,8 +23,8 @@ function checkHistory() {
 
 checkHistory();
 
-document.addEventListener("click", e => {
-  if (e.target.id === "window-create-help-panel") {
+document.addEventListener("click", clickEvent => {
+  if (clickEvent.target.id === "window-create-help-panel") {
     let createData = {
       type: "panel",
       incognito: true
@@ -33,7 +33,7 @@ document.addEventListener("click", e => {
     creating.then(() => {
       console.log("The help panel has been created");
     });
-  } else if (e.target.id === "window-create-news-panel") {
+  } else if (clickEvent.target.id === "window-create-news-panel") {
     let createData = {
       type: "panel",
       incognito: true
@@ -42,54 +42,52 @@ document.addEventListener("click", e => {
     creating.then(() => {
       console.log("The news panel has been created");
     });
-  } else if (e.target.id === "generate-fresh-tunnel") {
-    function RefreshIdentity() {
+  } else if (clickEvent.target.id === "generate-fresh-tunnel") {
+    function refreshIdentity() {
       console.log("Generating new identity");
       const Http = new XMLHttpRequest();
       const url = "http://" + controlHost + ":" + controlPort;
       Http.open("GET", url);
       Http.send();
-      Http.onreadystatechange = e => {
+      Http.onreadystatechange = event => {
         console.log(Http.responseText);
       };
     }
-    RefreshIdentity();
-  } else if (e.target.id === "window-preface-title") {
-  } else if (e.target.id === "window-visit-homepage") {
+    refreshIdentity();
+  } else if (clickEvent.target.id === "window-preface-title") {
+  } else if (clickEvent.target.id === "window-visit-homepage") {
     console.log("attempting to create homepage tab");
     goHome();
-  } else if (e.target.id === "window-visit-i2ptunnel") {
+  } else if (clickEvent.target.id === "window-visit-i2ptunnel") {
     console.log("attempting to create i2ptunnel tab");
     goTunnel();
-  } else if (e.target.id === "window-visit-susimail") {
+  } else if (clickEvent.target.id === "window-visit-susimail") {
     console.log("attempting to create susimail tab");
     goMail();
-  } else if (e.target.id === "window-visit-snark") {
+  } else if (clickEvent.target.id === "window-visit-snark") {
     console.log("attempting to create snark tab");
     goSnark();
-  } else if (e.target.id === "clear-browser-data") {
+  } else if (clickEvent.target.id === "clear-browser-data") {
     forgetBrowsingData();
-  } else if (e.target.id === "check-i2p-control") {
-    echo("I2P Router Detected", "panel-section-i2pcontrol-check");
-  } else if (e.target.id === "enable-web-rtc") {
-    if (e.target.checked) {
+  } else if (clickEvent.target.id === "check-i2p-control") {
+    //echo("I2P Router Detected", "panel-section-i2pcontrol-check");
+  } else if (clickEvent.target.id === "enable-web-rtc") {
+    if (clickEvent.target.checked) {
       browser.runtime.sendMessage({ rtc: "enableWebRTC" });
     } else {
       browser.runtime.sendMessage({ rtc: "disableWebRTC" });
     }
-    //checkPeerConnection()
     return;
-  } else if (e.target.id === "disable-history") {
-    if (e.target.checked) {
+  } else if (clickEvent.target.id === "disable-history") {
+    if (clickEvent.target.checked) {
       browser.runtime.sendMessage({ history: "disableHistory" });
     } else {
       browser.runtime.sendMessage({ history: "enableHistory" });
     }
-    //checkHistory()
     return;
   }
 
-  e.preventDefault();
+  clickEvent.preventDefault();
 });
 
 function proxyReadiness() {
@@ -105,14 +103,13 @@ gettingInfo.then(got => {
 
 function goHome() {
   function gotProxyInfo(info) {
-    let host = info.value.http.split(":")[0];
     let port = info.value.http.split(":")[1];
     if (port == "7644") {
-      let createData = {
+      let createRhizomeData = {
         url: "about:I2p"
       };
       console.log("visiting homepage");
-      let creating = browser.tabs.create(createData);
+      let creating = browser.tabs.create(createRhizomeData);
     } else {
       let createData = {
         url: "home.html"
@@ -123,40 +120,56 @@ function goHome() {
     console.log("(bookmarks) adding home page bookmark");
   }
   console.log("(bookmarks) checking if we're running in an I2P Browser");
-  var gettingInfo = browser.proxy.settings.get({});
-  gettingInfo.then(gotProxyInfo);
+  var gettingProxyInfo = browser.proxy.settings.get({});
+  gettingProxyInfo.then(gotProxyInfo);
+}
+
+function onTabCreated() {
+  console.log("Tab Created");
 }
 
 function goTunnel() {
+  function onTabError() {
+    console.log("I2PTunnel tab created");
+  }
   let createData = {
     url: "http://" + control_host + ":" + control_port + "/i2ptunnel"
   };
-  console.log("visiting homepage");
+  console.log("visiting i2ptunnel");
   let creating = browser.tabs.create(createData);
+  creating(onTabCreated, onTabError);
 }
 
 function goMail() {
+  function onTabError() {
+    console.log("Mail tab created");
+  }
   let createData = {
     url: "http://" + control_host + ":" + control_port + "/susimail"
   };
-  console.log("visiting homepage");
+  console.log("visiting mail");
   let creating = browser.tabs.create(createData);
+  creating(onTabCreated, onTabError);
 }
 
 function goSnark() {
+  function onTabError() {
+    console.log("Snark tab created");
+  }
   let createData = {
     url: "http://" + control_host + ":" + control_port + "/i2psnark"
   };
-  console.log("visiting homepage");
+  console.log("visiting snark");
   let creating = browser.tabs.create(createData);
+  creating(onTabCreated, onTabError);
 }
 
 function onVisited(historyItem) {
   function onCleaned(results) {
-    if (!results.length) {
-      console.log(" was removed");
-    } else {
+    if (results.length) {
       console.log(" was not removed");
+    } else {
+      console.log(" was removed");
     }
   }
 
