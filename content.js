@@ -1,19 +1,42 @@
-var infoTitle = document.getElementById("text-section-header");
-infoTitle.textContent = chrome.i18n.getMessage("infoTitle");
-/*
-var helpMessage = document.getElementById("window-create-forum-panel");
-helpMessage.textContent = chrome.i18n.getMessage("forumMessage");
-*/
-/*
-var helpMessage = document.getElementById('window-create-help-panel');
-helpMessage.textContent = chrome.i18n.getMessage("helpMessage")
-*/
-/*
-var newsMessage = document.getElementById("window-create-news-panel");
-newsMessage.textContent = chrome.i18n.getMessage("newsMessage");
-*/
-var clearData = document.getElementById("clear-browser-data");
-clearData.textContent = chrome.i18n.getMessage("clearData");
+function contentUpdateById(id, message) {
+  let infoTitle = document.getElementById(id);
+  let messageContent = chrome.i18n.getMessage(message);
+  if (infoTitle === null) {
+    console.log("content error", id, message);
+    console.log("content error", messageContent);
+    return;
+  }
+  infoTitle.textContent = messageContent;
+}
+
+// Information Section
+contentUpdateById("text-section-header", "extensionName");
+contentUpdateById("description", "extensionDescription");
+contentUpdateById("beta", "extensionStatus");
+contentUpdateById("proxy-check", "proxyFailedStatus");
+
+// Control Section
+contentUpdateById("controlHeader", "controlHeader");
+contentUpdateById("controlExplain", "controlExplain");
+contentUpdateById("clear-browser-data", "clearData");
+contentUpdateById("clear-desc", "clearDesc");
+contentUpdateById("enable-web-rtc", "enableWebRTC");
+contentUpdateById("rtcDesc", "rtcDesc");
+contentUpdateById("disable-history", "disableHistory");
+contentUpdateById("histDesc", "histDesc");
+
+// Application Section
+contentUpdateById("applicationHeader", "applicationHeader");
+contentUpdateById("applicationExplain", "applicationExplain");
+contentUpdateById("window-visit-homepage", "windowVisitHomepage");
+contentUpdateById("abouthome", "abouthome");
+contentUpdateById("window-visit-i2ptunnel", "windowVisitI2ptunnel");
+contentUpdateById("i2ptunnel", "i2ptunnel");
+contentUpdateById("window-visit-susimail", "windowVisitSusiMail");
+contentUpdateById("susimail", "susimail");
+contentUpdateById("window-visit-snark", "windowVisitSnark");
+contentUpdateById("snark", "snark");
+
 /*
 document.addEventListener("click", e => {
   browser.runtime.sendMessage({ url: "http://proxy.i2p" });

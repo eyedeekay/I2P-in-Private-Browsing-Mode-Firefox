@@ -9,15 +9,16 @@
 <body>
   <!--<div>-->
   <script src="home.js" type="text/javascript"></script>
+  <script src="content.js" type="text/javascript"></script>
     <div class='background'>
       <div class='content'>
         <div class='section-header'>
-          <h1>I2P In Private Browsing</h1>
+          <h1 id="text-section-header">I2P In Private Browsing</h1>
         </div>
         <div id="i2pbrowser-version"></div>
           <div id="i2pbrowser-description">
             <p id="description">I2P in Private Browsing is a webextension to secure and enhance your I2P use in the browser.</p>
-            <p class="beta">This is an experimental product.</p>
+            <p id="beta">This is an experimental product.</p>
           </div>
           <div id="readyness">
             <div id="consoleOn" class="hideIfI2PConsoleOff">
@@ -46,24 +47,21 @@
           <!--<p class="hideIfI2POn">&aboutI2p.warn_not_running; <a href="about:i2p">&aboutI2p.refresh_text;</a> &aboutI2p.reccommend_not_running;</p>-->
           <div class="application-info">
           <p class="hideIfI2PConsoleOff">
-            <h3>Applications</h3>
+            <h3 id="applicationHeader">Applications</h3>
             <p id="applicationExplain">These applications use I2P to provide them with security and privacy.</p>
               <ul>
-                <a class="applicationName" target="_blank" href="http://127.0.0.1:7657/i2ptunnel">
-                  <li class="application">
-                    Hidden Services Manager <span class="applicationDesc">I2P has a web-based interface for configuring .i2p services like web sites, to set up your own web sites, go here:</span>
-                  </li>
-                </a>
-                <a class="applicationName" target="_blank" href="http://127.0.0.1:7657/susimail">
-                  <li class="application">
-                  E-Mail <span class="applicationDesc">I2P also bundles a webmail client which can be used to access in-I2P e-mail. To use it, go here:</span>
-                  </li>
-                </a>
-                <a class="applicationName" target="_blank" href="http://127.0.0.1:7657/i2psnark">
-                  <li class="application">
-                    BitTorrent <span class="applicationDesc">I2P is capable of anonymous Peer-to-Peer file sharing, to use the built-in bittorrent client go here:</span>
-                  </li>
-                </a>
+                <li class="application">
+                  <a id="window-visit-i2ptunnel" class="applicationName" target="_blank" href="http://127.0.0.1:7657/i2ptunnel">Hidden Services Manager </a>
+                  <span id="i2ptunnel" class="applicationDesc">I2P has a web-based interface for configuring .i2p services like web sites, to set up your own web sites, go here:</span>
+                </li>
+                <li class="application">
+                  <a id="window-visit-susimail" class="applicationName" target="_blank" href="http://127.0.0.1:7657/susimail">E-Mail </a>
+                  <span id="susimail" class="applicationDesc">I2P also bundles a webmail client which can be used to access in-I2P e-mail. To use it, go here:</span>
+                </li>
+                <li class="application">
+                  <a id="window-visit-snark" class="applicationName" target="_blank" href="http://127.0.0.1:7657/i2psnark">BitTorrent </a>
+                  <span id="snark" class="applicationDesc">I2P is capable of anonymous Peer-to-Peer file sharing, to use the built-in bittorrent client go here:</span>
+                </li>
               </ul>
             </p>
           </div>

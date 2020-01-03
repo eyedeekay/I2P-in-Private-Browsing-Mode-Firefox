@@ -203,6 +203,7 @@ li {
   border-radius: 2px;
   box-shadow: inset 0 0 0 1px #fff,0 0 1px #ccc
 }
+#controlExplain,
 #applicationExplain,
 #linksExplain {
   min-height: 5rem;
