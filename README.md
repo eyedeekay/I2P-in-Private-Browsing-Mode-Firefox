@@ -1,5 +1,5 @@
-i2psetproxy.js
-==============
+I2P in Private Browsing Mode(Firefox-Only)
+==========================================
 
 This is an **Experimental** webextension which introduces a set of new "Private
 Browsing" modes to Firefox-based browsers(Supporting webextensions) that makes
