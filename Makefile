@@ -219,8 +219,8 @@ upload-deb:
 
 upload-docs:
 	gothub release -p -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t docs -n "Documentation" -d "PDF's and text about the extension"; true
-	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t docs -n "Landing Page Documentation.pdf" -f smartlander.pdf
-	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t docs -n "Browser Design Documentation.pdf" -f browser.pdf
+	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t docs -n "Landing Page Documentation.pdf" -f ../smartlander.pdf
+	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t docs -n "Browser Design Documentation.pdf" -f ../browser.pdf
 
 fmt:
 	cleancss -O1 all -O2 all --format beautify home.css -o .home.css && mv .home.css home.css
