@@ -127,6 +127,8 @@ var handleContextProxyRequest = async function(requestDetails) {
           port: getPort()
         };
         return proxy;
+      } else if (extensionHost(requestDetails.url)) {
+        return;
       } else if (i2pHost(requestDetails.url)) {
         console.log("(Proxy)I2P URL detected, ");
         var tab = tabGet(requestDetails.tabId);
