@@ -37,6 +37,13 @@ contentUpdateById("susimail", "susimail");
 contentUpdateById("window-visit-snark", "windowVisitSnark");
 contentUpdateById("snark", "snark");
 
+contentUpdateById("window-visit-webpage", "windowVisitWebPage");
+contentUpdateById("webpage", "webpage");
+contentUpdateById("window-visit-sources", "windowVisitSources");
+contentUpdateById("sources", "sources");
+contentUpdateById("window-visit-releases", "windowVisitReleases");
+contentUpdateById("releases", "releases");
+
 /*
 document.addEventListener("click", e => {
   browser.runtime.sendMessage({ url: "http://proxy.i2p" });

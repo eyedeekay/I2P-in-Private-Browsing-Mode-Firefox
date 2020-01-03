@@ -87,6 +87,31 @@
     "message": "I2P is capable of anonymous Peer-to-Peer file sharing using the built-in bittorrent application.",
     "description": ""
   },
+  "windowVisitSources": {
+    "message": "Extension Source Code: ",
+    "description": ""
+  },
+  "sources": {
+    "message": "Browse the source code here",
+    "description": ""
+  },
+  "windowVisitWebPage": {
+    "message": "Extension Home Page: ",
+    "description": ""
+  },
+  "webpage": {
+    "message": "More information is available here",
+    "description": ""
+  },
+  "windowVisitReleases": {
+    "message": "Extension Releases: ",
+    "description": ""
+  },
+  "releases": {
+    "message": "Check for new releases here",
+    "description": ""
+  },
+
   "titlePreface": {
     "message": "I2P Browser",
     "description": "Preface for the browser titlebar"
