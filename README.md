@@ -111,9 +111,9 @@ Usage:
 Documents
 ------------
 
-  * **[Browser Outline](browser.pdf)**: This document is an outline of each of
+  * **[Browser Outline](https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/download/docs/Browser.Design.Documentation.pdf)**: This document is an outline of each of
   the browser extension's feature panels in presentation form.
-  * **[Smart Lander Design](smartlander.pdf)**: This is the original outline of
+  * **[Smart Lander Design](https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/download/docs/Landing.Page.Documentation.pdf)**: This is the original outline of
   the smart landing page which became the I2P home page within the browser and
   the drop-down control panel.
 

@@ -160,9 +160,6 @@ rhz-submit: rhz-version
 	#web-ext-submit --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
 	#cp web-ext-artifacts/*.xpi ./i2ppb@eyedeekay.github.io.xpi
 
-#gettorrent:
-#	wget "http://127.0.0.1:7657/i2psnark/i2ppb@eyedeekay.github.io.xpi.torrent"
-
 getxpi:
 	gothub download -t $(VERSION) -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -n "i2ppb@eyedeekay.github.io.xpi"
 
@@ -219,6 +216,11 @@ upload-deb:
 	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psetproxy.js_$(VERSION)-1.dsc" -f "../i2psetproxy.js_$(VERSION)-1.dsc"
 	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psetproxy.js_$(VERSION)-1_amd64.changes" -f "../i2psetproxy.js_$(VERSION)-1_amd64.changes"
 	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psetproxy.js_$(VERSION)-1_amd64.buildinfo" -f "../i2psetproxy.js_$(VERSION)-1_amd64.buildinfo"
+
+upload-docs:
+	gothub release -p -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t docs -n "Documentation" -d "PDF's and text about the extension"; true
+	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t docs -n "Landing Page Documentation.pdf" -f smartlander.pdf
+	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t docs -n "Browser Design Documentation.pdf" -f browser.pdf
 
 fmt:
 	cleancss -O1 all -O2 all --format beautify home.css -o .home.css && mv .home.css home.css
