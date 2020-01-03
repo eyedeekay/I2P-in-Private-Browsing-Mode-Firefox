@@ -150,10 +150,11 @@ moz-submit: moz-version
 	web-ext sign --channel listed --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
 
 rhz-submit: rhz-version
-	@echo "Using the 'sign' target to instantly sign an extension for self-distribution"
-	@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
-	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
-	web-ext-submit --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
+	@echo "Rhizome releases are disabled while browser is completed."
+	#@echo "Using the 'sign' target to instantly sign an extension for self-distribution"
+	#@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
+	#@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
+	#web-ext-submit --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
 	#cp web-ext-artifacts/*.xpi ./i2ppb@eyedeekay.github.io.xpi
 
 gettorrent:
@@ -185,8 +186,8 @@ lint:
 deborig: fmt version
 	rm -rf ../i2psetproxy.js-$(VERSION)
 	cp -r . ../i2psetproxy.js-$(VERSION)
-	cd ../i2psetproxy.js-$(VERSION)
-	rm -rf *.xpi web-ext-artifacts
+	cd ../i2psetproxy.js-$(VERSION) && \
+	rm -rf web-ext-artifacts && \
 	tar \
 		-cvz \
 		--exclude=.git \
