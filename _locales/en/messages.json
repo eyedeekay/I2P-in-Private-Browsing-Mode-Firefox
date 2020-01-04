@@ -65,51 +65,51 @@
   },
   "windowVisitI2ptunnel": {
     "message": "Hidden Services Manager: ",
-    "description": ""
+    "description": "Title for i2ptunnel"
   },
   "i2ptunnel": {
     "message": "I2P has a web-based interface for configuring .i2p services like web sites which you can set up.",
-    "description": ""
+    "description": "Description for i2ptunnel"
   },
   "windowVisitSusimail": {
     "message": "E-Mail: ",
-    "description": ""
+    "description": "Title for e-mail"
   },
   "susimail": {
     "message": "I2P also bundles a webmail client which can be used to access in-I2P e-mail.",
-    "description": ""
+    "description": "Description for e-mail"
   },
   "windowVisitSnark": {
     "message": "Bittorrent: ",
-    "description": ""
+    "description": "Title for Bittorrent"
   },
   "snark": {
     "message": "I2P is capable of anonymous Peer-to-Peer file sharing using the built-in bittorrent application.",
-    "description": ""
+    "description": "Description for Bittorrent"
   },
   "windowVisitSources": {
     "message": "Extension Source Code: ",
-    "description": ""
+    "description": "Title for source code link"
   },
   "sources": {
     "message": "Browse the source code here",
-    "description": ""
+    "description": "Description for the Source code link"
   },
   "windowVisitWebPage": {
     "message": "Extension Home Page: ",
-    "description": ""
+    "description": "Visit extension homepage on Github"
   },
   "homepage": {
     "message": "More information is available here",
-    "description": ""
+    "description": "Find more information"
   },
   "windowVisitReleases": {
     "message": "Extension Releases: ",
-    "description": ""
+    "description": "Visit the release page"
   },
   "releases": {
     "message": "Check for new releases here",
-    "description": ""
+    "description": "Description for new release page"
   },
   "titlePreface": {
     "message": "I2P Browser",

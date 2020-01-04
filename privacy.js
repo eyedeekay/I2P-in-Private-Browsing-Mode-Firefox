@@ -199,13 +199,7 @@ function EnableSavePasswords() {
 
 var defaultSettings = {
   since: "forever",
-  dataTypes: [
-"downloads",
-"passwords",
-"formData",
-"localStorage",
-"history"
-]
+  dataTypes: ["downloads", "passwords", "formData", "localStorage", "history"]
 };
 
 function onError(therror) {

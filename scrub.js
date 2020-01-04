@@ -421,8 +421,5 @@ browser.webRequest.onBeforeRequest.addListener(
 browser.webRequest.onBeforeSendHeaders.addListener(
   contextScrub,
   { urls: ["<all_urls>"] },
-  [
-"blocking",
-"requestHeaders"
-]
+  ["blocking", "requestHeaders"]
 );

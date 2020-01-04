@@ -117,8 +117,11 @@ var handleContextProxyRequest = async function(requestDetails) {
         console.log("(proxy)Tab error", error);
       }
     };
-    if (requestDetails.cookieStoreId == "firefox-default" || requestDetails.cookieStoreId == "firefox-private" ){
-        return browser.proxy.settings.get({});
+    if (
+      requestDetails.cookieStoreId == "firefox-default" ||
+      requestDetails.cookieStoreId == "firefox-private"
+    ) {
+      return browser.proxy.settings.get({});
     }
     if (requestDetails.tabId > 0) {
       console.log("manifest", requestDetails);
