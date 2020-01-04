@@ -38,8 +38,8 @@ clean:
 ## EVEN RELEASES are AMO RELEASES
 ## ODD RELEASES are SELFHOSTED RELEASES
 
-MOZ_VERSION=0.54
-VERSION=0.55
+MOZ_VERSION=0.56
+VERSION=0.57
 #VERSION=$(MOZ_VERSION)
 #VERSION=1.27
 
@@ -124,7 +124,7 @@ recreate-release: delete-release release upload
 
 upload: upload-xpi upload-deb
 
-full-release: release submit deb upload
+full-release: release submit deb upload torrent upload-torrent
 
 WEB_EXT_API_KEY=AMO_KEY
 WEB_EXT_API_SECRET=AMO_SECRET
@@ -147,6 +147,7 @@ moz-sign: version clean-artifacts
 	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
 	web-ext-submit --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
 	make copyss
+	sleep 5
 
 copyss:
 	cp web-ext-artifacts/*.xpi ./i2ppb@eyedeekay.github.io.xpi; true
@@ -157,6 +158,7 @@ moz-submit: moz-version
 	@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
 	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
 	web-ext sign --channel listed --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
+	sleep 5
 
 rhz-submit: rhz-version
 	@echo "Rhizome releases are disabled while browser is completed."
@@ -169,7 +171,7 @@ rhz-submit: rhz-version
 getxpi:
 	gothub download -t $(VERSION) -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -n "i2ppb@eyedeekay.github.io.xpi"
 
-torrent:
+torrent: getxpi
 	mktorrent -a http://zviyq72xcmjupynn5y2f5qa3u7bxyu34jnqmwt6czte2l7idxm7q.b32.i2p/announce \
 		-a http://s5ikrdyjwbcgxmqetxb3nyheizftms7euacuub2hic7defkh3xhq.b32.i2p/a \
 		-a http://uajd4nctepxpac4c4bdyrdw7qvja2a5u3x25otfhkptcjgd53ioq.b32.i2p/announce \

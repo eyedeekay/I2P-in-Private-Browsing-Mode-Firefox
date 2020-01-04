@@ -1,3 +1,13 @@
+i2psetproxy.js (0.57-1) UNRELEASED; urgency=low
+
+  * Snowflake compatibility
+  * Lots of small compatibility fixes
+  * More linter errors
+  * Make it multilingual again
+  * Distribute a torrent and a magnet link with the plugin of the plugin
+
+ -- idk <hankhill19580@gmail.com>  Thu, 4 JAN 2019 16:43:58 -0400
+
 i2psetproxy.js (0.55-1) UNRELEASED; urgency=low
 
   * Get rid of Web Browsing context launcher
