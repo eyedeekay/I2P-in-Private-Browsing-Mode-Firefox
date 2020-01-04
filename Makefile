@@ -16,6 +16,7 @@ install: uninstall
 	cp ./*.md $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
 	cp ./*.xpi $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
 	cp ./*.png $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
+	cp ./*.torrent $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
 	cp ./manifest.json $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
 	cp ./LICENSE $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
 	ln -s $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io \
@@ -206,6 +207,7 @@ torrent:
 		-o "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent" \
 		-w https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/download/$(VERSION)/i2ppb@eyedeekay.github.io.xpi \
 		i2ppb@eyedeekay.github.io.xpi
+	ln -sf "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent" "./i2ppb@eyedeekay.github.io.xpi.torrent"
 
 upload-torrent:
 	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2ppb@eyedeekay.github.io.xpi.torrent" -f "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent"

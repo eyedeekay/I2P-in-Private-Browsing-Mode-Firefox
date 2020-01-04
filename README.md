@@ -30,6 +30,14 @@ and then you can install it with:
 
         sudo apt install ../i2psetproxy.js_*.deb
 
+Bittorrent Download:
+--------------------
+
+The self-hosted plugin is available from I2P both within the I2P and Clearnet
+Bittorrent network.
+
+  * [Get the .torrent file](./i2ppb@eyedeekay.github.io.xpi.torrent)
+
 Usage:
 ------
 
