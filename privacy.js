@@ -167,7 +167,7 @@ function AssurePeerConnection() {
       value: "proxy_only"
     });
   }
-  rtc = browser.privacy.network.peerConnectionEnabled.get({});
+  let rtc = browser.privacy.network.peerConnectionEnabled.get({});
   rtc.then(assure);
 }
 

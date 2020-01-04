@@ -2,8 +2,7 @@ function contentUpdateById(id, message) {
   let infoTitle = document.getElementById(id);
   let messageContent = chrome.i18n.getMessage(message);
   if (infoTitle === null) {
-    console.log("content error", id, message);
-    console.log("content error", messageContent);
+    console.log("content error", id, messageContent);
     return;
   }
   infoTitle.textContent = messageContent;
@@ -37,29 +36,10 @@ contentUpdateById("susimail", "susimail");
 contentUpdateById("window-visit-snark", "windowVisitSnark");
 contentUpdateById("snark", "snark");
 
+// Homepage Section
 contentUpdateById("window-visit-webpage", "windowVisitWebPage");
 contentUpdateById("webpage", "webpage");
 contentUpdateById("window-visit-sources", "windowVisitSources");
 contentUpdateById("sources", "sources");
 contentUpdateById("window-visit-releases", "windowVisitReleases");
 contentUpdateById("releases", "releases");
-
-/*
-document.addEventListener("click", e => {
-  browser.runtime.sendMessage({ url: "http://proxy.i2p" });
-});
-
-function proxyContent(message) {
-  var proxyData = document.getElementById("proxy-health");
-  proxyData.textContent = message;
-  console.log("Event occurred", message);
-}
-
-browser.runtime.onMessage.addListener(proxyContent);
-*/
-
-/*
-function signalWebRTC(val){
-    console.log("signal", val)
-}
-*/

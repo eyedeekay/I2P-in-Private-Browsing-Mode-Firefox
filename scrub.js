@@ -87,7 +87,7 @@ var contextScrub = async function(requestDetails) {
   }
 };
 
-var contextSetup = async function(requestDetails) {
+var contextSetup = function(requestDetails) {
   function onContextError() {
     console.log("Context launcher error");
   }

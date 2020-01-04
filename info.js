@@ -55,6 +55,8 @@ document.addEventListener("click", clickEvent => {
     }
     refreshIdentity();
   } else if (clickEvent.target.id === "window-preface-title") {
+    console.log("attempting to create homepage tab");
+    goHome();
   } else if (clickEvent.target.id === "window-visit-homepage") {
     console.log("attempting to create homepage tab");
     goHome();

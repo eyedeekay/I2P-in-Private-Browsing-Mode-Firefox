@@ -265,12 +265,10 @@ function themeWindow(window) {
       browser.contextualIdentities
         .get(tabInfo[0].cookieStoreId)
         .then(onContextGotTheme, onThemeError);
+    } else if (isEmpty(oldtheme)) {
+      browser.theme.reset();
     } else {
-      if (isEmpty(oldtheme)) {
-        browser.theme.reset();
-      } else {
-        browser.theme.update(window.id, oldtheme);
-      }
+      browser.theme.update(window.id, oldtheme);
     }
   }
 
