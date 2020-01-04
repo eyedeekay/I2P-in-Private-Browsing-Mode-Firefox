@@ -99,7 +99,7 @@
     "message": "Extension Home Page: ",
     "description": ""
   },
-  "webpage": {
+  "homepage": {
     "message": "More information is available here",
     "description": ""
   },
@@ -111,7 +111,6 @@
     "message": "Check for new releases here",
     "description": ""
   },
-
   "titlePreface": {
     "message": "I2P Browser",
     "description": "Preface for the browser titlebar"
