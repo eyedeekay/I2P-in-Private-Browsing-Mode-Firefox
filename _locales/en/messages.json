@@ -191,10 +191,6 @@
     "message": "Visit the I2P Forum to learn more or ask for assistance",
     "description": "Help Message"
   },
-  "clearData": {
-    "message": "Clear all browsing data",
-    "description": "Help Message"
-  },
   "hostText": {
     "message": "Host: ",
     "description": "Host for the HTTP or SOCKS5 Proxy"
