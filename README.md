@@ -36,6 +36,7 @@ Bittorrent Download:
 The self-hosted plugin is available from I2P both within the I2P and Clearnet
 Bittorrent network.
 
+  * magnetsub
   * [Get the .torrent file](./i2ppb@eyedeekay.github.io.xpi.torrent)
 
 Usage:
