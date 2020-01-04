@@ -181,11 +181,11 @@ function SetupSettings() {
 
   //
   function checkHostStoredSettings(storedSettings) {
-    if (storedSettings.proxy_host != undefined) {
-      proxy_host = storedSettings.proxy_host;
-    } else {
+    if (storedSettings.proxy_host == undefined) {
       proxy_host = "127.0.0.1";
       storedSettings.proxy_host = proxy_host;
+    } else {
+      proxy_host = storedSettings.proxy_host;
     }
     console.log("Initialising Host", storedSettings.proxy_host);
     setupProxy();
@@ -195,11 +195,11 @@ function SetupSettings() {
 
   //
   function checkPortStoredSettings(storedSettings) {
-    if (storedSettings.proxy_port != undefined) {
-      proxy_port = storedSettings.proxy_port;
-    } else {
+    if (storedSettings.proxy_port == undefined) {
       proxy_port = "4444";
       storedSettings.proxy_port = proxy_port;
+    } else {
+      proxy_port = storedSettings.proxy_port;
     }
     console.log("Initialising Port", storedSettings.proxy_port);
     setupProxy();
@@ -209,11 +209,11 @@ function SetupSettings() {
 
   //
   function checkControlHostStoredSettings(storedSettings) {
-    if (storedSettings.control_host != undefined) {
-      control_host = storedSettings.control_host;
-    } else {
+    if (storedSettings.control_host == undefined) {
       control_host = "127.0.0.1";
       storedSettings.control_host = control_host;
+    } else {
+      control_host = storedSettings.control_host;
     }
     console.log("Initialising Control Host", storedSettings.control_host);
     setupProxy();
@@ -228,11 +228,11 @@ function SetupSettings() {
 
   //
   function checkControlPortStoredSettings(storedSettings) {
-    if (storedSettings.control_port != undefined) {
-      let control_port = storedSettings.control_port;
-    } else {
+    if (storedSettings.control_port == undefined) {
       let new_control_port = "7657";
       storedSettings.control_port = new_control_port;
+    } else {
+      let control_port = storedSettings.control_port;
     }
     console.log("Initialising Control Port", storedSettings.control_port);
     setupProxy();
@@ -247,11 +247,11 @@ function SetupSettings() {
 
   //
   function checkHistoryStoredSettings(storedSettings) {
-    if (storedSettings.disable_history != undefined) {
-      disable_history = storedSettings.disable_history;
-    } else {
+    if (storedSettings.disable_history == undefined) {
       disable_history = false;
       storedSettings.disable_history = disable_history;
+    } else {
+      disable_history = storedSettings.disable_history;
     }
     console.log(
       "Initialising Disabled History",
@@ -337,14 +337,14 @@ function updateFromStorage() {
   console.log("updating settings from storage");
   var gettingInfo = browser.runtime.getPlatformInfo();
   gettingInfo.then(got => {
-    if (got.os != "android") {
-      browser.windows.getAll().then(wins => wins.forEach(themeWindow));
+    if (got.os == "android") {
       chrome.storage.local.get(function() {
         SetupSettings();
         update();
         setupProxy();
       });
     } else {
+      browser.windows.getAll().then(wins => wins.forEach(themeWindow));
       chrome.storage.local.get(function() {
         SetupSettings();
         update();

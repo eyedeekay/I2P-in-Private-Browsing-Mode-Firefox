@@ -33,7 +33,10 @@ function eventHandler(event) {
 }
 
 function createOptions(node, identity) {
-  for (let option of ["Create", "Close All"]) {
+  for (let option of [
+"Create",
+"Close All"
+]) {
     let alink = document.createElement("a");
     alink.href = "#";
     alink.innerText = option;

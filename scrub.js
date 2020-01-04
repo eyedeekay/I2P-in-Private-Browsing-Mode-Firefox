@@ -87,7 +87,7 @@ var contextScrub = async function(requestDetails) {
   }
 };
 
-var contextSetup = async function(requestDetails) {
+var contextSetup = function(requestDetails) {
   function onContextError() {
     console.log("Context launcher error");
   }
@@ -421,5 +421,8 @@ browser.webRequest.onBeforeRequest.addListener(
 browser.webRequest.onBeforeSendHeaders.addListener(
   contextScrub,
   { urls: ["<all_urls>"] },
-  ["blocking", "requestHeaders"]
+  [
+"blocking",
+"requestHeaders"
+]
 );

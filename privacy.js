@@ -167,7 +167,7 @@ function AssurePeerConnection() {
       value: "proxy_only"
     });
   }
-  rtc = browser.privacy.network.peerConnectionEnabled.get({});
+  let rtc = browser.privacy.network.peerConnectionEnabled.get({});
   rtc.then(assure);
 }
 
@@ -199,7 +199,13 @@ function EnableSavePasswords() {
 
 var defaultSettings = {
   since: "forever",
-  dataTypes: ["downloads", "passwords", "formData", "localStorage", "history"]
+  dataTypes: [
+"downloads",
+"passwords",
+"formData",
+"localStorage",
+"history"
+]
 };
 
 function onError(therror) {
