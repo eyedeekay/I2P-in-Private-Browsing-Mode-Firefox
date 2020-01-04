@@ -15,6 +15,7 @@ install: uninstall
 	cp ./*.css $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
 	cp ./*.md $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
 	cp ./*.xpi $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
+	cp ./*.png $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
 	cp ./manifest.json $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
 	cp ./LICENSE $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
 	ln -s $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io \

@@ -16,6 +16,7 @@ override_dh_auto_install:
 	cp ./*.css $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2ppb@eyedeekay.github.io/
 	cp ./*.md $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2ppb@eyedeekay.github.io/
 	cp ./*.xpi $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2ppb@eyedeekay.github.io/
+	cp ./*.png $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2ppb@eyedeekay.github.io/
 	cp ./manifest.json $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2ppb@eyedeekay.github.io/
 	cp ./LICENSE $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2ppb@eyedeekay.github.io/
 	ln -sf $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2ppb@eyedeekay.github.io \

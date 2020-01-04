@@ -356,6 +356,9 @@ var contextSetup = async function(requestDetails) {
     if (requestDetails == undefined) {
       return requestDetails;
     }
+    if (extensionHost(requestDetails.url)) {
+      return requestDetails;
+    }
     if (requestDetails.tabId > 0) {
       if (proxyHost(requestDetails.url)) {
         setcookie = browser.cookies.set({
@@ -368,9 +371,6 @@ var contextSetup = async function(requestDetails) {
       }
       console.log("(isolate)Request Details", requestDetails);
       var tab = tabGet(requestDetails.tabId);
-      if (extensionHost(requestDetails.url)) {
-        return requestDetails;
-      }
       if (i2pHost(requestDetails.url)) {
         var setcookie = browser.cookies.set({
           firstPartyDomain: i2pHostName(requestDetails.url),
