@@ -130,29 +130,31 @@ function setAllPrivacy() {
 setAllPrivacy();
 
 function ResetPeerConnection() {
-  var webrtc = false;
-  var rtc = browser.privacy.network.peerConnectionEnabled.set({
-    value: webrtc
-  });
-  rtc.then(AssurePeerConnection);
+  function reset(snowflake) {
+    var webrtc = false;
+    console.log("No snowflake plugin found, pre-disabled WebRTC");
+    var rtc = browser.privacy.network.peerConnectionEnabled.set({
+      value: webrtc
+    });
+    rtc.then(AssurePeerConnection);
+  }
+  function snowflake(snowflake) {
+    console.log("snowflake plugin found, leaving WebRTC alone", snowflake);
+    EnablePeerConnection();
+  }
+  var snowflakeInfo = browser.management.get(
+    "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}" // string
+  );
+  snowflakeInfo.then(snowflake, reset);
 }
 
 function EnablePeerConnection() {
-  var webrtc = false;
+  var webrtc = true;
   var rtc = browser.privacy.network.peerConnectionEnabled.set({
     value: webrtc
   });
-  rtc.then(SetupPeerConnection);
-  console.log("Enabled WebRTC");
-}
-
-function SetupPeerConnection() {
-  var webrtc = true;
-  console.log("Pre-disabled WebRTC");
-  let rtc = browser.privacy.network.peerConnectionEnabled.set({
-    value: webrtc
-  });
   rtc.then(AssurePeerConnection);
+  console.log("Enabled WebRTC");
 }
 
 function AssurePeerConnection() {
