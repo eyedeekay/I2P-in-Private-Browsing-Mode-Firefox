@@ -1,4 +1,12 @@
 function checkPeerConnection() {
+  function snowflake(snowflake) {
+    console.log("snowflake plugin found, leaving WebRTC alone", snowflake);
+    EnablePeerConnection();
+  }
+  var snowflakeInfo = browser.management.get(
+    "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}" // string
+  );
+  snowflakeInfo.then(snowflake);
   let getting = browser.privacy.network.peerConnectionEnabled.get({});
   getting.then(got => {
     let webrtc = got.value;
@@ -79,6 +87,7 @@ document.addEventListener("click", clickEvent => {
     } else {
       browser.runtime.sendMessage({ rtc: "disableWebRTC" });
     }
+    checkPeerConnection();
     return;
   } else if (clickEvent.target.id === "disable-history") {
     if (clickEvent.target.checked) {

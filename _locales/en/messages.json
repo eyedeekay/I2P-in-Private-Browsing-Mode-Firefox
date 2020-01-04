@@ -36,7 +36,7 @@
     "description": "WebRTC checkbox label."
   },
   "rtcDesc": {
-    "message": "WebRTC is disabled by default, but you can turn it back on and force it to honor the proxy.",
+    "message": "WebRTC is disabled by default, but you can turn it back on and force it to honor the proxy. If you are a user of the Snowflake browser extension, this option is disabled and WebRTC is turned on by default.",
     "description": "WebRTC action description"
   },
   "disableHistory": {
