@@ -64,6 +64,8 @@ amo-readme:
 		sed 's|</h3>|</strong>|g' | \
 		grep -v '<img' > amo-index.html
 
+MAGNET=`torrent2magnet i2ppb@eyedeekay.github.io.xpi.torrent`
+
 index:
 	@echo "<!DOCTYPE html>" > index.html
 	@echo "<html>" >> index.html
@@ -71,7 +73,7 @@ index:
 	@echo "  <title>I2P in Private Browsing Mode</title>" >> index.html
 	@echo "  <link rel=\"stylesheet\" type=\"text/css\" href =\"home.css\" />" >> index.html
 	@echo "</head>" >> index.html
-	markdown README.md >> index.html
+	sed "s|magnet|$(TORRENT)|g" README.md >> index.html
 	@echo "</html>" >> index.html
 
 
