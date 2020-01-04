@@ -172,6 +172,7 @@ getxpi:
 	gothub download -t $(VERSION) -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -n "i2ppb@eyedeekay.github.io.xpi"
 
 torrent: getxpi
+	rm -f "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent"
 	mktorrent -a http://zviyq72xcmjupynn5y2f5qa3u7bxyu34jnqmwt6czte2l7idxm7q.b32.i2p/announce \
 		-a http://s5ikrdyjwbcgxmqetxb3nyheizftms7euacuub2hic7defkh3xhq.b32.i2p/a \
 		-a http://uajd4nctepxpac4c4bdyrdw7qvja2a5u3x25otfhkptcjgd53ioq.b32.i2p/announce \
@@ -209,8 +210,9 @@ torrent: getxpi
 		-n "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi" \
 		-o "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent" \
 		-w https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/download/$(VERSION)/i2ppb@eyedeekay.github.io.xpi \
-		i2ppb@eyedeekay.github.io.xpi
+		i2ppb@eyedeekay.github.io.xpi; true
 	ln -sf "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent" "./i2ppb@eyedeekay.github.io.xpi.torrent"
+	make index
 
 upload-torrent:
 	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2ppb@eyedeekay.github.io.xpi.torrent" -f "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent"
@@ -264,3 +266,15 @@ deb: deborig
 
 dat:
 	wget -c -O dat.js https://bundle.run/dat-js
+
+rss: torrent
+	rm -f releases.diff
+	grep -c "$(MAGNET)" .releases.atom && false || true
+	mv releases.atom .releases.atom
+	wget https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases.atom
+	diff releases.atom .releases.atom | tee releases.diff
+	patch releases.atom <releases.diff
+	sed -i "s|<title>$(VERSION)</title>|<title>$(VERSION)</title>\n    <enclosure url=\"$(MAGNET)\" type=\"application/x-bittorrent\" />|g" releases.atom
+
+upload-rss:
+	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t docs -n "releases.atom" -f releases.atom

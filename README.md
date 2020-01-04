@@ -33,8 +33,9 @@ and then you can install it with:
 Bittorrent Download:
 --------------------
 
-The self-hosted plugin is available from I2P both within the I2P and Clearnet
-Bittorrent network.
+The self-hosted plugin is available from bittorrent both within the I2P and
+Clearnet Bittorrent network(With a web seed to support it in case one goes
+dead).
 
   * magnetsub
   * [Get the .torrent file](./i2ppb@eyedeekay.github.io.xpi.torrent)
