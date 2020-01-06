@@ -208,8 +208,8 @@ torrent: getxpi
 		-a http://open.acgnxtracker.com:80/announce \
 		-a http://mail2.zelenaya.net:80/announce \
 		-a http://acg.rip:6699/announce \
-		-n "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi" \
-		-o "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent" \
+		-n "i2ppb-$(VERSION)@eyedeekay.github.io.xpi" \
+		-o "i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent" \
 		-w https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/download/$(VERSION)/i2ppb@eyedeekay.github.io.xpi \
 		i2ppb@eyedeekay.github.io.xpi; true
 	ln -sf "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent" "./i2ppb@eyedeekay.github.io.xpi.torrent"

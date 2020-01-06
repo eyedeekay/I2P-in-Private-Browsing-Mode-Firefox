@@ -10,7 +10,7 @@
     <updated>2020-01-06T17:16:33Z</updated>
     <link rel="alternate" type="text/html" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/tag/0.57"/>
     <title>0.57</title>
-    <enclosure url="magnet:?xt=urn:btih:a0cf0107e4508cd578976e4d0c16d060b5148fde" type="application/x-bittorrent" />
+    <enclosure url="magnet:?xt=urn:btih:90f1cef9f03f802499ecd7e22226aae72ddaa9c0" type="application/x-bittorrent" />
     <content type="html">&lt;h1&gt;I2P in Private Browsing Mode&lt;/h1&gt;
 &lt;p&gt;A simple plugin for configuring a Firefox based web browser to isolate I2P&lt;br&gt;
 Browsing to a single contextual identity, thus creating an I2P in Private&lt;br&gt;
