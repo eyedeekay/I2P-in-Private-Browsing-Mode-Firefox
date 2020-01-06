@@ -270,7 +270,7 @@ dat:
 
 rss: torrent
 	rm -f releases.diff
-	grep -c "$(MAGNET)" .releases.atom && false || true
+	grep "$(MAGNET)" .releases.atom && false || true
 	mv releases.atom .releases.atom
 	wget https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases.atom
 	diff releases.atom .releases.atom | tee releases.diff

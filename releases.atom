@@ -7,7 +7,7 @@
   <updated>2020-01-04T21:46:19Z</updated>
   <entry>
     <id>tag:github.com,2008:Repository/169256012/0.57</id>
-    <updated>2020-01-04T21:46:37Z</updated>
+    <updated>2020-01-06T17:16:33Z</updated>
     <link rel="alternate" type="text/html" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/tag/0.57"/>
     <title>0.57</title>
     <enclosure url="magnet:?xt=urn:btih:a0cf0107e4508cd578976e4d0c16d060b5148fde" type="application/x-bittorrent" />
@@ -23,71 +23,7 @@ i2psetproxy.js (0.57-1) UNRELEASED; urgency=low&lt;/p&gt;
 &lt;li&gt;Make it multilingual again&lt;/li&gt;
 &lt;li&gt;Distribute a torrent and a magnet link with the plugin of the plugin&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Thu, 4 JAN 2019 16:43:58 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.55-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Get rid of Web Browsing context launcher&lt;/li&gt;
-&lt;li&gt;Fix linter errors&lt;/li&gt;
-&lt;li&gt;Tolerate themes&lt;/li&gt;
-&lt;li&gt;Tolerate other containerizers&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Thu, 2 JAN 2019 16:47:33 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.53-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Quick Fix&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Sat, 23 NOV 2019 20:11:30 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.51-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Numerous code cleanups, compatibility fixes&lt;/li&gt;
-&lt;li&gt;enable-disable history&lt;/li&gt;
-&lt;li&gt;better homepage, better control panel, saner options&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Sat, 23 NOV 2019 20:10:30 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.49-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;fix tabs&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Sat, 23 NOV 2019 22:51:11 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.47-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Improve android compatibility&lt;/li&gt;
-&lt;li&gt;Improve code organization&lt;/li&gt;
-&lt;li&gt;Partial protocol handlers implementation&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Sat, 23 NOV 2019 18:53:11 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.45-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Improve the user interface a whole bunch&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Fri, 22 NOV 2019 18:17:33 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.43-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Contextualize All the Things&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Mon, 11 OCT 2019 12:41:33 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.41-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Only open tabs, not windows&lt;/li&gt;
-&lt;li&gt;Optionally enable WebRTC&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Thu, 31 OCT 2019 12:41:33 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.37-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Honor contextual ID when deleting history&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Thu, 17 OCT 2019 00:52:19 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.35-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Automatically activate contexts&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Thu, 01 Aug 2019 00:32:39 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.31-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Initial release. Closes: #nnnn&lt;br&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Thu, 01 Aug 2019 00:32:39 -0400&lt;/p&gt;</content>
+&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Thu, 4 JAN 2019 16:43:58 -0400&lt;/p&gt;</content>
     <author>
       <name>eyedeekay</name>
     </author>
@@ -106,10 +42,9 @@ i2psetproxy.js (0.57-1) UNRELEASED; urgency=low&lt;/p&gt;
   </entry>
   <entry>
     <id>tag:github.com,2008:Repository/169256012/0.55</id>
-    <updated>2020-01-02T21:51:15Z</updated>
+    <updated>2020-01-06T17:17:01Z</updated>
     <link rel="alternate" type="text/html" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/tag/0.55"/>
     <title>0.55</title>
-    <enclosure url="magnet:?xt=urn:btih:dc04e13d4697f68fe14975707015a45ed4a7d8e7" type="application/x-bittorrent" />
     <content type="html">&lt;h1&gt;I2P in Private Browsing Mode&lt;/h1&gt;
 &lt;p&gt;A simple plugin for configuring a Firefox based web browser to isolate I2P&lt;br&gt;
 Browsing to a single contextual identity, thus creating an I2P in Private&lt;br&gt;
@@ -121,63 +56,7 @@ i2psetproxy.js (0.55-1) UNRELEASED; urgency=low&lt;/p&gt;
 &lt;li&gt;Tolerate themes&lt;/li&gt;
 &lt;li&gt;Tolerate other containerizers&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Thu, 2 JAN 2019 16:47:33 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.53-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Quick Fix&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Sat, 23 NOV 2019 20:11:30 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.51-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Numerous code cleanups, compatibility fixes&lt;/li&gt;
-&lt;li&gt;enable-disable history&lt;/li&gt;
-&lt;li&gt;better homepage, better control panel, saner options&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Sat, 23 NOV 2019 20:10:30 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.49-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;fix tabs&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Sat, 23 NOV 2019 22:51:11 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.47-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Improve android compatibility&lt;/li&gt;
-&lt;li&gt;Improve code organization&lt;/li&gt;
-&lt;li&gt;Partial protocol handlers implementation&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Sat, 23 NOV 2019 18:53:11 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.45-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Improve the user interface a whole bunch&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Fri, 22 NOV 2019 18:17:33 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.43-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Contextualize All the Things&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Mon, 11 OCT 2019 12:41:33 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.41-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Only open tabs, not windows&lt;/li&gt;
-&lt;li&gt;Optionally enable WebRTC&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Thu, 31 OCT 2019 12:41:33 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.37-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Honor contextual ID when deleting history&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Thu, 17 OCT 2019 00:52:19 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.35-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Automatically activate contexts&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Thu, 01 Aug 2019 00:32:39 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.31-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Initial release. Closes: #nnnn&lt;br&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Thu, 01 Aug 2019 00:32:39 -0400&lt;/p&gt;</content>
+&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Thu, 2 JAN 2019 16:47:33 -0400&lt;/p&gt;</content>
     <author>
       <name>eyedeekay</name>
     </author>
@@ -185,7 +64,7 @@ i2psetproxy.js (0.55-1) UNRELEASED; urgency=low&lt;/p&gt;
   </entry>
   <entry>
     <id>tag:github.com,2008:Repository/169256012/0.53</id>
-    <updated>2019-11-29T00:27:02Z</updated>
+    <updated>2020-01-06T17:17:35Z</updated>
     <link rel="alternate" type="text/html" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/tag/0.53"/>
     <title>0.53</title>
     <content type="html">&lt;h1&gt;I2P in Private Browsing Mode&lt;/h1&gt;
@@ -198,51 +77,7 @@ i2psetproxy.js (0.51-1) UNRELEASED; urgency=low&lt;/p&gt;
 &lt;li&gt;enable-disable history&lt;/li&gt;
 &lt;li&gt;better homepage, better control panel, saner options&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Sat, 23 NOV 2019 22:51:11 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.49-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;fix tabs&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Sat, 23 NOV 2019 22:51:11 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.47-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Improve android compatibility&lt;/li&gt;
-&lt;li&gt;Improve code organization&lt;/li&gt;
-&lt;li&gt;Partial protocol handlers implementation&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Sat, 23 NOV 2019 18:53:11 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.45-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Improve the user interface a whole bunch&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Fri, 22 NOV 2019 18:17:33 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.43-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Contextualize All the Things&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Mon, 11 OCT 2019 12:41:33 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.41-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Only open tabs, not windows&lt;/li&gt;
-&lt;li&gt;Optionally enable WebRTC&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Thu, 31 OCT 2019 12:41:33 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.37-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Honor contextual ID when deleting history&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Thu, 17 OCT 2019 00:52:19 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.35-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Automatically activate contexts&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Thu, 01 Aug 2019 00:32:39 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.31-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Initial release. Closes: #nnnn&lt;br&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Thu, 01 Aug 2019 00:32:39 -0400&lt;/p&gt;</content>
+&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Sat, 23 NOV 2019 22:51:11 -0400&lt;/p&gt;</content>
     <author>
       <name>eyedeekay</name>
     </author>
@@ -250,7 +85,7 @@ i2psetproxy.js (0.51-1) UNRELEASED; urgency=low&lt;/p&gt;
   </entry>
   <entry>
     <id>tag:github.com,2008:Repository/169256012/0.51</id>
-    <updated>2019-11-29T00:13:34Z</updated>
+    <updated>2020-01-06T17:18:09Z</updated>
     <link rel="alternate" type="text/html" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/tag/0.51"/>
     <title>0.51</title>
     <content type="html">&lt;h1&gt;I2P in Private Browsing Mode&lt;/h1&gt;
@@ -261,46 +96,7 @@ i2psetproxy.js (0.49-1) UNRELEASED; urgency=low&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;fix tabs&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Sat, 23 NOV 2019 22:51:11 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.47-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Improve android compatibility&lt;/li&gt;
-&lt;li&gt;Improve code organization&lt;/li&gt;
-&lt;li&gt;Partial protocol handlers implementation&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Sat, 23 NOV 2019 18:53:11 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.45-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Improve the user interface a whole bunch&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Fri, 22 NOV 2019 18:17:33 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.43-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Contextualize All the Things&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Mon, 11 OCT 2019 12:41:33 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.41-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Only open tabs, not windows&lt;/li&gt;
-&lt;li&gt;Optionally enable WebRTC&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Thu, 31 OCT 2019 12:41:33 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.37-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Honor contextual ID when deleting history&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Thu, 17 OCT 2019 00:52:19 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.35-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Automatically activate contexts&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Thu, 01 Aug 2019 00:32:39 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.31-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Initial release. Closes: #nnnn&lt;br&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Thu, 01 Aug 2019 00:32:39 -0400&lt;/p&gt;</content>
+&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Sat, 23 NOV 2019 22:51:11 -0400&lt;/p&gt;</content>
     <author>
       <name>eyedeekay</name>
     </author>
@@ -308,7 +104,7 @@ i2psetproxy.js (0.49-1) UNRELEASED; urgency=low&lt;/p&gt;
   </entry>
   <entry>
     <id>tag:github.com,2008:Repository/169256012/0.49</id>
-    <updated>2019-11-24T03:53:36Z</updated>
+    <updated>2020-01-06T17:18:38Z</updated>
     <link rel="alternate" type="text/html" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/tag/0.49"/>
     <title>0.49</title>
     <content type="html">&lt;h1&gt;I2P in Private Browsing Mode&lt;/h1&gt;
@@ -319,46 +115,7 @@ i2psetproxy.js (0.49-1) UNRELEASED; urgency=low&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;fix tabs&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Sat, 23 NOV 2019 22:51:11 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.47-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Improve android compatibility&lt;/li&gt;
-&lt;li&gt;Improve code organization&lt;/li&gt;
-&lt;li&gt;Partial protocol handlers implementation&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Sat, 23 NOV 2019 18:53:11 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.45-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Improve the user interface a whole bunch&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Fri, 22 NOV 2019 18:17:33 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.43-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Contextualize All the Things&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Mon, 11 OCT 2019 12:41:33 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.41-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Only open tabs, not windows&lt;/li&gt;
-&lt;li&gt;Optionally enable WebRTC&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Thu, 31 OCT 2019 12:41:33 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.37-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Honor contextual ID when deleting history&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Thu, 17 OCT 2019 00:52:19 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.35-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Automatically activate contexts&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Thu, 01 Aug 2019 00:32:39 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.31-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Initial release. Closes: #nnnn&lt;br&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Thu, 01 Aug 2019 00:32:39 -0400&lt;/p&gt;</content>
+&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Sat, 23 NOV 2019 22:51:11 -0400&lt;/p&gt;</content>
     <author>
       <name>eyedeekay</name>
     </author>
@@ -366,7 +123,7 @@ i2psetproxy.js (0.49-1) UNRELEASED; urgency=low&lt;/p&gt;
   </entry>
   <entry>
     <id>tag:github.com,2008:Repository/169256012/0.47</id>
-    <updated>2019-11-24T01:32:46Z</updated>
+    <updated>2020-01-06T17:19:14Z</updated>
     <link rel="alternate" type="text/html" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/tag/0.47"/>
     <title>0.47</title>
     <content type="html">&lt;h1&gt;I2P in Private Browsing Mode&lt;/h1&gt;
@@ -379,39 +136,7 @@ i2psetproxy.js (0.47-1) UNRELEASED; urgency=low&lt;/p&gt;
 &lt;li&gt;Improve code organization&lt;/li&gt;
 &lt;li&gt;Partial protocol handlers implementation&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Sat, 23 NOV 2019 18:53:11 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.45-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Improve the user interface a whole bunch&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Fri, 22 NOV 2019 18:17:33 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.43-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Contextualize All the Things&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Mon, 11 OCT 2019 12:41:33 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.41-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Only open tabs, not windows&lt;/li&gt;
-&lt;li&gt;Optionally enable WebRTC&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Thu, 31 OCT 2019 12:41:33 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.37-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Honor contextual ID when deleting history&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Thu, 17 OCT 2019 00:52:19 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.35-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Automatically activate contexts&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Thu, 01 Aug 2019 00:32:39 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.31-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Initial release. Closes: #nnnn&lt;br&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Thu, 01 Aug 2019 00:32:39 -0400&lt;/p&gt;</content>
+&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Sat, 23 NOV 2019 18:53:11 -0400&lt;/p&gt;</content>
     <author>
       <name>eyedeekay</name>
     </author>
