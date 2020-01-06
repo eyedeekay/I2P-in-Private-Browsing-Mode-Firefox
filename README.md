@@ -15,7 +15,7 @@ Installation(Cross-Platform):
 
 For desktop users this addon is available from addons.mozilla.org, where you
 will be able to recive automatic updates:
-https://addons.mozilla.org/en-US/firefox/addon/i2p-in-private-browsing/.
+[I2P in Private Browsing](https://addons.mozilla.org/en-US/firefox/addon/i2p-in-private-browsing/).
 
 Debian Installation:
 --------------------
