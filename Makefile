@@ -40,8 +40,9 @@ clean:
 
 MOZ_VERSION=0.56
 VERSION=0.57
-#VERSION=$(MOZ_VERSION)
-#VERSION=1.27
+
+## INCREMENT THIS EVERY TIME YOU DO A RELEASE
+LAST_VERSION=0.55
 
 YELLOW=F7E59A
 ORANGE=FFC56D
@@ -115,7 +116,7 @@ zip: version
 		--exclude="./*.pdf" -r -FS ../i2psetproxy.js.zip *
 
 release:
-	cat desc debian/changelog | gothub release -p -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n $(VERSION) -d -; true
+	cat desc debian/changelog | grep -B 10 "$(LAST_VERSION)" | gothub release -p -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n $(VERSION) -d -; true
 
 delete-release:
 	gothub delete -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION); true
