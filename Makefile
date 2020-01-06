@@ -266,3 +266,15 @@ deb: deborig
 
 dat:
 	wget -c -O dat.js https://bundle.run/dat-js
+
+rss: torrent
+	rm -f releases.diff
+	grep -c "$(MAGNET)" .releases.atom && false || true
+	mv releases.atom .releases.atom
+	wget https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases.atom
+	diff releases.atom .releases.atom | tee releases.diff
+	patch releases.atom <releases.diff
+	sed -i "s|<title>$(VERSION)</title>|<title>$(VERSION)</title>\n    <enclosure url=\"$(MAGNET)\" type=\"application/x-bittorrent\" />|g" releases.atom
+
+upload-rss:
+	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t docs -n "releases.atom" -f releases.atom
