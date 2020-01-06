@@ -40,6 +40,18 @@ dead).
   * magnetsub
   * [Get the .torrent file](./i2ppb@eyedeekay.github.io.xpi.torrent)
 
+### Help us out
+
+There are also bittorrent entries in an atom feed which you can fetch from the
+github releases using this URL:
+
+        https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/download/docs/releases.atom
+
+If you add this to your BiglyBT torrent feed, you will automatically pick up
+new releases of the plugin, download them, possibly from the web seed, and then
+seed them to the rest of the torrent network. By donating a tiny amount of space
+you can help make the delivery of plugin updates to everyone more reliable.
+
 Usage:
 ------
 
