@@ -61,10 +61,10 @@ Usage:
   * Besides that, four bookmarks are added to the "Bookmarks Toolbar," which
    will take you to visit your Java I2P applications, or the "Simplified I2P
    Landing Page" embedded in the plugin:
-  * ![Landing page](lander.png)
+   - ![Landing page](lander.png)
   * Also, there's a menu for accessing I2P functionality while you're browsing.
    It lets you control a few settings in a granular way.
-  * ![Menu](menu.png)
+   - ![Menu](menu.png)
   * You can re-enable WebRTC but force it to always use the proxy that is
    enforced by the tab.
   * You can either force the browser to delete all history for I2P sites
@@ -80,10 +80,10 @@ Usage:
    to the I2P container. Isolate the router console from other local
    applications by automatically intercepting requests to the router console to
    another container.
-  * ![Visiting i2p-projekt.i2p](i2psetproxy.js.png)
+   - ![Visiting i2p-projekt.i2p](i2psetproxy.js.png)
   * [done] **Indicate** the I2P browser is in use visually. Find an
    acceptable way to indicate it on Android.
-  * ![Visiting webmail](susimail.png)
+   - ![Visiting webmail](susimail.png)
   * [done] **Set** the http proxy to use the local I2P proxy automatically.
    Provide specific configuration for other types of I2P proxies(SOCKS,
    isolating HTTP)
@@ -91,7 +91,7 @@ Usage:
    them with the proxy enforced.
   * [done] **Change** the color of the browser window to indicate that I2P is in
    use
-  * ![Visiting i2ptunnel](i2ptunnel.png)
+   - ![Visiting i2ptunnel](i2ptunnel.png)
   * [ready/broken/wip] **Provide** help in a variety of languages.
   * [wip] **Monitor** the health and readiness of the I2P router it is
    instructed to use. Currently the plugin checks whether the HTTP Proxy is
@@ -103,12 +103,12 @@ Usage:
    confined to it's own container tab. (2) Use a custom protocol handler to
    place each i2p application/plugin under it's own origin, shortening router
    console URL's and placing applications under their own origin.
-  * ![Visiting routerconsole](routerconsole.png)
+   - ![Visiting routerconsole](routerconsole.png)
   * [wip] **Handle Torrents** by talking to i2psnark-rpc plugin and then
    adding them directly into the Firefox downloads drop-downs, menus, etc. If I
    can. Right now instead of talking to snark-rpc, it uses a web-based protocl
    handler that simply auto-fills the torrent into i2psnark.
-  * ![Visiting i2psnark](i2psnark.png)
+   - ![Visiting i2psnark](i2psnark.png)
   * [barely started] **Isolate** traffic by contextual identity to it's own HTTP
    Proxy tunnel, each reflecting it's own pseudonymous identity within I2P. The
    contextual identities. For now, the contextual identities used to manage
@@ -124,7 +124,7 @@ Usage:
     tunnel-close timeout and key-reuse until specifically invoked.
     - I2P Blogging: Use this for posting content to the web interface of your
     blog or to other similar websites that you create content on.
-  * ![Visiting clearweb](clearweb.png)
+   - ![Visiting clearweb](clearweb.png)
 
 ### Video
 
