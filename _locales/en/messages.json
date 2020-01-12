@@ -15,6 +15,10 @@
     "message": "Proxy is not ready",
     "description": "Proxy failed status."
   },
+  "proxySuccessStatus": {
+    "message": "Proxy is ready",
+    "description": "Proxy failed status."
+  },
   "controlHeader": {
     "message": "Control",
     "description": "Headline for control panel."
