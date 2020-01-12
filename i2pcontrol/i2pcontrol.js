@@ -15,7 +15,7 @@ function makeid(length) {
 function send(message) {
   async function postData(url = "", data = {}) {
     // Default options are marked with *
-    console.log("(i2pcontrol)")
+    console.log("(i2pcontrol)");
     let requestBody = JSON.stringify(data);
     let opts = {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -83,7 +83,7 @@ function Echo(message) {
 
 function UpdateEchoElementByID(Query, ID) {
   function updateelement(update) {
-    console.log("(i2pcontrol)", update)
+    console.log("(i2pcontrol)", update);
     document.getElementById(ID).innerText = update;
   }
   let net = Echo(Query);
@@ -109,7 +109,7 @@ function GetRate(Query) {
 
 function UpdateGetRateElementByID(Query, ID) {
   function updateelement(update) {
-    console.log("(i2pcontrol)", update)
+    console.log("(i2pcontrol)", update);
     document.getElementById(ID).innerText = update;
   }
   let net = GetRate(Query);
@@ -134,7 +134,7 @@ function I2PControl(Query) {
 
 function UpdateI2PControlElementByID(Query, ID) {
   function updateelement(update) {
-    console.log("(i2pcontrol)", update)
+    console.log("(i2pcontrol)", update);
     document.getElementById(ID).innerText = update;
   }
   let net = I2PControl(Query);
@@ -159,7 +159,12 @@ function RouterInfo(Query) {
 
 function UpdateRouterInfoElementByID(Query, ID) {
   function updateelement(update) {
-    console.log("(i2pcontrol)", update.result[Query], ID, document.getElementById(ID))
+    console.log(
+      "(i2pcontrol)",
+      update.result[Query],
+      ID,
+      document.getElementById(ID)
+    );
     document.getElementById(ID).innerText = update.result[Query];
   }
   let net = RouterInfo(Query);
@@ -184,7 +189,7 @@ function RouterManager(Query) {
 
 function UpdateRouterManagerElementByID(Query, ID) {
   function updateelement(update) {
-    console.log("(i2pcontrol)", update)
+    console.log("(i2pcontrol)", update);
     document.getElementById(ID).innerText = update;
   }
   let net = RouterManage(Query);
@@ -209,14 +214,64 @@ function NetworkSetting(Query) {
 
 function UpdateNetworkSettingElementByID(Query, ID) {
   function updateelement(update) {
-    console.log("(i2pcontrol)", update)
+    console.log("(i2pcontrol)", update);
     document.getElementById(ID).innerText = update;
   }
   let net = NetworkSetting(Query);
   net.then(updateleement);
 }
 
-UpdateRouterInfoElementByID("i2p.router.status", "router-status")
+function UpdateContents() {
+  UpdateRouterInfoElementByID("i2p.router.status", "router-status");
+  UpdateRouterInfoElementByID("i2p.router.uptime", "router-uptime");
+  UpdateRouterInfoElementByID("i2p.router.version", "router-version");
+  UpdateRouterInfoElementByID(
+    "i2p.router.net.bw.inbound.1s",
+    "router-net-bw-inbound-1s"
+  );
+  UpdateRouterInfoElementByID(
+    "i2p.router.net.bw.inbound.15s",
+    "router-net-bw-inbound-15s"
+  );
+  UpdateRouterInfoElementByID(
+    "i2p.router.net.bw.outbound.1s",
+    "router-net-bw-outbound-1s"
+  );
+  UpdateRouterInfoElementByID(
+    "i2p.router.net.bw.outbound.15s",
+    "router-net-bw-outbound-15s"
+  );
+  UpdateRouterInfoElementByID("i2p.router.net.status", "router-net-status");
+  UpdateRouterInfoElementByID(
+    "i2p.router.net.tunnels.participating",
+    "router-net-tunnels-participating"
+  );
+  UpdateRouterInfoElementByID(
+    "i2p.router.netdb.activepeers",
+    "router-netdb-activepeers"
+  );
+  UpdateRouterInfoElementByID(
+    "i2p.router.netdb.fastpeers",
+    "router-netdb-fastpeers"
+  );
+  UpdateRouterInfoElementByID(
+    "i2p.router.netdb.highcapacitypeers",
+    "router-netdb-highcapacitypeers"
+  );
+  UpdateRouterInfoElementByID(
+    "i2p.router.netdb.isreseeding",
+    "router-netdb-isreseeding"
+  );
+  UpdateRouterInfoElementByID(
+    "i2p.router.netdb.knownpeers",
+    "router-netdb-knownpeers"
+  );
+}
 
+UpdateContents();
+
+/*setInterval(function() {
+    UpdateContents();
+}, 750);*/
 //var done = Echo(hello);
 //done.then(Done);
