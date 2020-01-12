@@ -15,6 +15,7 @@ function makeid(length) {
 function send(message) {
   async function postData(url = "", data = {}) {
     // Default options are marked with *
+    console.log("(i2pcontrol)")
     let requestBody = JSON.stringify(data);
     let opts = {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -82,10 +83,11 @@ function Echo(message) {
 
 function UpdateEchoElementByID(Query, ID) {
   function updateelement(update) {
-    document.getElementById(ID).value = update;
+    console.log("(i2pcontrol)", update)
+    document.getElementById(ID).innerText = update;
   }
   let net = Echo(Query);
-  net.then(updatelement);
+  net.then(updateleement);
 }
 
 function GetRate(Query) {
@@ -107,10 +109,11 @@ function GetRate(Query) {
 
 function UpdateGetRateElementByID(Query, ID) {
   function updateelement(update) {
-    document.getElementById(ID).value = update;
+    console.log("(i2pcontrol)", update)
+    document.getElementById(ID).innerText = update;
   }
   let net = GetRate(Query);
-  net.then(updatelement);
+  net.then(updateleement);
 }
 
 function I2PControl(Query) {
@@ -131,10 +134,11 @@ function I2PControl(Query) {
 
 function UpdateI2PControlElementByID(Query, ID) {
   function updateelement(update) {
-    document.getElementById(ID).value = update;
+    console.log("(i2pcontrol)", update)
+    document.getElementById(ID).innerText = update;
   }
   let net = I2PControl(Query);
-  net.then(updatelement);
+  net.then(updateleement);
 }
 
 function RouterInfo(Query) {
@@ -155,10 +159,11 @@ function RouterInfo(Query) {
 
 function UpdateRouterInfoElementByID(Query, ID) {
   function updateelement(update) {
-    document.getElementById(ID).value = update;
+    console.log("(i2pcontrol)", update.result[Query], ID, document.getElementById(ID))
+    document.getElementById(ID).innerText = update.result[Query];
   }
   let net = RouterInfo(Query);
-  net.then(updatelement);
+  net.then(updateelement);
 }
 
 function RouterManager(Query) {
@@ -179,10 +184,11 @@ function RouterManager(Query) {
 
 function UpdateRouterManagerElementByID(Query, ID) {
   function updateelement(update) {
-    document.getElementById(ID).value = update;
+    console.log("(i2pcontrol)", update)
+    document.getElementById(ID).innerText = update;
   }
   let net = RouterManage(Query);
-  net.then(updatelement);
+  net.then(updateleement);
 }
 
 function NetworkSetting(Query) {
@@ -203,11 +209,14 @@ function NetworkSetting(Query) {
 
 function UpdateNetworkSettingElementByID(Query, ID) {
   function updateelement(update) {
-    document.getElementById(ID).value = update;
+    console.log("(i2pcontrol)", update)
+    document.getElementById(ID).innerText = update;
   }
   let net = NetworkSetting(Query);
-  net.then(updatelement);
+  net.then(updateleement);
 }
+
+UpdateRouterInfoElementByID("i2p.router.status", "router-status")
 
 //var done = Echo(hello);
 //done.then(Done);
