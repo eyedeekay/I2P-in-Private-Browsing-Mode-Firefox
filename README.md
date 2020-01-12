@@ -94,7 +94,7 @@ Usage:
   * ![Visiting routerconsole](routerconsole.png)
   * [wip] **Handle Torrents** by talking to i2psnark-rpc plugin and then
    adding them directly into the Firefox downloads drop-downs, menus, etc. If I
-   can. Right now instead of talking to snark-rpc, it uses a web-based protocl
+   can. Right now instead of talking to snark-rpc, it uses a web-based protocol
    handler that simply auto-fills the torrent into i2psnark.
   * ![Visiting i2psnark](i2psnark.png)
   * [barely started] **Isolate** traffic by contextual identity to it's own HTTP

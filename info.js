@@ -9,7 +9,7 @@ function checkPeerConnection() {
 
 checkPeerConnection();
 
-function checkSnowflake(){
+function checkSnowflake() {
   try {
     function snowflake(snowflake) {
       console.log("snowflake plugin found, leaving WebRTC alone", snowflake);
@@ -19,12 +19,12 @@ function checkSnowflake(){
       "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}" // string
     );
     snowflakeInfo.then(snowflake);
-  }catch{
-    console.log("snowflake not found")
+  } catch {
+    console.log("snowflake not found");
   }
 }
 
-checkSnowflake()
+checkSnowflake();
 
 function checkHistory() {
   let getting = browser.storage.local.get("disable_history");
@@ -186,7 +186,7 @@ function goTunnel() {
     console.log("I2PTunnel tab created");
   }
   let createData = {
-    url: "http://" + control_host + ":" + control_port + "/i2ptunnel"
+    url: "http://" + "127.0.0.1" + ":" + "7657" + "/i2ptunnel"
   };
   console.log("visiting i2ptunnel");
   let creating = browser.tabs.create(createData);
@@ -198,7 +198,7 @@ function goMail() {
     console.log("Mail tab created");
   }
   let createData = {
-    url: "http://" + control_host + ":" + control_port + "/susimail"
+    url: "http://" + "127.0.0.1" + ":" + "7657" + "/susimail"
   };
   console.log("visiting mail");
   let creating = browser.tabs.create(createData);
@@ -210,7 +210,7 @@ function goSnark() {
     console.log("Snark tab created");
   }
   let createData = {
-    url: "http://" + control_host + ":" + control_port + "/i2psnark"
+    url: "http://" + "127.0.0.1" + ":" + "7657" + "/i2psnark"
   };
   console.log("visiting snark");
   let creating = browser.tabs.create(createData);
