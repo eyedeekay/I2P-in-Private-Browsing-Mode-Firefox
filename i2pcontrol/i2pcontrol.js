@@ -270,8 +270,11 @@ function UpdateContents() {
 
 UpdateContents();
 
-/*setInterval(function() {
-    UpdateContents();
-}, 750);*/
-//var done = Echo(hello);
+const minutes = 0.125;
+const interval = minutes * 60 * 1000;
+
+setInterval(function() {
+  // catch all the errors.
+  UpdateContents().catch(console.log);
+}, interval); //var done = Echo(hello);
 //done.then(Done);
