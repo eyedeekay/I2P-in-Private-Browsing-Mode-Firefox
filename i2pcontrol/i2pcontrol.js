@@ -1,4 +1,6 @@
-function send(json) {
+var password = "itoopie";
+
+function send(message) {
   async function postData(url = "", data = {}) {
     // Default options are marked with *
     const response = await fetch(url, {
@@ -8,7 +10,6 @@ function send(json) {
       credentials: "same-origin", // include, *same-origin, omit
       headers: {
         "Content-Type": "application/json"
-        // 'Content-Type': 'application/x-www-form-urlencoded',
       },
       redirect: "follow", // manual, *follow, error
       referrerPolicy: "no-referrer", // no-referrer, *client
@@ -17,15 +18,19 @@ function send(json) {
     return await response.json(); // parses JSON response into native JavaScript objects
   }
 
-  postData("http://127.0.0.1:7657/jsonrpc/", { answer: 42 }).then(data => {
+  return postData(
+    "http://127.0.0.1:7657/jsonrpc/",
+    message
+  ); /*.then(data => {
     console.log(data); // JSON data parsed by `response.json()` call
-  });
+  });*/
 }
 
 function authenticate(user, password) {
+  console.log("Authenticating to i2pcontrol");
   var json = {
+    id: "id",
     jsonrpc: "2.0",
-    id: user,
     method: "Authenticate",
     params: {
       API: 1,
@@ -35,27 +40,24 @@ function authenticate(user, password) {
   return send(json);
 }
 
-var username = "";
-var password = "";
+var auth = authenticate("user", password);
+var shake = auth.then(echo);
+var done = shake.then(Done);
 
-function echo(string, section) {
-  var xhr = authenticate(username, password);
-  console.log("(i2pcontrol) echo", xhr);
-  xhr.onload = function() {
-    resp = JSON.Parse(xhr.responseText);
-    json = {
-      jsonrpc: "2.0",
-      id: username,
-      method: "Echo",
-      params: {
-        Token: resp.Token,
-        Echo: string
-      }
-    };
-    var controlMessage = document.getElementById(section);
-    console.log("(i2pcontrol) reply", xhr.responseText);
-    infoMessage.textContent = xhr.responseText;
-  };
+function Done(output) {
+  console.log("I2PControl connection tested", output);
 }
 
-echo("test", "test");
+function echo(authtoken) {
+  console.log("Saying hi to i2pcontrol");
+  json = {
+    id: "id",
+    jsonrpc: "2.0",
+    method: "Echo",
+    params: {
+      Token: authtoken.result.Token,
+      Echo: "hello i2pcontrol"
+    }
+  };
+  return send(json);
+}
