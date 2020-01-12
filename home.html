@@ -4,6 +4,7 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="home.css"/>
+    <link rel="stylesheet" href="search.css"/>
   </head>
 
 <body>
@@ -50,6 +51,14 @@
             <h3 id="applicationHeader">Applications</h3>
             <p id="applicationExplain">These applications use I2P to provide them with security and privacy.</p>
               <ul>
+                <li class="application">
+                  <div class="topnav">
+                    <form action="http://legwork.i2p/yacysearch.html?" method="get">
+                      <input type="search" name="query" id="search-query" placeholder="Search on legwork.i2p(Opens a new tab)">
+                      <input type="submit" id="search-submit" text="Submit">
+                    </form>
+                  </div>
+                </li>
                 <li class="application">
                   <a id="window-visit-i2ptunnel" class="applicationName" target="_blank" href="http://127.0.0.1:7657/i2ptunnel">Hidden Services Manager </a>
                   <span id="i2ptunnel" class="applicationDesc">I2P has a web-based interface for configuring .i2p services like web sites, to set up your own web sites, go here:</span>
