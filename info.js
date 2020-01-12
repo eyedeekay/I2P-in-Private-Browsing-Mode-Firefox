@@ -78,11 +78,14 @@ document.addEventListener("click", clickEvent => {
     console.log("attempting to create homepage tab");
     goHome();
   } else if (clickEvent.target.id === "window-visit-index") {
-    console.log("attempting to create homepage tab");
+    console.log("attempting to create index tab");
     goIndex();
   } else if (clickEvent.target.id === "window-visit-homepage") {
     console.log("attempting to create homepage tab");
     goHome();
+  } else if (clickEvent.target.id === "window-visit-toopie") {
+    console.log("attempting to create toopie tab");
+    goToopie();
   } else if (clickEvent.target.id === "window-visit-i2ptunnel") {
     console.log("attempting to create i2ptunnel tab");
     goTunnel();
@@ -158,6 +161,18 @@ function goIndex() {
     url: "index.html"
   };
   console.log("visiting help");
+  let creating = browser.tabs.create(createData);
+  creating(onTabCreated, onTabError);
+}
+
+function goToopie() {
+  function onTabError() {
+    console.log("Toopie tab created");
+  }
+  let createData = {
+    url: "toopie.html"
+  };
+  console.log("visiting toopie");
   let creating = browser.tabs.create(createData);
   creating(onTabCreated, onTabError);
 }
