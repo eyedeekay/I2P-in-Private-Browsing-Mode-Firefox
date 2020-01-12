@@ -80,7 +80,7 @@ Usage:
   * [done] **Change** the color of the browser window to indicate that I2P is in
    use
   * ![Visiting i2ptunnel](i2ptunnel.png)
-  * [ready/broken/wip] **Provide** help in a variety of languages.
+  * [ready] **Provide** help in a variety of languages.
   * [wip] **Monitor** the health and readiness of the I2P router it is
    instructed to use. Currently the plugin checks whether the HTTP Proxy is
    working by fetching an image from "http://proxy.i2p" and displaying a result.
