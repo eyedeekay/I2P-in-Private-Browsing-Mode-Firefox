@@ -68,6 +68,9 @@ document.addEventListener("click", clickEvent => {
   } else if (clickEvent.target.id === "window-preface-title") {
     console.log("attempting to create homepage tab");
     goHome();
+  } else if (clickEvent.target.id === "window-visit-index") {
+    console.log("attempting to create homepage tab");
+    goIndex();
   } else if (clickEvent.target.id === "window-visit-homepage") {
     console.log("attempting to create homepage tab");
     goHome();
@@ -136,6 +139,18 @@ function goHome() {
   console.log("(bookmarks) checking if we're running in an I2P Browser");
   var gettingProxyInfo = browser.proxy.settings.get({});
   gettingProxyInfo.then(gotProxyInfo);
+}
+
+function goIndex() {
+  function onTabError() {
+    console.log("Help tab created");
+  }
+  let createData = {
+    url: "index.html"
+  };
+  console.log("visiting help");
+  let creating = browser.tabs.create(createData);
+  creating(onTabCreated, onTabError);
 }
 
 function onTabCreated() {

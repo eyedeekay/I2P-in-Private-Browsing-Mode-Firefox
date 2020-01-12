@@ -237,6 +237,10 @@ upload-docs:
 fmt:
 	cleancss -O1 all -O2 all --format beautify home.css -o .home.css && mv .home.css home.css
 	cleancss -O1 all -O2 all --format beautify info.css -o .info.css && mv .info.css info.css
+	cleancss -O1 all -O2 all --format beautify search.css -o .search.css && mv .search.css search.css
+	tidy --as-xhtml --input-xml --tidy-mark no -indent --indent-spaces 4 -wrap 0 --new-blocklevel-tags article,header,footer --new-inline-tags video,audio,canvas,ruby,rt,rp --break-before-br yes --sort-attributes alpha --vertical-space yes index.html > .index.html && mv .index.html index.html
+	tidy --as-xhtml --input-xml --tidy-mark no -indent --indent-spaces 4 -wrap 0 --new-blocklevel-tags article,header,footer --new-inline-tags video,audio,canvas,ruby,rt,rp --break-before-br yes --sort-attributes alpha --vertical-space yes window.html > .window.html && mv .window.html window.html
+	tidy --as-xhtml --input-xml --tidy-mark no -indent --indent-spaces 4 -wrap 0 --new-blocklevel-tags article,header,footer --new-inline-tags video,audio,canvas,ruby,rt,rp --break-before-br yes --sort-attributes alpha --vertical-space yes home.html > .index.html && mv .home.html home.html
 	find . -path ./node_modules -prune -o -name '*.js' -exec prettier --write {} \;
 	find . -path ./node_modules -prune -o -name '*.json' -exec prettier --write {} \;
 
