@@ -42,6 +42,7 @@
   },
   "background": {
     "scripts": [
+      "i2pcontrol/i2pcontrol.js",
       "privacy.js",
       "platform.js",
       "background.js",
@@ -50,7 +51,6 @@
       "proxy.js",
       "info.js",
       "home.js",
-      "i2pcontrol/i2pcontrol.js",
       "scrub.js",
       "bookmarks.js"
     ]

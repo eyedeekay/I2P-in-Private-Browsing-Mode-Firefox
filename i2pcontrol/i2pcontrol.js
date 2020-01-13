@@ -15,7 +15,7 @@ function makeid(length) {
 function send(message) {
   async function postData(url = "", data = {}) {
     // Default options are marked with *
-    console.log("(i2pcontrol)");
+    //console.log("(i2pcontrol)");
     let requestBody = JSON.stringify(data);
     let opts = {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -59,7 +59,7 @@ function gettoken(authtoken) {
 }
 
 function Done(output) {
-  console.log("(i2pcontrol) I2PControl connection tested,", output);
+  //console.log("(i2pcontrol) I2PControl connection tested,", output);
   return output;
 }
 
@@ -83,7 +83,7 @@ function Echo(message) {
 
 function UpdateEchoElementByID(Query, ID) {
   function updateelement(update) {
-    console.log("(i2pcontrol)", update);
+    //console.log("(i2pcontrol)", update);
     document.getElementById(ID).innerText = update;
   }
   let net = Echo(Query);
@@ -134,7 +134,7 @@ function I2PControl(Query) {
 
 function UpdateI2PControlElementByID(Query, ID) {
   function updateelement(update) {
-    console.log("(i2pcontrol)", update);
+    //console.log("(i2pcontrol)", update);
     document.getElementById(ID).innerText = update;
   }
   let net = I2PControl(Query);
@@ -159,12 +159,12 @@ function RouterInfo(Query) {
 
 function UpdateRouterInfoElementByID(Query, ID) {
   function updateelement(update) {
-    console.log(
-      "(i2pcontrol)",
-      update.result[Query],
-      ID,
-      document.getElementById(ID)
-    );
+    //console.log(
+    //"(i2pcontrol)",
+    //update.result[Query],
+    //ID,
+    //document.getElementById(ID)
+    //);
     document.getElementById(ID).innerText = update.result[Query];
   }
   let net = RouterInfo(Query);
@@ -189,7 +189,7 @@ function RouterManager(Query) {
 
 function UpdateRouterManagerElementByID(Query, ID) {
   function updateelement(update) {
-    console.log("(i2pcontrol)", update);
+    //console.log("(i2pcontrol)", update);
     document.getElementById(ID).innerText = update;
   }
   let net = RouterManage(Query);
@@ -214,7 +214,7 @@ function NetworkSetting(Query) {
 
 function UpdateNetworkSettingElementByID(Query, ID) {
   function updateelement(update) {
-    console.log("(i2pcontrol)", update);
+    //console.log("(i2pcontrol)", update);
     document.getElementById(ID).innerText = update;
   }
   let net = NetworkSetting(Query);
@@ -268,13 +268,5 @@ function UpdateContents() {
   );
 }
 
-UpdateContents();
-
-const minutes = 0.125;
-const interval = minutes * 60 * 1000;
-
-setInterval(function() {
-  // catch all the errors.
-  UpdateContents().catch(console.log);
-}, interval); //var done = Echo(hello);
+//var done = Echo(hello);
 //done.then(Done);

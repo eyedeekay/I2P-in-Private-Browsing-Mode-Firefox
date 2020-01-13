@@ -71,6 +71,12 @@ document.addEventListener("click", clickEvent => {
       };
     }
     refreshIdentity();
+  } else if (clickEvent.target.id === "label-router-restart") {
+    console.log("attempting to initiate graceful restart");
+    RouterManager("RestartGraceful");
+  } else if (clickEvent.target.id === "label-router-shutdown") {
+    console.log("attempting to initiate graceful shutdown");
+    RouterManager("ShutdownGraceful");
   } else if (clickEvent.target.id === "search-submit") {
     console.log("attempting to create search tab");
     goSearch();
