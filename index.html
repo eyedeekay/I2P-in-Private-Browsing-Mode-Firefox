@@ -83,14 +83,17 @@
 
         <li>[ready] <strong>Provide</strong> help in a variety of languages.</li>
 
-        <li>[wip] <strong>Monitor</strong> the health and readiness of the I2P router it is instructed to use. Currently the plugin checks whether the HTTP Proxy is working by fetching an image from "http://proxy.i2p" and displaying a result. A work-in-progress binding to i2pcontrol is available in ./i2pcontrol, it is inert at this time.</li>
+        <li>[done] <strong>Monitor</strong> the health and readiness of the I2P router it is instructed to use. Currently the plugin checks whether the HTTP Proxy is working by fetching an image from "http://proxy.i2p" and displaying a result. A work-in-progress binding to i2pcontrol is available in ./i2pcontrol, it is inert at this time.</li>
+
+        <li><img alt="Visiting toopie.html" src="toopie.png" title="">
+        </li>
 
         <li>[Done] <strong>Handle</strong> router console applications under their own origins and within their own contextual identity. (1) The router console is automatically confined to it's own container tab. (2) Use a custom protocol handler to place each i2p application/plugin under it's own origin, shortening router console URL's and placing applications under their own origin.</li>
 
         <li><img alt="Visiting routerconsole" src="routerconsole.png" title="">
         </li>
 
-        <li>[wip] <strong>Handle Torrents</strong> by talking to i2psnark-rpc plugin and then adding them directly into the Firefox downloads drop-downs, menus, etc. If I can. Right now instead of talking to snark-rpc, it uses a web-based protocl handler that simply auto-fills the torrent into i2psnark.</li>
+        <li>[wip] <strong>Handle Torrents</strong> by talking to i2psnark-rpc plugin and then adding them directly into the Firefox downloads drop-downs, menus, etc. If I can. Right now instead of talking to snark-rpc, it uses a web-based protocol handler that simply auto-fills the torrent into i2psnark.</li>
 
         <li><img alt="Visiting i2psnark" src="i2psnark.png" title="">
         </li>
@@ -191,5 +194,7 @@
     <h3>Android addons.mozilla.org(Temporarily Disabled)</h3>
 
     <p>If you would prefer to recieve automatic updates from AMO, the correct product page for this plugin is <a href="https://addons.mozilla.org/en-US/firefox/addon/i2p-in-private-browsing/">I2P In Private Browsing</a>. This absolutely requires a working outproxy. If you want to avoid the use of AMO for updates, you can download the identical plugin from this repository's releases page. The latest AMO Plugin will always be identical to the latest github release, except for the version number, which must be incremented for submission to AMO.</p>
+
+    <p>moz-extension://d63582fc-09fc-445a-b8aa-1c888ee2ffc0/toopie.html</p>
 </body>
 </html>
