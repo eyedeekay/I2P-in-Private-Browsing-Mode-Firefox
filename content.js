@@ -50,12 +50,3 @@ fetch("http://proxy.i2p").then(myJson => {
   console.log("FETCH RESULT", myJson);
   contentUpdateById("proxy-check", "proxySuccessStatus");
 });
-
-UpdateContents();
-
-const minutes = 0.2;
-const interval = minutes * 60 * 1000;
-
-setInterval(function() {
-  UpdateContents();
-}, interval);

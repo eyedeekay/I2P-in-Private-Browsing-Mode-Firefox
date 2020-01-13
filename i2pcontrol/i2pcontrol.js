@@ -12,11 +12,11 @@ function makeid(length) {
   return result;
 }
 
-function send(message) {
+function send(message, control_host = "127.0.0.1", control_port = "7657") {
   async function postData(url = "", data = {}) {
     // Default options are marked with *
-    //console.log("(i2pcontrol)");
     let requestBody = JSON.stringify(data);
+    //console.log("(i2pcontrol)", requestBody, data);
     let opts = {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
@@ -33,23 +33,32 @@ function send(message) {
     return await response.json(); // parses JSON response into native JavaScript objects
   }
 
-  return postData("http://127.0.0.1:7657/jsonrpc/", message);
+  return postData(
+    "http://" + control_host + ":" + control_port + "/jsonrpc/",
+    message
+  );
 }
 
-function authenticate(password) {
-  var json = {
-    id: makeid(6),
-    jsonrpc: "2.0",
-    method: "Authenticate",
-    params: {
-      API: 1,
-      Password: password
-    }
-  };
+function authenticate(
+  password,
+  control_host = "127.0.0.1",
+  control_port = "7657"
+) {
+  var json = new Object();
+  json["id"] = makeid(6);
+  json["jsonrpc"] = "2.0";
+  json["method"] = "Authenticate";
+  json["params"] = new Object();
+  json["params"]["API"] = 1;
+  json["params"]["Password"] = password;
   return send(json);
 }
 
-async function GetToken(password) {
+async function GetToken(
+  password,
+  control_host = "127.0.0.1",
+  control_port = "7657"
+) {
   let me = authenticate(password);
   return await me.then(gettoken);
 }
@@ -63,17 +72,15 @@ function Done(output) {
   return output;
 }
 
-function Echo(message) {
+function Echo(message, control_host = "127.0.0.1", control_port = "7657") {
   function echo(token) {
-    let json = {
-      id: makeid(6),
-      jsonrpc: "2.0",
-      method: "Echo",
-      params: {
-        Token: token,
-        Echo: message
-      }
-    };
+    var json = new Object();
+    json["id"] = makeid(6);
+    json["jsonrpc"] = "2.0";
+    json["method"] = "Echo";
+    json["params"] = new Object();
+    json["params"]["Token"] = token;
+    json["params"]["Echo"] = message;
     return send(json);
   }
   let token = GetToken(password);
@@ -81,16 +88,21 @@ function Echo(message) {
   return done;
 }
 
-function UpdateEchoElementByID(Query, ID) {
+function UpdateEchoElementByID(
+  Query,
+  ID,
+  control_host = "127.0.0.1",
+  control_port = "7657"
+) {
   function updateelement(update) {
     //console.log("(i2pcontrol)", update);
     document.getElementById(ID).innerText = update;
   }
-  let net = Echo(Query);
+  let net = Echo(Query, control_host, control_port);
   net.then(updateleement);
 }
 
-function GetRate(Query) {
+function GetRate(Query, control_host = "127.0.0.1", control_port = "7657") {
   function getrate(token) {
     var json = new Object();
     json["id"] = makeid(6);
@@ -107,16 +119,21 @@ function GetRate(Query) {
   return done;
 }
 
-function UpdateGetRateElementByID(Query, ID) {
+function UpdateGetRateElementByID(
+  Query,
+  ID,
+  control_host = "127.0.0.1",
+  control_port = "7657"
+) {
   function updateelement(update) {
-    console.log("(i2pcontrol)", update);
+    //console.log("(i2pcontrol)", update);
     document.getElementById(ID).innerText = update;
   }
-  let net = GetRate(Query);
+  let net = GetRate(Query, control_host, control_port);
   net.then(updateleement);
 }
 
-function I2PControl(Query) {
+function I2PControl(Query, control_host = "127.0.0.1", control_port = "7657") {
   function i2pcontrol(token) {
     var json = new Object();
     json["id"] = makeid(6);
@@ -132,16 +149,21 @@ function I2PControl(Query) {
   return done;
 }
 
-function UpdateI2PControlElementByID(Query, ID) {
+function UpdateI2PControlElementByID(
+  Query,
+  ID,
+  control_host = "127.0.0.1",
+  control_port = "7657"
+) {
   function updateelement(update) {
     //console.log("(i2pcontrol)", update);
     document.getElementById(ID).innerText = update;
   }
-  let net = I2PControl(Query);
+  let net = I2PControl(Query, control_host, control_port);
   net.then(updateleement);
 }
 
-function RouterInfo(Query) {
+function RouterInfo(Query, control_host = "127.0.0.1", control_port = "7657") {
   function routerinfo(token) {
     var json = new Object();
     json["id"] = makeid(6);
@@ -157,21 +179,30 @@ function RouterInfo(Query) {
   return done;
 }
 
-function UpdateRouterInfoElementByID(Query, ID) {
+function UpdateRouterInfoElementByID(
+  Query,
+  ID,
+  control_host = "127.0.0.1",
+  control_port = "7657"
+) {
   function updateelement(update) {
-    //console.log(
-    //"(i2pcontrol)",
-    //update.result[Query],
-    //ID,
-    //document.getElementById(ID)
-    //);
+    /*console.log(
+      "(i2pcontrol)",
+      update.result[Query],
+      ID,
+      document.getElementById(ID)
+    );*/
     document.getElementById(ID).innerText = update.result[Query];
   }
-  let net = RouterInfo(Query);
+  let net = RouterInfo(Query, control_host, control_port);
   net.then(updateelement);
 }
 
-function RouterManager(Query) {
+function RouterManager(
+  Query,
+  control_host = "127.0.0.1",
+  control_port = "7657"
+) {
   function routermanager(token) {
     var json = new Object();
     json["id"] = makeid(6);
@@ -187,16 +218,25 @@ function RouterManager(Query) {
   return done;
 }
 
-function UpdateRouterManagerElementByID(Query, ID) {
+function UpdateRouterManagerElementByID(
+  Query,
+  ID,
+  control_host = "127.0.0.1",
+  control_port = "7657"
+) {
   function updateelement(update) {
     //console.log("(i2pcontrol)", update);
     document.getElementById(ID).innerText = update;
   }
-  let net = RouterManage(Query);
+  let net = RouterManage(Query, control_host, control_port);
   net.then(updateleement);
 }
 
-function NetworkSetting(Query) {
+function NetworkSetting(
+  Query,
+  control_host = "127.0.0.1",
+  control_port = "7657"
+) {
   function networksetting(token) {
     var json = new Object();
     json["id"] = makeid(6);
@@ -212,12 +252,17 @@ function NetworkSetting(Query) {
   return done;
 }
 
-function UpdateNetworkSettingElementByID(Query, ID) {
+function UpdateNetworkSettingElementByID(
+  Query,
+  ID,
+  control_host = "127.0.0.1",
+  control_port = "7657"
+) {
   function updateelement(update) {
     //console.log("(i2pcontrol)", update);
     document.getElementById(ID).innerText = update;
   }
-  let net = NetworkSetting(Query);
+  let net = NetworkSetting(Query, control_host, control_port);
   net.then(updateleement);
 }
 
@@ -268,5 +313,5 @@ function UpdateContents() {
   );
 }
 
-//var done = Echo(hello);
-//done.then(Done);
+var done = Echo(hello);
+done.then(Done);

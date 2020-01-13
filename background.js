@@ -12,6 +12,7 @@ var tunnelpref = chrome.i18n.getMessage("i2ptunnelPreface");
 var tunnelprefpriv = chrome.i18n.getMessage("i2ptunnelPrefacePrivate");
 var localpref = chrome.i18n.getMessage("localPreface");
 var localprefpriv = chrome.i18n.getMessage("localPrefacePrivate");
+var extensionpref = chrome.i18n.getMessage("extensionPreface");
 
 function onContextsGot(contexts) {
   var ids = [];
@@ -26,6 +27,15 @@ function onContextsGot(contexts) {
         name: titlepref,
         color: "orange",
         icon: "fingerprint"
+      })
+      .then(onCreated, onNotCreated);
+  }
+  if (ids.indexOf(extensionpref) == -1) {
+    browser.contextualIdentities
+      .create({
+        name: extensionpref,
+        color: "pink",
+        icon: "gift"
       })
       .then(onCreated, onNotCreated);
   }

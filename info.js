@@ -145,12 +145,14 @@ function goHome() {
       };
       console.log("visiting homepage");
       let creating = browser.tabs.create(createRhizomeData);
+      creating.then(onTabCreated, onTabError);
     } else {
       let createData = {
         url: "home.html"
       };
       console.log("visiting homepage");
       let creating = browser.tabs.create(createData);
+      creating.then(onTabCreated, onTabError);
     }
     console.log("(bookmarks) adding home page bookmark");
   }
@@ -168,7 +170,7 @@ function goIndex() {
   };
   console.log("visiting help");
   let creating = browser.tabs.create(createData);
-  creating(onTabCreated, onTabError);
+  creating.then(onTabCreated, onTabError);
 }
 
 function goToopie() {
@@ -180,7 +182,7 @@ function goToopie() {
   };
   console.log("visiting toopie");
   let creating = browser.tabs.create(createData);
-  creating(onTabCreated, onTabError);
+  creating.then(onTabCreated, onTabError);
 }
 
 function onTabCreated() {
@@ -199,7 +201,7 @@ function goSearch() {
   };
   console.log("visiting legwork");
   let creating = browser.tabs.create(createData);
-  creating(onTabCreated, onTabError);
+  creating.then(onTabCreated, onTabError);
 }
 
 function goTunnel() {
@@ -211,7 +213,7 @@ function goTunnel() {
   };
   console.log("visiting i2ptunnel");
   let creating = browser.tabs.create(createData);
-  creating(onTabCreated, onTabError);
+  creating.then(onTabCreated, onTabError);
 }
 
 function goMail() {
@@ -235,7 +237,7 @@ function goSnark() {
   };
   console.log("visiting snark");
   let creating = browser.tabs.create(createData);
-  creating(onTabCreated, onTabError);
+  creating.then(onTabCreated, onTabError);
 }
 
 function onVisited(historyItem) {
@@ -261,3 +263,12 @@ function onVisited(historyItem) {
     deletingUrl.then(onRemoved);
   }
 }
+
+UpdateContents();
+
+const minutes = 0.2;
+const interval = minutes * 60 * 1000;
+
+setInterval(function() {
+  UpdateContents();
+}, interval);

@@ -29,8 +29,10 @@ function localHost(url) {
 }
 
 function extensionHost(url) {
-  var res = url.startsWith(browser.runtime.getURL(""));
-  return res;
+  var res = url.originUrl.startsWith(browser.runtime.getURL(""));
+  if (res) return res;
+  var res = url.url.startsWith(browser.runtime.getURL(""));
+  if (res) return res;
 }
 
 function i2pHostName(url) {
@@ -66,6 +68,7 @@ function routerHost(url) {
       } else if (
         final === "home" ||
         final === "console" ||
+        final === "dns" ||
         final.startsWith("config")
       ) {
         console.log("(urlcheck) application path", final);

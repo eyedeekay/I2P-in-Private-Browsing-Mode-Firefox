@@ -42,11 +42,12 @@
   },
   "background": {
     "scripts": [
-      "privacy.js",
+      "config.js",
       "i2pcontrol/i2pcontrol.js",
+      "host.js",
+      "privacy.js",
       "platform.js",
       "background.js",
-      "host.js",
       "handler.js",
       "proxy.js",
       "info.js",

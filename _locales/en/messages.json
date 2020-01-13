@@ -131,6 +131,10 @@
     "message": "I2P Browser (Private)",
     "description": "Preface for the browser titlebar"
   },
+  "extensionPreface": {
+    "message": "I2P Management",
+    "description": "Preface for the browser titlebar"
+  },
   "webPreface": {
     "message": "Web Browser",
     "description": "Preface for the browser titlebar"
