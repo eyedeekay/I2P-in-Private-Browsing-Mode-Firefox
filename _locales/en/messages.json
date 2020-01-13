@@ -203,6 +203,10 @@
     "message": "Visit the I2P Forum to learn more or ask for assistance",
     "description": "Help Message"
   },
+  "proxyHelpText": {
+    "message": "Configure your I2P proxy here.",
+    "description": "Help for configuring the options for the Reset Tunnel button"
+  },
   "hostText": {
     "message": "Host: ",
     "description": "Host for the HTTP or SOCKS5 Proxy"
@@ -212,7 +216,7 @@
     "description": "Port for the HTTP or SOCKS5 Proxy"
   },
   "controlHelpText": {
-    "message": "These options will be inert if used with the default i2p HTTP or SOCKS proxy.",
+    "message": "Configure your router console here.",
     "description": "Help for configuring the options for the Reset Tunnel button"
   },
   "controlHostText": {

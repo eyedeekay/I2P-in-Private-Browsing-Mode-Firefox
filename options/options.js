@@ -8,6 +8,11 @@ function SetPortText() {
   portid.textContent = chrome.i18n.getMessage("portText");
 }
 
+function SetPortHelpText() {
+  var portid = document.getElementById("proxyHelpText");
+  portid.textContent = chrome.i18n.getMessage("proxyHelpText");
+}
+
 function SetControlHostText() {
   var controlhostid = document.getElementById("controlHostText");
   controlhostid.textContent = chrome.i18n.getMessage("controlHostText");
@@ -25,19 +30,20 @@ function SetControlHelpText() {
 
 function getScheme() {
   const proxy_scheme = document.querySelector("#proxy_scheme");
-  console.log("Got i2p proxy scheme:", proxy_scheme.value);
-  if (proxy_scheme == "HTTP") {
+  console.log("(options)Got i2p proxy scheme:", proxy_scheme.value);
+  if (proxy_scheme.value == "HTTP") {
     return "http";
   }
-  if (proxy_scheme == "SOCKS") {
+  if (proxy_scheme.value == "SOCKS") {
     return "socks";
   }
-  return proxy_scheme.value;
+  if (proxy_scheme.value != "http" && proxy_scheme.value != "socks")
+    return "http";
 }
 
 function getHost() {
   proxy_host = document.getElementById("host").value;
-  console.log("Got i2p proxy host:", proxy_host);
+  console.log("(options)Got i2p proxy host:", proxy_host);
   if (proxy_host == undefined) {
     return "127.0.0.1";
   }
@@ -46,7 +52,7 @@ function getHost() {
 
 function getPort() {
   proxy_port = document.getElementById("port").value;
-  console.log("Got i2p proxy port:", proxy_port);
+  console.log("(options)Got i2p proxy port:", proxy_port);
   if (proxy_port == undefined) {
     return "4444";
   }
@@ -55,7 +61,7 @@ function getPort() {
 
 function getControlHost() {
   control_host = document.getElementById("controlhost").value;
-  console.log("Got i2p control host:", control_host);
+  console.log("(options)Got i2p control host:", control_host);
   if (control_host == undefined) {
     return "127.0.0.1";
   }
@@ -64,7 +70,7 @@ function getControlHost() {
 
 function getControlPort() {
   control_port = document.getElementById("controlport").value;
-  console.log("Got i2p control port:", control_port);
+  console.log("(options)Got i2p control port:", control_port);
   if (control_port == undefined) {
     return "4444";
   }
@@ -76,142 +82,94 @@ function checkStoredSettings(storedSettings) {
     let defaultSettings = {};
     let host = info.value.http.split(":")[0];
     let port = info.value.http.split(":")[1];
-    console.log("proxy", "'" + host + "'", ":", port);
-    if (!storedSettings.proxy_scheme) {
+    if (port != 7644) {
+      port = undefined;
+    }
+    console.log("(options)proxy", "'" + host + "'", ":", port);
+    if (!storedSettings["proxy_scheme"])
       defaultSettings["proxy_scheme"] = "http";
-    }
-    if (!storedSettings.proxy_host) {
-      if (host == "") {
-        defaultSettings["proxy_host"] = "127.0.0.1";
-      } else {
-        defaultSettings["proxy_host"] = host;
-      }
+    else defaultSettings["proxy_scheme"] = storedSettings["proxy_scheme"];
+    if (!storedSettings["proxy_host"]) {
+      if (host == "") defaultSettings["proxy_host"] = "127.0.0.1";
+      else defaultSettings["proxy_host"] = host;
     } else {
-      if (host != "") {
-        defaultSettings["proxy_host"] = host;
-      } else {
-        defaultSettings["proxy_host"] = storedSettings.proxy_host;
-      }
+      defaultSettings["proxy_host"] = storedSettings["proxy_host"];
     }
-    if (!storedSettings.proxy_port) {
-      if (port == undefined) {
-        defaultSettings["proxy_port"] = 4444;
-      } else {
-        defaultSettings["proxy_port"] = port;
-      }
+    if (!storedSettings["proxy_port"]) {
+      if (port == undefined) defaultSettings["proxy_port"] = 4444;
+      else if (port == 7644) defaultSettings["proxy_port"] = port;
+      else defaultSettings["proxy_port"] = 4444;
     } else {
-      if (port != undefined) {
-        defaultSettings["proxy_port"] = port;
-      } else {
-        defaultSettings["proxy_port"] = storedSettings.proxy_port;
-      }
+      defaultSettings["proxy_port"] = storedSettings.proxy_port;
     }
-    if (!storedSettings.control_host) {
-      if (host == "") {
-        defaultSettings["control_host"] = "127.0.0.1";
-      } else {
-        defaultSettings["control_host"] = host;
-      }
+    if (!storedSettings["control_host"]) {
+      if (host == "") defaultSettings["control_host"] = "127.0.0.1";
+      else defaultSettings["control_host"] = host;
     } else {
-      if (host != "") {
-        defaultSettings["control_host"] = host;
-      } else {
-        defaultSettings["control_host"] = storedSettings.control_host;
-      }
+      defaultSettings["control_host"] = storedSettings.control_host;
     }
-    if (!storedSettings.control_port) {
-      if (port == undefined) {
-        defaultSettings["control_port"] = 4444;
-      } else {
-        defaultSettings["control_port"] = port;
-      }
+    if (!storedSettings["control_port"]) {
+      defaultSettings["control_port"] = 7657;
     } else {
-      if (port != undefined) {
-        defaultSettings["control_port"] = port;
-      } else {
-        defaultSettings["control_port"] = storedSettings.control_port;
-      }
+      defaultSettings["control_port"] = storedSettings.control_port;
     }
-    console.log("(browserinfo) NATIVE PROXYSETTINGS", info.value);
+    console.log("(options)(browserinfo) NATIVE PROXYSETTINGS", info.value);
     console.log(
+      "(options)",
+      defaultSettings["proxy_sheme"],
       defaultSettings["proxy_host"],
       defaultSettings["proxy_port"],
       defaultSettings["control_host"],
       defaultSettings["control_port"]
     );
     chrome.storage.local.set(defaultSettings);
+    return defaultSettings;
   }
   var gettingInfo = browser.proxy.settings.get({});
-  gettingInfo.then(gotProxyInfo);
+  return gettingInfo.then(gotProxyInfo);
 }
 
 function checkAndroidStoredSettings(storedSettings) {
   let defaultSettings = {};
   let host = "";
   let port = "";
-  console.log("proxy", "'" + host + "'", ":", port);
-  if (!storedSettings.proxy_scheme) {
-    defaultSettings["proxy_scheme"] = "http";
-  }
-  if (!storedSettings.proxy_host) {
-    if (host == "") {
-      defaultSettings["proxy_host"] = "127.0.0.1";
-    } else {
-      defaultSettings["proxy_host"] = host;
-    }
+  if (!storedSettings["proxy_scheme"]) defaultSettings["proxy_scheme"] = "http";
+  else defaultSettings["proxy_scheme"] = storedSettings["proxy_scheme"];
+  if (!storedSettings["proxy_host"]) {
+    if (host == "") defaultSettings["proxy_host"] = "127.0.0.1";
+    else defaultSettings["proxy_host"] = host;
   } else {
-    if (host != "") {
-      defaultSettings["proxy_host"] = host;
-    } else {
-      defaultSettings["proxy_host"] = storedSettings.proxy_host;
-    }
+    defaultSettings["proxy_host"] = storedSettings["proxy_host"];
   }
-  if (!storedSettings.proxy_port) {
-    if (port == undefined) {
-      defaultSettings["proxy_port"] = 4444;
-    } else {
-      defaultSettings["proxy_port"] = port;
-    }
+  if (!storedSettings["proxy_port"]) {
+    if (port == undefined) defaultSettings["proxy_port"] = 4444;
+    else if (port == 7644) defaultSettings["proxy_port"] = port;
+    else defaultSettings["proxy_port"] = 4444;
   } else {
-    if (port != undefined) {
-      defaultSettings["proxy_port"] = port;
-    } else {
-      defaultSettings["proxy_port"] = storedSettings.proxy_port;
-    }
+    defaultSettings["proxy_port"] = storedSettings.proxy_port;
   }
-  if (!storedSettings.control_host) {
-    if (host == "") {
-      defaultSettings["control_host"] = "127.0.0.1";
-    } else {
-      defaultSettings["control_host"] = host;
-    }
+  if (!storedSettings["control_host"]) {
+    if (host == "") defaultSettings["control_host"] = "127.0.0.1";
+    else defaultSettings["control_host"] = host;
   } else {
-    if (host != "") {
-      defaultSettings["control_host"] = host;
-    } else {
-      defaultSettings["control_host"] = storedSettings.control_host;
-    }
+    defaultSettings["control_host"] = storedSettings.control_host;
   }
-  if (!storedSettings.control_port) {
-    if (port == undefined) {
-      defaultSettings["control_port"] = 4444;
-    } else {
-      defaultSettings["control_port"] = port;
-    }
+  if (!storedSettings["control_port"]) {
+    defaultSettings["control_port"] = 7657;
   } else {
-    if (port != undefined) {
-      defaultSettings["control_port"] = port;
-    } else {
-      defaultSettings["control_port"] = storedSettings.control_port;
-    }
+    defaultSettings["control_port"] = storedSettings.control_port;
   }
+  console.log("(options)(browserinfo) NATIVE PROXYSETTINGS", info.value);
   console.log(
+    "(options)",
+    defaultSettings["proxy_scheme"],
     defaultSettings["proxy_host"],
     defaultSettings["proxy_port"],
     defaultSettings["control_host"],
     defaultSettings["control_port"]
   );
   chrome.storage.local.set(defaultSettings);
+  return defaultSettings;
 }
 
 function onError(e) {
@@ -231,36 +189,37 @@ function storeSettings() {
     control_host,
     control_port
   });
-  console.log("storing proxy scheme:", proxy_scheme);
-  console.log("storing proxy host:", proxy_host);
-  console.log("storing proxy port:", proxy_port);
-  console.log("storing control host:", control_host);
-  console.log("storing control port:", control_port);
+  console.log("(options)storing proxy scheme:", proxy_scheme);
+  console.log("(options)storing proxy host:", proxy_host);
+  console.log("(options)storing proxy port:", proxy_port);
+  console.log("(options)storing control host:", control_host);
+  console.log("(options)storing control port:", control_port);
 }
 
 function updateUI(restoredSettings) {
   const selectList = document.querySelector("#proxy_scheme");
   selectList.value = restoredSettings.proxy_scheme;
-  console.log("showing proxy scheme:", selectList.value);
+  console.log("(options)showing proxy scheme:", selectList.value);
 
   const hostitem = document.getElementById("host");
   hostitem.value = restoredSettings.proxy_host;
-  console.log("showing proxy host:", hostitem.value);
+  console.log("(options)showing proxy host:", hostitem.value);
 
   const portitem = document.getElementById("port");
   portitem.value = restoredSettings.proxy_port;
-  console.log("showing proxy port:", portitem.value);
+  console.log("(options)showing proxy port:", portitem.value);
 
   const controlhostitem = document.getElementById("controlhost");
   controlhostitem.value = restoredSettings.control_host;
-  console.log("showing control host:", controlhostitem.value);
+  console.log("(options)showing control host:", controlhostitem.value);
 
   const controlportitem = document.getElementById("controlport");
   controlportitem.value = restoredSettings.control_port;
-  console.log("showing control port:", controlportitem.value);
+  console.log("(options)showing control port:", controlportitem.value);
 
   SetHostText();
   SetPortText();
+  SetPortHelpText();
   SetControlHostText();
   SetControlPortText();
   SetControlHelpText();
@@ -274,8 +233,8 @@ var gettingInfo = browser.runtime.getPlatformInfo();
 gettingInfo.then(got => {
   if (got.os != "android") {
     chrome.storage.local.get(function(got) {
-      checkStoredSettings(got);
-      updateUI(got);
+      let settings = checkStoredSettings(got);
+      settings.then(updateUI);
     });
   } else {
     chrome.storage.local.get(function(got) {
@@ -287,5 +246,3 @@ gettingInfo.then(got => {
 
 const saveButton = document.querySelector("#save-button");
 saveButton.addEventListener("click", storeSettings);
-
-//EXPERIMENTAL: Open in I2P Tab

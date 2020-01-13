@@ -4,20 +4,21 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="options.css"/>
+    <link rel="stylesheet" href="/home.css"/>
   </head>
   <body>
 
     <section class="scheme-options">
       <span class="title">Proxy Scheme:</span>
       <select id="proxy_scheme">
-        <option value="http" selected="selected">HTTP</option>
+        <option value="http" selected>HTTP</option>
         <option value="socks5">SOCKS5</option>
       </select>
     </section>
 
     <section class="scheme-options proxy-options">
       <div class="title" >Proxy Options</div>
-
+      <p id="proxyHelpText"> </p>
       <label id="portText">Host: </label>
       <input type="text" data="host" id="host" value="127.0.0.1"/>
       <br>
@@ -32,14 +33,13 @@
     </section>
 
     <section class="scheme-options control-options">
-      <div class="title" >Controller Options</div>
-      <p id="controlHelpText"> These options will be inert if used with the default i2p HTTP or SOCKS
-      proxy. </p>
+      <div class="title" >Router Console Options</div>
+      <p id="controlHelpText"> </p>
       <label id="controlPortText">Control Host: </label>
       <input type="text" data="controlhost" id="controlhost" value="127.0.0.1"/>
       <br>
       <label id="controlHostText">Control Port: </label>
-      <input type="text" data="controlport" id="controlport" value="4444"/>
+      <input type="text" data="controlport" id="controlport" value="7657"/>
 
     </section>
 
