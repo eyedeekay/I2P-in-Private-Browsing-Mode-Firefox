@@ -30,15 +30,6 @@ function onContextsGot(contexts) {
       })
       .then(onCreated, onNotCreated);
   }
-  if (ids.indexOf(extensionpref) == -1) {
-    browser.contextualIdentities
-      .create({
-        name: extensionpref,
-        color: "pink",
-        icon: "gift"
-      })
-      .then(onCreated, onNotCreated);
-  }
   if (ids.indexOf(webpref) == -1) {
     browser.contextualIdentities
       .create({
