@@ -42,8 +42,8 @@
   },
   "background": {
     "scripts": [
-      "i2pcontrol/i2pcontrol.js",
       "privacy.js",
+      "i2pcontrol/i2pcontrol.js",
       "platform.js",
       "background.js",
       "host.js",
