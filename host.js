@@ -88,22 +88,6 @@ function routerHost(url) {
   if (hostname === control_host + ":" + control_port) {
     console.log("(hostcheck) router console found on configured ports");
     return pathcheck(path);
-  } else if (hostname === "127.0.0.1:7657") {
-    return pathcheck(path);
-  } else if (hostname === "localhost:7657") {
-    return pathcheck(path);
-  }
-
-  if (hostname === "127.0.0.1:7657") {
-    return pathcheck(path);
-  } else if (hostname === "localhost:7657") {
-    return pathcheck(path);
-  }
-
-  if (hostname === "127.0.0.1:7070") {
-    return pathcheck(path);
-  } else if (hostname === "localhost:7070") {
-    return pathcheck(path);
   }
 
   return false;

@@ -402,11 +402,6 @@ gettingListenerInfo.then(got => {
     console.log("Error finding platform info");
   }
   if (got.os != "android") {
-    browser.windows.onCreated.addListener(() => {
-      chrome.storage.local.get(function() {
-        setupProxy();
-      });
-    });
     browser.tabs.onCreated.addListener(() => {
       var getting = browser.windows.getCurrent({
         populate: true

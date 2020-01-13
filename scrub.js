@@ -369,7 +369,6 @@ var contextSetup = function(requestDetails) {
         setcookie.then(onContextGotLog, onContextError);
         return requestDetails;
       }
-      console.log("(isolate)Request Details", requestDetails);
       var tab = tabGet(requestDetails.tabId);
       if (i2pHost(requestDetails.url)) {
         var setcookie = browser.cookies.set({

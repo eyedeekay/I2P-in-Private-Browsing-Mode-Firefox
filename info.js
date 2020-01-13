@@ -207,7 +207,7 @@ function goTunnel() {
     console.log("I2PTunnel tab created");
   }
   let createData = {
-    url: "http://" + "127.0.0.1" + ":" + "7657" + "/i2ptunnel"
+    url: "http://" + control_host + ":" + control_port + "/i2ptunnel"
   };
   console.log("visiting i2ptunnel");
   let creating = browser.tabs.create(createData);
@@ -219,7 +219,7 @@ function goMail() {
     console.log("Mail tab created");
   }
   let createData = {
-    url: "http://" + "127.0.0.1" + ":" + "7657" + "/susimail"
+    url: "http://" + control_host + ":" + control_port + "/susimail"
   };
   console.log("visiting mail");
   let creating = browser.tabs.create(createData);
@@ -231,7 +231,7 @@ function goSnark() {
     console.log("Snark tab created");
   }
   let createData = {
-    url: "http://" + "127.0.0.1" + ":" + "7657" + "/i2psnark"
+    url: "http://" + control_host + ":" + control_port + "/i2psnark"
   };
   console.log("visiting snark");
   let creating = browser.tabs.create(createData);

@@ -37,8 +37,9 @@ function getScheme() {
   if (proxy_scheme.value == "SOCKS") {
     return "socks";
   }
-  if (proxy_scheme.value != "http" && proxy_scheme.value != "socks")
-    return "http";
+  if (proxy_scheme.value == "http") return "http";
+  if (proxy_scheme.value == "socks") return "socks";
+  else return "http";
 }
 
 function getHost() {
@@ -189,11 +190,7 @@ function storeSettings() {
     control_host,
     control_port
   });
-  console.log("(options)storing proxy scheme:", proxy_scheme);
-  console.log("(options)storing proxy host:", proxy_host);
-  console.log("(options)storing proxy port:", proxy_port);
-  console.log("(options)storing control host:", control_host);
-  console.log("(options)storing control port:", control_port);
+  storeSettings();
 }
 
 function updateUI(restoredSettings) {
