@@ -416,30 +416,7 @@ gettingListenerInfo.then(got => {
     });
   }
 });
-/*
-var gettingInfo = browser.runtime.getPlatformInfo();
-gettingInfo.then(got => {
-  if (got.os != "android") {
-    browser.tabs.onCreated.addListener(() => {
-      var getting = browser.windows.getCurrent({
-        populate: true
-      });
-      getting.then(setTitle, onError);
-    });
-  }
-});
-var gettingInfo = browser.runtime.getPlatformInfo();
-gettingInfo.then(got => {
-  if (got.os != "android") {
-    browser.tabs.onActivated.addListener(() => {
-      var getting = browser.windows.getCurrent({
-        populate: true
-      });
-      getting.then(setTitle, onError);
-    });
-  }
-});
-*/
+
 function handleUpdated(updateInfo) {
   if (updateInfo.theme) {
     console.log(`Theme was applied: ${updateInfo.theme}`);
