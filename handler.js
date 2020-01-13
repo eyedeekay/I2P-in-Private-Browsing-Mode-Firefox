@@ -17,7 +17,6 @@ function routerHost(url) {
         final === "home" ||
         final === "console" ||
         final === "dns" ||
-        final.startsWith("themes") ||
         final.startsWith("config")
       ) {
         console.log("(urlcheck) application path", final);
