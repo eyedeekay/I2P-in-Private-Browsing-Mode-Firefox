@@ -2,8 +2,8 @@ function checkPeerConnection() {
   let getting = browser.privacy.network.peerConnectionEnabled.get({});
   getting.then(got => {
     let webrtc = got.value;
-    console.log("checking webrtc", webrtc);
-    document.getElementById("enable-web-rtc").checked = webrtc;
+    console.log('checking webrtc', webrtc);
+    document.getElementById('enable-web-rtc').checked = webrtc;
   });
 }
 

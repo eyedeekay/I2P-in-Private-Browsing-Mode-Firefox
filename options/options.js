@@ -190,7 +190,6 @@ function storeSettings() {
     control_host,
     control_port
   });
-  storeSettings();
 }
 
 function updateUI(restoredSettings) {

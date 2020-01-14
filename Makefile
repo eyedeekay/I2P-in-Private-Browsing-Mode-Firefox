@@ -246,7 +246,9 @@ fmt:
 	find . -path ./node_modules -prune -o -name '*.json' -exec prettier --write {} \;
 
 lint:
-	eslint --color *.js
+	fixjsstyle *.js
+	gjslint *.js; true
+	#eslint --color *.js
 
 deborig: fmt version
 	rm -rf ../i2psetproxy.js-$(VERSION)
