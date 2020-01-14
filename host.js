@@ -59,7 +59,11 @@ function routerHost(url) {
       if (final === "i2ptunnelmgr" || final === "i2ptunnel") {
         console.log("(urlcheck) application path", final);
         return "i2ptunnelmgr";
-      } else if (final === "i2psnark" || final === "torrents") {
+      } else if (
+        final === "i2psnark" ||
+        final === "torrents" ||
+        final.startsWith("transmission")
+      ) {
         console.log("(urlcheck) application path", final);
         return "i2psnark";
       } else if (final === "webmail" || final === "susimail") {
