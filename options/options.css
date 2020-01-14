@@ -1,66 +1,51 @@
 body {
   width: 25em;
-  font-family: "Open Sans Light", sans-serif;
+  font-family: "Open Sans Light",sans-serif;
   font-size: 0.9em;
-  font-weight: 300;
+  font-weight: 300
 }
-
 section.scheme-options {
   padding: 0.5em 0;
-  margin: 1em 0;
+  margin: 1em 0
 }
-
 #clear-button {
-  margin: 0 1.3em 1em 0;
+  margin: 0 1.3em 1em 0
 }
-
+#clear-button,
 section.scheme-options input,
-section.scheme-options>select,
-#clear-button {
-  float: right;
+section.scheme-options>select {
+  float: right
 }
-
 label {
   display: block;
-  margin-top: 1em;
+  margin-top: 1em
 }
-
 label:hover {
-  background-color: #EAEFF2;
+  background-color: #eaeff2
 }
-
 .title {
   font-size: 1.2em;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.5em
 }
-
-html, body {
-  width: 350px;
+body,
+html {
+  width: 350px
 }
-
 a {
   margin: 10px;
-  display: inline-block;
+  display: inline-block
 }
-
 .panel {
-  margin: 5px;
+  margin: 5px
 }
-
 span.identity {
   width: 100px;
   display: inline-block;
-  margin-left: 1em;
+  margin-left: 1em
 }
-
-/*.control-options {
-  display: none;
-}*/
-
 .identity-options {
-  display: none;
+  display: none
 }
-
 input {
-    display: inline;
+  display: inline
 }
