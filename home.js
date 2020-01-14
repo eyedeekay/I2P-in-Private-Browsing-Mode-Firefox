@@ -15,6 +15,7 @@ document.addEventListener('click', clickEvent => {
 });
 
 function flipVisibility(div) {
+  console.log("(home) seeking flippable", div)
   let flippable = document.getElementById(div);
   if (flippable.style.display === 'none') {
     flippable.style.display = 'block';

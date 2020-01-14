@@ -145,11 +145,15 @@ gettingInfo.then(got => {
 function showBrowsing(){
     var x = document.getElementById("browserpanel");
     x.style.display = "block";
+    var y = document.getElementById("torrentpanel");
+    y.style.display = "none";
 }
 
 function showTorrents(){
     var x = document.getElementById("browserpanel");
     x.style.display = "none";
+    var y = document.getElementById("torrentpanel");
+    y.style.display = "block";
 }
 
 function goHome() {
