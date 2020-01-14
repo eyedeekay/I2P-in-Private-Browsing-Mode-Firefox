@@ -80,6 +80,12 @@ document.addEventListener("click", clickEvent => {
   } else if (clickEvent.target.id === "search-submit") {
     console.log("attempting to create search tab");
     goSearch();
+  } else if (clickEvent.target.id === "browser-action") {
+    console.log("showing a browser action");
+    showBrowsing();
+  } else if (clickEvent.target.id === "torrent-action") {
+    console.log("showing a torrent action");
+    showTorrents();
   } else if (clickEvent.target.id === "window-preface-title") {
     console.log("attempting to create homepage tab");
     goHome();
@@ -135,6 +141,16 @@ gettingInfo.then(got => {
     browser.history.onVisited.addListener(onVisited);
   }
 });
+
+function showBrowsing(){
+    var x = document.getElementById("browserpanel");
+    x.style.display = "block";
+}
+
+function showTorrents(){
+    var x = document.getElementById("browserpanel");
+    x.style.display = "none";
+}
 
 function goHome() {
   function gotProxyInfo(info) {

@@ -41,7 +41,8 @@
     "browser_style": true,
     "default_icon": "icons/logo.png",
     "default_title": "__MSG_toopieName__",
-    "default_panel": "toopie.html"
+    "default_panel": "toopie.html",
+    "open_at_install": false
   },
   "options_ui": {
     "page": "options/options.html"
