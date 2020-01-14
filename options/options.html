@@ -3,8 +3,8 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="options.css"/>
     <link rel="stylesheet" href="/home.css"/>
+    <link rel="stylesheet" href="options.css"/>
   </head>
   <body>
 
@@ -24,23 +24,52 @@
       <br>
       <label id="hostText">Port: </label>
       <input type="text" data="port" id="port" value="4444"/>
-
     </section>
-    <section class="scheme-options identity-options">
+
+    <!--<section class="scheme-options identity-options">
       <div class="panel">
         <div id="identity-list">Identity list?</div>
+      </div>
+    </section>-->
+
+    <section class="scheme-options control-options">
+
+      <div class="title" >Router Console Options</div>
+      <p id="controlHelpText"> Configure your router console options here. </p>
+      <label id="controlPortText">Console Host: </label>
+      <input type="text" data="controlhost" id="controlhost" value="127.0.0.1"/>
+      <br>
+      <label id="controlHostText">Console Port: </label>
+      <input type="text" data="controlport" id="controlport" value="7657"/>
+    </section>
+
+    <section class="scheme-options control-options">
+      <div class="title" >I2PControl RPC Client Options</div>
+      <p id="rpcHelpText"> Configure your I2PControl options here. </p>
+      <label id="rpcPortText">Control Host: </label>
+      <input type="text" data="rpchost" id="rpchost" value="127.0.0.1"/>
+      <br>
+      <label id="rpcHostText">Control Port: </label>
+      <input type="text" data="rpcport" id="rpcport" value="7657"/>
+      <br>
+      <label id="rpcPathText">Control Path: </label>
+      <input type="text" data="rpcport" id="rpcport" value="jsonrpc"/>
       </div>
     </section>
 
     <section class="scheme-options control-options">
-      <div class="title" >Router Console Options</div>
-      <p id="controlHelpText"> </p>
-      <label id="controlPortText">Control Host: </label>
-      <input type="text" data="controlhost" id="controlhost" value="127.0.0.1"/>
+      <div>
+      <div class="title" >Bittorrent RPC Client Options</div>
+      <p id="rpcHelpText"> Configure your Bittorrent options here. </p>
+      <label id="rpcPortText">Torrent RPC Host: </label>
+      <input type="text" data="rpchost" id="rpchost" value="127.0.0.1"/>
       <br>
-      <label id="controlHostText">Control Port: </label>
-      <input type="text" data="controlport" id="controlport" value="7657"/>
-
+      <label id="rpcHostText">Torrent RPC Port: </label>
+      <input type="text" data="rpcport" id="rpcport" value="7657"/>
+      <br>
+      <label id="rpcPathText">Torrent RPC Path: </label>
+      <input type="text" data="rpcport" id="rpcport" value="transmission/rpc"/>
+      </div>
     </section>
 
     <input type="button" value="Save preferences" id="save-button"/>

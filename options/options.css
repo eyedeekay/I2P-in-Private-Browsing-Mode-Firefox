@@ -22,7 +22,7 @@ section.scheme-options>select,
 
 label {
   display: block;
-  padding: 0.2em 0;
+  margin-top: 1em;
 }
 
 label:hover {
@@ -59,4 +59,8 @@ span.identity {
 
 .identity-options {
   display: none;
+}
+
+input {
+    display: inline;
 }
