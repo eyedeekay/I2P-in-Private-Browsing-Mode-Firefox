@@ -27,7 +27,7 @@
   "version": "0.57",
   "version_name": "0.57",
   "description": "__MSG_extensionDescription__",
-  "homepage_url": "https://github.com/eyedeekay/i2psetproxy.js",
+  "homepage_url": "https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox",
   "icons": {
     "48": "icons/toopie.png"
   },
@@ -36,6 +36,12 @@
     "default_icon": "icons/toopie.png",
     "default_title": "__MSG_extensionName__",
     "default_popup": "window.html"
+  },
+  "sidebar_action": {
+    "browser_style": true,
+    "default_icon": "icons/logo.png",
+    "default_title": "__MSG_toopieName__",
+    "default_panel": "toopie.html"
   },
   "options_ui": {
     "page": "options/options.html"

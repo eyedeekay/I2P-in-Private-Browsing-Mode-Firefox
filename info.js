@@ -177,11 +177,8 @@ function goToopie() {
   function onTabError() {
     console.log("Toopie tab created");
   }
-  let createData = {
-    url: "toopie.html"
-  };
   console.log("visiting toopie");
-  let creating = browser.tabs.create(createData);
+  let creating = browser.sidebarAction.open();
   creating.then(onTabCreated, onTabError);
 }
 
