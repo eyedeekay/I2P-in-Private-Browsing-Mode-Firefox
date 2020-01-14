@@ -29,10 +29,14 @@ function localHost(url) {
 }
 
 function extensionHost(url) {
-  var res = url.originUrl.startsWith(browser.runtime.getURL(""));
-  if (res) return res;
-  var res = url.url.startsWith(browser.runtime.getURL(""));
-  if (res) return res;
+  if (url.originUrl !== undefined) {
+    var res = url.originUrl.startsWith(browser.runtime.getURL(""));
+    if (res) return res;
+  }
+  if (url.url !== undefined) {
+    var res = url.url.startsWith(browser.runtime.getURL(""));
+    if (res) return res;
+  }
 }
 
 function i2pHostName(url) {

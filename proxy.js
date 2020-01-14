@@ -143,12 +143,12 @@ var handleContextProxyRequest = async function(requestDetails) {
       } else if (extensionHost(requestDetails.url)) {
         return;
       } else if (i2pHost(requestDetails.url)) {
-        //console.log("(Proxy)I2P URL detected, ");
+        console.log("(Proxy)I2P URL detected, ");
         var tab = tabGet(requestDetails.tabId);
         requestDetails.tabId = tab;
         var context = tab.then(contextGet);
         var proxy = await context.then(handleProxyRequest);
-        //console.log("(proxy)Returning I2P Proxy", proxy);
+        console.log("(proxy)Returning I2P Proxy", proxy);
         return proxy;
       } else {
         var tab = tabGet(requestDetails.tabId);

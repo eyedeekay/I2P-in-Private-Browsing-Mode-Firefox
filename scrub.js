@@ -366,9 +366,7 @@ var contextSetup = function(requestDetails) {
       setcookie.then(onContextGotLog, onContextError);
       return requestDetails;
     }
-    if (extensionHost(requestDetails)) {
-      return requestDetails;
-    }
+
     if (requestDetails.tabId > 0) {
       var tab = tabGet(requestDetails.tabId);
       if (i2pHost(requestDetails.url)) {
@@ -379,6 +377,9 @@ var contextSetup = function(requestDetails) {
         });
         setcookie.then(onContextGotLog, onContextError);
         var i2ptab = tab.then(i2pTabFind, onContextError);
+        return requestDetails;
+      }
+      if (extensionHost(requestDetails)) {
         return requestDetails;
       }
       let localhost = localHost(requestDetails.url);
