@@ -1,5 +1,5 @@
 //var windowIds = []
-var titlepref = chrome.i18n.getMessage('titlePreface');
+var titlepref = chrome.i18n.getMessage("titlePreface");
 
 function onError(error) {
   console.log(`Error : ${error}`);
@@ -10,17 +10,17 @@ function eventHandler(event) {
     console.log(`Created window : ${windowInfo.id}`);
     browser.tabs.create({
       windowId: windowInfo.id,
-      url: 'about:blank',
+      url: "about:blank",
       cookieStoreId: event.target.dataset.identity
     });
   }
-  if (event.target.dataset.action == 'create') {
+  if (event.target.dataset.action == "create") {
     var creating = browser.tabs.create({
       cookieStoreId: event.target.dataset.identity
     });
     creating.then(onCreated, onError);
   }
-  if (event.target.dataset.action == 'close-all') {
+  if (event.target.dataset.action == "close-all") {
     browser.tabs
       .query({
         cookieStoreId: event.target.dataset.identity

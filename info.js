@@ -2,8 +2,8 @@ function checkPeerConnection() {
   let getting = browser.privacy.network.peerConnectionEnabled.get({});
   getting.then(got => {
     let webrtc = got.value;
-    console.log('checking webrtc', webrtc);
-    document.getElementById('enable-web-rtc').checked = webrtc;
+    console.log("checking webrtc", webrtc);
+    document.getElementById("enable-web-rtc").checked = webrtc;
   });
 }
 
@@ -142,18 +142,18 @@ gettingInfo.then(got => {
   }
 });
 
-function showBrowsing(){
-    var x = document.getElementById("browserpanel");
-    x.style.display = "block";
-    var y = document.getElementById("torrentpanel");
-    y.style.display = "none";
+function showBrowsing() {
+  var x = document.getElementById("browserpanel");
+  x.style.display = "block";
+  var y = document.getElementById("torrentpanel");
+  y.style.display = "none";
 }
 
-function showTorrents(){
-    var x = document.getElementById("browserpanel");
-    x.style.display = "none";
-    var y = document.getElementById("torrentpanel");
-    y.style.display = "block";
+function showTorrents() {
+  var x = document.getElementById("browserpanel");
+  x.style.display = "none";
+  var y = document.getElementById("torrentpanel");
+  y.style.display = "block";
 }
 
 function goHome() {

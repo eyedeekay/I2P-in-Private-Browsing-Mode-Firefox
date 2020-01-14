@@ -52,3 +52,6 @@ img.readyness {
 #consoleOn {
   min-height: 2rem
 }
+#torrentpanel {
+  display: none
+}
