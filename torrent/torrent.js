@@ -38,7 +38,7 @@ function send(
   }
 
   return postData(
-    "http://" + control_host + ":" + control_port + "/" + control_path,
+    "http://" + control_host + ":" + control_port + "/" + control_path + "/",
     message
   );
 }

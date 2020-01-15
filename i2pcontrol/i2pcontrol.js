@@ -20,7 +20,7 @@ function send(
   async function postData(url = "", data = {}) {
     // Default options are marked with *
     let requestBody = JSON.stringify(data);
-    //console.log("(i2pcontrol)", requestBody, data);
+    //console.log("(i2pcontrol) sending request", requestBody);
     let opts = {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
@@ -37,62 +37,51 @@ function send(
     return await response.json(); // parses JSON response into native JavaScript objects
   }
 
+  //console.log("http://" + control_host + ":" + control_port + "/" + control_path)
   return postData(
-    "http://" + control_host + ":" + control_port + "/" + control_path,
+    "http://" + control_host + ":" + control_port + "/" + control_path + "/",
     message
   );
 }
 
-function authenticate(
+async function authenticate(
   password = "itoopie",
   control_host = "127.0.0.1",
   control_port = "7657",
   control_path = "jsonrpc"
 ) {
-  let store = browser.storage.local.get("rpc_pass");
-  if (store != undefined) {
-    console.log("Stored password found");
-    password = store;
-  }
-  function auth(got) {
-    var json = new Object();
-    json["id"] = makeid(6);
-    json["jsonrpc"] = "2.0";
-    json["method"] = "Authenticate";
-    json["params"] = new Object();
-    json["params"]["API"] = 1;
-    json["params"]["Password"] = password;
-    return send(json);
-  }
-  store.then(auth);
+  var json = new Object();
+  json["id"] = makeid(6);
+  json["jsonrpc"] = "2.0";
+  json["method"] = "Authenticate";
+  json["params"] = new Object();
+  json["params"]["API"] = 1;
+  json["params"]["Password"] = password;
+  return send(json, control_host, control_port, control_path);
 }
 
 async function GetToken(
-  password,
+  password = "itoopie",
   control_host = "127.0.0.1",
   control_port = "7657",
   control_path = "jsonrpc"
 ) {
-  let me = authenticate(password);
+  function gettoken(authtoken) {
+    return authtoken.result.Token;
+  }
+  let me = authenticate(password, control_host, control_port, control_path);
   return await me.then(gettoken);
 }
 
-function gettoken(authtoken) {
-  return authtoken.result.Token;
-}
-
-function Done(output) {
-  //console.log("(i2pcontrol) I2PControl connection tested,", output);
-  return output;
-}
-
-function Echo(
+async function Echo(
   message,
   control_host = "127.0.0.1",
   control_port = "7657",
-  control_path = "jsonrpc"
+  control_path = "jsonrpc",
+  password = "itoopie"
 ) {
   function echo(token) {
+    console.log("(i2pcontrol) testing I2PControl connection");
     var json = new Object();
     json["id"] = makeid(6);
     json["jsonrpc"] = "2.0";
@@ -100,10 +89,10 @@ function Echo(
     json["params"] = new Object();
     json["params"]["Token"] = token;
     json["params"]["Echo"] = message;
-    return send(json);
+    return send(json, control_host, control_port, control_path);
   }
-  let token = GetToken(password);
-  let done = token.then(echo);
+  let token = GetToken(password, control_host, control_port, control_path);
+  let done = await token.then(echo);
   return done;
 }
 
@@ -118,15 +107,16 @@ function UpdateEchoElementByID(
     //console.log("(i2pcontrol)", update);
     document.getElementById(ID).innerText = update;
   }
-  let net = Echo(Query, control_host, control_port, control_path);
+  let net = Echo(Query, control_host, control_port, control_path, password);
   net.then(updateleement);
 }
 
-function GetRate(
+async function GetRate(
   Query,
   control_host = "127.0.0.1",
   control_port = "7657",
-  control_path = "jsonrpc"
+  control_path = "jsonrpc",
+  password = "itoopie"
 ) {
   function getrate(token) {
     var json = new Object();
@@ -137,10 +127,10 @@ function GetRate(
     json["params"]["Token"] = token;
     json["params"]["Stat"] = Query;
     json["params"]["Period"] = 2000;
-    return send(json);
+    return send(json, control_host, control_port, control_path);
   }
-  let token = GetToken(password);
-  let done = token.then(getrate);
+  let token = GetToken(password, control_host, control_port, control_path);
+  let done = await token.then(getrate);
   return done;
 }
 
@@ -155,15 +145,16 @@ function UpdateGetRateElementByID(
     //console.log("(i2pcontrol)", update);
     document.getElementById(ID).innerText = update;
   }
-  let net = GetRate(Query, control_host, control_port, control_path);
+  let net = GetRate(Query, control_host, control_port, control_path, password);
   net.then(updateleement);
 }
 
-function I2PControl(
+async function I2PControl(
   Query,
   control_host = "127.0.0.1",
   control_port = "7657",
-  control_path = "jsonrpc"
+  control_path = "jsonrpc",
+  password = "itoopie"
 ) {
   function i2pcontrol(token) {
     var json = new Object();
@@ -173,10 +164,10 @@ function I2PControl(
     json["params"] = new Object();
     json["params"]["Token"] = token;
     json["params"][Query] = null;
-    return send(json);
+    return send(json, control_host, control_port, control_path);
   }
-  let token = GetToken(password);
-  let done = token.then(i2pcontrol);
+  let token = GetToken(password, control_host, control_port, control_path);
+  let done = await token.then(i2pcontrol);
   return done;
 }
 
@@ -191,15 +182,22 @@ function UpdateI2PControlElementByID(
     //console.log("(i2pcontrol)", update);
     document.getElementById(ID).innerText = update;
   }
-  let net = I2PControl(Query, control_host, control_port, control_path);
+  let net = I2PControl(
+    Query,
+    control_host,
+    control_port,
+    control_path,
+    password
+  );
   net.then(updateleement);
 }
 
-function RouterInfo(
+async function RouterInfo(
   Query,
   control_host = "127.0.0.1",
   control_port = "7657",
-  control_path = "jsonrpc"
+  control_path = "jsonrpc",
+  password = "itoopie"
 ) {
   function routerinfo(token) {
     var json = new Object();
@@ -209,10 +207,10 @@ function RouterInfo(
     json["params"] = new Object();
     json["params"]["Token"] = token;
     json["params"][Query] = null;
-    return send(json);
+    return send(json, control_host, control_port, control_path);
   }
-  let token = GetToken(password);
-  let done = token.then(routerinfo);
+  let token = GetToken(password, control_host, control_port, control_path);
+  let done = await token.then(routerinfo);
   return done;
 }
 
@@ -221,26 +219,35 @@ function UpdateRouterInfoElementByID(
   ID,
   control_host = "127.0.0.1",
   control_port = "7657",
-  control_path = "jsonrpc"
+  control_path = "jsonrpc",
+  password = "itoopie"
 ) {
   function updateelement(update) {
     /*console.log(
-      "(i2pcontrol)",
+      "(i2pcontrol) element",
       update.result[Query],
       ID,
       document.getElementById(ID)
     );*/
     document.getElementById(ID).innerText = update.result[Query];
   }
-  let net = RouterInfo(Query, control_host, control_port, control_path);
+
+  let net = RouterInfo(
+    Query,
+    control_host,
+    control_port,
+    control_path,
+    password
+  );
   net.then(updateelement);
 }
 
-function RouterManager(
+async function RouterManager(
   Query,
   control_host = "127.0.0.1",
   control_port = "7657",
-  control_path = "jsonrpc"
+  control_path = "jsonrpc",
+  password = "itoopie"
 ) {
   function routermanager(token) {
     var json = new Object();
@@ -250,10 +257,10 @@ function RouterManager(
     json["params"] = new Object();
     json["params"]["Token"] = token;
     json["params"][Query] = null;
-    return send(json);
+    return send(json, control_host, control_port, control_path);
   }
-  let token = GetToken(password);
-  let done = token.then(routermanager);
+  let token = GetToken(password, control_host, control_port, control_path);
+  let done = await token.then(routermanager);
   return done;
 }
 
@@ -262,21 +269,29 @@ function UpdateRouterManagerElementByID(
   ID,
   control_host = "127.0.0.1",
   control_port = "7657",
-  control_path = "jsonrpc"
+  control_path = "jsonrpc",
+  password = "itoopie"
 ) {
   function updateelement(update) {
-    //console.log("(i2pcontrol)", update);
+    c; //onsole.log("(i2pcontrol)", update);
     document.getElementById(ID).innerText = update;
   }
-  let net = RouterManage(Query, control_host, control_port, control_path);
+  let net = RouterManager(
+    Query,
+    control_host,
+    control_port,
+    control_path,
+    password
+  );
   net.then(updateleement);
 }
 
-function NetworkSetting(
+async function NetworkSetting(
   Query,
   control_host = "127.0.0.1",
   control_port = "7657",
-  control_path = "jsonrpc"
+  control_path = "jsonrpc",
+  password = "itoopie"
 ) {
   function networksetting(token) {
     var json = new Object();
@@ -286,10 +301,10 @@ function NetworkSetting(
     json["params"] = new Object();
     json["params"]["Token"] = token;
     json["params"][Query] = null;
-    return send(json);
+    return send(json, control_host, control_port, control_path);
   }
-  let token = GetToken(password);
-  let done = token.then(networksetting);
+  let token = GetToken(password, control_host, control_port, control_path);
+  let done = await token.then(networksetting);
   return done;
 }
 
@@ -298,13 +313,20 @@ function UpdateNetworkSettingElementByID(
   ID,
   control_host = "127.0.0.1",
   control_port = "7657",
-  control_path = "jsonrpc"
+  control_path = "jsonrpc",
+  password = "itoopie"
 ) {
   function updateelement(update) {
     //console.log("(i2pcontrol)", update);
     document.getElementById(ID).innerText = update;
   }
-  let net = NetworkSetting(Query, control_host, control_port, control_path);
+  let net = NetworkSetting(
+    Query,
+    control_host,
+    control_port,
+    control_path,
+    password
+  );
   net.then(updateleement);
 }
 
@@ -357,3 +379,8 @@ function UpdateContents() {
 
 var done = Echo(hello);
 done.then(Done);
+
+function Done(output) {
+  console.log("(i2pcontrol) I2PControl connection tested,", output);
+  return output;
+}

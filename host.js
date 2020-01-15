@@ -97,7 +97,7 @@ function routerHost(url) {
     path = url.replace(hostname + "/", "");
   }
   if (hostname === control_host + ":" + control_port) {
-    console.log("(hostcheck) router console found on configured ports");
+    //console.log("(hostcheck) router console found on configured ports");
     return pathcheck(path);
   }
 
