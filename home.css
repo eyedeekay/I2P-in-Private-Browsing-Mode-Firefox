@@ -167,9 +167,10 @@ li {
   margin: .5rem .5rem .5rem 32%
 }
 #readyness {
+  float: left;
   min-height: 5rem;
-  padding: .5rem;
-  margin: .5rem;
+  padding-top: 1rem;
+  margin: 1rem;
   width: 42%;
   min-width: 42%;
   background: #dee2e6;
@@ -195,8 +196,8 @@ li {
   width: 50%;
   min-width: 50%;
   min-height: 5rem;
-  padding: .5rem;
-  display: inline;
+  margin-top: .8rem;
+  display: inline-block;
   background: #dee2e6;
   float: right;
   border: 1px solid #dee2e6;
@@ -224,7 +225,7 @@ li {
   margin: .2rem;
   width: 38%;
   min-width: 38%;
-  display: inline;
+  display: inline-block;
   background: #d9d9d6;
   float: right;
   text-align: center!important;
@@ -238,7 +239,7 @@ li {
   margin: .2rem;
   width: 38%;
   min-width: 38%;
-  display: inline;
+  display: inline-block;
   float: right;
   text-align: center!important;
   border: 1px solid #ffc56d;
@@ -252,7 +253,7 @@ li {
   margin: .2rem;
   width: 38%;
   min-width: 38%;
-  display: inline;
+  display: inline-block;
   float: left;
   text-align: center!important;
   border: 1px solid #f7e59a;
@@ -264,9 +265,6 @@ li {
   font-size: .8rem!important;
   text-align: left;
   display: none
-}
-#proxy-check {
-  visibility: hidden
 }
 #info-content {
   display: none

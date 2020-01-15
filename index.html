@@ -3,6 +3,7 @@
 <head>
   <title>I2P in Private Browsing Mode</title>
   <link rel="stylesheet" type="text/css" href ="home.css" />
+  <link rel="stylesheet" type="text/css" href ="sidebar.css" />
 </head>
 <body>
 <h1>I2P in Private Browsing Mode(Firefox-Only)</h1>
@@ -47,19 +48,6 @@ dead).</p>
 <li><a href="./i2ppb@eyedeekay.github.io.xpi.torrent">Get the .torrent file</a></li>
 </ul>
 
-<h3>Help us out</h3>
-
-<p>There are also bittorrent entries in an atom feed which you can fetch from the
-github releases using this URL:</p>
-
-<pre><code>    https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/download/docs/releases.atom
-</code></pre>
-
-<p>If you add this to your BiglyBT torrent feed, you will automatically pick up
-new releases of the plugin, download them, possibly from the web seed, and then
-seed them to the rest of the torrent network. By donating a tiny amount of space
-you can help make the delivery of plugin updates to everyone more reliable.</p>
-
 <h2>Usage:</h2>
 
 <ul>
@@ -68,15 +56,11 @@ domain will automatically stop the current tab and re-open the I2P site in an
 I2P Browser tab.</li>
 <li>Besides that, four bookmarks are added to the "Bookmarks Toolbar," which
 will take you to visit your Java I2P applications, or the "Simplified I2P
-Landing Page" embedded in the plugin:
-<ul>
+Landing Page" embedded in the plugin:</li>
 <li><img src="lander.png" alt="Landing page" title="" /></li>
-</ul></li>
 <li>Also, there's a menu for accessing I2P functionality while you're browsing.
-It lets you control a few settings in a granular way.
-<ul>
+It lets you control a few settings in a granular way.</li>
 <li><img src="menu.png" alt="Menu" title="" /></li>
-</ul></li>
 <li>You can re-enable WebRTC but force it to always use the proxy that is
 enforced by the tab.</li>
 <li>You can either force the browser to delete all history for I2P sites
@@ -93,46 +77,37 @@ administer I2P</li>
 (container). Intercept requests to .i2p domains and automatically route them
 to the I2P container. Isolate the router console from other local
 applications by automatically intercepting requests to the router console to
-another container.
-<ul>
+another container.</li>
 <li><img src="i2psetproxy.js.png" alt="Visiting i2p-projekt.i2p" title="" /></li>
-</ul></li>
 <li>[done] <strong>Indicate</strong> the I2P browser is in use visually. Find an
-acceptable way to indicate it on Android.
-<ul>
+acceptable way to indicate it on Android.</li>
 <li><img src="susimail.png" alt="Visiting webmail" title="" /></li>
-</ul></li>
 <li>[done] <strong>Set</strong> the http proxy to use the local I2P proxy automatically.
 Provide specific configuration for other types of I2P proxies(SOCKS,
 isolating HTTP)</li>
 <li>[done] <strong>Disable</strong> risky webRTC features/offer the option to re-enable
 them with the proxy enforced.</li>
 <li>[done] <strong>Change</strong> the color of the browser window to indicate that I2P is in
-use
-<ul>
+use</li>
 <li><img src="i2ptunnel.png" alt="Visiting i2ptunnel" title="" /></li>
-</ul></li>
-<li>[ready/broken/wip] <strong>Provide</strong> help in a variety of languages.</li>
-<li>[wip] <strong>Monitor</strong> the health and readiness of the I2P router it is
+<li>[ready] <strong>Provide</strong> help in a variety of languages.</li>
+<li>[done] <strong>Monitor</strong> the health and readiness of the I2P router it is
 instructed to use. Currently the plugin checks whether the HTTP Proxy is
 working by fetching an image from "http://proxy.i2p" and displaying a result.
 A work-in-progress binding to i2pcontrol is available in ./i2pcontrol, it is
 inert at this time.</li>
+<li><img src="toopie.png" alt="Visiting toopie.html" title="" /></li>
 <li>[Done] <strong>Handle</strong> router console applications under their own origins and
 within their own contextual identity. (1) The router console is automatically
 confined to it's own container tab. (2) Use a custom protocol handler to
 place each i2p application/plugin under it's own origin, shortening router
-console URL's and placing applications under their own origin.
-<ul>
+console URL's and placing applications under their own origin.</li>
 <li><img src="routerconsole.png" alt="Visiting routerconsole" title="" /></li>
-</ul></li>
 <li>[wip] <strong>Handle Torrents</strong> by talking to i2psnark-rpc plugin and then
 adding them directly into the Firefox downloads drop-downs, menus, etc. If I
-can. Right now instead of talking to snark-rpc, it uses a web-based protocl
-handler that simply auto-fills the torrent into i2psnark.
-<ul>
+can. Right now instead of talking to snark-rpc, it uses a web-based protocol
+handler that simply auto-fills the torrent into i2psnark.</li>
 <li><img src="i2psnark.png" alt="Visiting i2psnark" title="" /></li>
-</ul></li>
 <li>[barely started] <strong>Isolate</strong> traffic by contextual identity to it's own HTTP
 Proxy tunnel, each reflecting it's own pseudonymous identity within I2P. The
 contextual identities. For now, the contextual identities used to manage
@@ -149,8 +124,8 @@ where your identity is behaviorally linkable. This has a very long
 tunnel-close timeout and key-reuse until specifically invoked.</li>
 <li>I2P Blogging: Use this for posting content to the web interface of your
 blog or to other similar websites that you create content on.</li>
-<li><img src="clearweb.png" alt="Visiting clearweb" title="" /></li>
 </ul></li>
+<li><img src="clearweb.png" alt="Visiting clearweb" title="" /></li>
 </ul>
 
 <h3>Video</h3>
@@ -240,5 +215,7 @@ for updates, you can download the identical plugin from this repository's
 releases page. The latest AMO Plugin will always be identical to the latest
 github release, except for the version number, which must be incremented for
 submission to AMO.</p>
+
+<p>moz-extension://d63582fc-09fc-445a-b8aa-1c888ee2ffc0/toopie.html</p>
 </body>
 </html>

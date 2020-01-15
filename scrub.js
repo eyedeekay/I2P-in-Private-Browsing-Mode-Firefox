@@ -5,6 +5,7 @@ var mailpref = chrome.i18n.getMessage("mailPreface");
 var torrentpref = chrome.i18n.getMessage("torrentPreface");
 var tunnelpref = chrome.i18n.getMessage("i2ptunnelPreface");
 var localpref = chrome.i18n.getMessage("localPreface");
+var extensionpref = chrome.i18n.getMessage("extensionPreface");
 
 var contextScrub = async function(requestDetails) {
   function onHeaderError() {
@@ -356,20 +357,17 @@ var contextSetup = function(requestDetails) {
     if (requestDetails == undefined) {
       return requestDetails;
     }
-    if (extensionHost(requestDetails.url)) {
+    if (proxyHost(requestDetails.url)) {
+      setcookie = browser.cookies.set({
+        firstPartyDomain: i2pHostName(requestDetails.url),
+        url: requestDetails.url,
+        secure: true
+      });
+      setcookie.then(onContextGotLog, onContextError);
       return requestDetails;
     }
+
     if (requestDetails.tabId > 0) {
-      if (proxyHost(requestDetails.url)) {
-        setcookie = browser.cookies.set({
-          firstPartyDomain: i2pHostName(requestDetails.url),
-          url: requestDetails.url,
-          secure: true
-        });
-        setcookie.then(onContextGotLog, onContextError);
-        return requestDetails;
-      }
-      console.log("(isolate)Request Details", requestDetails);
       var tab = tabGet(requestDetails.tabId);
       if (i2pHost(requestDetails.url)) {
         var setcookie = browser.cookies.set({
@@ -379,6 +377,9 @@ var contextSetup = function(requestDetails) {
         });
         setcookie.then(onContextGotLog, onContextError);
         var i2ptab = tab.then(i2pTabFind, onContextError);
+        return requestDetails;
+      }
+      if (extensionHost(requestDetails)) {
         return requestDetails;
       }
       let localhost = localHost(requestDetails.url);

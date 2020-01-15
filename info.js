@@ -1,12 +1,4 @@
 function checkPeerConnection() {
-  function snowflake(snowflake) {
-    console.log("snowflake plugin found, leaving WebRTC alone", snowflake);
-    EnablePeerConnection();
-  }
-  var snowflakeInfo = browser.management.get(
-    "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}" // string
-  );
-  snowflakeInfo.then(snowflake);
   let getting = browser.privacy.network.peerConnectionEnabled.get({});
   getting.then(got => {
     let webrtc = got.value;
@@ -16,6 +8,23 @@ function checkPeerConnection() {
 }
 
 checkPeerConnection();
+
+function checkSnowflake() {
+  try {
+    function snowflake(snowflake) {
+      console.log("snowflake plugin found, leaving WebRTC alone", snowflake);
+      EnablePeerConnection();
+    }
+    var snowflakeInfo = browser.management.get(
+      "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}" // string
+    );
+    snowflakeInfo.then(snowflake);
+  } catch {
+    console.log("snowflake not found");
+  }
+}
+
+checkSnowflake();
 
 function checkHistory() {
   let getting = browser.storage.local.get("disable_history");
@@ -62,12 +71,33 @@ document.addEventListener("click", clickEvent => {
       };
     }
     refreshIdentity();
+  } else if (clickEvent.target.id === "label-router-restart") {
+    console.log("attempting to initiate graceful restart");
+    RouterManager("RestartGraceful");
+  } else if (clickEvent.target.id === "label-router-shutdown") {
+    console.log("attempting to initiate graceful shutdown");
+    RouterManager("ShutdownGraceful");
+  } else if (clickEvent.target.id === "search-submit") {
+    console.log("attempting to create search tab");
+    goSearch();
+  } else if (clickEvent.target.id === "browser-action") {
+    console.log("showing a browser action");
+    showBrowsing();
+  } else if (clickEvent.target.id === "torrent-action") {
+    console.log("showing a torrent action");
+    showTorrents();
   } else if (clickEvent.target.id === "window-preface-title") {
     console.log("attempting to create homepage tab");
     goHome();
+  } else if (clickEvent.target.id === "window-visit-index") {
+    console.log("attempting to create index tab");
+    goIndex();
   } else if (clickEvent.target.id === "window-visit-homepage") {
     console.log("attempting to create homepage tab");
     goHome();
+  } else if (clickEvent.target.id === "window-visit-toopie") {
+    console.log("attempting to create toopie tab");
+    goToopie();
   } else if (clickEvent.target.id === "window-visit-i2ptunnel") {
     console.log("attempting to create i2ptunnel tab");
     goTunnel();
@@ -112,6 +142,20 @@ gettingInfo.then(got => {
   }
 });
 
+function showBrowsing() {
+  var x = document.getElementById("browserpanel");
+  x.style.display = "block";
+  var y = document.getElementById("torrentpanel");
+  y.style.display = "none";
+}
+
+function showTorrents() {
+  var x = document.getElementById("browserpanel");
+  x.style.display = "none";
+  var y = document.getElementById("torrentpanel");
+  y.style.display = "block";
+}
+
 function goHome() {
   function gotProxyInfo(info) {
     let port = info.value.http.split(":")[1];
@@ -121,12 +165,14 @@ function goHome() {
       };
       console.log("visiting homepage");
       let creating = browser.tabs.create(createRhizomeData);
+      creating.then(onTabCreated, onTabError);
     } else {
       let createData = {
         url: "home.html"
       };
       console.log("visiting homepage");
       let creating = browser.tabs.create(createData);
+      creating.then(onTabCreated, onTabError);
     }
     console.log("(bookmarks) adding home page bookmark");
   }
@@ -135,8 +181,44 @@ function goHome() {
   gettingProxyInfo.then(gotProxyInfo);
 }
 
+function goIndex() {
+  function onTabError() {
+    console.log("Help tab created");
+  }
+  let createData = {
+    url: "index.html"
+  };
+  console.log("visiting help");
+  let creating = browser.tabs.create(createData);
+  creating.then(onTabCreated, onTabError);
+}
+
+function goToopie() {
+  function onTabError() {
+    console.log("Toopie tab created");
+  }
+  console.log("visiting toopie");
+  let creating = browser.sidebarAction.open();
+  creating.then(onTabCreated, onTabError);
+}
+
 function onTabCreated() {
   console.log("Tab Created");
+}
+
+function goSearch() {
+  function onTabError() {
+    console.log("Search tab created");
+  }
+  let createData = {
+    url:
+      "http://legwork.i2p/yacysearch.html?" +
+      "query=" +
+      document.getElementById("search-query").value
+  };
+  console.log("visiting legwork");
+  let creating = browser.tabs.create(createData);
+  creating.then(onTabCreated, onTabError);
 }
 
 function goTunnel() {
@@ -148,7 +230,7 @@ function goTunnel() {
   };
   console.log("visiting i2ptunnel");
   let creating = browser.tabs.create(createData);
-  creating(onTabCreated, onTabError);
+  creating.then(onTabCreated, onTabError);
 }
 
 function goMail() {
@@ -172,7 +254,7 @@ function goSnark() {
   };
   console.log("visiting snark");
   let creating = browser.tabs.create(createData);
-  creating(onTabCreated, onTabError);
+  creating.then(onTabCreated, onTabError);
 }
 
 function onVisited(historyItem) {
@@ -198,3 +280,12 @@ function onVisited(historyItem) {
     deletingUrl.then(onRemoved);
   }
 }
+
+UpdateContents();
+
+const minutes = 0.2;
+const interval = minutes * 60 * 1000;
+
+setInterval(function() {
+  UpdateContents();
+}, interval);

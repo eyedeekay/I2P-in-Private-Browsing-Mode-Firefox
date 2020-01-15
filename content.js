@@ -27,6 +27,8 @@ contentUpdateById("histDesc", "histDesc");
 // Application Section
 contentUpdateById("applicationHeader", "applicationHeader");
 contentUpdateById("applicationExplain", "applicationExplain");
+contentUpdateById("window-visit-index", "windowVisitHelppage");
+contentUpdateById("help", "help");
 contentUpdateById("window-visit-homepage", "windowVisitHomepage");
 contentUpdateById("abouthome", "abouthome");
 contentUpdateById("window-visit-i2ptunnel", "windowVisitI2ptunnel");
@@ -38,8 +40,13 @@ contentUpdateById("snark", "snark");
 
 // Homepage Section
 contentUpdateById("window-visit-webpage", "windowVisitWebPage");
-contentUpdateById("webpage", "webpage");
+contentUpdateById("webpage", "help");
 contentUpdateById("window-visit-sources", "windowVisitSources");
 contentUpdateById("sources", "sources");
 contentUpdateById("window-visit-releases", "windowVisitReleases");
 contentUpdateById("releases", "releases");
+
+fetch("http://proxy.i2p").then(myJson => {
+  console.log("FETCH RESULT", myJson);
+  contentUpdateById("proxy-check", "proxySuccessStatus");
+});

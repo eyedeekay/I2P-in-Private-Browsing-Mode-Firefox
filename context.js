@@ -2,12 +2,12 @@
 var titlepref = chrome.i18n.getMessage("titlePreface");
 
 function onError(error) {
-  console.log(`Error: ${error}`);
+  console.log(`Error : ${error}`);
 }
 
 function eventHandler(event) {
   function onCreated(windowInfo) {
-    console.log(`Created window: ${windowInfo.id}`);
+    console.log(`Created window : ${windowInfo.id}`);
     browser.tabs.create({
       windowId: windowInfo.id,
       url: "about:blank",

@@ -73,6 +73,7 @@ index:
 	@echo "<head>" >> index.html
 	@echo "  <title>I2P in Private Browsing Mode</title>" >> index.html
 	@echo "  <link rel=\"stylesheet\" type=\"text/css\" href =\"home.css\" />" >> index.html
+	@echo "  <link rel=\"stylesheet\" type=\"text/css\" href =\"sidebar.css\" />" >> index.html
 	@echo "</head>" >> index.html
 	@echo "<body>" >> index.html
 	sed "s|magnetsub|[Magnet Link]($(MAGNET))|g" README.md | markdown >> index.html
@@ -237,11 +238,21 @@ upload-docs:
 fmt:
 	cleancss -O1 all -O2 all --format beautify home.css -o .home.css && mv .home.css home.css
 	cleancss -O1 all -O2 all --format beautify info.css -o .info.css && mv .info.css info.css
+	cleancss -O1 all -O2 all --format beautify search.css -o .search.css && mv .search.css search.css
+	cleancss -O1 all -O2 all --format beautify sidebar.css -o .sidebar.css && mv .sidebar.css sidebar.css
+	cleancss -O1 all -O2 all --format beautify options/options.css -o options/.options.css && mv options/.options.css options/options.css
+	tidy --as-xhtml --drop-empty-elements no --input-xml --tidy-mark no -indent --indent-spaces 4 -wrap 0 --new-blocklevel-tags article,header,footer --new-inline-tags video,audio,canvas,ruby,rt,rp --break-before-br yes --sort-attributes alpha --vertical-space yes index.html > .index.html; mv .index.html index.html
+	tidy --as-xhtml --drop-empty-elements no --input-xml --tidy-mark no -indent --indent-spaces 4 -wrap 0 --new-blocklevel-tags article,header,footer --new-inline-tags video,audio,canvas,ruby,rt,rp --break-before-br yes --sort-attributes alpha --vertical-space yes window.html > .window.html; mv .window.html window.html
+	tidy --as-xhtml --drop-empty-elements no --input-xml --tidy-mark no -indent --indent-spaces 4 -wrap 0 --new-blocklevel-tags article,header,footer --new-inline-tags video,audio,canvas,ruby,rt,rp --break-before-br yes --sort-attributes alpha --vertical-space yes home.html > .home.html; mv .home.html home.html
+	tidy --as-xhtml --drop-empty-elements no --input-xml --tidy-mark no -indent --indent-spaces 4 -wrap 0 --new-blocklevel-tags article,header,footer --new-inline-tags video,audio,canvas,ruby,rt,rp --break-before-br yes --sort-attributes alpha --vertical-space yes toopie.html > .toopie.html; mv .toopie.html toopie.html
+	tidy --as-xhtml --drop-empty-elements no --input-xml --tidy-mark no -indent --indent-spaces 4 -wrap 0 --new-blocklevel-tags article,header,footer --new-inline-tags video,audio,canvas,ruby,rt,rp --break-before-br yes --sort-attributes alpha --vertical-space yes options/options.html > options/.options.html; mv options/.options.html options/options.html
 	find . -path ./node_modules -prune -o -name '*.js' -exec prettier --write {} \;
 	find . -path ./node_modules -prune -o -name '*.json' -exec prettier --write {} \;
 
 lint:
-	eslint --color *.js
+	fixjsstyle *.js
+	gjslint *.js; true
+	#eslint --color *.js
 
 deborig: fmt version
 	rm -rf ../i2psetproxy.js-$(VERSION)
@@ -279,3 +290,4 @@ rss: torrent
 
 upload-rss:
 	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t docs -n "releases.atom" -f releases.atom
+

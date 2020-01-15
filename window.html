@@ -1,92 +1,136 @@
 <!DOCTYPE html>
-
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="home.css"/>
-    <link rel="stylesheet" href="info.css"/>
-  </head>
+    <link href="search.css" rel="stylesheet">
+    <link href="home.css" rel="stylesheet">
+    <link href="info.css" rel="stylesheet">
+    <title>
+    </title>
+</head>
+<body>
+    <div class="section-header panel-section panel-section-header" id="topbar">
+        <!--<div class="text-section-header" id="text-section-header">-->
+        <img height="32px" src="icons/toopie.png" width="32px"> <a href="#" id="browser-action">Browse</a> <img height="32px" src="icons/torrents.png" width="32px"> <a href="#" id="torrent-action">Download</a> <!--</div>-->
+    </div>
 
-  <body>
-    <div class="panel">
-        <div class="section-header panel-section panel-section-header">
-          <div id="text-section-header" class="text-section-header"><h1>The Invisible Internet Browser</h1></div>
+    <div id="browserpanel">
+        <div class="panel">
+            <div class="section-header panel-section panel-section-header">
+                <div class="text-section-header" id="text-section-header">
+                    <h1>The Invisible Internet Browser</h1>
+                </div>
+            </div>
+            <!--<div class="topnav">
+                <a class="applicationName window-visit-homepage" href="#" id="window-visit-homepage" target="_blank">Home Page</a>
+                <form action="http://legwork.i2p/yacysearch.html?" method="get">
+                    <input id="search-query" name="query" placeholder="Search on legwork.i2p(Opens a new tab)" type="search"> <input id="search-submit" text="Submit" type="submit">
+                </form>
+            </div>-->
+
+            <div class="panel-section-separator">
+            </div>
+
+            <div id="i2pbrowser-version">
+            </div>
         </div>
-      <div class="panel-section-separator"></div>
-        <div id="i2pbrowser-version"></div>
-          <div id="i2pbrowser-description">
+
+        <div class="hideIfI2PProxyOff" id="readyness">
+            <img class="readyness" src="http://proxy.i2p/themes/console/images/local_up.png"> <span id="proxy-check">Proxy is ready.</span>
+        </div>
+
+        <div id="i2pbrowser-description">
             <p id="description">You are now able to use I2P in this browser.</p>
+
             <p id="beta">It is experimental.</p>
-          </div>
-          <div id="readyness">
-              <img class="readyness" src="http://proxy.i2p/themes/console/images/local_up.png" alt="Proxy is not ready."/>
-              <span id="proxy-check">Proxy is ready.</span>
-              <img class="readyness" src="http://proxy.i2p/themes/console/images/local_up.png" alt="Proxy is not ready."/>
-              <span id="proxy-check">Proxy is ready.</span>
-          </div>
         </div>
-      <div class="panel-section-separator"></div>
+
+        <div class="panel-section-separator">
+        </div>
+
         <div class="browser-info">
-          <p class="hideIfI2PConsoleOff">
+            <p class="hideIfI2PConsoleOff">
+            </p>
+
             <h3 id="controlHeader">Controls</h3>
+
             <p id="controlExplain">These controls are used to tailor your I2P Browsing Experience</p>
-              <ul>
+
+            <ul>
                 <li class="application">
-                  <a id="clear-browser-data" href="#">Clear Browsing Data: </a>
-                  <span id="clear-desc" class="applicationDesc">Use this to erase your browsing data.</span>
+                    <a href="#" id="clear-browser-data">Clear Browsing Data:</a> <span class="applicationDesc" id="clear-desc">Use this to erase your browsing data.</span>
                 </li>
+
+                <li class="application"><input id="enable-web-rtc" name="enablewebrtc" type="checkbox" value="webrtc"> <label for="enable-web-rtc">Enable WebRTC <strong>with Proxy?</strong></label> <span class="applicationDesc" id="rtcDesc">WebRTC is disabled by default, but can be enabled by checking this box.</span></li>
+
                 <li class="application">
-                  <input type="checkbox" id="enable-web-rtc" name="enablewebrtc" value="webrtc">
-                  <label for="enable-web-rtc">Enable WebRTC <strong>with Proxy?</strong></label>
-                  <span id="rtcDesc" class="applicationDesc">WebRTC is disabled by default, but can be enabled by checking this box.</span>
+                    <div class="panel-section-separator">
+                    </div>
+
+                    <div class="panel-section-identity">
+                        <div id="identity-list">
+                        </div>
+                    </div>
                 </li>
-                <li class="application">
-                  <div class="panel-section-separator"></div>
-                  <div class="panel-section-identity">
-                  <div id="identity-list"></div>
-                </li>
-                <li class="application">
-                  <input type="checkbox" id="disable-history" name="disablehistory" value="history">
-                  <label for="disable-history">Disable History in I2P Tabs</label>
-                  <span id="histDesc" class="applicationDesc">History is automatically cleared when your I2P tabs are closed. If you want to clear history as you go, check this box.</span>
-                </li>
-              </ul>
+
+                <li class="application"><input id="disable-history" name="disablehistory" type="checkbox" value="history"> <label for="disable-history">Disable History in I2P Tabs</label> <span class="applicationDesc" id="histDesc">History is automatically cleared when your I2P tabs are closed. If you want to clear history as you go, check this box.</span></li>
+            </ul>
+
+            <p>
             </p>
-          </p>
+
+            <p>
+            </p>
         </div>
-      <div class="panel-section-separator"></div>
+
+        <div class="panel-section-separator">
+        </div>
+
         <div class="application-info">
-          <p class="hideIfI2PConsoleOff">
-            <h3 id="applicationHeader">Applications</h3>
-            <p id="applicationExplain">These applications use I2P to provide them with security and privacy.</p>
-              <ul>
-                <li class="application">
-                  <button id="window-visit-homepage" target="_blank" class="applicationName window-visit-homepage" href="#">Home Page</button>
-                  <span id="abouthome" class="applicationDesc">For more information about this extension, go here:</span>
-                </li>
-                <li class="application">
-                  <button id="window-visit-i2ptunnel" target="_blank" class="applicationName">Hidden Services Manager</button>
-                  <span id="i2ptunnel" class="applicationDesc">I2P has a web-based interface for configuring .i2p services like web sites, to set up your own web sites, go here:</span>
-                </li>
-                <li class="application">
-                  <button id="window-visit-susimail" target="_blank" class="applicationName">E-Mail</button>
-                  <span id="susimail" class="applicationDesc">I2P also bundles a webmail client which can be used to access in-I2P e-mail. To use it, go here:</span>
-                </li>
-                <li class="application">
-                  <button id="window-visit-snark" target="_blank" class="applicationName">BitTorrent</button>
-                  <span id="snark" class="applicationDesc">I2P is capable of anonymous Peer-to-Peer file sharing, to use the built-in bittorrent client go here:</span>
-                </li>
-              </ul>
+            <p class="hideIfI2PConsoleOff">
             </p>
-          </p>
+
+            <h3 id="applicationHeader">Applications</h3>
+
+            <p id="applicationExplain">These applications use I2P to provide them with security and privacy.</p>
+
+            <ul>
+                <li class="application"><button class="applicationName window-visit-homepage" href="#" id="window-visit-index" target="_blank">Help Page</button> <span class="applicationDesc" id="abouthome">For more information about this extension, go here:</span></li>
+
+                <li class="application"><button class="applicationName window-visit-toopie" href="#" id="window-visit-toopie" target="_blank">Toopie</button> <span class="applicationDesc" id="toopie">For information about your I2P router status, go here:</span></li>
+
+                <li class="application"><button class="applicationName" id="window-visit-i2ptunnel" target="_blank">Hidden Services Manager</button> <span class="applicationDesc" id="i2ptunnel">I2P has a web-based interface for configuring .i2p services like web sites, to set up your own web sites, go here:</span></li>
+
+                <li class="application"><button class="applicationName" id="window-visit-susimail" target="_blank">E-Mail</button> <span class="applicationDesc" id="susimail">I2P also bundles a webmail client which can be used to access in-I2P e-mail. To use it, go here:</span></li>
+
+                <li class="application"><button class="applicationName" id="window-visit-snark" target="_blank">BitTorrent</button> <span class="applicationDesc" id="snark">I2P is capable of anonymous Peer-to-Peer file sharing, to use the built-in bittorrent client go here:</span></li>
+            </ul>
+
+            <p>
+            </p>
+
+            <p>
+            </p>
         </div>
-      </div>
-  <script src="context.js"></script>
-  <script src="privacy.js"></script>
-  <script src="info.js"></script>
-  <script src="content.js" crossorigin="anonymous"></script>
-  <script src="i2pcontrol/i2pcontrol.js"></script>
 
+        <div id="torrentpanel">
+            <div class="panel" id="torrentstatus">
+                <div class="section-header panel-section panel-section-header">
+                    <div class="text-section-header" id="text-section-torrents-header">
+                        <h3>Torrent Downloads</h3>
+                    </div>
+                </div>
+
+                <div id="torrentsection">
+                    Torrents go here.
+                </div>
+            </div>
+        </div>
+        <script src="context.js"></script> 
+        <script src="privacy.js"></script> 
+        <script src="info.js"></script> 
+        <script crossorigin="anonymous" src="content.js"></script> 
+        <script src="i2pcontrol/i2pcontrol.js"></script> 
+    </div>
 </body>
-
 </html>

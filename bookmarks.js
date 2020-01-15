@@ -37,7 +37,7 @@ gettingInfo.then(got => {
             let port = info.value.http.split(":")[1];
             if (port == "7644") {
               let createBookmark = browser.bookmarks.create({
-                url: "http://localhost:7657/i2psnark",
+                url: "http://localhost:7647/i2psnark",
                 title: "Bittorrent",
                 parentId: bookmarkToolbar[0].id
               });
@@ -65,7 +65,7 @@ gettingInfo.then(got => {
             let port = info.value.http.split(":")[1];
             if (port == "7644") {
               let createBookmark = browser.bookmarks.create({
-                url: "http://localhost:7657/webmail",
+                url: "http://localhost:7647/webmail",
                 title: "Web Mail",
                 parentId: bookmarkToolbar[0].id
               });
@@ -93,7 +93,7 @@ gettingInfo.then(got => {
             let port = info.value.http.split(":")[1];
             if (port == "7644") {
               var createBookmark = browser.bookmarks.create({
-                url: "http://localhost:7657/i2ptunnelmgr",
+                url: "http://localhost:7647/i2ptunnelmgr",
                 title: "Hidden Services Manager",
                 parentId: bookmarkToolbar[0].id
               });
@@ -122,7 +122,7 @@ gettingInfo.then(got => {
       }
 
       function onRejected(error) {
-        console.log(`An error: ${error}`);
+        console.log(`An error : ${error}`);
       }
       function onCreated(node) {
         console.log("Bookmarked", node);
