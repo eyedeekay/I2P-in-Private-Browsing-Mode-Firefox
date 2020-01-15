@@ -197,7 +197,7 @@ li {
   min-width: 50%;
   min-height: 5rem;
   margin-top: .8rem;
-  display: inline;
+  display: inline-block;
   background: #dee2e6;
   float: right;
   border: 1px solid #dee2e6;
@@ -225,7 +225,7 @@ li {
   margin: .2rem;
   width: 38%;
   min-width: 38%;
-  display: inline;
+  display: inline-block;
   background: #d9d9d6;
   float: right;
   text-align: center!important;
@@ -239,7 +239,7 @@ li {
   margin: .2rem;
   width: 38%;
   min-width: 38%;
-  display: inline;
+  display: inline-block;
   float: right;
   text-align: center!important;
   border: 1px solid #ffc56d;
@@ -253,7 +253,7 @@ li {
   margin: .2rem;
   width: 38%;
   min-width: 38%;
-  display: inline;
+  display: inline-block;
   float: left;
   text-align: center!important;
   border: 1px solid #f7e59a;
