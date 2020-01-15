@@ -167,9 +167,10 @@ li {
   margin: .5rem .5rem .5rem 32%
 }
 #readyness {
+  float: left;
   min-height: 5rem;
-  padding: .5rem;
-  margin: .5rem;
+  padding-top: 1rem;
+  margin: 1rem;
   width: 42%;
   min-width: 42%;
   background: #dee2e6;
@@ -195,7 +196,7 @@ li {
   width: 50%;
   min-width: 50%;
   min-height: 5rem;
-  padding: .5rem;
+  margin-top: .8rem;
   display: inline;
   background: #dee2e6;
   float: right;

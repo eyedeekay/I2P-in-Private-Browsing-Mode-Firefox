@@ -35,14 +35,14 @@
             <div id="i2pbrowser-version">
             </div>
 
+            <div class="hideIfI2PProxyOff" id="readyness">
+                <img class="readyness" src="http://proxy.i2p/themes/console/images/local_up.png"> <span id="proxy-check">Proxy is ready.</span>
+            </div>
+
             <div id="i2pbrowser-description">
                 <p id="description">You are now able to use I2P in this browser.</p>
 
                 <p id="beta">It is experimental.</p>
-            </div>
-
-            <div class="hideIfI2PProxyOff" id="readyness">
-                <img class="readyness" src="http://proxy.i2p/themes/console/images/local_up.png"> <span id="proxy-check">Proxy is ready.</span>
             </div>
         </div>
 
@@ -116,7 +116,14 @@
     </div>
 
     <div id="torrentpanel">
-        Torrents go here.
+        <div class="panel" id="torrentstatus">
+            <div class="section-header panel-section panel-section-header">
+                <div class="text-section-header" id="text-section-torrents-header">
+                    <h1>Torrent Downloads</h1>
+                </div>
+            </div>
+            Torrents go here.
+        </div>
     </div>
     <script src="context.js"></script> 
     <script src="privacy.js"></script> 
