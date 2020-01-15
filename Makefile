@@ -73,6 +73,7 @@ index:
 	@echo "<head>" >> index.html
 	@echo "  <title>I2P in Private Browsing Mode</title>" >> index.html
 	@echo "  <link rel=\"stylesheet\" type=\"text/css\" href =\"home.css\" />" >> index.html
+	@echo "  <link rel=\"stylesheet\" type=\"text/css\" href =\"sidebar.css\" />" >> index.html
 	@echo "</head>" >> index.html
 	@echo "<body>" >> index.html
 	sed "s|magnetsub|[Magnet Link]($(MAGNET))|g" README.md | markdown >> index.html
