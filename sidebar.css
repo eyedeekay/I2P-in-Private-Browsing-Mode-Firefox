@@ -3,5 +3,8 @@ li {
   margin-left: 0
 }
 #readyness {
-  float: unset;
+  float: unset
+}
+#applicationExplain {
+  float: unset
 }
