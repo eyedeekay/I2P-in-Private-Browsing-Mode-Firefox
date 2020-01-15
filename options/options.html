@@ -37,27 +37,33 @@
     </section>-->
 
     <section class="scheme-options control-options">
-        <div class="title">
-            Router Console Options
-        </div>
+        <div>
+            <div class="title">
+                Router Console Options
+            </div>
 
-        <p id="controlHelpText">Configure your router console options here.</p>
-        <label id="controlPortText">Console Host:</label> <input data="controlhost" id="controlhost" type="text" value="127.0.0.1">
-        <br>
-        <label id="controlHostText">Console Port:</label> <input data="controlport" id="controlport" type="text" value="7657">
+            <p id="controlHelpText">Configure your router console options here.</p>
+            <label id="controlPortText">Console Host:</label> <input data="controlhost" id="controlhost" type="text" value="127.0.0.1">
+            <br>
+            <label id="controlHostText">Console Port:</label> <input data="controlport" id="controlport" type="text" value="7657">
+        </div>
     </section>
 
     <section class="scheme-options control-options">
-        <div class="title">
-            I2PControl RPC Client Options
-        </div>
+        <div>
+            <div class="title">
+                I2PControl RPC Client Options
+            </div>
 
-        <p id="rpcHelpText">Configure your I2PControl options here.</p>
-        <label id="rpcPortText">Control Host:</label> <input data="rpchost" id="rpchost" type="text" value="127.0.0.1">
-        <br>
-        <label id="rpcHostText">Control Port:</label> <input data="rpcport" id="rpcport" type="text" value="7657">
-        <br>
-        <label id="rpcPathText">Control Path:</label> <input data="rpcpath" id="rpcpath" type="text" value="jsonrpc">
+            <p id="rpcHelpText">Configure your I2PControl options here.</p>
+            <label id="rpcPortText">Control Host:</label> <input data="rpchost" id="rpchost" type="text" value="127.0.0.1">
+            <br>
+            <label id="rpcHostText">Control Port:</label> <input data="rpcport" id="rpcport" type="text" value="7657">
+            <br>
+            <label id="rpcPathText">Control Path:</label> <input data="rpcpath" id="rpcpath" type="text" value="jsonrpc">
+            <br>
+            <label id="rpcPassText">Control Password:</label> <input data="rpcpass" id="rpcpass" type="text" value="itoopie">
+        </div>
     </section>
 
     <section class="scheme-options control-options">
@@ -72,6 +78,8 @@
             <label id="btRpcHostText">Torrent RPC Port:</label> <input data="btrpcport" id="btrpcport" type="text" value="7657">
             <br>
             <label id="btRpcPathText">Torrent RPC Path:</label> <input data="btrpcpath" id="btrpcpath" type="text" value="transmission/rpc">
+            <br>
+            <label id="rpcPassText">Torrent RPC Password:</label> <input data="btrpcpass" id="btrpcpass" type="text" value="itoopie">
         </div>
     </section>
     <input id="save-button" type="button" value="Save preferences"> 
