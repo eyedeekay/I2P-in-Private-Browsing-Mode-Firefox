@@ -47,7 +47,7 @@ function authenticate(
   password = "transmission",
   control_host = "127.0.0.1",
   control_port = "7657",
-  control_path = "jsonrpc"
+  control_path = "transmission/rpc"
 ) {
   let store = browser.storage.local.get("rpc_pass");
   if (store != undefined) {
@@ -71,7 +71,7 @@ async function GetToken(
   password,
   control_host = "127.0.0.1",
   control_port = "7657",
-  control_path = "jsonrpc"
+  control_path = "transmission/rpc"
 ) {
   let me = authenticate(password);
   return await me.then(gettoken);
