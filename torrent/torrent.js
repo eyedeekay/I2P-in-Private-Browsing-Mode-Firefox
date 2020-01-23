@@ -1,5 +1,5 @@
 var hellot = "hello bittorrent";
-var xTransmissionSessionId = ""
+var xTransmissionSessionId = "";
 
 function makeid(length) {
   var result = "";
@@ -36,7 +36,7 @@ function torrentsend(
       body: requestBody // body data type must match "Content-Type" header
     };
     const response = await fetch(url, opts);
-    console.log("(torrent-rpc) response", response)
+    console.log("(torrent-rpc) response", response);
     return await response.json(); // parses JSON response into native JavaScript objects
   }
 
@@ -44,7 +44,7 @@ function torrentsend(
     "http://" + control_host + ":" + control_port + "/" + control_path + "/",
     message
   );
-/*  return postData(
+  /*  return postData(
     "http://" + control_host + ":" + control_port + "/" + control_path,
     message
   );*/
@@ -56,12 +56,12 @@ function sessionStats(
   control_port = "7657",
   control_path = "transmission/rpc"
 ) {
-    var json = new Object();
-    json["id"] = makeid(6);
-    json["jsonrpc"] = "2.0";
-    json["method"] = "session-stats";
-    //json["params"] = new Object();
-    return torrentsend(json, control_host, control_port, control_path);
+  var json = new Object();
+  json["id"] = makeid(6);
+  json["jsonrpc"] = "2.0";
+  json["method"] = "session-stats";
+  //json["params"] = new Object();
+  return torrentsend(json, control_host, control_port, control_path);
 }
 
 async function GetTorrentToken(
@@ -75,17 +75,17 @@ async function GetTorrentToken(
 }
 
 function gettorrenttoken(authtoken) {
-  console.log(authtoken)
+  console.log(authtoken);
   return authtoken.result.Token;
 }
 
-function TorrentDone(result){
-    console.log("(torrent-rpc) recv", result)
+function TorrentDone(result) {
+  console.log("(torrent-rpc) recv", result);
 }
 
-function TorrentError(result){
-    console.log("(torrent-rpc) recv err", result)
+function TorrentError(result) {
+  console.log("(torrent-rpc) recv err", result);
 }
 
-var result = GetTorrentToken()
-result.then(TorrentDone, TorrentError)
+var result = GetTorrentToken();
+result.then(TorrentDone, TorrentError);
