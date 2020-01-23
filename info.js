@@ -3,7 +3,8 @@ function checkPeerConnection() {
   getting.then(got => {
     let webrtc = got.value;
     console.log("checking webrtc", webrtc);
-    document.getElementById("enable-web-rtc").checked = webrtc;
+    if (document.getElementById("enable-web-rtc") !== null)
+      document.getElementById("enable-web-rtc").checked = webrtc;
   });
 }
 
@@ -34,7 +35,8 @@ function checkHistory() {
       disable_history = false;
     }
     console.log("checking history", disable_history);
-    document.getElementById("disable-history").checked = disable_history;
+    if (document.getElementById("disable-history") !== null)
+      document.getElementById("disable-history").checked = disable_history;
   });
 }
 
@@ -281,11 +283,11 @@ function onVisited(historyItem) {
   }
 }
 
-UpdateContents();
+if (UpdateContents !== undefined) UpdateContents();
 
 const minutes = 0.2;
 const interval = minutes * 60 * 1000;
 
 setInterval(function() {
-  UpdateContents();
+  if (UpdateContents !== undefined) UpdateContents();
 }, interval);

@@ -11,6 +11,7 @@ function contentUpdateById(id, message) {
 // Information Section
 contentUpdateById("text-section-header", "extensionName");
 contentUpdateById("description", "extensionDescription");
+contentUpdateById("i2pbrowser-version", "extensionVersion");
 contentUpdateById("beta", "extensionStatus");
 contentUpdateById("proxy-check", "proxyFailedStatus");
 

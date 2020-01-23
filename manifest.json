@@ -51,7 +51,6 @@
     "scripts": [
       "config.js",
       "i2pcontrol/i2pcontrol.js",
-      "torrent/torrent.js",
       "host.js",
       "privacy.js",
       "platform.js",

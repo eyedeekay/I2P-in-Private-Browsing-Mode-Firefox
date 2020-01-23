@@ -11,6 +11,10 @@
     "message": "Your browser is now set up to use I2P.",
     "description": "Description of the extension."
   },
+  "extensionVersion": {
+    "message": "0.57",
+    "description": "Version of the extension."
+  },
   "extensionStatus": {
     "message": "It is a labs project for enhancing your I2P browsing experience.",
     "description": "Release status of the extension."

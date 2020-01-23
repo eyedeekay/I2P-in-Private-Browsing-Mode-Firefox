@@ -105,7 +105,8 @@ function UpdateEchoElementByID(
 ) {
   function updateelement(update) {
     //console.log("(i2pcontrol)", update);
-    document.getElementById(ID).innerText = update;
+    if (document.getElementById(ID) !== null)
+      document.getElementById(ID).innerText = update;
   }
   let net = Echo(Query, control_host, control_port, control_path, password);
   net.then(updateleement);
@@ -143,7 +144,8 @@ function UpdateGetRateElementByID(
 ) {
   function updateelement(update) {
     //console.log("(i2pcontrol)", update);
-    document.getElementById(ID).innerText = update;
+    if (document.getElementById(ID) !== null)
+      document.getElementById(ID).innerText = update;
   }
   let net = GetRate(Query, control_host, control_port, control_path, password);
   net.then(updateleement);
@@ -180,7 +182,8 @@ function UpdateI2PControlElementByID(
 ) {
   function updateelement(update) {
     //console.log("(i2pcontrol)", update);
-    document.getElementById(ID).innerText = update;
+    if (document.getElementById(ID) !== null)
+      document.getElementById(ID).innerText = update;
   }
   let net = I2PControl(
     Query,
@@ -229,7 +232,8 @@ function UpdateRouterInfoElementByID(
       ID,
       document.getElementById(ID)
     );*/
-    document.getElementById(ID).innerText = update.result[Query];
+    if (document.getElementById(ID) !== null)
+      document.getElementById(ID).innerText = update.result[Query];
   }
 
   let net = RouterInfo(
@@ -273,8 +277,9 @@ function UpdateRouterManagerElementByID(
   password = "itoopie"
 ) {
   function updateelement(update) {
-    c; //onsole.log("(i2pcontrol)", update);
-    document.getElementById(ID).innerText = update;
+    //console.log("(i2pcontrol)", update);
+    if (document.getElementById(ID) !== null)
+      document.getElementById(ID).innerText = update;
   }
   let net = RouterManager(
     Query,
