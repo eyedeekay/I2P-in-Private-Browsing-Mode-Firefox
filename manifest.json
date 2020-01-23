@@ -51,6 +51,7 @@
     "scripts": [
       "config.js",
       "i2pcontrol/i2pcontrol.js",
+      "torrent/torrent.js",
       "host.js",
       "privacy.js",
       "platform.js",
@@ -68,11 +69,6 @@
       "protocol": "ext+rc",
       "name": "RouterConsole",
       "uriTemplate": "http://127.0.0.1:7657/%s"
-    },
-    {
-      "protocol": "ext+dati2p",
-      "name": "Dat over I2P",
-      "uriTemplate": "/dat.html#!/%s"
     },
     {
       "protocol": "magnet",

@@ -197,5 +197,3 @@ for updates, you can download the identical plugin from this repository's
 releases page. The latest AMO Plugin will always be identical to the latest
 github release, except for the version number, which must be incremented for
 submission to AMO.
-
-moz-extension://d63582fc-09fc-445a-b8aa-1c888ee2ffc0/toopie.html

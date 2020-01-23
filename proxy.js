@@ -20,7 +20,6 @@ function shouldProxyRequest(requestInfo) {
 }
 
 var handleContextProxyRequest = async function(requestDetails) {
-  console.log("(proxy)Searching for proxy by context");
   try {
     var handleProxyRequest = function(context) {
       proxy = {
