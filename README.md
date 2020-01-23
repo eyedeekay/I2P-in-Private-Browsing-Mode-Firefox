@@ -81,11 +81,12 @@ Usage:
    use
   * ![Visiting i2ptunnel](i2ptunnel.png)
   * [ready] **Provide** help in a variety of languages.
-  * [wip] **Monitor** the health and readiness of the I2P router it is
+  * [done] **Monitor** the health and readiness of the I2P router it is
    instructed to use. Currently the plugin checks whether the HTTP Proxy is
    working by fetching an image from "http://proxy.i2p" and displaying a result.
    A work-in-progress binding to i2pcontrol is available in ./i2pcontrol, it is
    inert at this time.
+  * ![Visiting toopie.html](toopie.png)
   * [Done] **Handle** router console applications under their own origins and
    within their own contextual identity. (1) The router console is automatically
    confined to it's own container tab. (2) Use a custom protocol handler to
@@ -196,3 +197,5 @@ for updates, you can download the identical plugin from this repository's
 releases page. The latest AMO Plugin will always be identical to the latest
 github release, except for the version number, which must be incremented for
 submission to AMO.
+
+moz-extension://d63582fc-09fc-445a-b8aa-1c888ee2ffc0/toopie.html

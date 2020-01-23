@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <link href="home.css" rel="stylesheet">
     <link href="search.css" rel="stylesheet">
+    <link href="sidebar.css" rel="stylesheet">
     <title>
     </title>
 </head>
@@ -41,27 +42,27 @@
             <div class="hideIfI2PConsoleOff" id="onboarding">
                 <h3 id="onboardingTitle">New to I2P? Learn more here.</h3>
 
-                <h4 id="onboardingZero"><button class="showhider" id="onboardingButtonZero" onclick="flipVisibility('onboardingContentZero')">Protect your Privacy</button>
+                <h4 id="onboardingZero"><button class="showhider" id="onboardingButtonZero">Protect your Privacy</button>
                 </h4>
 
                 <p class="onboardingContent" id="onboardingContentZero">I2P Browser allows you to surf the internet using the private and secure I2P network. When using it, you are protected against tracking, surveillance, and censorship as a first-class participant in the I2P network. I2P Browser isolates cookies and deletes your browser history after your session. These modifications ensure your privacy and security are protected in the browser.</p>
 
-                <h4 id="onboardingOne"><button class="showhider" id="onboardingButtonOne" onclick="flipVisibility('onboardingContentOne')">Configure your Experience</button>
+                <h4 id="onboardingOne"><button class="showhider" id="onboardingButtonOne">Configure your Experience</button>
                 </h4>
 
                 <p class="onboardingContent" id="onboardingContentOne">We also provide you with additional settings for bumping up your browser security. Our Security Settings allow you to block elements that could be used to attack your computer. Click below to see what the different options do. Note: By default, NoScript and HTTPS Everywhere are not included on the toolbar, but you can customize your toolbar to add them. With all the security and privacy features provided by I2P, your experience while browsing the internet may be a little different. Things may be a bit slower, and depending on your security level, some elements may not work or load. You may also be asked to prove you are a human and not a robot.</p>
 
-                <h4 id="onboardingTwo"><button class="showhider" id="onboardingButtonTwo" onclick="flipVisibility('onboardingContentTwo')">Share Files</button>
+                <h4 id="onboardingTwo"><button class="showhider" id="onboardingButtonTwo">Share Files</button>
                 </h4>
 
                 <p class="onboardingContent" id="onboardingContentTwo">I2P is capable of using peer-to-peer applications like BitTorrent, protecting your identity when you share files. Our anonymous bittorrent client is available in the browser.</p>
 
-                <h4 id="onboardingThree"><button class="showhider" id="onboardingButtonThree" onclick="flipVisibility('onboardingContentThree')">Hidden e-mail</button>
+                <h4 id="onboardingThree"><button class="showhider" id="onboardingButtonThree">Hidden e-mail</button>
                 </h4>
 
                 <p class="onboardingContent" id="onboardingContentThree">There is also an anonymous e-mail service available inside of I2P, which is accessible from our browser via the menu directly below.</p>
 
-                <h4 id="onboardingFour"><button class="showhider" id="onboardingButtonFour" onclick="flipVisibility('onboardingContentFour')">Experience Tips</button>
+                <h4 id="onboardingFour"><button class="showhider" id="onboardingButtonFour">Experience Tips</button>
                 </h4>
 
                 <p class="onboardingContent" id="onboardingContentFour">With all the security and privacy features provided by I2P, your experience while browsing the internet may be a little different. Things may be a bit slower, and depending on your security level, some elements may not work or load. You may also be asked to prove you are a human and not a robot.</p>
@@ -77,12 +78,17 @@
                 <p id="applicationExplain">These applications use I2P to provide them with security and privacy.</p>
 
                 <ul>
-                    <li class="application">
+                    <!--<li class="application">
+                        <a class="applicationName" href="http://legwork.i2p" id="window-link-toopie" target="_blank">Search:</a> <span class="applicationDesc" id="search">Legwork is an in-I2P search engine.</span>
                         <div class="topnav">
                             <form action="http://legwork.i2p/yacysearch.html?" method="get">
                                 <input id="search-query" name="query" placeholder="Search on legwork.i2p(Opens a new tab)" type="search"> <input id="search-submit" text="Submit" type="submit">
                             </form>
                         </div>
+                    </li>-->
+
+                    <li class="application">
+                        <a class="applicationName" href="toopie.html" id="window-visit-toopie" target="_blank">Toopie</a> <span class="applicationDesc" id="toopie">For information about your I2P router status, go here:</span>
                     </li>
 
                     <li class="application">

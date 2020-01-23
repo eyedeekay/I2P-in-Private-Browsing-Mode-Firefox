@@ -12,11 +12,12 @@ var tunnelpref = chrome.i18n.getMessage("i2ptunnelPreface");
 var tunnelprefpriv = chrome.i18n.getMessage("i2ptunnelPrefacePrivate");
 var localpref = chrome.i18n.getMessage("localPreface");
 var localprefpriv = chrome.i18n.getMessage("localPrefacePrivate");
+var extensionpref = chrome.i18n.getMessage("extensionPreface");
 
 function onContextsGot(contexts) {
   var ids = [];
   for (let context of contexts) {
-    console.log(`Name: ${context.name}`);
+    console.log(`Name : ${context.name}`);
     ids.push(context.name);
   }
   console.log("Checking new contexts");
@@ -90,11 +91,11 @@ function onContextsError() {
 }
 
 function onCreated(context) {
-  console.log(`New identity's ID: ${context.cookieStoreId}.`);
+  console.log(" ID:", context.cookieStoreId, "created.");
 }
 
 function onNotCreated(context) {
-  console.log(`identity ID: ${context.cookieStoreId} not created`);
+  console.log("ID:", context.cookieStoreId, "not created.");
 }
 
 browser.contextualIdentities.query({}).then(onContextsGot, onContextsError);
@@ -402,11 +403,6 @@ gettingListenerInfo.then(got => {
     console.log("Error finding platform info");
   }
   if (got.os != "android") {
-    browser.windows.onCreated.addListener(() => {
-      chrome.storage.local.get(function() {
-        setupProxy();
-      });
-    });
     browser.tabs.onCreated.addListener(() => {
       var getting = browser.windows.getCurrent({
         populate: true
@@ -421,30 +417,7 @@ gettingListenerInfo.then(got => {
     });
   }
 });
-/*
-var gettingInfo = browser.runtime.getPlatformInfo();
-gettingInfo.then(got => {
-  if (got.os != "android") {
-    browser.tabs.onCreated.addListener(() => {
-      var getting = browser.windows.getCurrent({
-        populate: true
-      });
-      getting.then(setTitle, onError);
-    });
-  }
-});
-var gettingInfo = browser.runtime.getPlatformInfo();
-gettingInfo.then(got => {
-  if (got.os != "android") {
-    browser.tabs.onActivated.addListener(() => {
-      var getting = browser.windows.getCurrent({
-        populate: true
-      });
-      getting.then(setTitle, onError);
-    });
-  }
-});
-*/
+
 function handleUpdated(updateInfo) {
   if (updateInfo.theme) {
     console.log(`Theme was applied: ${updateInfo.theme}`);

@@ -3,6 +3,10 @@
     "message": "I2P In Private Browsing",
     "description": "Name of the extension."
   },
+  "toopieName": {
+    "message": "toopie.html",
+    "description": "Name of the sidebar."
+  },
   "extensionDescription": {
     "message": "Your browser is now set up to use I2P.",
     "description": "Description of the extension."
@@ -131,6 +135,10 @@
     "message": "I2P Browser (Private)",
     "description": "Preface for the browser titlebar"
   },
+  "extensionPreface": {
+    "message": "I2P Management",
+    "description": "Preface for the browser titlebar"
+  },
   "webPreface": {
     "message": "Web Browser",
     "description": "Preface for the browser titlebar"
@@ -203,6 +211,10 @@
     "message": "Visit the I2P Forum to learn more or ask for assistance",
     "description": "Help Message"
   },
+  "proxyHelpText": {
+    "message": "Configure your I2P proxy here.",
+    "description": "Help for configuring the options for the Reset Tunnel button"
+  },
   "hostText": {
     "message": "Host: ",
     "description": "Host for the HTTP or SOCKS5 Proxy"
@@ -212,7 +224,7 @@
     "description": "Port for the HTTP or SOCKS5 Proxy"
   },
   "controlHelpText": {
-    "message": "These options will be inert if used with the default i2p HTTP or SOCKS proxy.",
+    "message": "Configure your router console here.",
     "description": "Help for configuring the options for the Reset Tunnel button"
   },
   "controlHostText": {

@@ -1,3 +1,56 @@
+function routerHost(url) {
+  let hostname = "";
+  let path = "";
+  function pathcheck(str) {
+    if (str != undefined) {
+      let final = str.split("/")[0];
+      if (final === "i2ptunnelmgr" || final === "i2ptunnel") {
+        console.log("(urlcheck) application path", final);
+        return "i2ptunnelmgr";
+      } else if (final === "i2psnark" || final === "torrents") {
+        console.log("(urlcheck) application path", final);
+        return "i2psnark";
+      } else if (final === "webmail" || final === "susimail") {
+        console.log("(urlcheck) application path", final);
+        return "webmail";
+      } else if (
+        final === "home" ||
+        final === "console" ||
+        final === "dns" ||
+        final.startsWith("config")
+      ) {
+        console.log("(urlcheck) application path", final);
+        return "routerconsole";
+      }
+    }
+    return true;
+  }
+  if (url.indexOf("://") > -1) {
+    hostname = url.split("/")[2];
+    let prefix = url.substr(0, url.indexOf("://") + 3);
+    path = url.replace(prefix + hostname + "/", "");
+  } else if (identifyProtocolHandler(url)) {
+    let newurl = identifyProtocolHandler(url);
+    return routerHost(newurl);
+  } else {
+    hostname = url.split("/")[0];
+    path = url.replace(hostname + "/", "");
+  }
+  if (hostname === control_host + ":" + control_port) {
+    //console.log("(hostcheck) router console found on configured ports");
+    return pathcheck(path);
+  }
+  if (hostname === "localhost" + ":" + control_port) {
+    //console.log("(hostcheck) router console found on configured ports");
+    return pathcheck(path);
+  }
+  if (hostname === "127.0.0.1" + ":" + control_port) {
+    return pathcheck(path);
+  }
+
+  return false;
+}
+
 function identifyProtocolHandler(url) {
   //console.log("looking for handler-able requests")
   if (routerHost(url)) {

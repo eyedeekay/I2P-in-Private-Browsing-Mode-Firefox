@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>I2P Router Information</title>
+    <link href="home.css" rel="stylesheet" type="text/css">
+    <link href="sidebar.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <h1>I2P Router Information</h1>
+
+    <ul>
+        <li><button id="label-router-restart" target="_blank">Restart: <span id="router-restart">Gracefully restart router</span></button>
+        </li>
+
+        <li><button id="label-router-shutdown" target="_blank">Shutdown: <span id="router-shutdown">Gracefully shutdown router</span></button>
+        </li>
+    </ul>
+
+    <ul>
+        <li><span id="label-router-status">Router Status:</span> <span id="router-status">Replace with Router Status</span></li>
+
+        <li><span id="label-router-uptime">Router Uptime(Ms):</span> <span id="router-uptime">Replace with Router Uptime</span></li>
+
+        <li><span id="label-router-version">Router Version:</span> <span id="router-version">Replace with Router Version</span></li>
+
+        <li>
+            <ul>
+                <li><span id="label-router-bw-outbound-1s">Outbound bw 1s:</span> <span id="router-net-bw-outbound-1s">Replace with Router Bandwidth Outbound 1s</span></li>
+
+                <li><span id="label-router-bw-outbound-15s">Outbound bw 15s:</span> <span id="router-net-bw-outbound-15s">Replace with Router Bandwidth Outbound 15s</span></li>
+
+                <li><span id="label-router-bw-inbound-1s">Inbound bw 1s:</span> <span id="router-net-bw-inbound-1s">Replace with Router Bandwidth Inbound 1s</span></li>
+
+                <li><span id="label-router-bw-inbound-15s">Inbound bw 15s:</span> <span id="router-net-bw-inbound-15s">Replace with Router Bandwidth Outbound 15s</span></li>
+            </ul>
+        </li>
+        <!--<li>
+        <span id="label-router-net-status">Network Status:</span>
+        <span id="router-net-status">Replace with Router Network Status</span>
+      </li>-->
+
+        <li>
+            <ul>
+                <li><span id="label-router-net-tunnels-participating">Participating Tunnels:</span> <span id="router-net-tunnels-participating">Replace with Router Participating Tunnel Count</span></li>
+
+                <li><span id="label-router-activepeers">Active Peers:</span> <span id="router-netdb-activepeers">Replace with Router Active Peers</span></li>
+
+                <li><span id="label-router-netdb-fastpeers">Fast Peers:</span> <span id="router-netdb-fastpeers">Replace with Router Fast Peers</span></li>
+
+                <li><span id="label-router-netdb-highcapacitypeers">High Capacity Peers:</span> <span id="router-netdb-highcapacitypeers">Replace with High Capacity Peers</span></li>
+
+                <li><span id="label-router-netdb-isreseeding">Reseed status:</span> <span id="router-netdb-isreseeding">Replace with Router netDB Reseeding Status</span></li>
+
+                <li><span id="label-router-netdb-knownpeers">Known Peers:</span> <span id="router-netdb-knownpeers">Replace with Router Known Peers</span></li>
+            </ul>
+        </li>
+    </ul>
+    <script src="i2pcontrol/i2pcontrol.js"></script> 
+    <script src="info.js"></script> 
+    <script src="content.js"></script>
+</body>
+</html>

@@ -122,7 +122,7 @@ gettingInfo.then(got => {
       }
 
       function onRejected(error) {
-        console.log(`An error: ${error}`);
+        console.log(`An error : ${error}`);
       }
       function onCreated(node) {
         console.log("Bookmarked", node);

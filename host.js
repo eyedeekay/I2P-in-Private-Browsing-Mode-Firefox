@@ -29,8 +29,14 @@ function localHost(url) {
 }
 
 function extensionHost(url) {
-  var res = url.startsWith(browser.runtime.getURL(""));
-  return res;
+  if (url.originUrl !== undefined) {
+    var res = url.originUrl.startsWith(browser.runtime.getURL(""));
+    if (res) return res;
+  }
+  if (url.url !== undefined) {
+    var res = url.url.startsWith(browser.runtime.getURL(""));
+    if (res) return res;
+  }
 }
 
 function i2pHostName(url) {
@@ -57,7 +63,11 @@ function routerHost(url) {
       if (final === "i2ptunnelmgr" || final === "i2ptunnel") {
         console.log("(urlcheck) application path", final);
         return "i2ptunnelmgr";
-      } else if (final === "i2psnark" || final === "torrents") {
+      } else if (
+        final === "i2psnark" ||
+        final === "torrents" ||
+        final.startsWith("transmission")
+      ) {
         console.log("(urlcheck) application path", final);
         return "i2psnark";
       } else if (final === "webmail" || final === "susimail") {
@@ -66,6 +76,7 @@ function routerHost(url) {
       } else if (
         final === "home" ||
         final === "console" ||
+        final === "dns" ||
         final.startsWith("config")
       ) {
         console.log("(urlcheck) application path", final);
@@ -86,23 +97,14 @@ function routerHost(url) {
     path = url.replace(hostname + "/", "");
   }
   if (hostname === control_host + ":" + control_port) {
-    console.log("(hostcheck) router console found on configured ports");
-    return pathcheck(path);
-  } else if (hostname === "127.0.0.1:7657") {
-    return pathcheck(path);
-  } else if (hostname === "localhost:7657") {
+    //console.log("(hostcheck) router console found on configured ports");
     return pathcheck(path);
   }
-
-  if (hostname === "127.0.0.1:7657") {
-    return pathcheck(path);
-  } else if (hostname === "localhost:7657") {
+  if (hostname === "localhost" + ":" + control_port) {
+    //console.log("(hostcheck) router console found on configured ports");
     return pathcheck(path);
   }
-
-  if (hostname === "127.0.0.1:7070") {
-    return pathcheck(path);
-  } else if (hostname === "localhost:7070") {
+  if (hostname === "127.0.0.1" + ":" + control_port) {
     return pathcheck(path);
   }
 

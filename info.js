@@ -71,18 +71,33 @@ document.addEventListener("click", clickEvent => {
       };
     }
     refreshIdentity();
+  } else if (clickEvent.target.id === "label-router-restart") {
+    console.log("attempting to initiate graceful restart");
+    RouterManager("RestartGraceful");
+  } else if (clickEvent.target.id === "label-router-shutdown") {
+    console.log("attempting to initiate graceful shutdown");
+    RouterManager("ShutdownGraceful");
   } else if (clickEvent.target.id === "search-submit") {
     console.log("attempting to create search tab");
     goSearch();
+  } else if (clickEvent.target.id === "browser-action") {
+    console.log("showing a browser action");
+    showBrowsing();
+  } else if (clickEvent.target.id === "torrent-action") {
+    console.log("showing a torrent action");
+    showTorrents();
   } else if (clickEvent.target.id === "window-preface-title") {
     console.log("attempting to create homepage tab");
     goHome();
   } else if (clickEvent.target.id === "window-visit-index") {
-    console.log("attempting to create homepage tab");
+    console.log("attempting to create index tab");
     goIndex();
   } else if (clickEvent.target.id === "window-visit-homepage") {
     console.log("attempting to create homepage tab");
     goHome();
+  } else if (clickEvent.target.id === "window-visit-toopie") {
+    console.log("attempting to create toopie tab");
+    goToopie();
   } else if (clickEvent.target.id === "window-visit-i2ptunnel") {
     console.log("attempting to create i2ptunnel tab");
     goTunnel();
@@ -127,6 +142,20 @@ gettingInfo.then(got => {
   }
 });
 
+function showBrowsing() {
+  var x = document.getElementById("browserpanel");
+  x.style.display = "block";
+  var y = document.getElementById("torrentpanel");
+  y.style.display = "none";
+}
+
+function showTorrents() {
+  var x = document.getElementById("browserpanel");
+  x.style.display = "none";
+  var y = document.getElementById("torrentpanel");
+  y.style.display = "block";
+}
+
 function goHome() {
   function gotProxyInfo(info) {
     let port = info.value.http.split(":")[1];
@@ -136,12 +165,14 @@ function goHome() {
       };
       console.log("visiting homepage");
       let creating = browser.tabs.create(createRhizomeData);
+      creating.then(onTabCreated, onTabError);
     } else {
       let createData = {
         url: "home.html"
       };
       console.log("visiting homepage");
       let creating = browser.tabs.create(createData);
+      creating.then(onTabCreated, onTabError);
     }
     console.log("(bookmarks) adding home page bookmark");
   }
@@ -159,7 +190,16 @@ function goIndex() {
   };
   console.log("visiting help");
   let creating = browser.tabs.create(createData);
-  creating(onTabCreated, onTabError);
+  creating.then(onTabCreated, onTabError);
+}
+
+function goToopie() {
+  function onTabError() {
+    console.log("Toopie tab created");
+  }
+  console.log("visiting toopie");
+  let creating = browser.sidebarAction.open();
+  creating.then(onTabCreated, onTabError);
 }
 
 function onTabCreated() {
@@ -178,7 +218,7 @@ function goSearch() {
   };
   console.log("visiting legwork");
   let creating = browser.tabs.create(createData);
-  creating(onTabCreated, onTabError);
+  creating.then(onTabCreated, onTabError);
 }
 
 function goTunnel() {
@@ -186,11 +226,11 @@ function goTunnel() {
     console.log("I2PTunnel tab created");
   }
   let createData = {
-    url: "http://" + "127.0.0.1" + ":" + "7657" + "/i2ptunnel"
+    url: "http://" + control_host + ":" + control_port + "/i2ptunnel"
   };
   console.log("visiting i2ptunnel");
   let creating = browser.tabs.create(createData);
-  creating(onTabCreated, onTabError);
+  creating.then(onTabCreated, onTabError);
 }
 
 function goMail() {
@@ -198,7 +238,7 @@ function goMail() {
     console.log("Mail tab created");
   }
   let createData = {
-    url: "http://" + "127.0.0.1" + ":" + "7657" + "/susimail"
+    url: "http://" + control_host + ":" + control_port + "/susimail"
   };
   console.log("visiting mail");
   let creating = browser.tabs.create(createData);
@@ -210,11 +250,11 @@ function goSnark() {
     console.log("Snark tab created");
   }
   let createData = {
-    url: "http://" + "127.0.0.1" + ":" + "7657" + "/i2psnark"
+    url: "http://" + control_host + ":" + control_port + "/i2psnark"
   };
   console.log("visiting snark");
   let creating = browser.tabs.create(createData);
-  creating(onTabCreated, onTabError);
+  creating.then(onTabCreated, onTabError);
 }
 
 function onVisited(historyItem) {
@@ -240,3 +280,12 @@ function onVisited(historyItem) {
     deletingUrl.then(onRemoved);
   }
 }
+
+UpdateContents();
+
+const minutes = 0.2;
+const interval = minutes * 60 * 1000;
+
+setInterval(function() {
+  UpdateContents();
+}, interval);
