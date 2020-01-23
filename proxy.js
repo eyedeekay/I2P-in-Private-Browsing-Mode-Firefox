@@ -117,6 +117,14 @@ var handleContextProxyRequest = async function(requestDetails) {
         console.log("(proxy)Tab error", error);
       }
     };
+    if (proxyHost(requestDetails.url)) {
+      proxy = {
+        type: getScheme(),
+        host: getHost(),
+        port: getPort()
+      };
+      return proxy;
+    }
     if (
       requestDetails.cookieStoreId == "firefox-default" ||
       requestDetails.cookieStoreId == "firefox-private"

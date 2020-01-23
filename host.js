@@ -30,7 +30,6 @@ function localHost(url) {
 
 function extensionHost(url) {
   var res = url.startsWith(browser.runtime.getURL(""));
-  console.log("Extension URL?", res, url, browser.runtime.getURL(""));
   return res;
 }
 

@@ -80,7 +80,7 @@ Usage:
   * [done] **Change** the color of the browser window to indicate that I2P is in
    use
   * ![Visiting i2ptunnel](i2ptunnel.png)
-  * [ready/broken/wip] **Provide** help in a variety of languages.
+  * [ready] **Provide** help in a variety of languages.
   * [wip] **Monitor** the health and readiness of the I2P router it is
    instructed to use. Currently the plugin checks whether the HTTP Proxy is
    working by fetching an image from "http://proxy.i2p" and displaying a result.
@@ -94,7 +94,7 @@ Usage:
   * ![Visiting routerconsole](routerconsole.png)
   * [wip] **Handle Torrents** by talking to i2psnark-rpc plugin and then
    adding them directly into the Firefox downloads drop-downs, menus, etc. If I
-   can. Right now instead of talking to snark-rpc, it uses a web-based protocl
+   can. Right now instead of talking to snark-rpc, it uses a web-based protocol
    handler that simply auto-fills the torrent into i2psnark.
   * ![Visiting i2psnark](i2psnark.png)
   * [barely started] **Isolate** traffic by contextual identity to it's own HTTP
