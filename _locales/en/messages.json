@@ -63,6 +63,14 @@
     "message": "For more information about this extension, visit this page.",
     "description": "Description for the extension button page."
   },
+  "windowVisitHelppage": {
+    "message": "Help Page: ",
+    "description": "Help page for the extension label."
+  },
+  "help": {
+    "message": "For more information about this extension, visit this page.",
+    "description": "Description for the extension button page."
+  },
   "windowVisitI2ptunnel": {
     "message": "Hidden Services Manager: ",
     "description": "Title for i2ptunnel"

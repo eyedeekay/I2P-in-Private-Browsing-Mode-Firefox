@@ -27,6 +27,8 @@ contentUpdateById("histDesc", "histDesc");
 // Application Section
 contentUpdateById("applicationHeader", "applicationHeader");
 contentUpdateById("applicationExplain", "applicationExplain");
+contentUpdateById("window-visit-index", "windowVisitHelppage");
+contentUpdateById("help", "help");
 contentUpdateById("window-visit-homepage", "windowVisitHomepage");
 contentUpdateById("abouthome", "abouthome");
 contentUpdateById("window-visit-i2ptunnel", "windowVisitI2ptunnel");

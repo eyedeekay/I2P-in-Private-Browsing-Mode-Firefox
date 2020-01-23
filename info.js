@@ -62,9 +62,15 @@ document.addEventListener("click", clickEvent => {
       };
     }
     refreshIdentity();
+  } else if (clickEvent.target.id === "search-submit") {
+    console.log("attempting to create search tab");
+    goSearch();
   } else if (clickEvent.target.id === "window-preface-title") {
     console.log("attempting to create homepage tab");
     goHome();
+  } else if (clickEvent.target.id === "window-visit-index") {
+    console.log("attempting to create homepage tab");
+    goIndex();
   } else if (clickEvent.target.id === "window-visit-homepage") {
     console.log("attempting to create homepage tab");
     goHome();
@@ -135,8 +141,35 @@ function goHome() {
   gettingProxyInfo.then(gotProxyInfo);
 }
 
+function goIndex() {
+  function onTabError() {
+    console.log("Help tab created");
+  }
+  let createData = {
+    url: "index.html"
+  };
+  console.log("visiting help");
+  let creating = browser.tabs.create(createData);
+  creating(onTabCreated, onTabError);
+}
+
 function onTabCreated() {
   console.log("Tab Created");
+}
+
+function goSearch() {
+  function onTabError() {
+    console.log("Search tab created");
+  }
+  let createData = {
+    url:
+      "http://legwork.i2p/yacysearch.html?" +
+      "query=" +
+      document.getElementById("search-query").value
+  };
+  console.log("visiting legwork");
+  let creating = browser.tabs.create(createData);
+  creating(onTabCreated, onTabError);
 }
 
 function goTunnel() {
