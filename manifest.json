@@ -53,8 +53,8 @@
     "persistent": true,
     "scripts": [
       "config.js",
+      "torrent/background.js",
       "torrent/common.js",
-      "torrent/popup.js",
       "i2pcontrol/i2pcontrol.js",
       "host.js",
       "privacy.js",
