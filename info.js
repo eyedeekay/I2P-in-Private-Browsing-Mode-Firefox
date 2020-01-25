@@ -223,12 +223,18 @@ function goSearch() {
   creating.then(onTabCreated, onTabError);
 }
 
+function routerAddr(){
+    if (!control_host) control_host="127.0.0.1"
+    if (!control_port) control_port="7657"
+    return control_host + ":" + control_port
+}
+
 function goTunnel() {
   function onTabError() {
     console.log("I2PTunnel tab created");
   }
   let createData = {
-    url: "http://" + control_host + ":" + control_port + "/i2ptunnel"
+    url: "http://" + routerAddr() + "/i2ptunnel"
   };
   console.log("visiting i2ptunnel");
   let creating = browser.tabs.create(createData);
@@ -240,7 +246,7 @@ function goMail() {
     console.log("Mail tab created");
   }
   let createData = {
-    url: "http://" + control_host + ":" + control_port + "/susimail"
+    url: "http://" + routerAddr() + "/susimail"
   };
   console.log("visiting mail");
   let creating = browser.tabs.create(createData);
@@ -252,7 +258,7 @@ function goSnark() {
     console.log("Snark tab created");
   }
   let createData = {
-    url: "http://" + control_host + ":" + control_port + "/i2psnark"
+    url: "http://" + routerAddr() + "/i2psnark"
   };
   console.log("visiting snark");
   let creating = browser.tabs.create(createData);

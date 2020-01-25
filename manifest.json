@@ -52,8 +52,6 @@
   "background": {
     "persistent": true,
     "scripts": [
-      "torrent/common.js",
-      "torrent/background.js",
       "config.js",
       "i2pcontrol/i2pcontrol.js",
       "host.js",
