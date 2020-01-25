@@ -223,10 +223,10 @@ function goSearch() {
   creating.then(onTabCreated, onTabError);
 }
 
-function routerAddr(){
-    if (!control_host) var control_host="127.0.0.1"
-    if (!control_port) var control_port="7657"
-    return control_host + ":" + control_port
+function routerAddr() {
+  if (!control_host) var control_host = "127.0.0.1";
+  if (!control_port) var control_port = "7657";
+  return control_host + ":" + control_port;
 }
 
 function goTunnel() {
