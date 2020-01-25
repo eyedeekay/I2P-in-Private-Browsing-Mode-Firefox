@@ -32,8 +32,6 @@
                     <input id="search-query" name="query" placeholder="Search on legwork.i2p(Opens a new tab)" type="search"> <input id="search-submit" text="Submit" type="submit">
                 </form>-->
                 </div>
-                <!--<div class="panel-section-separator">
-            </div>-->
 
                 <div class="hideIfI2PProxyOff" id="readyness">
                     <img class="readyness" src="http://proxy.i2p/themes/console/images/local_up.png"> <span id="proxy-check">Proxy is ready.</span>
@@ -102,6 +100,9 @@
                     <li class="application"><button class="applicationName" id="window-visit-susimail" target="_blank">E-Mail</button> <span class="applicationDesc" id="susimail">I2P also bundles a webmail client which can be used to access in-I2P e-mail. To use it, go here:</span></li>
 
                     <li class="application"><button class="applicationName" id="window-visit-snark" target="_blank">BitTorrent</button> <span class="applicationDesc" id="snark">I2P is capable of anonymous Peer-to-Peer file sharing, to use the built-in bittorrent client go here:</span></li>
+
+                    <li class="application"> <button class="applicationName" id="window-visit-router" href="http://127.0.0.1:7657/" target="_blank">Router Console</a> <span class="applicationDesc" id="routerConsole">The entrypoint for all other I2P applications is the I2P Router Console. To visit it, click here.</span>
+                    </li>
                 </ul>
 
                 <p>
@@ -161,12 +162,12 @@
             </div>
         </div>
     </div>
-    <script src="context.js"></script> 
-    <script src="privacy.js"></script> 
-    <script src="i2pcontrol/i2pcontrol.js"></script> 
-    <script src="info.js"></script> 
-    <script crossorigin="anonymous" src="content.js"></script> 
-    <script src="torrent/common.js"></script> 
+    <script src="context.js"></script>
+    <script src="privacy.js"></script>
+    <script src="i2pcontrol/i2pcontrol.js"></script>
+    <script src="info.js"></script>
+    <script crossorigin="anonymous" src="content.js"></script>
+    <script src="torrent/common.js"></script>
     <script src="torrent/popup.js"></script>
 </body>
 </html>

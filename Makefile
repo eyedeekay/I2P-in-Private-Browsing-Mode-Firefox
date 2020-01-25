@@ -82,6 +82,18 @@ index:
 	@echo "</body>" >> index.html
 	@echo "</html>" >> index.html
 
+torrenthelp:
+	@echo "<!DOCTYPE html>" > torrent/index.html
+	@echo "<html>" >> torrent/index.html
+	@echo "<head>" >> torrent/index.html
+	@echo "  <title>I2P in Private Browsing Mode</title>" >> torrent/index.html
+	@echo "  <link rel=\"stylesheet\" type=\"text/css\" href =\"home.css\" />" >> torrent/index.html
+	@echo "  <link rel=\"stylesheet\" type=\"text/css\" href =\"sidebar.css\" />" >> torrent/index.html
+	@echo "</head>" >> torrent/index.html
+	@echo "<body>" >> torrent/index.html
+	sed "s|magnetsub|[Magnet Link]($(MAGNET))|g" torrent/README.md | markdown >> torrent/index.html
+	@echo "</body>" >> torrent/index.html
+	@echo "</html>" >> torrent/index.html
 
 xpi:
 	#wget -O ../i2ppb@eyedeekay.github.io.xpi \
@@ -118,7 +130,7 @@ zip: version
 		--exclude="web-ext-artifacts" \
 		--exclude="./*.pdf" -r -FS ../i2psetproxy.js.zip *
 
-release:
+release: index torrenthelp
 	cat desc debian/changelog | grep -B 10 "$(LAST_VERSION)" | gothub release -p -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n $(VERSION) -d -; true
 
 delete-release:

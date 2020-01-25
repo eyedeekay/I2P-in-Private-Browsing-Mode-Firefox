@@ -67,6 +67,14 @@
     "message": "These applications work with I2P directly to provide them with security and privacy.",
     "description": "Description for application section."
   },
+  "windowVisitConsole": {
+    "message": "Router Console: ",
+    "description": "Router Console label."
+  },
+  "routerConsole": {
+    "message": "The entrypoint for all other I2P applications is the I2P Router Console. To visit it, click here.",
+    "description": "Description for the router console."
+  },
   "windowVisitHomepage": {
     "message": "Home Page: ",
     "description": "Home page for the extension label."

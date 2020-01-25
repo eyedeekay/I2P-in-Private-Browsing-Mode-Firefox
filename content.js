@@ -30,6 +30,8 @@ contentUpdateById("applicationHeader", "applicationHeader");
 contentUpdateById("applicationExplain", "applicationExplain");
 contentUpdateById("window-visit-index", "windowVisitHelppage");
 contentUpdateById("help", "help");
+contentUpdateById("window-visit-router", "windowVisitConsole");
+contentUpdateById("routerConsole", "routerConsole");
 contentUpdateById("window-visit-homepage", "windowVisitHomepage");
 contentUpdateById("abouthome", "abouthome");
 contentUpdateById("window-visit-i2ptunnel", "windowVisitI2ptunnel");
