@@ -5,12 +5,14 @@ default: zip
 install: uninstall
 	mkdir -p $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io \
 		$(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/i2pcontrol \
+		$(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/torrent \
 		$(PREFIX)/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}
 	cp -r ./icons/ $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
 	cp -r ./_locales/ $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
 	cp -r ./options/ $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
 	cp ./*.js $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
 	cp ./i2pcontrol/i2pcontrol.js $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/i2pcontrol/i2pcontrol.js
+	cp ./torrent/*.js $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/torrent/
 	cp ./*.html $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
 	cp ./*.css $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
 	cp ./*.md $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
