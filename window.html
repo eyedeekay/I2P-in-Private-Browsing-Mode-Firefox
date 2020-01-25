@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <link href="search.css" rel="stylesheet">
     <link href="home.css" rel="stylesheet">
-    <link href="info.css" rel="stylesheet">
+    <link href="info.css" rel="stylesheet"><!--<link href="torrent/popup.css" rel="stylesheet">-->
+
     <title>
     </title>
 </head>
@@ -111,26 +112,63 @@
                 <p>
                 </p>
             </div>
-
-            <div id="torrentpanel">
-                <div class="panel" id="torrentstatus">
-                    <div class="section-header panel-section panel-section-header">
-                        <div class="text-section-header" id="text-section-torrents-header">
-                            <h3>Torrent Downloads</h3>
-                        </div>
-                    </div>
-
-                    <div id="torrentsection">
-                        Torrents go here.
-                    </div>
-                </div>
-            </div>
-            <script src="context.js"></script> 
-            <script src="privacy.js"></script> 
-            <script src="info.js"></script> 
-            <script crossorigin="anonymous" src="content.js"></script> 
-            <script src="i2pcontrol/i2pcontrol.js"></script>
         </div>
     </div>
+
+    <div id="torrentpanel">
+        <div class="panel" id="torrentstatus">
+            <div class="section-header panel-section panel-section-header">
+                <div class="text-section-header" id="text-section-torrents-header">
+                    <h3>Torrent Downloads</h3>
+                </div>
+            </div>
+
+            <div hidden="" id="config-pane">
+                <strong>Torrent RPC Configuration</strong>
+                <br>
+                The server address is not set yet.
+                <br>
+                <a class="config-opener" href="#">Open the settings</a> to continue.
+            </div>
+
+            <div hidden="" id="torrents-pane">
+                <header>
+                    <h1>Torrent Controls</h1>
+                    <a class="webui-opener" href="#" target="_blank"><img alt="Open Web UI" src="icon.svg"></a> <!--<a class="config-opener" href="#">
+                            <img alt="Settings" src="gear.svg"></a>
+                            <a class="info-opener" href="https://github.com/myfreeweb/transmitter" target="_blank">
+                            <img alt="Extension Info" src="info.svg"></a>-->
+                </header>
+                <input id="torrents-search" placeholder="Search…" type="search">
+                <template id="torrents-tpl">
+                    <ul>
+                        <li>
+                            <div class="torrent-head">
+                                <div class="torrent-name">
+                                </div>
+
+                                <div class="torrent-speeds">
+                                </div>
+                            </div>
+                            <progress class="torrent-progress" max="100"></progress>
+                        </li>
+                    </ul>
+                </template>
+
+                <ul id="torrents-list">
+                </ul>
+
+                <div id="torrents-error">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="context.js"></script> 
+    <script src="privacy.js"></script> 
+    <script src="i2pcontrol/i2pcontrol.js"></script> 
+    <script src="info.js"></script> 
+    <script crossorigin="anonymous" src="content.js"></script> 
+    <script src="torrent/common.js"></script> 
+    <script src="torrent/popup.js"></script>
 </body>
 </html>

@@ -87,7 +87,7 @@ document.addEventListener("click", clickEvent => {
     showBrowsing();
   } else if (clickEvent.target.id === "torrent-action") {
     console.log("showing a torrent action");
-    showTorrents();
+    showTorrentsMenu();
   } else if (clickEvent.target.id === "window-preface-title") {
     console.log("attempting to create homepage tab");
     goHome();
@@ -151,7 +151,7 @@ function showBrowsing() {
   y.style.display = "none";
 }
 
-function showTorrents() {
+function showTorrentsMenu() {
   var x = document.getElementById("browserpanel");
   x.style.display = "none";
   var y = document.getElementById("torrentpanel");

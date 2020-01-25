@@ -19,7 +19,7 @@
         </select>
     </section>
 
-    <section class="scheme-options proxy-options">
+    <section class="scheme-options proxy-options" id="proxy-options">
         <div class="title">
             Proxy Options
         </div>
@@ -36,7 +36,7 @@
       </div>
     </section>-->
 
-    <section class="scheme-options control-options">
+    <section class="scheme-options console-options" id="console-options">
         <div>
             <div class="title">
                 Router Console Options
@@ -49,7 +49,7 @@
         </div>
     </section>
 
-    <section class="scheme-options control-options">
+    <section class="scheme-options control-options" id="control-options">
         <div>
             <div class="title">
                 I2PControl RPC Client Options
@@ -66,23 +66,24 @@
         </div>
     </section>
 
-    <section class="scheme-options control-options">
+    <section class="scheme-options transmission-options" id="transmission-options">
         <div>
             <div class="title">
                 Bittorrent RPC Client Options
             </div>
 
             <p id="rpcHelpText">Configure your Bittorrent options here.</p>
-            <label id="btRpcPortText">Torrent RPC Host:</label> <input data="btrpchost" id="btrpchost" type="text" value="127.0.0.1">
+            <label id="btRpcHostText">Torrent RPC Host:</label> <input data="btrpchost" id="btrpchost" type="text" value="127.0.0.1">
             <br>
-            <label id="btRpcHostText">Torrent RPC Port:</label> <input data="btrpcport" id="btrpcport" type="text" value="7657">
+            <label id="btRpcPortText">Torrent RPC Port:</label> <input data="btrpcport" id="btrpcport" type="text" value="7657">
             <br>
-            <label id="btRpcPathText">Torrent RPC Path:</label> <input data="btrpcpath" id="btrpcpath" type="text" value="transmission/rpc">
+            <label id="btRpcPathText">Torrent RPC Path:</label> <input data="btrpcpath" id="btrpcpath" type="text" value="transmission/">
             <br>
-            <label id="rpcPassText">Torrent RPC Password:</label> <input data="btrpcpass" id="btrpcpass" type="text" value="itoopie">
+            <label id="rpcPassText">Torrent RPC Password:</label> <input data="btrpcpass" id="btrpcpass" type="text" value="">
         </div>
     </section>
     <input id="save-button" type="button" value="Save preferences"> 
-    <script src="options.js"></script>
+    <script src="options.js"></script> <!--<script src="/torrent/browser-polyfill.min.js"></script>
+    <script src="/torrent/options.js"></script>-->
 </body>
 </html>

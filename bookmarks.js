@@ -93,7 +93,7 @@ gettingInfo.then(got => {
             let port = info.value.http.split(":")[1];
             if (port == "7644") {
               var createBookmark = browser.bookmarks.create({
-                url: "http://localhost:7647/i2ptunnelmgr",
+                url: "http://localhost:7647/i2ptunnel",
                 title: "Hidden Services Manager",
                 parentId: bookmarkToolbar[0].id
               });
@@ -101,11 +101,7 @@ gettingInfo.then(got => {
             } else {
               var createRhizomeBookmark = browser.bookmarks.create({
                 url:
-                  "http://" +
-                  control_host +
-                  ":" +
-                  control_port +
-                  "/i2ptunnelmgr",
+                  "http://" + control_host + ":" + control_port + "/i2ptunnel",
                 title: "Hidden Services Manager",
                 parentId: bookmarkToolbar[0].id
               });

@@ -217,14 +217,23 @@ function checkStoredSettings(storedSettings) {
     } else defaultSettings["bt_rpc_pass"] = storedSettings.bt_rpc_pass;
 
     console.log("(options)(browserinfo) NATIVE PROXYSETTINGS", info.value);
+    defaultSettings["base_url"] =
+      "http://" +
+      defaultSettings["bt_rpc_host"] +
+      ":" +
+      defaultSettings["bt_rpc_port"] +
+      "/" +
+      defaultSettings["bt_rpc_path"];
     console.log(
       "(options)",
-      defaultSettings["proxy_sheme"],
+      defaultSettings["proxy_scheme"],
       defaultSettings["proxy_host"],
       defaultSettings["proxy_port"],
       defaultSettings["control_host"],
-      defaultSettings["control_port"]
+      defaultSettings["control_port"],
+      defaultSettings["base_url"]
     );
+
     chrome.storage.local.set(defaultSettings);
     return defaultSettings;
   }
@@ -323,6 +332,8 @@ function storeSettings() {
   let bt_rpc_port = getBTRPCPort();
   let bt_rpc_path = getBTRPCPath();
   let bt_rpc_pass = getBTRPCPass();
+  let base_url =
+    "http://" + bt_rpc_host + ":" + bt_rpc_port + "/" + bt_rpc_path;
   chrome.storage.local.set({
     proxy_scheme,
     proxy_host,
