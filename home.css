@@ -205,9 +205,20 @@ li {
   border-radius: 2px;
   box-shadow: inset 0 0 0 1px #fff,0 0 1px #ccc
 }
-#applicationExplain,
-#controlExplain,
 #linksExplain {
+  min-height: 5rem;
+  padding: .5rem;
+  margin: .5rem;
+  width: 30%;
+  min-width: 30%;
+  background: #dee2e6;
+  text-align: center!important;
+  border: 1px solid #dee2e6;
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 1px #fff,0 0 1px #ccc
+}
+#applicationExplain,
+#controlExplain {
   min-height: 5rem;
   padding: .5rem;
   margin: .5rem;
