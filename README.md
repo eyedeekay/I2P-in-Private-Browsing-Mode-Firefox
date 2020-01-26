@@ -127,6 +127,7 @@ Documents
   * **[Smart Lander Design](https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/download/docs/Landing.Page.Documentation.pdf)**: This is the original outline of
   the smart landing page which became the I2P home page within the browser and
   the drop-down control panel.
+  * **[Other extensions](https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/wiki/Other-Extensions)**: and how they work with this one.
 
 Super Extra Important Background Info:
 --------------------------------------
