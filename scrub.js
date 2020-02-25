@@ -291,40 +291,43 @@ var contextSetup = function(requestDetails) {
         console.log("(isolate)Context Error", error);
       }
     };
-    var anyTabFind = async function(tabId) {
+    var normalTabFind = async function(tabId) {
       try {
-        var context = await browser.contextualIdentities.query({
-          name: webpref
+        var anoncontext = await browser.contextualIdentities.query({
+          name: titlepref
+        });
+        var localcontext = await browser.contextualIdentities.query({
+          name: localpref
         });
         console.log("(ISOLATE)", tabId.cookieStoreId);
         if (
-          tabId.cookieStoreId == "firefox-default" ||
-          tabId.cookieStoreId == "firefox-private"
+          tabId.cookieStoreId != "firefox-default" ||
+          tabId.cookieStoreId != "firefox-private" ||
+          tabId.cookieStoreId != anoncontext[0].cookieStoreId ||
+          tabId.cookieStoreId != localcontext[0].cookieStoreId
         ) {
-          if (tabId.cookieStoreId != context[0].cookieStoreId) {
-            function Create() {
-              function onCreated(tab) {
-                function closeOldTab() {
-                  if (tabId.id != tab.id) {
-                    console.log("(isolate) Closing un-isolated tab", tabId.id);
-                    console.log("in favor of", tab.id);
-                    console.log("with context", tab.cookieStoreId);
-                    browser.tabs.remove(tabId.id);
-                  }
+          function Create() {
+            function onCreated(tab) {
+              function closeOldTab() {
+                if (tabId.id != tab.id) {
+                  console.log("(isolate) Closing un-isolated tab", tabId.id);
+                  console.log("in favor of", tab.id);
+                  console.log("with context", tab.cookieStoreId);
+                  browser.tabs.remove(tabId.id);
                 }
-                closeOldTab(tab);
               }
-              var created = browser.tabs.create({
-                active: true,
-                cookieStoreId: context[0].cookieStoreId,
-                url: requestDetails.url
-              });
-              created.then(onCreated, onContextError);
+              closeOldTab(tab);
             }
-            var gettab = browser.tabs.get(tabId.id);
-            gettab.then(Create, onContextError);
-            return tabId;
+            var created = browser.tabs.create({
+              active: true,
+              cookieStoreId: "firefox-default",
+              url: requestDetails.url
+            });
+            created.then(onCreated, onContextError);
           }
+          var gettab = browser.tabs.get(tabId.id);
+          gettab.then(Create, onContextError);
+          return tabId;
         }
       } catch (error) {
         console.log("(isolate)Context Error", error);
@@ -372,6 +375,9 @@ var contextSetup = function(requestDetails) {
       if (!routerhost) {
         if (localhost) {
           var localtab = tab.then(localTabFind, onContextError);
+          return requestDetails;
+        } else {
+          //var normalTab = tab.then(normalTabFind, onContextError)
           return requestDetails;
         }
       }
