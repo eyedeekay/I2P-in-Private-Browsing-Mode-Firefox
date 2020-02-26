@@ -187,7 +187,7 @@ rhz-submit: rhz-version
 	#cp web-ext-artifacts/*.xpi ./i2ppb@eyedeekay.github.io.xpi
 
 getxpi:
-	gothub download -t $(VERSION) -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -n "i2ppb@eyedeekay.github.io.xpi"
+	gothub download -t $(VERSION) -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -n ./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent
 
 torrent: getxpi
 	rm -f "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent"

@@ -1,3 +1,5 @@
 README.md.asc
 node_modules/
 web-ext-artifacts
+releases.diff
+.releases.atom
