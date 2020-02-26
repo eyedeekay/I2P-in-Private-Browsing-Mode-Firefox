@@ -209,7 +209,7 @@ function checkStoredSettings(storedSettings) {
     } else defaultSettings["bt_rpc_port"] = storedSettings.bt_rpc_port;
 
     if (!storedSettings["bt_rpc_path"]) {
-      defaultSettings["bt_rpc_path"] = "transmission/rpc";
+      defaultSettings["bt_rpc_path"] = "transmission/";
     } else defaultSettings["bt_rpc_path"] = storedSettings.bt_rpc_path;
 
     if (!storedSettings["bt_rpc_pass"]) {
