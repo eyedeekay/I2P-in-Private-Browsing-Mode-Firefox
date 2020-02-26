@@ -46,7 +46,7 @@ MOZ_VERSION=0.58
 VERSION=0.59
 
 ## INCREMENT THIS EVERY TIME YOU DO A RELEASE
-LAST_VERSION=0.55
+LAST_VERSION=0.57
 
 YELLOW=F7E59A
 ORANGE=FFC56D
@@ -132,8 +132,17 @@ zip: version
 		--exclude="web-ext-artifacts" \
 		--exclude="./*.pdf" -r -FS ../i2psetproxy.js.zip *
 
-release: index torrenthelp
+rc:
+	@grep "$(VERSION)" debian/changelog
+	@echo "changelog is prepared"
+
+rtest: rc index torrenthelp
+
+release: rc index torrenthelp
 	cat desc debian/changelog | grep -B 10 "$(LAST_VERSION)" | gothub release -p -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n $(VERSION) -d -; true
+
+update-release:
+	cat desc debian/changelog | grep -B 10 "$(LAST_VERSION)" | gothub edit -p -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n $(VERSION) -d -; true
 
 delete-release:
 	gothub delete -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION); true
@@ -313,3 +322,9 @@ upload-rss:
 
 webext:
 	web-ext run -u "about:devtools-toolbox?type=extension&id=i2ppb%40eyedeekay.github.io"
+
+snark-mirror:
+	http_proxy=http://127.0.0.1:4444 wget -c -O i2psnark-rpc.su3 http://stats.i2p/i2p/plugins/i2psnark-rpc.su3
+	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psnark-rpc.su3" -f i2psnark-rpc.su3
+	http_proxy=http://127.0.0.1:4444 wget -c -O i2psnark-rpc-update.su3 http://stats.i2p/i2p/plugins/i2psnark-rpc-update.su3
+	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psnark-rpc-update.su3" -f i2psnark-rpc-update.su3
