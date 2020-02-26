@@ -20,7 +20,6 @@ function shouldProxyRequest(requestInfo) {
 }
 
 var handleContextProxyRequest = async function(requestDetails) {
-  console.log("(proxy)Searching for proxy by context");
   try {
     var handleProxyRequest = function(context) {
       proxy = {
@@ -100,12 +99,12 @@ var handleContextProxyRequest = async function(requestDetails) {
     };
     var contextGet = async function(tabInfo) {
       try {
-        //console.log("(proxy)Tab info from Function", tabInfo);
+        console.log("(proxy)Tab info from Function", tabInfo);
         context = await browser.contextualIdentities.get(tabInfo.cookieStoreId);
         return context;
       } catch (error) {
         console.error(error);
-        //return; //"firefox-default";
+        return "firefox-default";
       }
     };
     var tabGet = async function(tabId) {

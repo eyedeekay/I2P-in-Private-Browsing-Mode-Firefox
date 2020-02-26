@@ -3,7 +3,8 @@ function checkPeerConnection() {
   getting.then(got => {
     let webrtc = got.value;
     console.log("checking webrtc", webrtc);
-    document.getElementById("enable-web-rtc").checked = webrtc;
+    if (document.getElementById("enable-web-rtc") !== null)
+      document.getElementById("enable-web-rtc").checked = webrtc;
   });
 }
 
@@ -34,7 +35,8 @@ function checkHistory() {
       disable_history = false;
     }
     console.log("checking history", disable_history);
-    document.getElementById("disable-history").checked = disable_history;
+    if (document.getElementById("disable-history") !== null)
+      document.getElementById("disable-history").checked = disable_history;
   });
 }
 
@@ -85,7 +87,7 @@ document.addEventListener("click", clickEvent => {
     showBrowsing();
   } else if (clickEvent.target.id === "torrent-action") {
     console.log("showing a torrent action");
-    showTorrents();
+    showTorrentsMenu();
   } else if (clickEvent.target.id === "window-preface-title") {
     console.log("attempting to create homepage tab");
     goHome();
@@ -149,7 +151,7 @@ function showBrowsing() {
   y.style.display = "none";
 }
 
-function showTorrents() {
+function showTorrentsMenu() {
   var x = document.getElementById("browserpanel");
   x.style.display = "none";
   var y = document.getElementById("torrentpanel");
@@ -212,7 +214,7 @@ function goSearch() {
   }
   let createData = {
     url:
-      "http://legwork.i2p/yacysearch.html?" +
+      "http://yacy.idk.i2p/yacysearch.html?" +
       "query=" +
       document.getElementById("search-query").value
   };
@@ -221,12 +223,18 @@ function goSearch() {
   creating.then(onTabCreated, onTabError);
 }
 
+function routerAddr() {
+  if (!control_host) var control_host = "127.0.0.1";
+  if (!control_port) var control_port = "7657";
+  return control_host + ":" + control_port;
+}
+
 function goTunnel() {
   function onTabError() {
     console.log("I2PTunnel tab created");
   }
   let createData = {
-    url: "http://" + control_host + ":" + control_port + "/i2ptunnel"
+    url: "http://" + routerAddr() + "/i2ptunnel"
   };
   console.log("visiting i2ptunnel");
   let creating = browser.tabs.create(createData);
@@ -238,7 +246,7 @@ function goMail() {
     console.log("Mail tab created");
   }
   let createData = {
-    url: "http://" + control_host + ":" + control_port + "/susimail"
+    url: "http://" + routerAddr() + "/susimail"
   };
   console.log("visiting mail");
   let creating = browser.tabs.create(createData);
@@ -250,7 +258,7 @@ function goSnark() {
     console.log("Snark tab created");
   }
   let createData = {
-    url: "http://" + control_host + ":" + control_port + "/i2psnark"
+    url: "http://" + routerAddr() + "/i2psnark"
   };
   console.log("visiting snark");
   let creating = browser.tabs.create(createData);
@@ -281,11 +289,11 @@ function onVisited(historyItem) {
   }
 }
 
-UpdateContents();
+if (UpdateContents !== undefined) UpdateContents();
 
 const minutes = 0.2;
 const interval = minutes * 60 * 1000;
 
 setInterval(function() {
-  UpdateContents();
+  if (UpdateContents !== undefined) UpdateContents();
 }, interval);

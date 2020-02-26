@@ -6,12 +6,14 @@
 override_dh_auto_install:
 	mkdir -p $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2ppb@eyedeekay.github.io \
 		$$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2ppb@eyedeekay.github.io/i2pcontrol \
+		$$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2ppb@eyedeekay.github.io/torrent \
 		$$(pwd)/debian/i2psetproxy.js/usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}
 	cp -r ./icons/ $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2ppb@eyedeekay.github.io/
 	cp -r ./options/ $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2ppb@eyedeekay.github.io/
 	cp -r ./_locales/ $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2ppb@eyedeekay.github.io/
 	cp ./*.js $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2ppb@eyedeekay.github.io/
 	cp ./i2pcontrol/i2pcontrol.js $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2ppb@eyedeekay.github.io/i2pcontrol/
+	cp ./torrent/*.js $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2ppb@eyedeekay.github.io/torrent/
 	cp ./*.html $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2ppb@eyedeekay.github.io/
 	cp ./*.css $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2ppb@eyedeekay.github.io/
 	cp ./*.md $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2ppb@eyedeekay.github.io/

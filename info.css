@@ -55,3 +55,6 @@ img.readyness {
 #torrentpanel {
   display: none
 }
+.torrent-progress {
+  width: 100%
+}

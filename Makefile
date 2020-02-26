@@ -5,12 +5,14 @@ default: zip
 install: uninstall
 	mkdir -p $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io \
 		$(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/i2pcontrol \
+		$(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/torrent \
 		$(PREFIX)/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}
 	cp -r ./icons/ $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
 	cp -r ./_locales/ $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
 	cp -r ./options/ $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
 	cp ./*.js $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
 	cp ./i2pcontrol/i2pcontrol.js $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/i2pcontrol/i2pcontrol.js
+	cp ./torrent/*.js $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/torrent/
 	cp ./*.html $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
 	cp ./*.css $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
 	cp ./*.md $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
@@ -38,8 +40,8 @@ clean:
 ## EVEN RELEASES are AMO RELEASES
 ## ODD RELEASES are SELFHOSTED RELEASES
 
-MOZ_VERSION=0.56
-VERSION=0.57
+MOZ_VERSION=0.58
+VERSION=0.59
 
 ## INCREMENT THIS EVERY TIME YOU DO A RELEASE
 LAST_VERSION=0.55
@@ -80,6 +82,18 @@ index:
 	@echo "</body>" >> index.html
 	@echo "</html>" >> index.html
 
+torrenthelp:
+	@echo "<!DOCTYPE html>" > torrent/index.html
+	@echo "<html>" >> torrent/index.html
+	@echo "<head>" >> torrent/index.html
+	@echo "  <title>I2P in Private Browsing Mode</title>" >> torrent/index.html
+	@echo "  <link rel=\"stylesheet\" type=\"text/css\" href =\"home.css\" />" >> torrent/index.html
+	@echo "  <link rel=\"stylesheet\" type=\"text/css\" href =\"sidebar.css\" />" >> torrent/index.html
+	@echo "</head>" >> torrent/index.html
+	@echo "<body>" >> torrent/index.html
+	sed "s|magnetsub|[Magnet Link]($(MAGNET))|g" torrent/README.md | markdown >> torrent/index.html
+	@echo "</body>" >> torrent/index.html
+	@echo "</html>" >> torrent/index.html
 
 xpi:
 	#wget -O ../i2ppb@eyedeekay.github.io.xpi \
@@ -116,7 +130,7 @@ zip: version
 		--exclude="web-ext-artifacts" \
 		--exclude="./*.pdf" -r -FS ../i2psetproxy.js.zip *
 
-release:
+release: index torrenthelp
 	cat desc debian/changelog | grep -B 10 "$(LAST_VERSION)" | gothub release -p -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n $(VERSION) -d -; true
 
 delete-release:
@@ -246,6 +260,9 @@ fmt:
 	tidy --as-xhtml --drop-empty-elements no --input-xml --tidy-mark no -indent --indent-spaces 4 -wrap 0 --new-blocklevel-tags article,header,footer --new-inline-tags video,audio,canvas,ruby,rt,rp --break-before-br yes --sort-attributes alpha --vertical-space yes home.html > .home.html; mv .home.html home.html
 	tidy --as-xhtml --drop-empty-elements no --input-xml --tidy-mark no -indent --indent-spaces 4 -wrap 0 --new-blocklevel-tags article,header,footer --new-inline-tags video,audio,canvas,ruby,rt,rp --break-before-br yes --sort-attributes alpha --vertical-space yes toopie.html > .toopie.html; mv .toopie.html toopie.html
 	tidy --as-xhtml --drop-empty-elements no --input-xml --tidy-mark no -indent --indent-spaces 4 -wrap 0 --new-blocklevel-tags article,header,footer --new-inline-tags video,audio,canvas,ruby,rt,rp --break-before-br yes --sort-attributes alpha --vertical-space yes options/options.html > options/.options.html; mv options/.options.html options/options.html
+	make fmt-js
+
+fmt-js:
 	find . -path ./node_modules -prune -o -name '*.js' -exec prettier --write {} \;
 	find . -path ./node_modules -prune -o -name '*.json' -exec prettier --write {} \;
 
@@ -291,3 +308,5 @@ rss: torrent
 upload-rss:
 	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t docs -n "releases.atom" -f releases.atom
 
+webext:
+	web-ext run -u "about:devtools-toolbox?type=extension&id=i2ppb%40eyedeekay.github.io"

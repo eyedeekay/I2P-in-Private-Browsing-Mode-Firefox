@@ -7,8 +7,10 @@
   },
   "permissions": [
     "theme",
+    "alarms",
     "browsingData",
     "bookmarks",
+    "contextMenus",
     "management",
     "notifications",
     "proxy",
@@ -48,8 +50,11 @@
     "page": "options/options.html"
   },
   "background": {
+    "persistent": true,
     "scripts": [
       "config.js",
+      "torrent/common.js",
+      "torrent/background.js",
       "i2pcontrol/i2pcontrol.js",
       "host.js",
       "privacy.js",
@@ -68,11 +73,6 @@
       "protocol": "ext+rc",
       "name": "RouterConsole",
       "uriTemplate": "http://127.0.0.1:7657/%s"
-    },
-    {
-      "protocol": "ext+dati2p",
-      "name": "Dat over I2P",
-      "uriTemplate": "/dat.html#!/%s"
     },
     {
       "protocol": "magnet",
