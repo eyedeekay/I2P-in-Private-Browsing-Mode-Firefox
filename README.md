@@ -93,11 +93,11 @@ Usage:
    place each i2p application/plugin under it's own origin, shortening router
    console URL's and placing applications under their own origin.
   * ![Visiting routerconsole](routerconsole.png)
-  * [wip] **Handle Torrents** by talking to i2psnark-rpc plugin and then
+  * [Done] **Handle Torrents** by talking to i2psnark-rpc plugin and then
    adding them directly into the Firefox downloads drop-downs, menus, etc. If I
-   can. Right now instead of talking to snark-rpc, it uses a web-based protocol
-   handler that simply auto-fills the torrent into i2psnark.
+   can.
   * ![Visiting i2psnark](i2psnark.png)
+  * ![Monitoring torrents](transmissionrpc.png)
   * [barely started] **Isolate** traffic by contextual identity to it's own HTTP
    Proxy tunnel, each reflecting it's own pseudonymous identity within I2P. The
    contextual identities. For now, the contextual identities used to manage
