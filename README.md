@@ -59,7 +59,10 @@ Usage:
    immediately, or you can close all your I2P Browser tabs at once and delete
    the history for I2P browsing when you're done.
   * That's all there is to it! Your browser is configured to safely use and
-   administer I2P
+   administer I2P.
+  * Optionally, you can add I2PSnark-RPC and use Bittorrent-over-I2P via the
+   transmission-rpc interface. To do this, have a look at the torrent guide:
+   [Torrent guide](torrent)
 
 ### Features
 
