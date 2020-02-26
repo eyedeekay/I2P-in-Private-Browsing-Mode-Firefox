@@ -304,7 +304,9 @@ var contextSetup = function(requestDetails) {
         });
         if (
           tabId.cookieStoreId == "firefox-default" ||
-          tabId.cookieStoreId == "firefox-private"
+          tabId.cookieStoreId == "firefox-private" ||
+          tabId.cookieStoreId == anoncontext[0].cookieStoreId ||
+          tabId.cookieStoreId == localcontext[0].cookieStoreId
         ) {
           console.log(
             "(ISOLATE)",
@@ -314,11 +316,7 @@ var contextSetup = function(requestDetails) {
             localcontext[0].cookieStoreId
           );
           return;
-        }
-        if (
-          tabId.cookieStoreId != anoncontext[0].cookieStoreId ||
-          tabId.cookieStoreId != localcontext[0].cookieStoreId
-        ) {
+        } else {
           function Create() {
             function onCreated(tab) {
               function closeOldTab() {
