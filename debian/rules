@@ -14,6 +14,7 @@ override_dh_auto_install:
 	cp ./*.js $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2ppb@eyedeekay.github.io/
 	cp ./i2pcontrol/i2pcontrol.js $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2ppb@eyedeekay.github.io/i2pcontrol/
 	cp ./torrent/*.js $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2ppb@eyedeekay.github.io/torrent/
+	cp ./torrent/*.html $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2ppb@eyedeekay.github.io/torrent/
 	cp ./*.html $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2ppb@eyedeekay.github.io/
 	cp ./*.css $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2ppb@eyedeekay.github.io/
 	cp ./*.md $$(pwd)/debian/i2psetproxy.js/usr/share/webext/i2ppb@eyedeekay.github.io/

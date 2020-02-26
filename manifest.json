@@ -26,8 +26,8 @@
   ],
   "manifest_version": 2,
   "name": "__MSG_extensionName__",
-  "version": "0.57",
-  "version_name": "0.57",
+  "version": "0.59",
+  "version_name": "0.59",
   "description": "__MSG_extensionDescription__",
   "homepage_url": "https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox",
   "icons": {

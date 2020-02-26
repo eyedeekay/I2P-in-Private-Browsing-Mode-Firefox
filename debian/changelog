@@ -1,3 +1,10 @@
+i2psetproxy.js (0.59-1) UNRELEASED; urgency=low
+
+  * transmission-rpc based torrent controls
+  * bugfixes
+
+ -- idk <hankhill19580@gmail.com> Tue, 25 FEB 2020 20:52:19 -0400
+
 i2psetproxy.js (0.57-1) UNRELEASED; urgency=low
 
   * Snowflake compatibility
@@ -6,7 +13,7 @@ i2psetproxy.js (0.57-1) UNRELEASED; urgency=low
   * Make it multilingual again
   * Distribute a torrent and a magnet link with the plugin of the plugin
 
- -- idk <hankhill19580@gmail.com>  Thu, 4 JAN 2019 16:43:58 -0400
+ -- idk <hankhill19580@gmail.com>  Thu, 4 JAN 2020 16:43:58 -0400
 
 i2psetproxy.js (0.55-1) UNRELEASED; urgency=low
 
@@ -15,7 +22,7 @@ i2psetproxy.js (0.55-1) UNRELEASED; urgency=low
   * Tolerate themes
   * Tolerate other containerizers
 
- -- idk <hankhill19580@gmail.com>  Thu, 2 JAN 2019 16:47:33 -0400
+ -- idk <hankhill19580@gmail.com>  Thu, 2 JAN 2020 16:47:33 -0400
 
 i2psetproxy.js (0.53-1) UNRELEASED; urgency=low
 
@@ -82,3 +89,4 @@ i2psetproxy.js (0.31-1) UNRELEASED; urgency=low
     <nnnn is the bug number of your ITP>
 
  -- idk <hankhill19580@gmail.com>  Thu, 01 Aug 2019 00:32:39 -0400
+ T
