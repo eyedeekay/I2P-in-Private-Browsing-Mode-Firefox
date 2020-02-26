@@ -324,7 +324,7 @@ webext:
 	web-ext run -u "about:devtools-toolbox?type=extension&id=i2ppb%40eyedeekay.github.io"
 
 snark-mirror:
-	http_proxy=http://127.0.0.1:4444 wget -c -O i2psnark-rpc.su3 http://stats.i2p/i2p/plugins/i2psnark-rpc.su3
-	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psnark-rpc.su3" -f i2psnark-rpc.su3
-	http_proxy=http://127.0.0.1:4444 wget -c -O i2psnark-rpc-update.su3 http://stats.i2p/i2p/plugins/i2psnark-rpc-update.su3
-	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psnark-rpc-update.su3" -f i2psnark-rpc-update.su3
+	http_proxy=http://127.0.0.1:4444 wget -c -O ../i2psnark-rpc.su3 http://stats.i2p/i2p/plugins/i2psnark-rpc.su3
+	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psnark-rpc.su3" -f ../i2psnark-rpc.su3
+	http_proxy=http://127.0.0.1:4444 wget -c -O ../i2psnark-rpc-update.su3 http://stats.i2p/i2p/plugins/i2psnark-rpc-update.su3
+	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psnark-rpc-update.su3" -f ../i2psnark-rpc-update.su3
