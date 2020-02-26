@@ -76,8 +76,8 @@ index:
 	@echo "<html>" >> index.html
 	@echo "<head>" >> index.html
 	@echo "  <title>I2P in Private Browsing Mode</title>" >> index.html
-	@echo "  <link rel=\"stylesheet\" type=\"text/css\" href =\"home.css\" />" >> index.html
-	@echo "  <link rel=\"stylesheet\" type=\"text/css\" href =\"sidebar.css\" />" >> index.html
+	@echo "  <link rel=\"stylesheet\" type=\"text/css\" href=\"home.css\" />" >> index.html
+	@echo "  <link rel=\"stylesheet\" type=\"text/css\" href=\"sidebar.css\" />" >> index.html
 	@echo "</head>" >> index.html
 	@echo "<body>" >> index.html
 	sed "s|magnetsub|[Magnet Link]($(MAGNET))|g" README.md | markdown >> index.html
@@ -89,8 +89,8 @@ torrenthelp:
 	@echo "<html>" >> torrent/index.html
 	@echo "<head>" >> torrent/index.html
 	@echo "  <title>I2P in Private Browsing Mode</title>" >> torrent/index.html
-	@echo "  <link rel=\"stylesheet\" type=\"text/css\" href =\"home.css\" />" >> torrent/index.html
-	@echo "  <link rel=\"stylesheet\" type=\"text/css\" href =\"sidebar.css\" />" >> torrent/index.html
+	@echo "  <link rel=\"stylesheet\" type=\"text/css\" href=\"../home.css\" />" >> torrent/index.html
+	@echo "  <link rel=\"stylesheet\" type=\"text/css\" href=\"../sidebar.css\" />" >> torrent/index.html
 	@echo "</head>" >> torrent/index.html
 	@echo "<body>" >> torrent/index.html
 	sed "s|magnetsub|[Magnet Link]($(MAGNET))|g" torrent/README.md | markdown >> torrent/index.html
