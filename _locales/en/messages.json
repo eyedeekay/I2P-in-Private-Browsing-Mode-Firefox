@@ -7,6 +7,10 @@
     "message": "toopie.html",
     "description": "Name of the sidebar."
   },
+  "toopieTLS": {
+    "message": "Site Properties",
+    "description": "Name of the security panel."
+  },
   "extensionDescription": {
     "message": "Your browser is now set up to use I2P.",
     "description": "Description of the extension."

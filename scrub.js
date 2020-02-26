@@ -108,6 +108,8 @@ var contextSetup = function(requestDetails) {
                   console.log("with context", tab.cookieStoreId);
                   browser.tabs.remove(tabId.id);
                 }
+                browser.pageAction.setPopup({tabId: tabId[0].id, popup: "security.html"})
+                browser.pageAction.show(tabId.id);
               }
               closeOldTab(tab);
             }
