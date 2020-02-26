@@ -229,7 +229,7 @@ torrent: getxpi
 		-o "i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent" \
 		-w https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/download/$(VERSION)/i2ppb@eyedeekay.github.io.xpi \
 		i2ppb@eyedeekay.github.io.xpi; true
-	ln -sf "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent" "./i2ppb@eyedeekay.github.io.xpi.torrent"
+	cp -v "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent" "./i2ppb@eyedeekay.github.io.xpi.torrent"
 	make index
 
 upload-torrent:
