@@ -21,13 +21,7 @@ var TrpcCall = async function(meth, args) {
 
   /*.then(function(response) {
     console.log("(torrent) responses", response);
-    const session = response.headers.get("x-transmission-session-id");
-    if (session) {
-      browser.storage.local.get({}).then(function(storage) {
-        storage.session = session;
-        browser.storage.local.set(storage);
-      });
-    }
+
     if (response.status === 409) {
       return TrpcCall(meth, args);
     }
@@ -106,6 +100,13 @@ torrentsSearch.addEventListener("keyup", searchTorrents);
 function refreshTorrents(server) {
   console.log("(torrent) initiating", server);
   return TrpcCall("torrent-get", getArgs).then(function(response) {
+    const session = response.headers.get("x-transmission-session-id");
+    if (session) {
+      browser.storage.local.get({}).then(function(storage) {
+        storage.session = session;
+        browser.storage.local.set(storage);
+      });
+    }
     let sponse = response.json();
     sponse.then(function(response) {
       console.log("(torrent) refreshing", response);
