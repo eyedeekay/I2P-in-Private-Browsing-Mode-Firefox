@@ -291,40 +291,68 @@ var contextSetup = function(requestDetails) {
         console.log("(isolate)Context Error", error);
       }
     };
-    var anyTabFind = async function(tabId) {
+    var normalTabFind = async function(tabId) {
+      if (tabId == undefined) {
+        return;
+      }
       try {
-        var context = await browser.contextualIdentities.query({
-          name: webpref
+        var anoncontext = await browser.contextualIdentities.query({
+          name: titlepref
         });
-        console.log("(ISOLATE)", tabId.cookieStoreId);
+        var localcontext = await browser.contextualIdentities.query({
+          name: localpref
+        });
         if (
           tabId.cookieStoreId == "firefox-default" ||
           tabId.cookieStoreId == "firefox-private"
         ) {
-          if (tabId.cookieStoreId != context[0].cookieStoreId) {
-            function Create() {
-              function onCreated(tab) {
-                function closeOldTab() {
-                  if (tabId.id != tab.id) {
-                    console.log("(isolate) Closing un-isolated tab", tabId.id);
-                    console.log("in favor of", tab.id);
-                    console.log("with context", tab.cookieStoreId);
-                    browser.tabs.remove(tabId.id);
-                  }
+          console.log(
+            "(ISOLATE)",
+            tabId.cookieStoreId,
+            "not",
+            anoncontext[0].cookieStoreId,
+            localcontext[0].cookieStoreId
+          );
+          return;
+        }
+        if (
+          tabId.cookieStoreId != anoncontext[0].cookieStoreId ||
+          tabId.cookieStoreId != localcontext[0].cookieStoreId
+        ) {
+          function Create() {
+            function onCreated(tab) {
+              function closeOldTab() {
+                if (
+                  tabId.id != tab.id &&
+                  tabId.cookieStoreId != tab.cookieStoreId
+                ) {
+                  console.log(
+                    "(isolate) Closing isolated tab",
+                    tabId.id,
+                    "with context",
+                    tabId.cookieStoreId
+                  );
+                  console.log(
+                    "(isolate) in favor of",
+                    tab.id,
+                    "with context",
+                    tab.cookieStoreId
+                  );
+                  browser.tabs.remove(tabId.id);
                 }
-                closeOldTab(tab);
               }
-              var created = browser.tabs.create({
-                active: true,
-                cookieStoreId: context[0].cookieStoreId,
-                url: requestDetails.url
-              });
-              created.then(onCreated, onContextError);
+              closeOldTab(tab);
             }
-            var gettab = browser.tabs.get(tabId.id);
-            gettab.then(Create, onContextError);
-            return tabId;
+            var created = browser.tabs.create({
+              active: true,
+              cookieStoreId: "firefox-default",
+              url: requestDetails.url
+            });
+            created.then(onCreated, onContextError);
           }
+          var gettab = browser.tabs.get(tabId.id);
+          gettab.then(Create, onContextError);
+          return tabId;
         }
       } catch (error) {
         console.log("(isolate)Context Error", error);
@@ -369,12 +397,6 @@ var contextSetup = function(requestDetails) {
       }
       let localhost = localHost(requestDetails.url);
       let routerhost = routerHost(requestDetails.url);
-      if (!routerhost) {
-        if (localhost) {
-          var localtab = tab.then(localTabFind, onContextError);
-          return requestDetails;
-        }
-      }
       if (routerhost) {
         if (routerhost === "i2ptunnelmgr") {
           var tunneltab = tab.then(i2ptunnelTabFind, onContextError);
@@ -390,7 +412,13 @@ var contextSetup = function(requestDetails) {
           return requestDetails;
         }
       } else {
+        if (localhost) {
+          var localtab = tab.then(localTabFind, onContextError);
+          return requestDetails;
+        }
+        var normalTab = tab.then(normalTabFind, onContextError);
         return requestDetails;
+        //return requestDetails;
       }
     }
   } catch (error) {

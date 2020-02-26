@@ -79,8 +79,11 @@ p {
   background: #f8f8ff;
   min-width: 95%
 }
+#header,
 .application-info,
-.extended-info {
+.browser-info,
+.extended-info,
+.search-info {
   min-height: 3rem;
   padding: 1rem;
   margin-top: 1.5rem;
@@ -165,7 +168,6 @@ li {
   margin: .5rem .5rem .5rem 32%
 }
 #readyness {
-  float: left;
   padding-top: 1rem;
   padding-bottom: 1rem;
   margin: 1rem;
@@ -175,7 +177,8 @@ li {
   text-align: center!important;
   border: 1px solid #dee2e6;
   border-radius: 2px;
-  box-shadow: inset 0 0 0 1px #fff,0 0 1px #ccc
+  box-shadow: inset 0 0 0 1px #fff,0 0 1px #ccc;
+  display: inline-block
 }
 #onboarding {
   min-height: 5rem;
@@ -202,8 +205,6 @@ li {
   border-radius: 2px;
   box-shadow: inset 0 0 0 1px #fff,0 0 1px #ccc
 }
-#applicationExplain,
-#controlExplain,
 #linksExplain {
   min-height: 5rem;
   padding: .5rem;
@@ -211,11 +212,24 @@ li {
   width: 30%;
   min-width: 30%;
   background: #dee2e6;
-  float: left;
   text-align: center!important;
   border: 1px solid #dee2e6;
   border-radius: 2px;
   box-shadow: inset 0 0 0 1px #fff,0 0 1px #ccc
+}
+#applicationExplain,
+#controlExplain {
+  min-height: 5rem;
+  padding: .5rem;
+  margin: .5rem;
+  width: 30%;
+  min-width: 30%;
+  background: #dee2e6;
+  text-align: center!important;
+  border: 1px solid #dee2e6;
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 1px #fff,0 0 1px #ccc;
+  float: left
 }
 #proxyReady {
   min-height: 3rem;
