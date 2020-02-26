@@ -14,6 +14,7 @@ install: uninstall
 	cp ./i2pcontrol/i2pcontrol.js $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/i2pcontrol/i2pcontrol.js
 	cp ./torrent/*.js $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/torrent/
 	cp ./torrent/*.html $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/torrent/
+	cp ./torrent/UNLICENSE $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/torrent/
 	cp ./*.html $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
 	cp ./*.css $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
 	cp ./*.md $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
