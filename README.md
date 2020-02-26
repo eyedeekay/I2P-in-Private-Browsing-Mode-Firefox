@@ -62,7 +62,7 @@ Usage:
    administer I2P.
   * Optionally, you can add I2PSnark-RPC and use Bittorrent-over-I2P via the
    transmission-rpc interface. To do this, have a look at the torrent guide:
-   [Torrent guide](torrent)
+   [Torrent guide](torrent/README.md)
 
 ### Features
 
