@@ -87,6 +87,45 @@ var contextScrub = async function(requestDetails) {
   }
 };
 
+var notMyContextNotMyProblem = async function(){
+  var contexts = await browser.contextualIdentities.query({})
+  var context1 = await browser.contextualIdentities.query({
+    name: titlepref
+  });
+  var context2 = await browser.contextualIdentities.query({
+    name: routerpref
+  });
+  var context3 = await browser.contextualIdentities.query({
+    name: mailpref
+  });
+  var context4 = await browser.contextualIdentities.query({
+    name: torrentpref
+  });
+  var context5 = await browser.contextualIdentities.query({
+    name: tunnelpref
+  });
+  var context6 = await browser.contextualIdentities.query({
+    name: localpref
+  });
+  var othercontexts = []
+  console.log("Contexts:", contexts)
+  for (context in contexts) {
+    if (contexts[context].cookieStoreId == context1[0].cookieStoreId ||
+    contexts[context].cookieStoreId == context2[0].cookieStoreId ||
+    contexts[context].cookieStoreId == context3[0].cookieStoreId ||
+    contexts[context].cookieStoreId == context4[0].cookieStoreId ||
+    contexts[context].cookieStoreId == context5[0].cookieStoreId ||
+    contexts[context].cookieStoreId == context6[0].cookieStoreId
+    ){
+        console.log("Context found", contexts[context].cookieStoreId, "is my responsibility")
+    }else{
+        //console.log("Context found", contexts[context].cookieStoreId, "is not my responsibility")
+        othercontexts.push(contexts[context])
+    }
+  }
+  return othercontexts
+}
+
 var contextSetup = function(requestDetails) {
   function onContextError() {
     console.log("Context launcher error");
@@ -307,11 +346,20 @@ var contextSetup = function(requestDetails) {
         var localcontext = await browser.contextualIdentities.query({
           name: localpref
         });
+        var othercontexts = await notMyContextNotMyProblem();
+        var nmp = false;
+        for (context in othercontexts){
+            if (tabId.cookieStoreId == othercontexts[context].cookieStoreId) {
+                console.log("Not my problem")
+                nmp = true
+            }
+        }
         if (
           tabId.cookieStoreId == "firefox-default" ||
           tabId.cookieStoreId == "firefox-private" ||
           tabId.cookieStoreId == anoncontext[0].cookieStoreId ||
-          tabId.cookieStoreId == localcontext[0].cookieStoreId
+          tabId.cookieStoreId == localcontext[0].cookieStoreId ||
+          nmp
         ) {
           console.log(
             "(ISOLATE)",
