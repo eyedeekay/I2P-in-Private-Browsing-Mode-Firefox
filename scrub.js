@@ -87,8 +87,8 @@ var contextScrub = async function(requestDetails) {
   }
 };
 
-var notMyContextNotMyProblem = async function(){
-  var contexts = await browser.contextualIdentities.query({})
+var notMyContextNotMyProblem = async function() {
+  var contexts = await browser.contextualIdentities.query({});
   var context1 = await browser.contextualIdentities.query({
     name: titlepref
   });
@@ -107,24 +107,29 @@ var notMyContextNotMyProblem = async function(){
   var context6 = await browser.contextualIdentities.query({
     name: localpref
   });
-  var othercontexts = []
-  console.log("Contexts:", contexts)
+  var othercontexts = [];
+  console.log("Contexts:", contexts);
   for (context in contexts) {
-    if (contexts[context].cookieStoreId == context1[0].cookieStoreId ||
-    contexts[context].cookieStoreId == context2[0].cookieStoreId ||
-    contexts[context].cookieStoreId == context3[0].cookieStoreId ||
-    contexts[context].cookieStoreId == context4[0].cookieStoreId ||
-    contexts[context].cookieStoreId == context5[0].cookieStoreId ||
-    contexts[context].cookieStoreId == context6[0].cookieStoreId
-    ){
-        console.log("Context found", contexts[context].cookieStoreId, "is my responsibility")
-    }else{
-        //console.log("Context found", contexts[context].cookieStoreId, "is not my responsibility")
-        othercontexts.push(contexts[context])
+    if (
+      contexts[context].cookieStoreId == context1[0].cookieStoreId ||
+      contexts[context].cookieStoreId == context2[0].cookieStoreId ||
+      contexts[context].cookieStoreId == context3[0].cookieStoreId ||
+      contexts[context].cookieStoreId == context4[0].cookieStoreId ||
+      contexts[context].cookieStoreId == context5[0].cookieStoreId ||
+      contexts[context].cookieStoreId == context6[0].cookieStoreId
+    ) {
+      console.log(
+        "Context found",
+        contexts[context].cookieStoreId,
+        "is my responsibility"
+      );
+    } else {
+      //console.log("Context found", contexts[context].cookieStoreId, "is not my responsibility")
+      othercontexts.push(contexts[context]);
     }
   }
-  return othercontexts
-}
+  return othercontexts;
+};
 
 var contextSetup = function(requestDetails) {
   function onContextError() {
@@ -348,11 +353,11 @@ var contextSetup = function(requestDetails) {
         });
         var othercontexts = await notMyContextNotMyProblem();
         var nmp = false;
-        for (context in othercontexts){
-            if (tabId.cookieStoreId == othercontexts[context].cookieStoreId) {
-                console.log("Not my problem")
-                nmp = true
-            }
+        for (context in othercontexts) {
+          if (tabId.cookieStoreId == othercontexts[context].cookieStoreId) {
+            console.log("Not my problem");
+            nmp = true;
+          }
         }
         if (
           tabId.cookieStoreId == "firefox-default" ||
