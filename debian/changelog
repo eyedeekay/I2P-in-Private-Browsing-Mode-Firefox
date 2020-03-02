@@ -1,3 +1,15 @@
+i2psetproxy.js (0.63-1) UNRELEASED; urgency=low
+
+  * other containerizers bugfix
+
+ -- idk <hankhill19580@gmail.com> Mon, 02 MAR 2020 17:54:26 -0400
+
+i2psetproxy.js (0.61-1) UNRELEASED; urgency=low
+
+  * other containerizers bugfix
+
+ -- idk <hankhill19580@gmail.com> Mon, 02 MAR 2020 17:46:24 -0400
+
 i2psetproxy.js (0.59-1) UNRELEASED; urgency=low
 
   * transmission-rpc based torrent controls
