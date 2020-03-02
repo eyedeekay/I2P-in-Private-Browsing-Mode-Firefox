@@ -42,11 +42,11 @@ clean:
 ## EVEN RELEASES are AMO RELEASES
 ## ODD RELEASES are SELFHOSTED RELEASES
 
-MOZ_VERSION=0.60
-VERSION=0.59
+MOZ_VERSION=0.64
+VERSION=0.63
 
 ## INCREMENT THIS EVERY TIME YOU DO A RELEASE
-LAST_VERSION=0.57
+LAST_VERSION=0.61
 
 YELLOW=F7E59A
 ORANGE=FFC56D
@@ -135,6 +135,7 @@ zip: version
 rc:
 	@grep "$(VERSION)" debian/changelog
 	@echo "changelog is prepared"
+	rm *.xpi
 
 rtest: rc index torrenthelp
 
