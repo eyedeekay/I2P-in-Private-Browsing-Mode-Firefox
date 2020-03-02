@@ -182,6 +182,12 @@ function themeWindow(window) {
             }
           });
         }
+        browser.pageAction.setPopup({
+          tabId: tabInfo[0].id,
+          popup: "security.html"
+        });
+        //console.log("(background) tabinfo", tabInfo[0].id)
+        browser.pageAction.show(tabInfo[0].id);
       } else if (context.name == routerpref) {
         console.log("Active in Router Console window");
         if (window.incognito) {
@@ -427,3 +433,9 @@ function handleUpdated(updateInfo) {
 }
 
 browser.theme.onUpdated.addListener(handleUpdated);
+
+function handleClick() {
+  console.log("Opening page action");
+  browser.pageAction.openPopup();
+}
+browser.pageAction.onClicked.addListener(handleClick);
