@@ -6,39 +6,13 @@ default: zip
 
 install: uninstall
 	mkdir -p $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io \
-		$(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/i2pcontrol \
-		$(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/torrent \
-		$(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/icons \
-		$(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/options \
-		$(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/_locales \
 		$(PREFIX)/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}
-	#cp -r icons/ $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	#cp -r _locales/ $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	#cp -r options/ $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	#cp *.js $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	#cp i2pcontrol/i2pcontrol.js $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/i2pcontrol/i2pcontrol.js
-	#cp torrent/*.js $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/torrent/
-	#cp torrent/*.html $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/torrent/
-	#cp torrent/UNLICENSE $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/torrent/
-	#cp *.html $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	#cp *.css $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	#cp *.md $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	#cp *.xpi $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	#cp *.png $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	#cp *.torrent $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	#cp manifest.json $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	#cp LICENSE $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	cp -v ./*.* $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	cp -v ./i2pcontrol/* $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/i2pcontrol
-	cp -v ./torrent/* $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/torrent
-	cp -v ./icons/* $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/icons
-	cp -v ./options/* $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/options
-	cp -rv ./_locales/ $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/_locales
+	install -d $(PWD) $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
 	make link
 
 link:
 	ln -sf  $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io \
-		$(PREFIX)/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}
+		$(PREFIX)/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/i2ppb@eyedeekay.github.io
 
 uninstall:
 	rm -rf $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io \
@@ -303,13 +277,11 @@ deborig: version
 	rm -rf ../i2psetproxy.js-$(VERSION)
 	mkdir -p ../i2psetproxy.js-$(VERSION)
 	cp -r ./* ../i2psetproxy.js-$(VERSION)
-	cp -v ./*.torrent ../i2psetproxy.js-$(VERSION)/
 	cd ../i2psetproxy.js-$(VERSION) && \
-	rm -rf web-ext-artifacts .git && \
+	rm -rf web-ext-artifacts .git node_modules && \
 	tar \
 		-cvz \
 		--exclude=i2psetproxy.js.gif \
-		--exclude=node_modules \
 		--exclude=*.pdf \
 		-f ../i2psetproxy.js_$(VERSION).orig.tar.gz \
 		.
