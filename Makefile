@@ -305,7 +305,7 @@ deborig: version
 	cp -r ./* ../i2psetproxy.js-$(VERSION)
 	cp -v ./*.torrent ../i2psetproxy.js-$(VERSION)/
 	cd ../i2psetproxy.js-$(VERSION) && \
-	rm -rf web-ext-artifacts .git && make torrent && \
+	rm -rf web-ext-artifacts .git && \
 	tar \
 		-cvz \
 		--exclude=i2psetproxy.js.gif \
