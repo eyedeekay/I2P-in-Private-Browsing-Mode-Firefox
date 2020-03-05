@@ -16,7 +16,7 @@
     "description": "Description of the extension."
   },
   "extensionVersion": {
-    "message": "0.57",
+    "message": "0.63",
     "description": "Version of the extension."
   },
   "extensionStatus": {
