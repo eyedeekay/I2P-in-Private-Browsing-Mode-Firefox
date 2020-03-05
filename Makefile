@@ -1,43 +1,57 @@
-PREFIX:=/usr
+
+PREFIX?=/usr
 
 default: zip
+
 
 install: uninstall
 	mkdir -p $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io \
 		$(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/i2pcontrol \
 		$(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/torrent \
+		$(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/icons \
+		$(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/options \
+		$(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/_locales \
 		$(PREFIX)/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}
-	cp -r ./icons/ $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	cp -r ./_locales/ $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	cp -r ./options/ $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	cp ./*.js $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	cp ./i2pcontrol/i2pcontrol.js $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/i2pcontrol/i2pcontrol.js
-	cp ./torrent/*.js $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/torrent/
-	cp ./torrent/*.html $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/torrent/
-	cp ./torrent/UNLICENSE $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/torrent/
-	cp ./*.html $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	cp ./*.css $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	cp ./*.md $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	cp ./*.xpi $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	cp ./*.png $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	cp ./*.torrent $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	cp ./manifest.json $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	cp ./LICENSE $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	ln -s $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io \
+	#cp -r icons/ $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
+	#cp -r _locales/ $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
+	#cp -r options/ $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
+	#cp *.js $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
+	#cp i2pcontrol/i2pcontrol.js $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/i2pcontrol/i2pcontrol.js
+	#cp torrent/*.js $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/torrent/
+	#cp torrent/*.html $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/torrent/
+	#cp torrent/UNLICENSE $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/torrent/
+	#cp *.html $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
+	#cp *.css $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
+	#cp *.md $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
+	#cp *.xpi $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
+	#cp *.png $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
+	#cp *.torrent $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
+	#cp manifest.json $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
+	#cp LICENSE $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
+	cp -v ./*.* $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
+	cp -v ./i2pcontrol/* $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/i2pcontrol
+	cp -v ./torrent/* $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/torrent
+	cp -v ./icons/* $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/icons
+	cp -v ./options/* $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/options
+	cp -rv ./_locales/ $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/_locales
+	make link
+
+link:
+	ln -sf  $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io \
 		$(PREFIX)/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}
 
 uninstall:
 	rm -rf $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io \
 		$(PREFIX)/share/webext/i2psetproxy.js@eyedeekay.github.io \
-		$(PREFIX)/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}
+		$(PREFIX)/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/i2ppb@eyedeekay.github.io
 
 
 ls:
 	ls -lah $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io; \
 	ls -lah $(PREFIX)/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}
 
-clean:
-	rm -fr ../i2psetproxy.js.zip ../i2p_proxy*.xpi ../i2p*.xpi #../i2psetproxy.js_*.*
+clean: rc clean-artifacts
+	rm -fr ../i2psetproxy.js.zip ../i2p_proxy*.xpi ../i2p*.xpi *.torrent #../i2psetproxy.js_*.*
 
 ## EVEN RELEASES are AMO RELEASES
 ## ODD RELEASES are SELFHOSTED RELEASES
@@ -97,26 +111,22 @@ torrenthelp:
 	@echo "</body>" >> torrent/index.html
 	@echo "</html>" >> torrent/index.html
 
-xpi:
-	#wget -O ../i2ppb@eyedeekay.github.io.xpi \
-		#https://addons.mozilla.org/firefox/downloads/file/3419789/i2psetproxyjs-$(MOZ_VERSION)-an+fx.xpi
-	#cp ../i2ppb@eyedeekay.github.io.xpi ./i2ppb@eyedeekay.github.io.xpi
-	cp ~/Downloads/i2p_in_private_browsing-$(VERSION)-an+fx.xpi ./i2ppb@eyedeekay.github.io.xpi
+xpi: getxpi
 
 version:
-	sed -i 's|7647|7657|g' *.js* */*.js*
+	sed -i 's|7647|7657|g' *.js* torrent/*.js*
 	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(VERSION)\",|g' manifest.json
 	sed -i 's|$(shell grep "\"version_name\": " manifest.json)|  \"version_name\": \"$(VERSION)\",|g' manifest.json
 
 moz-version:
-	sed -i 's|7647|7657|g' *.js* */*.js*
+	sed -i 's|7647|7657|g' *.js* torrent/*.js*
 	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(MOZ_VERSION)\",|g' manifest.json
 	sed -i 's|$(shell grep "\"version_name\": " manifest.json)|  \"version_name\": \"$(MOZ_VERSION)\",|g' manifest.json
 
 rhz-version:
 	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(VERSION)1\",|g' manifest.json
 	sed -i 's|$(shell grep "\"version_name\": " manifest.json)|  \"version_name\": \"$(VERSION)1-rhizome\",|g' manifest.json
-	sed -i 's|7657|7647|g' *.js* */*.js*
+	sed -i 's|7657|7647|g' *.js* torrent/*.js*
 
 zip: version
 	zip --exclude="./i2ppb@eyedeekay.github.io.xpi" \
@@ -135,7 +145,7 @@ zip: version
 rc:
 	@grep "$(VERSION)" debian/changelog
 	@echo "changelog is prepared"
-	rm *.xpi
+	rm -f *.xpi
 
 rtest: rc index torrenthelp
 
@@ -152,7 +162,7 @@ recreate-release: delete-release release upload
 
 upload: upload-xpi upload-deb
 
-full-release: release submit deb upload torrent upload-torrent
+full-release: release submit upload-xpi torrent upload-torrent deb upload-deb
 
 WEB_EXT_API_KEY=AMO_KEY
 WEB_EXT_API_SECRET=AMO_SECRET
@@ -173,12 +183,12 @@ moz-sign: version clean-artifacts
 	@echo "Using the 'sign' target to instantly sign an extension for self-distribution"
 	@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
 	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
-	web-ext-submit --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
+	web-ext-submit --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET)
 	make copyss
 	sleep 5
 
 copyss:
-	cp web-ext-artifacts/*.xpi ./i2ppb@eyedeekay.github.io.xpi; true
+	cp web-ext-artifacts/*.xpi ../i2ppb@eyedeekay.github.io.xpi; true
 
 ##EVEN NUMBERED, MOZILLA-DISTRIBUTED VERSIONS HERE!
 moz-submit: moz-version
@@ -198,7 +208,8 @@ rhz-submit: rhz-version
 
 getxpi:
 	gothub download -t $(VERSION) -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -n i2ppb@eyedeekay.github.io.xpi
-	cp ./i2ppb@eyedeekay.github.io.xpi ./i2ppb-$(VERSION)@eyedeekay.github.io.xpi
+	mv ./i2ppb@eyedeekay.github.io.xpi ../i2ppb-$(VERSION)@eyedeekay.github.io.xpi
+	cp ../i2ppb-$(VERSION)@eyedeekay.github.io.xpi ../i2ppb@eyedeekay.github.io.xpi
 
 torrent: getxpi
 	rm -f "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent"
@@ -239,7 +250,7 @@ torrent: getxpi
 		-n "i2ppb-$(VERSION)@eyedeekay.github.io.xpi" \
 		-o "i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent" \
 		-w https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/download/$(VERSION)/i2ppb@eyedeekay.github.io.xpi \
-		i2ppb@eyedeekay.github.io.xpi; true
+		../i2ppb@eyedeekay.github.io.xpi; true
 	cp -v "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent" "./i2ppb@eyedeekay.github.io.xpi.torrent"
 	make index
 
@@ -247,7 +258,7 @@ upload-torrent:
 	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2ppb@eyedeekay.github.io.xpi.torrent" -f "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent"
 
 upload-xpi:
-	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2ppb@eyedeekay.github.io.xpi" -f "./i2ppb@eyedeekay.github.io.xpi"
+	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2ppb@eyedeekay.github.io.xpi" -f "../i2ppb@eyedeekay.github.io.xpi"
 
 upload-deb:
 	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psetproxy.js_$(VERSION)-1_amd64.deb" -f "../i2psetproxy.js_$(VERSION)-1_amd64.deb"
@@ -288,19 +299,17 @@ lint:
 	gjslint *.js; true
 	#eslint --color *.js
 
-deborig: fmt version
+deborig: version
 	rm -rf ../i2psetproxy.js-$(VERSION)
-	cp -r . ../i2psetproxy.js-$(VERSION)
+	mkdir -p ../i2psetproxy.js-$(VERSION)
+	cp -r ./* ../i2psetproxy.js-$(VERSION)
+	cp -v ./*.torrent ../i2psetproxy.js-$(VERSION)/
 	cd ../i2psetproxy.js-$(VERSION) && \
-	rm -rf web-ext-artifacts && \
+	rm -rf web-ext-artifacts .git && make torrent && \
 	tar \
 		-cvz \
-		--exclude=.git \
 		--exclude=i2psetproxy.js.gif \
 		--exclude=node_modules \
-		--exclude=web-ext-artifacts \
-		--exclude=*.xpi \
-		--exclude=*/*.xpi \
 		--exclude=*.pdf \
 		-f ../i2psetproxy.js_$(VERSION).orig.tar.gz \
 		.
