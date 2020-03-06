@@ -3,11 +3,18 @@ PREFIX?=/usr
 
 default: zip
 
+PWD=`pwd`
 
 install: uninstall
 	mkdir -p $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io \
 		$(PREFIX)/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}
-	install -d $(PWD) $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
+	@echo $(PWD)
+	cp -v ./* $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/; true
+	cp -vr ./i2pcontrol $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/i2pcontrol
+	cp -vr ./torrent $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/torrent
+	cp -vr ./_locales $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/_locales
+	cp -vr ./icons $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/icons
+	cp -vr ./options $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/options
 	make link
 
 link:
