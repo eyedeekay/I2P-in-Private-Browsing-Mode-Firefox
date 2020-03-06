@@ -342,7 +342,7 @@ function i2pHost(url) {
 }
 
 function onContextGotLog(contexts) {
-  if (contexts !== null) {
+  if (contexts != null) {
     for (let context of contexts) {
       console.log(context);
     }

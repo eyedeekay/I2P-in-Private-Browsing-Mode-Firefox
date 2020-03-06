@@ -259,6 +259,30 @@
     "message": "7657",
     "description": "Port for the Router Console"
   },
+  "isBase32": {
+    "message": "I2P Base32-Formatted Address",
+    "description": "Message for site info panel base32"
+  },
+  "isHostName": {
+    "message": "I2P Jump Hostname",
+    "description": "Message for the site info panel hostname"
+  },
+  "siteLabel": {
+    "message": "Address/Site Information:",
+    "description": "Label for i2p site info"
+  },
+  "certLabel": {
+    "message": "Certificate Information:",
+    "description": "Label for certificate info"
+  },
+  "certAbsent": {
+    "message": "This site is not using HTTPS. It is still verified cryptographically by I2P.",
+    "description": "Content for certificate info if absent"
+  },
+  "certPresent": {
+    "message": "This site is using HTTPS. HTTPS over I2P is experimental and requires self-signed certificates or alternate root authorites.",
+    "description": "Content for certificate info if present"
+  },
   "protocolHandlerValue": {
     "message": "http://127.0.0.1:7657/i2psnark/?nofilter_newURL=%s&action=Add&foo=Add+torrent",
     "description": "Value for the magnet protocol handler"

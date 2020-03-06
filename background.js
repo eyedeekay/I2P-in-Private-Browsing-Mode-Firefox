@@ -439,3 +439,47 @@ function handleClick() {
   browser.pageAction.openPopup();
 }
 browser.pageAction.onClicked.addListener(handleClick);
+
+async function certCheck(details) {
+  if (details.url.startsWith("https")) {
+    console.log("(cert) https site", details.url);
+  } else {
+    return;
+  }
+
+  if (!details.url.includes(".i2p")) {
+    return;
+  }
+
+  var tabs = await browser.tabs.query({ active: true });
+
+  if (tabs == null) {
+    return;
+  }
+
+  console.log("(cert) checking cert", tabs);
+
+  for (tab in tabs) {
+    if (details.url == tabs[tab].url) {
+      console.log("(cert) right tab", tabs[tab].id);
+      try {
+        let securityInfo = await browser.webRequest.getSecurityInfo(
+          details.requestId,
+          { certificateChain: true }
+        );
+        console.log("(cert) state is complete", securityInfo);
+        console.log("(cert) certificates", securityInfo.certificates);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }
+}
+
+// Listen for onHeaderReceived for the target page.
+// Set "blocking" and "responseHeaders".
+browser.webRequest.onHeadersReceived.addListener(
+  certCheck,
+  { urls: ["<all_urls>"] },
+  ["blocking", "responseHeaders"]
+);

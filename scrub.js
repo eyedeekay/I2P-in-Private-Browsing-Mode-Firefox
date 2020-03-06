@@ -153,7 +153,7 @@ var contextSetup = function(requestDetails) {
                   browser.tabs.remove(tabId.id);
                 }
                 browser.pageAction.setPopup({
-                  tabId: tabId[0].id,
+                  tabId: tabId.id,
                   popup: "security.html"
                 });
                 browser.pageAction.show(tabId.id);

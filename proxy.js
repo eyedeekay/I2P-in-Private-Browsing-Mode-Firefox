@@ -124,6 +124,18 @@ var handleContextProxyRequest = async function(requestDetails) {
       };
       return proxy;
     }
+    if (requestDetails.originUrl == browser.runtime.getURL("security.html")) {
+      console.log(
+        "(proxy) extension security URL",
+        browser.runtime.getURL("security.html")
+      );
+      proxy = {
+        type: getScheme(),
+        host: getHost(),
+        port: getPort()
+      };
+      return proxy;
+    }
     if (
       requestDetails.cookieStoreId == "firefox-default" ||
       requestDetails.cookieStoreId == "firefox-private"
