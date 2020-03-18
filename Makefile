@@ -143,7 +143,7 @@ recreate-release: delete-release release upload
 
 upload: upload-xpi upload-deb
 
-full-release: release submit upload-xpi torrent upload-torrent deb upload-deb
+full-release: release submit upload-xpi torrent upload-torrent deb upload-deb upload-rss
 
 WEB_EXT_API_KEY=AMO_KEY
 WEB_EXT_API_SECRET=AMO_SECRET
@@ -303,15 +303,15 @@ dat:
 
 rss: torrent
 	rm -f releases.diff
-	grep "$(MAGNET)" .releases.atom && false || true
 	mv releases.atom .releases.atom
 	wget https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases.atom
-	diff releases.atom .releases.atom | tee releases.diff
-	patch releases.atom <releases.diff
 	sed -i "s|<title>$(VERSION)</title>|<title>$(VERSION)</title>\n    <enclosure url=\"$(MAGNET)\" type=\"application/x-bittorrent\" />|g" releases.atom
 
-upload-rss:
+upload-rss: rss
 	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t docs -n "releases.atom" -f releases.atom
+
+upload-updatemanifest:
+	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t docs -n "updateManifest.json" -f updateManifest.json
 
 webext:
 	web-ext run -u "about:devtools-toolbox?type=extension&id=i2ppb%40eyedeekay.github.io"
