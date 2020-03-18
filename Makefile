@@ -1,43 +1,38 @@
-PREFIX:=/usr
+
+PREFIX?=/usr
 
 default: zip
 
+PWD=`pwd`
+
 install: uninstall
 	mkdir -p $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io \
-		$(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/i2pcontrol \
-		$(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/torrent \
 		$(PREFIX)/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}
-	cp -r ./icons/ $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	cp -r ./_locales/ $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	cp -r ./options/ $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	cp ./*.js $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	cp ./i2pcontrol/i2pcontrol.js $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/i2pcontrol/i2pcontrol.js
-	cp ./torrent/*.js $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/torrent/
-	cp ./torrent/*.html $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/torrent/
-	cp ./torrent/UNLICENSE $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/torrent/
-	cp ./*.html $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	cp ./*.css $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	cp ./*.md $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	cp ./*.xpi $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	cp ./*.png $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	cp ./*.torrent $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	cp ./manifest.json $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	cp ./LICENSE $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/
-	ln -s $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io \
-		$(PREFIX)/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}
+	@echo $(PWD)
+	cp -v ./* $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/; true
+	cp -vr ./i2pcontrol $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/i2pcontrol
+	cp -vr ./torrent $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/torrent
+	cp -vr ./_locales $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/_locales
+	cp -vr ./icons $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/icons
+	cp -vr ./options $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io/options
+	make link
+
+link:
+	ln -sf  $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io \
+		$(PREFIX)/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/i2ppb@eyedeekay.github.io
 
 uninstall:
 	rm -rf $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io \
 		$(PREFIX)/share/webext/i2psetproxy.js@eyedeekay.github.io \
-		$(PREFIX)/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}
+		$(PREFIX)/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/i2ppb@eyedeekay.github.io
 
 
 ls:
 	ls -lah $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io; \
 	ls -lah $(PREFIX)/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}
 
-clean:
-	rm -fr ../i2psetproxy.js.zip ../i2p_proxy*.xpi ../i2p*.xpi #../i2psetproxy.js_*.*
+clean: rc clean-artifacts
+	rm -fr ../i2psetproxy.js.zip ../i2p_proxy*.xpi ../i2p*.xpi *.torrent #../i2psetproxy.js_*.*
 
 ## EVEN RELEASES are AMO RELEASES
 ## ODD RELEASES are SELFHOSTED RELEASES
@@ -97,26 +92,22 @@ torrenthelp:
 	@echo "</body>" >> torrent/index.html
 	@echo "</html>" >> torrent/index.html
 
-xpi:
-	#wget -O ../i2ppb@eyedeekay.github.io.xpi \
-		#https://addons.mozilla.org/firefox/downloads/file/3419789/i2psetproxyjs-$(MOZ_VERSION)-an+fx.xpi
-	#cp ../i2ppb@eyedeekay.github.io.xpi ./i2ppb@eyedeekay.github.io.xpi
-	cp ~/Downloads/i2p_in_private_browsing-$(VERSION)-an+fx.xpi ./i2ppb@eyedeekay.github.io.xpi
+xpi: getxpi
 
 version:
-	sed -i 's|7647|7657|g' *.js* */*.js*
+	sed -i 's|7647|7657|g' *.js* torrent/*.js*
 	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(VERSION)\",|g' manifest.json
 	sed -i 's|$(shell grep "\"version_name\": " manifest.json)|  \"version_name\": \"$(VERSION)\",|g' manifest.json
 
 moz-version:
-	sed -i 's|7647|7657|g' *.js* */*.js*
+	sed -i 's|7647|7657|g' *.js* torrent/*.js*
 	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(MOZ_VERSION)\",|g' manifest.json
 	sed -i 's|$(shell grep "\"version_name\": " manifest.json)|  \"version_name\": \"$(MOZ_VERSION)\",|g' manifest.json
 
 rhz-version:
 	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(VERSION)1\",|g' manifest.json
 	sed -i 's|$(shell grep "\"version_name\": " manifest.json)|  \"version_name\": \"$(VERSION)1-rhizome\",|g' manifest.json
-	sed -i 's|7657|7647|g' *.js* */*.js*
+	sed -i 's|7657|7647|g' *.js* torrent/*.js*
 
 zip: version
 	zip --exclude="./i2ppb@eyedeekay.github.io.xpi" \
@@ -135,7 +126,7 @@ zip: version
 rc:
 	@grep "$(VERSION)" debian/changelog
 	@echo "changelog is prepared"
-	rm *.xpi
+	rm -f *.xpi
 
 rtest: rc index torrenthelp
 
@@ -152,7 +143,7 @@ recreate-release: delete-release release upload
 
 upload: upload-xpi upload-deb
 
-full-release: release submit deb upload torrent upload-torrent
+full-release: release submit upload-xpi torrent upload-torrent deb upload-deb upload-rss
 
 WEB_EXT_API_KEY=AMO_KEY
 WEB_EXT_API_SECRET=AMO_SECRET
@@ -173,12 +164,12 @@ moz-sign: version clean-artifacts
 	@echo "Using the 'sign' target to instantly sign an extension for self-distribution"
 	@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
 	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
-	web-ext-submit --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
+	web-ext-submit --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET)
 	make copyss
 	sleep 5
 
 copyss:
-	cp web-ext-artifacts/*.xpi ./i2ppb@eyedeekay.github.io.xpi; true
+	cp web-ext-artifacts/*.xpi ../i2ppb@eyedeekay.github.io.xpi; true
 
 ##EVEN NUMBERED, MOZILLA-DISTRIBUTED VERSIONS HERE!
 moz-submit: moz-version
@@ -198,7 +189,8 @@ rhz-submit: rhz-version
 
 getxpi:
 	gothub download -t $(VERSION) -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -n i2ppb@eyedeekay.github.io.xpi
-	cp ./i2ppb@eyedeekay.github.io.xpi ./i2ppb-$(VERSION)@eyedeekay.github.io.xpi
+	mv ./i2ppb@eyedeekay.github.io.xpi ../i2ppb-$(VERSION)@eyedeekay.github.io.xpi
+	cp ../i2ppb-$(VERSION)@eyedeekay.github.io.xpi ../i2ppb@eyedeekay.github.io.xpi
 
 torrent: getxpi
 	rm -f "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent"
@@ -239,7 +231,7 @@ torrent: getxpi
 		-n "i2ppb-$(VERSION)@eyedeekay.github.io.xpi" \
 		-o "i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent" \
 		-w https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/download/$(VERSION)/i2ppb@eyedeekay.github.io.xpi \
-		i2ppb@eyedeekay.github.io.xpi; true
+		../i2ppb@eyedeekay.github.io.xpi; true
 	cp -v "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent" "./i2ppb@eyedeekay.github.io.xpi.torrent"
 	make index
 
@@ -247,7 +239,7 @@ upload-torrent:
 	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2ppb@eyedeekay.github.io.xpi.torrent" -f "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent"
 
 upload-xpi:
-	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2ppb@eyedeekay.github.io.xpi" -f "./i2ppb@eyedeekay.github.io.xpi"
+	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2ppb@eyedeekay.github.io.xpi" -f "../i2ppb@eyedeekay.github.io.xpi"
 
 upload-deb:
 	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psetproxy.js_$(VERSION)-1_amd64.deb" -f "../i2psetproxy.js_$(VERSION)-1_amd64.deb"
@@ -262,18 +254,22 @@ upload-docs:
 	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t docs -n "Landing Page Documentation.pdf" -f ../smartlander.pdf
 	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t docs -n "Browser Design Documentation.pdf" -f ../browser.pdf
 
-fmt:
+fmt: fmt-css fmt-html fmt-js
+
+fmt-css:
 	cleancss -O1 all -O2 all --format beautify home.css -o .home.css && mv .home.css home.css
 	cleancss -O1 all -O2 all --format beautify info.css -o .info.css && mv .info.css info.css
 	cleancss -O1 all -O2 all --format beautify search.css -o .search.css && mv .search.css search.css
 	cleancss -O1 all -O2 all --format beautify sidebar.css -o .sidebar.css && mv .sidebar.css sidebar.css
 	cleancss -O1 all -O2 all --format beautify options/options.css -o options/.options.css && mv options/.options.css options/options.css
+
+fmt-html:
 	tidy --as-xhtml --drop-empty-elements no --input-xml --tidy-mark no -indent --indent-spaces 4 -wrap 0 --new-blocklevel-tags article,header,footer --new-inline-tags video,audio,canvas,ruby,rt,rp --break-before-br yes --sort-attributes alpha --vertical-space yes index.html > .index.html; mv .index.html index.html
 	tidy --as-xhtml --drop-empty-elements no --input-xml --tidy-mark no -indent --indent-spaces 4 -wrap 0 --new-blocklevel-tags article,header,footer --new-inline-tags video,audio,canvas,ruby,rt,rp --break-before-br yes --sort-attributes alpha --vertical-space yes window.html > .window.html; mv .window.html window.html
 	tidy --as-xhtml --drop-empty-elements no --input-xml --tidy-mark no -indent --indent-spaces 4 -wrap 0 --new-blocklevel-tags article,header,footer --new-inline-tags video,audio,canvas,ruby,rt,rp --break-before-br yes --sort-attributes alpha --vertical-space yes home.html > .home.html; mv .home.html home.html
 	tidy --as-xhtml --drop-empty-elements no --input-xml --tidy-mark no -indent --indent-spaces 4 -wrap 0 --new-blocklevel-tags article,header,footer --new-inline-tags video,audio,canvas,ruby,rt,rp --break-before-br yes --sort-attributes alpha --vertical-space yes toopie.html > .toopie.html; mv .toopie.html toopie.html
+	tidy --as-xhtml --drop-empty-elements no --input-xml --tidy-mark no -indent --indent-spaces 4 -wrap 0 --new-blocklevel-tags article,header,footer --new-inline-tags video,audio,canvas,ruby,rt,rp --break-before-br yes --sort-attributes alpha --vertical-space yes security.html > .security.html; mv .security.html security.html
 	tidy --as-xhtml --drop-empty-elements no --input-xml --tidy-mark no -indent --indent-spaces 4 -wrap 0 --new-blocklevel-tags article,header,footer --new-inline-tags video,audio,canvas,ruby,rt,rp --break-before-br yes --sort-attributes alpha --vertical-space yes options/options.html > options/.options.html; mv options/.options.html options/options.html
-	make fmt-js
 
 fmt-js:
 	find . -path ./node_modules -prune -o -name '*.js' -exec prettier --write {} \;
@@ -284,19 +280,15 @@ lint:
 	gjslint *.js; true
 	#eslint --color *.js
 
-deborig: fmt version
+deborig: version
 	rm -rf ../i2psetproxy.js-$(VERSION)
-	cp -r . ../i2psetproxy.js-$(VERSION)
+	mkdir -p ../i2psetproxy.js-$(VERSION)
+	cp -r ./* ../i2psetproxy.js-$(VERSION)
 	cd ../i2psetproxy.js-$(VERSION) && \
-	rm -rf web-ext-artifacts && \
+	rm -rf web-ext-artifacts .git node_modules && \
 	tar \
 		-cvz \
-		--exclude=.git \
 		--exclude=i2psetproxy.js.gif \
-		--exclude=node_modules \
-		--exclude=web-ext-artifacts \
-		--exclude=*.xpi \
-		--exclude=*/*.xpi \
 		--exclude=*.pdf \
 		-f ../i2psetproxy.js_$(VERSION).orig.tar.gz \
 		.
@@ -311,15 +303,15 @@ dat:
 
 rss: torrent
 	rm -f releases.diff
-	grep "$(MAGNET)" .releases.atom && false || true
 	mv releases.atom .releases.atom
 	wget https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases.atom
-	diff releases.atom .releases.atom | tee releases.diff
-	patch releases.atom <releases.diff
 	sed -i "s|<title>$(VERSION)</title>|<title>$(VERSION)</title>\n    <enclosure url=\"$(MAGNET)\" type=\"application/x-bittorrent\" />|g" releases.atom
 
-upload-rss:
+upload-rss: rss
 	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t docs -n "releases.atom" -f releases.atom
+
+upload-updatemanifest:
+	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t docs -n "updateManifest.json" -f updateManifest.json
 
 webext:
 	web-ext run -u "about:devtools-toolbox?type=extension&id=i2ppb%40eyedeekay.github.io"

@@ -8,6 +8,9 @@ function proxyHost(url) {
   if (hostname == "proxy.i2p") {
     return true;
   }
+  if (hostname == "7egf7fmpbewl35qvxxyff7k62ijgfm47nfmbyy3fa7epsaflyxiq.b32.i2p") {
+    return true;
+  }
   return false;
 }
 
