@@ -101,6 +101,9 @@ Usage:
    can.
   * ![Visiting i2psnark](i2psnark.png)
   * ![Monitoring torrents](transmissionrpc.png)
+  * [Started] Indicate the level of authenticity provided by TLS. TLS is
+   optional on I2P for now, but some sites offer it anyway. TLS support is
+   experimental and in the works.
   * [barely started] **Isolate** traffic by contextual identity to it's own HTTP
    Proxy tunnel, each reflecting it's own pseudonymous identity within I2P. The
    contextual identities. For now, the contextual identities used to manage
