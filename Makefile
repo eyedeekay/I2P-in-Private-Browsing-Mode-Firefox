@@ -37,11 +37,11 @@ clean: rc clean-artifacts
 ## EVEN RELEASES are AMO RELEASES
 ## ODD RELEASES are SELFHOSTED RELEASES
 
-MOZ_VERSION=0.64
-VERSION=0.63
+MOZ_VERSION=0.66
+VERSION=0.65
 
 ## INCREMENT THIS EVERY TIME YOU DO A RELEASE
-LAST_VERSION=0.61
+LAST_VERSION=0.63
 
 YELLOW=F7E59A
 ORANGE=FFC56D
@@ -176,8 +176,11 @@ moz-submit: moz-version
 	@echo "Using the 'submit' target to instantly sign an extension for Mozilla distribution"
 	@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
 	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
+	mv manifest.json .manifest.json
+	grep -v update_url .manifest.json > manifest.json
 	web-ext sign --channel listed --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
 	sleep 5
+	mv .manifest.json manifest.json
 
 rhz-submit: rhz-version
 	@echo "Rhizome releases are disabled while browser is completed."
