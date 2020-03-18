@@ -1,3 +1,9 @@
+i2psetproxy.js (0.67-1) UNRELEASED; urgency=low
+
+  * Tweak some default settings that should have gone into 65
+
+ -- idk <hankhill19580@gmail.com> Tue, 17 MAR 2020 22:58:55 -0400
+
 i2psetproxy.js (0.65-1) UNRELEASED; urgency=low
 
   * Initial prototype of certs implementation

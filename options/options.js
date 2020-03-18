@@ -319,36 +319,24 @@ function onError(e) {
 }
 
 function storeSettings() {
-  let proxy_scheme = getScheme();
-  let proxy_host = getHost();
-  let proxy_port = getPort();
-  let control_host = getControlHost();
-  let control_port = getControlPort();
-  let rpc_host = getRPCHost();
-  let rpc_port = getRPCPort();
-  let rpc_path = getRPCPath();
-  let rpc_pass = getRPCPass();
-  let bt_rpc_host = getBTRPCHost();
-  let bt_rpc_port = getBTRPCPort();
-  let bt_rpc_path = getBTRPCPath();
-  let bt_rpc_pass = getBTRPCPass();
-  let base_url =
+  let storableSettings = {}
+  storableSettings["proxy_scheme"] = getScheme();
+  storableSettings["proxy_host"] = getHost();
+  storableSettings["proxy_port"] = getPort();
+  storableSettings["control_host"] = getControlHost();
+  storableSettings["control_port"] = getControlPort();
+  storableSettings["rpc_host"] = getRPCHost();
+  storableSettings["rpc_port"] = getRPCPort();
+  storableSettings["rpc_path"] = getRPCPath();
+  storableSettings["rpc_pass"] = getRPCPass();
+  storableSettings["bt_rpc_host"] = getBTRPCHost();
+  storableSettings["bt_rpc_port"] = getBTRPCPort();
+  storableSettings["bt_rpc_path"] = getBTRPCPath();
+  storableSettings["bt_rpc_pass"] = getBTRPCPass();
+  storableSettings["base_url"] =
     "http://" + bt_rpc_host + ":" + bt_rpc_port + "/" + bt_rpc_path;
-  chrome.storage.local.set({
-    proxy_scheme,
-    proxy_host,
-    proxy_port,
-    control_host,
-    control_port,
-    rpc_host,
-    rpc_port,
-    rpc_path,
-    rpc_pass,
-    bt_rpc_host,
-    bt_rpc_port,
-    bt_rpc_path,
-    bt_rpc_pass
-  });
+  console.log("storing", storableSettings);
+  chrome.storage.local.set(storableSettings);
 }
 
 function updateUI(restoredSettings) {

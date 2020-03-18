@@ -8,7 +8,7 @@ function proxyHost(url) {
   if (hostname == "proxy.i2p") {
     return true;
   }
-  if (hostname == "7egf7fmpbewl35qvxxyff7k62ijgfm47nfmbyy3fa7epsaflyxiq.b32.i2p") {
+  if (hostname == "c6lilt4cr5x7jifxridpkesf2zgfwqfchtp6laihr4pdqomq25iq.b32.i2p") {
     return true;
   }
   return false;
@@ -100,16 +100,19 @@ function routerHost(url) {
     path = url.replace(hostname + "/", "");
   }
   if (hostname === control_host + ":" + control_port) {
-    //console.log("(hostcheck) router console found on configured ports");
     return pathcheck(path);
   }
   if (hostname === "localhost" + ":" + control_port) {
-    //console.log("(hostcheck) router console found on configured ports");
     return pathcheck(path);
   }
   if (hostname === "127.0.0.1" + ":" + control_port) {
     return pathcheck(path);
   }
-
+  if (hostname === "localhost" + ":" + 7070) {
+    return pathcheck(path);
+  }
+  if (hostname === "127.0.0.1" + ":" + 7070) {
+    return pathcheck(path);
+  }
   return false;
 }

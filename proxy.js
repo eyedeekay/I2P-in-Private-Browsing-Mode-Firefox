@@ -12,7 +12,7 @@ chrome.privacy.network.networkPredictionEnabled.set({
   value: false
 });
 chrome.privacy.network.webRTCIPHandlingPolicy.set({
-  value: "disable_non_proxied_udp"
+  value: "proxy_only"
 });
 
 function shouldProxyRequest(requestInfo) {
