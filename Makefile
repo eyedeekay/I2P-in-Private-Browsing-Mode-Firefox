@@ -324,3 +324,7 @@ snark-mirror:
 	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psnark-rpc.su3" -f ../i2psnark-rpc.su3
 	http_proxy=http://127.0.0.1:4444 wget -c -O ../i2psnark-rpc-update.su3 http://stats.i2p/i2p/plugins/i2psnark-rpc-update.su3
 	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psnark-rpc-update.su3" -f ../i2psnark-rpc-update.su3
+
+seed:
+	cp -v "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent" "$(HOME)/.i2p/i2psnark"
+	cp -v "../i2ppb-$(VERSION)@eyedeekay.github.io.xpi" "$(HOME)/.i2p/i2psnark"
