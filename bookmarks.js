@@ -72,8 +72,7 @@ gettingInfo.then(got => {
               createBookmark.then(onCreated);
             } else {
               let createRhizomeBookmark = browser.bookmarks.create({
-                url:
-                  "http://" + control_host + ":" + control_port + "/home",
+                url: "http://" + control_host + ":" + control_port + "/home",
                 title: "I2P Console",
                 parentId: bookmarkToolbar[0].id
               });
@@ -176,7 +175,6 @@ gettingInfo.then(got => {
         title: "I2P Console"
       });
       b4.then(bookConsole, onRejected);
-
     }
 
     var bt = browser.bookmarks.search({

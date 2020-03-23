@@ -319,7 +319,7 @@ function onError(e) {
 }
 
 function storeSettings() {
-  let storableSettings = {}
+  let storableSettings = {};
   storableSettings["proxy_scheme"] = getScheme();
   storableSettings["proxy_host"] = getHost();
   storableSettings["proxy_port"] = getPort();
