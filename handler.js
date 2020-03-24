@@ -1,6 +1,7 @@
 function routerHost(url) {
   let hostname = "";
   let path = "";
+  console.log("(urlcheck)", url);
   function pathcheck(str) {
     if (str != undefined) {
       let final = str.split("/")[0];
@@ -13,6 +14,9 @@ function routerHost(url) {
       } else if (final === "webmail" || final === "susimail") {
         console.log("(urlcheck) application path", final);
         return "webmail";
+      } else if (final.startsWith("MuWire") && !final.contains("png")) {
+        console.log("(urlcheck) application path", final);
+        return "muwire";
       } else if (
         final === "home" ||
         final === "console" ||

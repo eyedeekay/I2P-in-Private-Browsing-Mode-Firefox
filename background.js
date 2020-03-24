@@ -13,6 +13,7 @@ var tunnelprefpriv = chrome.i18n.getMessage("i2ptunnelPrefacePrivate");
 var localpref = chrome.i18n.getMessage("localPreface");
 var localprefpriv = chrome.i18n.getMessage("localPrefacePrivate");
 var extensionpref = chrome.i18n.getMessage("extensionPreface");
+var muwirepref = chrome.i18n.getMessage("muwirePreface");
 
 function onContextsGot(contexts) {
   var ids = [];
@@ -81,6 +82,15 @@ function onContextsGot(contexts) {
         name: localpref,
         color: "red",
         icon: "fence"
+      })
+      .then(onCreated, onNotCreated);
+  }
+  if (ids.indexOf(localpref) == -1) {
+    browser.contextualIdentities
+      .create({
+        name: muwirepref,
+        color: "turquoise",
+        icon: "gift"
       })
       .then(onCreated, onNotCreated);
   }
