@@ -547,7 +547,7 @@ var contextSetup = function(requestDetails) {
         } else if (routerhost === "routerconsole") {
           var routertab = tab.then(routerTabFind, onContextError);
           return requestDetails;
-        } 
+        }
       } else {
         if (localhost) {
           var localtab = tab.then(localTabFind, onContextError);
