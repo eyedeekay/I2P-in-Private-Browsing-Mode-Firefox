@@ -3,13 +3,13 @@ i2psetproxy.js (0.69-1) UNRELEASED; urgency=low
   * Add MuWire contextual ID
   * Fix bug occurring on certain modded I2P installs
 
- -- idk <hankhill19580@gmail.com> Tue, 24 MAR 2020 0:12:02 -0400
+ -- idk <hankhill19580@gmail.com>  Tue, 24 MAR 2020 0:12:02 -0400
 
 i2psetproxy.js (0.67-1) UNRELEASED; urgency=low
 
   * Tweak some default settings that should have gone into 65
 
- -- idk <hankhill19580@gmail.com> Tue, 17 MAR 2020 22:58:55 -0400
+ -- idk <hankhill19580@gmail.com>  Tue, 17 MAR 2020 22:58:55 -0400
 
 i2psetproxy.js (0.65-1) UNRELEASED; urgency=low
 
@@ -17,26 +17,26 @@ i2psetproxy.js (0.65-1) UNRELEASED; urgency=low
   * Use "pinned apptabs" to minimize the number of tabs occupied by an app
   * Get ready for self-hosted updates but with bittorrent because it's cooler
 
- -- idk <hankhill19580@gmail.com> Tue, 17 MAR 2020 22:58:55 -0400
+ -- idk <hankhill19580@gmail.com>  Tue, 17 MAR 2020 22:58:55 -0400
 
 i2psetproxy.js (0.63-1) UNRELEASED; urgency=low
 
   * other containerizers bugfix
 
- -- idk <hankhill19580@gmail.com> Mon, 02 MAR 2020 17:54:26 -0400
+ -- idk <hankhill19580@gmail.com>  Mon, 02 MAR 2020 17:54:26 -0400
 
 i2psetproxy.js (0.61-1) UNRELEASED; urgency=low
 
   * other containerizers bugfix
 
- -- idk <hankhill19580@gmail.com> Mon, 02 MAR 2020 17:46:24 -0400
+ -- idk <hankhill19580@gmail.com>  Mon, 02 MAR 2020 17:46:24 -0400
 
 i2psetproxy.js (0.59-1) UNRELEASED; urgency=low
 
   * transmission-rpc based torrent controls
   * bugfixes
 
- -- idk <hankhill19580@gmail.com> Tue, 25 FEB 2020 20:52:19 -0400
+ -- idk <hankhill19580@gmail.com>  Tue, 25 FEB 2020 20:52:19 -0400
 
 i2psetproxy.js (0.57-1) UNRELEASED; urgency=low
 
@@ -122,4 +122,3 @@ i2psetproxy.js (0.31-1) UNRELEASED; urgency=low
     <nnnn is the bug number of your ITP>
 
  -- idk <hankhill19580@gmail.com>  Thu, 01 Aug 2019 00:32:39 -0400
- T

@@ -98,11 +98,15 @@ version:
 	sed -i 's|7647|7657|g' *.js* torrent/*.js*
 	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(VERSION)\",|g' manifest.json
 	sed -i 's|$(shell grep "\"version_name\": " manifest.json)|  \"version_name\": \"$(VERSION)\",|g' manifest.json
+	sed -si 's|$(shell grep $(LAST_VERSION) _locales/en/messages.json)|  "message": "$(VERSION)",|g' _locales/en/messages.json; true
+	sed -si 's|$(shell grep $(MOZ_VERSION) _locales/en/messages.json)|  "message": "$(VERSION)",|g' _locales/en/messages.json; true
 
 moz-version:
 	sed -i 's|7647|7657|g' *.js* torrent/*.js*
 	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(MOZ_VERSION)\",|g' manifest.json
 	sed -i 's|$(shell grep "\"version_name\": " manifest.json)|  \"version_name\": \"$(MOZ_VERSION)\",|g' manifest.json
+	sed -si 's|$(shell grep $(LAST_VERSION) _locales/en/messages.json)|  "message": "$(MOZ_VERSION)",|g' _locales/en/messages.json; true
+	sed -si 's|$(shell grep $(VERSION) _locales/en/messages.json)|  "message": "$(MOZ_VERSION)",|g' _locales/en/messages.json; true
 
 rhz-version:
 	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(VERSION)1\",|g' manifest.json
@@ -154,7 +158,7 @@ WEB_EXT_API_SECRET=AMO_SECRET
 tk:
 	echo $(WEB_EXT_API_KEY)
 
-submit: moz-sign rhz-submit moz-submit
+submit: moz-submit moz-sign
 
 clean-artifacts:
 	rm -fr web-ext-artifacts/*
@@ -328,3 +332,7 @@ snark-mirror:
 seed:
 	cp -v "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent" "$(HOME)/.i2p/i2psnark"
 	cp -v "../i2ppb-$(VERSION)@eyedeekay.github.io.xpi" "$(HOME)/.i2p/i2psnark"
+	
+wire:
+	cp -v "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent" "$(HOME)/i2p/MuWireDownloads/"
+	cp -v "../i2ppb-$(VERSION)@eyedeekay.github.io.xpi" "$(HOME)/i2p/MuWireDownloads/"

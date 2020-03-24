@@ -541,13 +541,13 @@ var contextSetup = function(requestDetails) {
         } else if (routerhost === "webmail") {
           var mailtab = tab.then(mailTabFind, onContextError);
           return requestDetails;
-        } else if (routerhost === "routerconsole") {
-          var routertab = tab.then(routerTabFind, onContextError);
-          return requestDetails;
         } else if (routerhost === "muwire") {
           var routertab = tab.then(muwireTabFind, onContextError);
           return requestDetails;
-        }
+        } else if (routerhost === "routerconsole") {
+          var routertab = tab.then(routerTabFind, onContextError);
+          return requestDetails;
+        } 
       } else {
         if (localhost) {
           var localtab = tab.then(localTabFind, onContextError);

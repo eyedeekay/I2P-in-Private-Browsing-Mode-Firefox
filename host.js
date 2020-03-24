@@ -79,7 +79,7 @@ function routerHost(url) {
       } else if (final === "webmail" || final === "susimail") {
         console.log("(urlcheck) application path", final);
         return "webmail";
-      } else if (final.startsWith("MuWire") && !final.contains("png")) {
+      } else if (final.startsWith("MuWire") && !final.includes("png")) {
         console.log("(urlcheck) application path", final);
         return "muwire";
       } else if (
