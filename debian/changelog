@@ -1,3 +1,9 @@
+i2psetproxy.js (0.71-1) UNRELEASED; urgency=low
+
+  * Fix incomplete bugfix from 0.69
+
+ -- idk <hankhill19580@gmail.com>  Tue, 24 MAR 2020 0:19:59 -0400
+
 i2psetproxy.js (0.69-1) UNRELEASED; urgency=low
 
   * Add MuWire contextual ID

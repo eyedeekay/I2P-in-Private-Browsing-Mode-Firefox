@@ -37,11 +37,11 @@ clean: rc clean-artifacts
 ## EVEN RELEASES are AMO RELEASES
 ## ODD RELEASES are SELFHOSTED RELEASES
 
-MOZ_VERSION=0.70
-VERSION=0.69
+MOZ_VERSION=0.72
+VERSION=0.71
 
 ## INCREMENT THIS EVERY TIME YOU DO A RELEASE
-LAST_VERSION=0.67
+LAST_VERSION=0.69
 
 YELLOW=F7E59A
 ORANGE=FFC56D
@@ -98,15 +98,15 @@ version:
 	sed -i 's|7647|7657|g' *.js* torrent/*.js*
 	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(VERSION)\",|g' manifest.json
 	sed -i 's|$(shell grep "\"version_name\": " manifest.json)|  \"version_name\": \"$(VERSION)\",|g' manifest.json
-	sed -si 's|$(shell grep $(LAST_VERSION) _locales/en/messages.json)|  "message": "$(VERSION)",|g' _locales/en/messages.json; true
-	sed -si 's|$(shell grep $(MOZ_VERSION) _locales/en/messages.json)|  "message": "$(VERSION)",|g' _locales/en/messages.json; true
+	sed -si 's|$(shell grep $(LAST_VERSION) _locales/en/messages.json)|    "message": "$(VERSION)",|g' _locales/en/messages.json; true
+	sed -si 's|$(shell grep $(MOZ_VERSION) _locales/en/messages.json)|    "message": "$(VERSION)",|g' _locales/en/messages.json; true
 
 moz-version:
 	sed -i 's|7647|7657|g' *.js* torrent/*.js*
 	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(MOZ_VERSION)\",|g' manifest.json
 	sed -i 's|$(shell grep "\"version_name\": " manifest.json)|  \"version_name\": \"$(MOZ_VERSION)\",|g' manifest.json
-	sed -si 's|$(shell grep $(LAST_VERSION) _locales/en/messages.json)|  "message": "$(MOZ_VERSION)",|g' _locales/en/messages.json; true
-	sed -si 's|$(shell grep $(VERSION) _locales/en/messages.json)|  "message": "$(MOZ_VERSION)",|g' _locales/en/messages.json; true
+	sed -si 's|$(shell grep $(LAST_VERSION) _locales/en/messages.json)|    "message": "$(MOZ_VERSION)",|g' _locales/en/messages.json; true
+	sed -si 's|$(shell grep $(VERSION) _locales/en/messages.json)|    "message": "$(MOZ_VERSION)",|g' _locales/en/messages.json; true
 
 rhz-version:
 	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(VERSION)1\",|g' manifest.json
@@ -147,7 +147,7 @@ recreate-release: delete-release release upload
 
 upload: upload-xpi upload-deb
 
-full-release: release submit upload-xpi torrent upload-torrent deb upload-deb upload-rss upload-updatemanifest snark-mirror
+full-release: release submit upload-xpi torrent upload-torrent deb upload-deb upload-rss seed
 
 WEB_EXT_API_KEY=AMO_KEY
 WEB_EXT_API_SECRET=AMO_SECRET

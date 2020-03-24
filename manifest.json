@@ -2,7 +2,6 @@
   "applications": {
     "gecko": {
       "id": "i2ppb@eyedeekay.github.io",
-      "update_url": "https://c6lilt4cr5x7jifxridpkesf2zgfwqfchtp6laihr4pdqomq25iq.b32.i2p/i2p/updateManifest.json",
       "strict_min_version": "60.0"
     }
   },
@@ -27,8 +26,8 @@
   ],
   "manifest_version": 2,
   "name": "__MSG_extensionName__",
-  "version": "0.69",
-  "version_name": "0.69",
+  "version": "0.72",
+  "version_name": "0.72",
   "description": "__MSG_extensionDescription__",
   "homepage_url": "https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox",
   "icons": {
