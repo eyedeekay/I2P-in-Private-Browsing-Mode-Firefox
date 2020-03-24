@@ -37,11 +37,11 @@ clean: rc clean-artifacts
 ## EVEN RELEASES are AMO RELEASES
 ## ODD RELEASES are SELFHOSTED RELEASES
 
-MOZ_VERSION=0.68
-VERSION=0.67
+MOZ_VERSION=0.70
+VERSION=0.69
 
 ## INCREMENT THIS EVERY TIME YOU DO A RELEASE
-LAST_VERSION=0.65
+LAST_VERSION=0.67
 
 YELLOW=F7E59A
 ORANGE=FFC56D
@@ -143,7 +143,7 @@ recreate-release: delete-release release upload
 
 upload: upload-xpi upload-deb
 
-full-release: release submit upload-xpi torrent upload-torrent deb upload-deb upload-rss
+full-release: release submit upload-xpi torrent upload-torrent deb upload-deb upload-rss upload-updatemanifest snark-mirror
 
 WEB_EXT_API_KEY=AMO_KEY
 WEB_EXT_API_SECRET=AMO_SECRET
