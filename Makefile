@@ -41,7 +41,7 @@ MOZ_VERSION=0.74
 VERSION=0.73
 
 ## INCREMENT THIS EVERY TIME YOU DO A RELEASE
-LAST_VERSION=0.671
+LAST_VERSION=0.71
 
 YELLOW=F7E59A
 ORANGE=FFC56D
@@ -329,7 +329,7 @@ snark-mirror:
 	http_proxy=http://127.0.0.1:4444 wget -c -O ../i2psnark-rpc-update.su3 http://stats.i2p/i2p/plugins/i2psnark-rpc-update.su3
 	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psnark-rpc-update.su3" -f ../i2psnark-rpc-update.su3
 
-seed:
+seed: getxpi
 	cp -v "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent" "$(HOME)/.i2p/i2psnark"
 	cp -v "../i2ppb-$(VERSION)@eyedeekay.github.io.xpi" "$(HOME)/.i2p/i2psnark"
 	
