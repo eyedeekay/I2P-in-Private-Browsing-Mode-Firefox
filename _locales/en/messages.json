@@ -16,7 +16,7 @@
     "description": "Description of the extension."
   },
   "extensionVersion": {
-    "message": "0.63",
+    "message": "0.72",
     "description": "Version of the extension."
   },
   "extensionStatus": {
@@ -201,6 +201,14 @@
   },
   "i2ptunnelPrefacePrivate": {
     "message": "Hidden Services Manager (Private)",
+    "description": "Preface for the browser titlebar"
+  },
+  "muwirePreface": {
+    "message": "MuWire",
+    "description": "Preface for the browser titlebar"
+  },
+  "muwirePrefacePrivate": {
+    "message": "MuWire (Private)",
     "description": "Preface for the browser titlebar"
   },
   "resetMessage": {

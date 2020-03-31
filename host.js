@@ -8,7 +8,9 @@ function proxyHost(url) {
   if (hostname == "proxy.i2p") {
     return true;
   }
-  if (hostname == "c6lilt4cr5x7jifxridpkesf2zgfwqfchtp6laihr4pdqomq25iq.b32.i2p") {
+  if (
+    hostname == "c6lilt4cr5x7jifxridpkesf2zgfwqfchtp6laihr4pdqomq25iq.b32.i2p"
+  ) {
     return true;
   }
   return false;
@@ -60,6 +62,7 @@ function i2pHost(url) {
 function routerHost(url) {
   let hostname = "";
   let path = "";
+  console.log("(urlcheck)", url);
   function pathcheck(str) {
     if (str != undefined) {
       let final = str.split("/")[0];
@@ -76,10 +79,14 @@ function routerHost(url) {
       } else if (final === "webmail" || final === "susimail") {
         console.log("(urlcheck) application path", final);
         return "webmail";
+      } else if (final.startsWith("MuWire") && !final.includes("png")) {
+        console.log("(urlcheck) application path", final);
+        return "muwire";
       } else if (
         final === "home" ||
         final === "console" ||
         final === "dns" ||
+        final === "sitemap" ||
         final.startsWith("config")
       ) {
         console.log("(urlcheck) application path", final);

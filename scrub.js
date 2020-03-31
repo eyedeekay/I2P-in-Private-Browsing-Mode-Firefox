@@ -6,6 +6,7 @@ var torrentpref = chrome.i18n.getMessage("torrentPreface");
 var tunnelpref = chrome.i18n.getMessage("i2ptunnelPreface");
 var localpref = chrome.i18n.getMessage("localPreface");
 var extensionpref = chrome.i18n.getMessage("extensionPreface");
+var muwirepref = chrome.i18n.getMessage("muwirePreface");
 
 var contextScrub = async function(requestDetails) {
   function onHeaderError() {
@@ -107,6 +108,9 @@ var notMyContextNotMyProblem = async function() {
   var context6 = await browser.contextualIdentities.query({
     name: localpref
   });
+  var context7 = await browser.contextualIdentities.query({
+    name: muwirepref
+  });
   var othercontexts = [];
   console.log("Contexts:", contexts);
   for (context in contexts) {
@@ -116,7 +120,8 @@ var notMyContextNotMyProblem = async function() {
       contexts[context].cookieStoreId == context3[0].cookieStoreId ||
       contexts[context].cookieStoreId == context4[0].cookieStoreId ||
       contexts[context].cookieStoreId == context5[0].cookieStoreId ||
-      contexts[context].cookieStoreId == context6[0].cookieStoreId
+      contexts[context].cookieStoreId == context6[0].cookieStoreId ||
+      contexts[context].cookieStoreId == context7[0].cookieStoreId
     ) {
       console.log(
         "Context found",
@@ -261,6 +266,47 @@ var contextSetup = function(requestDetails) {
       try {
         var context = await browser.contextualIdentities.query({
           name: torrentpref
+        });
+        if (tabId.cookieStoreId != context[0].cookieStoreId) {
+          function Create() {
+            function onCreated(tab) {
+              function closeOldTab(tabs) {
+                if (tabId.id != tab.id) {
+                  console.log("(isolate) Closing un-isolated tab", tabId.id);
+                  console.log("in favor of", tab.id);
+                  console.log("with context", tab.cookieStoreId);
+                  browser.tabs.remove(tabId.id);
+                }
+                for (index = 0; index < tabs.length; index++) {
+                  if (index != tabs.length - 1)
+                    browser.tabs.remove(tabs[index].id);
+                }
+              }
+              var pins = browser.tabs.query({
+                cookieStoreId: context[0].cookieStoreId
+              });
+              pins.then(closeOldTab, onError);
+            }
+            var created = browser.tabs.create({
+              active: true,
+              pinned: true,
+              cookieStoreId: context[0].cookieStoreId,
+              url: requestDetails.url
+            });
+            created.then(onCreated, onContextError);
+          }
+          var gettab = browser.tabs.get(tabId.id);
+          gettab.then(Create, onContextError);
+          return tabId;
+        }
+      } catch (error) {
+        console.log("(isolate)Context Error", error);
+      }
+    };
+    var muwireTabFind = async function(tabId) {
+      try {
+        var context = await browser.contextualIdentities.query({
+          name: muwirepref
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
           function Create() {
@@ -494,6 +540,9 @@ var contextSetup = function(requestDetails) {
           return requestDetails;
         } else if (routerhost === "webmail") {
           var mailtab = tab.then(mailTabFind, onContextError);
+          return requestDetails;
+        } else if (routerhost === "muwire") {
+          var routertab = tab.then(muwireTabFind, onContextError);
           return requestDetails;
         } else if (routerhost === "routerconsole") {
           var routertab = tab.then(routerTabFind, onContextError);
