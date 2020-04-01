@@ -1,29 +1,30 @@
 function routerHost(url) {
   let hostname = "";
   let path = "";
-  console.log("(urlcheck)", url);
   function pathcheck(str) {
     if (str != undefined) {
       let final = str.split("/")[0];
       if (final === "i2ptunnelmgr" || final === "i2ptunnel") {
-        console.log("(urlcheck) application path", final);
+        console.log("(urlcheck) Tunnel application path", final);
         return "i2ptunnelmgr";
       } else if (final === "i2psnark" || final === "torrents") {
-        console.log("(urlcheck) application path", final);
+        console.log("(urlcheck) Torrent application path", final);
         return "i2psnark";
       } else if (final === "webmail" || final === "susimail") {
-        console.log("(urlcheck) application path", final);
+        console.log("(urlcheck) Mail application path", final);
         return "webmail";
-      } else if (final.startsWith("MuWire") && !final.includes("png")) {
-        console.log("(urlcheck) application path", final);
-        return "muwire";
+      } else if (final.startsWith("MuWire")) {
+        if (!url.includes(".png")) {
+          console.log("(urlcheck) MuWire application path", final);
+          return "muwire";
+        }
       } else if (
         final === "home" ||
         final === "console" ||
         final === "dns" ||
         final.startsWith("config")
       ) {
-        console.log("(urlcheck) application path", final);
+        console.log("(urlcheck) Console application path", final);
         return "routerconsole";
       }
     }
