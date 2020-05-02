@@ -29,7 +29,7 @@ the options for the i2psetproxy.js plugin. Change the "Proxy" configuration from
 to
 
         Host: 127.0.0.1
-        Port: 7950
+        Port: 4444
 
 and change the "Control" configuration from:
 

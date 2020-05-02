@@ -2,6 +2,9 @@ var titlepref = chrome.i18n.getMessage("titlePreface");
 var webpref = chrome.i18n.getMessage("webPreface");
 var routerpref = chrome.i18n.getMessage("routerPreface");
 var routerprefpriv = chrome.i18n.getMessage("routerPrefacePrivate");
+var mailpref = chrome.i18n.getMessage("mailPreface");
+var torrentpref = chrome.i18n.getMessage("torrentPreface");
+var tunnelpref = chrome.i18n.getMessage("i2ptunnelPreface");
 
 browser.privacy.network.peerConnectionEnabled.set({
   value: false
@@ -37,13 +40,18 @@ var handleContextProxyRequest = async function(requestDetails) {
             host: getHost(),
             port: getPort()
           };
-          /*console.log("(proxy)", context.name);
+          console.log("(proxy)", context.name);
           console.log("Using", proxy.type);
-          console.log("proxy ", proxy.host + ":" + proxy.port);*/
+          console.log("proxy ", proxy.host + ":" + proxy.port);
           return proxy;
         } else if (context.name == routerpref) {
           if (routerHost(requestDetails.url)) {
-            return proxy;
+            if (requestDetails.url.includes(".rc"))
+              proxy = {
+                type: getScheme(),
+                host: getHost(),
+                port: getPort()
+              };
           } else if (!routerHost(requestDetails.url)) {
             proxy = {
               type: "http",
@@ -51,15 +59,51 @@ var handleContextProxyRequest = async function(requestDetails) {
               port: "65535"
             };
           }
-          proxy = {
-            type: getScheme(),
-            host: getHost(),
-            port: getPort()
-          };
-          /*console.log("(proxy)", context.name);
-          console.log("Using", proxy.type);
-          console.log("proxy ", proxy.host + ":" + proxy.port);*/
-          return proxy;
+        } else if (context.name == mailpref) {
+          if (routerHost(requestDetails.url)) {
+            if (requestDetails.url.includes(".rc"))
+              proxy = {
+                type: getScheme(),
+                host: getHost(),
+                port: getPort()
+              };
+          } else if (!routerHost(requestDetails.url)) {
+            proxy = {
+              type: "http",
+              host: "localhost",
+              port: "65535"
+            };
+          }
+        } else if (context.name == torrentpref) {
+          if (routerHost(requestDetails.url)) {
+            if (requestDetails.url.includes(".rc"))
+              proxy = {
+                type: getScheme(),
+                host: getHost(),
+                port: getPort()
+              };
+          } else if (!routerHost(requestDetails.url)) {
+            proxy = {
+              type: "http",
+              host: "localhost",
+              port: "65535"
+            };
+          }
+        } else if (context.name == tunnelpref) {
+          if (routerHost(requestDetails.url)) {
+            if (requestDetails.url.includes(".rc"))
+              proxy = {
+                type: getScheme(),
+                host: getHost(),
+                port: getPort()
+              };
+          } else if (!routerHost(requestDetails.url)) {
+            proxy = {
+              type: "http",
+              host: "localhost",
+              port: "65535"
+            };
+          }
         } else if (context.name == webpref) {
           if (localHost(requestDetails.url)) {
             if (!routerHost(requestDetails.url)) {
@@ -70,10 +114,6 @@ var handleContextProxyRequest = async function(requestDetails) {
               };
             }
           }
-          console.log("(proxy)", context.name);
-          console.log("Using", proxy.type);
-          console.log("proxy ", proxy.host + ":" + proxy.port);
-          return proxy;
         }
       }
       if (!routerHost(requestDetails.url)) {
@@ -82,13 +122,14 @@ var handleContextProxyRequest = async function(requestDetails) {
             "(proxy) non-routerconsole localhost url, will not interfere",
             requestDetails.url
           );
-          /*proxy = {
-            type: "http",
-            host: "localhost",
-            port: "65535"
-          };*/
         }
       } else if (i2pHost(requestDetails.url)) {
+        proxy = {
+          type: getScheme(),
+          host: getHost(),
+          port: getPort()
+        };
+      } else if (requestDetails.url.includes(".rc")) {
         proxy = {
           type: getScheme(),
           host: getHost(),

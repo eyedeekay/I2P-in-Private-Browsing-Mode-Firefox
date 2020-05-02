@@ -5,7 +5,7 @@ default: zip
 
 PWD=`pwd`
 
-install: uninstall
+install: uninstall version
 	mkdir -p $(PREFIX)/share/webext/i2ppb@eyedeekay.github.io \
 		$(PREFIX)/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}
 	@echo $(PWD)
@@ -39,6 +39,7 @@ clean: rc clean-artifacts
 
 MOZ_VERSION=0.74
 VERSION=0.73
+RHZ_VERSION=$(VERSION).1
 
 ## INCREMENT THIS EVERY TIME YOU DO A RELEASE
 LAST_VERSION=0.671
@@ -109,9 +110,9 @@ moz-version:
 	sed -si 's|$(shell grep $(VERSION) _locales/en/messages.json)|    "message": "$(MOZ_VERSION)",|g' _locales/en/messages.json; true
 
 rhz-version:
-	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(VERSION)1\",|g' manifest.json
-	sed -i 's|$(shell grep "\"version_name\": " manifest.json)|  \"version_name\": \"$(VERSION)1-rhizome\",|g' manifest.json
-	sed -i 's|7657|7647|g' *.js* torrent/*.js*
+	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(RHZ_VERSION)\",|g' manifest.json
+	sed -i 's|$(shell grep "\"version_name\": " manifest.json)|  \"version_name\": \"$(RHZ_VERSION)\",|g' manifest.json
+	sed -i 's|7657|7657|g' *.js* torrent/*.js*
 
 zip: version
 	zip --exclude="./i2ppb@eyedeekay.github.io.xpi" \
@@ -187,12 +188,13 @@ moz-submit: moz-version
 	mv .manifest.json manifest.json
 
 rhz-submit: rhz-version
-	@echo "Rhizome releases are disabled while browser is completed."
-	#@echo "Using the 'sign' target to instantly sign an extension for self-distribution"
-	#@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
-	#@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
-	#web-ext-submit --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
-	#cp web-ext-artifacts/*.xpi ./i2ppb@eyedeekay.github.io.xpi
+	find . -type f -exec sed -i 's|4444|4444|g' {} \;
+	@echo "Using the 'sign' target to instantly sign an extension for self-distribution"
+	@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
+	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
+	web-ext-submit --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
+	cp web-ext-artifacts/*.xpi ./i2ppb@eyedeekay.github.io.xpi
+	find . -type f -exec sed -i 's|4444|4444|g' {} \;
 
 getxpi:
 	gothub download -t $(VERSION) -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -n i2ppb@eyedeekay.github.io.xpi
@@ -324,9 +326,9 @@ webext:
 	web-ext run -u "about:devtools-toolbox?type=extension&id=i2ppb%40eyedeekay.github.io"
 
 snark-mirror:
-	http_proxy=http://127.0.0.1:4444 wget -c -O ../i2psnark-rpc.su3 http://stats.i2p/i2p/plugins/i2psnark-rpc.su3
+	http_proxy=http://127.0.0.1: wget -c -O ../i2psnark-rpc.su3 http://stats.i2p/i2p/plugins/i2psnark-rpc.su3
 	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psnark-rpc.su3" -f ../i2psnark-rpc.su3
-	http_proxy=http://127.0.0.1:4444 wget -c -O ../i2psnark-rpc-update.su3 http://stats.i2p/i2p/plugins/i2psnark-rpc-update.su3
+	http_proxy=http://127.0.0.1: wget -c -O ../i2psnark-rpc-update.su3 http://stats.i2p/i2p/plugins/i2psnark-rpc-update.su3
 	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psnark-rpc-update.su3" -f ../i2psnark-rpc-update.su3
 
 seed:

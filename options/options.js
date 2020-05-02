@@ -32,14 +32,14 @@ function getScheme() {
   const proxy_scheme = document.querySelector("#proxy_scheme");
   console.log("(options)Got i2p proxy scheme:", proxy_scheme.value);
   if (proxy_scheme.value == "HTTP") {
-    return "http";
+    return "socks";
   }
   if (proxy_scheme.value == "SOCKS") {
     return "socks";
   }
-  if (proxy_scheme.value == "http") return "http";
+  if (proxy_scheme.value == "http") return "socks";
   if (proxy_scheme.value == "socks") return "socks";
-  else return "http";
+  else return "socks";
 }
 
 function getHost() {

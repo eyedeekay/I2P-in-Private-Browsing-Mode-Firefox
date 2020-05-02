@@ -4,13 +4,32 @@ function routerHost(url) {
   function pathcheck(str) {
     if (str != undefined) {
       let final = str.split("/")[0];
-      if (final === "i2ptunnelmgr" || final === "i2ptunnel") {
+      console.log("(urlcheck) checking full URL for loopback addr", url);
+      if (
+        final === "i2ptunnelmgr" ||
+        final === "i2ptunnel" ||
+        url.includes("//tun.rc") ||
+        url.includes("//netcat.rc") ||
+        url.includes("//socat.rc")
+      ) {
         console.log("(urlcheck) Tunnel application path", final);
         return "i2ptunnelmgr";
-      } else if (final === "i2psnark" || final === "torrents") {
+      } else if (
+        final === "i2psnark" ||
+        final === "torrents" ||
+        final.startsWith("transmission") ||
+        url.includes("//bt.rc") ||
+        url.includes("//bittorrent.rc") ||
+        url.includes("//torrent.rc")
+      ) {
         console.log("(urlcheck) Torrent application path", final);
         return "i2psnark";
-      } else if (final === "webmail" || final === "susimail") {
+      } else if (
+        final === "webmail" ||
+        final === "susimail" ||
+        url.includes("//mail.rc") ||
+        url.includes("//webmail.rc")
+      ) {
         console.log("(urlcheck) Mail application path", final);
         return "webmail";
       } else if (final.startsWith("MuWire")) {
@@ -22,6 +41,7 @@ function routerHost(url) {
         final === "home" ||
         final === "console" ||
         final === "dns" ||
+        final === "sitemap" ||
         final.startsWith("config")
       ) {
         console.log("(urlcheck) Console application path", final);
@@ -50,6 +70,15 @@ function routerHost(url) {
     return pathcheck(path);
   }
   if (hostname === "127.0.0.1" + ":" + control_port) {
+    return pathcheck(path);
+  }
+  if (hostname === "localhost" + ":" + 7070) {
+    return pathcheck(path);
+  }
+  if (hostname === "127.0.0.1" + ":" + 7070) {
+    return pathcheck(path);
+  }
+  if (hostname.endsWith(".rc")) {
     return pathcheck(path);
   }
 
