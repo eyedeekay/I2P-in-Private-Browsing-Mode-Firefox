@@ -37,11 +37,11 @@ clean: rc clean-artifacts
 ## EVEN RELEASES are AMO RELEASES
 ## ODD RELEASES are SELFHOSTED RELEASES
 
-MOZ_VERSION=0.74
-VERSION=0.73
+MOZ_VERSION=0.76
+VERSION=0.75
 
 ## INCREMENT THIS EVERY TIME YOU DO A RELEASE
-LAST_VERSION=0.671
+LAST_VERSION=0.73
 
 YELLOW=F7E59A
 ORANGE=FFC56D
@@ -168,7 +168,7 @@ moz-sign: version clean-artifacts
 	@echo "Using the 'sign' target to instantly sign an extension for self-distribution"
 	@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
 	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
-	web-ext-submit --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET)
+	$HOME/node_modules/web-ext-submit/extender.sh --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET)
 	make copyss
 	sleep 5
 
@@ -191,7 +191,7 @@ rhz-submit: rhz-version
 	#@echo "Using the 'sign' target to instantly sign an extension for self-distribution"
 	#@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
 	#@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
-	#web-ext-submit --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
+	#$HOME/node_modules/web-ext-submit/extender.sh --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
 	#cp web-ext-artifacts/*.xpi ./i2ppb@eyedeekay.github.io.xpi
 
 getxpi:
@@ -279,11 +279,14 @@ fmt-html:
 	tidy --as-xhtml --drop-empty-elements no --input-xml --tidy-mark no -indent --indent-spaces 4 -wrap 0 --new-blocklevel-tags article,header,footer --new-inline-tags video,audio,canvas,ruby,rt,rp --break-before-br yes --sort-attributes alpha --vertical-space yes options/options.html > options/.options.html; mv options/.options.html options/options.html
 
 fmt-js:
-	find . -path ./node_modules -prune -o -name '*.js' -exec prettier --write {} \;
-	find . -path ./node_modules -prune -o -name '*.json' -exec prettier --write {} \;
+	fixjsstyle *.js
+	fixjsstyle options/*.js
+	fixjsstyle torrent/*.js
+	fixjsstyle i2pcontrol/*.js
+	#find . -path ./node_modules -prune -o -name '*.json' -exec fixjsstyle --write {} \;
 
 lint:
-	fixjsstyle *.js
+
 	gjslint *.js; true
 	#eslint --color *.js
 

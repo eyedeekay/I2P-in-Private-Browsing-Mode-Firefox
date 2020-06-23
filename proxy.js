@@ -1,18 +1,18 @@
-var titlepref = chrome.i18n.getMessage("titlePreface");
-var webpref = chrome.i18n.getMessage("webPreface");
-var routerpref = chrome.i18n.getMessage("routerPreface");
-var routerprefpriv = chrome.i18n.getMessage("routerPrefacePrivate");
+var titlepref = chrome.i18n.getMessage('titlePreface');
+var webpref = chrome.i18n.getMessage('webPreface');
+var routerpref = chrome.i18n.getMessage('routerPreface');
+var routerprefpriv = chrome.i18n.getMessage('routerPrefacePrivate');
 
 browser.privacy.network.peerConnectionEnabled.set({
   value: false
 });
-console.log("Preliminarily disabled WebRTC.");
+console.log('Preliminarily disabled WebRTC.');
 
 chrome.privacy.network.networkPredictionEnabled.set({
   value: false
 });
 chrome.privacy.network.webRTCIPHandlingPolicy.set({
-  value: "proxy_only"
+  value: 'proxy_only'
 });
 
 function shouldProxyRequest(requestInfo) {
@@ -26,7 +26,7 @@ var handleContextProxyRequest = async function(requestDetails) {
         failoverTimeout: 0,
         proxyDns: false
       };
-      if (context == "firefox-default" || context == "firefox-private") {
+      if (context == 'firefox-default' || context == 'firefox-private') {
         proxy = null;
         return proxy;
       }
@@ -46,9 +46,9 @@ var handleContextProxyRequest = async function(requestDetails) {
             return proxy;
           } else if (!routerHost(requestDetails.url)) {
             proxy = {
-              type: "http",
-              host: "localhost",
-              port: "65535"
+              type: 'http',
+              host: 'localhost',
+              port: '65535'
             };
           }
           proxy = {
@@ -64,22 +64,22 @@ var handleContextProxyRequest = async function(requestDetails) {
           if (localHost(requestDetails.url)) {
             if (!routerHost(requestDetails.url)) {
               proxy = {
-                type: "http",
-                host: "localhost",
-                port: "65535"
+                type: 'http',
+                host: 'localhost',
+                port: '65535'
               };
             }
           }
-          console.log("(proxy)", context.name);
-          console.log("Using", proxy.type);
-          console.log("proxy ", proxy.host + ":" + proxy.port);
+          console.log('(proxy)', context.name);
+          console.log('Using', proxy.type);
+          console.log('proxy ', proxy.host + ':' + proxy.port);
           return proxy;
         }
       }
       if (!routerHost(requestDetails.url)) {
         if (localHost(requestDetails.url)) {
           console.log(
-            "(proxy) non-routerconsole localhost url, will not interfere",
+            '(proxy) non-routerconsole localhost url, will not interfere',
             requestDetails.url
           );
           /*proxy = {
@@ -99,12 +99,12 @@ var handleContextProxyRequest = async function(requestDetails) {
     };
     var contextGet = async function(tabInfo) {
       try {
-        console.log("(proxy)Tab info from Function", tabInfo);
+        console.log('(proxy)Tab info from Function', tabInfo);
         context = await browser.contextualIdentities.get(tabInfo.cookieStoreId);
         return context;
       } catch (error) {
         console.error(error);
-        return "firefox-default";
+        return 'firefox-default';
       }
     };
     var tabGet = async function(tabId) {
@@ -113,7 +113,7 @@ var handleContextProxyRequest = async function(requestDetails) {
         let tabInfo = await browser.tabs.get(tabId);
         return tabInfo;
       } catch (error) {
-        console.log("(proxy)Tab error", error);
+        console.log('(proxy)Tab error', error);
       }
     };
     if (proxyHost(requestDetails.url)) {
@@ -124,10 +124,10 @@ var handleContextProxyRequest = async function(requestDetails) {
       };
       return proxy;
     }
-    if (requestDetails.originUrl == browser.runtime.getURL("security.html")) {
+    if (requestDetails.originUrl == browser.runtime.getURL('security.html')) {
       console.log(
-        "(proxy) extension security URL",
-        browser.runtime.getURL("security.html")
+        '(proxy) extension security URL',
+        browser.runtime.getURL('security.html')
       );
       proxy = {
         type: getScheme(),
@@ -137,8 +137,8 @@ var handleContextProxyRequest = async function(requestDetails) {
       return proxy;
     }
     if (
-      requestDetails.cookieStoreId == "firefox-default" ||
-      requestDetails.cookieStoreId == "firefox-private"
+      requestDetails.cookieStoreId == 'firefox-default' ||
+      requestDetails.cookieStoreId == 'firefox-private'
     ) {
       return browser.proxy.settings.get({});
     }
@@ -157,7 +157,7 @@ var handleContextProxyRequest = async function(requestDetails) {
         requestDetails.tabId = tab;
         var context = tab.then(contextGet);
         var proxy = await context.then(handleProxyRequest);
-        console.log("(proxy)Returning I2P Proxy", proxy);
+        console.log('(proxy)Returning I2P Proxy', proxy);
         return proxy;
       } else {
         var tab = tabGet(requestDetails.tabId);
@@ -171,62 +171,62 @@ var handleContextProxyRequest = async function(requestDetails) {
       return proxy;*/
     }
   } catch (error) {
-    console.log("(proxy)Not using I2P Proxy.", error);
+    console.log('(proxy)Not using I2P Proxy.', error);
   }
-};
+}
 
 function SetupSettings() {
-  console.log("Initialising Settings");
+  console.log('Initialising Settings');
   function onSetupError() {
-    console.log("Settings initialization error");
+    console.log('Settings initialization error');
   }
   //
   function checkSchemeStoredSettings(storedSettings) {
     if (storedSettings.proxy_scheme == undefined)
-      storedSettings.proxy_scheme = "http";
+      storedSettings.proxy_scheme = 'http';
     else proxy_scheme = storedSettings.proxy_scheme;
 
-    console.log("Initialising Proxy Scheme", storedSettings.proxy_scheme);
+    console.log('Initialising Proxy Scheme', storedSettings.proxy_scheme);
     setupProxy();
   }
-  var gettingSchemeStoredSettings = browser.storage.local.get("proxy_scheme");
+  var gettingSchemeStoredSettings = browser.storage.local.get('proxy_scheme');
   gettingSchemeStoredSettings.then(checkSchemeStoredSettings, onSetupError);
 
   //
   function checkHostStoredSettings(storedSettings) {
     if (storedSettings.proxy_host == undefined)
-      storedSettings.proxy_host = "127.0.0.1";
+      storedSettings.proxy_host = '127.0.0.1';
     else proxy_host = storedSettings.proxy_host;
 
-    console.log("Initialising Host", storedSettings.proxy_host);
+    console.log('Initialising Host', storedSettings.proxy_host);
     setupProxy();
   }
-  var gettingHostStoredSettings = browser.storage.local.get("proxy_host");
+  var gettingHostStoredSettings = browser.storage.local.get('proxy_host');
   gettingHostStoredSettings.then(checkHostStoredSettings, onSetupError);
 
   //
   function checkPortStoredSettings(storedSettings) {
     if (storedSettings.proxy_port == undefined)
-      storedSettings.proxy_port = "4444";
+      storedSettings.proxy_port = '4444';
     else proxy_port = storedSettings.proxy_port;
 
-    console.log("Initialising Port", storedSettings.proxy_port);
+    console.log('Initialising Port', storedSettings.proxy_port);
     setupProxy();
   }
-  var gettingPortStoredSettings = browser.storage.local.get("proxy_port");
+  var gettingPortStoredSettings = browser.storage.local.get('proxy_port');
   gettingPortStoredSettings.then(checkPortStoredSettings, onSetupError);
 
   //
   function checkControlHostStoredSettings(storedSettings) {
     if (storedSettings.control_host == undefined)
-      storedSettings.control_host = "127.0.0.1";
+      storedSettings.control_host = '127.0.0.1';
     else control_host = storedSettings.control_host;
 
-    console.log("Initialising Control Host", storedSettings.control_host);
+    console.log('Initialising Control Host', storedSettings.control_host);
     setupProxy();
   }
   var gettingControlHostStoredSettings = browser.storage.local.get(
-    "control_host"
+    'control_host'
   );
   gettingControlHostStoredSettings.then(
     checkControlHostStoredSettings,
@@ -236,14 +236,14 @@ function SetupSettings() {
   //
   function checkControlPortStoredSettings(storedSettings) {
     if (storedSettings.control_port == undefined)
-      storedSettings.control_port = "7657";
+      storedSettings.control_port = '7657';
     else control_port = storedSettings.control_port;
 
-    console.log("Initialising Control Port", storedSettings.control_port);
+    console.log('Initialising Control Port', storedSettings.control_port);
     setupProxy();
   }
   var gettingControlPortStoredSettings = browser.storage.local.get(
-    "control_port"
+    'control_port'
   );
   gettingControlPortStoredSettings.then(
     checkControlPortStoredSettings,
@@ -257,28 +257,28 @@ function SetupSettings() {
     else disable_history = storedSettings.disable_history;
 
     console.log(
-      "Initialising Disabled History",
+      'Initialising Disabled History',
       storedSettings.disable_history
     );
     setupProxy();
   }
   var gettingHistoryStoredSettings = browser.storage.local.get(
-    "disable_history"
+    'disable_history'
   );
   gettingHistoryStoredSettings.then(checkHistoryStoredSettings, onSetupError);
 }
 
 function getScheme() {
-  if (proxy_scheme == "HTTP") return "http";
-  if (proxy_scheme == "SOCKS") return "socks";
-  if (proxy_scheme == "http") return "http";
-  if (proxy_scheme == "socks") return "socks";
-  else return "http";
+  if (proxy_scheme == 'HTTP') return 'http';
+  if (proxy_scheme == 'SOCKS') return 'socks';
+  if (proxy_scheme == 'http') return 'http';
+  if (proxy_scheme == 'socks') return 'socks';
+  else return 'http';
 }
 
 function getHost() {
   if (proxy_host == undefined) {
-    proxy_host = "127.0.0.1";
+    proxy_host = '127.0.0.1';
   }
   return proxy_host;
 }
@@ -286,30 +286,30 @@ function getHost() {
 function getPort() {
   if (proxy_port == undefined) {
     var scheme = getScheme();
-    if (scheme == "socks") proxy_port = "4446";
-    else proxy_port = "4444";
+    if (scheme == 'socks') proxy_port = '4446';
+    else proxy_port = '4444';
   }
   return proxy_port;
 }
 
 function setupProxy() {
-  console.log("Setting up Firefox WebExtension proxy");
+  console.log('Setting up Firefox WebExtension proxy');
   browser.proxy.onRequest.addListener(handleContextProxyRequest, {
-    urls: ["<all_urls>"]
+    urls: ['<all_urls>']
   });
-  console.log("i2p settings created for WebExtension Proxy");
+  console.log('i2p settings created for WebExtension Proxy');
 }
 
 function update() {
-  console.log("restoring proxy scheme:", proxy_scheme);
-  console.log("restoring proxy host:", proxy_host);
-  console.log("restoring proxy port:", proxy_port);
-  console.log("restoring control host:", control_host);
-  console.log("restoring control port:", control_port);
+  console.log('restoring proxy scheme:', proxy_scheme);
+  console.log('restoring proxy host:', proxy_host);
+  console.log('restoring proxy port:', proxy_port);
+  console.log('restoring control host:', control_host);
+  console.log('restoring control port:', control_port);
 }
 
 function updateFromStorage() {
-  console.log("updating settings from storage");
+  console.log('updating settings from storage');
   chrome.storage.local.get(function() {
     SetupSettings();
     update();
@@ -317,7 +317,7 @@ function updateFromStorage() {
   });
   var gettingInfo = browser.runtime.getPlatformInfo();
   gettingInfo.then(got => {
-    if (got.os != "android") {
+    if (got.os != 'android') {
       browser.windows.getAll().then(wins => wins.forEach(themeWindow));
     }
   });
