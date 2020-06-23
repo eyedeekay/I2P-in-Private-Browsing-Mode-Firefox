@@ -131,7 +131,7 @@ setAllPrivacy();
 
 function ResetPeerConnection() {
   function reset(snowflake) {
-    var webrtc = false;
+    var webrtc = true;
     console.log("No snowflake plugin found, pre-disabled WebRTC");
     var rtc = browser.privacy.network.peerConnectionEnabled.set({
       value: webrtc
@@ -160,7 +160,7 @@ function EnablePeerConnection() {
 function AssurePeerConnection() {
   function assure(webrtc) {
     browser.privacy.network.peerConnectionEnabled.set({
-      value: webrtc.value
+      value: true
     });
     browser.privacy.network.networkPredictionEnabled.set({
       value: false
