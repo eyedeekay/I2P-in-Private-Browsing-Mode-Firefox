@@ -279,11 +279,14 @@ fmt-html:
 	tidy --as-xhtml --drop-empty-elements no --input-xml --tidy-mark no -indent --indent-spaces 4 -wrap 0 --new-blocklevel-tags article,header,footer --new-inline-tags video,audio,canvas,ruby,rt,rp --break-before-br yes --sort-attributes alpha --vertical-space yes options/options.html > options/.options.html; mv options/.options.html options/options.html
 
 fmt-js:
-	find . -path ./node_modules -prune -o -name '*.js' -exec prettier --write {} \;
-	find . -path ./node_modules -prune -o -name '*.json' -exec prettier --write {} \;
+	fixjsstyle *.js
+	fixjsstyle options/*.js
+	fixjsstyle torrent/*.js
+	fixjsstyle i2pcontrol/*.js
+	#find . -path ./node_modules -prune -o -name '*.json' -exec fixjsstyle --write {} \;
 
 lint:
-	fixjsstyle *.js
+
 	gjslint *.js; true
 	#eslint --color *.js
 

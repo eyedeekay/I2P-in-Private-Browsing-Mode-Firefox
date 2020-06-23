@@ -1,22 +1,22 @@
-"use strict";
+'use strict';
 
 var TrpcCall = async function(meth, args) {
   const server = await browser.storage.local.get(null);
   const myHeaders = {
-    "Content-Type": "application/json",
-    "x-transmission-session-id": server.session
+    'Content-Type': 'application/json',
+    'x-transmission-session-id': server.session
   };
-  console.log("(torrent) session", server.session);
-  if (server.username !== "" || server.btrpcpass !== "") {
-    myHeaders["Authorization"] =
-      "Basic " + btoa((server.username || "") + ":" + (server.btrpcpass || ""));
+  console.log('(torrent) session', server.session);
+  if (server.username !== '' || server.btrpcpass !== '') {
+    myHeaders['Authorization'] =
+      'Basic ' + btoa((server.username || '') + ':' + (server.btrpcpass || ''));
   }
-  console.log("(torrent) rpcurl", server.base_url + "rpc");
-  return fetch(server.base_url + "rpc", {
-    method: "POST",
+  console.log('(torrent) rpcurl', server.base_url + 'rpc');
+  return fetch(server.base_url + 'rpc', {
+    method: 'POST',
     headers: myHeaders,
     body: JSON.stringify({ method: meth, arguments: args }),
-    credentials: "include" // allows HTTPS client certs!
+    credentials: 'include' // allows HTTPS client certs!
   });
 
   /*.then(function(response) {
@@ -32,13 +32,13 @@ var TrpcCall = async function(meth, args) {
     error.response = response;
     throw error;
   });*/
-};
+}
 
-const torrentsPane = document.getElementById("torrents-pane");
-const configPane = document.getElementById("config-pane");
+const torrentsPane = document.getElementById('torrents-pane');
+const configPane = document.getElementById('config-pane');
 
-for (const opener of document.querySelectorAll(".config-opener")) {
-  opener.addEventListener("click", e => {
+for (const opener of document.querySelectorAll('.config-opener')) {
+  opener.addEventListener('click', e => {
     browser.runtime.openOptionsPage();
   });
 }
