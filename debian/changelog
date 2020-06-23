@@ -1,6 +1,6 @@
 i2psetproxy.js (0.73-1) UNRELEASED; urgency=low
 
-  * Fix incomplete bugfix from 0.71
+  * Update bookmarks format
 
  -- idk <hankhill19580@gmail.com>  Mon, 22 JUN 2020 19:21:23 -0400
 
