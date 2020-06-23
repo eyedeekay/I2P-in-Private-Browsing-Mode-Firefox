@@ -10,14 +10,14 @@ gettingInfo.then(got => {
             if (port == "7644") {
               let createRhizomeBookmark = browser.bookmarks.create({
                 url: "about:I2p",
-                title: "Home Page",
+                title: "I2P Extension Home Page",
                 parentId: bookmarkToolbar[0].id
               });
               createRhizomeBookmark.then(onCreated);
             } else {
               let createBookmark = browser.bookmarks.create({
                 url: browser.runtime.getURL("home.html"),
-                title: "Home Page",
+                title: "I2P Extension Home Page",
                 parentId: bookmarkToolbar[0].id
               });
               createBookmark.then(onCreated);
@@ -152,7 +152,7 @@ gettingInfo.then(got => {
       }
 
       var b0 = browser.bookmarks.search({
-        title: "I2P Home Page"
+        title: "I2P Extension Home Page"
       });
       b0.then(bookHome, onRejected);
 
@@ -180,8 +180,26 @@ gettingInfo.then(got => {
     var bt = browser.bookmarks.search({
       query: "Toolbar"
     });
+    
+    function toolDir(bookmarkToolbar){
+	  var ibt = browser.bookmarks.search("I2P Toolbar");
+	  function setupDir(ibt){
+	    if (ibt[0] == null) {
+          let createBookmark = browser.bookmarks.create({
+            title: "I2P Toolbar",
+            parentId: bookmarkToolbar[0].id
+          });
+          createBookmark.then(onCreated);
+        }
+	  }
+	  ibt.then(setupDir);
+    }
 
-    bt.then(bookmarks);
+	bt.then(toolDir)
+
+	var ibt = browser.bookmarks.search("I2P Toolbar");
+
+    ibt.then(bookmarks);
 
     function handleCreated(id, bookmarkInfo) {
       //var propValue;
