@@ -37,11 +37,11 @@ clean: rc clean-artifacts
 ## EVEN RELEASES are AMO RELEASES
 ## ODD RELEASES are SELFHOSTED RELEASES
 
-MOZ_VERSION=0.74
-VERSION=0.73
+MOZ_VERSION=0.76
+VERSION=0.75
 
 ## INCREMENT THIS EVERY TIME YOU DO A RELEASE
-LAST_VERSION=0.671
+LAST_VERSION=0.73
 
 YELLOW=F7E59A
 ORANGE=FFC56D
@@ -168,7 +168,7 @@ moz-sign: version clean-artifacts
 	@echo "Using the 'sign' target to instantly sign an extension for self-distribution"
 	@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
 	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
-	web-ext-submit --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET)
+	$HOME/node_modules/web-ext-submit/extender.sh --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET)
 	make copyss
 	sleep 5
 
@@ -191,7 +191,7 @@ rhz-submit: rhz-version
 	#@echo "Using the 'sign' target to instantly sign an extension for self-distribution"
 	#@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
 	#@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
-	#web-ext-submit --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
+	#$HOME/node_modules/web-ext-submit/extender.sh --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
 	#cp web-ext-artifacts/*.xpi ./i2ppb@eyedeekay.github.io.xpi
 
 getxpi:
