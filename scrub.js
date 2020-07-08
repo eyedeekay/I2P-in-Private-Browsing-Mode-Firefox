@@ -194,6 +194,7 @@ var contextSetup = function(requestDetails) {
                   console.log('in favor of', tab.id);
                   console.log('with context', tab.cookieStoreId);
                   browser.tabs.remove(tabId.id);
+                  browser.tabs.move(tab.id, {index:0});
                 }
                 for (index = 0; index < tabs.length; index++) {
                   if (index != tabs.length - 1)
@@ -235,6 +236,7 @@ var contextSetup = function(requestDetails) {
                   console.log('in favor of', tab.id);
                   console.log('with context', tab.cookieStoreId);
                   browser.tabs.remove(tabId.id);
+                  browser.tabs.move(tab.id, {index:1});
                 }
                 for (index = 0; index < tabs.length; index++) {
                   if (index != tabs.length - 1)
@@ -276,6 +278,7 @@ var contextSetup = function(requestDetails) {
                   console.log('in favor of', tab.id);
                   console.log('with context', tab.cookieStoreId);
                   browser.tabs.remove(tabId.id);
+                  browser.tabs.move(tab.id, {index:2});
                 }
                 for (index = 0; index < tabs.length; index++) {
                   if (index != tabs.length - 1)
@@ -317,6 +320,7 @@ var contextSetup = function(requestDetails) {
                   console.log('in favor of', tab.id);
                   console.log('with context', tab.cookieStoreId);
                   browser.tabs.remove(tabId.id);
+                  browser.tabs.move(tab.id, {index:4});
                 }
                 for (index = 0; index < tabs.length; index++) {
                   if (index != tabs.length - 1)
@@ -358,6 +362,7 @@ var contextSetup = function(requestDetails) {
                   console.log('in favor of', tab.id);
                   console.log('with context', tab.cookieStoreId);
                   browser.tabs.remove(tabId.id);
+                  browser.tabs.move(tab.id, {index:3});
                 }
                 for (index = 0; index < tabs.length; index++) {
                   if (index != tabs.length - 1)
