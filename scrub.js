@@ -563,6 +563,36 @@ var contextSetup = function(requestDetails) {
   }
 };
 
+var coolheadersSetup = function(e) {
+  var asyncSetCookie = new Promise((resolve, reject) => {
+    window.setTimeout(() => {
+      for (header in e.responseHeaders) {
+        if header.name === 'i2p-location' || header.name === 'I2P-location' || header.name === 'I2P-Location' || header.name === 'I2p-Location' || header.name === 'I2p-location' {
+          browser.pageAction.setPopup({
+            tabId: tabId.id,
+            popup: 'security.html'
+          });
+          browser.pageAction.show(tabId.id);
+        }
+      }
+//      e.responseHeaders.push(setMyCookie);
+      resolve({responseHeaders: e.responseHeaders});
+    }, 2000);
+  });
+
+  return asyncSetCookie;
+}
+
+
+
+// Listen for onHeaderReceived for the target page.
+// Set "blocking" and "responseHeaders".
+browser.webRequest.onHeadersReceived.addListener(
+  coolheadersSetup,
+  {urls: ['<all_urls>']},
+  ["blocking", "responseHeaders"]
+);
+
 browser.webRequest.onBeforeRequest.addListener(
   contextSetup,
   { urls: ['<all_urls>'] },
