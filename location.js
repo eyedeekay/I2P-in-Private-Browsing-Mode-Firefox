@@ -11,6 +11,11 @@ function tabCheck(tabInfo) {
         document.getElementById('TypeInfo').appendChild('<div class=\"AddressInfo\"><a href=\"' + header + '\">' + header + '</a></div>');
       }
     }
+    if response.headers.has('x-i2p-location') {
+      for header in response.headers.get('x-i2p-location') {
+        document.getElementById('TypeInfo').appendChild('<div class=\"AddressInfo\"><a href=\"' + header + '\">' + header + '</a></div>');
+      }
+    }
   });
 }
 
