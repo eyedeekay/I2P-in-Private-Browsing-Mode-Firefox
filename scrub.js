@@ -567,14 +567,14 @@ var coolheadersSetup = function(e) {
   var asyncSetCookie = new Promise((resolve, reject) => {
     window.setTimeout(() => {
       for (header in e.responseHeaders) {
-        if header.name === 'i2p-location' || header.name === 'i2p-Location' || header.name === 'I2P-location' || header.name === 'I2P-Location' || header.name === 'I2p-Location' || header.name === 'I2p-location' {
+        if (header.name === 'i2p-location' || header.name === 'i2p-Location' || header.name === 'I2P-location' || header.name === 'I2P-Location' || header.name === 'I2p-Location' || header.name === 'I2p-location') {
           browser.pageAction.setPopup({
             tabId: tabId.id,
             popup: 'location.html'
           });
           browser.pageAction.show(tabId.id);
         }
-        if header.name === 'i2p-TorrentLocation' || header.name === 'i2p-Torrentlocation' || header.name === 'i2p-torrentlocation' || header.name === 'I2P-torrentlocation' || header.name === 'I2P-TorrentLocation' || header.name === 'I2P-Torrentlocation' || header.name === 'I2p-TorrentLocation' || header.name === 'I2p-Torrentlocation' || header.name === 'I2p-torrentlocation' {
+        if (header.name === 'i2p-TorrentLocation' || header.name === 'i2p-Torrentlocation' || header.name === 'i2p-torrentlocation' || header.name === 'I2P-torrentlocation' || header.name === 'I2P-TorrentLocation' || header.name === 'I2P-Torrentlocation' || header.name === 'I2p-TorrentLocation' || header.name === 'I2p-Torrentlocation' || header.name === 'I2p-torrentlocation') {
           browser.pageAction.setPopup({
             tabId: tabId.id,
             popup: 'torrent.html'

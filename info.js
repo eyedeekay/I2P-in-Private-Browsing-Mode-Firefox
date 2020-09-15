@@ -158,8 +158,12 @@ document.addEventListener("click", clickEvent => {
 });
 
 window.onload = function(e){ 
-  document.getElementById("label-peers-list").style.display = "none"
-  document.getElementById("label-bandwidth-list").style.display = "none"
+  if (document.getElementById("label-peers-list") != null) {
+    document.getElementById("label-peers-list").style.display = "none"
+  }
+  if (document.getElementById("label-bandwidth-list") != null) {
+    document.getElementById("label-bandwidth-list").style.display = "none"
+  }
 }
 
 function proxyReadiness() {

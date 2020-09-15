@@ -180,15 +180,15 @@ function themeWindow(window) {
         if (window.incognito) {
           browser.theme.update(window.id, {
             colors: {
-              frame: '#FFC56D',
-              toolbar: '#FFC56D'
+              frame: '#363A68',
+              toolbar: '#363A68'
             }
           });
         } else {
           browser.theme.update(window.id, {
             colors: {
-              frame: '#FFC56D',
-              toolbar: '#FFC56D'
+              frame: '#363A68',
+              toolbar: '#363A68'
             }
           });
         }
@@ -203,15 +203,15 @@ function themeWindow(window) {
         if (window.incognito) {
           browser.theme.update(window.id, {
             colors: {
-              frame: '#A4C8E1',
-              toolbar: '#A4C8E1'
+              frame: '#4456B7',
+              toolbar: '#4456B7'
             }
           });
         } else {
           browser.theme.update(window.id, {
             colors: {
-              frame: '#A4C8E1',
-              toolbar: '#A4C8E1'
+              frame: '#4456B7',
+              toolbar: '#4456B7'
             }
           });
         }
@@ -220,15 +220,15 @@ function themeWindow(window) {
         if (window.incognito) {
           browser.theme.update(window.id, {
             colors: {
-              frame: '#D9D9D6',
-              toolbar: '#D9D9D6'
+              frame: '#4456B7',
+              toolbar: '#4456B7'
             }
           });
         } else {
           browser.theme.update(window.id, {
             colors: {
-              frame: '#D9D9D6',
-              toolbar: '#D9D9D6'
+              frame: '#4456B7',
+              toolbar: '#4456B7'
             }
           });
         }
@@ -237,15 +237,15 @@ function themeWindow(window) {
         if (window.incognito) {
           browser.theme.update(window.id, {
             colors: {
-              frame: '#F7E59A',
-              toolbar: '#F7E59A'
+              frame: '#4456B7',
+              toolbar: '#4456B7'
             }
           });
         } else {
           browser.theme.update(window.id, {
             colors: {
-              frame: '#F7E59A',
-              toolbar: '#F7E59A'
+              frame: '#4456B7',
+              toolbar: '#4456B7'
             }
           });
         }
@@ -254,15 +254,15 @@ function themeWindow(window) {
         if (window.incognito) {
           browser.theme.update(window.id, {
             colors: {
-              frame: '#A48FE1',
-              toolbar: '#A48FE1'
+              frame: '#4456B7',
+              toolbar: '#4456B7'
             }
           });
         } else {
           browser.theme.update(window.id, {
             colors: {
-              frame: '#A48FE1',
-              toolbar: '#A48FE1'
+              frame: '#4456B7',
+              toolbar: '#4456B7'
             }
           });
         }

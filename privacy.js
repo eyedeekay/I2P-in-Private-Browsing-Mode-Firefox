@@ -166,7 +166,7 @@ function AssurePeerConnection() {
       value: false
     });
     chrome.privacy.network.webRTCIPHandlingPolicy.set({
-      value: "proxy_only"
+      value: "disable_non_proxied_udp"
     });
   }
   let rtc = browser.privacy.network.peerConnectionEnabled.get({});
