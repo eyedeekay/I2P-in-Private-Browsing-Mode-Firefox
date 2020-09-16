@@ -10,6 +10,7 @@ button {
   font-weight: 700;
   word-wrap: break-word;
   outline: 0;
+  padding: 3px;
   margin: auto
 }
 .applicationDesc {
@@ -206,7 +207,6 @@ html body ul.label-list li:nth-child(odd) {
   min-height: 5rem;
   padding: .5rem;
   margin: .5rem;
-  width: 50%;
   text-align: left!important;
   float: left
 }

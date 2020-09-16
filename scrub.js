@@ -566,7 +566,10 @@ var contextSetup = function(requestDetails) {
 var coolheadersSetup = function(e) {
   var asyncSetPageAction = new Promise((resolve, reject) => {
     window.setTimeout(() => {
-      for (header in e.responseHeaders) {
+//      console.log(e.responseHeaders)
+      for (header in e.responseHeaders.keys) {
+        console.log('TEST', header.name.ToUpperCase());
+//        console.log("\n\n\n")
         if (header.name.ToUpperCase() === 'I2P-LOCATION' || header.name.ToUpperCase() === 'X-I2P-LOCATION') {
           browser.pageAction.setPopup({
             tabId: tabId.id,
@@ -582,7 +585,6 @@ var coolheadersSetup = function(e) {
           browser.pageAction.show(tabId.id);
         }
       }
-//      e.responseHeaders.push(setMyCookie);
       resolve({responseHeaders: e.responseHeaders});
     }, 2000);
   });
