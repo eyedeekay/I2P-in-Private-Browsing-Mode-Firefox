@@ -11,6 +11,7 @@ button {
   word-wrap: break-word;
   outline: 0;
   padding: 3px;
+  display: inline-block;
   margin: auto
 }
 .applicationDesc {
