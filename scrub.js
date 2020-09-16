@@ -566,23 +566,35 @@ var contextSetup = function(requestDetails) {
 var coolheadersSetup = function(e) {
   var asyncSetPageAction = new Promise((resolve, reject) => {
     window.setTimeout(() => {
-//      console.log(e.responseHeaders)
-      for (header in e.responseHeaders.keys) {
-        console.log('TEST', header.name.ToUpperCase());
-//        console.log("\n\n\n")
-        if (header.name.ToUpperCase() === 'I2P-LOCATION' || header.name.ToUpperCase() === 'X-I2P-LOCATION') {
+      console.log('(alternate)', e.responseHeaders)
+//      for (header in Object.entries(e.responseHeaders)) {
+      for (i = 0; i < e.responseHeaders.length; i++) {
+        let header = e.responseHeaders[i];
+        if (header.name.toUpperCase() === 'I2P-LOCATION' || header.name.toUpperCase() === 'X-I2P-LOCATION') {
+        console.log('(alternate-header)\n\t', header.name.toUpperCase(), '\n\t', e.tabId);
           browser.pageAction.setPopup({
-            tabId: tabId.id,
+            tabId: e.tabId,
             popup: 'location.html'
           });
-          browser.pageAction.show(tabId.id);
+          browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: e.tabId});
+          browser.pageAction.setTitle({
+    tabId: e.tabId,
+    title: header.value
+  });
+          browser.pageAction.show(e.tabId);
         }
-        if (header.name.ToUpperCase() === 'I2P-TORRENTLOCATION' || header.name.ToUpperCase() === 'I2P-TORRENTLOCATION') {
+        if (header.name.toUpperCase() === 'I2P-TORRENTLOCATION' || header.name.toUpperCase() === 'I2P-TORRENTLOCATION') {
+        console.log('(alternate-header)', header.name);
           browser.pageAction.setPopup({
             tabId: tabId.id,
             popup: 'torrent.html'
           });
-          browser.pageAction.show(tabId.id);
+          browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: e.tabId});
+          browser.pageAction.show(e.tabId);
+          browser.pageAction.setTitle({
+    tabId: e.tabId,
+    title: header.value
+  });
         }
       }
       resolve({responseHeaders: e.responseHeaders});

@@ -1,22 +1,15 @@
 
-
-
-function tabCheck(tabInfo) {
-  // Information Section
-  console.log('(cert) checking tab');
-  myRequest = Request(tabInfo[0].url);
-  fetch(myRequest).then(function(response) {
-    if response.headers.has('i2p-location') {
-      for header in response.headers.get('i2p-location') {
-        document.getElementById('TypeInfo').appendChild('<div class=\"AddressInfo\"><a href=\"' + header + '\">' + header + '</a></div>');
-      }
-    }
-    if response.headers.has('x-i2p-location') {
-      for header in response.headers.get('x-i2p-location') {
-        document.getElementById('TypeInfo').appendChild('<div class=\"AddressInfo\"><a href=\"' + header + '\">' + header + '</a></div>');
-      }
-    }
+function gotCurrent(tab) {
+  function gotTitle(title) {
+    let addr = title;
+    document.getElementById('TypeInfo').innerHTML = '<div class=\"AddressInfo\"><a href=\"' + addr + '\">' + addr + '</a></div>';
+  }
+  console.log(tab);
+  var gettingTitle = browser.pageAction.getTitle({
+    tabId: tab[0].id
   });
+  gettingTitle.then(gotTitle);
+
 }
 
 function tabError(error) {
@@ -24,4 +17,4 @@ function tabError(error) {
 }
 
 const gettingCurrent = browser.tabs.query({ active: true });
-gettingCurrent.then(tabCheck, tabError);
+gettingCurrent.then(gotCurrent, tabError);
