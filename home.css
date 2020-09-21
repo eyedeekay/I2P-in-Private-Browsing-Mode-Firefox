@@ -1,5 +1,7 @@
 * {
   padding: 0;
+  background: #1f1a24;
+  color: #e6e6e7;
   margin: 0
 }
 a,
@@ -15,7 +17,7 @@ button {
   margin: auto
 }
 .applicationDesc {
-  color: #81888f;
+  color: #e6e6e7;
   text-decoration: none;
   font-weight: 700;
   word-wrap: break-word;
@@ -46,7 +48,7 @@ body {
   font-family: "Droid Sans","Noto Sans",Ubuntu,"Segoe UI","Lucida Grande",Verdana,Helvetica,sans-serif;
   margin: 0 auto;
   padding: 0;
-  color: #495057;
+  color: #e6e6e7;
   text-decoration: none;
   font-weight: 700;
   word-wrap: break-word;
@@ -65,7 +67,7 @@ p {
   font-size: 17px;
   font-family: "Droid Sans","Noto Sans",Ubuntu,"Segoe UI","Lucida Grande",Verdana,Helvetica,sans-serif;
   text-decoration: none;
-  color: #495057;
+  color: #e6e6e7;
   font-weight: 700;
   word-wrap: break-word;
   outline: 0
@@ -95,7 +97,6 @@ h1 {
   font-family: "Droid Sans","Noto Sans",Ubuntu,"Segoe UI","Lucida Grande",Verdana,Helvetica,sans-serif;
   font-weight: 600;
   font-size: 32px;
-  text-transform: uppercase;
   color: #41465f;
   border-radius: 2px 2px 0 0
 }
@@ -105,7 +106,6 @@ h3 {
   font-family: "Droid Sans","Noto Sans",Ubuntu,"Segoe UI","Lucida Grande",Verdana,Helvetica,sans-serif;
   font-weight: 600;
   font-size: 25px;
-  text-transform: uppercase;
   color: #41465f;
   border-radius: 2px 2px 0 0;
   width: 90%;
@@ -116,7 +116,6 @@ h4 {
   font-family: "Droid Sans","Noto Sans",Ubuntu,"Segoe UI","Lucida Grande",Verdana,Helvetica,sans-serif;
   font-weight: 600;
   font-size: 20px!important;
-  text-transform: uppercase;
   color: #41465f;
   border-radius: 2px 2px 0 0;
   width: 90%;
@@ -125,7 +124,6 @@ h4 {
 .showhider {
   margin-right: auto;
   font-family: "Droid Sans","Noto Sans",Ubuntu,"Segoe UI","Lucida Grande",Verdana,Helvetica,sans-serif;
-  text-transform: uppercase;
   border: none;
   padding: 0!important;
   width: 90%;

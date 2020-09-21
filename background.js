@@ -173,6 +173,7 @@ function themeWindow(window) {
     console.log('got theme', oldtheme);
     browser.theme.update(oldtheme);
   }
+  console.log('got theme', oldtheme);
   function logTabs(tabInfo) {
     function onContextGotTheme(context) {
       if (context.name == titlepref) {
