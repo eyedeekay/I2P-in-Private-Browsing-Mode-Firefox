@@ -205,6 +205,11 @@ var contextSetup = function(requestDetails) {
               });
               pins.then(closeOldTab, onError);
             }
+            if (requestDetails.url.endsWith("xhr1.html")){
+              hostname = url.split('/')[2];
+              let prefix = url.substr(0, url.indexOf('://') + 3);
+              requestDetails.url = prefix+hostname+"/home"
+            }
             var created = browser.tabs.create({
               active: true,
               pinned: true,
@@ -245,6 +250,11 @@ var contextSetup = function(requestDetails) {
                 cookieStoreId: context[0].cookieStoreId
               });
               pins.then(closeOldTab, onError);
+            }
+            if (requestDetails.url.endsWith("xhr1.html")){
+              hostname = url.split('/')[2];
+              let prefix = url.substr(0, url.indexOf('://') + 3);
+              requestDetails.url = prefix+hostname+"/i2ptunnelmgr/"
             }
             var created = browser.tabs.create({
               active: true,
@@ -287,6 +297,11 @@ var contextSetup = function(requestDetails) {
               });
               pins.then(closeOldTab, onError);
             }
+            if (requestDetails.url.endsWith("xhr1.html")){
+              hostname = url.split('/')[2];
+              let prefix = url.substr(0, url.indexOf('://') + 3);
+              requestDetails.url = prefix+hostname+"/i2psnark/"
+            }
             var created = browser.tabs.create({
               active: true,
               pinned: true,
@@ -328,6 +343,11 @@ var contextSetup = function(requestDetails) {
               });
               pins.then(closeOldTab, onError);
             }
+            if (requestDetails.url.endsWith("xhr1.html")){
+              hostname = url.split('/')[2];
+              let prefix = url.substr(0, url.indexOf('://') + 3);
+              requestDetails.url = prefix+hostname+"/muwire/"
+            }
             var created = browser.tabs.create({
               active: true,
               pinned: true,
@@ -368,6 +388,11 @@ var contextSetup = function(requestDetails) {
                 cookieStoreId: context[0].cookieStoreId
               });
               pins.then(closeOldTab, onError);
+            }
+            if (requestDetails.url.endsWith("xhr1.html")){
+              hostname = url.split('/')[2];
+              let prefix = url.substr(0, url.indexOf('://') + 3);
+              requestDetails.url = prefix+hostname+"/webmail/"
             }
             var created = browser.tabs.create({
               active: true,
@@ -566,12 +591,9 @@ var contextSetup = function(requestDetails) {
 var coolheadersSetup = function(e) {
   var asyncSetPageAction = new Promise((resolve, reject) => {
     window.setTimeout(() => {
-      console.log('(alternate)', e.responseHeaders)
-//      for (header in Object.entries(e.responseHeaders)) {
       for (i = 0; i < e.responseHeaders.length; i++) {
         let header = e.responseHeaders[i];
         if (header.name.toUpperCase() === 'I2P-LOCATION' || header.name.toUpperCase() === 'X-I2P-LOCATION') {
-        console.log('(alternate-header)\n\t', header.name.toUpperCase(), '\n\t', e.tabId);
           browser.pageAction.setPopup({
             tabId: e.tabId,
             popup: 'location.html'
@@ -584,7 +606,6 @@ var coolheadersSetup = function(e) {
           browser.pageAction.show(e.tabId);
         }
         if (header.name.toUpperCase() === 'I2P-TORRENTLOCATION' || header.name.toUpperCase() === 'I2P-TORRENTLOCATION') {
-        console.log('(alternate-header)', header.name);
           browser.pageAction.setPopup({
             tabId: tabId.id,
             popup: 'torrent.html'
