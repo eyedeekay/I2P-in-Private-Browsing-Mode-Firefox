@@ -111,13 +111,13 @@ function routerHost(url) {
   if (hostname === control_host + ':' + control_port) {
     return pathcheck(path);
   }
-  if (hostname === control_host + ':' + "7662") {
+  if (hostname === control_host + ':' + '7662') {
     return pathcheck(path);
   }
-  if (hostname === 'localhost' + ':' + "7662") {
+  if (hostname === 'localhost' + ':' + '7662') {
     return pathcheck(path);
   }
-  if (hostname === '127.0.0.1' + ':' + "7662") {
+  if (hostname === '127.0.0.1' + ':' + '7662') {
     return pathcheck(path);
   }
   if (hostname === 'localhost' + ':' + control_port) {

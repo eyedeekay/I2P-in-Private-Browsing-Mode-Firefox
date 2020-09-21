@@ -205,10 +205,10 @@ var contextSetup = function(requestDetails) {
               });
               pins.then(closeOldTab, onError);
             }
-            if (requestDetails.url.endsWith("xhr1.html")){
+            if (requestDetails.url.endsWith('xhr1.html')) {
               hostname = url.split('/')[2];
               let prefix = url.substr(0, url.indexOf('://') + 3);
-              requestDetails.url = prefix+hostname+"/home"
+              requestDetails.url = prefix + hostname + '/home';
             }
             var created = browser.tabs.create({
               active: true,
@@ -251,10 +251,10 @@ var contextSetup = function(requestDetails) {
               });
               pins.then(closeOldTab, onError);
             }
-            if (requestDetails.url.endsWith("xhr1.html")){
+            if (requestDetails.url.endsWith('xhr1.html')) {
               hostname = url.split('/')[2];
               let prefix = url.substr(0, url.indexOf('://') + 3);
-              requestDetails.url = prefix+hostname+"/i2ptunnelmgr/"
+              requestDetails.url = prefix + hostname + '/i2ptunnelmgr/';
             }
             var created = browser.tabs.create({
               active: true,
@@ -297,10 +297,10 @@ var contextSetup = function(requestDetails) {
               });
               pins.then(closeOldTab, onError);
             }
-            if (requestDetails.url.endsWith("xhr1.html")){
+            if (requestDetails.url.endsWith('xhr1.html')) {
               hostname = url.split('/')[2];
               let prefix = url.substr(0, url.indexOf('://') + 3);
-              requestDetails.url = prefix+hostname+"/i2psnark/"
+              requestDetails.url = prefix + hostname + '/i2psnark/';
             }
             var created = browser.tabs.create({
               active: true,
@@ -343,10 +343,10 @@ var contextSetup = function(requestDetails) {
               });
               pins.then(closeOldTab, onError);
             }
-            if (requestDetails.url.endsWith("xhr1.html")){
+            if (requestDetails.url.endsWith('xhr1.html')) {
               hostname = url.split('/')[2];
               let prefix = url.substr(0, url.indexOf('://') + 3);
-              requestDetails.url = prefix+hostname+"/muwire/"
+              requestDetails.url = prefix + hostname + '/muwire/';
             }
             var created = browser.tabs.create({
               active: true,
@@ -389,10 +389,10 @@ var contextSetup = function(requestDetails) {
               });
               pins.then(closeOldTab, onError);
             }
-            if (requestDetails.url.endsWith("xhr1.html")){
+            if (requestDetails.url.endsWith('xhr1.html')) {
               hostname = url.split('/')[2];
               let prefix = url.substr(0, url.indexOf('://') + 3);
-              requestDetails.url = prefix+hostname+"/webmail/"
+              requestDetails.url = prefix + hostname + '/webmail/';
             }
             var created = browser.tabs.create({
               active: true,
