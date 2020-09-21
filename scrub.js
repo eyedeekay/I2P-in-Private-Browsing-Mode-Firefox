@@ -625,6 +625,19 @@ var coolheadersSetup = function(e) {
 }
 
 
+function reloadTabs(tabs) {
+  for (let tab of tabs) {
+    browser.tabs.reload(tab.id)
+  }
+}
+
+function reloadError(error) {
+  console.log(`Error: ${error}`);
+}
+
+let querying = browser.tabs.query({});
+querying.then(reloadTabs, onError);
+
 
 // Listen for onHeaderReceived for the target page.
 // Set "blocking" and "responseHeaders".
