@@ -623,32 +623,30 @@ var coolheadersSetup = function(e) {
       function checkPageActions(resp) {
         function checkBothActions(txt) {
           if (txt.includes('meta-i2p-location') || txt.includes('META-I2P-LOCATION')) {
-          browser.pageAction.setPopup({
-            tabId: e.tabId,
-            popup: 'location.html'
-          });
-          browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: e.tabId});
-          browser.pageAction.setTitle({
-    tabId: e.tabId,
-    title: header.value
-  });
-          browser.pageAction.show(e.tabId);
-          }else if (txt.includes('meta-i2p-torrentlocation') || txt.includes('META-I2P-TORRENTLOCATION')) {
-        if (header.name.toUpperCase() === 'I2P-TORRENTLOCATION' || header.name.toUpperCase() === 'I2P-TORRENTLOCATION') {
-          browser.pageAction.setPopup({
-            tabId: tabId.id,
-            popup: 'torrent.html'
-          });
-          browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: e.tabId});
-          browser.pageAction.show(e.tabId);
-          browser.pageAction.setTitle({
-    tabId: e.tabId,
-    title: header.value
-  });
+            browser.pageAction.setPopup({
+              tabId: e.tabId,
+              popup: 'location.html'
+            });
+            browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: e.tabId});
+            browser.pageAction.setTitle({
+              tabId: e.tabId,
+              title: header.value
+            });
+            browser.pageAction.show(e.tabId);
+          } else if (txt.includes('meta-i2p-torrentlocation') || txt.includes('META-I2P-TORRENTLOCATION')) {
+            browser.pageAction.setPopup({
+              tabId: tabId.id,
+              popup: 'torrent.html'
+            });
+            browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: e.tabId});
+            browser.pageAction.show(e.tabId);
+            browser.pageAction.setTitle({
+              tabId: e.tabId,
+              title: header.value
+            });
           }
         }
         resp.text().then(checkBothActions);
-      }
       }
       fetch(e.url).then(checkPageActions);
       resolve({responseHeaders: e.responseHeaders});

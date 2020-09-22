@@ -268,12 +268,7 @@ function themeWindow(window) {
         if (Object.keys(them).length > 0) {
           browser.theme.update(window.id, them.originalTheme);
         }else {
-          browser.theme.update(window.id, {
-            colors: {
-              frame: null,
-              toolbar: null
-            }
-          });
+          browser.theme.update(window.id, { colors: null });
         }
       }
       browser.storage.local.get('originalTheme').then(unSetTheme, onError);
@@ -428,6 +423,7 @@ gettingListenerInfo.then(got => {
 function handleUpdated(updateInfo) {
   function maybeSet(them){
     console.log("original theme found:", them, Object.keys(them).length)
+    try{
     if ((Object.keys(them).length == 0) || them.originalTheme.colors == null && them.originalTheme.images == null && them.originalTheme.properties == null) {
       if (updateInfo.theme.colors.frame != '#4456B7' && updateInfo.theme.colors.frame != '#363A68') {
         function onSet(){
@@ -440,6 +436,9 @@ function handleUpdated(updateInfo) {
       }
     }else{
       console.log("keeping stored theme:", them)
+    }
+    }catch{
+      console.log("theme storage error")
     }
   }
   browser.storage.local.get("originalTheme").then(maybeSet, onError);
