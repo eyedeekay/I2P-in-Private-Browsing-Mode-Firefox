@@ -649,6 +649,7 @@ var coolheadersSetup = function(e) {
         }
         resp.text().then(checkBothActions);
       }
+      }
       fetch(e.url).then(checkPageActions);
       resolve({responseHeaders: e.responseHeaders});
     }, 2000);
