@@ -154,26 +154,11 @@ function isEmpty(obj) {
   return true;
 }
 
-var oldtheme = null;
-
-var getOldTheme = async function getOldTheme() {
-  let foundtheme = await browser.theme.getCurrent();
-  if (!isEmpty(foundtheme)) {
-    oldtheme = foundtheme;
-    console.log('Found old theme', oldtheme);
-  }
-  return oldtheme;
-}
-
-getOldTheme();
-
 function themeWindow(window) {
   // Check if the window is in private browsing
   function onThemeError() {
-    console.log('got theme', oldtheme);
-    browser.theme.update(oldtheme);
+    console.log('theme color set error');
   }
-  console.log('got theme', oldtheme);
   function logTabs(tabInfo) {
     function onContextGotTheme(context) {
       if (context.name == titlepref) {
@@ -267,13 +252,6 @@ function themeWindow(window) {
             }
           });
         }
-      } else {
-        console.log('Not active in I2P window');
-        if (isEmpty(oldtheme)) {
-          browser.theme.reset();
-        } else {
-          browser.theme.update(window.id, oldtheme);
-        }
       }
     }
     if (
@@ -283,10 +261,17 @@ function themeWindow(window) {
       browser.contextualIdentities
         .get(tabInfo[0].cookieStoreId)
         .then(onContextGotTheme, onThemeError);
-    } else if (isEmpty(oldtheme)) {
-      browser.theme.reset();
-    } else {
-      browser.theme.update(window.id, oldtheme);
+    }else {
+      console.log('Not active in I2P window');
+      function unSetTheme(them) {
+        console.log('unsetting theme', them);
+        if (Object.keys(them).length > 0) {
+          browser.theme.update(window.id, them.originalTheme);
+        }else {
+          browser.theme.reset();
+        }
+      }
+      browser.storage.local.get('originalTheme').then(unSetTheme, onError);
     }
   }
 
@@ -436,11 +421,23 @@ gettingListenerInfo.then(got => {
 });
 
 function handleUpdated(updateInfo) {
-  if (updateInfo.theme) {
-    console.log(`Theme was applied: ${updateInfo.theme}`);
-  } else {
-    console.log("Theme was removed");
+  function maybeSet(them){
+    console.log("original theme found:", them, Object.keys(them).length)
+    if ((Object.keys(them).length == 0) || them.originalTheme.colors == null && them.originalTheme.images == null && them.originalTheme.properties == null) {
+      if (updateInfo.theme.colors.frame != '#4456B7' && updateInfo.theme.colors.frame != '#363A68') {
+        function onSet(){
+          console.log("stored theme:", updateInfo.theme)
+        }
+        if (updateInfo.theme.colors != null || updateInfo.theme.images != null || updateInfo.theme.properties != null ) {
+          console.log("storing theme:", updateInfo.theme)
+          browser.storage.local.set({"originalTheme": updateInfo.theme}).then(onSet, onError)
+        }
+      }
+    }else{
+      console.log("keeping stored theme:", them)
+    }
   }
+  browser.storage.local.get("originalTheme").then(maybeSet, onError);
 }
 
 browser.theme.onUpdated.addListener(handleUpdated);

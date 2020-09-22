@@ -97,7 +97,7 @@ h1 {
   font-family: "Droid Sans","Noto Sans",Ubuntu,"Segoe UI","Lucida Grande",Verdana,Helvetica,sans-serif;
   font-weight: 600;
   font-size: 32px;
-  color: #41465f;
+  color: #e6e6e7;
   border-radius: 2px 2px 0 0
 }
 h2,
@@ -106,7 +106,7 @@ h3 {
   font-family: "Droid Sans","Noto Sans",Ubuntu,"Segoe UI","Lucida Grande",Verdana,Helvetica,sans-serif;
   font-weight: 600;
   font-size: 25px;
-  color: #41465f;
+  color: #e6e6e7;
   border-radius: 2px 2px 0 0;
   width: 90%;
   padding-left: 5%
