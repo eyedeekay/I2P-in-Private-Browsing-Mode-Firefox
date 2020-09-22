@@ -268,7 +268,12 @@ function themeWindow(window) {
         if (Object.keys(them).length > 0) {
           browser.theme.update(window.id, them.originalTheme);
         }else {
-          browser.theme.reset();
+          browser.theme.update(window.id, {
+            colors: {
+              frame: null,
+              toolbar: null
+            }
+          });
         }
       }
       browser.storage.local.get('originalTheme').then(unSetTheme, onError);
