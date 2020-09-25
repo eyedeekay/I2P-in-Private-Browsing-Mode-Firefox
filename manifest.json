@@ -60,6 +60,12 @@
   "options_ui": {
     "page": "options/options.html"
   },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["script.js"]
+    }
+  ],
   "background": {
     "persistent": true,
     "scripts": [

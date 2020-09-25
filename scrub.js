@@ -600,13 +600,13 @@ var coolheadersSetup = function(e) {
           });
           browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: e.tabId});
           browser.pageAction.setTitle({
-    tabId: e.tabId,
-    title: header.value
-  });
+            tabId: e.tabId,
+            title: header.value
+          });
           browser.pageAction.show(e.tabId);
           break;
         }
-        if (header.name.toUpperCase() === 'I2P-TORRENTLOCATION' || header.name.toUpperCase() === 'I2P-TORRENTLOCATION') {
+        if (header.name.toUpperCase() === 'I2P-TORRENTLOCATION' || header.name.toUpperCase() === 'X-I2P-TORRENTLOCATION') {
           browser.pageAction.setPopup({
             tabId: tabId.id,
             popup: 'torrent.html'
@@ -614,49 +614,40 @@ var coolheadersSetup = function(e) {
           browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: e.tabId});
           browser.pageAction.show(e.tabId);
           browser.pageAction.setTitle({
-    tabId: e.tabId,
-    title: header.value
-  });
+            tabId: e.tabId,
+            title: header.value
+          });
           break;
         }
       }
-      function checkPageActions(resp) {
-        function checkBothActions(txt) {
-          if (txt.includes('meta-i2p-location') || txt.includes('META-I2P-LOCATION')) {
-            browser.pageAction.setPopup({
-              tabId: e.tabId,
-              popup: 'location.html'
-            });
-            browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: e.tabId});
-            //TODO: extract meta-i2p-location value from page text
-            browser.pageAction.setTitle({
-              tabId: e.tabId,
-//              title: header.value
-            });
-            browser.pageAction.show(e.tabId);
-          } else if (txt.includes('meta-i2p-torrentlocation') || txt.includes('META-I2P-TORRENTLOCATION')) {
-            browser.pageAction.setPopup({
-              tabId: tabId.id,
-              popup: 'torrent.html'
-            });
-            browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: e.tabId});
-            browser.pageAction.show(e.tabId);
-            //TODO: extract meta-i2p-torrentlocation value from page text
-            browser.pageAction.setTitle({
-              tabId: e.tabId,
-//              title: header.value
-            });
-          }
-        }
-        resp.text().then(checkBothActions);
-      }
-      fetch(e.url).then(checkPageActions);
       resolve({responseHeaders: e.responseHeaders});
     }, 2000);
   });
   return asyncSetPageAction;
 }
 
+function getClearTab(tobj) {
+  function getTabURL(tab) {
+    browser.tabs.sendMessage( tab.id, {'req':'i2p-location'}).then( response => {
+      if (response.content.toUpperCase() != "no-alt-location"){
+        browser.pageAction.setPopup({
+          tabId: tab.id,
+          popup: 'location.html'
+        });
+        browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: tab.id});
+        browser.pageAction.setTitle({
+          tabId: tab.id,
+          title: response.content
+        });
+        browser.pageAction.show(tab.id);
+      }
+    });
+    console.log("(pageaction)", tab.id, tab.url)
+  }
+  browser.tabs.get(tobj.tabId).then(getTabURL, onError)  
+}
+
+browser.tabs.onActivated.addListener(getClearTab);
 
 function reloadTabs(tabs) {
   for (let tab of tabs) {

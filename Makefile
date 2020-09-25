@@ -283,6 +283,7 @@ fmt-js:
 	fixjsstyle options/*.js
 	fixjsstyle torrent/*.js
 	fixjsstyle i2pcontrol/*.js
+	fixjsstyle manifest.json
 	#find . -path ./node_modules -prune -o -name '*.json' -exec fixjsstyle --write {} \;
 
 lint:
