@@ -16,12 +16,8 @@
     "description": "Description of the extension."
   },
   "extensionVersion": {
-    "message": "0.71",
+    "message": "0.77",
     "description": "Version of the extension."
-  },
-  "extensionStatus": {
-    "message": "It is a labs project for enhancing your I2P browsing experience.",
-    "description": "Release status of the extension."
   },
   "proxyFailedStatus": {
     "message": "Proxy is not ready",

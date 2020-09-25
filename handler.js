@@ -7,7 +7,12 @@ function routerHost(url) {
       if (final === 'i2ptunnelmgr' || final === 'i2ptunnel') {
         console.log('(urlcheck) Tunnel application path', final);
         return 'i2ptunnelmgr';
-      } else if (final === 'i2psnark' || final === 'torrents') {
+      } else if (
+        final === 'i2psnark' ||
+        final === 'torrents' ||
+        final.startsWith('transmission') ||
+        final.startsWith('tracker')
+      ) {
         console.log('(urlcheck) Torrent application path', final);
         return 'i2psnark';
       } else if (final === 'webmail' || final === 'susimail') {
@@ -15,13 +20,14 @@ function routerHost(url) {
         return 'webmail';
       } else if (final.startsWith('MuWire')) {
         if (!url.includes('.png')) {
-          console.log('(urlcheck) MuWire application path', final);
-          return 'muwire';
+            console.log('(urlcheck) MuWire application path', final);
+            return 'muwire';
         }
       } else if (
         final === 'home' ||
         final === 'console' ||
         final === 'dns' ||
+        final === 'sitemap' ||
         final.startsWith('config')
       ) {
         console.log('(urlcheck) Console application path', final);

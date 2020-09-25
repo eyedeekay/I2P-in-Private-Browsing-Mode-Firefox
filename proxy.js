@@ -4,16 +4,16 @@ var routerpref = chrome.i18n.getMessage('routerPreface');
 var routerprefpriv = chrome.i18n.getMessage('routerPrefacePrivate');
 
 browser.privacy.network.peerConnectionEnabled.set({
-  value: false
+  value: true
 });
-console.log('Preliminarily disabled WebRTC.');
 
 chrome.privacy.network.networkPredictionEnabled.set({
   value: false
 });
 chrome.privacy.network.webRTCIPHandlingPolicy.set({
-  value: 'proxy_only'
+  value: 'disable_non_proxied_udp'
 });
+console.log('Disabled unproxied UDP.');
 
 function shouldProxyRequest(requestInfo) {
   return requestInfo.parentFrameId != -1;

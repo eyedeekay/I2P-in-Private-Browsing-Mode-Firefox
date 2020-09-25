@@ -37,11 +37,11 @@ clean: rc clean-artifacts
 ## EVEN RELEASES are AMO RELEASES
 ## ODD RELEASES are SELFHOSTED RELEASES
 
-MOZ_VERSION=0.76
-VERSION=0.75
+MOZ_VERSION=0.78
+VERSION=0.77
 
 ## INCREMENT THIS EVERY TIME YOU DO A RELEASE
-LAST_VERSION=0.73
+LAST_VERSION=0.75
 
 YELLOW=F7E59A
 ORANGE=FFC56D
@@ -283,6 +283,7 @@ fmt-js:
 	fixjsstyle options/*.js
 	fixjsstyle torrent/*.js
 	fixjsstyle i2pcontrol/*.js
+	fixjsstyle manifest.json
 	#find . -path ./node_modules -prune -o -name '*.json' -exec fixjsstyle --write {} \;
 
 lint:

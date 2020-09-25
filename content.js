@@ -12,7 +12,6 @@ function contentUpdateById(id, message) {
 contentUpdateById('text-section-header', 'extensionName');
 contentUpdateById('description', 'extensionDescription');
 contentUpdateById('i2pbrowser-version', 'extensionVersion');
-contentUpdateById('beta', 'extensionStatus');
 contentUpdateById('proxy-check', 'proxyFailedStatus');
 
 // Control Section
