@@ -166,7 +166,7 @@ function AssurePeerConnection() {
       value: false
     });
     chrome.privacy.network.webRTCIPHandlingPolicy.set({
-      value: "proxy_only"
+      value: "disable_non_proxied_udp"
     });
   }
   let rtc = browser.privacy.network.peerConnectionEnabled.get({});
@@ -343,9 +343,7 @@ function i2pHost(url) {
 
 function onContextGotLog(contexts) {
   if (contexts != null) {
-    for (let context of contexts) {
-      console.log(context);
-    }
+    console.log(contexts);
   }
 }
 

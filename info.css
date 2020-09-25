@@ -1,24 +1,19 @@
 body,
 html {
-  width: 50rem
-}
-a {
-  margin: 10px
+  
 }
 .panel {
   margin: 5px
 }
 span.identity {
   width: 100px;
-  display: inline-block;
+  display: block;
   margin-left: 1em
 }
 figcaption {
-  display: inline
+  display: block
 }
 .section-header {
-  display: flex;
-  flex-direction: row;
   margin-bottom: 8px
 }
 p {

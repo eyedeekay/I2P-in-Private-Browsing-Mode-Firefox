@@ -154,24 +154,10 @@ function isEmpty(obj) {
   return true;
 }
 
-var oldtheme = null;
-
-var getOldTheme = async function getOldTheme() {
-  let foundtheme = await browser.theme.getCurrent();
-  if (!isEmpty(foundtheme)) {
-    oldtheme = foundtheme;
-    console.log('Found old theme', oldtheme);
-  }
-  return oldtheme;
-}
-
-getOldTheme();
-
 function themeWindow(window) {
   // Check if the window is in private browsing
   function onThemeError() {
-    console.log('got theme', oldtheme);
-    browser.theme.update(oldtheme);
+    console.log('theme color set error');
   }
   function logTabs(tabInfo) {
     function onContextGotTheme(context) {
@@ -180,15 +166,15 @@ function themeWindow(window) {
         if (window.incognito) {
           browser.theme.update(window.id, {
             colors: {
-              frame: '#FFC56D',
-              toolbar: '#FFC56D'
+              frame: '#363A68',
+              toolbar: '#363A68'
             }
           });
         } else {
           browser.theme.update(window.id, {
             colors: {
-              frame: '#FFC56D',
-              toolbar: '#FFC56D'
+              frame: '#363A68',
+              toolbar: '#363A68'
             }
           });
         }
@@ -203,15 +189,15 @@ function themeWindow(window) {
         if (window.incognito) {
           browser.theme.update(window.id, {
             colors: {
-              frame: '#A4C8E1',
-              toolbar: '#A4C8E1'
+              frame: '#4456B7',
+              toolbar: '#4456B7'
             }
           });
         } else {
           browser.theme.update(window.id, {
             colors: {
-              frame: '#A4C8E1',
-              toolbar: '#A4C8E1'
+              frame: '#4456B7',
+              toolbar: '#4456B7'
             }
           });
         }
@@ -220,15 +206,15 @@ function themeWindow(window) {
         if (window.incognito) {
           browser.theme.update(window.id, {
             colors: {
-              frame: '#D9D9D6',
-              toolbar: '#D9D9D6'
+              frame: '#4456B7',
+              toolbar: '#4456B7'
             }
           });
         } else {
           browser.theme.update(window.id, {
             colors: {
-              frame: '#D9D9D6',
-              toolbar: '#D9D9D6'
+              frame: '#4456B7',
+              toolbar: '#4456B7'
             }
           });
         }
@@ -237,15 +223,15 @@ function themeWindow(window) {
         if (window.incognito) {
           browser.theme.update(window.id, {
             colors: {
-              frame: '#F7E59A',
-              toolbar: '#F7E59A'
+              frame: '#4456B7',
+              toolbar: '#4456B7'
             }
           });
         } else {
           browser.theme.update(window.id, {
             colors: {
-              frame: '#F7E59A',
-              toolbar: '#F7E59A'
+              frame: '#4456B7',
+              toolbar: '#4456B7'
             }
           });
         }
@@ -254,24 +240,17 @@ function themeWindow(window) {
         if (window.incognito) {
           browser.theme.update(window.id, {
             colors: {
-              frame: '#A48FE1',
-              toolbar: '#A48FE1'
+              frame: '#4456B7',
+              toolbar: '#4456B7'
             }
           });
         } else {
           browser.theme.update(window.id, {
             colors: {
-              frame: '#A48FE1',
-              toolbar: '#A48FE1'
+              frame: '#4456B7',
+              toolbar: '#4456B7'
             }
           });
-        }
-      } else {
-        console.log('Not active in I2P window');
-        if (isEmpty(oldtheme)) {
-          browser.theme.reset();
-        } else {
-          browser.theme.update(window.id, oldtheme);
         }
       }
     }
@@ -282,10 +261,17 @@ function themeWindow(window) {
       browser.contextualIdentities
         .get(tabInfo[0].cookieStoreId)
         .then(onContextGotTheme, onThemeError);
-    } else if (isEmpty(oldtheme)) {
-      browser.theme.reset();
-    } else {
-      browser.theme.update(window.id, oldtheme);
+    }else {
+      console.log('Not active in I2P window');
+      function unSetTheme(them) {
+        console.log('unsetting theme', them);
+        if (Object.keys(them).length > 0) {
+          browser.theme.update(window.id, them.originalTheme);
+        }else {
+          browser.theme.update(window.id, { colors: null });
+        }
+      }
+      browser.storage.local.get('originalTheme').then(unSetTheme, onError);
     }
   }
 
@@ -435,11 +421,27 @@ gettingListenerInfo.then(got => {
 });
 
 function handleUpdated(updateInfo) {
-  if (updateInfo.theme) {
-    console.log(`Theme was applied: ${updateInfo.theme}`);
-  } else {
-    console.log("Theme was removed");
+  function maybeSet(them){
+    console.log("original theme found:", them, Object.keys(them).length)
+    try{
+    if ((Object.keys(them).length == 0) || them.originalTheme.colors == null && them.originalTheme.images == null && them.originalTheme.properties == null) {
+      if (updateInfo.theme.colors.frame != '#4456B7' && updateInfo.theme.colors.frame != '#363A68') {
+        function onSet(){
+          console.log("stored theme:", updateInfo.theme)
+        }
+        if (updateInfo.theme.colors != null || updateInfo.theme.images != null || updateInfo.theme.properties != null ) {
+          console.log("storing theme:", updateInfo.theme)
+          browser.storage.local.set({"originalTheme": updateInfo.theme}).then(onSet, onError)
+        }
+      }
+    }else{
+      console.log("keeping stored theme:", them)
+    }
+    }catch{
+      console.log("theme storage error")
+    }
   }
+  browser.storage.local.get("originalTheme").then(maybeSet, onError);
 }
 
 browser.theme.onUpdated.addListener(handleUpdated);

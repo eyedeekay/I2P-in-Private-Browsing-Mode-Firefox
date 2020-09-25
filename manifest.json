@@ -26,22 +26,21 @@
   ],
   "manifest_version": 2,
   "name": "__MSG_extensionName__",
-  "version": "0.73",
-  "version_name": "0.73",
+  "version": "0.78",
   "description": "__MSG_extensionDescription__",
   "homepage_url": "https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox",
   "icons": {
-    "48": "icons/toopie.png"
+    "48": "icons/i2plogo.png"
   },
   "browser_action": {
     "browser_style": true,
-    "default_icon": "icons/toopie.png",
+    "default_icon": "icons/i2plogo.png",
     "default_title": "__MSG_extensionName__",
     "default_popup": "window.html"
   },
   "sidebar_action": {
     "browser_style": true,
-    "default_icon": "icons/logo.png",
+    "default_icon": "icons/i2plogo.png",
     "default_title": "__MSG_toopieName__",
     "default_panel": "toopie.html",
     "open_at_install": false
@@ -56,12 +55,17 @@
       "http://*.b32.i2p/*",
       "https://*.b32.i2p/*"
     ],
-    "default_panel": "security.html",
     "pinned": true
   },
   "options_ui": {
     "page": "options/options.html"
   },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["script.js"]
+    }
+  ],
   "background": {
     "persistent": true,
     "scripts": [

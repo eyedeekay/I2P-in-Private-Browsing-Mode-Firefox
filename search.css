@@ -2,13 +2,9 @@
   overflow: hidden;
   min-height: 3rem;
   padding: .5rem;
-  background: #dee2e6;
-  border: 1px solid #dee2e6;
-  width: 64%;
   min-width: 64%;
   border-radius: 2px;
-  box-shadow: inset 0 0 0 1px #fff,0 0 1px #ccc;
-  margin: .5rem .5rem .5rem 32%
+  box-shadow: inset 0 0 0 1px #fff,0 0 1px #ccc
 }
 .topnav a {
   float: left;
@@ -24,10 +20,11 @@
   color: #fff
 }
 .topnav input[type=search] {
-  float: right;
+  width: 75%;
   padding: 6px;
   border: none;
   margin-top: 8px;
+  color: #e6e6e7;
   margin-right: 16px
 }
 .topnav input[type=submit] {
@@ -35,6 +32,7 @@
   padding: 6px;
   border: none;
   margin-top: 8px;
+  color: #e6e6e7;
   margin-right: 16px
 }
 @media screen and (max-width: 600px) {

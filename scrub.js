@@ -205,6 +205,11 @@ var contextSetup = function(requestDetails) {
               });
               pins.then(closeOldTab, onError);
             }
+            if (requestDetails.url.endsWith('xhr1.html')) {
+              hostname = url.split('/')[2];
+              let prefix = url.substr(0, url.indexOf('://') + 3);
+              requestDetails.url = prefix + hostname + '/home';
+            }
             var created = browser.tabs.create({
               active: true,
               pinned: true,
@@ -245,6 +250,11 @@ var contextSetup = function(requestDetails) {
                 cookieStoreId: context[0].cookieStoreId
               });
               pins.then(closeOldTab, onError);
+            }
+            if (requestDetails.url.endsWith('xhr1.html')) {
+              hostname = url.split('/')[2];
+              let prefix = url.substr(0, url.indexOf('://') + 3);
+              requestDetails.url = prefix + hostname + '/i2ptunnelmgr/';
             }
             var created = browser.tabs.create({
               active: true,
@@ -287,6 +297,11 @@ var contextSetup = function(requestDetails) {
               });
               pins.then(closeOldTab, onError);
             }
+            if (requestDetails.url.endsWith('xhr1.html')) {
+              hostname = url.split('/')[2];
+              let prefix = url.substr(0, url.indexOf('://') + 3);
+              requestDetails.url = prefix + hostname + '/i2psnark/';
+            }
             var created = browser.tabs.create({
               active: true,
               pinned: true,
@@ -328,6 +343,11 @@ var contextSetup = function(requestDetails) {
               });
               pins.then(closeOldTab, onError);
             }
+            if (requestDetails.url.endsWith('xhr1.html')) {
+              hostname = url.split('/')[2];
+              let prefix = url.substr(0, url.indexOf('://') + 3);
+              requestDetails.url = prefix + hostname + '/muwire/';
+            }
             var created = browser.tabs.create({
               active: true,
               pinned: true,
@@ -368,6 +388,11 @@ var contextSetup = function(requestDetails) {
                 cookieStoreId: context[0].cookieStoreId
               });
               pins.then(closeOldTab, onError);
+            }
+            if (requestDetails.url.endsWith('xhr1.html')) {
+              hostname = url.split('/')[2];
+              let prefix = url.substr(0, url.indexOf('://') + 3);
+              requestDetails.url = prefix + hostname + '/webmail/';
             }
             var created = browser.tabs.create({
               active: true,
@@ -562,6 +587,89 @@ var contextSetup = function(requestDetails) {
     console.log('(isolate)Not an I2P request, blackholing', error);
   }
 };
+
+var coolheadersSetup = function(e) {
+  var asyncSetPageAction = new Promise((resolve, reject) => {
+    window.setTimeout(() => {
+      for (i = 0; i < e.responseHeaders.length; i++) {
+        let header = e.responseHeaders[i];
+        if (header.name.toUpperCase() === 'I2P-LOCATION' || header.name.toUpperCase() === 'X-I2P-LOCATION') {
+          browser.pageAction.setPopup({
+            tabId: e.tabId,
+            popup: 'location.html'
+          });
+          browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: e.tabId});
+          browser.pageAction.setTitle({
+            tabId: e.tabId,
+            title: header.value
+          });
+          browser.pageAction.show(e.tabId);
+          break;
+        }
+        if (header.name.toUpperCase() === 'I2P-TORRENTLOCATION' || header.name.toUpperCase() === 'X-I2P-TORRENTLOCATION') {
+          browser.pageAction.setPopup({
+            tabId: tabId.id,
+            popup: 'torrent.html'
+          });
+          browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: e.tabId});
+          browser.pageAction.show(e.tabId);
+          browser.pageAction.setTitle({
+            tabId: e.tabId,
+            title: header.value
+          });
+          break;
+        }
+      }
+      resolve({responseHeaders: e.responseHeaders});
+    }, 2000);
+  });
+  return asyncSetPageAction;
+}
+
+function getClearTab(tobj) {
+  function getTabURL(tab) {
+    browser.tabs.sendMessage( tab.id, {'req':'i2p-location'}).then( response => {
+      if (response.content.toUpperCase() != "no-alt-location"){
+        browser.pageAction.setPopup({
+          tabId: tab.id,
+          popup: 'location.html'
+        });
+        browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: tab.id});
+        browser.pageAction.setTitle({
+          tabId: tab.id,
+          title: response.content
+        });
+        browser.pageAction.show(tab.id);
+      }
+    });
+    console.log("(pageaction)", tab.id, tab.url)
+  }
+  browser.tabs.get(tobj.tabId).then(getTabURL, onError)  
+}
+
+browser.tabs.onActivated.addListener(getClearTab);
+
+function reloadTabs(tabs) {
+  for (let tab of tabs) {
+    browser.tabs.reload(tab.id)
+  }
+}
+
+function reloadError(error) {
+  console.log(`Error: ${error}`);
+}
+
+let querying = browser.tabs.query({});
+querying.then(reloadTabs, onError);
+
+
+// Listen for onHeaderReceived for the target page.
+// Set "blocking" and "responseHeaders".
+browser.webRequest.onHeadersReceived.addListener(
+  coolheadersSetup,
+  {urls: ['<all_urls>']},
+  ["blocking", "responseHeaders"]
+);
 
 browser.webRequest.onBeforeRequest.addListener(
   contextSetup,
