@@ -9,6 +9,12 @@ i2psetproxy.js (0.73-1) UNRELEASED; urgency=low
   * Update bookmarks format
   * Deprecate WebRTC State Management
 
+ -- idk <hankhill19580@gmail.com>  Mon, 22 JUN 2020 11:22:37 -0400
+
+i2psetproxy.js (0.73-1) UNRELEASED; urgency=low
+
+  * Update bookmarks format
+
  -- idk <hankhill19580@gmail.com>  Mon, 22 JUN 2020 19:21:23 -0400
 
 i2psetproxy.js (0.71-1) UNRELEASED; urgency=low
