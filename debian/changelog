@@ -1,3 +1,10 @@
+i2psetproxy.js (0.79-1) UNRELEASED; urgency=low
+
+  * Pin application tabs to the front of the tab order
+  * Refine pageaction behavior
+
+ -- idk <hankhill19580@gmail.com>  Mon, 24 SEP 2020 20:18:03 -0400
+
 i2psetproxy.js (0.77-1) UNRELEASED; urgency=low
 
   * Implement x-i2p-location header

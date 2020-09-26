@@ -593,31 +593,33 @@ var coolheadersSetup = function(e) {
     window.setTimeout(() => {
       for (i = 0; i < e.responseHeaders.length; i++) {
         let header = e.responseHeaders[i];
-        if (header.name.toUpperCase() === 'I2P-LOCATION' || header.name.toUpperCase() === 'X-I2P-LOCATION') {
-          browser.pageAction.setPopup({
-            tabId: e.tabId,
-            popup: 'location.html'
-          });
-          browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: e.tabId});
-          browser.pageAction.setTitle({
-            tabId: e.tabId,
-            title: header.value
-          });
-          browser.pageAction.show(e.tabId);
-          break;
-        }
-        if (header.name.toUpperCase() === 'I2P-TORRENTLOCATION' || header.name.toUpperCase() === 'X-I2P-TORRENTLOCATION') {
-          browser.pageAction.setPopup({
-            tabId: tabId.id,
-            popup: 'torrent.html'
-          });
-          browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: e.tabId});
-          browser.pageAction.show(e.tabId);
-          browser.pageAction.setTitle({
-            tabId: e.tabId,
-            title: header.value
-          });
-          break;
+        if (e.url.startsWith('https')) {
+          if (header.name.toUpperCase() === 'I2P-LOCATION' || header.name.toUpperCase() === 'X-I2P-LOCATION') {
+            browser.pageAction.setPopup({
+              tabId: e.tabId,
+              popup: 'location.html'
+            });
+            browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: e.tabId});
+            browser.pageAction.setTitle({
+              tabId: e.tabId,
+              title: header.value
+            });
+            browser.pageAction.show(e.tabId);
+            break;
+          }
+          if (header.name.toUpperCase() === 'I2P-TORRENTLOCATION' || header.name.toUpperCase() === 'X-I2P-TORRENTLOCATION') {
+            browser.pageAction.setPopup({
+              tabId: tabId.id,
+              popup: 'torrent.html'
+            });
+            browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: e.tabId});
+            browser.pageAction.show(e.tabId);
+            browser.pageAction.setTitle({
+              tabId: e.tabId,
+              title: header.value
+            });
+            break;
+          }
         }
       }
       resolve({responseHeaders: e.responseHeaders});
@@ -628,21 +630,23 @@ var coolheadersSetup = function(e) {
 
 function getClearTab(tobj) {
   function getTabURL(tab) {
-    browser.tabs.sendMessage( tab.id, {'req':'i2p-location'}).then( response => {
-      if (response.content.toUpperCase() != "no-alt-location"){
-        browser.pageAction.setPopup({
-          tabId: tab.id,
-          popup: 'location.html'
-        });
-        browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: tab.id});
-        browser.pageAction.setTitle({
-          tabId: tab.id,
-          title: response.content
-        });
-        browser.pageAction.show(tab.id);
-      }
-    });
-    console.log("(pageaction)", tab.id, tab.url)
+    if (tab.url.startsWith("https")){
+      browser.tabs.sendMessage( tab.id, {'req':'i2p-location'}).then( response => {
+        if (response.content.toUpperCase() != "NO-ALT-LOCATION"){
+          browser.pageAction.setPopup({
+            tabId: tab.id,
+            popup: 'location.html'
+          });
+          browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: tab.id});
+          browser.pageAction.setTitle({
+            tabId: tab.id,
+            title: response.content
+          });
+          browser.pageAction.show(tab.id);
+        }
+      });
+      console.log("(pageaction)", tab.id, tab.url)
+    }
   }
   browser.tabs.get(tobj.tabId).then(getTabURL, onError)  
 }
