@@ -1,0 +1,76 @@
+"title","description"
+"Moar Bookmarks","A larger set of default bookmarks in their own directory would probably be good. Stuff like the forums, zzz's forums, gitlab, stats, identiguy, postman, echobot test, fingerprint test, etc."
+"privacy-breach-generic false positive with lintian","We make a request to proxy.i2p, a sort of loopback site, to ensure that the proxy is ready for the browser and provide user feedback. Lintian sees proxy.i2p as a remote site, which it isn't. Given this, the Warning issued by lintian is a false positive. This should be handled somehow."
+"App-tabs for Project sites?","Not sure if this is a good idea. May want to talk to Simply Secure about it."
+"Descriptive Proxy Error Page","When the proxy isn't ready, but the user enters an I2P browsing tab, provide a descriptive error page to guide the user to a solution, even if that solution is to tell them to wait 2 minutes.
+
+States should be described:
+
+ - Router Not Present: There is no indication that I2P is installed on the system. Direct them to an I2P distribution.
+ - HTTP Proxy Not Ready: The router is present, but the HTTP Proxy is not up yet. Wait 2 minutes, if t>2 minutes, direct them to /i2ptunnel to troubleshoot."
+"More intuitive history management, better programming interface","Right now history management is from before it used contextual identities, with some hacks on top. It needs to be changed to a better interface, which simply takes a contextual identity and clears history based on that information. This will improve security, reliability, and be useful in non-I2P contexts in the future."
+"Reseed over WebRTC Data Channel","This can't be done in just this extension, but this extension is probably an important component of a future plan in which this is straightforward. This is the trickiest thing I've tried so far, K, let's define some phases here...
+
+Phase 0: Design
+=============
+
+We're pretty different from Tor in the places where Snowflake would really matter, but it's an inspiring effort and a cool product. This process probably won't bear much resemblance to Snowflake when it's all designed, but Snowflake was the original inspiration for the idea.
+
+What we want to do is make it possible for I2P users to easily reseed eachother in a peer-to-peer way when necessary. It must be done no more often than a normal reseed, and it must only ever be client initiated.
+
+This is **not** a webRTC transport for I2P. That would be an entirely different project. Especially if it were to do something genuinely insane like try to incorporate browser users not otherwise running I2P into the routing process. That would be crazy, right? Right? (It might not actually be that crazy but I have enough to think about right now). This is only for reseeds.
+
+Questions
+--------------
+
+ - Where to get the reseed file? Locally or from a reseed server? Probably a server, and we act as a proxy, but we need to examine advantages and disadvantages of each. Maybe both, server then a local fallback? 
+ - Do we need to geolocate and never fetch a reseed file for a user in a country which is already automatically in hidden mode? Probably yes. Might want to never make them reseed helpers anyway.
+ - How to distribute the reseed file? If it comes from a server it will be signed by a key we already trust, that's fine, but if it comes from somewhere local we may want to use an interstitial
+
+Components
+-----------------
+
+ - Browser Extension - This repo. We use it because we can to some extent assume that people using this extension are also using I2P and can thus provide a reseed from a local source if need be.
+ - Javascript Import - Placed on web pages, a'la Snowflake and or Flashproxy. Shows a download link that says Download reseed file over WebRTC, uses a (random?) extension user.
+ - Native Proxy - Runs locally, obviates the need to download the reseed in a browser by fetching it over WebRTC on behalf of the router. Will start out as a Bridge but eventually be incorporated into I2P if successful.
+   1. Go version, using pion/webrtc
+   2. Java version, using whatever that Guardian Project library is probably
+
+Phase 1: Manual Mode
+=================
+
+Components required
+-----------------------------
+
+ - Browser Extension
+ - Javascript Import
+
+
+Phase 2: Bridged Prototype
+====================
+
+ - Native Proxy, Go Version
+
+Phase 3: Router Incorporation
+======================
+
+ - Native Proxy, Java Version
+"
+"Torbrowser","Are there any plans to support the Torbrowser?
+"
+"Use pageAction to indicate Security Status of I2P Sites(TLS, etc)","https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/pageAction"
+"SSH in the Browser?","TODO"
+"Dat Support?","TODO"
+"Secure configuration of tunnels for RPC remotes","Eventually we'll have to have configuration for different RPC endpoints for I2PControl and Bittorrent, from there it's not a stretch to let remote clients be controlled over i2p tunnels as well, but in this case we need to make sure that we require the password to be changed from the default and possibly look into using encrypted leasesets here too."
+"Tidy up the settings and document where they come from and what they do","Now that this is getting more and cooler features, I need to go over what all the settings are, how they're configured, which ones are obsolete and which ones needs to be created to fully realize all the cool stuff this plugin can do. This should be done before I even introduce settings for the torrent RPC protocols which makes it another blocker for the next version."
+"Internationalize website","The plugin itself supports multiple languages, but the website does not. I should fix that up ASAP."
+"Plugin Tab: I2P-Bote","An I2P-Bote plugin tab is a good idea too, but a low priority since Bote isn't very active right now."
+"Style Guide","Develop a consistent style guide."
+"Cool idea: tab or window.privacy API","Design webextension experiment."
+"Uplifting 3: Letterboxing","I dunno what's up here. This setting is privacy.resistFingerprinting.letterboxing=true or something like that. If seems like the privacy.websites.resistFingerprinting API should enables privacy.resistFingerprinting."
+"Uplifting 2: audio stuff","Work with Mozilla to disable fingerprintable audio API's when privacy.resistFingerprinting=true."
+"Uplifting 1: webgl","Work with Mozilla to finish webgl requirements for resistFingerprinting."
+"FoxyProxy Compatibility?","This extension currently *Breaks the expected behavior of FoxyProxy* by enforcing it's rules over those described by FoxyProxy. This one might be more trouble than it's worth, in fact I think it probably is, but if it isn't, this is a nice-to-have for some of the longtime Foxy users to ease their transition. "
+"Android","Somewhere in the past few releases I broke Android, probably while I was making the window-management less irritating. Find+fix."
+"Whonix","I2P integration in Whonix is running into the problem of making the router console available(Which requires either a proxy exception or an extra proxy like Privoxy) without making the whole localhost available. Since that's a problem this can solve, after I deal with the linting stuff I need to get back in touch with them. Right now I'm also (ab)using include-binaries, I'll need to resolve that too."
+"Update channel for non-AMO Webextension","TODO:"
