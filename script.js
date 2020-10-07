@@ -25,9 +25,28 @@ browser.runtime.onMessage.addListener(request => {
         tag = metas[i].getAttribute('http-equiv');
         if (tag.toUpperCase() === 'I2P-TORRENTLOCATION') {
           response = metas[i].getAttribute('content');
+          var imgs = document.getElementsByTagName('img');
+          for (let img of imgs) {
+            let tmpsrc = new URL(img.src);
+            if (tmpsrc.host == location.host) {
+              img.src = 'http://127.0.0.1:7657/i2psnark/' + tmpsrc.host + tmpsrc.pathname;
+              img.onerror = function() {
+                img.src = tmpsrc
+              };
+            }
+          }
         }
         if (tag.toUpperCase() === 'X-I2P-TORRENTLOCATION') {
           response = metas[i].getAttribute('content');
+          var imgs = document.getElementsByTagName('img');
+          for (let img of imgs) {
+            if (tmpsrc.host == location.host) {
+              img.src = 'http://127.0.0.1:7657/i2psnark/' + tmpsrc.host + tmpsrc.pathname;
+              img.onerror = function() {
+                img.src = tmpsrc
+              };
+            }
+          }
         }
       }catch{
       };

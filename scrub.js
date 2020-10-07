@@ -280,42 +280,50 @@ var contextSetup = function(requestDetails) {
           name: torrentpref
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
-          function Create() {
-            function onCreated(tab) {
-              function closeOldTab(tabs) {
-                if (tabId.id != tab.id) {
-                  console.log('(isolate) Closing un-isolated tab', tabId.id);
-                  console.log('in favor of', tab.id);
-                  console.log('with context', tab.cookieStoreId);
-                  browser.tabs.remove(tabId.id);
-                  browser.tabs.move(tab.id, {index: 2});
+          var exemptContext = await browser.contextualIdentities.query({
+            name: titlepref
+          });
+          let tmp = new URL(tabId.url);
+          console.log('tabid host', tmp.host);
+          if (!requestDetails.url.includes(tmp.host)) {
+//          if (tabId.cookieStoreId != exemptContext[0].cookieStoreId){
+            function Create() {
+              function onCreated(tab) {
+                function closeOldTab(tabs) {
+                  if (tabId.id != tab.id) {
+                    console.log('(isolate) Closing un-isolated tab', tabId.id);
+                    console.log('in favor of', tab.id);
+                    console.log('with context', tab.cookieStoreId);
+                    browser.tabs.remove(tabId.id);
+                    browser.tabs.move(tab.id, {index: 2});
+                  }
+                  for (index = 0; index < tabs.length; index++) {
+                    if (index != tabs.length - 1)
+                      browser.tabs.remove(tabs[index].id);
+                  }
                 }
-                for (index = 0; index < tabs.length; index++) {
-                  if (index != tabs.length - 1)
-                    browser.tabs.remove(tabs[index].id);
-                }
+                var pins = browser.tabs.query({
+                  cookieStoreId: context[0].cookieStoreId
+                });
+                pins.then(closeOldTab, onError);
               }
-              var pins = browser.tabs.query({
-                cookieStoreId: context[0].cookieStoreId
+              if (requestDetails.url.endsWith('xhr1.html')) {
+                hostname = url.split('/')[2];
+                let prefix = url.substr(0, url.indexOf('://') + 3);
+                requestDetails.url = prefix + hostname + '/i2psnark/';
+              }
+              var created = browser.tabs.create({
+                active: true,
+                pinned: true,
+                cookieStoreId: context[0].cookieStoreId,
+                url: requestDetails.url
               });
-              pins.then(closeOldTab, onError);
+              created.then(onCreated, onContextError);
             }
-            if (requestDetails.url.endsWith('xhr1.html')) {
-              hostname = url.split('/')[2];
-              let prefix = url.substr(0, url.indexOf('://') + 3);
-              requestDetails.url = prefix + hostname + '/i2psnark/';
-            }
-            var created = browser.tabs.create({
-              active: true,
-              pinned: true,
-              cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url
-            });
-            created.then(onCreated, onContextError);
+            var gettab = browser.tabs.get(tabId.id);
+            gettab.then(Create, onContextError);
+            return tabId;
           }
-          var gettab = browser.tabs.get(tabId.id);
-          gettab.then(Create, onContextError);
-          return tabId;
         }
       } catch (error) {
         console.log('(isolate)Context Error', error);
@@ -613,30 +621,48 @@ var coolheadersSetup = function(e) {
             break;
           }
           if (header.name.toUpperCase() === 'I2P-TORRENTLOCATION' || header.name.toUpperCase() === 'X-I2P-TORRENTLOCATION') {
+            var imgs = document.getElementsByTagName('img');
+            for (let img of imgs) {
+              if (tmpsrc.host == location.host) {
+                img.src = 'http://127.0.0.1:7657/i2psnark/' + tmpsrc.host + tmpsrc.pathname;
+                img.onerror = function() {
+                  img.src = tmpsrc
+                };
+              }
+            }
             browser.pageAction.setPopup({
               tabId: tabId.id,
               popup: 'torrent.html'
             });
             browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: e.tabId});
-            browser.pageAction.show(e.tabId);
             browser.pageAction.setTitle({
               tabId: e.tabId,
               title: header.value
             });
+            browser.pageAction.show(e.tabId);
             break;
           }
-        }else{
+        }else {
           if (header.name.toUpperCase() === 'I2P-TORRENTLOCATION' || header.name.toUpperCase() === 'X-I2P-TORRENTLOCATION') {
+            var imgs = document.getElementsByTagName('img');
+            for (let img of imgs) {
+              if (tmpsrc.host == location.host) {
+                img.src = 'http://127.0.0.1:7657/i2psnark/' + tmpsrc.host + tmpsrc.pathname;
+                img.onerror = function() {
+                  img.src = tmpsrc
+                };
+              }
+            }
             browser.pageAction.setPopup({
               tabId: tabId.id,
               popup: 'torrent.html'
             });
             browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: e.tabId});
-            browser.pageAction.show(e.tabId);
             browser.pageAction.setTitle({
               tabId: e.tabId,
               title: header.value
             });
+            browser.pageAction.show(e.tabId);
             break;
           }
         }
