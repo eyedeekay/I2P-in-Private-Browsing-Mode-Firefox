@@ -625,6 +625,20 @@ var coolheadersSetup = function(e) {
             });
             break;
           }
+        }else{
+          if (header.name.toUpperCase() === 'I2P-TORRENTLOCATION' || header.name.toUpperCase() === 'X-I2P-TORRENTLOCATION') {
+            browser.pageAction.setPopup({
+              tabId: tabId.id,
+              popup: 'torrent.html'
+            });
+            browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: e.tabId});
+            browser.pageAction.show(e.tabId);
+            browser.pageAction.setTitle({
+              tabId: e.tabId,
+              title: header.value
+            });
+            break;
+          }
         }
       }
       resolve({responseHeaders: e.responseHeaders});
@@ -641,6 +655,22 @@ function getClearTab(tobj) {
           browser.pageAction.setPopup({
             tabId: tab.id,
             popup: 'location.html'
+          });
+          browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: tab.id});
+          browser.pageAction.setTitle({
+            tabId: tab.id,
+            title: response.content
+          });
+          browser.pageAction.show(tab.id);
+        }
+      });
+      console.log("(pageaction)", tab.id, tab.url)
+    } else {
+      browser.tabs.sendMessage( tab.id, {'req':'i2p-torrentlocation'}).then( response => {
+        if (response.content.toUpperCase() != "NO-ALT-LOCATION"){
+          browser.pageAction.setPopup({
+            tabId: tab.id,
+            popup: 'torrent.html'
           });
           browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: tab.id});
           browser.pageAction.setTitle({

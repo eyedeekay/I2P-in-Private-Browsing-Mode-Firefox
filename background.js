@@ -178,12 +178,14 @@ function themeWindow(window) {
             }
           });
         }
-        browser.pageAction.setPopup({
-          tabId: tabInfo[0].id,
-          popup: 'security.html'
-        });
-        //console.log("(background) tabinfo", tabInfo[0].id)
-        browser.pageAction.show(tabInfo[0].id);
+        if (tabinfo.url.startsWith("https://")){
+          browser.pageAction.setPopup({
+            tabId: tabInfo[0].id,
+            popup: 'security.html'
+          });
+          //console.log("(background) tabinfo", tabInfo[0].id)
+          browser.pageAction.show(tabInfo[0].id);
+        }
       } else if (context.name == routerpref) {
         console.log('Active in Router Console window');
         if (window.incognito) {
