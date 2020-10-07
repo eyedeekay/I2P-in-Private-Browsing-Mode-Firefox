@@ -4,13 +4,33 @@
   <link type="text/html" rel="alternate" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases"/>
   <link type="application/atom+xml" rel="self" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases.atom"/>
   <title>Release notes from I2P-in-Private-Browsing-Mode-Firefox</title>
-  <updated>2020-06-23T03:21:35Z</updated>
+  <updated>2020-09-26T03:36:35Z</updated>
+  <entry>
+    <id>tag:github.com,2008:Repository/169256012/0.79</id>
+    <updated>2020-09-26T03:36:46Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/tag/0.79"/>
+    <title>0.79</title>
+    <enclosure url="magnet:?xt=urn:btih:3d720ae6a1e4891a34412880e7b6af107963e1ba" type="application/x-bittorrent" />
+    <content type="html">&lt;p&gt;A simple plugin for configuring a Firefox based web browser to isolate I2P&lt;br&gt;
+Browsing to a single contextual identity, thus creating an I2P in Private&lt;br&gt;
+Browsing mode. It requires the use of a pre-installed I2P Router.&lt;br&gt;
+i2psetproxy.js (0.79-1) UNRELEASED; urgency=low&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Pin application tabs to the front of the tab order&lt;/li&gt;
+&lt;li&gt;Refine pageaction behavior&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Mon, 24 SEP 2020 20:18:03 -0400&lt;/p&gt;
+&lt;p&gt;i2psetproxy.js (0.77-1) UNRELEASED; urgency=low&lt;/p&gt;</content>
+    <author>
+      <name>eyedeekay</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars3.githubusercontent.com/u/8733713?s=60&amp;v=4"/>
+  </entry>
   <entry>
     <id>tag:github.com,2008:Repository/169256012/0.77</id>
     <updated>2020-09-25T00:19:45Z</updated>
     <link rel="alternate" type="text/html" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/tag/0.77"/>
     <title>0.77</title>
-    <enclosure url="magnet:?xt=urn:btih:5f45673bc107ec42a8b4d02aa4d5d7487949fc66" type="application/x-bittorrent" />
     <content type="html">&lt;p&gt;Merge pull request &lt;a class=&quot;issue-link js-issue-link&quot; href=&quot;https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/pull/100&quot;&gt;#100&lt;/a&gt; from eyedeekay/bookmarks&lt;/p&gt;
 
 &lt;p&gt;make the bookmarks part of a subdirectory&lt;/p&gt;</content>
@@ -170,26 +190,6 @@ i2psetproxy.js (0.61-1) UNRELEASED; urgency=low&lt;/p&gt;
 &lt;/ul&gt;
 &lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt; Mon, 02 MAR 2020 17:46:24 -0400&lt;/p&gt;
 &lt;p&gt;i2psetproxy.js (0.59-1) UNRELEASED; urgency=low&lt;/p&gt;</content>
-    <author>
-      <name>eyedeekay</name>
-    </author>
-    <media:thumbnail height="30" width="30" url="https://avatars3.githubusercontent.com/u/8733713?s=60&amp;v=4"/>
-  </entry>
-  <entry>
-    <id>tag:github.com,2008:Repository/169256012/0.59</id>
-    <updated>2020-02-26T03:10:23Z</updated>
-    <link rel="alternate" type="text/html" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/tag/0.59"/>
-    <title>0.59</title>
-    <content type="html">&lt;p&gt;A simple plugin for configuring a Firefox based web browser to isolate I2P&lt;br&gt;
-Browsing to a single contextual identity, thus creating an I2P in Private&lt;br&gt;
-Browsing mode. It requires the use of a pre-installed I2P Router.&lt;br&gt;
-i2psetproxy.js (0.59-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;transmission-rpc based torrent controls&lt;/li&gt;
-&lt;li&gt;bugfixes&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt; Tue, 25 FEB 2020 20:52:19 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.57-1) UNRELEASED; urgency=low&lt;/p&gt;</content>
     <author>
       <name>eyedeekay</name>
     </author>

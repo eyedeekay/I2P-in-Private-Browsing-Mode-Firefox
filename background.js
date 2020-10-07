@@ -178,10 +178,10 @@ function themeWindow(window) {
             }
           });
         }
-        browser.pageAction.setPopup({
+        /*browser.pageAction.setPopup({
           tabId: tabInfo[0].id,
           popup: 'security.html'
-        });
+        });*/
         //console.log("(background) tabinfo", tabInfo[0].id)
         browser.pageAction.show(tabInfo[0].id);
       } else if (context.name == routerpref) {
