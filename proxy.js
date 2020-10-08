@@ -32,8 +32,7 @@ var handleContextProxyRequest = async function(requestDetails) {
       }
       if (context != undefined) {
         if (context.name == titlepref) {
-          var tab = tabGet(requestDetails.tabId);
-          if (!requestDetails.url.includes('/i2psnark/') && !requestDetails.url.endsWith("/")) {
+          if (!requestDetails.url.includes('/i2psnark/') && !requestDetails.url.endsWith('/')) {
             console.log('URL', requestDetails.url);
             proxy = {
               type: getScheme(),
@@ -104,6 +103,27 @@ var handleContextProxyRequest = async function(requestDetails) {
     var contextGet = async function(tabInfo) {
       try {
         console.log('(proxy)Tab info from Function', tabInfo);
+        function proxyErrorPage(error) {
+          console.log('proxy error tab url', tabInfo);
+          function onGot(contexts) {
+            console.log('proxy error context', contexts[0].cookieStoreId);
+            if (contexts[0].cookieStoreId == tabInfo.cookieStoreId) {
+              browser.tabs.update(tabInfo.id, {
+                active: true,
+                url: browser.runtime.getURL('proxy.html')
+              });
+            }
+          }
+
+          function onError(e) {
+            console.error('proxy error tab url', e);
+          }
+
+          browser.contextualIdentities.query({name: titlepref}).then(onGot, onError);
+        }
+
+
+        browser.proxy.onError.addListener(proxyErrorPage);
         context = await browser.contextualIdentities.get(tabInfo.cookieStoreId);
         return context;
       } catch (error) {
