@@ -33,7 +33,7 @@ var handleContextProxyRequest = async function(requestDetails) {
       if (context != undefined) {
         if (context.name == titlepref) {
           var tab = tabGet(requestDetails.tabId);
-          if (!requestDetails.url.includes('/i2psnark/') && !requestDetails.url.endsWith("/")) {
+          if (!requestDetails.url.includes('/i2psnark/')) {
             console.log('URL', requestDetails.url);
             proxy = {
               type: getScheme(),

@@ -31,7 +31,7 @@ browser.runtime.onMessage.addListener(request => {
             if (tmpsrc.host == location.host) {
               img.src = 'http://127.0.0.1:7657/i2psnark/' + tmpsrc.host + tmpsrc.pathname;
               img.onerror = function() {
-                img.src = tmpsrc
+                img.src = tmpsrc;
               };
             }
           }
@@ -43,7 +43,7 @@ browser.runtime.onMessage.addListener(request => {
             if (tmpsrc.host == location.host) {
               img.src = 'http://127.0.0.1:7657/i2psnark/' + tmpsrc.host + tmpsrc.pathname;
               img.onerror = function() {
-                img.src = tmpsrc
+                img.src = tmpsrc;
               };
             }
           }
