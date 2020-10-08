@@ -32,7 +32,7 @@ var handleContextProxyRequest = async function(requestDetails) {
       }
       if (context != undefined) {
         if (context.name == titlepref) {
-          if (!requestDetails.url.includes('/i2psnark/') && !requestDetails.url.endsWith('/')) {
+          if (!requestDetails.url.includes('/i2psnark/') && !requestDetails.url.endsWith("/")) {
             console.log('URL', requestDetails.url);
             proxy = {
               type: getScheme(),
@@ -104,26 +104,27 @@ var handleContextProxyRequest = async function(requestDetails) {
       try {
         console.log('(proxy)Tab info from Function', tabInfo);
         function proxyErrorPage(error) {
-          console.log('proxy error tab url', tabInfo);
+          console.log("proxy error tab url", error, tabInfo);
           function onGot(contexts) {
-            console.log('proxy error context', contexts[0].cookieStoreId);
-            if (contexts[0].cookieStoreId == tabInfo.cookieStoreId) {
-              browser.tabs.update(tabInfo.id, {
-                active: true,
-                url: browser.runtime.getURL('proxy.html')
-              });
+            console.log("proxy error context", contexts[0].cookieStoreId)
+            if (error.message != "ProxyInfoData: Invalid proxy server type: \"undefined\""){
+              if (contexts[0].cookieStoreId == tabInfo.cookieStoreId) {
+                browser.tabs.update(tabInfo.id, {
+                  url: browser.runtime.getURL("proxy.html")
+                })
+              }
             }
           }
 
           function onError(e) {
-            console.error('proxy error tab url', e);
+            console.error("proxy error tab url", e);
           }
 
           browser.contextualIdentities.query({name: titlepref}).then(onGot, onError);
         }
-
-
+        
         browser.proxy.onError.addListener(proxyErrorPage);
+
         context = await browser.contextualIdentities.get(tabInfo.cookieStoreId);
         return context;
       } catch (error) {
