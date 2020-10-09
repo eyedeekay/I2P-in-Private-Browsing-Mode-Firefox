@@ -757,6 +757,7 @@ function getClearTab(tobj) {
 }
 
 browser.tabs.onActivated.addListener(getClearTab);
+browser.tabs.onUpdated.addListener(getClearTab);
 
 function reloadTabs(tabs) {
   for (let tab of tabs) {
