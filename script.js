@@ -39,18 +39,22 @@ browser.runtime.onMessage.addListener(request => {
           for (let video of videos) {
             let tmpsrc = new URL(video.currentSrc);
             if (tmpsrc.host == location.host) {
-              innerHTML = video.innerHTML;
-              topInnerHTML = video.innerHTML.replace('src=\"', 'src=\"http://127.0.0.1:7657/i2psnark/' + location.host + '/');
-              video.innerHTML = topInnerHTML + innerHTML;
+              if (!video.innerHTML.includes('127.0.0.1')) {
+                innerHTML = video.innerHTML;
+                topInnerHTML = video.innerHTML.replace('src=\"', 'src=\"http://127.0.0.1:7657/i2psnark/' + location.host + '/');
+                video.innerHTML = topInnerHTML + innerHTML;
+              }
             }
           }
           var audios = document.getElementsByTagName('audio');
           for (let audio of audios) {
             let tmpsrc = new URL(audio.currentSrc);
             if (tmpsrc.host == location.host) {
-              innerHTML = audio.innerHTML;
-              topInnerHTML = audio.innerHTML.replace('src=\"', 'src=\"http://127.0.0.1:7657/i2psnark/' + location.host + '/');
-              audio.innerHTML = topInnerHTML + innerHTML;
+              if (!audio.innerHTML.includes('127.0.0.1')) {
+                innerHTML = audio.innerHTML;
+                topInnerHTML = audio.innerHTML.replace('src=\"', 'src=\"http://127.0.0.1:7657/i2psnark/' + location.host + '/');
+                audio.innerHTML = topInnerHTML + innerHTML;
+              }
             }
           }
         }
@@ -69,18 +73,22 @@ browser.runtime.onMessage.addListener(request => {
           for (let video of videos) {
             let tmpsrc = new URL(video.currentSrc);
             if (tmpsrc.host == location.host) {
-              innerHTML = video.innerHTML;
-              topInnerHTML = video.innerHTML.replace('src=\"', 'src=\"http://127.0.0.1:7657/i2psnark/' + location.host + '/');
-              video.innerHTML = topInnerHTML + innerHTML;
+              if (!video.innerHTML.includes('127.0.0.1')) {
+                innerHTML = video.innerHTML;
+                topInnerHTML = video.innerHTML.replace('src=\"', 'src=\"http://127.0.0.1:7657/i2psnark/' + location.host + '/');
+                video.innerHTML = topInnerHTML + innerHTML;
+              }
             }
           }
           var audios = document.getElementsByTagName('audio');
           for (let audio of audios) {
             let tmpsrc = new URL(audio.currentSrc);
             if (tmpsrc.host == location.host) {
-              innerHTML = audio.innerHTML;
-              topInnerHTML = audio.innerHTML.replace('src=\"', 'src=\"http://127.0.0.1:7657/i2psnark/' + location.host + '/');
-              audio.innerHTML = topInnerHTML + innerHTML;
+              if (!audio.innerHTML.includes('127.0.0.1')) {
+                innerHTML = audio.innerHTML;
+                topInnerHTML = audio.innerHTML.replace('src=\"', 'src=\"http://127.0.0.1:7657/i2psnark/' + location.host + '/');
+                audio.innerHTML = topInnerHTML + innerHTML;
+              }
             }
           }
         }
