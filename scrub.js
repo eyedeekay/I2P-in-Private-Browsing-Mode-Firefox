@@ -753,7 +753,12 @@ function getClearTab(tobj) {
       console.log("(pageaction)", tab.id, tab.url)
     }
   }
-  browser.tabs.get(tobj.tabId).then(getTabURL, onError)  
+  console.log(tobj)
+  if (typeof(tobj) == "number"){
+    browser.tabs.get(tobj).then(getTabURL, onError)  
+  }else{
+    browser.tabs.get(tobj.tabId).then(getTabURL, onError)  
+  }
 }
 
 browser.tabs.onActivated.addListener(getClearTab);
