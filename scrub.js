@@ -423,7 +423,7 @@ var contextSetup = function(requestDetails) {
         console.log('(isolate)Context Error', error);
       }
     };
-    var localTabFind = async function(tabId) {
+    /*var localTabFind = async function(tabId) {
       try {
         var context = await browser.contextualIdentities.query({
           name: localpref
@@ -455,7 +455,7 @@ var contextSetup = function(requestDetails) {
       } catch (error) {
         console.log('(isolate)Context Error', error);
       }
-    };
+    };*/
     var normalTabFind = async function(tabId) {
       if (tabId == undefined) {
         return;
@@ -587,10 +587,10 @@ var contextSetup = function(requestDetails) {
           return requestDetails;
         }
       } else {
-        if (localhost) {
+        /*if (localhost) {
           var localtab = tab.then(localTabFind, onContextError);
           return requestDetails;
-        }
+        }*/
         var normalTab = tab.then(normalTabFind, onContextError);
         return requestDetails;
         //return requestDetails;
