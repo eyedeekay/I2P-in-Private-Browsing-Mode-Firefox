@@ -1,17 +1,17 @@
 body,
 html {
-  width: 400px;
+  width: 400px
 }
 .panel {
   margin: 5px;
   width: 400px;
-  height:400px;
+  height: 400px
 }
 .panel-section-header {
-  width: 400px;
+  width: 400px
 }
 #text-section-torrents-header {
-  width: 400px;
+  width: 400px
 }
 span.identity {
   width: 400px;
@@ -62,5 +62,5 @@ img.readyness {
   width: 100%
 }
 .tabicon {
-  width: 32px;
+  width: 32px
 }
