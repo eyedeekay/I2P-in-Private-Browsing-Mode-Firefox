@@ -1,5 +1,5 @@
 body {
-  width: 25em;
+/*  width: 25em;*/
   font-family: "Open Sans Light",sans-serif;
   font-size: 0.9em;
   font-weight: 300
@@ -14,8 +14,9 @@ section.scheme-options {
 #clear-button,
 section.scheme-options input,
 section.scheme-options>select {
-  float: right
+/*  float: right*/
 }
+
 label {
   display: block;
   margin-top: 1em
@@ -25,27 +26,31 @@ label:hover {
 }
 .title {
   font-size: 1.2em;
-  margin-bottom: 0.5em
+  margin-bottom: 0.5em;
+  width: 100%
 }
 body,
 html {
-  width: 350px
+  width: 100%
 }
 a {
   margin: 10px;
-  display: inline-block
+/*  display: inline-block*/
 }
 .panel {
   margin: 5px
 }
 span.identity {
   width: 100px;
-  display: inline-block;
+/*  display: inline-block;*/
   margin-left: 1em
 }
 .identity-options {
   display: none
 }
 input {
-  display: inline
+/*  display: inline*/
+}
+div {
+  width: 100% !important;
 }

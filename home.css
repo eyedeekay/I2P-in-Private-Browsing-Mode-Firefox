@@ -267,13 +267,3 @@ img.readyness {
   height: 100%;
   width: auto
 }
-@media only screen and (max-width: 399px) {
-  .application-info {
-    display: none
-  }
-}
-@media only screen and (max-height: 399px) {
-  body {
-    flex-direction: row
-  }
-}

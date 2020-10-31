@@ -2,6 +2,16 @@ li {
   width: 90%;
   margin-left: 0
 }
+ul {
+  width: 100%;
+}
+button {
+  width: 50%;
+  text-align: center
+}
 #applicationExplain {
   float: unset
+}
+.button-list {
+  display: inline
 }
