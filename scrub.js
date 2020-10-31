@@ -280,42 +280,50 @@ var contextSetup = function(requestDetails) {
           name: torrentpref
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
-          function Create() {
-            function onCreated(tab) {
-              function closeOldTab(tabs) {
-                if (tabId.id != tab.id) {
-                  console.log('(isolate) Closing un-isolated tab', tabId.id);
-                  console.log('in favor of', tab.id);
-                  console.log('with context', tab.cookieStoreId);
-                  browser.tabs.remove(tabId.id);
-                  browser.tabs.move(tab.id, {index: 2});
+          var exemptContext = await browser.contextualIdentities.query({
+            name: titlepref
+          });
+          let tmp = new URL(tabId.url);
+          console.log('tabid host', tmp.host);
+          if (!requestDetails.url.includes(tmp.host)) {
+//          if (tabId.cookieStoreId != exemptContext[0].cookieStoreId){
+            function Create() {
+              function onCreated(tab) {
+                function closeOldTab(tabs) {
+                  if (tabId.id != tab.id) {
+                    console.log('(isolate) Closing un-isolated tab', tabId.id);
+                    console.log('in favor of', tab.id);
+                    console.log('with context', tab.cookieStoreId);
+                    browser.tabs.remove(tabId.id);
+                    browser.tabs.move(tab.id, {index: 2});
+                  }
+                  for (index = 0; index < tabs.length; index++) {
+                    if (index != tabs.length - 1)
+                      browser.tabs.remove(tabs[index].id);
+                  }
                 }
-                for (index = 0; index < tabs.length; index++) {
-                  if (index != tabs.length - 1)
-                    browser.tabs.remove(tabs[index].id);
-                }
+                var pins = browser.tabs.query({
+                  cookieStoreId: context[0].cookieStoreId
+                });
+                pins.then(closeOldTab, onError);
               }
-              var pins = browser.tabs.query({
-                cookieStoreId: context[0].cookieStoreId
+              if (requestDetails.url.endsWith('xhr1.html')) {
+                hostname = url.split('/')[2];
+                let prefix = url.substr(0, url.indexOf('://') + 3);
+                requestDetails.url = prefix + hostname + '/i2psnark/';
+              }
+              var created = browser.tabs.create({
+                active: true,
+                pinned: true,
+                cookieStoreId: context[0].cookieStoreId,
+                url: requestDetails.url
               });
-              pins.then(closeOldTab, onError);
+              created.then(onCreated, onContextError);
             }
-            if (requestDetails.url.endsWith('xhr1.html')) {
-              hostname = url.split('/')[2];
-              let prefix = url.substr(0, url.indexOf('://') + 3);
-              requestDetails.url = prefix + hostname + '/i2psnark/';
-            }
-            var created = browser.tabs.create({
-              active: true,
-              pinned: true,
-              cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url
-            });
-            created.then(onCreated, onContextError);
+            var gettab = browser.tabs.get(tabId.id);
+            gettab.then(Create, onContextError);
+            return tabId;
           }
-          var gettab = browser.tabs.get(tabId.id);
-          gettab.then(Create, onContextError);
-          return tabId;
         }
       } catch (error) {
         console.log('(isolate)Context Error', error);
@@ -415,7 +423,7 @@ var contextSetup = function(requestDetails) {
         console.log('(isolate)Context Error', error);
       }
     };
-    var localTabFind = async function(tabId) {
+    /*var localTabFind = async function(tabId) {
       try {
         var context = await browser.contextualIdentities.query({
           name: localpref
@@ -447,7 +455,7 @@ var contextSetup = function(requestDetails) {
       } catch (error) {
         console.log('(isolate)Context Error', error);
       }
-    };
+    };*/
     var normalTabFind = async function(tabId) {
       if (tabId == undefined) {
         return;
@@ -579,10 +587,10 @@ var contextSetup = function(requestDetails) {
           return requestDetails;
         }
       } else {
-        if (localhost) {
+        /*if (localhost) {
           var localtab = tab.then(localTabFind, onContextError);
           return requestDetails;
-        }
+        }*/
         var normalTab = tab.then(normalTabFind, onContextError);
         return requestDetails;
         //return requestDetails;
@@ -613,16 +621,92 @@ var coolheadersSetup = function(e) {
             break;
           }
           if (header.name.toUpperCase() === 'I2P-TORRENTLOCATION' || header.name.toUpperCase() === 'X-I2P-TORRENTLOCATION') {
+            var imgs = document.getElementsByTagName('img');
+            for (let img of imgs) {
+              if (tmpsrc.host == location.host) {
+                img.src = 'http://127.0.0.1:7657/i2psnark/' + tmpsrc.host + tmpsrc.pathname;
+                img.onerror = function() {
+                  img.src = tmpsrc;
+                };
+              }
+            }
+            var videos = document.getElementsByTagName('video');
+            for (let video of videos) {
+              let tmpsrc = new URL(video.currentSrc);
+              if (tmpsrc.host == location.host) {
+                if (!video.innerHTML.includes('127.0.0.1')) {
+                  innerHTML = video.innerHTML;
+                  topInnerHTML = video.innerHTML.replace('src=\"', 'src=\"http://127.0.0.1:7657/i2psnark/' + location.host + '/');
+                  video.innerHTML = topInnerHTML + innerHTML;
+                }
+              }
+            }
+            var audios = document.getElementsByTagName('audio');
+            for (let audio of audios) {
+              let tmpsrc = new URL(audio.currentSrc);
+              if (tmpsrc.host == location.host) {
+                if (!audio.innerHTML.includes('127.0.0.1')) {
+                  innerHTML = audio.innerHTML;
+                  topInnerHTML = audio.innerHTML.replace('src=\"', 'src=\"http://127.0.0.1:7657/i2psnark/' + location.host + '/');
+                  audio.innerHTML = topInnerHTML + innerHTML;
+                }
+              }
+            }
             browser.pageAction.setPopup({
               tabId: tabId.id,
               popup: 'torrent.html'
             });
             browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: e.tabId});
-            browser.pageAction.show(e.tabId);
             browser.pageAction.setTitle({
               tabId: e.tabId,
               title: header.value
             });
+            browser.pageAction.show(e.tabId);
+            break;
+          }
+        }else {
+          if (header.name.toUpperCase() === 'I2P-TORRENTLOCATION' || header.name.toUpperCase() === 'X-I2P-TORRENTLOCATION') {
+            var imgs = document.getElementsByTagName('img');
+            for (let img of imgs) {
+              if (tmpsrc.host == location.host) {
+                img.src = 'http://127.0.0.1:7657/i2psnark/' + tmpsrc.host + tmpsrc.pathname;
+                img.onerror = function() {
+                  img.src = tmpsrc;
+                };
+              }
+            }
+            var videos = document.getElementsByTagName('video');
+            for (let video of videos) {
+              let tmpsrc = new URL(video.currentSrc);
+              if (tmpsrc.host == location.host) {
+                if (!video.innerHTML.includes('127.0.0.1')) {
+                  innerHTML = video.innerHTML;
+                  topInnerHTML = video.innerHTML.replace('src=\"', 'src=\"http://127.0.0.1:7657/i2psnark/' + location.host + '/');
+                  video.innerHTML = topInnerHTML + innerHTML;
+                }
+              }
+            }
+            var audios = document.getElementsByTagName('audio');
+            for (let audio of audios) {
+              let tmpsrc = new URL(audio.currentSrc);
+              if (tmpsrc.host == location.host) {
+                if (!audio.innerHTML.includes('127.0.0.1')) {
+                  innerHTML = audio.innerHTML;
+                  topInnerHTML = audio.innerHTML.replace('src=\"', 'src=\"http://127.0.0.1:7657/i2psnark/' + location.host + '/');
+                  audio.innerHTML = topInnerHTML + innerHTML;
+                }
+              }
+            }
+            browser.pageAction.setPopup({
+              tabId: tabId.id,
+              popup: 'torrent.html'
+            });
+            browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: e.tabId});
+            browser.pageAction.setTitle({
+              tabId: e.tabId,
+              title: header.value
+            });
+            browser.pageAction.show(e.tabId);
             break;
           }
         }
@@ -651,12 +735,33 @@ function getClearTab(tobj) {
         }
       });
       console.log("(pageaction)", tab.id, tab.url)
+    } else {
+      browser.tabs.sendMessage( tab.id, {'req':'i2p-torrentlocation'}).then( response => {
+        if (response.content.toUpperCase() != "NO-ALT-LOCATION"){
+          browser.pageAction.setPopup({
+            tabId: tab.id,
+            popup: 'torrent.html'
+          });
+          browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: tab.id});
+          browser.pageAction.setTitle({
+            tabId: tab.id,
+            title: response.content
+          });
+          browser.pageAction.show(tab.id);
+        }
+      });
+      console.log("(pageaction)", tab.id, tab.url)
     }
   }
-  browser.tabs.get(tobj.tabId).then(getTabURL, onError)  
+  if (typeof(tobj) == "number"){
+    browser.tabs.get(tobj).then(getTabURL, onError)  
+  }else{
+    browser.tabs.get(tobj.tabId).then(getTabURL, onError)  
+  }
 }
 
 browser.tabs.onActivated.addListener(getClearTab);
+browser.tabs.onUpdated.addListener(getClearTab);
 
 function reloadTabs(tabs) {
   for (let tab of tabs) {

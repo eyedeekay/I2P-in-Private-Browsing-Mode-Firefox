@@ -32,11 +32,15 @@ var handleContextProxyRequest = async function(requestDetails) {
       }
       if (context != undefined) {
         if (context.name == titlepref) {
-          proxy = {
-            type: getScheme(),
-            host: getHost(),
-            port: getPort()
-          };
+          var tab = tabGet(requestDetails.tabId);
+          if (!requestDetails.url.includes('/i2psnark/')) {
+            console.log('URL', requestDetails.url);
+            proxy = {
+              type: getScheme(),
+              host: getHost(),
+              port: getPort()
+            };
+          }
           /*console.log("(proxy)", context.name);
           console.log("Using", proxy.type);
           console.log("proxy ", proxy.host + ":" + proxy.port);*/
@@ -109,7 +113,7 @@ var handleContextProxyRequest = async function(requestDetails) {
     };
     var tabGet = async function(tabId) {
       try {
-        //console.log("(proxy)Tab ID from Request", tabId);
+        console.log('(proxy)Tab ID from Request', tabId);
         let tabInfo = await browser.tabs.get(tabId);
         return tabInfo;
       } catch (error) {

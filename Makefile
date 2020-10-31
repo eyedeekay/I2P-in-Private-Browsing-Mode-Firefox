@@ -201,10 +201,10 @@ getxpi:
 
 torrent: getxpi
 	rm -f "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent"
-	mktorrent -a http://zviyq72xcmjupynn5y2f5qa3u7bxyu34jnqmwt6czte2l7idxm7q.b32.i2p/announce \
+	mktorrent -a http://w7tpbzncbcocrqtwwm3nezhnnsw4ozadvi2hmvzdhrqzfxfum7wa.b32.i2p/a \
+		-a http://zviyq72xcmjupynn5y2f5qa3u7bxyu34jnqmwt6czte2l7idxm7q.b32.i2p/announce \
 		-a http://s5ikrdyjwbcgxmqetxb3nyheizftms7euacuub2hic7defkh3xhq.b32.i2p/a \
 		-a http://uajd4nctepxpac4c4bdyrdw7qvja2a5u3x25otfhkptcjgd53ioq.b32.i2p/announce \
-		-a http://w7tpbzncbcocrqtwwm3nezhnnsw4ozadvi2hmvzdhrqzfxfum7wa.b32.i2p/a \
 		-a http://explodie.org:6969/announce \
 		-a http://tracker.opentrackr.org:1337/announce \
 		-a http://tracker.kamigami.org:2710/announce \

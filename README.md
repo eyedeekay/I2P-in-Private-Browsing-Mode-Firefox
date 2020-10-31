@@ -97,10 +97,11 @@ Usage:
    console URL's and placing applications under their own origin.
   * ![Visiting routerconsole](routerconsole.png)
   * [Done] **Handle Torrents** by talking to i2psnark-rpc plugin and then
-   adding them directly into the Firefox downloads drop-downs, menus, etc. If I
-   can.
+   adding them directly into the Firefox downloads drop-downs, menus, etc. Enable
+   the use of I2PSnark as a peer-to-peer delivery mechanism for media files.
   * ![Visiting i2psnark](i2psnark.png)
   * ![Monitoring torrents](transmissionrpc.png)
+  * ![Distribute your site as a torrent.](x-i2p-torrentlocation.png)
   * [Started] **Indicate** the level of authenticity provided by TLS. TLS is
    optional on I2P for now, but some sites offer it anyway. TLS support is
    experimental and in the works.
