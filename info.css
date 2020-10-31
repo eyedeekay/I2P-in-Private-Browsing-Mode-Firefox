@@ -5,6 +5,7 @@ html {
 .panel {
   margin: 5px;
   width: 400px;
+  height:400px;
 }
 .panel-section-header {
   width: 400px;
