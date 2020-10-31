@@ -1,12 +1,11 @@
 * {
   padding: 0;
-  background: #1f1a24;
-  color: #e6e6e7;
+  color: #1f1a24;
   margin: 0
 }
 a,
 button {
-  color: #3b6bbf;
+  color: #1f1a24;
   text-decoration: none;
   background: none;
   font-weight: 700;
@@ -16,7 +15,6 @@ button {
   margin: auto
 }
 .applicationDesc {
-  color: #e6e6e7;
   text-decoration: none;
   font-weight: 700;
   word-wrap: break-word;
@@ -46,7 +44,6 @@ body {
   font-family: "Droid Sans","Noto Sans",Ubuntu,"Segoe UI","Lucida Grande",Verdana,Helvetica,sans-serif;
   margin: 0 auto;
   padding: 0;
-  color: #e6e6e7;
   text-decoration: none;
   font-weight: 700;
   word-wrap: break-word;
@@ -64,7 +61,6 @@ p {
   font-size: 17px;
   font-family: "Droid Sans","Noto Sans",Ubuntu,"Segoe UI","Lucida Grande",Verdana,Helvetica,sans-serif;
   text-decoration: none;
-  color: #e6e6e7;
   font-weight: 700;
   word-wrap: break-word;
   outline: 0
@@ -75,7 +71,7 @@ p {
   margin: 1.5rem;
   display: block;
   border-radius: 2px;
-  min-width: 95%
+  min-width: 100%
 }
 #header,
 .application-info,
@@ -87,7 +83,7 @@ p {
   margin-top: 1.5rem;
   display: block;
   border-radius: 2px;
-  min-width: 95%
+  min-width: 100%
 }
 h1 {
   margin: auto;
@@ -95,6 +91,8 @@ h1 {
   font-weight: 600;
   font-size: 32px;
   color: #e6e6e7;
+  background: #1f1a24;
+  width: 100%;
   border-radius: 2px 2px 0 0
 }
 h2,
@@ -105,7 +103,8 @@ h3 {
   font-size: 25px;
   color: #e6e6e7;
   border-radius: 2px 2px 0 0;
-  width: 90%;
+  background: #1f1a24;
+  width: 100%;
   padding-left: 5%
 }
 h4 {
@@ -115,7 +114,8 @@ h4 {
   font-size: 20px!important;
   color: #41465f;
   border-radius: 2px 2px 0 0;
-  width: 90%;
+  background: #1f1a24;
+  width: 100%;
   padding-left: 5%
 }
 .showhider {
@@ -123,7 +123,6 @@ h4 {
   font-family: "Droid Sans","Noto Sans",Ubuntu,"Segoe UI","Lucida Grande",Verdana,Helvetica,sans-serif;
   border: none;
   padding: 0!important;
-  width: 90%;
   color: #3b6bbf;
   text-decoration: none;
   font-weight: 700;
@@ -141,11 +140,16 @@ h4 {
 }
 ul {
   margin: auto;
-  border-radius: 2px
+  border-radius: 2px;
+  width: 100%;
+  margin: 0;
+  padding: 0
 }
 li {
   display: block;
-  text-align: center
+  text-align: center;
+  margin: 0;
+  padding: 0
 }
 .center {
   display: block;
@@ -260,10 +264,12 @@ button.applicationName {
 }
 img {
   max-width: 100%;
-  width: 90%;
   margin: 3%
 }
 img.readyness {
   height: 100%;
   width: auto
+}
+input {
+  color: #1f1a24
 }

@@ -1,20 +1,20 @@
 body,
 html {
-  width: 400px
+  width: 450px
 }
 .panel {
   margin: 5px;
-  width: 400px;
-  height: 400px
+  width: 450px;
+  height: 450px
 }
 .panel-section-header {
-  width: 400px
+  width: 450px
 }
 #text-section-torrents-header {
-  width: 400px
+  width: 450px
 }
 span.identity {
-  width: 400px;
+  width: 450px;
   display: block;
   margin-left: 1em
 }
@@ -59,7 +59,7 @@ img.readyness {
   display: none
 }
 .torrent-progress {
-  width: 100%
+  width: 90%
 }
 .tabicon {
   width: 32px

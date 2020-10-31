@@ -62,7 +62,7 @@ if (browser.contextualIdentities === undefined) {
 
       for (let identity of identities) {
         let row = document.createElement("div");
-        let span = document.createElement("span");
+        let span = document.createElement("div");
         span.className = "identity";
         span.innerText = identity.name;
         span.style = `color: ${identity.color}`;
