@@ -13,7 +13,6 @@ button {
   word-wrap: break-word;
   outline: 0;
   padding: 3px;
-  display: inline-block;
   margin: auto
 }
 .applicationDesc {
@@ -55,7 +54,6 @@ body {
   outline: 0
 }
 .button-list {
-  display: inline-flex;
   min-height: 230px;
   min-width: 230px
 }
@@ -144,7 +142,6 @@ h4 {
 }
 ul {
   margin: auto;
-  width: 85vw;
   border-radius: 2px
 }
 li {
