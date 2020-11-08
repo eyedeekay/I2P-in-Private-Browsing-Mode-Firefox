@@ -10,6 +10,20 @@ user requests them. It also adds convenience and management features, like an
 embedded I2P console and Bittorrent integration with clients using the
 transmission-rpc API.
 
+Privacy Policy
+--------------
+
+This browser extension does not collect any personal information. It requires
+access to local storage and browsing data permissions in order to delete them
+when directed to by the user. This browser extension does not transmit any
+information to any third party, nor will it, ever.
+
+This browser extension cannot influence telemetry carried out by browser vendors
+to determine performance in their distribution channels, nor can it mitigate any
+other browser vendor telemetry. 
+
+This browser extension is entirely Free, Open-Source software.
+
 Installation(Cross-Platform):
 -----------------------------
 
@@ -179,11 +193,14 @@ Project uplift seems to have largely been accomplished?
  * [Tor at the Heart: Firefox](https://blog.torproject.org/tor-heart-firefox) is
   a blog about Tor and the relationship they have to Firefox re: TBB, Fusion.
 
-The Old Version
----------------
+The **Other** Version
+---------------------
 
-New versions of this extension create an I2P in Private Browsing mode instead.
-Since this is a drastic change to the behavior of the old plugin, a new entry
+New versions of this extension create an I2P in Private Browsing mode instead,
+using container tabs.
+
+Since this is a drastic change to the behavior of the old plugin, and since there
+is no UI a new entry
 for the new plugin has been made at a new location on addons.mozilla.org.
 
  * This is the new version: [[link]](https://addons.mozilla.org/en-US/firefox/addon/i2p-in-private-browsing/)
@@ -193,20 +210,6 @@ for the new plugin has been made at a new location on addons.mozilla.org.
 Android usage:
 --------------
 
-Open the following link
-[Github Releases Version](https://github.com/eyedeekay/i2psetproxy.js/releases/)
-in the browser you want to use for I2P. Firefox will warn you that it is about
-to install an extension and indicate the permissions required. Read them over
-and when you're ready, accept them. That's all it should take, your browser is
-now configured to use I2P.
+Use the old version, on either an old version of Firefox(pre-68) or by enabling
+this custom collection: [Recommended Plugins] https://addons.mozilla.org/en-US/firefox/collections/14614396/I2P-Browser-Fork/
 
-### Android addons.mozilla.org(Temporarily Disabled)
-
-If you would prefer to recieve automatic updates from AMO, the correct product
-page for this plugin is
-[I2P In Private Browsing](https://addons.mozilla.org/en-US/firefox/addon/i2p-in-private-browsing/).
-This absolutely requires a working outproxy. If you want to avoid the use of AMO
-for updates, you can download the identical plugin from this repository's
-releases page. The latest AMO Plugin will always be identical to the latest
-github release, except for the version number, which must be incremented for
-submission to AMO.

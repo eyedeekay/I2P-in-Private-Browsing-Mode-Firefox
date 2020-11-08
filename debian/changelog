@@ -1,3 +1,12 @@
+i2psetproxy.js (0.81-1) UNRELEASED; urgency=low
+
+  * X-I2P-TorrentLocation header
+  * Visual tweaks
+  * Deprecate localhost browser container permanently
+  * Isolation rules improvements
+
+ -- idk <hankhill19580@gmail.com>  Sat, 07 NOV 2020 21:34:25 -0400
+
 i2psetproxy.js (0.79-1) UNRELEASED; urgency=low
 
   * Pin application tabs to the front of the tab order
