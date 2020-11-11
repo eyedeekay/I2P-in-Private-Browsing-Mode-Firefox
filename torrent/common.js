@@ -6,7 +6,7 @@ function rpcCall(meth, args) {
   return browser.storage.local.get(function(server) {
     const myHeaders = {
       'Content-Type': 'application/json',
-      'x-transmission-session-id': server.session
+      'x-transmission-session-id': server.session,
     };
     //console.log("(torrent)", server.session)
     if (server.username !== '' || server.btrpcpass !== '') {
@@ -19,7 +19,7 @@ function rpcCall(meth, args) {
       method: 'POST',
       headers: myHeaders,
       body: JSON.stringify({ method: meth, arguments: args }),
-      credentials: 'include' // allows HTTPS client certs!
+      credentials: 'include', // allows HTTPS client certs!
     })
       .then(function(response) {
         const session = response.headers.get('x-transmission-session-id');

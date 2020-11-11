@@ -1,4 +1,4 @@
-document.addEventListener('click', clickEvent => {
+document.addEventListener('click', (clickEvent) => {
   if (clickEvent.target.id === 'onboardingButtonZero') {
     flipVisibility('onboardingContentZero');
   } else if (clickEvent.target.id === 'onboardingButtonOne') {

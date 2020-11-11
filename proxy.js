@@ -4,14 +4,14 @@ var routerpref = chrome.i18n.getMessage('routerPreface');
 var routerprefpriv = chrome.i18n.getMessage('routerPrefacePrivate');
 
 browser.privacy.network.peerConnectionEnabled.set({
-  value: true
+  value: true,
 });
 
 chrome.privacy.network.networkPredictionEnabled.set({
-  value: false
+  value: false,
 });
 chrome.privacy.network.webRTCIPHandlingPolicy.set({
-  value: 'disable_non_proxied_udp'
+  value: 'disable_non_proxied_udp',
 });
 console.log('Disabled unproxied UDP.');
 
@@ -24,7 +24,7 @@ var handleContextProxyRequest = async function(requestDetails) {
     var handleProxyRequest = function(context) {
       proxy = {
         failoverTimeout: 0,
-        proxyDns: false
+        proxyDns: false,
       };
       if (context == 'firefox-default' || context == 'firefox-private') {
         proxy = null;
@@ -38,7 +38,7 @@ var handleContextProxyRequest = async function(requestDetails) {
             proxy = {
               type: getScheme(),
               host: getHost(),
-              port: getPort()
+              port: getPort(),
             };
           }
           return proxy;
@@ -46,7 +46,7 @@ var handleContextProxyRequest = async function(requestDetails) {
           proxy = {
             type: getScheme(),
             host: getHost(),
-            port: getPort()
+            port: getPort(),
           };
         } else if (context.name == routerpref) {
           if (routerHost(requestDetails.url)) {
@@ -55,7 +55,7 @@ var handleContextProxyRequest = async function(requestDetails) {
             proxy = {
               type: getScheme(),
               host: getHost(),
-              port: getPort()
+              port: getPort(),
             };
           }
           return proxy;
@@ -65,7 +65,7 @@ var handleContextProxyRequest = async function(requestDetails) {
               proxy = {
                 type: 'http',
                 host: 'localhost',
-                port: '65535'
+                port: '65535',
               };
             }
           }
@@ -80,17 +80,17 @@ var handleContextProxyRequest = async function(requestDetails) {
           if (requestDetails.url.includes(':7669')) {
             proxy = null;
           } else {
-          console.log(
-            '(proxy) non-routerconsole localhost url, will not interfere',
-            requestDetails.url
-          );
+            console.log(
+              '(proxy) non-routerconsole localhost url, will not interfere',
+              requestDetails.url
+            );
           }
         }
       } else if (i2pHost(requestDetails.url)) {
         proxy = {
           type: getScheme(),
           host: getHost(),
-          port: getPort()
+          port: getPort(),
         };
       }
       //var tab = tabGet(requestDetails.tabId);
@@ -120,7 +120,7 @@ var handleContextProxyRequest = async function(requestDetails) {
       proxy = {
         type: getScheme(),
         host: getHost(),
-        port: getPort()
+        port: getPort(),
       };
       return proxy;
     }
@@ -132,7 +132,7 @@ var handleContextProxyRequest = async function(requestDetails) {
       proxy = {
         type: getScheme(),
         host: getHost(),
-        port: getPort()
+        port: getPort(),
       };
       return proxy;
     }
@@ -147,7 +147,7 @@ var handleContextProxyRequest = async function(requestDetails) {
         proxy = {
           type: getScheme(),
           host: getHost(),
-          port: getPort()
+          port: getPort(),
         };
         return proxy;
       } else if (extensionHost(requestDetails.url)) {
@@ -304,7 +304,7 @@ function getConsolePort() {
 function setupProxy() {
   console.log('Setting up Firefox WebExtension proxy');
   browser.proxy.onRequest.addListener(handleContextProxyRequest, {
-    urls: ['<all_urls>']
+    urls: ['<all_urls>'],
   });
   console.log('i2p settings created for WebExtension Proxy');
 }
@@ -325,9 +325,9 @@ function updateFromStorage() {
     setupProxy();
   });
   var gettingInfo = browser.runtime.getPlatformInfo();
-  gettingInfo.then(got => {
+  gettingInfo.then((got) => {
     if (got.os != 'android') {
-      browser.windows.getAll().then(wins => wins.forEach(themeWindow));
+      browser.windows.getAll().then((wins) => wins.forEach(themeWindow));
     }
   });
 }
@@ -338,7 +338,7 @@ SetupSettings();
 setupProxy();
 
 var gettingListenerInfo = browser.runtime.getPlatformInfo();
-gettingListenerInfo.then(got => {
+gettingListenerInfo.then((got) => {
   browser.windows.onCreated.addListener(() => {
     chrome.storage.local.get(function() {
       setupProxy();

@@ -4,7 +4,7 @@ var TrpcCall = async function(meth, args) {
   const server = await browser.storage.local.get(null);
   const myHeaders = {
     'Content-Type': 'application/json',
-    'x-transmission-session-id': server.session
+    'x-transmission-session-id': server.session,
   };
   console.log('(torrent) session', server.session);
   if (server.username !== '' || server.btrpcpass !== '') {
@@ -16,7 +16,7 @@ var TrpcCall = async function(meth, args) {
     method: 'POST',
     headers: myHeaders,
     body: JSON.stringify({ method: meth, arguments: args }),
-    credentials: 'include' // allows HTTPS client certs!
+    credentials: 'include', // allows HTTPS client certs!
   });
 
   /*.then(function(response) {
@@ -38,7 +38,7 @@ const torrentsPane = document.getElementById('torrents-pane');
 const configPane = document.getElementById('config-pane');
 
 for (const opener of document.querySelectorAll('.config-opener')) {
-  opener.addEventListener('click', e => {
+  opener.addEventListener('click', (e) => {
     browser.runtime.openOptionsPage();
   });
 }
@@ -53,7 +53,13 @@ const torrentsList = document.getElementById("torrents-list");
 const torrentsTpl = document.getElementById("torrents-tpl");
 const torrentsError = document.getElementById("torrents-error");
 const getArgs = {
-  fields: ["name", "percentDone", "rateDownload", "rateUpload", "queuePosition"]
+  fields: [
+    "name",
+    "percentDone",
+    "rateDownload",
+    "rateUpload",
+    "queuePosition",
+  ],
 };
 let cachedTorrents = [];
 
@@ -90,7 +96,7 @@ function searchTorrents() {
   let newTorrents = cachedTorrents;
   const val = torrentsSearch.value.toLowerCase().trim();
   if (val.length > 0) {
-    newTorrents = newTorrents.filter(x => x.name.toLowerCase().includes(val));
+    newTorrents = newTorrents.filter((x) => x.name.toLowerCase().includes(val));
   }
   renderTorrents(newTorrents);
 }
@@ -99,16 +105,16 @@ torrentsSearch.addEventListener("keyup", searchTorrents);
 
 function refreshTorrents(server) {
   console.log("(torrent) initiating", server);
-  return TrpcCall("torrent-get", getArgs).then(function(response) {
+  return TrpcCall("torrent-get", getArgs).then(function (response) {
     const session = response.headers.get("x-transmission-session-id");
     if (session) {
-      browser.storage.local.get({}).then(function(storage) {
+      browser.storage.local.get({}).then(function (storage) {
         storage.session = session;
         browser.storage.local.set(storage);
       });
     }
     let sponse = response.json();
-    sponse.then(function(response) {
+    sponse.then(function (response) {
       console.log("(torrent) refreshing", response);
       let newTorrents = response.arguments.torrents;
       newTorrents.sort((x, y) => y.queuePosition - x.queuePosition);
@@ -125,7 +131,7 @@ function refreshTorrents(server) {
 }
 
 function refreshTorrentsLogErr(server) {
-  return refreshTorrents(server).catch(err => {
+  return refreshTorrents(server).catch((err) => {
     console.error(err);
     torrentsError.textContent = "Error: " + err.toString();
   });
@@ -138,12 +144,12 @@ function showTorrents(server) {
     opener.href = server.base_url + "web/";
   }
   console.log("(torrent) showing torrents");
-  refreshTorrents(server).catch(_ => refreshTorrentsLogErr(server));
+  refreshTorrents(server).catch((_) => refreshTorrentsLogErr(server));
   setInterval(() => refreshTorrentsLogErr(server), 2000);
 }
 
 //let store =
-browser.storage.local.get(function(server) {
+browser.storage.local.get(function (server) {
   console.log("(torrent) querying storage", server);
   if (server && server.base_url && server.base_url !== "") {
     showTorrents(server);

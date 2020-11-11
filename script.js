@@ -1,5 +1,4 @@
-
-browser.runtime.onMessage.addListener(request => {
+browser.runtime.onMessage.addListener((request) => {
   var response = '';
   if (request.req === 'i2p-location') {
     response = 'no-alt-location';
@@ -13,8 +12,7 @@ browser.runtime.onMessage.addListener(request => {
         if (tag.toUpperCase() === 'X-I2P-LOCATION') {
           response = metas[i].getAttribute('content');
         }
-      }catch{
-      };
+      } catch {};
     }
   }
   if (request.req === 'i2p-torrentlocation') {
@@ -29,7 +27,10 @@ browser.runtime.onMessage.addListener(request => {
           for (let img of imgs) {
             let tmpsrc = new URL(img.src);
             if (tmpsrc.host == location.host) {
-              img.src = 'http://127.0.0.1:7657/i2psnark/' + tmpsrc.host + tmpsrc.pathname;
+              img.src =
+                'http://127.0.0.1:7657/i2psnark/' +
+                tmpsrc.host +
+                tmpsrc.pathname;
               img.onerror = function() {
                 img.src = tmpsrc;
               };
@@ -40,28 +41,38 @@ browser.runtime.onMessage.addListener(request => {
           for (let link of links) {
             console.log('(Changing Link)', link);
             let tmpsrc = new URL(link.href);
-//            console.log("link", tmpsrc.host, tmpsrc.pathname)
+            //            console.log("link", tmpsrc.host, tmpsrc.pathname)
             if (tmpsrc.host == location.host) {
-              if (!tmpsrc.pathname.endsWith('html') && !tmpsrc.pathname.endsWith('htm') &&
-                !tmpsrc.pathname.endsWith('php') && !tmpsrc.pathname.endsWith('jsp') &&
-                !tmpsrc.pathname.endsWith('asp') && !tmpsrc.pathname.endsWith('aspx') &&
-                !tmpsrc.pathname.endsWith('atom') && !tmpsrc.pathname.endsWith('rss') &&
-                !tmpsrc.pathname.endsWith('\/') && tmpsrc.pathname.includes('.')) {
+              if (
+                !tmpsrc.pathname.endsWith('html') &&
+                !tmpsrc.pathname.endsWith('htm') &&
+                !tmpsrc.pathname.endsWith('php') &&
+                !tmpsrc.pathname.endsWith('jsp') &&
+                !tmpsrc.pathname.endsWith('asp') &&
+                !tmpsrc.pathname.endsWith('aspx') &&
+                !tmpsrc.pathname.endsWith('atom') &&
+                !tmpsrc.pathname.endsWith('rss') &&
+                !tmpsrc.pathname.endsWith('/') &&
+                tmpsrc.pathname.includes('.')
+              ) {
                 console.log('link', tmpsrc.host, tmpsrc.pathname);
-                link.href = 'http://127.0.0.1:7657/i2psnark/' + tmpsrc.host + tmpsrc.pathname;
+                link.href =
+                  'http://127.0.0.1:7657/i2psnark/' +
+                  tmpsrc.host +
+                  tmpsrc.pathname;
                 link.onerror = function() {
                   window.location.href = tmpsrc.href;
                 };
               }
               //if (!tmpsrc.pathname.endsWith('html')) { // && !tmpsrc.pathname.endsWith('htm') &&
-//                !tmpsrc.pathname.endsWith('php') && !tmpsrc.pathname.endsWith('jsp') &&
-//                !tmpsrc.pathname.endsWith('asp') && !tmpsrc.pathname.endsWith('aspx') &&
-//                tmpsrc.pathname.includes('.') && !tmpsrc..pathname.endsWith('/')) {
-                //console.log('http://127.0.0.1:7657/i2psnark/' + tmpsrc.host + tmpsrc.pathname;)
-                //link.href = 'http://127.0.0.1:7657/i2psnark/' + tmpsrc.host + tmpsrc.pathname;
-                //link.onerror = function() {
-                  //link.src = tmpsrc;
-                //};
+              //                !tmpsrc.pathname.endsWith('php') && !tmpsrc.pathname.endsWith('jsp') &&
+              //                !tmpsrc.pathname.endsWith('asp') && !tmpsrc.pathname.endsWith('aspx') &&
+              //                tmpsrc.pathname.includes('.') && !tmpsrc..pathname.endsWith('/')) {
+              //console.log('http://127.0.0.1:7657/i2psnark/' + tmpsrc.host + tmpsrc.pathname;)
+              //link.href = 'http://127.0.0.1:7657/i2psnark/' + tmpsrc.host + tmpsrc.pathname;
+              //link.onerror = function() {
+              //link.src = tmpsrc;
+              //};
               //}
             }
           }
@@ -71,7 +82,10 @@ browser.runtime.onMessage.addListener(request => {
             if (tmpsrc.host == location.host) {
               if (!video.innerHTML.includes('127.0.0.1')) {
                 innerHTML = video.innerHTML;
-                topInnerHTML = video.innerHTML.replace('src=\"', 'src=\"http://127.0.0.1:7657/i2psnark/' + location.host + '/');
+                topInnerHTML = video.innerHTML.replace(
+                  'src="',
+                  'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
+                );
                 video.innerHTML = topInnerHTML + innerHTML;
               }
             }
@@ -82,7 +96,10 @@ browser.runtime.onMessage.addListener(request => {
             if (tmpsrc.host == location.host) {
               if (!audio.innerHTML.includes('127.0.0.1')) {
                 innerHTML = audio.innerHTML;
-                topInnerHTML = audio.innerHTML.replace('src=\"', 'src=\"http://127.0.0.1:7657/i2psnark/' + location.host + '/');
+                topInnerHTML = audio.innerHTML.replace(
+                  'src="',
+                  'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
+                );
                 audio.innerHTML = topInnerHTML + innerHTML;
               }
             }
@@ -94,7 +111,10 @@ browser.runtime.onMessage.addListener(request => {
           for (let img of imgs) {
             let tmpsrc = new URL(img.src);
             if (tmpsrc.host == location.host) {
-              img.src = 'http://127.0.0.1:7657/i2psnark/' + tmpsrc.host + tmpsrc.pathname;
+              img.src =
+                'http://127.0.0.1:7657/i2psnark/' +
+                tmpsrc.host +
+                tmpsrc.pathname;
               img.onerror = function() {
                 img.src = tmpsrc;
               };
@@ -107,26 +127,36 @@ browser.runtime.onMessage.addListener(request => {
             let tmpsrc = new URL(link.href);
             //console.log("link", tmpsrc.host, tmpsrc.pathname)
             if (tmpsrc.host == location.host) {
-              if (!tmpsrc.pathname.endsWith('html') && !tmpsrc.pathname.endsWith('htm') &&
-                !tmpsrc.pathname.endsWith('php') && !tmpsrc.pathname.endsWith('jsp') &&
-                !tmpsrc.pathname.endsWith('asp') && !tmpsrc.pathname.endsWith('aspx') &&
-                !tmpsrc.pathname.endsWith('atom') && !tmpsrc.pathname.endsWith('rss') &&
-                !tmpsrc.pathname.endsWith('\/') && tmpsrc.pathname.includes('.')) {
+              if (
+                !tmpsrc.pathname.endsWith('html') &&
+                !tmpsrc.pathname.endsWith('htm') &&
+                !tmpsrc.pathname.endsWith('php') &&
+                !tmpsrc.pathname.endsWith('jsp') &&
+                !tmpsrc.pathname.endsWith('asp') &&
+                !tmpsrc.pathname.endsWith('aspx') &&
+                !tmpsrc.pathname.endsWith('atom') &&
+                !tmpsrc.pathname.endsWith('rss') &&
+                !tmpsrc.pathname.endsWith('/') &&
+                tmpsrc.pathname.includes('.')
+              ) {
                 console.log('link', tmpsrc.host, tmpsrc.pathname);
-                link.href = 'http://127.0.0.1:7657/i2psnark/' + tmpsrc.host + tmpsrc.pathname;
+                link.href =
+                  'http://127.0.0.1:7657/i2psnark/' +
+                  tmpsrc.host +
+                  tmpsrc.pathname;
                 link.onerror = function() {
                   window.location.href = tmpsrc.href;
                 };
               }
               //if (!tmpsrc.pathname.endsWith('html')) { // && !tmpsrc.pathname.endsWith('htm') &&
-//                !tmpsrc.pathname.endsWith('php') && !tmpsrc.pathname.endsWith('jsp') &&
-//                !tmpsrc.pathname.endsWith('asp') && !tmpsrc.pathname.endsWith('aspx') &&
-//                tmpsrc.pathname.includes('.') && !tmpsrc..pathname.endsWith('/')) {
-                //console.log('http://127.0.0.1:7657/i2psnark/' + tmpsrc.host + tmpsrc.pathname;)
-                //link.href = 'http://127.0.0.1:7657/i2psnark/' + tmpsrc.host + tmpsrc.pathname;
-                //link.onerror = function() {
-                  //link.src = tmpsrc;
-                //};
+              //                !tmpsrc.pathname.endsWith('php') && !tmpsrc.pathname.endsWith('jsp') &&
+              //                !tmpsrc.pathname.endsWith('asp') && !tmpsrc.pathname.endsWith('aspx') &&
+              //                tmpsrc.pathname.includes('.') && !tmpsrc..pathname.endsWith('/')) {
+              //console.log('http://127.0.0.1:7657/i2psnark/' + tmpsrc.host + tmpsrc.pathname;)
+              //link.href = 'http://127.0.0.1:7657/i2psnark/' + tmpsrc.host + tmpsrc.pathname;
+              //link.onerror = function() {
+              //link.src = tmpsrc;
+              //};
               //}
             }
           }
@@ -136,7 +166,10 @@ browser.runtime.onMessage.addListener(request => {
             if (tmpsrc.host == location.host) {
               if (!video.innerHTML.includes('127.0.0.1')) {
                 innerHTML = video.innerHTML;
-                topInnerHTML = video.innerHTML.replace('src=\"', 'src=\"http://127.0.0.1:7657/i2psnark/' + location.host + '/');
+                topInnerHTML = video.innerHTML.replace(
+                  'src="',
+                  'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
+                );
                 video.innerHTML = topInnerHTML + innerHTML;
               }
             }
@@ -147,15 +180,17 @@ browser.runtime.onMessage.addListener(request => {
             if (tmpsrc.host == location.host) {
               if (!audio.innerHTML.includes('127.0.0.1')) {
                 innerHTML = audio.innerHTML;
-                topInnerHTML = audio.innerHTML.replace('src=\"', 'src=\"http://127.0.0.1:7657/i2psnark/' + location.host + '/');
+                topInnerHTML = audio.innerHTML.replace(
+                  'src="',
+                  'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
+                );
                 audio.innerHTML = topInnerHTML + innerHTML;
               }
             }
           }
         }
-      }catch{
-      };
+      } catch {};
     }
   }
-  return Promise.resolve({content: response});
+  return Promise.resolve({ content: response });
 });

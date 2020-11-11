@@ -411,7 +411,7 @@ function onError(e) {
 }
 
 var gettingInfo = browser.runtime.getPlatformInfo();
-gettingInfo.then(got => {
+gettingInfo.then((got) => {
   if (got.os != 'android') {
     chrome.storage.local.get(function(got) {
       let settings = checkStoredSettings(got);

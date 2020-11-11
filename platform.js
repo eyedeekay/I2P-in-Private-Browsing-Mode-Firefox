@@ -1,7 +1,7 @@
 var android = false;
 
 var gettingInfo = browser.runtime.getPlatformInfo();
-gettingInfo.then(got => {
+gettingInfo.then((got) => {
   if (got.os == 'android') {
     console.log('Running in Android detected');
     android = true;

@@ -81,8 +81,8 @@ function routerHost(url) {
         return 'webmail';
       } else if (final.startsWith('MuWire')) {
         if (!url.includes('.png')) {
-            console.log('(urlcheck) MuWire application path', final);
-            return 'muwire';
+          console.log('(urlcheck) MuWire application path', final);
+          return 'muwire';
         }
       } else if (
         final === 'home' ||

@@ -1,6 +1,6 @@
 function checkPeerConnection() {
   let getting = browser.privacy.network.peerConnectionEnabled.get({});
-  getting.then(got => {
+  getting.then((got) => {
     let webrtc = got.value;
     console.log('checking webrtc', webrtc);
     if (document.getElementById('enable-web-rtc') !== null)
@@ -29,7 +29,7 @@ checkSnowflake();
 
 function checkHistory() {
   let getting = browser.storage.local.get("disable_history");
-  getting.then(got => {
+  getting.then((got) => {
     let disable_history = got.disable_history;
     if (disable_history == undefined) {
       disable_history = false;
@@ -42,11 +42,11 @@ function checkHistory() {
 
 checkHistory();
 
-document.addEventListener("click", clickEvent => {
+document.addEventListener("click", (clickEvent) => {
   if (clickEvent.target.id === "window-create-help-panel") {
     let createData = {
       type: "panel",
-      incognito: true
+      incognito: true,
     };
     let creating = browser.tabs.create(createData);
     creating.then(() => {
@@ -55,7 +55,7 @@ document.addEventListener("click", clickEvent => {
   } else if (clickEvent.target.id === "window-create-news-panel") {
     let createData = {
       type: "panel",
-      incognito: true
+      incognito: true,
     };
     let creating = browser.tabs.create(createData);
     creating.then(() => {
@@ -68,7 +68,7 @@ document.addEventListener("click", clickEvent => {
       const url = "http://" + controlHost + ":" + controlPort;
       Http.open("GET", url);
       Http.send();
-      Http.onreadystatechange = event => {
+      Http.onreadystatechange = (event) => {
         console.log(Http.responseText);
       };
     }
@@ -80,28 +80,30 @@ document.addEventListener("click", clickEvent => {
     console.log("attempting to initiate graceful shutdown");
     RouterManager("ShutdownGraceful");
   } else if (clickEvent.target.id === "label-router-status") {
-    if (document.getElementById("label-status-list").style.display !== "none"){
+    if (document.getElementById("label-status-list").style.display !== "none") {
       console.log("hiding label-status-list");
-      document.getElementById("label-status-list").style.display = "none"
-    }else{
+      document.getElementById("label-status-list").style.display = "none";
+    } else {
       console.log("showing label-status-list");
-      document.getElementById("label-status-list").style.display = "block"
+      document.getElementById("label-status-list").style.display = "block";
     }
   } else if (clickEvent.target.id === "label-router-peers") {
-    if (document.getElementById("label-peers-list").style.display !== "none"){
+    if (document.getElementById("label-peers-list").style.display !== "none") {
       console.log("hiding label-peers-list");
-      document.getElementById("label-peers-list").style.display = "none"
-    }else{
+      document.getElementById("label-peers-list").style.display = "none";
+    } else {
       console.log("showing label-peers-list");
-      document.getElementById("label-peers-list").style.display = "block"
+      document.getElementById("label-peers-list").style.display = "block";
     }
   } else if (clickEvent.target.id === "label-router-bandwidth") {
-    if (document.getElementById("label-bandwidth-list").style.display !== "none"){
+    if (
+      document.getElementById("label-bandwidth-list").style.display !== "none"
+    ) {
       console.log("hiding label-bandwidth-list");
-      document.getElementById("label-bandwidth-list").style.display = "none"
-    }else{
+      document.getElementById("label-bandwidth-list").style.display = "none";
+    } else {
       console.log("showing label-bandwidth-list");
-      document.getElementById("label-bandwidth-list").style.display = "block"
+      document.getElementById("label-bandwidth-list").style.display = "block";
     }
   } else if (clickEvent.target.id === "search-submit") {
     console.log("attempting to create search tab");
@@ -157,21 +159,21 @@ document.addEventListener("click", clickEvent => {
   clickEvent.preventDefault();
 });
 
-window.onload = function(e){ 
+window.onload = function (e) {
   if (document.getElementById("label-peers-list") != null) {
-    document.getElementById("label-peers-list").style.display = "none"
+    document.getElementById("label-peers-list").style.display = "none";
   }
   if (document.getElementById("label-bandwidth-list") != null) {
-    document.getElementById("label-bandwidth-list").style.display = "none"
+    document.getElementById("label-bandwidth-list").style.display = "none";
   }
-}
+};
 
 function proxyReadiness() {
   console.log(this.responseText);
 }
 
 var gettingInfo = browser.runtime.getPlatformInfo();
-gettingInfo.then(got => {
+gettingInfo.then((got) => {
   if (got.os != "android") {
     browser.history.onVisited.addListener(onVisited);
   }
@@ -196,14 +198,14 @@ function goHome() {
     let port = info.value.http.split(":")[1];
     if (port == "7644") {
       let createRhizomeData = {
-        url: "about:I2p"
+        url: "about:I2p",
       };
       console.log("visiting homepage");
       let creating = browser.tabs.create(createRhizomeData);
       creating.then(onTabCreated, onTabError);
     } else {
       let createData = {
-        url: "home.html"
+        url: "home.html",
       };
       console.log("visiting homepage");
       let creating = browser.tabs.create(createData);
@@ -221,7 +223,7 @@ function goIndex() {
     console.log("Help tab created");
   }
   let createData = {
-    url: "index.html"
+    url: "index.html",
   };
   console.log("visiting help");
   let creating = browser.tabs.create(createData);
@@ -249,7 +251,7 @@ function goSearch() {
     url:
       "http://yacy.idk.i2p/yacysearch.html?" +
       "query=" +
-      document.getElementById("search-query").value
+      document.getElementById("search-query").value,
   };
   console.log("visiting legwork");
   let creating = browser.tabs.create(createData);
@@ -267,7 +269,7 @@ function goTunnel() {
     console.log("I2PTunnel tab created");
   }
   let createData = {
-    url: "http://" + routerAddr() + "/i2ptunnel"
+    url: "http://" + routerAddr() + "/i2ptunnel",
   };
   console.log("visiting i2ptunnel");
   let creating = browser.tabs.create(createData);
@@ -279,7 +281,7 @@ function goMail() {
     console.log("Mail tab created");
   }
   let createData = {
-    url: "http://" + routerAddr() + "/susimail"
+    url: "http://" + routerAddr() + "/susimail",
   };
   console.log("visiting mail");
   let creating = browser.tabs.create(createData);
@@ -291,7 +293,7 @@ function goSnark() {
     console.log("Snark tab created");
   }
   let createData = {
-    url: "http://" + routerAddr() + "/i2psnark"
+    url: "http://" + routerAddr() + "/i2psnark",
   };
   console.log("visiting snark");
   let creating = browser.tabs.create(createData);
@@ -310,7 +312,7 @@ function onVisited(historyItem) {
   function onRemoved() {
     var searching = browser.history.search({
       text: historyItem.url,
-      startTime: 0
+      startTime: 0,
     });
     searching.then(onCleaned);
   }
@@ -327,6 +329,6 @@ if (UpdateContents !== undefined) UpdateContents();
 const minutes = 0.2;
 const interval = minutes * 60 * 1000;
 
-setInterval(function() {
+setInterval(function () {
   if (UpdateContents !== undefined) UpdateContents();
 }, interval);

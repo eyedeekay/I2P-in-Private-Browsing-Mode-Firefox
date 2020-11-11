@@ -1,5 +1,5 @@
 var gettingInfo = browser.runtime.getPlatformInfo();
-gettingInfo.then(got => {
+gettingInfo.then((got) => {
   if (got.os != 'android') {
     function bookmarks(bookmarkToolbar) {
       console.log('Setting up bookmark toolbar', bookmarkToolbar);
@@ -11,14 +11,14 @@ gettingInfo.then(got => {
               let createRhizomeBookmark = browser.bookmarks.create({
                 url: 'about:I2p',
                 title: 'I2P Extension Home Page',
-                parentId: bookmarkToolbar[0].id
+                parentId: bookmarkToolbar[0].id,
               });
               createRhizomeBookmark.then(onCreated);
             } else {
               let createBookmark = browser.bookmarks.create({
                 url: browser.runtime.getURL('home.html'),
                 title: 'I2P Extension Home Page',
-                parentId: bookmarkToolbar[0].id
+                parentId: bookmarkToolbar[0].id,
               });
               createBookmark.then(onCreated);
             }
@@ -39,7 +39,7 @@ gettingInfo.then(got => {
               let createBookmark = browser.bookmarks.create({
                 url: 'http://localhost:7657/i2psnark',
                 title: 'Bittorrent',
-                parentId: bookmarkToolbar[0].id
+                parentId: bookmarkToolbar[0].id,
               });
               createBookmark.then(onCreated);
             } else {
@@ -47,7 +47,7 @@ gettingInfo.then(got => {
                 url:
                   'http://' + control_host + ':' + control_port + '/i2psnark',
                 title: 'Bittorrent',
-                parentId: bookmarkToolbar[0].id
+                parentId: bookmarkToolbar[0].id,
               });
               createRhizomeBookmark.then(onCreated);
             }
@@ -67,14 +67,14 @@ gettingInfo.then(got => {
               let createBookmark = browser.bookmarks.create({
                 url: 'http://localhost:7657/home',
                 title: 'I2P Console',
-                parentId: bookmarkToolbar[0].id
+                parentId: bookmarkToolbar[0].id,
               });
               createBookmark.then(onCreated);
             } else {
               let createRhizomeBookmark = browser.bookmarks.create({
                 url: 'http://' + control_host + ':' + control_port + '/home',
                 title: 'I2P Console',
-                parentId: bookmarkToolbar[0].id
+                parentId: bookmarkToolbar[0].id,
               });
               createRhizomeBookmark.then(onCreated);
             }
@@ -94,14 +94,14 @@ gettingInfo.then(got => {
               let createBookmark = browser.bookmarks.create({
                 url: 'http://localhost:7657/webmail',
                 title: 'Web Mail',
-                parentId: bookmarkToolbar[0].id
+                parentId: bookmarkToolbar[0].id,
               });
               createBookmark.then(onCreated);
             } else {
               let createRhizomeBookmark = browser.bookmarks.create({
                 url: 'http://' + control_host + ':' + control_port + '/webmail',
                 title: 'Web Mail',
-                parentId: bookmarkToolbar[0].id
+                parentId: bookmarkToolbar[0].id,
               });
               createRhizomeBookmark.then(onCreated);
             }
@@ -122,7 +122,7 @@ gettingInfo.then(got => {
               var createBookmark = browser.bookmarks.create({
                 url: 'http://localhost:7657/i2ptunnel',
                 title: 'Hidden Services Manager',
-                parentId: bookmarkToolbar[0].id
+                parentId: bookmarkToolbar[0].id,
               });
               createBookmark.then(onCreated);
             } else {
@@ -130,7 +130,7 @@ gettingInfo.then(got => {
                 url:
                   'http://' + control_host + ':' + control_port + '/i2ptunnel',
                 title: 'Hidden Services Manager',
-                parentId: bookmarkToolbar[0].id
+                parentId: bookmarkToolbar[0].id,
               });
               createRhizomeBookmark.then(onCreated);
             }
@@ -152,53 +152,53 @@ gettingInfo.then(got => {
       }
 
       var b0 = browser.bookmarks.search({
-        title: 'I2P Extension Home Page'
+        title: 'I2P Extension Home Page',
       });
       b0.then(bookHome, onRejected);
 
       var b1 = browser.bookmarks.search({
-        title: 'Bittorrent'
+        title: 'Bittorrent',
       });
       b1.then(bookTorrent, onRejected);
 
       var b2 = browser.bookmarks.search({
-        title: 'Hidden Services Manager'
+        title: 'Hidden Services Manager',
       });
       b2.then(bookI2PTunnel, onRejected);
 
       var b3 = browser.bookmarks.search({
-        title: 'Web Mail'
+        title: 'Web Mail',
       });
       b3.then(bookMail, onRejected);
 
       var b4 = browser.bookmarks.search({
-        title: 'I2P Console'
+        title: 'I2P Console',
       });
       b4.then(bookConsole, onRejected);
     }
 
     var bt = browser.bookmarks.search({
-      query: 'Toolbar'
+      query: 'Toolbar',
     });
 
     function toolDir(bookmarkToolbar) {
-	  var ibbt = browser.bookmarks.search('I2P Toolbar');
-	  function setupDir(ibbt) {
-	        function onToolbarCreated(node) {
-        var ibt = browser.bookmarks.search('I2P Toolbar');
-        ibt.then(bookmarks);
-       }
-	    if (ibbt[0] == null) {
+      var ibbt = browser.bookmarks.search('I2P Toolbar');
+      function setupDir(ibbt) {
+        function onToolbarCreated(node) {
+          var ibt = browser.bookmarks.search('I2P Toolbar');
+          ibt.then(bookmarks);
+        }
+        if (ibbt[0] == null) {
           let createBookmark = browser.bookmarks.create({
             title: 'I2P Toolbar',
-            parentId: bookmarkToolbar[0].id
+            parentId: bookmarkToolbar[0].id,
           });
           createBookmark.then(onToolbarCreated);
         }
-	  }
-	  ibbt.then(setupDir);
+      }
+      ibbt.then(setupDir);
     }
-	bt.then(toolDir);
+    bt.then(toolDir);
 
     function handleCreated(id, bookmarkInfo) {
       //var propValue;
