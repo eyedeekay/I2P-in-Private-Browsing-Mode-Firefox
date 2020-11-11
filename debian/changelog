@@ -1,3 +1,9 @@
+i2psetproxy.js (0.83-1) UNRELEASED; urgency=low
+
+  * Add a tab for I2P-Native Dispatch
+
+ -- idk <hankhill19580@gmail.com>  Sat, 10 NOV 2020 22:00:01 -0400
+
 i2psetproxy.js (0.81-1) UNRELEASED; urgency=low
 
   * X-I2P-TorrentLocation header
