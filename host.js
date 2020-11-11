@@ -60,6 +60,7 @@ function i2pHost(url) {
 }
 
 function routerHost(url) {
+  console.log('(urlcheck) HOST URL CHECK');
   let hostname = '';
   let path = '';
   function pathcheck(str) {
@@ -72,7 +73,8 @@ function routerHost(url) {
         final === 'i2psnark' ||
         final === 'torrents' ||
         final.startsWith('transmission') ||
-        final.startsWith('tracker')
+        final.startsWith('tracker') ||
+        str.includes(':7662')
       ) {
         console.log('(urlcheck) Torrent application path', final);
         return 'i2psnark';
@@ -109,15 +111,6 @@ function routerHost(url) {
     path = url.replace(hostname + '/', '');
   }
   if (hostname === control_host + ':' + control_port) {
-    return pathcheck(path);
-  }
-  if (hostname === control_host + ':' + '7662') {
-    return pathcheck(path);
-  }
-  if (hostname === 'localhost' + ':' + '7662') {
-    return pathcheck(path);
-  }
-  if (hostname === '127.0.0.1' + ':' + '7662') {
     return pathcheck(path);
   }
   if (hostname === 'localhost' + ':' + control_port) {

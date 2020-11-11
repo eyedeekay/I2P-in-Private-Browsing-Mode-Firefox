@@ -2,6 +2,7 @@ var gettingInfo = browser.runtime.getPlatformInfo();
 gettingInfo.then((got) => {
   if (got.os != 'android') {
     function bookmarks(bookmarkToolbar) {
+      console.log('(bookmarks)', bookmarkToolbar);
       console.log('Setting up bookmark toolbar', bookmarkToolbar);
       function bookHome(bookmarkItems) {
         if (!bookmarkItems.length) {

@@ -284,8 +284,8 @@ var contextSetup = function(requestDetails) {
             name: titlepref,
           });
           let tmp = new URL(tabId.url);
-          console.log('tabid host', tmp.host);
-          if (!requestDetails.url.includes(tmp.host)) {
+          console.log('(isolate)tabid host', tmp.host);
+          if (!requestDetails.url.includes('snark/' + tmp.host)) {
             //          if (tabId.cookieStoreId != exemptContext[0].cookieStoreId){
             function Create() {
               function onCreated(tab) {

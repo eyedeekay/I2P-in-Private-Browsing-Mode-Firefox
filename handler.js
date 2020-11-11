@@ -1,7 +1,9 @@
 function routerHost(url) {
+  console.log('(urlcheck) HANDLER URL CHECK');
   let hostname = '';
   let path = '';
   function pathcheck(str) {
+    console.log('(urlcheck) HANDLER PATH CHECK', str);
     if (str != undefined) {
       let final = str.split('/')[0];
       if (final === 'i2ptunnelmgr' || final === 'i2ptunnel') {
@@ -11,7 +13,8 @@ function routerHost(url) {
         final === 'i2psnark' ||
         final === 'torrents' ||
         final.startsWith('transmission') ||
-        final.startsWith('tracker')
+        final.startsWith('tracker') ||
+        str.includes(':7662')
       ) {
         console.log('(urlcheck) Torrent application path', final);
         return 'i2psnark';
