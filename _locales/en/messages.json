@@ -159,12 +159,12 @@
     "message": "Web Browser (Private)",
     "description": "Preface for the browser titlebar"
   },
-  "localPreface": {
-    "message": "Localhost Browser",
+  "ircPreface": {
+    "message": "Dispatch IRC",
     "description": "Preface for the browser titlebar"
   },
-  "localPrefacePrivate": {
-    "message": "Localhost Browser (Private)",
+  "ircPrefacePrivate": {
+    "message": "Dispatch IRC (Private)",
     "description": "Preface for the browser titlebar"
   },
   "routerPreface": {

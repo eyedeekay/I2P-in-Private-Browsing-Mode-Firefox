@@ -10,8 +10,8 @@ var torrentpref = chrome.i18n.getMessage('torrentPreface');
 var torrentprefpriv = chrome.i18n.getMessage('torrentPrefacePrivate');
 var tunnelpref = chrome.i18n.getMessage('i2ptunnelPreface');
 var tunnelprefpriv = chrome.i18n.getMessage('i2ptunnelPrefacePrivate');
-var localpref = chrome.i18n.getMessage('localPreface');
-var localprefpriv = chrome.i18n.getMessage('localPrefacePrivate');
+var localpref = chrome.i18n.getMessage('ircPreface');
+var ircprefpriv = chrome.i18n.getMessage('ircPrefacePrivate');
 var extensionpref = chrome.i18n.getMessage('extensionPreface');
 var muwirepref = chrome.i18n.getMessage('muwirePreface');
 
@@ -76,16 +76,16 @@ function onContextsGot(contexts) {
       })
       .then(onCreated, onNotCreated);
   }
-  if (ids.indexOf(localpref) == -1) {
+  if (ids.indexOf(ircpref) == -1) {
     browser.contextualIdentities
       .create({
-        name: localpref,
+        name: ircpref,
         color: 'red',
-        icon: 'fence'
+        icon: 'vacation'
       })
       .then(onCreated, onNotCreated);
   }
-  if (ids.indexOf(localpref) == -1) {
+  if (ids.indexOf(muwirepref) == -1) {
     browser.contextualIdentities
       .create({
         name: muwirepref,
@@ -363,16 +363,16 @@ function setTitle(window) {
             titlePreface: titlepref + ' - ' + torrentpref + ': '
           });
         }
-      } else if (context.name == localpref) {
-        console.log('Active in Localhost window');
+      } else if (context.name == ircpref) {
+        console.log('Active in IRC window');
 
         if (window.incognito) {
           browser.windows.update(window.id, {
-            titlePreface: localprefpriv + ' - ' + localprefpriv + ': '
+            titlePreface: ircprefpriv + ' - ' + ircprefpriv + ': '
           });
         } else {
           browser.windows.update(window.id, {
-            titlePreface: localpref + ' - ' + localpref + ': '
+            titlePreface: ircpref + ' - ' + ircpref + ': '
           });
         }
       }

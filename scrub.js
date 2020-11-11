@@ -4,7 +4,7 @@ var routerpref = chrome.i18n.getMessage('routerPreface');
 var mailpref = chrome.i18n.getMessage('mailPreface');
 var torrentpref = chrome.i18n.getMessage('torrentPreface');
 var tunnelpref = chrome.i18n.getMessage('i2ptunnelPreface');
-var localpref = chrome.i18n.getMessage('localPreface');
+var ircpref = chrome.i18n.getMessage('ircPreface');
 var extensionpref = chrome.i18n.getMessage('extensionPreface');
 var muwirepref = chrome.i18n.getMessage('muwirePreface');
 
@@ -106,7 +106,7 @@ var notMyContextNotMyProblem = async function() {
     name: tunnelpref
   });
   var context6 = await browser.contextualIdentities.query({
-    name: localpref
+    name: ircpref
   });
   var context7 = await browser.contextualIdentities.query({
     name: muwirepref
@@ -423,39 +423,49 @@ var contextSetup = function(requestDetails) {
         console.log('(isolate)Context Error', error);
       }
     };
-    /*var localTabFind = async function(tabId) {
+    var ircTabFind = async function(tabId) {
       try {
         var context = await browser.contextualIdentities.query({
-          name: localpref
+          name: ircpref
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
-          function Create() {
-            function onCreated(tab) {
-              function closeOldTab() {
-                if (tabId.id != tab.id) {
-                  console.log('(isolate) Closing un-isolated tab', tabId.id);
-                  console.log('in favor of', tab.id);
-                  console.log('with context', tab.cookieStoreId);
-                  browser.tabs.remove(tabId.id);
+          if (requestDetails.url.includes(':7669')) {
+            function Create() {
+              function onCreated(tab) {
+                function closeOldTab(tabs) {
+                  if (tabId.id != tab.id) {
+                    console.log('(isolate) Closing un-isolated tab', tabId.id);
+                    console.log('in favor of', tab.id);
+                    console.log('with context', tab.cookieStoreId);
+                    browser.tabs.remove(tabId.id);
+                  }
+                  for (index = 0; index < tabs.length; index++) {
+                    if (index != tabs.length - 1)
+                      browser.tabs.remove(tabs[index].id);
+                  }
                 }
+                var pins = browser.tabs.query({
+                  cookieStoreId: context[0].cookieStoreId
+                });
+                pins.then(closeOldTab, onError);
               }
-              closeOldTab(tab);
+              var created = browser.tabs.create({
+                active: true,
+                pinned: true,
+                cookieStoreId: context[0].cookieStoreId,
+                url: requestDetails.url
+              });
+              created.then(onCreated, onContextError);
             }
-            var created = browser.tabs.create({
-              active: true,
-              cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url
-            });
-            created.then(onCreated, onContextError);
+            var gettab = browser.tabs.get(tabId.id);
+            gettab.then(Create, onContextError);
+            return tabId;
           }
-          var gettab = browser.tabs.get(tabId.id);
-          gettab.then(Create, onContextError);
-          return tabId;
         }
       } catch (error) {
         console.log('(isolate)Context Error', error);
       }
-    };*/
+    };
     var normalTabFind = async function(tabId) {
       if (tabId == undefined) {
         return;
@@ -464,8 +474,8 @@ var contextSetup = function(requestDetails) {
         var anoncontext = await browser.contextualIdentities.query({
           name: titlepref
         });
-        var localcontext = await browser.contextualIdentities.query({
-          name: localpref
+        var irccontext = await browser.contextualIdentities.query({
+          name: ircpref
         });
         var othercontexts = await notMyContextNotMyProblem();
         var nmp = false;
@@ -479,7 +489,7 @@ var contextSetup = function(requestDetails) {
           tabId.cookieStoreId == 'firefox-default' ||
           tabId.cookieStoreId == 'firefox-private' ||
           tabId.cookieStoreId == anoncontext[0].cookieStoreId ||
-          tabId.cookieStoreId == localcontext[0].cookieStoreId ||
+          tabId.cookieStoreId == irccontext[0].cookieStoreId ||
           nmp
         ) {
           console.log(
@@ -487,7 +497,7 @@ var contextSetup = function(requestDetails) {
             tabId.cookieStoreId,
             'not',
             anoncontext[0].cookieStoreId,
-            localcontext[0].cookieStoreId
+            irccontext[0].cookieStoreId
           );
           return;
         } else {
@@ -587,10 +597,10 @@ var contextSetup = function(requestDetails) {
           return requestDetails;
         }
       } else {
-        /*if (localhost) {
-          var localtab = tab.then(localTabFind, onContextError);
+        if (localhost) {
+          var irctab = tab.then(ircTabFind, onContextError);
           return requestDetails;
-        }*/
+        }
         var normalTab = tab.then(normalTabFind, onContextError);
         return requestDetails;
         //return requestDetails;
