@@ -23,10 +23,10 @@ function shouldProxyRequest(requestInfo) {
 var handleContextProxyRequest = function(requestDetails) {
   try {
     var handleProxyRequest = function(context) {
-      console.log("REQUESTDETAILS", requestDetails.tabId)
+      console.log('REQUESTDETAILS', requestDetails.tabId);
       var tab = browser.tabs.get(requestDetails.tabId);
-      proxy = tab.then(handleTabRequest)
-      return proxy
+      proxy = tab.then(handleTabRequest);
+      return proxy;
       function handleTabRequest(tab) {
         console.log('(proxy), tab context', context);
         proxy = {
@@ -40,8 +40,8 @@ var handleContextProxyRequest = function(requestDetails) {
 
         if (context != undefined) {
           if (context.name == titlepref) {
-            var furl = new URL(tab.url)
-            if (!requestDetails.url.includes('/i2psnark/'+ furl.host)) {
+            var furl = new URL(tab.url);
+            if (!requestDetails.url.includes('/i2psnark/' + furl.host)) {
               proxy = {
                 type: getScheme(),
                 host: getHost(),
@@ -89,7 +89,7 @@ var handleContextProxyRequest = function(requestDetails) {
             port: getPort(),
           };
         }
-        return proxy
+        return proxy;
       }
     };
     var contextGet = function(tabInfo) {
@@ -158,7 +158,7 @@ var handleContextProxyRequest = function(requestDetails) {
   } catch (error) {
     console.log('(proxy)Not using I2P Proxy.', error);
   }
-}
+};
 
 function SetupSettings() {
   console.log('Initialising Settings');
