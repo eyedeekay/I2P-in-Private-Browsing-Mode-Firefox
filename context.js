@@ -11,22 +11,22 @@ function eventHandler(event) {
     browser.tabs.create({
       windowId: windowInfo.id,
       url: 'about:blank',
-      cookieStoreId: event.target.dataset.identity
+      cookieStoreId: event.target.dataset.identity,
     });
   }
   if (event.target.dataset.action == 'create') {
     var creating = browser.tabs.create({
-      cookieStoreId: event.target.dataset.identity
+      cookieStoreId: event.target.dataset.identity,
     });
     creating.then(onCreated, onError);
   }
   if (event.target.dataset.action == 'close-all') {
     browser.tabs
       .query({
-        cookieStoreId: event.target.dataset.identity
+        cookieStoreId: event.target.dataset.identity,
       })
-      .then(tabs => {
-        browser.tabs.remove(tabs.map(rem => rem.id));
+      .then((tabs) => {
+        browser.tabs.remove(tabs.map((rem) => rem.id));
       });
   }
   event.preventDefault();
@@ -52,9 +52,9 @@ if (browser.contextualIdentities === undefined) {
 } else {
   browser.contextualIdentities
     .query({
-      name: titlepref
+      name: titlepref,
     })
-    .then(identities => {
+    .then((identities) => {
       if (!identities.length) {
         div.innerText = "No identities returned from the API.";
         return;

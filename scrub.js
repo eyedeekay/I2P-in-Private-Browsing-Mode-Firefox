@@ -4,7 +4,7 @@ var routerpref = chrome.i18n.getMessage('routerPreface');
 var mailpref = chrome.i18n.getMessage('mailPreface');
 var torrentpref = chrome.i18n.getMessage('torrentPreface');
 var tunnelpref = chrome.i18n.getMessage('i2ptunnelPreface');
-var localpref = chrome.i18n.getMessage('localPreface');
+var ircpref = chrome.i18n.getMessage('ircPreface');
 var extensionpref = chrome.i18n.getMessage('extensionPreface');
 var muwirepref = chrome.i18n.getMessage('muwirePreface');
 
@@ -27,7 +27,7 @@ var contextScrub = async function(requestDetails) {
           }
         }
         return {
-          requestHeaders: requestDetails.requestHeaders
+          requestHeaders: requestDetails.requestHeaders,
         };
       } else if (context.name == routerpref) {
         if (i2pHost(requestDetails.url)) {
@@ -39,7 +39,7 @@ var contextScrub = async function(requestDetails) {
           }
         }
         return {
-          requestHeaders: requestDetails.requestHeaders
+          requestHeaders: requestDetails.requestHeaders,
         };
       }
     };
@@ -91,25 +91,25 @@ var contextScrub = async function(requestDetails) {
 var notMyContextNotMyProblem = async function() {
   var contexts = await browser.contextualIdentities.query({});
   var context1 = await browser.contextualIdentities.query({
-    name: titlepref
+    name: titlepref,
   });
   var context2 = await browser.contextualIdentities.query({
-    name: routerpref
+    name: routerpref,
   });
   var context3 = await browser.contextualIdentities.query({
-    name: mailpref
+    name: mailpref,
   });
   var context4 = await browser.contextualIdentities.query({
-    name: torrentpref
+    name: torrentpref,
   });
   var context5 = await browser.contextualIdentities.query({
-    name: tunnelpref
+    name: tunnelpref,
   });
   var context6 = await browser.contextualIdentities.query({
-    name: localpref
+    name: ircpref,
   });
   var context7 = await browser.contextualIdentities.query({
-    name: muwirepref
+    name: muwirepref,
   });
   var othercontexts = [];
   console.log('Contexts:', contexts);
@@ -145,7 +145,7 @@ var contextSetup = function(requestDetails) {
     var i2pTabFind = async function(tabId) {
       try {
         var context = await browser.contextualIdentities.query({
-          name: titlepref
+          name: titlepref,
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
           function Create() {
@@ -159,7 +159,7 @@ var contextSetup = function(requestDetails) {
                 }
                 browser.pageAction.setPopup({
                   tabId: tabId.id,
-                  popup: 'security.html'
+                  popup: 'security.html',
                 });
                 browser.pageAction.show(tabId.id);
               }
@@ -168,7 +168,7 @@ var contextSetup = function(requestDetails) {
             var created = browser.tabs.create({
               active: true,
               cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url
+              url: requestDetails.url,
             });
             created.then(onCreated, onContextError);
           }
@@ -183,7 +183,7 @@ var contextSetup = function(requestDetails) {
     var routerTabFind = async function(tabId) {
       try {
         var context = await browser.contextualIdentities.query({
-          name: routerpref
+          name: routerpref,
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
           function Create() {
@@ -194,7 +194,7 @@ var contextSetup = function(requestDetails) {
                   console.log('in favor of', tab.id);
                   console.log('with context', tab.cookieStoreId);
                   browser.tabs.remove(tabId.id);
-                  browser.tabs.move(tab.id, {index: 0});
+                  browser.tabs.move(tab.id, { index: 0 });
                 }
                 for (index = 0; index < tabs.length; index++) {
                   if (index != tabs.length - 1)
@@ -202,7 +202,7 @@ var contextSetup = function(requestDetails) {
                 }
               }
               var pins = browser.tabs.query({
-                cookieStoreId: context[0].cookieStoreId
+                cookieStoreId: context[0].cookieStoreId,
               });
               pins.then(closeOldTab, onError);
             }
@@ -215,7 +215,7 @@ var contextSetup = function(requestDetails) {
               active: true,
               pinned: true,
               cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url
+              url: requestDetails.url,
             });
             created.then(onCreated, onContextError);
           }
@@ -230,7 +230,7 @@ var contextSetup = function(requestDetails) {
     var i2ptunnelTabFind = async function(tabId) {
       try {
         var context = await browser.contextualIdentities.query({
-          name: tunnelpref
+          name: tunnelpref,
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
           function Create() {
@@ -241,7 +241,7 @@ var contextSetup = function(requestDetails) {
                   console.log('in favor of', tab.id);
                   console.log('with context', tab.cookieStoreId);
                   browser.tabs.remove(tabId.id);
-                  browser.tabs.move(tab.id, {index: 1});
+                  browser.tabs.move(tab.id, { index: 1 });
                 }
                 for (index = 0; index < tabs.length; index++) {
                   if (index != tabs.length - 1)
@@ -249,7 +249,7 @@ var contextSetup = function(requestDetails) {
                 }
               }
               var pins = browser.tabs.query({
-                cookieStoreId: context[0].cookieStoreId
+                cookieStoreId: context[0].cookieStoreId,
               });
               pins.then(closeOldTab, onError);
             }
@@ -262,7 +262,7 @@ var contextSetup = function(requestDetails) {
               active: true,
               pinned: true,
               cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url
+              url: requestDetails.url,
             });
             created.then(onCreated, onContextError);
           }
@@ -277,16 +277,16 @@ var contextSetup = function(requestDetails) {
     var snarkTabFind = async function(tabId) {
       try {
         var context = await browser.contextualIdentities.query({
-          name: torrentpref
+          name: torrentpref,
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
           var exemptContext = await browser.contextualIdentities.query({
-            name: titlepref
+            name: titlepref,
           });
           let tmp = new URL(tabId.url);
           console.log('tabid host', tmp.host);
           if (!requestDetails.url.includes(tmp.host)) {
-//          if (tabId.cookieStoreId != exemptContext[0].cookieStoreId){
+            //          if (tabId.cookieStoreId != exemptContext[0].cookieStoreId){
             function Create() {
               function onCreated(tab) {
                 function closeOldTab(tabs) {
@@ -295,7 +295,7 @@ var contextSetup = function(requestDetails) {
                     console.log('in favor of', tab.id);
                     console.log('with context', tab.cookieStoreId);
                     browser.tabs.remove(tabId.id);
-                    browser.tabs.move(tab.id, {index: 2});
+                    browser.tabs.move(tab.id, { index: 2 });
                   }
                   for (index = 0; index < tabs.length; index++) {
                     if (index != tabs.length - 1)
@@ -303,7 +303,7 @@ var contextSetup = function(requestDetails) {
                   }
                 }
                 var pins = browser.tabs.query({
-                  cookieStoreId: context[0].cookieStoreId
+                  cookieStoreId: context[0].cookieStoreId,
                 });
                 pins.then(closeOldTab, onError);
               }
@@ -316,7 +316,7 @@ var contextSetup = function(requestDetails) {
                 active: true,
                 pinned: true,
                 cookieStoreId: context[0].cookieStoreId,
-                url: requestDetails.url
+                url: requestDetails.url,
               });
               created.then(onCreated, onContextError);
             }
@@ -332,7 +332,7 @@ var contextSetup = function(requestDetails) {
     var muwireTabFind = async function(tabId) {
       try {
         var context = await browser.contextualIdentities.query({
-          name: muwirepref
+          name: muwirepref,
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
           function Create() {
@@ -343,7 +343,7 @@ var contextSetup = function(requestDetails) {
                   console.log('in favor of', tab.id);
                   console.log('with context', tab.cookieStoreId);
                   browser.tabs.remove(tabId.id);
-                  browser.tabs.move(tab.id, {index: 4});
+                  browser.tabs.move(tab.id, { index: 4 });
                 }
                 for (index = 0; index < tabs.length; index++) {
                   if (index != tabs.length - 1)
@@ -351,7 +351,7 @@ var contextSetup = function(requestDetails) {
                 }
               }
               var pins = browser.tabs.query({
-                cookieStoreId: context[0].cookieStoreId
+                cookieStoreId: context[0].cookieStoreId,
               });
               pins.then(closeOldTab, onError);
             }
@@ -364,7 +364,7 @@ var contextSetup = function(requestDetails) {
               active: true,
               pinned: true,
               cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url
+              url: requestDetails.url,
             });
             created.then(onCreated, onContextError);
           }
@@ -379,7 +379,7 @@ var contextSetup = function(requestDetails) {
     var mailTabFind = async function(tabId) {
       try {
         var context = await browser.contextualIdentities.query({
-          name: mailpref
+          name: mailpref,
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
           function Create() {
@@ -390,7 +390,7 @@ var contextSetup = function(requestDetails) {
                   console.log('in favor of', tab.id);
                   console.log('with context', tab.cookieStoreId);
                   browser.tabs.remove(tabId.id);
-                  browser.tabs.move(tab.id, {index: 3});
+                  browser.tabs.move(tab.id, { index: 3 });
                 }
                 for (index = 0; index < tabs.length; index++) {
                   if (index != tabs.length - 1)
@@ -398,7 +398,7 @@ var contextSetup = function(requestDetails) {
                 }
               }
               var pins = browser.tabs.query({
-                cookieStoreId: context[0].cookieStoreId
+                cookieStoreId: context[0].cookieStoreId,
               });
               pins.then(closeOldTab, onError);
             }
@@ -411,7 +411,7 @@ var contextSetup = function(requestDetails) {
               active: true,
               pinned: true,
               cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url
+              url: requestDetails.url,
             });
             created.then(onCreated, onContextError);
           }
@@ -423,49 +423,59 @@ var contextSetup = function(requestDetails) {
         console.log('(isolate)Context Error', error);
       }
     };
-    /*var localTabFind = async function(tabId) {
+    var ircTabFind = async function(tabId) {
       try {
         var context = await browser.contextualIdentities.query({
-          name: localpref
+          name: ircpref,
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
-          function Create() {
-            function onCreated(tab) {
-              function closeOldTab() {
-                if (tabId.id != tab.id) {
-                  console.log('(isolate) Closing un-isolated tab', tabId.id);
-                  console.log('in favor of', tab.id);
-                  console.log('with context', tab.cookieStoreId);
-                  browser.tabs.remove(tabId.id);
+          if (requestDetails.url.includes(':7669')) {
+            function Create() {
+              function onCreated(tab) {
+                function closeOldTab(tabs) {
+                  if (tabId.id != tab.id) {
+                    console.log('(isolate) Closing un-isolated tab', tabId.id);
+                    console.log('in favor of', tab.id);
+                    console.log('with context', tab.cookieStoreId);
+                    browser.tabs.remove(tabId.id);
+                  }
+                  for (index = 0; index < tabs.length; index++) {
+                    if (index != tabs.length - 1)
+                      browser.tabs.remove(tabs[index].id);
+                  }
                 }
+                var pins = browser.tabs.query({
+                  cookieStoreId: context[0].cookieStoreId,
+                });
+                pins.then(closeOldTab, onError);
               }
-              closeOldTab(tab);
+              var created = browser.tabs.create({
+                active: true,
+                pinned: true,
+                cookieStoreId: context[0].cookieStoreId,
+                url: requestDetails.url,
+              });
+              created.then(onCreated, onContextError);
             }
-            var created = browser.tabs.create({
-              active: true,
-              cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url
-            });
-            created.then(onCreated, onContextError);
+            var gettab = browser.tabs.get(tabId.id);
+            gettab.then(Create, onContextError);
+            return tabId;
           }
-          var gettab = browser.tabs.get(tabId.id);
-          gettab.then(Create, onContextError);
-          return tabId;
         }
       } catch (error) {
         console.log('(isolate)Context Error', error);
       }
-    };*/
+    };
     var normalTabFind = async function(tabId) {
       if (tabId == undefined) {
         return;
       }
       try {
         var anoncontext = await browser.contextualIdentities.query({
-          name: titlepref
+          name: titlepref,
         });
-        var localcontext = await browser.contextualIdentities.query({
-          name: localpref
+        var irccontext = await browser.contextualIdentities.query({
+          name: ircpref,
         });
         var othercontexts = await notMyContextNotMyProblem();
         var nmp = false;
@@ -479,7 +489,7 @@ var contextSetup = function(requestDetails) {
           tabId.cookieStoreId == 'firefox-default' ||
           tabId.cookieStoreId == 'firefox-private' ||
           tabId.cookieStoreId == anoncontext[0].cookieStoreId ||
-          tabId.cookieStoreId == localcontext[0].cookieStoreId ||
+          tabId.cookieStoreId == irccontext[0].cookieStoreId ||
           nmp
         ) {
           console.log(
@@ -487,7 +497,7 @@ var contextSetup = function(requestDetails) {
             tabId.cookieStoreId,
             'not',
             anoncontext[0].cookieStoreId,
-            localcontext[0].cookieStoreId
+            irccontext[0].cookieStoreId
           );
           return;
         } else {
@@ -518,7 +528,7 @@ var contextSetup = function(requestDetails) {
             var created = browser.tabs.create({
               active: true,
               cookieStoreId: 'firefox-default',
-              url: requestDetails.url
+              url: requestDetails.url,
             });
             created.then(onCreated, onContextError);
           }
@@ -546,7 +556,7 @@ var contextSetup = function(requestDetails) {
       setcookie = browser.cookies.set({
         firstPartyDomain: i2pHostName(requestDetails.url),
         url: requestDetails.url,
-        secure: true
+        secure: true,
       });
       setcookie.then(onContextGotLog, onContextError);
       return requestDetails;
@@ -558,7 +568,7 @@ var contextSetup = function(requestDetails) {
         var setcookie = browser.cookies.set({
           firstPartyDomain: i2pHostName(requestDetails.url),
           url: requestDetails.url,
-          secure: true
+          secure: true,
         });
         setcookie.then(onContextGotLog, onContextError);
         var i2ptab = tab.then(i2pTabFind, onContextError);
@@ -587,10 +597,10 @@ var contextSetup = function(requestDetails) {
           return requestDetails;
         }
       } else {
-        /*if (localhost) {
-          var localtab = tab.then(localTabFind, onContextError);
+        if (localhost) {
+          var irctab = tab.then(ircTabFind, onContextError);
           return requestDetails;
-        }*/
+        }
         var normalTab = tab.then(normalTabFind, onContextError);
         return requestDetails;
         //return requestDetails;
@@ -607,24 +617,36 @@ var coolheadersSetup = function(e) {
       for (i = 0; i < e.responseHeaders.length; i++) {
         let header = e.responseHeaders[i];
         if (e.url.startsWith('https')) {
-          if (header.name.toUpperCase() === 'I2P-LOCATION' || header.name.toUpperCase() === 'X-I2P-LOCATION') {
+          if (
+            header.name.toUpperCase() === 'I2P-LOCATION' ||
+            header.name.toUpperCase() === 'X-I2P-LOCATION'
+          ) {
             browser.pageAction.setPopup({
               tabId: e.tabId,
-              popup: 'location.html'
+              popup: 'location.html',
             });
-            browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: e.tabId});
+            browser.pageAction.setIcon({
+              path: 'icons/i2plogo.png',
+              tabId: e.tabId,
+            });
             browser.pageAction.setTitle({
               tabId: e.tabId,
-              title: header.value
+              title: header.value,
             });
             browser.pageAction.show(e.tabId);
             break;
           }
-          if (header.name.toUpperCase() === 'I2P-TORRENTLOCATION' || header.name.toUpperCase() === 'X-I2P-TORRENTLOCATION') {
+          if (
+            header.name.toUpperCase() === 'I2P-TORRENTLOCATION' ||
+            header.name.toUpperCase() === 'X-I2P-TORRENTLOCATION'
+          ) {
             var imgs = document.getElementsByTagName('img');
             for (let img of imgs) {
               if (tmpsrc.host == location.host) {
-                img.src = 'http://127.0.0.1:7657/i2psnark/' + tmpsrc.host + tmpsrc.pathname;
+                img.src =
+                  'http://127.0.0.1:7657/i2psnark/' +
+                  tmpsrc.host +
+                  tmpsrc.pathname;
                 img.onerror = function() {
                   img.src = tmpsrc;
                 };
@@ -636,7 +658,10 @@ var coolheadersSetup = function(e) {
               if (tmpsrc.host == location.host) {
                 if (!video.innerHTML.includes('127.0.0.1')) {
                   innerHTML = video.innerHTML;
-                  topInnerHTML = video.innerHTML.replace('src=\"', 'src=\"http://127.0.0.1:7657/i2psnark/' + location.host + '/');
+                  topInnerHTML = video.innerHTML.replace(
+                    'src="',
+                    'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
+                  );
                   video.innerHTML = topInnerHTML + innerHTML;
                 }
               }
@@ -647,29 +672,41 @@ var coolheadersSetup = function(e) {
               if (tmpsrc.host == location.host) {
                 if (!audio.innerHTML.includes('127.0.0.1')) {
                   innerHTML = audio.innerHTML;
-                  topInnerHTML = audio.innerHTML.replace('src=\"', 'src=\"http://127.0.0.1:7657/i2psnark/' + location.host + '/');
+                  topInnerHTML = audio.innerHTML.replace(
+                    'src="',
+                    'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
+                  );
                   audio.innerHTML = topInnerHTML + innerHTML;
                 }
               }
             }
             browser.pageAction.setPopup({
               tabId: tabId.id,
-              popup: 'torrent.html'
+              popup: 'torrent.html',
             });
-            browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: e.tabId});
+            browser.pageAction.setIcon({
+              path: 'icons/i2plogo.png',
+              tabId: e.tabId,
+            });
             browser.pageAction.setTitle({
               tabId: e.tabId,
-              title: header.value
+              title: header.value,
             });
             browser.pageAction.show(e.tabId);
             break;
           }
-        }else {
-          if (header.name.toUpperCase() === 'I2P-TORRENTLOCATION' || header.name.toUpperCase() === 'X-I2P-TORRENTLOCATION') {
+        } else {
+          if (
+            header.name.toUpperCase() === 'I2P-TORRENTLOCATION' ||
+            header.name.toUpperCase() === 'X-I2P-TORRENTLOCATION'
+          ) {
             var imgs = document.getElementsByTagName('img');
             for (let img of imgs) {
               if (tmpsrc.host == location.host) {
-                img.src = 'http://127.0.0.1:7657/i2psnark/' + tmpsrc.host + tmpsrc.pathname;
+                img.src =
+                  'http://127.0.0.1:7657/i2psnark/' +
+                  tmpsrc.host +
+                  tmpsrc.pathname;
                 img.onerror = function() {
                   img.src = tmpsrc;
                 };
@@ -681,7 +718,10 @@ var coolheadersSetup = function(e) {
               if (tmpsrc.host == location.host) {
                 if (!video.innerHTML.includes('127.0.0.1')) {
                   innerHTML = video.innerHTML;
-                  topInnerHTML = video.innerHTML.replace('src=\"', 'src=\"http://127.0.0.1:7657/i2psnark/' + location.host + '/');
+                  topInnerHTML = video.innerHTML.replace(
+                    'src="',
+                    'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
+                  );
                   video.innerHTML = topInnerHTML + innerHTML;
                 }
               }
@@ -692,71 +732,87 @@ var coolheadersSetup = function(e) {
               if (tmpsrc.host == location.host) {
                 if (!audio.innerHTML.includes('127.0.0.1')) {
                   innerHTML = audio.innerHTML;
-                  topInnerHTML = audio.innerHTML.replace('src=\"', 'src=\"http://127.0.0.1:7657/i2psnark/' + location.host + '/');
+                  topInnerHTML = audio.innerHTML.replace(
+                    'src="',
+                    'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
+                  );
                   audio.innerHTML = topInnerHTML + innerHTML;
                 }
               }
             }
             browser.pageAction.setPopup({
               tabId: tabId.id,
-              popup: 'torrent.html'
+              popup: 'torrent.html',
             });
-            browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: e.tabId});
+            browser.pageAction.setIcon({
+              path: 'icons/i2plogo.png',
+              tabId: e.tabId,
+            });
             browser.pageAction.setTitle({
               tabId: e.tabId,
-              title: header.value
+              title: header.value,
             });
             browser.pageAction.show(e.tabId);
             break;
           }
         }
       }
-      resolve({responseHeaders: e.responseHeaders});
+      resolve({ responseHeaders: e.responseHeaders });
     }, 2000);
   });
   return asyncSetPageAction;
-}
+};
 
 function getClearTab(tobj) {
   function getTabURL(tab) {
-    if (tab.url.startsWith("https")){
-      browser.tabs.sendMessage( tab.id, {'req':'i2p-location'}).then( response => {
-        if (response.content.toUpperCase() != "NO-ALT-LOCATION"){
-          browser.pageAction.setPopup({
-            tabId: tab.id,
-            popup: 'location.html'
-          });
-          browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: tab.id});
-          browser.pageAction.setTitle({
-            tabId: tab.id,
-            title: response.content
-          });
-          browser.pageAction.show(tab.id);
-        }
-      });
-      console.log("(pageaction)", tab.id, tab.url)
+    if (tab.url.startsWith("https")) {
+      browser.tabs
+        .sendMessage(tab.id, { req: "i2p-location" })
+        .then((response) => {
+          if (response.content.toUpperCase() != "NO-ALT-LOCATION") {
+            browser.pageAction.setPopup({
+              tabId: tab.id,
+              popup: "location.html",
+            });
+            browser.pageAction.setIcon({
+              path: "icons/i2plogo.png",
+              tabId: tab.id,
+            });
+            browser.pageAction.setTitle({
+              tabId: tab.id,
+              title: response.content,
+            });
+            browser.pageAction.show(tab.id);
+          }
+        });
+      console.log("(pageaction)", tab.id, tab.url);
     } else {
-      browser.tabs.sendMessage( tab.id, {'req':'i2p-torrentlocation'}).then( response => {
-        if (response.content.toUpperCase() != "NO-ALT-LOCATION"){
-          browser.pageAction.setPopup({
-            tabId: tab.id,
-            popup: 'torrent.html'
-          });
-          browser.pageAction.setIcon({path: 'icons/i2plogo.png', tabId: tab.id});
-          browser.pageAction.setTitle({
-            tabId: tab.id,
-            title: response.content
-          });
-          browser.pageAction.show(tab.id);
-        }
-      });
-      console.log("(pageaction)", tab.id, tab.url)
+      browser.tabs
+        .sendMessage(tab.id, { req: "i2p-torrentlocation" })
+        .then((response) => {
+          if (response.content.toUpperCase() != "NO-ALT-LOCATION") {
+            browser.pageAction.setPopup({
+              tabId: tab.id,
+              popup: "torrent.html",
+            });
+            browser.pageAction.setIcon({
+              path: "icons/i2plogo.png",
+              tabId: tab.id,
+            });
+            browser.pageAction.setTitle({
+              tabId: tab.id,
+              title: response.content,
+            });
+            browser.pageAction.show(tab.id);
+          }
+        });
+      console.log("(pageaction)", tab.id, tab.url);
     }
   }
-  if (typeof(tobj) == "number"){
-    browser.tabs.get(tobj).then(getTabURL, onError)  
-  }else{
-    browser.tabs.get(tobj.tabId).then(getTabURL, onError)  
+  if (typeof tobj == "number") {
+    browser.tabs.get(tobj).then(getTabURL, onError);
+  } else {
+    browser.tabs.get(tobj.tabId).then(getTabURL, onError);
   }
 }
 
@@ -765,7 +821,7 @@ browser.tabs.onUpdated.addListener(getClearTab);
 
 function reloadTabs(tabs) {
   for (let tab of tabs) {
-    browser.tabs.reload(tab.id)
+    browser.tabs.reload(tab.id);
   }
 }
 
@@ -776,23 +832,22 @@ function reloadError(error) {
 let querying = browser.tabs.query({});
 querying.then(reloadTabs, onError);
 
-
 // Listen for onHeaderReceived for the target page.
 // Set "blocking" and "responseHeaders".
 browser.webRequest.onHeadersReceived.addListener(
   coolheadersSetup,
-  {urls: ['<all_urls>']},
+  { urls: ["<all_urls>"] },
   ["blocking", "responseHeaders"]
 );
 
 browser.webRequest.onBeforeRequest.addListener(
   contextSetup,
-  { urls: ['<all_urls>'] },
-  ['blocking']
+  { urls: ["<all_urls>"] },
+  ["blocking"]
 );
 
 browser.webRequest.onBeforeSendHeaders.addListener(
   contextScrub,
-  { urls: ['<all_urls>'] },
-  ['blocking', 'requestHeaders']
+  { urls: ["<all_urls>"] },
+  ["blocking", "requestHeaders"]
 );

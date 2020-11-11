@@ -21,7 +21,7 @@ setupExtractor();
 
 function extractSession(requestDetails) {
   const hdr = requestDetails.requestHeaders.filter(
-    x => x.name.toLowerCase() === "x-transmission-session-id"
+    (x) => x.name.toLowerCase() === "x-transmission-session-id"
   )[0];
   if (!hdr) {
     return;
@@ -58,21 +58,21 @@ function addUrl(torrentUrl, downloadDir) {
     console.log("Downloading torrent", torrentUrl);
     p = fetch(torrentUrl, {
       method: "GET",
-      credentials: "include"
+      credentials: "include",
     })
-      .then(resp => {
+      .then((resp) => {
         if (resp.ok) {
           return resp.blob();
         }
         throw new Error("Could not download torrent");
       })
       .then(blobToBase64)
-      .then(b64 => {
+      .then((b64) => {
         params.metainfo = b64;
         return rpcCall("torrent-add", params);
       });
   }
-  return p.then(x => {
+  return p.then((x) => {
     updateBadge();
     return x;
   });
@@ -85,7 +85,7 @@ function handleUrl(requestDetails) {
     decodeURIComponent(
       requestDetails.url.replace("http://transmitter.web-extension/", "")
     )
-  ).then(x => {
+  ).then((x) => {
     return browser.storage.local.get("server").then(({ server }) => {
       return { redirectUrl: server.base_url + "web/" };
     });
@@ -107,19 +107,19 @@ function createContextMenu() {
       browser.contextMenus.create({
         id: "transmitter-add",
         title: "Download with Transmission remote",
-        contexts: ["link"]
+        contexts: ["link"],
       });
     } else {
       browser.contextMenus.create({
         id: "transmitter-add",
         title: "Download to Default location",
-        contexts: ["link"]
+        contexts: ["link"],
       });
-      server.locations.forEach(location => {
+      server.locations.forEach((location) => {
         browser.contextMenus.create({
           id: "transmitter-add-loc-" + location.index,
           title: "Download to " + location.name,
-          contexts: ["link"]
+          contexts: ["link"],
         });
       });
     }
@@ -152,42 +152,42 @@ function updateBadge() {
     ) {
       return;
     }
-    return rpcCall("session-stats", {}).then(response => {
+    return rpcCall("session-stats", {}).then((response) => {
       const args = response.arguments; // lol the name 'arguments' means destructuring in strict mode is impossible
       switch (server.badge) {
         case "num":
           browser.browserAction.setBadgeBackgroundColor({ color: "gray" });
           browser.browserAction.setBadgeText({
-            text: "" + args.activeTorrentCount
+            text: "" + args.activeTorrentCount,
           });
           break;
         case "dl":
           browser.browserAction.setBadgeBackgroundColor({ color: "green" });
           browser.browserAction.setBadgeText({
-            text: formatSpeed(args.downloadSpeed)
+            text: formatSpeed(args.downloadSpeed),
           });
           break;
         case "ul":
           browser.browserAction.setBadgeBackgroundColor({ color: "blue" });
           browser.browserAction.setBadgeText({
-            text: formatSpeed(args.uploadSpeed)
+            text: formatSpeed(args.uploadSpeed),
           });
           break;
         case "auto":
           if (args.downloadSpeed > 0) {
             browser.browserAction.setBadgeBackgroundColor({ color: "green" });
             browser.browserAction.setBadgeText({
-              text: formatSpeed(args.downloadSpeed)
+              text: formatSpeed(args.downloadSpeed),
             });
           } else if (args.uploadSpeed > 0) {
             browser.browserAction.setBadgeBackgroundColor({ color: "blue" });
             browser.browserAction.setBadgeText({
-              text: formatSpeed(args.uploadSpeed)
+              text: formatSpeed(args.uploadSpeed),
             });
           } else {
             browser.browserAction.setBadgeBackgroundColor({ color: "gray" });
             browser.browserAction.setBadgeText({
-              text: "" + args.activeTorrentCount
+              text: "" + args.activeTorrentCount,
             });
           }
           break;
@@ -196,20 +196,20 @@ function updateBadge() {
   });
 }
 
-browser.alarms.onAlarm.addListener(alarm => {
+browser.alarms.onAlarm.addListener((alarm) => {
   if (alarm.name === "transmitter-badge-update") {
     return updateBadge();
   }
 });
 
 function setupBadge() {
-  browser.alarms.clear("transmitter-badge-update").then(x => {
+  browser.alarms.clear("transmitter-badge-update").then((x) => {
     browser.storage.local.get("server").then(({ server }) => {
       if (!server) {
         return;
       }
       browser.alarms.create("transmitter-badge-update", {
-        periodInMinutes: parseInt(server.badge_interval || "1")
+        periodInMinutes: parseInt(server.badge_interval || "1"),
       });
       updateBadge();
     });

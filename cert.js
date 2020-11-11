@@ -35,7 +35,7 @@ function tabCheck(tabInfo) {
   if (host.startsWith('https')) {
     contentUpdateById('AddressCertInfo', 'certPresent');
     console.log('(cert) initiating request to check server cert');
-    fetch(host).then(response => {
+    fetch(host).then((response) => {
       console.log('Updating cert information', response);
     });
   } else {

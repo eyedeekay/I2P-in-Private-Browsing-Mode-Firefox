@@ -286,6 +286,9 @@ fmt-js:
 	fixjsstyle manifest.json
 	#find . -path ./node_modules -prune -o -name '*.json' -exec fixjsstyle --write {} \;
 
+fmt-prettier:
+	find . -name '*.js*' -exec $(HOME)/node_modules/.bin/prettier -w {} \;
+
 lint:
 
 	gjslint *.js; true

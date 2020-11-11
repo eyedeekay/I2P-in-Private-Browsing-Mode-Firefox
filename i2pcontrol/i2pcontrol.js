@@ -27,11 +27,11 @@ function send(
       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
       credentials: 'same-origin', // include, *same-origin, omit
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       redirect: 'follow', // manual, *follow, error
       referrerPolicy: 'no-referrer', // no-referrer, *client
-      body: requestBody // body data type must match "Content-Type" header
+      body: requestBody, // body data type must match "Content-Type" header
     };
     const response = await fetch(url, opts);
     return await response.json(); // parses JSON response into native JavaScript objects

@@ -10,8 +10,8 @@ var torrentpref = chrome.i18n.getMessage('torrentPreface');
 var torrentprefpriv = chrome.i18n.getMessage('torrentPrefacePrivate');
 var tunnelpref = chrome.i18n.getMessage('i2ptunnelPreface');
 var tunnelprefpriv = chrome.i18n.getMessage('i2ptunnelPrefacePrivate');
-var localpref = chrome.i18n.getMessage('localPreface');
-var localprefpriv = chrome.i18n.getMessage('localPrefacePrivate');
+var ircpref = chrome.i18n.getMessage('ircPreface');
+var ircprefpriv = chrome.i18n.getMessage('ircPrefacePrivate');
 var extensionpref = chrome.i18n.getMessage('extensionPreface');
 var muwirepref = chrome.i18n.getMessage('muwirePreface');
 
@@ -27,7 +27,7 @@ function onContextsGot(contexts) {
       .create({
         name: titlepref,
         color: 'orange',
-        icon: 'fingerprint'
+        icon: 'fingerprint',
       })
       .then(onCreated, onNotCreated);
   }
@@ -36,7 +36,7 @@ function onContextsGot(contexts) {
       .create({
         name: webpref,
         color: 'red',
-        icon: 'circle'
+        icon: 'circle',
       })
       .then(onCreated, onNotCreated);
   }
@@ -45,7 +45,7 @@ function onContextsGot(contexts) {
       .create({
         name: routerpref,
         color: 'blue',
-        icon: 'briefcase'
+        icon: 'briefcase',
       })
       .then(onCreated, onNotCreated);
   }
@@ -54,7 +54,7 @@ function onContextsGot(contexts) {
       .create({
         name: tunnelpref,
         color: 'green',
-        icon: 'tree'
+        icon: 'tree',
       })
       .then(onCreated, onNotCreated);
   }
@@ -63,7 +63,7 @@ function onContextsGot(contexts) {
       .create({
         name: mailpref,
         color: 'yellow',
-        icon: 'briefcase'
+        icon: 'briefcase',
       })
       .then(onCreated, onNotCreated);
   }
@@ -72,25 +72,25 @@ function onContextsGot(contexts) {
       .create({
         name: torrentpref,
         color: 'purple',
-        icon: 'chill'
+        icon: 'chill',
       })
       .then(onCreated, onNotCreated);
   }
-  if (ids.indexOf(localpref) == -1) {
+  if (ids.indexOf(ircpref) == -1) {
     browser.contextualIdentities
       .create({
-        name: localpref,
+        name: ircpref,
         color: 'red',
-        icon: 'fence'
+        icon: 'vacation',
       })
       .then(onCreated, onNotCreated);
   }
-  if (ids.indexOf(localpref) == -1) {
+  if (ids.indexOf(muwirepref) == -1) {
     browser.contextualIdentities
       .create({
         name: muwirepref,
         color: 'turquoise',
-        icon: 'gift'
+        icon: 'gift',
       })
       .then(onCreated, onNotCreated);
   }
@@ -111,7 +111,7 @@ function onNotCreated(context) {
 browser.contextualIdentities.query({}).then(onContextsGot, onContextsError);
 
 var gettingInfo = browser.runtime.getPlatformInfo();
-gettingInfo.then(got => {
+gettingInfo.then((got) => {
   if (got.os != 'android') {
     browser.windows.onCreated.addListener(themeWindow);
     browser.windows.onFocusChanged.addListener(themeWindow);
@@ -124,7 +124,7 @@ gettingInfo.then(got => {
 function themeWindowByTab(tabId) {
   function tabWindow(tab) {
     var gettingPlatformInfo = browser.runtime.getPlatformInfo();
-    gettingPlatformInfo.then(got => {
+    gettingPlatformInfo.then((got) => {
       if (got.os == 'android') {
         let getwindow = browser.tabs.get(tab.tabId);
         getwindow.then(themeWindow);
@@ -167,21 +167,21 @@ function themeWindow(window) {
           browser.theme.update(window.id, {
             colors: {
               frame: '#363A68',
-              toolbar: '#363A68'
-            }
+              toolbar: '#363A68',
+            },
           });
         } else {
           browser.theme.update(window.id, {
             colors: {
               frame: '#363A68',
-              toolbar: '#363A68'
-            }
+              toolbar: '#363A68',
+            },
           });
         }
         if (tabInfo[0].url.startsWith('https://')) {
           browser.pageAction.setPopup({
             tabId: tabInfo[0].id,
-            popup: 'security.html'
+            popup: 'security.html',
           });
           //console.log("(background) tabinfo", tabInfo[0].id)
           browser.pageAction.show(tabInfo[0].id);
@@ -194,15 +194,15 @@ function themeWindow(window) {
           browser.theme.update(window.id, {
             colors: {
               frame: '#4456B7',
-              toolbar: '#4456B7'
-            }
+              toolbar: '#4456B7',
+            },
           });
         } else {
           browser.theme.update(window.id, {
             colors: {
               frame: '#4456B7',
-              toolbar: '#4456B7'
-            }
+              toolbar: '#4456B7',
+            },
           });
         }
       } else if (context.name == tunnelpref) {
@@ -211,15 +211,15 @@ function themeWindow(window) {
           browser.theme.update(window.id, {
             colors: {
               frame: '#4456B7',
-              toolbar: '#4456B7'
-            }
+              toolbar: '#4456B7',
+            },
           });
         } else {
           browser.theme.update(window.id, {
             colors: {
               frame: '#4456B7',
-              toolbar: '#4456B7'
-            }
+              toolbar: '#4456B7',
+            },
           });
         }
       } else if (context.name == mailpref) {
@@ -228,15 +228,15 @@ function themeWindow(window) {
           browser.theme.update(window.id, {
             colors: {
               frame: '#4456B7',
-              toolbar: '#4456B7'
-            }
+              toolbar: '#4456B7',
+            },
           });
         } else {
           browser.theme.update(window.id, {
             colors: {
               frame: '#4456B7',
-              toolbar: '#4456B7'
-            }
+              toolbar: '#4456B7',
+            },
           });
         }
       } else if (context.name == torrentpref) {
@@ -245,15 +245,15 @@ function themeWindow(window) {
           browser.theme.update(window.id, {
             colors: {
               frame: '#4456B7',
-              toolbar: '#4456B7'
-            }
+              toolbar: '#4456B7',
+            },
           });
         } else {
           browser.theme.update(window.id, {
             colors: {
               frame: '#4456B7',
-              toolbar: '#4456B7'
-            }
+              toolbar: '#4456B7',
+            },
           });
         }
       }
@@ -265,13 +265,13 @@ function themeWindow(window) {
       browser.contextualIdentities
         .get(tabInfo[0].cookieStoreId)
         .then(onContextGotTheme, onThemeError);
-    }else {
+    } else {
       console.log('Not active in I2P window');
       function unSetTheme(them) {
         console.log('unsetting theme', them);
         if (Object.keys(them).length > 0) {
           browser.theme.update(window.id, them.originalTheme);
-        }else {
+        } else {
           browser.theme.update(window.id, { colors: null });
         }
       }
@@ -281,7 +281,7 @@ function themeWindow(window) {
 
   var querying = browser.tabs.query({
     currentWindow: true,
-    active: true
+    active: true,
   });
   querying.then(logTabs, onThemeError);
 }
@@ -298,33 +298,33 @@ function setTitle(window) {
 
         if (window.incognito) {
           browser.windows.update(window.id, {
-            titlePreface: titleprefpriv + ': '
+            titlePreface: titleprefpriv + ': ',
           });
         } else {
           browser.windows.update(window.id, {
-            titlePreface: titlepref + ': '
+            titlePreface: titlepref + ': ',
           });
         }
       } else if (context.name == webpref) {
         console.log('Active in Web window');
         if (window.incognito) {
           browser.windows.update(window.id, {
-            titlePreface: webprefpriv + ' - '
+            titlePreface: webprefpriv + ' - ',
           });
         } else {
           browser.windows.update(window.id, {
-            titlePreface: webpref + ' - '
+            titlePreface: webpref + ' - ',
           });
         }
       } else if (context.name == routerpref) {
         console.log('Active in Router Console window');
         if (window.incognito) {
           browser.windows.update(window.id, {
-            titlePreface: titleprefpriv + ' - ' + routerprefpriv + ': '
+            titlePreface: titleprefpriv + ' - ' + routerprefpriv + ': ',
           });
         } else {
           browser.windows.update(window.id, {
-            titlePreface: titlepref + ' - ' + routerpref + ': '
+            titlePreface: titlepref + ' - ' + routerpref + ': ',
           });
         }
       } else if (context.name == tunnelpref) {
@@ -332,11 +332,11 @@ function setTitle(window) {
 
         if (window.incognito) {
           browser.windows.update(window.id, {
-            titlePreface: titleprefpriv + ' - ' + tunnelprefpriv + ': '
+            titlePreface: titleprefpriv + ' - ' + tunnelprefpriv + ': ',
           });
         } else {
           browser.windows.update(window.id, {
-            titlePreface: titlepref + ' - ' + tunnelpref + ': '
+            titlePreface: titlepref + ' - ' + tunnelpref + ': ',
           });
         }
       } else if (context.name == mailpref) {
@@ -344,11 +344,11 @@ function setTitle(window) {
 
         if (window.incognito) {
           browser.windows.update(window.id, {
-            titlePreface: titleprefpriv + ' - ' + mailprefpriv + ': '
+            titlePreface: titleprefpriv + ' - ' + mailprefpriv + ': ',
           });
         } else {
           browser.windows.update(window.id, {
-            titlePreface: titlepref + ' - ' + mailpref + ': '
+            titlePreface: titlepref + ' - ' + mailpref + ': ',
           });
         }
       } else if (context.name == torrentpref) {
@@ -356,23 +356,23 @@ function setTitle(window) {
 
         if (window.incognito) {
           browser.windows.update(window.id, {
-            titlePreface: titleprefpriv + ' - ' + torrentprefpriv + ': '
+            titlePreface: titleprefpriv + ' - ' + torrentprefpriv + ': ',
           });
         } else {
           browser.windows.update(window.id, {
-            titlePreface: titlepref + ' - ' + torrentpref + ': '
+            titlePreface: titlepref + ' - ' + torrentpref + ': ',
           });
         }
-      } else if (context.name == localpref) {
-        console.log('Active in Localhost window');
+      } else if (context.name == ircpref) {
+        console.log('Active in IRC window');
 
         if (window.incognito) {
           browser.windows.update(window.id, {
-            titlePreface: localprefpriv + ' - ' + localprefpriv + ': '
+            titlePreface: ircprefpriv + ' - ' + ircprefpriv + ': ',
           });
         } else {
           browser.windows.update(window.id, {
-            titlePreface: localpref + ' - ' + localpref + ': '
+            titlePreface: ircpref + ' - ' + ircpref + ': ',
           });
         }
       }
@@ -387,37 +387,37 @@ function setTitle(window) {
         .then(onContextGotTitle, onContextError);
     } else if (window.incognito) {
       browser.windows.update(window.id, {
-        titlePreface: ''
+        titlePreface: '',
       });
     } else {
       browser.windows.update(window.id, {
-        titlePreface: ''
+        titlePreface: '',
       });
     }
   }
 
   var querying = browser.tabs.query({
     currentWindow: true,
-    active: true
+    active: true,
   });
   querying.then(logTabs, onContextError);
 }
 
 var gettingListenerInfo = browser.runtime.getPlatformInfo();
-gettingListenerInfo.then(got => {
+gettingListenerInfo.then((got) => {
   function onPlatformError() {
     console.log('Error finding platform info');
   }
   if (got.os != 'android') {
     browser.tabs.onCreated.addListener(() => {
       var getting = browser.windows.getCurrent({
-        populate: true
+        populate: true,
       });
       getting.then(setTitle, onPlatformError);
     });
     browser.tabs.onActivated.addListener(() => {
       var getting = browser.windows.getCurrent({
-        populate: true
+        populate: true,
       });
       getting.then(setTitle, onPlatformError);
     });
@@ -425,24 +425,38 @@ gettingListenerInfo.then(got => {
 });
 
 function handleUpdated(updateInfo) {
-  function maybeSet(them){
-    console.log("original theme found:", them, Object.keys(them).length)
-    try{
-    if ((Object.keys(them).length == 0) || them.originalTheme.colors == null && them.originalTheme.images == null && them.originalTheme.properties == null) {
-      if (updateInfo.theme.colors.frame != '#4456B7' && updateInfo.theme.colors.frame != '#363A68') {
-        function onSet(){
-          console.log("stored theme:", updateInfo.theme)
+  function maybeSet(them) {
+    console.log("original theme found:", them, Object.keys(them).length);
+    try {
+      if (
+        Object.keys(them).length == 0 ||
+        (them.originalTheme.colors == null &&
+          them.originalTheme.images == null &&
+          them.originalTheme.properties == null)
+      ) {
+        if (
+          updateInfo.theme.colors.frame != "#4456B7" &&
+          updateInfo.theme.colors.frame != "#363A68"
+        ) {
+          function onSet() {
+            console.log("stored theme:", updateInfo.theme);
+          }
+          if (
+            updateInfo.theme.colors != null ||
+            updateInfo.theme.images != null ||
+            updateInfo.theme.properties != null
+          ) {
+            console.log("storing theme:", updateInfo.theme);
+            browser.storage.local
+              .set({ originalTheme: updateInfo.theme })
+              .then(onSet, onError);
+          }
         }
-        if (updateInfo.theme.colors != null || updateInfo.theme.images != null || updateInfo.theme.properties != null ) {
-          console.log("storing theme:", updateInfo.theme)
-          browser.storage.local.set({"originalTheme": updateInfo.theme}).then(onSet, onError)
-        }
+      } else {
+        console.log("keeping stored theme:", them);
       }
-    }else{
-      console.log("keeping stored theme:", them)
-    }
-    }catch{
-      console.log("theme storage error")
+    } catch {
+      console.log("theme storage error");
     }
   }
   browser.storage.local.get("originalTheme").then(maybeSet, onError);
