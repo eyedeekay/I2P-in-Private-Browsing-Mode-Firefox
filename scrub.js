@@ -461,6 +461,7 @@ var contextSetup = function(requestDetails) {
             gettab.then(Create, onContextError);
             return tabId;
           }
+
         }
       } catch (error) {
         console.log('(isolate)Context Error', error);

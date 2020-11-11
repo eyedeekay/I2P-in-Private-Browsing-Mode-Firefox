@@ -30,9 +30,9 @@ var handleContextProxyRequest = async function(requestDetails) {
         proxy = null;
         return proxy;
       }
+      console.log('(proxy), context', context);
       if (context != undefined) {
         if (context.name == titlepref) {
-          var tab = tabGet(requestDetails.tabId);
           if (!requestDetails.url.includes('/i2psnark/')) {
             console.log('URL', requestDetails.url);
             proxy = {
@@ -45,21 +45,22 @@ var handleContextProxyRequest = async function(requestDetails) {
           console.log("Using", proxy.type);
           console.log("proxy ", proxy.host + ":" + proxy.port);*/
           return proxy;
-        } else if (context.name == routerpref) {
-          if (routerHost(requestDetails.url)) {
-            return proxy;
-          } else if (!routerHost(requestDetails.url)) {
-            proxy = {
-              type: 'http',
-              host: 'localhost',
-              port: '65535'
-            };
-          }
+        } else if (context.name == ircpref) {
           proxy = {
             type: getScheme(),
             host: getHost(),
             port: getPort()
           };
+        } else if (context.name == routerpref) {
+          if (routerHost(requestDetails.url)) {
+            proxy = null;
+          } else if (!routerHost(requestDetails.url)) {
+            proxy = {
+              type: getScheme(),
+              host: getHost(),
+              port: getPort()
+            };
+          }
           /*console.log("(proxy)", context.name);
           console.log("Using", proxy.type);
           console.log("proxy ", proxy.host + ":" + proxy.port);*/
@@ -82,15 +83,19 @@ var handleContextProxyRequest = async function(requestDetails) {
       }
       if (!routerHost(requestDetails.url)) {
         if (localHost(requestDetails.url)) {
+          if (requestDetails.url.includes(':7669')) {
+            proxy = null;
+          } else {
           console.log(
             '(proxy) non-routerconsole localhost url, will not interfere',
             requestDetails.url
           );
-          /*proxy = {
-            type: "http",
-            host: "localhost",
-            port: "65535"
-          };*/
+            /*proxy = {
+              type: "http",
+              host: "localhost",
+              port: "65535"
+            };*/
+          }
         }
       } else if (i2pHost(requestDetails.url)) {
         proxy = {
@@ -99,6 +104,8 @@ var handleContextProxyRequest = async function(requestDetails) {
           port: getPort()
         };
       }
+      //var tab = tabGet(requestDetails.tabId);
+      //tab.then(handleTabRequest,)
       return proxy;
     };
     var contextGet = async function(tabInfo) {
@@ -292,6 +299,15 @@ function getPort() {
     var scheme = getScheme();
     if (scheme == 'socks') proxy_port = '4446';
     else proxy_port = '4444';
+  }
+  return proxy_port;
+}
+
+function getConsolePort() {
+  if (control_port == undefined) {
+    var scheme = getScheme();
+    if (scheme == 'socks') proxy_port = '7657';
+    else proxy_port = '7657';
   }
   return proxy_port;
 }
