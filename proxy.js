@@ -41,9 +41,6 @@ var handleContextProxyRequest = async function(requestDetails) {
               port: getPort()
             };
           }
-          /*console.log("(proxy)", context.name);
-          console.log("Using", proxy.type);
-          console.log("proxy ", proxy.host + ":" + proxy.port);*/
           return proxy;
         } else if (context.name == ircpref) {
           proxy = {
@@ -61,9 +58,6 @@ var handleContextProxyRequest = async function(requestDetails) {
               port: getPort()
             };
           }
-          /*console.log("(proxy)", context.name);
-          console.log("Using", proxy.type);
-          console.log("proxy ", proxy.host + ":" + proxy.port);*/
           return proxy;
         } else if (context.name == webpref) {
           if (localHost(requestDetails.url)) {
@@ -90,11 +84,6 @@ var handleContextProxyRequest = async function(requestDetails) {
             '(proxy) non-routerconsole localhost url, will not interfere',
             requestDetails.url
           );
-            /*proxy = {
-              type: "http",
-              host: "localhost",
-              port: "65535"
-            };*/
           }
         }
       } else if (i2pHost(requestDetails.url)) {
