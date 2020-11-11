@@ -1,5 +1,6 @@
 var titlepref = chrome.i18n.getMessage('titlePreface');
 var webpref = chrome.i18n.getMessage('webPreface');
+var ircpref = chrome.i18n.getMessage('ircPreface');
 var routerpref = chrome.i18n.getMessage('routerPreface');
 var routerprefpriv = chrome.i18n.getMessage('routerPrefacePrivate');
 
@@ -48,6 +49,9 @@ var handleContextProxyRequest = async function(requestDetails) {
             host: getHost(),
             port: getPort(),
           };
+          if (requestDetails.url.includes(':7669')) {
+            proxy = null;
+          }
         } else if (context.name == routerpref) {
           if (routerHost(requestDetails.url)) {
             proxy = null;
@@ -69,9 +73,6 @@ var handleContextProxyRequest = async function(requestDetails) {
               };
             }
           }
-          console.log('(proxy)', context.name);
-          console.log('Using', proxy.type);
-          console.log('proxy ', proxy.host + ':' + proxy.port);
           return proxy;
         }
       }
