@@ -1,66 +1,66 @@
 browser.runtime.onMessage.addListener((request) => {
-  var response = '';
-  if (request.req === 'i2p-location') {
-    response = 'no-alt-location';
-    const metas = document.getElementsByTagName('meta');
+  var response = "";
+  if (request.req === "i2p-location") {
+    response = "no-alt-location";
+    const metas = document.getElementsByTagName("meta");
     for (let i = 0; i < metas.length; i++) {
       try {
-        tag = metas[i].getAttribute('http-equiv');
-        if (tag.toUpperCase() === 'I2P-LOCATION') {
-          response = metas[i].getAttribute('content');
+        tag = metas[i].getAttribute("http-equiv");
+        if (tag.toUpperCase() === "I2P-LOCATION") {
+          response = metas[i].getAttribute("content");
         }
-        if (tag.toUpperCase() === 'X-I2P-LOCATION') {
-          response = metas[i].getAttribute('content');
+        if (tag.toUpperCase() === "X-I2P-LOCATION") {
+          response = metas[i].getAttribute("content");
         }
-      } catch {};
+      } catch {}
     }
   }
-  if (request.req === 'i2p-torrentlocation') {
-    response = 'no-alt-location';
-    const metas = document.getElementsByTagName('meta');
+  if (request.req === "i2p-torrentlocation") {
+    response = "no-alt-location";
+    const metas = document.getElementsByTagName("meta");
     for (let i = 0; i < metas.length; i++) {
       try {
-        tag = metas[i].getAttribute('http-equiv');
-        if (tag.toUpperCase() === 'I2P-TORRENTLOCATION') {
-          response = metas[i].getAttribute('content');
-          var imgs = document.getElementsByTagName('img');
+        tag = metas[i].getAttribute("http-equiv");
+        if (tag.toUpperCase() === "I2P-TORRENTLOCATION") {
+          response = metas[i].getAttribute("content");
+          var imgs = document.getElementsByTagName("img");
           for (let img of imgs) {
             let tmpsrc = new URL(img.src);
             if (tmpsrc.host == location.host) {
               img.src =
-                'http://127.0.0.1:7657/i2psnark/' +
+                "http://127.0.0.1:7657/i2psnark/" +
                 tmpsrc.host +
                 tmpsrc.pathname;
-              img.onerror = function() {
+              img.onerror = function () {
                 img.src = tmpsrc;
               };
             }
           }
-          var links = document.getElementsByTagName('a');
-          console.log('Listing link', links);
+          var links = document.getElementsByTagName("a");
+          console.log("Listing link", links);
           for (let link of links) {
-            console.log('(Changing Link)', link);
+            console.log("(Changing Link)", link);
             let tmpsrc = new URL(link.href);
             //            console.log("link", tmpsrc.host, tmpsrc.pathname)
             if (tmpsrc.host == location.host) {
               if (
-                !tmpsrc.pathname.endsWith('html') &&
-                !tmpsrc.pathname.endsWith('htm') &&
-                !tmpsrc.pathname.endsWith('php') &&
-                !tmpsrc.pathname.endsWith('jsp') &&
-                !tmpsrc.pathname.endsWith('asp') &&
-                !tmpsrc.pathname.endsWith('aspx') &&
-                !tmpsrc.pathname.endsWith('atom') &&
-                !tmpsrc.pathname.endsWith('rss') &&
-                !tmpsrc.pathname.endsWith('/') &&
-                tmpsrc.pathname.includes('.')
+                !tmpsrc.pathname.endsWith("html") &&
+                !tmpsrc.pathname.endsWith("htm") &&
+                !tmpsrc.pathname.endsWith("php") &&
+                !tmpsrc.pathname.endsWith("jsp") &&
+                !tmpsrc.pathname.endsWith("asp") &&
+                !tmpsrc.pathname.endsWith("aspx") &&
+                !tmpsrc.pathname.endsWith("atom") &&
+                !tmpsrc.pathname.endsWith("rss") &&
+                !tmpsrc.pathname.endsWith("/") &&
+                tmpsrc.pathname.includes(".")
               ) {
-                console.log('link', tmpsrc.host, tmpsrc.pathname);
+                console.log("link", tmpsrc.host, tmpsrc.pathname);
                 link.href =
-                  'http://127.0.0.1:7657/i2psnark/' +
+                  "http://127.0.0.1:7657/i2psnark/" +
                   tmpsrc.host +
                   tmpsrc.pathname;
-                link.onerror = function() {
+                link.onerror = function () {
                   window.location.href = tmpsrc.href;
                 };
               }
@@ -76,75 +76,75 @@ browser.runtime.onMessage.addListener((request) => {
               //}
             }
           }
-          var videos = document.getElementsByTagName('video');
+          var videos = document.getElementsByTagName("video");
           for (let video of videos) {
             let tmpsrc = new URL(video.currentSrc);
             if (tmpsrc.host == location.host) {
-              if (!video.innerHTML.includes('127.0.0.1')) {
+              if (!video.innerHTML.includes("127.0.0.1")) {
                 innerHTML = video.innerHTML;
                 topInnerHTML = video.innerHTML.replace(
                   'src="',
-                  'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
+                  'src="http://127.0.0.1:7657/i2psnark/' + location.host + "/"
                 );
                 video.innerHTML = topInnerHTML + innerHTML;
               }
             }
           }
-          var audios = document.getElementsByTagName('audio');
+          var audios = document.getElementsByTagName("audio");
           for (let audio of audios) {
             let tmpsrc = new URL(audio.currentSrc);
             if (tmpsrc.host == location.host) {
-              if (!audio.innerHTML.includes('127.0.0.1')) {
+              if (!audio.innerHTML.includes("127.0.0.1")) {
                 innerHTML = audio.innerHTML;
                 topInnerHTML = audio.innerHTML.replace(
                   'src="',
-                  'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
+                  'src="http://127.0.0.1:7657/i2psnark/' + location.host + "/"
                 );
                 audio.innerHTML = topInnerHTML + innerHTML;
               }
             }
           }
         }
-        if (tag.toUpperCase() === 'X-I2P-TORRENTLOCATION') {
-          response = metas[i].getAttribute('content');
-          var imgs = document.getElementsByTagName('img');
+        if (tag.toUpperCase() === "X-I2P-TORRENTLOCATION") {
+          response = metas[i].getAttribute("content");
+          var imgs = document.getElementsByTagName("img");
           for (let img of imgs) {
             let tmpsrc = new URL(img.src);
             if (tmpsrc.host == location.host) {
               img.src =
-                'http://127.0.0.1:7657/i2psnark/' +
+                "http://127.0.0.1:7657/i2psnark/" +
                 tmpsrc.host +
                 tmpsrc.pathname;
-              img.onerror = function() {
+              img.onerror = function () {
                 img.src = tmpsrc;
               };
             }
           }
-          var links = document.getElementsByTagName('a');
-          console.log('Listing link', links);
+          var links = document.getElementsByTagName("a");
+          console.log("Listing link", links);
           for (let link of links) {
-            console.log('(Changing Link)', link);
+            console.log("(Changing Link)", link);
             let tmpsrc = new URL(link.href);
             //console.log("link", tmpsrc.host, tmpsrc.pathname)
             if (tmpsrc.host == location.host) {
               if (
-                !tmpsrc.pathname.endsWith('html') &&
-                !tmpsrc.pathname.endsWith('htm') &&
-                !tmpsrc.pathname.endsWith('php') &&
-                !tmpsrc.pathname.endsWith('jsp') &&
-                !tmpsrc.pathname.endsWith('asp') &&
-                !tmpsrc.pathname.endsWith('aspx') &&
-                !tmpsrc.pathname.endsWith('atom') &&
-                !tmpsrc.pathname.endsWith('rss') &&
-                !tmpsrc.pathname.endsWith('/') &&
-                tmpsrc.pathname.includes('.')
+                !tmpsrc.pathname.endsWith("html") &&
+                !tmpsrc.pathname.endsWith("htm") &&
+                !tmpsrc.pathname.endsWith("php") &&
+                !tmpsrc.pathname.endsWith("jsp") &&
+                !tmpsrc.pathname.endsWith("asp") &&
+                !tmpsrc.pathname.endsWith("aspx") &&
+                !tmpsrc.pathname.endsWith("atom") &&
+                !tmpsrc.pathname.endsWith("rss") &&
+                !tmpsrc.pathname.endsWith("/") &&
+                tmpsrc.pathname.includes(".")
               ) {
-                console.log('link', tmpsrc.host, tmpsrc.pathname);
+                console.log("link", tmpsrc.host, tmpsrc.pathname);
                 link.href =
-                  'http://127.0.0.1:7657/i2psnark/' +
+                  "http://127.0.0.1:7657/i2psnark/" +
                   tmpsrc.host +
                   tmpsrc.pathname;
-                link.onerror = function() {
+                link.onerror = function () {
                   window.location.href = tmpsrc.href;
                 };
               }
@@ -160,36 +160,36 @@ browser.runtime.onMessage.addListener((request) => {
               //}
             }
           }
-          var videos = document.getElementsByTagName('video');
+          var videos = document.getElementsByTagName("video");
           for (let video of videos) {
             let tmpsrc = new URL(video.currentSrc);
             if (tmpsrc.host == location.host) {
-              if (!video.innerHTML.includes('127.0.0.1')) {
+              if (!video.innerHTML.includes("127.0.0.1")) {
                 innerHTML = video.innerHTML;
                 topInnerHTML = video.innerHTML.replace(
                   'src="',
-                  'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
+                  'src="http://127.0.0.1:7657/i2psnark/' + location.host + "/"
                 );
                 video.innerHTML = topInnerHTML + innerHTML;
               }
             }
           }
-          var audios = document.getElementsByTagName('audio');
+          var audios = document.getElementsByTagName("audio");
           for (let audio of audios) {
             let tmpsrc = new URL(audio.currentSrc);
             if (tmpsrc.host == location.host) {
-              if (!audio.innerHTML.includes('127.0.0.1')) {
+              if (!audio.innerHTML.includes("127.0.0.1")) {
                 innerHTML = audio.innerHTML;
                 topInnerHTML = audio.innerHTML.replace(
                   'src="',
-                  'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
+                  'src="http://127.0.0.1:7657/i2psnark/' + location.host + "/"
                 );
                 audio.innerHTML = topInnerHTML + innerHTML;
               }
             }
           }
         }
-      } catch {};
+      } catch {}
     }
   }
   return Promise.resolve({ content: response });

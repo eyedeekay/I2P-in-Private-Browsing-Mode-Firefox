@@ -167,6 +167,14 @@
     "message": "Dispatch IRC (Private)",
     "description": "Preface for the browser titlebar"
   },
+  "botePreface": {
+    "message": "I2P-Bote Mail",
+    "description": "Preface for the browser titlebar"
+  },
+  "botePrefacePrivate": {
+    "message": "I2P-Bote Mail (Private)",
+    "description": "Preface for the browser titlebar"
+  },
   "routerPreface": {
     "message": "Router Console",
     "description": "Preface for the browser titlebar"
