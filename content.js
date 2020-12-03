@@ -49,6 +49,5 @@ contentUpdateById('window-visit-releases', 'windowVisitReleases');
 contentUpdateById('releases', 'releases');
 
 fetch('http://proxy.i2p').then((myJson) => {
-  console.log('FETCH RESULT', myJson);
   contentUpdateById('proxy-check', 'proxySuccessStatus');
 });
