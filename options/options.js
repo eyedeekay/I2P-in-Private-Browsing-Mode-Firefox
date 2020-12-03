@@ -1,3 +1,8 @@
+function SetBookButton() {
+//  var bmid = document.getElementById("bookmark");
+  //bmid.textContent = chrome.i18n.getMessage("bookmarkButton");
+}
+
 function SetHostText() {
   var hostid = document.getElementById("hostText");
   hostid.textContent = chrome.i18n.getMessage("hostText");
@@ -26,6 +31,21 @@ function SetControlPortText() {
 function SetControlHelpText() {
   var portid = document.getElementById("controlHelpText");
   portid.textContent = chrome.i18n.getMessage("controlHelpText");
+}
+
+function getBookmarksCreated() {
+  bookmarks_state = document.getElementById("bookmarks").value;
+  console.log("(options)Got i2p bookmarks state:", bookmarks_state);
+  if (bookmarks_state == undefined) {
+    return false;
+  }
+  if (bookmarks_state == "false") {
+    return false
+  }
+  if (bookmarks_state == "true") {
+    return true
+  }
+  return false;
 }
 
 function getScheme() {
@@ -159,6 +179,9 @@ function checkStoredSettings(storedSettings) {
       port = undefined;
     }
     console.log("(options)proxy", "'" + host + "'", ":", port);
+    if (!storedSettings["bookmarks_state"])
+      defaultSettings["bookmarks_state"] = false;
+    else defaultSettings["bookmarks_state"] = storedSettings["bookmarks_state"];    
     if (!storedSettings["proxy_scheme"])
       defaultSettings["proxy_scheme"] = "http";
     else defaultSettings["proxy_scheme"] = storedSettings["proxy_scheme"];
@@ -245,6 +268,9 @@ function checkAndroidStoredSettings(storedSettings) {
   let defaultSettings = {};
   let host = "";
   let port = "";
+    if (!storedSettings["bookmarks_state"])
+      defaultSettings["bookmarks_state"] = false;
+    else defaultSettings["bookmarks_state"] = storedSettings["bookmarks_state"];
   if (!storedSettings["proxy_scheme"]) defaultSettings["proxy_scheme"] = "http";
   else defaultSettings["proxy_scheme"] = storedSettings["proxy_scheme"];
   if (!storedSettings["proxy_host"]) {
@@ -320,6 +346,7 @@ function onError(e) {
 
 function storeSettings() {
   let storableSettings = {};
+  storableSettings["bookmarks_state"] = getBookmarksCreated()
   storableSettings["proxy_scheme"] = getScheme();
   storableSettings["proxy_host"] = getHost();
   storableSettings["proxy_port"] = getPort();
@@ -341,15 +368,19 @@ function storeSettings() {
 
 function updateUI(restoredSettings) {
   const selectList = document.querySelector("#proxy_scheme");
-  if (selectList == undefined) selectList.value = restoredSettings.proxy_scheme;
+  if (selectList != undefined) selectList.value = restoredSettings.proxy_scheme;
   //console.log("(options)showing proxy scheme:", selectList.value);
 
+  console.log(restoredSettings)
+  const bms = document.getElementById("bookmarksState");
+  if (bms != undefined) bms.checked = restoredSettings.bookmarks_state;
+
   const hostitem = document.getElementById("host");
-  if (hostitem == undefined) hostitem.value = restoredSettings.proxy_host;
+  if (hostitem != undefined) hostitem.value = restoredSettings.proxy_host;
   //console.log("(options)showing proxy host:", hostitem.value);
 
   const portitem = document.getElementById("port");
-  if (portitem == undefined) portitem.value = restoredSettings.proxy_port;
+  if (portitem != undefined) portitem.value = restoredSettings.proxy_port;
   //console.log("(options)showing proxy port:", portitem.value);
 
   const controlhostitem = document.getElementById("controlhost");
@@ -363,41 +394,42 @@ function updateUI(restoredSettings) {
   //console.log("(options)showing control port:", controlportitem.value);
 
   const rpchostitem = document.getElementById("rpchost");
-  if (rpchostitem == undefined) rpchostitem.value = restoredSettings.rpc_host;
+  if (rpchostitem != undefined) rpchostitem.value = restoredSettings.rpc_host;
   //console.log("(options)showing rpc host:", rpchostitem.value);
 
   const rpcportitem = document.getElementById("rpcport");
-  if (rpcportitem == undefined) rpcportitem.value = restoredSettings.rpc_port;
+  if (rpcportitem != undefined) rpcportitem.value = restoredSettings.rpc_port;
   //console.log("(options)showing rpc port:", rpcportitem.value);
 
   const rpcpathitem = document.getElementById("rpcpath");
-  if (rpcpathitem == undefined) rpcpathitem.value = restoredSettings.rpc_path;
+  if (rpcpathitem != undefined) rpcpathitem.value = restoredSettings.rpc_path;
   //console.log("(options)showing rpc path:", rpcpathitem.value);
 
   const rpcpassitem = document.getElementById("rpcpass");
-  if (rpcpassitem == undefined) rpcpassitem.value = restoredSettings.rpc_pass;
+  if (rpcpassitem != undefined) rpcpassitem.value = restoredSettings.rpc_pass;
   //console.log("(options)showing rpc pass:");
 
   const btrpchostitem = document.getElementById("btrpchost");
-  if (btrpchostitem == undefined)
+  if (btrpchostitem != undefined)
     btrpchostitem.value = restoredSettings.rpc_host;
   //console.log("(options)showing bt rpc host:", btrpchostitem.value);
 
   const btrpcportitem = document.getElementById("btrpcport");
-  if (btrpcportitem == undefined)
+  if (btrpcportitem != undefined)
     btrpcportitem.value = restoredSettings.rpc_port;
   //console.log("(options)showing rbt pc port:", rpcportitem.value);
 
   const btrpcpathitem = document.getElementById("btrpcpath");
-  if (btrpcpathitem == undefined)
+  if (btrpcpathitem != undefined)
     btrpcpathitem.value = restoredSettings.rpc_path;
   //console.log("(options)showing bt rpc path:", btrpcpathitem.value);
 
   const btrpcpassitem = document.getElementById("btrpcpass");
-  if (btrpcpassitem == undefined)
+  if (btrpcpassitem != undefined)
     btrpcpassitem.value = restoredSettings.rpc_pass;
   //console.log("(options)showing bt rpc pass:");
 
+  SetBookButton()
   SetHostText();
   SetPortText();
   SetPortHelpText();
@@ -427,3 +459,4 @@ gettingInfo.then((got) => {
 
 const saveButton = document.querySelector("#save-button");
 saveButton.addEventListener("click", storeSettings);
+

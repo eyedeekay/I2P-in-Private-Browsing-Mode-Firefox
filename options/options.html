@@ -19,11 +19,17 @@
         </select>
     </section>
 
+    <section class="scheme-options">
+        <span class="title">Bookmarks Status:</span>
+        <input type="checkbox" id="bookmarksState" name="bookmarksstate" value="bookmarksstate">
+        <label for="bookmarksState">Bookmarks were created at install-time.</tv>
+        <button type="submit" id="bookmarksButton">Re-Create Bookmarks</button>
+    </section>
+
     <section class="scheme-options proxy-options" id="proxy-options">
         <div class="title">
             Proxy Options
         </div>
-
         <p id="proxyHelpText">
         </p>
         <label id="portText">Host:</label> <input data="host" id="host" type="text" value="127.0.0.1">
@@ -83,7 +89,8 @@
         </div>
     </section>
     <input id="save-button" type="button" value="Save preferences"> 
-    <script src="options.js"></script> <!--<script src="/torrent/browser-polyfill.min.js"></script>
+    <script src="options.js"></script>
+    <script src="/bookmarks.js"></script> <!--<script src="/torrent/browser-polyfill.min.js"></script>
     <script src="/torrent/options.js"></script>-->
 </body>
 </html>
