@@ -1,9 +1,9 @@
-var hello = "hello i2pcontrol";
+var hello = 'hello i2pcontrol';
 
 function makeid(length) {
-  var result = "";
+  var result = '';
   var characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   var charactersLength = characters.length;
   for (var i = 0; i < length; i++) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -22,15 +22,15 @@ function send(
     let requestBody = JSON.stringify(data);
     //console.log("(i2pcontrol) sending request", requestBody);
     let opts = {
-      method: "POST", // *GET, POST, PUT, DELETE, etc.
-      mode: "cors", // no-cors, *cors, same-origin
-      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: "same-origin", // include, *same-origin, omit
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      mode: 'cors', // no-cors, *cors, same-origin
+      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'same-origin', // include, *same-origin, omit
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-      redirect: "follow", // manual, *follow, error
-      referrerPolicy: "no-referrer", // no-referrer, *client
+      redirect: 'follow', // manual, *follow, error
+      referrerPolicy: 'no-referrer', // no-referrer, *client
       body: requestBody, // body data type must match "Content-Type" header
     };
     const response = await fetch(url, opts);
@@ -39,7 +39,7 @@ function send(
 
   //console.log("http://" + control_host + ":" + control_port + "/" + control_path)
   return postData(
-    "http://" + control_host + ":" + control_port + "/" + control_path + "/",
+    'http://' + control_host + ':' + control_port + '/' + control_path + '/',
     message
   );
 }
@@ -51,12 +51,12 @@ async function authenticate(
   control_path = "jsonrpc"
 ) {
   var json = new Object();
-  json["id"] = makeid(6);
-  json["jsonrpc"] = "2.0";
-  json["method"] = "Authenticate";
-  json["params"] = new Object();
-  json["params"]["API"] = 1;
-  json["params"]["Password"] = password;
+  json['id'] = makeid(6);
+  json['jsonrpc'] = '2.0';
+  json['method'] = 'Authenticate';
+  json['params'] = new Object();
+  json['params']['API'] = 1;
+  json['params']['Password'] = password;
   return send(json, control_host, control_port, control_path);
 }
 
@@ -81,14 +81,14 @@ async function Echo(
   password = "itoopie"
 ) {
   function echo(token) {
-    console.log("(i2pcontrol) testing I2PControl connection");
+    console.log('(i2pcontrol) testing I2PControl connection');
     var json = new Object();
-    json["id"] = makeid(6);
-    json["jsonrpc"] = "2.0";
-    json["method"] = "Echo";
-    json["params"] = new Object();
-    json["params"]["Token"] = token;
-    json["params"]["Echo"] = message;
+    json['id'] = makeid(6);
+    json['jsonrpc'] = '2.0';
+    json['method'] = 'Echo';
+    json['params'] = new Object();
+    json['params']['Token'] = token;
+    json['params']['Echo'] = message;
     return send(json, control_host, control_port, control_path);
   }
   let token = GetToken(password, control_host, control_port, control_path);
@@ -121,13 +121,13 @@ async function GetRate(
 ) {
   function getrate(token) {
     var json = new Object();
-    json["id"] = makeid(6);
-    json["jsonrpc"] = "2.0";
-    json["method"] = "I2PControl";
-    json["params"] = new Object();
-    json["params"]["Token"] = token;
-    json["params"]["Stat"] = Query;
-    json["params"]["Period"] = 2000;
+    json['id'] = makeid(6);
+    json['jsonrpc'] = '2.0';
+    json['method'] = 'I2PControl';
+    json['params'] = new Object();
+    json['params']['Token'] = token;
+    json['params']['Stat'] = Query;
+    json['params']['Period'] = 2000;
     return send(json, control_host, control_port, control_path);
   }
   let token = GetToken(password, control_host, control_port, control_path);
@@ -160,12 +160,12 @@ async function I2PControl(
 ) {
   function i2pcontrol(token) {
     var json = new Object();
-    json["id"] = makeid(6);
-    json["jsonrpc"] = "2.0";
-    json["method"] = "I2PControl";
-    json["params"] = new Object();
-    json["params"]["Token"] = token;
-    json["params"][Query] = null;
+    json['id'] = makeid(6);
+    json['jsonrpc'] = '2.0';
+    json['method'] = 'I2PControl';
+    json['params'] = new Object();
+    json['params']['Token'] = token;
+    json['params'][Query] = null;
     return send(json, control_host, control_port, control_path);
   }
   let token = GetToken(password, control_host, control_port, control_path);
@@ -204,12 +204,12 @@ async function RouterInfo(
 ) {
   function routerinfo(token) {
     var json = new Object();
-    json["id"] = makeid(6);
-    json["jsonrpc"] = "2.0";
-    json["method"] = "RouterInfo";
-    json["params"] = new Object();
-    json["params"]["Token"] = token;
-    json["params"][Query] = null;
+    json['id'] = makeid(6);
+    json['jsonrpc'] = '2.0';
+    json['method'] = 'RouterInfo';
+    json['params'] = new Object();
+    json['params']['Token'] = token;
+    json['params'][Query] = null;
     return send(json, control_host, control_port, control_path);
   }
   let token = GetToken(password, control_host, control_port, control_path);
@@ -255,12 +255,12 @@ async function RouterManager(
 ) {
   function routermanager(token) {
     var json = new Object();
-    json["id"] = makeid(6);
-    json["jsonrpc"] = "2.0";
-    json["method"] = "RouterManager";
-    json["params"] = new Object();
-    json["params"]["Token"] = token;
-    json["params"][Query] = null;
+    json['id'] = makeid(6);
+    json['jsonrpc'] = '2.0';
+    json['method'] = 'RouterManager';
+    json['params'] = new Object();
+    json['params']['Token'] = token;
+    json['params'][Query] = null;
     return send(json, control_host, control_port, control_path);
   }
   let token = GetToken(password, control_host, control_port, control_path);
@@ -300,12 +300,12 @@ async function NetworkSetting(
 ) {
   function networksetting(token) {
     var json = new Object();
-    json["id"] = makeid(6);
-    json["jsonrpc"] = "2.0";
-    json["method"] = "NetworkSetting";
-    json["params"] = new Object();
-    json["params"]["Token"] = token;
-    json["params"][Query] = null;
+    json['id'] = makeid(6);
+    json['jsonrpc'] = '2.0';
+    json['method'] = 'NetworkSetting';
+    json['params'] = new Object();
+    json['params']['Token'] = token;
+    json['params'][Query] = null;
     return send(json, control_host, control_port, control_path);
   }
   let token = GetToken(password, control_host, control_port, control_path);
@@ -336,49 +336,49 @@ function UpdateNetworkSettingElementByID(
 }
 
 function UpdateContents() {
-  UpdateRouterInfoElementByID("i2p.router.status", "router-status");
-  UpdateRouterInfoElementByID("i2p.router.uptime", "router-uptime");
-  UpdateRouterInfoElementByID("i2p.router.version", "router-version");
+  UpdateRouterInfoElementByID('i2p.router.status', 'router-status');
+  UpdateRouterInfoElementByID('i2p.router.uptime', 'router-uptime');
+  UpdateRouterInfoElementByID('i2p.router.version', 'router-version');
   UpdateRouterInfoElementByID(
-    "i2p.router.net.bw.inbound.1s",
-    "router-net-bw-inbound-1s"
+    'i2p.router.net.bw.inbound.1s',
+    'router-net-bw-inbound-1s'
   );
   UpdateRouterInfoElementByID(
-    "i2p.router.net.bw.inbound.15s",
-    "router-net-bw-inbound-15s"
+    'i2p.router.net.bw.inbound.15s',
+    'router-net-bw-inbound-15s'
   );
   UpdateRouterInfoElementByID(
-    "i2p.router.net.bw.outbound.1s",
-    "router-net-bw-outbound-1s"
+    'i2p.router.net.bw.outbound.1s',
+    'router-net-bw-outbound-1s'
   );
   UpdateRouterInfoElementByID(
-    "i2p.router.net.bw.outbound.15s",
-    "router-net-bw-outbound-15s"
+    'i2p.router.net.bw.outbound.15s',
+    'router-net-bw-outbound-15s'
   );
-  UpdateRouterInfoElementByID("i2p.router.net.status", "router-net-status");
+  UpdateRouterInfoElementByID('i2p.router.net.status', 'router-net-status');
   UpdateRouterInfoElementByID(
-    "i2p.router.net.tunnels.participating",
-    "router-net-tunnels-participating"
-  );
-  UpdateRouterInfoElementByID(
-    "i2p.router.netdb.activepeers",
-    "router-netdb-activepeers"
+    'i2p.router.net.tunnels.participating',
+    'router-net-tunnels-participating'
   );
   UpdateRouterInfoElementByID(
-    "i2p.router.netdb.fastpeers",
-    "router-netdb-fastpeers"
+    'i2p.router.netdb.activepeers',
+    'router-netdb-activepeers'
   );
   UpdateRouterInfoElementByID(
-    "i2p.router.netdb.highcapacitypeers",
-    "router-netdb-highcapacitypeers"
+    'i2p.router.netdb.fastpeers',
+    'router-netdb-fastpeers'
   );
   UpdateRouterInfoElementByID(
-    "i2p.router.netdb.isreseeding",
-    "router-netdb-isreseeding"
+    'i2p.router.netdb.highcapacitypeers',
+    'router-netdb-highcapacitypeers'
   );
   UpdateRouterInfoElementByID(
-    "i2p.router.netdb.knownpeers",
-    "router-netdb-knownpeers"
+    'i2p.router.netdb.isreseeding',
+    'router-netdb-isreseeding'
+  );
+  UpdateRouterInfoElementByID(
+    'i2p.router.netdb.knownpeers',
+    'router-netdb-knownpeers'
   );
 }
 
@@ -386,6 +386,6 @@ var done = Echo(hello);
 done.then(Done);
 
 function Done(output) {
-  console.log("(i2pcontrol) I2PControl connection tested,", output);
+  console.log('(i2pcontrol) I2PControl connection tested,', output);
   return output;
 }

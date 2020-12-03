@@ -1,29 +1,29 @@
-var titlepref = chrome.i18n.getMessage("titlePreface");
-var webpref = chrome.i18n.getMessage("webPreface");
-var routerpref = chrome.i18n.getMessage("routerPreface");
-var mailpref = chrome.i18n.getMessage("mailPreface");
-var torrentpref = chrome.i18n.getMessage("torrentPreface");
-var tunnelpref = chrome.i18n.getMessage("i2ptunnelPreface");
-var ircpref = chrome.i18n.getMessage("ircPreface");
-var extensionpref = chrome.i18n.getMessage("extensionPreface");
-var muwirepref = chrome.i18n.getMessage("muwirePreface");
-var botepref = chrome.i18n.getMessage("botePreface");
+var titlepref = chrome.i18n.getMessage('titlePreface');
+var webpref = chrome.i18n.getMessage('webPreface');
+var routerpref = chrome.i18n.getMessage('routerPreface');
+var mailpref = chrome.i18n.getMessage('mailPreface');
+var torrentpref = chrome.i18n.getMessage('torrentPreface');
+var tunnelpref = chrome.i18n.getMessage('i2ptunnelPreface');
+var ircpref = chrome.i18n.getMessage('ircPreface');
+var extensionpref = chrome.i18n.getMessage('extensionPreface');
+var muwirepref = chrome.i18n.getMessage('muwirePreface');
+var botepref = chrome.i18n.getMessage('botePreface');
 
-var contextScrub = async function (requestDetails) {
+var contextScrub = async function(requestDetails) {
   function onHeaderError() {
-    console.log("Header scrub error");
+    console.log('Header scrub error');
   }
   //console.log("(scrub)Scrubbing info from contextualized request");
   try {
-    var headerScrub = function (context) {
-      var ua = "MYOB/6.66 (AN/ON)";
+    var headerScrub = function(context) {
+      var ua = 'MYOB/6.66 (AN/ON)';
       if (!context) {
       } else if (context.name == titlepref) {
         if (i2pHost(requestDetails.url)) {
           for (var header of requestDetails.requestHeaders) {
-            if (header.name.toLowerCase() === "user-agent") {
+            if (header.name.toLowerCase() === 'user-agent') {
               header.value = ua;
-              console.log("(scrub)User-Agent header modified", header.value);
+              console.log('(scrub)User-Agent header modified', header.value);
             }
           }
         }
@@ -33,9 +33,9 @@ var contextScrub = async function (requestDetails) {
       } else if (context.name == routerpref) {
         if (i2pHost(requestDetails.url)) {
           for (var header of requestDetails.requestHeaders) {
-            if (header.name.toLowerCase() === "user-agent") {
+            if (header.name.toLowerCase() === 'user-agent') {
               header.value = ua;
-              console.log("(scrub)User-Agent header modified", header.value);
+              console.log('(scrub)User-Agent header modified', header.value);
             }
           }
         }
@@ -44,7 +44,7 @@ var contextScrub = async function (requestDetails) {
         };
       }
     };
-    var contextGet = async function (tabInfo) {
+    var contextGet = async function(tabInfo) {
       try {
         //console.log("(scrub)Tab info from Function", tabInfo);
         let context = await browser.contextualIdentities.get(
@@ -55,7 +55,7 @@ var contextScrub = async function (requestDetails) {
         return undefined;
       }
     };
-    var tabGet = async function (tabId) {
+    var tabGet = async function(tabId) {
       try {
         //console.log("(scrub)Tab ID from Request", tabId);
         let tabInfo = await browser.tabs.get(tabId);
@@ -85,11 +85,11 @@ var contextScrub = async function (requestDetails) {
       return req;
     }
   } catch (error) {
-    console.log("(scrub)Not scrubbing non-I2P request.", error);
+    console.log('(scrub)Not scrubbing non-I2P request.', error);
   }
-};
+}
 
-var notMyContextNotMyProblem = async function () {
+var notMyContextNotMyProblem = async function() {
   var contexts = await browser.contextualIdentities.query({});
   var context1 = await browser.contextualIdentities.query({
     name: titlepref,
@@ -116,7 +116,7 @@ var notMyContextNotMyProblem = async function () {
     name: botepref,
   });
   var othercontexts = [];
-  console.log("Contexts:", contexts);
+  console.log('Contexts:', contexts);
   for (context in contexts) {
     if (
       contexts[context].cookieStoreId == context1[0].cookieStoreId ||
@@ -128,9 +128,9 @@ var notMyContextNotMyProblem = async function () {
       contexts[context].cookieStoreId == context7[0].cookieStoreId
     ) {
       console.log(
-        "Context found",
+        'Context found',
         contexts[context].cookieStoreId,
-        "is my responsibility"
+        'is my responsibility'
       );
     } else {
       //console.log("Context found", contexts[context].cookieStoreId, "is not my responsibility")
@@ -138,15 +138,15 @@ var notMyContextNotMyProblem = async function () {
     }
   }
   return othercontexts;
-};
+}
 
-var contextSetup = function (requestDetails) {
+var contextSetup = function(requestDetails) {
   function onContextError() {
-    console.log("Context launcher error");
+    console.log('Context launcher error');
   }
   //console.log("(isolate)Forcing I2P requests into context");
   try {
-    var i2pTabFind = async function (tabId) {
+    var i2pTabFind = async function(tabId) {
       try {
         var context = await browser.contextualIdentities.query({
           name: titlepref,
@@ -156,14 +156,14 @@ var contextSetup = function (requestDetails) {
             function onCreated(tab) {
               function closeOldTab() {
                 if (tabId.id != tab.id) {
-                  console.log("(isolate) Closing un-isolated tab", tabId.id);
-                  console.log("in favor of", tab.id);
-                  console.log("with context", tab.cookieStoreId);
+                  console.log('(isolate) Closing un-isolated tab', tabId.id);
+                  console.log('in favor of', tab.id);
+                  console.log('with context', tab.cookieStoreId);
                   browser.tabs.remove(tabId.id);
                 }
                 browser.pageAction.setPopup({
                   tabId: tabId.id,
-                  popup: "security.html",
+                  popup: 'security.html',
                 });
                 browser.pageAction.show(tabId.id);
               }
@@ -181,10 +181,10 @@ var contextSetup = function (requestDetails) {
           return tabId;
         }
       } catch (error) {
-        console.log("(isolate)Context Error", error);
+        console.log('(isolate)Context Error', error);
       }
     };
-    var routerTabFind = async function (tabId) {
+    var routerTabFind = async function(tabId) {
       try {
         var context = await browser.contextualIdentities.query({
           name: routerpref,
@@ -194,9 +194,9 @@ var contextSetup = function (requestDetails) {
             function onCreated(tab) {
               function closeOldTab(tabs) {
                 if (tabId.id != tab.id) {
-                  console.log("(isolate) Closing un-isolated tab", tabId.id);
-                  console.log("in favor of", tab.id);
-                  console.log("with context", tab.cookieStoreId);
+                  console.log('(isolate) Closing un-isolated tab', tabId.id);
+                  console.log('in favor of', tab.id);
+                  console.log('with context', tab.cookieStoreId);
                   browser.tabs.remove(tabId.id);
                   browser.tabs.move(tab.id, { index: 0 });
                 }
@@ -210,10 +210,10 @@ var contextSetup = function (requestDetails) {
               });
               pins.then(closeOldTab, onError);
             }
-            if (requestDetails.url.endsWith("xhr1.html")) {
-              hostname = url.split("/")[2];
-              let prefix = url.substr(0, url.indexOf("://") + 3);
-              requestDetails.url = prefix + hostname + "/home";
+            if (requestDetails.url.endsWith('xhr1.html')) {
+              hostname = url.split('/')[2];
+              let prefix = url.substr(0, url.indexOf('://') + 3);
+              requestDetails.url = prefix + hostname + '/home';
             }
             var created = browser.tabs.create({
               active: true,
@@ -228,10 +228,10 @@ var contextSetup = function (requestDetails) {
           return tabId;
         }
       } catch (error) {
-        console.log("(isolate)Context Error", error);
+        console.log('(isolate)Context Error', error);
       }
     };
-    var i2ptunnelTabFind = async function (tabId) {
+    var i2ptunnelTabFind = async function(tabId) {
       try {
         var context = await browser.contextualIdentities.query({
           name: tunnelpref,
@@ -241,9 +241,9 @@ var contextSetup = function (requestDetails) {
             function onCreated(tab) {
               function closeOldTab(tabs) {
                 if (tabId.id != tab.id) {
-                  console.log("(isolate) Closing un-isolated tab", tabId.id);
-                  console.log("in favor of", tab.id);
-                  console.log("with context", tab.cookieStoreId);
+                  console.log('(isolate) Closing un-isolated tab', tabId.id);
+                  console.log('in favor of', tab.id);
+                  console.log('with context', tab.cookieStoreId);
                   browser.tabs.remove(tabId.id);
                   browser.tabs.move(tab.id, { index: 1 });
                 }
@@ -257,10 +257,10 @@ var contextSetup = function (requestDetails) {
               });
               pins.then(closeOldTab, onError);
             }
-            if (requestDetails.url.endsWith("xhr1.html")) {
-              hostname = url.split("/")[2];
-              let prefix = url.substr(0, url.indexOf("://") + 3);
-              requestDetails.url = prefix + hostname + "/i2ptunnelmgr/";
+            if (requestDetails.url.endsWith('xhr1.html')) {
+              hostname = url.split('/')[2];
+              let prefix = url.substr(0, url.indexOf('://') + 3);
+              requestDetails.url = prefix + hostname + '/i2ptunnelmgr/';
             }
             var created = browser.tabs.create({
               active: true,
@@ -275,10 +275,10 @@ var contextSetup = function (requestDetails) {
           return tabId;
         }
       } catch (error) {
-        console.log("(isolate)Context Error", error);
+        console.log('(isolate)Context Error', error);
       }
     };
-    var snarkTabFind = async function (tabId) {
+    var snarkTabFind = async function(tabId) {
       try {
         var context = await browser.contextualIdentities.query({
           name: torrentpref,
@@ -288,16 +288,16 @@ var contextSetup = function (requestDetails) {
             name: titlepref,
           });
           let tmp = new URL(tabId.url);
-          console.log("(isolate)tabid host", tmp.host);
-          if (!requestDetails.url.includes("snark/" + tmp.host)) {
+          console.log('(isolate)tabid host', tmp.host);
+          if (!requestDetails.url.includes('snark/' + tmp.host)) {
             //          if (tabId.cookieStoreId != exemptContext[0].cookieStoreId){
             function Create() {
               function onCreated(tab) {
                 function closeOldTab(tabs) {
                   if (tabId.id != tab.id) {
-                    console.log("(isolate) Closing un-isolated tab", tabId.id);
-                    console.log("in favor of", tab.id);
-                    console.log("with context", tab.cookieStoreId);
+                    console.log('(isolate) Closing un-isolated tab', tabId.id);
+                    console.log('in favor of', tab.id);
+                    console.log('with context', tab.cookieStoreId);
                     browser.tabs.remove(tabId.id);
                     browser.tabs.move(tab.id, { index: 2 });
                   }
@@ -311,10 +311,10 @@ var contextSetup = function (requestDetails) {
                 });
                 pins.then(closeOldTab, onError);
               }
-              if (requestDetails.url.endsWith("xhr1.html")) {
-                hostname = url.split("/")[2];
-                let prefix = url.substr(0, url.indexOf("://") + 3);
-                requestDetails.url = prefix + hostname + "/i2psnark/";
+              if (requestDetails.url.endsWith('xhr1.html')) {
+                hostname = url.split('/')[2];
+                let prefix = url.substr(0, url.indexOf('://') + 3);
+                requestDetails.url = prefix + hostname + '/i2psnark/';
               }
               var created = browser.tabs.create({
                 active: true,
@@ -330,10 +330,10 @@ var contextSetup = function (requestDetails) {
           }
         }
       } catch (error) {
-        console.log("(isolate)Context Error", error);
+        console.log('(isolate)Context Error', error);
       }
     };
-    var muwireTabFind = async function (tabId) {
+    var muwireTabFind = async function(tabId) {
       try {
         var context = await browser.contextualIdentities.query({
           name: muwirepref,
@@ -343,9 +343,9 @@ var contextSetup = function (requestDetails) {
             function onCreated(tab) {
               function closeOldTab(tabs) {
                 if (tabId.id != tab.id) {
-                  console.log("(isolate) Closing un-isolated tab", tabId.id);
-                  console.log("in favor of", tab.id);
-                  console.log("with context", tab.cookieStoreId);
+                  console.log('(isolate) Closing un-isolated tab', tabId.id);
+                  console.log('in favor of', tab.id);
+                  console.log('with context', tab.cookieStoreId);
                   browser.tabs.remove(tabId.id);
                   browser.tabs.move(tab.id, { index: 4 });
                 }
@@ -359,10 +359,10 @@ var contextSetup = function (requestDetails) {
               });
               pins.then(closeOldTab, onError);
             }
-            if (requestDetails.url.endsWith("xhr1.html")) {
-              hostname = url.split("/")[2];
-              let prefix = url.substr(0, url.indexOf("://") + 3);
-              requestDetails.url = prefix + hostname + "/muwire/";
+            if (requestDetails.url.endsWith('xhr1.html')) {
+              hostname = url.split('/')[2];
+              let prefix = url.substr(0, url.indexOf('://') + 3);
+              requestDetails.url = prefix + hostname + '/muwire/';
             }
             var created = browser.tabs.create({
               active: true,
@@ -377,10 +377,10 @@ var contextSetup = function (requestDetails) {
           return tabId;
         }
       } catch (error) {
-        console.log("(isolate)Context Error", error);
+        console.log('(isolate)Context Error', error);
       }
     };
-    var i2pboteTabFind = async function (tabId) {
+    var i2pboteTabFind = async function(tabId) {
       try {
         var context = await browser.contextualIdentities.query({
           name: botepref,
@@ -390,9 +390,9 @@ var contextSetup = function (requestDetails) {
             function onCreated(tab) {
               function closeOldTab(tabs) {
                 if (tabId.id != tab.id) {
-                  console.log("(isolate) Closing un-isolated tab", tabId.id);
-                  console.log("in favor of", tab.id);
-                  console.log("with context", tab.cookieStoreId);
+                  console.log('(isolate) Closing un-isolated tab', tabId.id);
+                  console.log('in favor of', tab.id);
+                  console.log('with context', tab.cookieStoreId);
                   browser.tabs.remove(tabId.id);
                   browser.tabs.move(tab.id, { index: 5 });
                 }
@@ -406,10 +406,10 @@ var contextSetup = function (requestDetails) {
               });
               pins.then(closeOldTab, onError);
             }
-            if (requestDetails.url.endsWith("xhr1.html")) {
-              hostname = url.split("/")[2];
-              let prefix = url.substr(0, url.indexOf("://") + 3);
-              requestDetails.url = prefix + hostname + "/i2pbote/";
+            if (requestDetails.url.endsWith('xhr1.html')) {
+              hostname = url.split('/')[2];
+              let prefix = url.substr(0, url.indexOf('://') + 3);
+              requestDetails.url = prefix + hostname + '/i2pbote/';
             }
             var created = browser.tabs.create({
               active: true,
@@ -424,10 +424,10 @@ var contextSetup = function (requestDetails) {
           return tabId;
         }
       } catch (error) {
-        console.log("(isolate)Context Error", error);
+        console.log('(isolate)Context Error', error);
       }
     };
-    var mailTabFind = async function (tabId) {
+    var mailTabFind = async function(tabId) {
       try {
         var context = await browser.contextualIdentities.query({
           name: mailpref,
@@ -437,9 +437,9 @@ var contextSetup = function (requestDetails) {
             function onCreated(tab) {
               function closeOldTab(tabs) {
                 if (tabId.id != tab.id) {
-                  console.log("(isolate) Closing un-isolated tab", tabId.id);
-                  console.log("in favor of", tab.id);
-                  console.log("with context", tab.cookieStoreId);
+                  console.log('(isolate) Closing un-isolated tab', tabId.id);
+                  console.log('in favor of', tab.id);
+                  console.log('with context', tab.cookieStoreId);
                   browser.tabs.remove(tabId.id);
                   browser.tabs.move(tab.id, { index: 3 });
                 }
@@ -453,10 +453,10 @@ var contextSetup = function (requestDetails) {
               });
               pins.then(closeOldTab, onError);
             }
-            if (requestDetails.url.endsWith("xhr1.html")) {
-              hostname = url.split("/")[2];
-              let prefix = url.substr(0, url.indexOf("://") + 3);
-              requestDetails.url = prefix + hostname + "/webmail/";
+            if (requestDetails.url.endsWith('xhr1.html')) {
+              hostname = url.split('/')[2];
+              let prefix = url.substr(0, url.indexOf('://') + 3);
+              requestDetails.url = prefix + hostname + '/webmail/';
             }
             var created = browser.tabs.create({
               active: true,
@@ -471,23 +471,23 @@ var contextSetup = function (requestDetails) {
           return tabId;
         }
       } catch (error) {
-        console.log("(isolate)Context Error", error);
+        console.log('(isolate)Context Error', error);
       }
     };
-    var ircTabFind = async function (tabId) {
+    var ircTabFind = async function(tabId) {
       try {
         var context = await browser.contextualIdentities.query({
           name: ircpref,
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
-          if (requestDetails.url.includes(":7669")) {
+          if (requestDetails.url.includes(':7669')) {
             function Create() {
               function onCreated(tab) {
                 function closeOldTab(tabs) {
                   if (tabId.id != tab.id) {
-                    console.log("(isolate) Closing un-isolated tab", tabId.id);
-                    console.log("in favor of", tab.id);
-                    console.log("with context", tab.cookieStoreId);
+                    console.log('(isolate) Closing un-isolated tab', tabId.id);
+                    console.log('in favor of', tab.id);
+                    console.log('with context', tab.cookieStoreId);
                     browser.tabs.remove(tabId.id);
                     browser.tabs.move(tab.id, { index: 6 });
                   }
@@ -515,10 +515,10 @@ var contextSetup = function (requestDetails) {
           }
         }
       } catch (error) {
-        console.log("(isolate)Context Error", error);
+        console.log('(isolate)Context Error', error);
       }
     };
-    var normalTabFind = async function (tabId) {
+    var normalTabFind = async function(tabId) {
       if (tabId == undefined) {
         return;
       }
@@ -533,21 +533,21 @@ var contextSetup = function (requestDetails) {
         var nmp = false;
         for (context in othercontexts) {
           if (tabId.cookieStoreId == othercontexts[context].cookieStoreId) {
-            console.log("Not my problem");
+            console.log('Not my problem');
             nmp = true;
           }
         }
         if (
-          tabId.cookieStoreId == "firefox-default" ||
-          tabId.cookieStoreId == "firefox-private" ||
+          tabId.cookieStoreId == 'firefox-default' ||
+          tabId.cookieStoreId == 'firefox-private' ||
           tabId.cookieStoreId == anoncontext[0].cookieStoreId ||
           tabId.cookieStoreId == irccontext[0].cookieStoreId ||
           nmp
         ) {
           console.log(
-            "(ISOLATE)",
+            '(ISOLATE)',
             tabId.cookieStoreId,
-            "not",
+            'not',
             anoncontext[0].cookieStoreId,
             irccontext[0].cookieStoreId
           );
@@ -561,15 +561,15 @@ var contextSetup = function (requestDetails) {
                   tabId.cookieStoreId != tab.cookieStoreId
                 ) {
                   console.log(
-                    "(isolate) Closing isolated tab",
+                    '(isolate) Closing isolated tab',
                     tabId.id,
-                    "with context",
+                    'with context',
                     tabId.cookieStoreId
                   );
                   console.log(
-                    "(isolate) in favor of",
+                    '(isolate) in favor of',
                     tab.id,
-                    "with context",
+                    'with context',
                     tab.cookieStoreId
                   );
                   browser.tabs.remove(tabId.id);
@@ -579,7 +579,7 @@ var contextSetup = function (requestDetails) {
             }
             var created = browser.tabs.create({
               active: true,
-              cookieStoreId: "firefox-default",
+              cookieStoreId: 'firefox-default',
               url: requestDetails.url,
             });
             created.then(onCreated, onContextError);
@@ -589,16 +589,16 @@ var contextSetup = function (requestDetails) {
           return tabId;
         }
       } catch (error) {
-        console.log("(isolate)Context Error", error);
+        console.log('(isolate)Context Error', error);
       }
     };
-    var tabGet = async function (tabId) {
+    var tabGet = async function(tabId) {
       try {
         //console.log("(isolate)Tab ID from Request", tabId);
         let tabInfo = await browser.tabs.get(tabId);
         return tabInfo;
       } catch (error) {
-        console.log("(isolate)Tab error", error);
+        console.log('(isolate)Tab error', error);
       }
     };
     if (requestDetails == undefined) {
@@ -632,22 +632,22 @@ var contextSetup = function (requestDetails) {
       let localhost = localHost(requestDetails.url);
       let routerhost = routerHost(requestDetails.url);
       if (routerhost) {
-        if (routerhost === "i2ptunnelmgr") {
+        if (routerhost === 'i2ptunnelmgr') {
           var tunneltab = tab.then(i2ptunnelTabFind, onContextError);
           return requestDetails;
-        } else if (routerhost === "i2psnark") {
+        } else if (routerhost === 'i2psnark') {
           var snarktab = tab.then(snarkTabFind, onContextError);
           return requestDetails;
-        } else if (routerhost === "webmail") {
+        } else if (routerhost === 'webmail') {
           var mailtab = tab.then(mailTabFind, onContextError);
           return requestDetails;
-        } else if (routerhost === "muwire") {
+        } else if (routerhost === 'muwire') {
           var routertab = tab.then(muwireTabFind, onContextError);
           return requestDetails;
-        } else if (routerhost === "i2pbote") {
+        } else if (routerhost === 'i2pbote') {
           var routertab = tab.then(i2pboteTabFind, onContextError);
           return requestDetails;
-        } else if (routerhost === "routerconsole") {
+        } else if (routerhost === 'routerconsole') {
           var routertab = tab.then(routerTabFind, onContextError);
           return requestDetails;
         }
@@ -662,26 +662,26 @@ var contextSetup = function (requestDetails) {
       }
     }
   } catch (error) {
-    console.log("(isolate)Not an I2P request, blackholing", error);
+    console.log('(isolate)Not an I2P request, blackholing', error);
   }
 };
 
-var coolheadersSetup = function (e) {
+var coolheadersSetup = function(e) {
   var asyncSetPageAction = new Promise((resolve, reject) => {
     window.setTimeout(() => {
       for (i = 0; i < e.responseHeaders.length; i++) {
         let header = e.responseHeaders[i];
-        if (e.url.startsWith("https")) {
+        if (e.url.startsWith('https')) {
           if (
-            header.name.toUpperCase() === "I2P-LOCATION" ||
-            header.name.toUpperCase() === "X-I2P-LOCATION"
+            header.name.toUpperCase() === 'I2P-LOCATION' ||
+            header.name.toUpperCase() === 'X-I2P-LOCATION'
           ) {
             browser.pageAction.setPopup({
               tabId: e.tabId,
-              popup: "location.html",
+              popup: 'location.html',
             });
             browser.pageAction.setIcon({
-              path: "icons/i2plogo.png",
+              path: 'icons/i2plogo.png',
               tabId: e.tabId,
             });
             browser.pageAction.setTitle({
@@ -692,44 +692,44 @@ var coolheadersSetup = function (e) {
             break;
           }
           if (
-            header.name.toUpperCase() === "I2P-TORRENTLOCATION" ||
-            header.name.toUpperCase() === "X-I2P-TORRENTLOCATION"
+            header.name.toUpperCase() === 'I2P-TORRENTLOCATION' ||
+            header.name.toUpperCase() === 'X-I2P-TORRENTLOCATION'
           ) {
-            var imgs = document.getElementsByTagName("img");
+            var imgs = document.getElementsByTagName('img');
             for (let img of imgs) {
               if (tmpsrc.host == location.host) {
                 img.src =
-                  "http://127.0.0.1:7657/i2psnark/" +
+                  'http://127.0.0.1:7657/i2psnark/' +
                   tmpsrc.host +
                   tmpsrc.pathname;
-                img.onerror = function () {
+                img.onerror = function() {
                   img.src = tmpsrc;
                 };
               }
             }
-            var videos = document.getElementsByTagName("video");
+            var videos = document.getElementsByTagName('video');
             for (let video of videos) {
               let tmpsrc = new URL(video.currentSrc);
               if (tmpsrc.host == location.host) {
-                if (!video.innerHTML.includes("127.0.0.1")) {
+                if (!video.innerHTML.includes('127.0.0.1')) {
                   innerHTML = video.innerHTML;
                   topInnerHTML = video.innerHTML.replace(
                     'src="',
-                    'src="http://127.0.0.1:7657/i2psnark/' + location.host + "/"
+                    'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
                   );
                   video.innerHTML = topInnerHTML + innerHTML;
                 }
               }
             }
-            var audios = document.getElementsByTagName("audio");
+            var audios = document.getElementsByTagName('audio');
             for (let audio of audios) {
               let tmpsrc = new URL(audio.currentSrc);
               if (tmpsrc.host == location.host) {
-                if (!audio.innerHTML.includes("127.0.0.1")) {
+                if (!audio.innerHTML.includes('127.0.0.1')) {
                   innerHTML = audio.innerHTML;
                   topInnerHTML = audio.innerHTML.replace(
                     'src="',
-                    'src="http://127.0.0.1:7657/i2psnark/' + location.host + "/"
+                    'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
                   );
                   audio.innerHTML = topInnerHTML + innerHTML;
                 }
@@ -737,10 +737,10 @@ var coolheadersSetup = function (e) {
             }
             browser.pageAction.setPopup({
               tabId: tabId.id,
-              popup: "torrent.html",
+              popup: 'torrent.html',
             });
             browser.pageAction.setIcon({
-              path: "icons/i2plogo.png",
+              path: 'icons/i2plogo.png',
               tabId: e.tabId,
             });
             browser.pageAction.setTitle({
@@ -752,44 +752,44 @@ var coolheadersSetup = function (e) {
           }
         } else {
           if (
-            header.name.toUpperCase() === "I2P-TORRENTLOCATION" ||
-            header.name.toUpperCase() === "X-I2P-TORRENTLOCATION"
+            header.name.toUpperCase() === 'I2P-TORRENTLOCATION' ||
+            header.name.toUpperCase() === 'X-I2P-TORRENTLOCATION'
           ) {
-            var imgs = document.getElementsByTagName("img");
+            var imgs = document.getElementsByTagName('img');
             for (let img of imgs) {
               if (tmpsrc.host == location.host) {
                 img.src =
-                  "http://127.0.0.1:7657/i2psnark/" +
+                  'http://127.0.0.1:7657/i2psnark/' +
                   tmpsrc.host +
                   tmpsrc.pathname;
-                img.onerror = function () {
+                img.onerror = function() {
                   img.src = tmpsrc;
                 };
               }
             }
-            var videos = document.getElementsByTagName("video");
+            var videos = document.getElementsByTagName('video');
             for (let video of videos) {
               let tmpsrc = new URL(video.currentSrc);
               if (tmpsrc.host == location.host) {
-                if (!video.innerHTML.includes("127.0.0.1")) {
+                if (!video.innerHTML.includes('127.0.0.1')) {
                   innerHTML = video.innerHTML;
                   topInnerHTML = video.innerHTML.replace(
                     'src="',
-                    'src="http://127.0.0.1:7657/i2psnark/' + location.host + "/"
+                    'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
                   );
                   video.innerHTML = topInnerHTML + innerHTML;
                 }
               }
             }
-            var audios = document.getElementsByTagName("audio");
+            var audios = document.getElementsByTagName('audio');
             for (let audio of audios) {
               let tmpsrc = new URL(audio.currentSrc);
               if (tmpsrc.host == location.host) {
-                if (!audio.innerHTML.includes("127.0.0.1")) {
+                if (!audio.innerHTML.includes('127.0.0.1')) {
                   innerHTML = audio.innerHTML;
                   topInnerHTML = audio.innerHTML.replace(
                     'src="',
-                    'src="http://127.0.0.1:7657/i2psnark/' + location.host + "/"
+                    'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
                   );
                   audio.innerHTML = topInnerHTML + innerHTML;
                 }
@@ -797,10 +797,10 @@ var coolheadersSetup = function (e) {
             }
             browser.pageAction.setPopup({
               tabId: tabId.id,
-              popup: "torrent.html",
+              popup: 'torrent.html',
             });
             browser.pageAction.setIcon({
-              path: "icons/i2plogo.png",
+              path: 'icons/i2plogo.png',
               tabId: e.tabId,
             });
             browser.pageAction.setTitle({
