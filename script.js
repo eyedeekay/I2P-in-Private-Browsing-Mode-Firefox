@@ -78,6 +78,7 @@ browser.runtime.onMessage.addListener((request) => {
           }
           var videos = document.getElementsByTagName('video');
           for (let video of videos) {
+            video.setAttribute('preload=none');
             let tmpsrc = new URL(video.currentSrc);
             if (tmpsrc.host == location.host) {
               if (!video.innerHTML.includes('127.0.0.1')) {
@@ -92,6 +93,7 @@ browser.runtime.onMessage.addListener((request) => {
           }
           var audios = document.getElementsByTagName('audio');
           for (let audio of audios) {
+            audio.setAttribute('preload=none');
             let tmpsrc = new URL(audio.currentSrc);
             if (tmpsrc.host == location.host) {
               if (!audio.innerHTML.includes('127.0.0.1')) {
@@ -162,6 +164,7 @@ browser.runtime.onMessage.addListener((request) => {
           }
           var videos = document.getElementsByTagName('video');
           for (let video of videos) {
+            video.setAttribute('preload=none');
             let tmpsrc = new URL(video.currentSrc);
             if (tmpsrc.host == location.host) {
               if (!video.innerHTML.includes('127.0.0.1')) {
@@ -176,6 +179,7 @@ browser.runtime.onMessage.addListener((request) => {
           }
           var audios = document.getElementsByTagName('audio');
           for (let audio of audios) {
+            audio.setAttribute('preload=none');
             let tmpsrc = new URL(audio.currentSrc);
             if (tmpsrc.host == location.host) {
               if (!audio.innerHTML.includes('127.0.0.1')) {

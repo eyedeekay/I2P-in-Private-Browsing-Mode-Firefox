@@ -16,6 +16,7 @@
     "proxy",
     "privacy",
     "storage",
+    "webNavigation",
     "webRequest",
     "webRequestBlocking",
     "contextualIdentities",
