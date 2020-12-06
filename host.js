@@ -48,18 +48,18 @@ function i2pHostName(url) {
   let hostname = '';
   console.log('(hosts)', url);
   if (url.includes('=')) {
-    if (url.includes(".i2p")){
-      lsit = url.split('=')
+    if (url.includes('.i2p')) {
+      lsit = url.split('=');
       for (let item in lsit) {
-        var items = lsit[item].split(`\%`) //"\%")
-        for (let p in items){
-          if (items[p].includes(".i2p")){
-            hostname = items[p].replace('3D', 1)
+        var items = lsit[item].split(`\ % `); //"\%")
+        for (let p in items) {
+          if (items[p].includes('.i2p')) {
+            hostname = items[p].replace('3D', 1);
           }
-          break
+          break;
         }
-        if (hostname != ''){
-          break
+        if (hostname != '') {
+          break;
         }
       }
     }

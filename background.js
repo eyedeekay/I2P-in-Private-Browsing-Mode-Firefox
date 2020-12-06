@@ -186,25 +186,28 @@ function themeWindow(window) {
       });
     }
   }
+  function browserTheme() {
+    console.log('Active in I2P window');
+    if (window.incognito) {
+      browser.theme.update(window.id, {
+        colors: {
+          frame: '#363A68',
+          toolbar: '#363A68',
+        },
+      });
+    } else {
+      browser.theme.update(window.id, {
+        colors: {
+          frame: '#363A68',
+          toolbar: '#363A68',
+        },
+      });
+    }
+  }
   function logTabs(tabInfo) {
     function onContextGotTheme(context) {
       if (context.name == titlepref) {
-        console.log('Active in I2P window');
-        if (window.incognito) {
-          browser.theme.update(window.id, {
-            colors: {
-              frame: '#363A68',
-              toolbar: '#363A68',
-            },
-          });
-        } else {
-          browser.theme.update(window.id, {
-            colors: {
-              frame: '#363A68',
-              toolbar: '#363A68',
-            },
-          });
-        }
+        browserTheme();
         if (tabInfo[0].url.startsWith('https://')) {
           browser.pageAction.setPopup({
             tabId: tabInfo[0].id,
