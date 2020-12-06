@@ -1,4 +1,4 @@
-i2psetproxy.js (0.83-1) UNRELEASED; urgency=low
+i2psetproxy.js (0.85-1) UNRELEASED; urgency=low
 
   * Fix a bug which was causing i2psnark to fail to isolate.
 

@@ -14,6 +14,7 @@ var ircpref = chrome.i18n.getMessage('ircPreface');
 var ircprefpriv = chrome.i18n.getMessage('ircPrefacePrivate');
 var extensionpref = chrome.i18n.getMessage('extensionPreface');
 var muwirepref = chrome.i18n.getMessage('muwirePreface');
+var botepref = chrome.i18n.getMessage('botePreface');
 
 function onContextsGot(contexts) {
   var ids = [];
@@ -94,6 +95,15 @@ function onContextsGot(contexts) {
       })
       .then(onCreated, onNotCreated);
   }
+  if (ids.indexOf(botepref) == -1) {
+    browser.contextualIdentities
+      .create({
+        name: botepref,
+        color: 'blue',
+        icon: 'fence',
+      })
+      .then(onCreated, onNotCreated);
+  }
 }
 
 function onContextsError() {
@@ -159,6 +169,23 @@ function themeWindow(window) {
   function onThemeError() {
     console.log('theme color set error');
   }
+  function dynamicTheme() {
+    if (window.incognito) {
+      browser.theme.update(window.id, {
+        colors: {
+          frame: '#4456B7',
+          toolbar: '#4456B7',
+        },
+      });
+    } else {
+      browser.theme.update(window.id, {
+        colors: {
+          frame: '#4456B7',
+          toolbar: '#4456B7',
+        },
+      });
+    }
+  }
   function logTabs(tabInfo) {
     function onContextGotTheme(context) {
       if (context.name == titlepref) {
@@ -190,72 +217,25 @@ function themeWindow(window) {
         }
       } else if (context.name == routerpref) {
         console.log('Active in Router Console window');
-        if (window.incognito) {
-          browser.theme.update(window.id, {
-            colors: {
-              frame: '#4456B7',
-              toolbar: '#4456B7',
-            },
-          });
-        } else {
-          browser.theme.update(window.id, {
-            colors: {
-              frame: '#4456B7',
-              toolbar: '#4456B7',
-            },
-          });
-        }
+        dynamicTheme();
       } else if (context.name == tunnelpref) {
         console.log('Active in Hidden Services Manager window');
-        if (window.incognito) {
-          browser.theme.update(window.id, {
-            colors: {
-              frame: '#4456B7',
-              toolbar: '#4456B7',
-            },
-          });
-        } else {
-          browser.theme.update(window.id, {
-            colors: {
-              frame: '#4456B7',
-              toolbar: '#4456B7',
-            },
-          });
-        }
+        dynamicTheme();
       } else if (context.name == mailpref) {
         console.log('Active in Web Mail window');
-        if (window.incognito) {
-          browser.theme.update(window.id, {
-            colors: {
-              frame: '#4456B7',
-              toolbar: '#4456B7',
-            },
-          });
-        } else {
-          browser.theme.update(window.id, {
-            colors: {
-              frame: '#4456B7',
-              toolbar: '#4456B7',
-            },
-          });
-        }
+        dynamicTheme();
       } else if (context.name == torrentpref) {
         console.log('Active in Bittorrent window');
-        if (window.incognito) {
-          browser.theme.update(window.id, {
-            colors: {
-              frame: '#4456B7',
-              toolbar: '#4456B7',
-            },
-          });
-        } else {
-          browser.theme.update(window.id, {
-            colors: {
-              frame: '#4456B7',
-              toolbar: '#4456B7',
-            },
-          });
-        }
+        dynamicTheme();
+      } else if (context.name == botepref) {
+        console.log('Active in Bote window');
+        dynamicTheme();
+      } else if (context.name == ircpref) {
+        console.log('Active in IRC window');
+        dynamicTheme();
+      } else if (context.name == muwirepref) {
+        console.log('Active in MuWire window');
+        dynamicTheme();
       }
     }
     if (
@@ -291,90 +271,43 @@ function setTitle(window) {
   function onContextError() {
     console.log('Context Error');
   }
+  function setTitle(title, privtitle) {
+    if (window.incognito) {
+      browser.windows.update(window.id, {
+        titlePreface: privtitle + ': ',
+      });
+    } else {
+      browser.windows.update(window.id, {
+        titlePreface: title + ': ',
+      });
+    }
+  }
   function logTabs(tabInfo) {
     function onContextGotTitle(context) {
       if (context.name == titlepref) {
         console.log('Active in I2P window');
-
-        if (window.incognito) {
-          browser.windows.update(window.id, {
-            titlePreface: titleprefpriv + ': ',
-          });
-        } else {
-          browser.windows.update(window.id, {
-            titlePreface: titlepref + ': ',
-          });
-        }
-      } else if (context.name == webpref) {
-        console.log('Active in Web window');
-        if (window.incognito) {
-          browser.windows.update(window.id, {
-            titlePreface: webprefpriv + ' - ',
-          });
-        } else {
-          browser.windows.update(window.id, {
-            titlePreface: webpref + ' - ',
-          });
-        }
+        setTitle(titlepref, titleprefpriv);
+      } else if (context.name == muwirepref) {
+        console.log('Active in MuWire window');
+        setTitle(muwirepref, muwireprefpriv);
       } else if (context.name == routerpref) {
         console.log('Active in Router Console window');
-        if (window.incognito) {
-          browser.windows.update(window.id, {
-            titlePreface: titleprefpriv + ' - ' + routerprefpriv + ': ',
-          });
-        } else {
-          browser.windows.update(window.id, {
-            titlePreface: titlepref + ' - ' + routerpref + ': ',
-          });
-        }
+        setTitle(routerpref, routerprefpriv);
+      } else if (context.name == botepref) {
+        console.log('Active in Bote window');
+        setTitle(botepref, boteprefpriv);
       } else if (context.name == tunnelpref) {
         console.log('Active in Hidden Services Manager window');
-
-        if (window.incognito) {
-          browser.windows.update(window.id, {
-            titlePreface: titleprefpriv + ' - ' + tunnelprefpriv + ': ',
-          });
-        } else {
-          browser.windows.update(window.id, {
-            titlePreface: titlepref + ' - ' + tunnelpref + ': ',
-          });
-        }
+        setTitle(tunnelpref, tunnelprefpriv);
       } else if (context.name == mailpref) {
         console.log('Active in I2P Web Mail window');
-
-        if (window.incognito) {
-          browser.windows.update(window.id, {
-            titlePreface: titleprefpriv + ' - ' + mailprefpriv + ': ',
-          });
-        } else {
-          browser.windows.update(window.id, {
-            titlePreface: titlepref + ' - ' + mailpref + ': ',
-          });
-        }
+        setTitle(mailpref, mailprefpriv);
       } else if (context.name == torrentpref) {
         console.log('Active in I2P Torrent window');
-
-        if (window.incognito) {
-          browser.windows.update(window.id, {
-            titlePreface: titleprefpriv + ' - ' + torrentprefpriv + ': ',
-          });
-        } else {
-          browser.windows.update(window.id, {
-            titlePreface: titlepref + ' - ' + torrentpref + ': ',
-          });
-        }
+        setTitle(torrentpref, torrentprefpriv);
       } else if (context.name == ircpref) {
         console.log('Active in IRC window');
-
-        if (window.incognito) {
-          browser.windows.update(window.id, {
-            titlePreface: ircprefpriv + ' - ' + ircprefpriv + ': ',
-          });
-        } else {
-          browser.windows.update(window.id, {
-            titlePreface: ircpref + ' - ' + ircpref + ': ',
-          });
-        }
+        setTitle(ircpref, ircprefpriv);
       }
     }
 
@@ -513,3 +446,24 @@ browser.webRequest.onHeadersReceived.addListener(
   { urls: ["<all_urls>"] },
   ["blocking", "responseHeaders"]
 );
+
+function onClosedWindowCheck() {
+  var getContext = browser.contextualIdentities.query({ name: titlepref });
+  function checkTabs(ctx) {
+    function conditionallyDelete(tabs) {
+      if (tabs.length == 0) {
+        browser.contextualIdentities.remove(ctx[0].cookieStoreId);
+        browser.contextualIdentities
+          .query({})
+          .then(onContextsGot, onContextsError);
+      }
+    }
+    var tabs = browser.tabs.query({ cookieStoreId: ctx[0].cookieStoreId });
+    tabs.then(conditionallyDelete, onError);
+  }
+  getContext.then(checkTabs, onError);
+}
+
+browser.tabs.onRemoved.addListener(onClosedWindowCheck);
+browser.windows.onRemoved.addListener(onClosedWindowCheck);
+browser.windows.onCreated.addListener(onClosedWindowCheck);

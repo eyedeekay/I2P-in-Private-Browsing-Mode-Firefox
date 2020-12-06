@@ -60,7 +60,7 @@ function i2pHost(url) {
 }
 
 function routerHost(url) {
-  console.log('(urlcheck) HOST URL CHECK');
+  //  console.log("(urlcheck) HOST URL CHECK");
   let hostname = '';
   let path = '';
   function pathcheck(str) {
@@ -74,7 +74,7 @@ function routerHost(url) {
         final === 'torrents' ||
         final.startsWith('transmission') ||
         final.startsWith('tracker') ||
-        str.includes(':7662')
+        url.includes(':7662')
       ) {
         console.log('(urlcheck) Torrent application path', final);
         return 'i2psnark';
@@ -85,6 +85,11 @@ function routerHost(url) {
         if (!url.includes('.png')) {
           console.log('(urlcheck) MuWire application path', final);
           return 'muwire';
+        }
+      } else if (final.startsWith('i2pbote')) {
+        if (!url.includes('.png')) {
+          console.log('(urlcheck) I2PBote application path', final);
+          return 'i2pbote';
         }
       } else if (
         final === 'home' ||
