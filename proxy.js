@@ -20,101 +20,86 @@ function shouldProxyRequest(requestInfo) {
   return requestInfo.parentFrameId != -1;
 }
 
-var handleContextProxyRequest = async function(requestDetails) {
+var handleContextProxyRequest = function(requestDetails) {
   try {
     var handleProxyRequest = function(context) {
-      proxy = {
-        failoverTimeout: 0,
-        proxyDns: false,
-      };
-      if (context == 'firefox-default' || context == 'firefox-private') {
-        proxy = null;
-        return proxy;
-      }
-      console.log('(proxy), context', context);
-      if (context != undefined) {
-        if (context.name == titlepref) {
-          if (!requestDetails.url.includes('/i2psnark/')) {
-            console.log('URL', requestDetails.url);
+      console.log('REQUESTDETAILS', requestDetails.tabId);
+      var tab = browser.tabs.get(requestDetails.tabId);
+      proxy = tab.then(handleTabRequest);
+      return proxy;
+      function handleTabRequest(tab) {
+        console.log('(proxy), tab context', context);
+        proxy = {
+          failoverTimeout: 0,
+          proxyDns: false,
+        };
+        if (context == 'firefox-default' || context == 'firefox-private') {
+          proxy = null;
+          return proxy;
+        }
+
+        if (context != undefined) {
+          if (context.name == titlepref) {
+            var furl = new URL(tab.url);
+            if (!requestDetails.url.includes('/i2psnark/' + furl.host)) {
+              proxy = {
+                type: getScheme(),
+                host: getHost(),
+                port: getPort(),
+              };
+            }
+            return proxy;
+          } else if (context.name == ircpref) {
             proxy = {
               type: getScheme(),
               host: getHost(),
               port: getPort(),
             };
+            if (requestDetails.url.includes(':7669')) {
+              proxy = null;
+            }
+          } else if (context.name == routerpref) {
+            if (routerHost(requestDetails.url)) {
+              proxy = null;
+            } else if (!routerHost(requestDetails.url)) {
+              proxy = {
+                type: getScheme(),
+                host: getHost(),
+                port: getPort(),
+              };
+            }
+            return proxy;
           }
-          return proxy;
-        } else if (context.name == ircpref) {
+        }
+        if (!routerHost(requestDetails.url)) {
+          if (localHost(requestDetails.url)) {
+            if (requestDetails.url.includes(':7669')) {
+              proxy = null;
+            } else {
+              console.log(
+                '(proxy) non-routerconsole localhost url, will not interfere',
+                requestDetails.url
+              );
+            }
+          }
+        } else if (i2pHost(requestDetails.url)) {
           proxy = {
             type: getScheme(),
             host: getHost(),
             port: getPort(),
           };
-          if (requestDetails.url.includes(':7669')) {
-            proxy = null;
-          }
-        } else if (context.name == routerpref) {
-          if (routerHost(requestDetails.url)) {
-            proxy = null;
-          } else if (!routerHost(requestDetails.url)) {
-            proxy = {
-              type: getScheme(),
-              host: getHost(),
-              port: getPort(),
-            };
-          }
-          return proxy;
-        } else if (context.name == webpref) {
-          if (localHost(requestDetails.url)) {
-            if (!routerHost(requestDetails.url)) {
-              proxy = {
-                type: 'http',
-                host: 'localhost',
-                port: '65535',
-              };
-            }
-          }
-          return proxy;
         }
+        return proxy;
       }
-      if (!routerHost(requestDetails.url)) {
-        if (localHost(requestDetails.url)) {
-          if (requestDetails.url.includes(':7669')) {
-            proxy = null;
-          } else {
-            console.log(
-              '(proxy) non-routerconsole localhost url, will not interfere',
-              requestDetails.url
-            );
-          }
-        }
-      } else if (i2pHost(requestDetails.url)) {
-        proxy = {
-          type: getScheme(),
-          host: getHost(),
-          port: getPort(),
-        };
-      }
-      //var tab = tabGet(requestDetails.tabId);
-      //tab.then(handleTabRequest,)
-      return proxy;
     };
-    var contextGet = async function(tabInfo) {
+    var contextGet = function(tabInfo) {
       try {
         console.log('(proxy)Tab info from Function', tabInfo);
-        context = await browser.contextualIdentities.get(tabInfo.cookieStoreId);
+        context = browser.contextualIdentities.get(tabInfo.cookieStoreId);
         return context;
       } catch (error) {
         console.error(error);
         return 'firefox-default';
-      }
-    };
-    var tabGet = async function(tabId) {
-      try {
-        console.log('(proxy)Tab ID from Request', tabId);
-        let tabInfo = await browser.tabs.get(tabId);
-        return tabInfo;
-      } catch (error) {
-        console.log('(proxy)Tab error', error);
       }
     };
     if (proxyHost(requestDetails.url)) {
@@ -154,16 +139,15 @@ var handleContextProxyRequest = async function(requestDetails) {
       } else if (extensionHost(requestDetails.url)) {
         return;
       } else if (i2pHost(requestDetails.url)) {
-        var tab = tabGet(requestDetails.tabId);
-        requestDetails.tabId = tab;
+        var tab = browser.tabs.get(requestDetails.tabId);
         var context = tab.then(contextGet);
-        var proxy = await context.then(handleProxyRequest);
+        var proxy = context.then(handleProxyRequest);
         console.log('(proxy)Returning I2P Proxy', proxy);
         return proxy;
       } else {
-        var tab = tabGet(requestDetails.tabId);
+        var tab = browser.tabs.get(requestDetails.tabId);
         var context = tab.then(contextGet);
-        var proxy = await context.then(handleProxyRequest);
+        var proxy = context.then(handleProxyRequest);
         //console.log("(proxy)Returning I2P Proxy", proxy);
         return proxy;
       }
@@ -174,7 +158,7 @@ var handleContextProxyRequest = async function(requestDetails) {
   } catch (error) {
     console.log('(proxy)Not using I2P Proxy.', error);
   }
-}
+};
 
 function SetupSettings() {
   console.log('Initialising Settings');
