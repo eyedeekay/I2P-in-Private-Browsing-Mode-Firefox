@@ -721,12 +721,15 @@ var coolheadersSetup = function(e) {
               let tmpsrc = new URL(video.currentSrc);
               if (tmpsrc.host == location.host) {
                 if (!video.innerHTML.includes('127.0.0.1')) {
-                  innerHTML = video.innerHTML;
-                  topInnerHTML = video.innerHTML.replace(
-                    'src="',
-                    'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
-                  );
-                  video.innerHTML = topInnerHTML + innerHTML;
+            innerHTML = video.innerHTML;
+            topInnerHTML = video.innerHTML.replace(
+              'src="',
+              'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
+            );
+            video.innerHTML = topInnerHTML; // + innerHTML;
+            video.onerror = function() {
+              video.innerHTML = topInnerHTML + innerHTML;
+            };
                 }
               }
             }
@@ -740,7 +743,10 @@ var coolheadersSetup = function(e) {
                     'src="',
                     'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
                   );
-                  audio.innerHTML = topInnerHTML + innerHTML;
+                  audio.innerHTML = topInnerHTML; // + innerHTML;
+                  audio.onerror = function() {
+                    audio.innerHTML = topInnerHTML + innerHTML;
+                  };
                 }
               }
             }
@@ -781,12 +787,15 @@ var coolheadersSetup = function(e) {
               let tmpsrc = new URL(video.currentSrc);
               if (tmpsrc.host == location.host) {
                 if (!video.innerHTML.includes('127.0.0.1')) {
-                  innerHTML = video.innerHTML;
-                  topInnerHTML = video.innerHTML.replace(
-                    'src="',
-                    'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
-                  );
-                  video.innerHTML = topInnerHTML + innerHTML;
+            innerHTML = video.innerHTML;
+            topInnerHTML = video.innerHTML.replace(
+              'src="',
+              'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
+            );
+            video.innerHTML = topInnerHTML; // + innerHTML;
+            video.onerror = function() {
+              video.innerHTML = topInnerHTML + innerHTML;
+            };
                 }
               }
             }
@@ -795,12 +804,15 @@ var coolheadersSetup = function(e) {
               let tmpsrc = new URL(audio.currentSrc);
               if (tmpsrc.host == location.host) {
                 if (!audio.innerHTML.includes('127.0.0.1')) {
-                  innerHTML = audio.innerHTML;
-                  topInnerHTML = audio.innerHTML.replace(
-                    'src="',
-                    'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
-                  );
-                  audio.innerHTML = topInnerHTML + innerHTML;
+            innerHTML = audio.innerHTML;
+            topInnerHTML = audio.innerHTML.replace(
+              'src="',
+              'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
+            );
+            audio.innerHTML = topInnerHTML; // + innerHTML;
+            audio.onerror = function() {
+              audio.innerHTML = topInnerHTML + innerHTML;
+            };
                 }
               }
             }
@@ -931,7 +943,10 @@ browser.webRequest.onHeadersReceived.addListener(
   ["responseHeaders"]
 );
 
-//browser.webNavigation.onDOMContentLoaded.addListener(getClearTab)
+browser.webNavigation.onDOMContentLoaded.addListener(getClearTab, filter);
+browser.webNavigation.onBeforeNavigate.addListener(getClearTab, filter);
+browser.webNavigation.onCommitted.addListener(getClearTab, filter);
+browser.webNavigation.onCompleted.addListener(getClearTab, filter);
 
 browser.webRequest.onBeforeRequest.addListener(
   contextSetup,
