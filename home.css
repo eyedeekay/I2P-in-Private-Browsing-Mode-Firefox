@@ -273,3 +273,9 @@ img.readyness {
 input {
   color: #1f1a24
 }
+#hidden {
+  display: none
+}
+.hidden {
+  display: none
+}
