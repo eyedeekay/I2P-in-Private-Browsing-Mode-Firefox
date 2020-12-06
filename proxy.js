@@ -3,6 +3,7 @@ var webpref = chrome.i18n.getMessage('webPreface');
 var ircpref = chrome.i18n.getMessage('ircPreface');
 var routerpref = chrome.i18n.getMessage('routerPreface');
 var routerprefpriv = chrome.i18n.getMessage('routerPrefacePrivate');
+var ircpref = chrome.i18n.getMessage('ircPreface');
 
 browser.privacy.network.peerConnectionEnabled.set({
   value: true,
@@ -33,6 +34,15 @@ var handleContextProxyRequest = async function(requestDetails) {
       }
       console.log('(proxy), context', context);
       if (context != undefined) {
+        if (context.name == ircpref) {
+          if (!requestDetails.url.includes('7669')) {
+            proxy = {
+              type: getScheme(),
+              host: getHost(),
+              port: getPort(),
+            };
+          }
+        }
         if (context.name == titlepref) {
           if (!requestDetails.url.includes('/i2psnark/')) {
             console.log('URL', requestDetails.url);
