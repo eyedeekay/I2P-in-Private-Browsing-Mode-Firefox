@@ -2,7 +2,7 @@ i2psetproxy.js (0.87-1) UNRELEASED; urgency=low
 
   * Disable searching for i2p sites in non-i2p search engines
   * Add contexts for i2pbote and Dispatch
-  * 
+  * Remain in tighter control of x-i2p-torrentlocation priority
 
  -- idk <hankhill19580@gmail.com>  Sat, 10 NOV 2020 1:33:50 -0400
 
