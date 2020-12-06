@@ -931,7 +931,7 @@ browser.webRequest.onHeadersReceived.addListener(
   ["responseHeaders"]
 );
 
-//browser.webNavigation.onDOMContentLoaded.addListener(fixClearTab)
+//browser.webNavigation.onDOMContentLoaded.addListener(getClearTab)
 
 browser.webRequest.onBeforeRequest.addListener(
   contextSetup,
