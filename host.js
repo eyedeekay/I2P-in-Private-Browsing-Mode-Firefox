@@ -46,7 +46,11 @@ function extensionHost(url) {
 
 function i2pHostName(url) {
   let hostname = '';
-  if (url.indexOf('://') > -1) {
+  console.log('(hosts)', url);
+  if (url.includes('=')) {
+    lsit = url.split('=');
+    hostname = lsit[lsit.length - 1];
+  } else if (url.indexOf('://') > -1) {
     hostname = url.split('/')[2];
   } else {
     hostname = url.split('/')[0];

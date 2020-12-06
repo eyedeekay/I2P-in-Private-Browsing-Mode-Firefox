@@ -144,6 +144,7 @@ var contextSetup = function(requestDetails) {
   function onContextError() {
     console.log('Context launcher error');
   }
+  console.log('(scrub) host', requestDetails.url);
   //console.log("(isolate)Forcing I2P requests into context");
   try {
     var i2pTabFind = async function(tabId) {
@@ -245,7 +246,7 @@ var contextSetup = function(requestDetails) {
                   console.log('in favor of', tab.id);
                   console.log('with context', tab.cookieStoreId);
                   browser.tabs.remove(tabId.id);
-                  browser.tabs.move(tab.id, { index: 1 });
+                  browser.tabs.move(tab.id, { index: 0 });
                 }
                 for (index = 0; index < tabs.length; index++) {
                   if (index != tabs.length - 1)
@@ -299,7 +300,7 @@ var contextSetup = function(requestDetails) {
                     console.log('in favor of', tab.id);
                     console.log('with context', tab.cookieStoreId);
                     browser.tabs.remove(tabId.id);
-                    browser.tabs.move(tab.id, { index: 2 });
+                    browser.tabs.move(tab.id, { index: 0 });
                   }
                   for (index = 0; index < tabs.length; index++) {
                     if (index != tabs.length - 1)
@@ -347,7 +348,7 @@ var contextSetup = function(requestDetails) {
                   console.log('in favor of', tab.id);
                   console.log('with context', tab.cookieStoreId);
                   browser.tabs.remove(tabId.id);
-                  browser.tabs.move(tab.id, { index: 4 });
+                  browser.tabs.move(tab.id, { index: 0 });
                 }
                 for (index = 0; index < tabs.length; index++) {
                   if (index != tabs.length - 1)
@@ -394,7 +395,7 @@ var contextSetup = function(requestDetails) {
                   console.log('in favor of', tab.id);
                   console.log('with context', tab.cookieStoreId);
                   browser.tabs.remove(tabId.id);
-                  browser.tabs.move(tab.id, { index: 5 });
+                  browser.tabs.move(tab.id, { index: 0 });
                 }
                 for (index = 0; index < tabs.length; index++) {
                   if (index != tabs.length - 1)
@@ -441,7 +442,7 @@ var contextSetup = function(requestDetails) {
                   console.log('in favor of', tab.id);
                   console.log('with context', tab.cookieStoreId);
                   browser.tabs.remove(tabId.id);
-                  browser.tabs.move(tab.id, { index: 3 });
+                  browser.tabs.move(tab.id, { index: 0 });
                 }
                 for (index = 0; index < tabs.length; index++) {
                   if (index != tabs.length - 1)
@@ -489,7 +490,7 @@ var contextSetup = function(requestDetails) {
                     console.log('in favor of', tab.id);
                     console.log('with context', tab.cookieStoreId);
                     browser.tabs.remove(tabId.id);
-                    browser.tabs.move(tab.id, { index: 6 });
+                    browser.tabs.move(tab.id, { index: 0 });
                   }
                   for (index = 0; index < tabs.length; index++) {
                     if (index != tabs.length - 1)
@@ -617,6 +618,13 @@ var contextSetup = function(requestDetails) {
     if (requestDetails.tabId > 0) {
       var tab = tabGet(requestDetails.tabId);
       if (i2pHost(requestDetails.url)) {
+        var thn = i2pHostName(requestDetails.url);
+        if (requestDetails.url.includes('=' + thn)) {
+          console.log('(scrub)checking search hostnames =' + thn);
+          var tpt = requestDetails.url.split('=' + thn, 2);
+          requestDetails.url = 'http://' + thn + tpt[1];
+          //          requestDetails.url = requestDetails.url.replace(requestDetails.url.split("="+i2pHostName(requestDetails.url), i2pHostName(requestDetails.url))
+        }
         var setcookie = browser.cookies.set({
           firstPartyDomain: i2pHostName(requestDetails.url),
           url: requestDetails.url,
