@@ -87,7 +87,10 @@ browser.runtime.onMessage.addListener((request) => {
                   'src="',
                   'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
                 );
-                video.innerHTML = topInnerHTML + innerHTML;
+                video.innerHTML = topInnerHTML; // + innerHTML;
+                video.onerror = function() {
+                  video.innerHTML = innerHTML;
+                };
               }
             }
           }
@@ -102,7 +105,10 @@ browser.runtime.onMessage.addListener((request) => {
                   'src="',
                   'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
                 );
-                audio.innerHTML = topInnerHTML + innerHTML;
+                audio.innerHTML = topInnerHTML; // + innerHTML;
+                audio.onerror = function() {
+                  audio.innerHTML = innerHTML;
+                };
               }
             }
           }
@@ -173,7 +179,10 @@ browser.runtime.onMessage.addListener((request) => {
                   'src="',
                   'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
                 );
-                video.innerHTML = topInnerHTML + innerHTML;
+                video.innerHTML = topInnerHTML; // + innerHTML;
+                video.onerror = function() {
+                  video.innerHTML = innerHTML;
+                };
               }
             }
           }
@@ -188,7 +197,10 @@ browser.runtime.onMessage.addListener((request) => {
                   'src="',
                   'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
                 );
-                audio.innerHTML = topInnerHTML + innerHTML;
+                audio.innerHTML = topInnerHTML; // + innerHTML;
+                audio.onerror = function() {
+                  audio.innerHTML = innerHTML;
+                };
               }
             }
           }
