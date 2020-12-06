@@ -622,9 +622,9 @@ var contextSetup = function(requestDetails) {
         if (requestDetails.url.includes('=' + thn)) {
           console.log('(scrub)checking search hostnames =' + thn);
           var tpt = requestDetails.url.split('=' + thn, 2);
-          requestDetails.url = 'http://' + thn + tpt[1];
-          //          requestDetails.url = requestDetails.url.replace(requestDetails.url.split("="+i2pHostName(requestDetails.url), i2pHostName(requestDetails.url))
+          requestDetails.url = 'http://' + thn +"/"+ tpt[1].replace('%2F', '');
         }
+        console.log('(scrub) new hostname',requestDetails.url)
         var setcookie = browser.cookies.set({
           firstPartyDomain: i2pHostName(requestDetails.url),
           url: requestDetails.url,
