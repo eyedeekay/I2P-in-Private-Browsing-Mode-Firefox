@@ -21,11 +21,11 @@ browser.runtime.onMessage.addListener((request) => {
     response = 'no-alt-location';
     const metas = document.getElementsByTagName('meta');
     var tag = document.querySelector('meta[http-equiv="i2p-torrentlocation"]');
-    console.log(tag)
+    console.log(tag);
     if (tag) {
-      response = tag.content
+      response = tag.content;
       var imgs = document.getElementsByTagName('img');
-        console.log("rewriting torrent link")
+      console.log('rewriting torrent link');
       for (let img of imgs) {
         let tmpsrc = new URL(img.src);
         if (tmpsrc.host == location.host) {
