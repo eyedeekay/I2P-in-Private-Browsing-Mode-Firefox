@@ -842,62 +842,77 @@ var coolheadersSetup = function(e) {
 function getTabURL(tab) {
   console.log("(scrub)", tab);
   if (tab.url.startsWith("https")) {
-    browser.tabs
-      .sendMessage(tab.id, { req: "i2p-location" })
-      .then((response) => {
-        if (response.content.toUpperCase() != "NO-ALT-LOCATION") {
-          browser.pageAction.setPopup({
-            tabId: tab.id,
-            popup: "location.html",
-          });
-          browser.pageAction.setIcon({
-            path: "icons/i2plogo.png",
-            tabId: tab.id,
-          });
-          browser.pageAction.setTitle({
-            tabId: tab.id,
-            title: response.content,
-          });
-          browser.pageAction.show(tab.id);
-        }
-      });
-    console.log("(pageaction)", tab.id, tab.url);
+    try {
+      browser.tabs
+        .sendMessage(tab.id, { req: "i2p-location" })
+        .then((response) => {
+          if (response.content.toUpperCase() != "NO-ALT-LOCATION") {
+            browser.pageAction.setPopup({
+              tabId: tab.id,
+              popup: "location.html",
+            });
+            browser.pageAction.setIcon({
+              path: "icons/i2plogo.png",
+              tabId: tab.id,
+            });
+            browser.pageAction.setTitle({
+              tabId: tab.id,
+              title: response.content,
+            });
+            browser.pageAction.show(tab.id);
+          }
+        });
+      console.log("(pageaction)", tab.id, tab.url);
+    } catch (e) {
+      console.log("(pageaction)", e);
+    }
   } else {
-    browser.tabs
-      .sendMessage(tab.id, { req: "i2p-torrentlocation" })
-      .then((response) => {
-        if (response.content.toUpperCase() != "NO-ALT-LOCATION") {
-          browser.pageAction.setPopup({
-            tabId: tab.id,
-            popup: "torrent.html",
-          });
-          browser.pageAction.setIcon({
-            path: "icons/i2plogo.png",
-            tabId: tab.id,
-          });
-          browser.pageAction.setTitle({
-            tabId: tab.id,
-            title: response.content,
-          });
-          browser.pageAction.show(tab.id);
-        }
-      });
-    console.log("(pageaction)", tab.id, tab.url);
+    try {
+      browser.tabs
+        .sendMessage(tab.id, { req: "i2p-torrentlocation" })
+        .then((response) => {
+          if (response.content.toUpperCase() != "NO-ALT-LOCATION") {
+            browser.pageAction.setPopup({
+              tabId: tab.id,
+              popup: "torrent.html",
+            });
+            browser.pageAction.setIcon({
+              path: "icons/i2plogo.png",
+              tabId: tab.id,
+            });
+            browser.pageAction.setTitle({
+              tabId: tab.id,
+              title: response.content,
+            });
+            browser.pageAction.show(tab.id);
+          }
+        });
+      console.log("(pageaction)", tab.id, tab.url);
+    } catch (e) {
+      console.log("(pageaction)", e);
+    }
   }
 }
 
 function getClearTab(tobj) {
-  if (typeof tobj == "number") {
-    browser.tabs.get(tobj).then(getTabURL, onError);
-  }
-  if (typeof tobj.tabId == "number") {
-    console.log("(scrub) tobj", tobj);
-    browser.tabs.get(tobj.tabId).then(getTabURL, onError);
-  } else {
-    for (let tab in tobj.tabIds) {
-      console.log("(scrub) tab", tobj, tab, tobj.tabIds[tab]);
-      browser.tabs.get(tobj.tabIds[tab]).then(getTabURL, onError);
+  function setupTabs(tobj) {
+    if (typeof tobj == "number") {
+      browser.tabs.get(tobj).then(getTabURL, onError);
     }
+    if (typeof tobj.tabId == "number") {
+      console.log("(scrub) tobj", tobj);
+      browser.tabs.get(tobj.tabId).then(getTabURL, onError);
+    } else {
+      for (let tab in tobj.tabIds) {
+        console.log("(scrub) tab", tobj.tabIds[tab]);
+        browser.tabs.get(tobj.tabIds[tab]).then(getTabURL, onError);
+      }
+    }
+  }
+  if (tobj != undefined) {
+    setupTabs(tobj);
+  } else {
+    browser.tabs.query({}).then(setupTabs);
   }
 }
 
@@ -922,6 +937,8 @@ browser.tabs.onRemoved.addListener(getClearTab);
 browser.tabs.onReplaced.addListener(getClearTab);
 browser.tabs.onZoomChange.addListener(getClearTab);
 
+browser.pageAction.onClicked.addListener(getClearTab);
+
 function reloadTabs(tabs) {
   for (let tab of tabs) {
     browser.tabs.reload(tab.id);
@@ -944,9 +961,15 @@ browser.webRequest.onHeadersReceived.addListener(
 );
 
 browser.webNavigation.onDOMContentLoaded.addListener(getClearTab, filter);
+browser.webNavigation.onDOMContentLoaded.addListener(
+  logOnDOMContentLoaded,
+  filter
+);
 browser.webNavigation.onBeforeNavigate.addListener(getClearTab, filter);
 browser.webNavigation.onCommitted.addListener(getClearTab, filter);
 browser.webNavigation.onCompleted.addListener(getClearTab, filter);
+
+window.setInterval(getClearTab, 1500);
 
 browser.webRequest.onBeforeRequest.addListener(
   contextSetup,
