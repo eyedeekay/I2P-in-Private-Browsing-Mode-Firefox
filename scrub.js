@@ -653,93 +653,26 @@ var contextSetup = function(requestDetails) {
 var coolheadersSetup = function(e) {
   var asyncSetPageAction = new Promise((resolve, reject) => {
     window.setTimeout(() => {
-      for (i = 0; i < e.responseHeaders.length; i++) {
+      for (i = e.responseHeaders.length - 1; i >= 0; i--) {
         let header = e.responseHeaders[i];
-        if (e.url.startsWith('https')) {
-          if (
-            header.name.toUpperCase() === 'I2P-LOCATION' ||
-            header.name.toUpperCase() === 'X-I2P-LOCATION'
-          ) {
-            browser.pageAction.setPopup({
-              tabId: e.tabId,
-              popup: 'location.html',
-            });
-            browser.pageAction.setIcon({
-              path: 'icons/i2plogo.png',
-              tabId: e.tabId,
-            });
-            browser.pageAction.setTitle({
-              tabId: e.tabId,
-              title: header.value,
-            });
-            browser.pageAction.show(e.tabId);
-            break;
-          }
-          if (
-            header.name.toUpperCase() === 'I2P-TORRENTLOCATION' ||
-            header.name.toUpperCase() === 'X-I2P-TORRENTLOCATION'
-          ) {
-            var imgs = document.getElementsByTagName('img');
-            for (let img of imgs) {
-              if (tmpsrc.host == location.host) {
-                img.src =
-                  'http://127.0.0.1:7657/i2psnark/' +
-                  tmpsrc.host +
-                  tmpsrc.pathname;
-                img.onerror = function() {
-                  img.src = tmpsrc;
-                };
-              }
-            }
-            var videos = document.getElementsByTagName('video');
-            for (let video of videos) {
-              let tmpsrc = new URL(video.currentSrc);
-              if (tmpsrc.host == location.host) {
-                if (!video.innerHTML.includes('127.0.0.1')) {
-                  innerHTML = video.innerHTML;
-                  topInnerHTML = video.innerHTML.replace(
-                    'src="',
-                    'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
-                  );
-                  video.innerHTML = topInnerHTML; // + innerHTML;
-                  video.onerror = function() {
-                    video.innerHTML = topInnerHTML + innerHTML;
-                  };
-                }
-              }
-            }
-            var audios = document.getElementsByTagName('audio');
-            for (let audio of audios) {
-              let tmpsrc = new URL(audio.currentSrc);
-              if (tmpsrc.host == location.host) {
-                if (!audio.innerHTML.includes('127.0.0.1')) {
-                  innerHTML = audio.innerHTML;
-                  topInnerHTML = audio.innerHTML.replace(
-                    'src="',
-                    'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
-                  );
-                  audio.innerHTML = topInnerHTML; // + innerHTML;
-                  audio.onerror = function() {
-                    audio.innerHTML = topInnerHTML + innerHTML;
-                  };
-                }
-              }
-            }
-            browser.pageAction.setPopup({
-              tabId: tabId.id,
-              popup: 'torrent.html',
-            });
-            browser.pageAction.setIcon({
-              path: 'icons/i2plogo.png',
-              tabId: e.tabId,
-            });
-            browser.pageAction.setTitle({
-              tabId: e.tabId,
-              title: header.value,
-            });
-            browser.pageAction.show(e.tabId);
-            break;
-          }
+        if (
+          header.name.toUpperCase() === 'I2P-LOCATION' ||
+          header.name.toUpperCase() === 'X-I2P-LOCATION'
+        ) {
+          browser.pageAction.setPopup({
+            tabId: e.tabId,
+            popup: 'location.html',
+          });
+          browser.pageAction.setIcon({
+            path: 'icons/i2plogo.png',
+            tabId: e.tabId,
+          });
+          browser.pageAction.setTitle({
+            tabId: e.tabId,
+            title: header.value,
+          });
+          browser.pageAction.show(e.tabId);
+          break;
         } else {
           if (
             header.name.toUpperCase() === 'I2P-TORRENTLOCATION' ||
@@ -904,8 +837,6 @@ function logOnDOMContentLoaded(details) {
   console.log(`onDOMContentLoaded: ${details.url}`);
 }
 
-//browser.webNavigation.onDOMContentLoaded.addListener(getClearTab, filter);
-
 browser.tabs.onActivated.addListener(getClearTab);
 browser.tabs.onAttached.addListener(getClearTab);
 browser.tabs.onCreated.addListener(getClearTab);
@@ -942,11 +873,6 @@ browser.webNavigation.onDOMContentLoaded.addListener(
   logOnDOMContentLoaded,
   filter
 );
-/*browser.webNavigation.onBeforeNavigate.addListener(getClearTab, filter);
-browser.webNavigation.onCommitted.addListener(getClearTab, filter);
-browser.webNavigation.onCompleted.addListener(getClearTab, filter);*/
-
-//window.setInterval(getClearTab, 2000);
 
 browser.webRequest.onBeforeRequest.addListener(contextSetup, {
   urls: ["*://*.i2p/*", "*://localhost/*", "*://127.0.0.1/*", "*://*/*i2p*"],
