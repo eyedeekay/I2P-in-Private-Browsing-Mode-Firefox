@@ -38,15 +38,7 @@ var handleContextProxyRequest = async function(requestDetails) {
     }
   }
   function btProxy() {
-    proxy = null;
-    if (i2phost(requestDetails.url)) {
-      proxy = {
-        type: getScheme(),
-        host: getHost(),
-        port: getPort(),
-      };
-      return proxy;
-    }
+    proxy = routerProxy();
     if (!requestDetails.url.includes('7662')) {
       proxy = {
         type: getScheme(),
@@ -59,6 +51,7 @@ var handleContextProxyRequest = async function(requestDetails) {
       proxy = null;
       return proxy;
     }
+    console.log('(bt proxy)', proxy);
     return proxy;
   }
   function mainProxy() {
@@ -98,22 +91,20 @@ var handleContextProxyRequest = async function(requestDetails) {
         proxy = null;
         return proxy;
       }
-      //console.log('(proxy), context', context);
+
       if (context != undefined) {
+        console.log('(proxy), context', context);
         proxy = routerProxy();
         if (context.name == ircpref) {
           proxy = ircProxy();
           return proxy;
-        }
-        if (context.name == titlepref) {
+        } else if (context.name == titlepref) {
           proxy = mainProxy();
           return proxy;
-        }
-        if (context.name == routerpref) {
+        } else if (context.name == routerpref) {
           proxy = routerProxy();
           return proxy;
-        }
-        if (context.name == torrentpref) {
+        } else if (context.name == torrentpref) {
           proxy = btProxy();
           return proxy;
         }

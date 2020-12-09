@@ -371,29 +371,31 @@ function handleUpdated(updateInfo) {
           them.originalTheme.images == null &&
           them.originalTheme.properties == null)
       ) {
-        if (
-          updateInfo.theme.colors.frame != "#4456B7" &&
-          updateInfo.theme.colors.frame != "#363A68"
-        ) {
-          function onSet() {
-            console.log("stored theme:", updateInfo.theme);
-          }
+        if (updateInfo.theme.colors != null) {
           if (
-            updateInfo.theme.colors != null ||
-            updateInfo.theme.images != null ||
-            updateInfo.theme.properties != null
+            updateInfo.theme.colors.frame != "#4456B7" &&
+            updateInfo.theme.colors.frame != "#363A68"
           ) {
-            console.log("storing theme:", updateInfo.theme);
-            browser.storage.local
-              .set({ originalTheme: updateInfo.theme })
-              .then(onSet, onError);
+            function onSet() {
+              console.log("stored theme:", updateInfo.theme);
+            }
+            if (
+              updateInfo.theme.colors != null &&
+              updateInfo.theme.images != null &&
+              updateInfo.theme.properties != null
+            ) {
+              console.log("storing theme:", updateInfo.theme);
+              browser.storage.local
+                .set({ originalTheme: updateInfo.theme })
+                .then(onSet, onError);
+            }
           }
         }
       } else {
         console.log("keeping stored theme:", them);
       }
-    } catch {
-      console.log("theme storage error");
+    } catch (e) {
+      console.log("theme storage error", e);
     }
   }
   browser.storage.local.get("originalTheme").then(maybeSet, onError);

@@ -13,17 +13,14 @@ var contextScrub = async function(requestDetails) {
   function onHeaderError() {
     console.log('Header scrub error');
   }
-  console.log('(scrub)Scrubbing info from contextualized request');
   try {
     var headerScrub = function(context) {
       var ua = 'MYOB/6.66 (AN/ON)';
-      console.log('(scrub) uah', context);
       if (!context) {
       } else if (context.name == titlepref) {
         for (var header of requestDetails.requestHeaders) {
           if (header.name.toLowerCase() === 'user-agent') {
             header.value = ua;
-            console.log('(scrub)User-Agent header modified', header.value);
           }
         }
         return {
@@ -52,7 +49,6 @@ var contextScrub = async function(requestDetails) {
       }
     };
     if (requestDetails.tabId > 0) {
-      console.log('(scrub) uah', requestDetails);
       tab = tabGet(requestDetails.tabId);
       context = tab.then(contextGet, onHeaderError);
       req = context.then(headerScrub, onHeaderError);
@@ -906,10 +902,9 @@ function logOnDOMContentLoaded(details) {
   console.log(`onDOMContentLoaded: ${details.url}`);
 }
 
-browser.webNavigation.onDOMContentLoaded.addListener(getClearTab, filter);
+//browser.webNavigation.onDOMContentLoaded.addListener(getClearTab, filter);
 
 browser.tabs.onActivated.addListener(getClearTab);
-browser.tabs.onUpdated.addListener(getClearTab);
 browser.tabs.onAttached.addListener(getClearTab);
 browser.tabs.onCreated.addListener(getClearTab);
 browser.tabs.onDetached.addListener(getClearTab);
@@ -936,7 +931,7 @@ querying.then(reloadTabs, onError);
 // Set "blocking" and "responseHeaders".
 browser.webRequest.onHeadersReceived.addListener(
   coolheadersSetup,
-  { urls: ["<all_urls>"] },
+  { urls: ["*://*.i2p/*", "https://*/*"] },
   ["responseHeaders"]
 );
 
@@ -945,9 +940,9 @@ browser.webNavigation.onDOMContentLoaded.addListener(
   logOnDOMContentLoaded,
   filter
 );
-browser.webNavigation.onBeforeNavigate.addListener(getClearTab, filter);
+/*browser.webNavigation.onBeforeNavigate.addListener(getClearTab, filter);
 browser.webNavigation.onCommitted.addListener(getClearTab, filter);
-browser.webNavigation.onCompleted.addListener(getClearTab, filter);
+browser.webNavigation.onCompleted.addListener(getClearTab, filter);*/
 
 //window.setInterval(getClearTab, 2000);
 
