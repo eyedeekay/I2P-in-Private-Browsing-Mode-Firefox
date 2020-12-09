@@ -358,4 +358,5 @@ lht-test:
 		-u http://localhost:7657/i2ptunnel \
 		-u http://localhost:7657/i2psnark \
 		-u http://localhost:7657/webmail \
+		-u http://localhost:7657/MuWire/ \
 		-u http://idk.i2p

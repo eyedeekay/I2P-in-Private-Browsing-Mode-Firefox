@@ -14,6 +14,7 @@ var ircpref = chrome.i18n.getMessage('ircPreface');
 var ircprefpriv = chrome.i18n.getMessage('ircPrefacePrivate');
 var extensionpref = chrome.i18n.getMessage('extensionPreface');
 var muwirepref = chrome.i18n.getMessage('muwirePreface');
+var muwireprefpriv = chrome.i18n.getMessage('muwirePrefacePrivate');
 var botepref = chrome.i18n.getMessage('botePreface');
 
 function onContextsGot(contexts) {
