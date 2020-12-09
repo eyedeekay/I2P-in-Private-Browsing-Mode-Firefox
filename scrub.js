@@ -589,60 +589,60 @@ var contextSetup = function(requestDetails) {
       var tab = tabGet(requestDetails.tabId);
       tab.then(isolate);
       function isolate(oldtab) {
-        if (oldtab.cookieStoreId == 'firefox-default') {
-          if (i2pHost(requestDetails.url)) {
-            var thn = i2pHostName(requestDetails.url);
-            if (requestDetails.url.includes('=' + thn)) {
-              console.log('(scrub)checking search hostnames =' + thn);
-              var tpt = requestDetails.url.split('=' + thn, 2);
-              requestDetails.url =
-                'http://' + thn + '/' + tpt[1].replace('%2F', '');
-            }
-            console.log('(scrub) new hostname', requestDetails.url);
-            var setcookie = browser.cookies.set({
-              firstPartyDomain: i2pHostName(requestDetails.url),
-              url: requestDetails.url,
-              secure: true,
-            });
-            setcookie.then(onContextGotLog, onContextError);
-            var i2ptab = tab.then(i2pTabFind, onContextError);
-            return requestDetails;
+        //        if (oldtab.cookieStoreId == 'firefox-default') {
+        if (i2pHost(requestDetails.url)) {
+          var thn = i2pHostName(requestDetails.url);
+          if (requestDetails.url.includes('=' + thn)) {
+            console.log('(scrub)checking search hostnames =' + thn);
+            var tpt = requestDetails.url.split('=' + thn, 2);
+            requestDetails.url =
+              'http://' + thn + '/' + tpt[1].replace('%2F', '');
           }
-          if (extensionHost(requestDetails)) {
-            return requestDetails;
-          }
-          let localhost = localHost(requestDetails.url);
-          let routerhost = routerHost(requestDetails.url);
-          if (routerhost) {
-            if (routerhost === 'i2ptunnelmgr') {
-              var tunneltab = tab.then(i2ptunnelTabFind, onContextError);
-              return requestDetails;
-            } else if (routerhost === 'i2psnark') {
-              var snarktab = tab.then(snarkTabFind, onContextError);
-              return requestDetails;
-            } else if (routerhost === 'webmail') {
-              var mailtab = tab.then(mailTabFind, onContextError);
-              return requestDetails;
-            } else if (routerhost === 'muwire') {
-              var routertab = tab.then(muwireTabFind, onContextError);
-              return requestDetails;
-            } else if (routerhost === 'i2pbote') {
-              var routertab = tab.then(i2pboteTabFind, onContextError);
-              return requestDetails;
-            } else if (routerhost === 'routerconsole') {
-              var routertab = tab.then(routerTabFind, onContextError);
-              return requestDetails;
-            }
-          } else {
-            if (localhost) {
-              var irctab = tab.then(ircTabFind, onContextError);
-              return requestDetails;
-            }
-            var normalTab = tab.then(normalTabFind, onContextError);
-            return requestDetails;
-            //return requestDetails;
-          }
+          console.log('(scrub) new hostname', requestDetails.url);
+          var setcookie = browser.cookies.set({
+            firstPartyDomain: i2pHostName(requestDetails.url),
+            url: requestDetails.url,
+            secure: true,
+          });
+          setcookie.then(onContextGotLog, onContextError);
+          var i2ptab = tab.then(i2pTabFind, onContextError);
+          return requestDetails;
         }
+        if (extensionHost(requestDetails)) {
+          return requestDetails;
+        }
+        let localhost = localHost(requestDetails.url);
+        let routerhost = routerHost(requestDetails.url);
+        if (routerhost) {
+          if (routerhost === 'i2ptunnelmgr') {
+            var tunneltab = tab.then(i2ptunnelTabFind, onContextError);
+            return requestDetails;
+          } else if (routerhost === 'i2psnark') {
+            var snarktab = tab.then(snarkTabFind, onContextError);
+            return requestDetails;
+          } else if (routerhost === 'webmail') {
+            var mailtab = tab.then(mailTabFind, onContextError);
+            return requestDetails;
+          } else if (routerhost === 'muwire') {
+            var routertab = tab.then(muwireTabFind, onContextError);
+            return requestDetails;
+          } else if (routerhost === 'i2pbote') {
+            var routertab = tab.then(i2pboteTabFind, onContextError);
+            return requestDetails;
+          } else if (routerhost === 'routerconsole') {
+            var routertab = tab.then(routerTabFind, onContextError);
+            return requestDetails;
+          }
+        } else {
+          if (localhost) {
+            var irctab = tab.then(ircTabFind, onContextError);
+            return requestDetails;
+          }
+          var normalTab = tab.then(normalTabFind, onContextError);
+          return requestDetails;
+          //return requestDetails;
+        }
+        //}
       }
     }
   } catch (error) {
