@@ -821,6 +821,7 @@ function getTabURL(tab) {
         .sendMessage(tab.id, { req: "i2p-location" })
         .then((response) => {
           if (response != undefined) {
+            console.log("(scrub) i2p-location response object", response);
             if (response.content.toUpperCase() != "NO-ALT-LOCATION") {
               browser.pageAction.setPopup({
                 tabId: tab.id,
@@ -848,6 +849,7 @@ function getTabURL(tab) {
         .sendMessage(tab.id, { req: "i2p-torrentlocation" })
         .then((response) => {
           if (response != undefined) {
+            console.log("(scrub) i2p-location response object", response);
             if (response.content.toUpperCase() != "NO-ALT-LOCATION") {
               browser.pageAction.setPopup({
                 tabId: tab.id,

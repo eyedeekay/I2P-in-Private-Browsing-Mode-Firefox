@@ -5,15 +5,12 @@ browser.runtime.onMessage.addListener((request) => {
     var tag = document.querySelector('meta[http-equiv="i2p-location"]');
     console.log(tag);
     if (tag) response = tag.content;
-    return response;
   }
-
   if (request.req === 'i2p-torrentlocation') {
     const metas = document.getElementsByTagName('meta');
     var tag = document.querySelector('meta[http-equiv="i2p-torrentlocation"]');
     console.log(tag);
     response = i2pTorrent(tag);
-    return response;
   }
   return Promise.resolve({ content: response });
 });
