@@ -949,14 +949,12 @@ browser.webNavigation.onCompleted.addListener(getClearTab, filter);
 
 window.setInterval(getClearTab, 2000);
 
-browser.webRequest.onBeforeRequest.addListener(
-  contextSetup,
-  { urls: ["<all_urls>"] },
-  //["blocking"]
-);
+browser.webRequest.onBeforeRequest.addListener(contextSetup, {
+  urls: ["*://*.i2p/*", "*://localhost/*", "*://127.0.0.1/*", "*://*/*i2p*"],
+});
 
 browser.webRequest.onBeforeSendHeaders.addListener(
   contextScrub,
-  { urls: ["<all_urls>"] },
+  { urls: ["*://*.i2p/*"] },
   ["requestHeaders"]
 );
