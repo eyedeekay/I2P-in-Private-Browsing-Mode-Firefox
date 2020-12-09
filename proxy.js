@@ -155,7 +155,6 @@ var handleContextProxyRequest = async function(requestDetails) {
     };
     var tabGet = async function(tabId) {
       try {
-        console.log('(proxy)Tab ID from Request', tabId);
         let tabInfo = await browser.tabs.get(tabId);
         return tabInfo;
       } catch (error) {
@@ -185,6 +184,9 @@ var handleContextProxyRequest = async function(requestDetails) {
       return browser.proxy.settings.get({});
     }
     if (requestDetails.tabId > 0) {
+      if (requestDetails.url.includes('MuWire')) {
+        return;
+      }
       if (proxyHost(requestDetails.url)) {
         proxy = {
           type: getScheme(),

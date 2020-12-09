@@ -110,8 +110,6 @@ var handlerSetup = function(requestDetails) {
   return requestDetails;
 };
 
-browser.webRequest.onBeforeRequest.addListener(
-  handlerSetup,
-  { urls: ['<all_urls>'] },
-  ['blocking']
-);
+browser.webRequest.onBeforeRequest.addListener(handlerSetup, {
+  urls: ['<all_urls>'],
+});
