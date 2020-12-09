@@ -13,30 +13,17 @@ var contextScrub = async function(requestDetails) {
   function onHeaderError() {
     console.log('Header scrub error');
   }
-  //console.log("(scrub)Scrubbing info from contextualized request");
+  console.log('(scrub)Scrubbing info from contextualized request');
   try {
     var headerScrub = function(context) {
       var ua = 'MYOB/6.66 (AN/ON)';
+      console.log('(scrub) uah', context);
       if (!context) {
       } else if (context.name == titlepref) {
-        if (i2pHost(requestDetails.url)) {
-          for (var header of requestDetails.requestHeaders) {
-            if (header.name.toLowerCase() === 'user-agent') {
-              header.value = ua;
-              console.log('(scrub)User-Agent header modified', header.value);
-            }
-          }
-        }
-        return {
-          requestHeaders: requestDetails.requestHeaders,
-        };
-      } else if (context.name == routerpref) {
-        if (i2pHost(requestDetails.url)) {
-          for (var header of requestDetails.requestHeaders) {
-            if (header.name.toLowerCase() === 'user-agent') {
-              header.value = ua;
-              console.log('(scrub)User-Agent header modified', header.value);
-            }
+        for (var header of requestDetails.requestHeaders) {
+          if (header.name.toLowerCase() === 'user-agent') {
+            header.value = ua;
+            console.log('(scrub)User-Agent header modified', header.value);
           }
         }
         return {
@@ -65,23 +52,11 @@ var contextScrub = async function(requestDetails) {
       }
     };
     if (requestDetails.tabId > 0) {
-      var tab = {};
-      var context = {};
-      var req = {};
-      if (i2pHost(requestDetails.url)) {
-        //console.log("(scrub)I2P URL detected, ");
-        tab = tabGet(requestDetails.tabId);
-        context = tab.then(contextGet, onHeaderError);
-        req = await context.then(headerScrub, onHeaderError);
-        //console.log("(scrub)Scrubbing I2P Request", req);
-        return req;
-      } else if (routerHost(requestDetails.url)) {
-        tab = tabGet(requestDetails.tabId);
-        context = tab.then(contextGet, onHeaderError);
-        req = await context.then(headerScrub, onHeaderError);
-        //console.log("(scrub)Scrubbing non-I2P Request", req);
-        return req;
-      }
+      console.log('(scrub) uah', requestDetails);
+      tab = tabGet(requestDetails.tabId);
+      context = tab.then(contextGet, onHeaderError);
+      req = context.then(headerScrub, onHeaderError);
+      //console.log("(scrub)Scrubbing I2P Request", req);
       return req;
     }
   } catch (error) {
@@ -617,57 +592,63 @@ var contextSetup = function(requestDetails) {
 
     if (requestDetails.tabId > 0) {
       var tab = tabGet(requestDetails.tabId);
-      if (i2pHost(requestDetails.url)) {
-        var thn = i2pHostName(requestDetails.url);
-        if (requestDetails.url.includes('=' + thn)) {
-          console.log('(scrub)checking search hostnames =' + thn);
-          var tpt = requestDetails.url.split('=' + thn, 2);
-          requestDetails.url =
-            'http://' + thn + '/' + tpt[1].replace('%2F', '');
+      tab.then(isolate);
+      function isolate(oldtab) {
+        console.log('(scrub)tab discovered:', oldtab);
+        if (oldtab.cookieStoreId == 'firefox-default') {
+          if (i2pHost(requestDetails.url)) {
+            var thn = i2pHostName(requestDetails.url);
+            if (requestDetails.url.includes('=' + thn)) {
+              console.log('(scrub)checking search hostnames =' + thn);
+              var tpt = requestDetails.url.split('=' + thn, 2);
+              requestDetails.url =
+                'http://' + thn + '/' + tpt[1].replace('%2F', '');
+            }
+            console.log('(scrub) new hostname', requestDetails.url);
+            var setcookie = browser.cookies.set({
+              firstPartyDomain: i2pHostName(requestDetails.url),
+              url: requestDetails.url,
+              secure: true,
+            });
+            setcookie.then(onContextGotLog, onContextError);
+            var i2ptab = tab.then(i2pTabFind, onContextError);
+            return requestDetails;
+          }
+          if (extensionHost(requestDetails)) {
+            return requestDetails;
+          }
+          let localhost = localHost(requestDetails.url);
+          let routerhost = routerHost(requestDetails.url);
+          if (routerhost) {
+            if (routerhost === 'i2ptunnelmgr') {
+              var tunneltab = tab.then(i2ptunnelTabFind, onContextError);
+              return requestDetails;
+            } else if (routerhost === 'i2psnark') {
+              var snarktab = tab.then(snarkTabFind, onContextError);
+              return requestDetails;
+            } else if (routerhost === 'webmail') {
+              var mailtab = tab.then(mailTabFind, onContextError);
+              return requestDetails;
+            } else if (routerhost === 'muwire') {
+              var routertab = tab.then(muwireTabFind, onContextError);
+              return requestDetails;
+            } else if (routerhost === 'i2pbote') {
+              var routertab = tab.then(i2pboteTabFind, onContextError);
+              return requestDetails;
+            } else if (routerhost === 'routerconsole') {
+              var routertab = tab.then(routerTabFind, onContextError);
+              return requestDetails;
+            }
+          } else {
+            if (localhost) {
+              var irctab = tab.then(ircTabFind, onContextError);
+              return requestDetails;
+            }
+            var normalTab = tab.then(normalTabFind, onContextError);
+            return requestDetails;
+            //return requestDetails;
+          }
         }
-        console.log('(scrub) new hostname', requestDetails.url);
-        var setcookie = browser.cookies.set({
-          firstPartyDomain: i2pHostName(requestDetails.url),
-          url: requestDetails.url,
-          secure: true,
-        });
-        setcookie.then(onContextGotLog, onContextError);
-        var i2ptab = tab.then(i2pTabFind, onContextError);
-        return requestDetails;
-      }
-      if (extensionHost(requestDetails)) {
-        return requestDetails;
-      }
-      let localhost = localHost(requestDetails.url);
-      let routerhost = routerHost(requestDetails.url);
-      if (routerhost) {
-        if (routerhost === 'i2ptunnelmgr') {
-          var tunneltab = tab.then(i2ptunnelTabFind, onContextError);
-          return requestDetails;
-        } else if (routerhost === 'i2psnark') {
-          var snarktab = tab.then(snarkTabFind, onContextError);
-          return requestDetails;
-        } else if (routerhost === 'webmail') {
-          var mailtab = tab.then(mailTabFind, onContextError);
-          return requestDetails;
-        } else if (routerhost === 'muwire') {
-          var routertab = tab.then(muwireTabFind, onContextError);
-          return requestDetails;
-        } else if (routerhost === 'i2pbote') {
-          var routertab = tab.then(i2pboteTabFind, onContextError);
-          return requestDetails;
-        } else if (routerhost === 'routerconsole') {
-          var routertab = tab.then(routerTabFind, onContextError);
-          return requestDetails;
-        }
-      } else {
-        if (localhost) {
-          var irctab = tab.then(ircTabFind, onContextError);
-          return requestDetails;
-        }
-        var normalTab = tab.then(normalTabFind, onContextError);
-        return requestDetails;
-        //return requestDetails;
       }
     }
   } catch (error) {
@@ -840,7 +821,6 @@ var coolheadersSetup = function(e) {
 };
 
 function getTabURL(tab) {
-  console.log("(scrub)", tab);
   if (tab.url.startsWith("https")) {
     try {
       browser.tabs
@@ -933,9 +913,7 @@ browser.tabs.onCreated.addListener(getClearTab);
 browser.tabs.onDetached.addListener(getClearTab);
 browser.tabs.onHighlighted.addListener(getClearTab);
 browser.tabs.onMoved.addListener(getClearTab);
-browser.tabs.onRemoved.addListener(getClearTab);
 browser.tabs.onReplaced.addListener(getClearTab);
-browser.tabs.onZoomChange.addListener(getClearTab);
 
 browser.pageAction.onClicked.addListener(getClearTab);
 
@@ -969,16 +947,16 @@ browser.webNavigation.onBeforeNavigate.addListener(getClearTab, filter);
 browser.webNavigation.onCommitted.addListener(getClearTab, filter);
 browser.webNavigation.onCompleted.addListener(getClearTab, filter);
 
-window.setInterval(getClearTab, 1500);
+window.setInterval(getClearTab, 2000);
 
 browser.webRequest.onBeforeRequest.addListener(
   contextSetup,
   { urls: ["<all_urls>"] },
-  ["blocking"]
+  //["blocking"]
 );
 
 browser.webRequest.onBeforeSendHeaders.addListener(
   contextScrub,
   { urls: ["<all_urls>"] },
-  ["blocking", "requestHeaders"]
+  ["requestHeaders"]
 );

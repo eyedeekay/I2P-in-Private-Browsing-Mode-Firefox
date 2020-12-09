@@ -182,6 +182,7 @@ function bookmarksSetup() {
           title: 'I2P Console',
         });
         b4.then(bookConsole, onRejected);
+        defaultSettings['bookmarks_state'] = true;
       }
 
       var bt = browser.bookmarks.search({
@@ -190,7 +191,6 @@ function bookmarksSetup() {
 
       function toolDir(bookmarkToolbar) {
         let defaultSettings = {};
-        defaultSettings['bookmarks_state'] = true;
         chrome.storage.local.set(defaultSettings);
         console.log('(bookmarks) created');
         var ibbt = browser.bookmarks.search('I2P Toolbar');
