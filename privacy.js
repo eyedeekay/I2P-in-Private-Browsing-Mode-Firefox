@@ -179,7 +179,6 @@ function disableDigitalRestrictionsManagement() {
   });
 }
 
-
 function unsetAllPrivacy() {
   enableHyperlinkAuditing();
   disableFirstPartyIsolation();
@@ -189,17 +188,15 @@ function unsetAllPrivacy() {
   disableResistFingerprinting();
   enableDigitalRestrictionsManagement();
   UnsetPeerConnection();
-  EnableSavePasswords()
+  EnableSavePasswords();
 }
-
-
-
 
 browser.management.onUninstalled.addListener((info) => {
   function gotSelf(selfinfo) {
-    console.log("Add-on name: " info.name + selfinfo.name);
+    if (info.name == selfinfo.name) {
+      unsetAllPrivacy();
+    }
   }
-
   var gettingSelf = browser.management.getSelf();
   gettingSelf.then(gotSelf);
 });
@@ -249,7 +246,7 @@ function AssurePeerConnection() {
 }
 
 // UNINSTALL ONLY
-function UnsetPeerConnection(){
+function UnsetPeerConnection() {
   function assure(webrtc) {
     browser.privacy.network.peerConnectionEnabled.set({
       value: true,
