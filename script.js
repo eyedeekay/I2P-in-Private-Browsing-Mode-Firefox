@@ -3,17 +3,58 @@ browser.runtime.onMessage.addListener((request) => {
   console.log(request);
   if (request.req === 'i2p-location') {
     var tag = document.querySelector('meta[http-equiv="i2p-location"]');
-    console.log(tag);
-    if (tag) response = tag.content;
+    if (tag != undefined) {
+      console.log(tag);
+      if (tag) response = tag.content;
+    }
+    var tag = document.querySelector('meta[http-equiv="x-i2p-location"]');
+    if (tag != undefined) {
+      console.log(tag);
+      if (tag) response = tag.content;
+    }
   }
   if (request.req === 'i2p-torrentlocation') {
-    const metas = document.getElementsByTagName('meta');
     var tag = document.querySelector('meta[http-equiv="i2p-torrentlocation"]');
-    console.log(tag);
-    response = i2pTorrent(tag);
+    if (tag != undefined) {
+      console.log(tag);
+      response = i2pTorrent(tag);
+    }
+    var tag = document.querySelector(
+      'meta[http-equiv="x-i2p-torrentlocation"]'
+    );
+    if (tag != undefined) {
+      console.log(tag);
+      response = i2pTorrent(tag);
+    }
   }
   return Promise.resolve({ content: response });
 });
+
+window.document.onload = function (e) {
+  console.log("presetting x-i2p-torrentlocation");
+  var tag = document.querySelector('meta[http-equiv="i2p-torrentlocation"]');
+  if (tag != undefined) {
+    console.log(tag);
+    response = i2pTorrent(tag);
+  }
+  var tag = document.querySelector('meta[http-equiv="x-i2p-torrentlocation"]');
+  if (tag != undefined) {
+    console.log(tag);
+    response = i2pTorrent(tag);
+  }
+};
+
+console.log("presetting x-i2p-torrentlocation");
+var tag = document.querySelector('meta[http-equiv="i2p-torrentlocation"]');
+if (tag != undefined) {
+  console.log(tag);
+  response = i2pTorrent(tag);
+}
+var tag = document.querySelector('meta[http-equiv="x-i2p-torrentlocation"]');
+if (tag != undefined) {
+  console.log(tag);
+  response = i2pTorrent(tag);
+}
 
 function i2pTorrent(tag) {
   let response = "no-alt-location";
@@ -42,8 +83,14 @@ function i2pTorrent(tag) {
             'src="',
             'src="http://127.0.0.1:7657/i2psnark/' + location.host + "/"
           );
+          //          let url = new URL("http://127.0.0.1:7657/i2psnark/"+location.host+"/"location.path)
+          console.log(
+            "http://127.0.0.1:7657/i2psnark/" + tmpsrc.host + tmpsrc.pathname
+          ); //+"/"location.path)
+          //video.src = "http://127.0.0.1:7657/i2psnark/"+location.replace("http://")
           video.innerHTML = topInnerHTML; // + innerHTML;
           video.onerror = function () {
+            console.log("video error");
             video.innerHTML = topInnerHTML + innerHTML;
           };
         }
@@ -60,8 +107,14 @@ function i2pTorrent(tag) {
             'src="',
             'src="http://127.0.0.1:7657/i2psnark/' + location.host + "/"
           );
+          //console.log("http://127.0.0.1:7657/i2psnark/" + location); //.host+"/"location.path)
+          console.log(
+            "http://127.0.0.1:7657/i2psnark/" + tmpsrc.host + tmpsrc.pathname
+          ); //+"/"location.path)
+          //audio.src = "http://127.0.0.1:7657/i2psnark/"+location.replace("http://")
           audio.innerHTML = topInnerHTML; // + innerHTML;
           audio.onerror = function () {
+            console.log("audio error");
             audio.innerHTML = topInnerHTML + innerHTML;
           };
         }

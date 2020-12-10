@@ -52,7 +52,11 @@ var handleContextProxyRequest = async function(requestDetails) {
       host: getHost(),
       port: getPort(),
     };
+    let url = new URL(requestDetails.url);
+    console.log('(proxy) URL', url);
     if (requestDetails.url.includes('/i2psnark/')) {
+      //+url.host)) {
+      console.log('(proxy) URL 2', url);
       proxy = null;
     }
     return proxy;
