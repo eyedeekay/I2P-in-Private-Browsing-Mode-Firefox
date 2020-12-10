@@ -653,12 +653,12 @@ var contextSetup = function(requestDetails) {
 var coolheadersSetup = function(e) {
   var asyncSetPageAction = new Promise((resolve, reject) => {
     window.setTimeout(() => {
-      for (i = e.responseHeaders.length - 1; i >= 0; i--) {
-        let header = e.responseHeaders[i];
-        if (
-          header.name.toUpperCase() === 'I2P-LOCATION' ||
-          header.name.toUpperCase() === 'X-I2P-LOCATION'
-        ) {
+      let headers = e.responseHeaders.filter((word) =>
+        word.name.toUpperCase().startsWith('X-I2P')
+      );
+      for (i = headers.length - 1; i >= 0; i--) {
+        let header = headers[i];
+        if (header.name.toUpperCase().endsWith('I2P-LOCATION')) {
           browser.pageAction.setPopup({
             tabId: e.tabId,
             popup: 'location.html',
@@ -674,10 +674,7 @@ var coolheadersSetup = function(e) {
           browser.pageAction.show(e.tabId);
           break;
         } else {
-          if (
-            header.name.toUpperCase() === 'I2P-TORRENTLOCATION' ||
-            header.name.toUpperCase() === 'X-I2P-TORRENTLOCATION'
-          ) {
+          if (header.name.toUpperCase().endsWith('I2P-TORRENTLOCATION')) {
             var imgs = document.getElementsByTagName('img');
             for (let img of imgs) {
               if (tmpsrc.host == location.host) {
