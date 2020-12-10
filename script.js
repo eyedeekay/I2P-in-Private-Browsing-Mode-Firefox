@@ -87,7 +87,8 @@ function i2pTorrent(tag) {
           console.log(
             "http://127.0.0.1:7657/i2psnark/" + tmpsrc.host + tmpsrc.pathname
           ); //+"/"location.path)
-          //video.src = "http://127.0.0.1:7657/i2psnark/"+location.replace("http://")
+          video.src =
+            "http://127.0.0.1:7657/i2psnark/" + tmpsrc.host + tmpsrc.pathname;
           video.innerHTML = topInnerHTML; // + innerHTML;
           video.onerror = function () {
             console.log("video error");
@@ -111,7 +112,8 @@ function i2pTorrent(tag) {
           console.log(
             "http://127.0.0.1:7657/i2psnark/" + tmpsrc.host + tmpsrc.pathname
           ); //+"/"location.path)
-          //audio.src = "http://127.0.0.1:7657/i2psnark/"+location.replace("http://")
+          audio.src =
+            "http://127.0.0.1:7657/i2psnark/" + tmpsrc.host + tmpsrc.pathname;
           audio.innerHTML = topInnerHTML; // + innerHTML;
           audio.onerror = function () {
             console.log("audio error");
