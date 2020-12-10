@@ -71,6 +71,10 @@ function disableEvilCookies() {
   });
 }
 
+function enableEvilCookies() {
+  var getting = browser.privacy.websites.cookieConfig.clear();
+}
+
 // Make sure that they're gone
 /*function disableBadCookies(){
     var setting = browser.privacy.websites.thirdPartyCookiesAllowed.set({
