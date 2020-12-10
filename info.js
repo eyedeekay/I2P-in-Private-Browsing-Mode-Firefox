@@ -14,7 +14,7 @@ function checkSnowflake() {
   try {
     function snowflake(snowflake) {
       console.log("snowflake plugin found, leaving WebRTC alone", snowflake);
-      EnablePeerConnection();
+      AssurePeerConnection();
     }
     var snowflakeInfo = browser.management.get(
       "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}" // string

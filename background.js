@@ -17,6 +17,17 @@ var muwirepref = chrome.i18n.getMessage('muwirePreface');
 var muwireprefpriv = chrome.i18n.getMessage('muwirePrefacePrivate');
 var botepref = chrome.i18n.getMessage('botePreface');
 
+function onError(err){
+  console.log("(background)", err)
+}
+
+
+function onContextGotLog(contexts) {
+  if (contexts != null) {
+    console.log(contexts);
+  }
+}
+
 function onContextsGot(contexts) {
   var ids = [];
   for (let context of contexts) {

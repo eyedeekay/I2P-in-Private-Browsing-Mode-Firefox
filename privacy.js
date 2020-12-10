@@ -20,11 +20,29 @@ function disableHyperlinkAuditing() {
   setting.then(onSet);
 }
 
+// UNINSTALL ONLY
+function enableHyperlinkAuditing() {
+  var setting = browser.privacy.websites.hyperlinkAuditingEnabled.clear();
+  console.log('Disabling hyperlink auditing/val=', {
+    value: false,
+  });
+  setting.then(onSet);
+}
+
 // This enables first-party isolation
 function enableFirstPartyIsolation() {
   var setting = browser.privacy.websites.firstPartyIsolate.set({
     value: true,
   });
+  console.log('Enabling first party isolation/val=', {
+    value: true,
+  });
+  setting.then(onSet);
+}
+
+// UNINSTALL ONLY
+function disableFirstPartyIsolation() {
+  var setting = browser.privacy.websites.firstPartyIsolate.clear();
   console.log('Enabling first party isolation/val=', {
     value: true,
   });
@@ -75,6 +93,15 @@ function disableReferrers() {
   setting.then(onSet);
 }
 
+// UNINSATALL ONLY
+function enableReferrers() {
+  var setting = browser.privacy.websites.referrersEnabled.clear();
+  console.log("Disabling referrer headers/val=", {
+    value: false,
+  });
+  setting.then(onSet);
+}
+
 // enable fingerprinting resistent features(letterboxing and stuff)
 function enableResistFingerprinting() {
   var setting = browser.privacy.websites.resistFingerprinting.set({
@@ -86,11 +113,29 @@ function enableResistFingerprinting() {
   setting.then(onSet);
 }
 
+// UNINSTALL ONLY
+function disableResistFingerprinting() {
+  var setting = browser.privacy.websites.resistFingerprinting.clear();
+  console.log("Enabling resist fingerprinting/val=", {
+    value: false,
+  });
+  setting.then(onSet);
+}
+
 // This is essentially a blocklist of clearnet web-sites known to do bad tracking
 function enableTrackingProtection() {
   var setting = browser.privacy.websites.trackingProtectionMode.set({
     value: "always",
   });
+  console.log("Enabling tracking protection/val=", {
+    value: "always",
+  });
+  setting.then(onSet);
+}
+
+// UNINSTALL ONLY
+function disableTrackingProtection() {
+  var setting = browser.privacy.websites.trackingProtectionMode.clear();
   console.log("Enabling tracking protection/val=", {
     value: "always",
   });
@@ -117,6 +162,48 @@ function disableDigitalRestrictionsManagement() {
   });
 }
 
+// UNINSTALL ONLY
+function disableDigitalRestrictionsManagement() {
+  var gettingInfo = browser.runtime.getPlatformInfo();
+  gettingInfo.then((got) => {
+    if (got.os == "win") {
+      var setting = browser.privacy.websites.protectedContentEnabled.clear();
+      console.log(
+        "Setting Protected Content(Digital Restrictions Management) false/val=",
+        {
+          value: true,
+        }
+      );
+      setting.then(onSet);
+    }
+  });
+}
+
+
+function unsetAllPrivacy() {
+  enableHyperlinkAuditing();
+  disableFirstPartyIsolation();
+  enableEvilCookies();
+  enableReferrers();
+  disableTrackingProtection();
+  disableResistFingerprinting();
+  enableDigitalRestrictionsManagement();
+  UnsetPeerConnection();
+  EnableSavePasswords()
+}
+
+
+
+
+browser.management.onUninstalled.addListener((info) => {
+  function gotSelf(selfinfo) {
+    console.log("Add-on name: " info.name + selfinfo.name);
+  }
+
+  var gettingSelf = browser.management.getSelf();
+  gettingSelf.then(gotSelf);
+});
+
 function setAllPrivacy() {
   disableHyperlinkAuditing();
   enableFirstPartyIsolation();
@@ -140,7 +227,7 @@ function ResetPeerConnection() {
   }
   function snowflake(snowflake) {
     console.log("snowflake plugin found, leaving WebRTC alone", snowflake);
-    EnablePeerConnection();
+    AssurePeerConnection();
   }
   var snowflakeInfo = browser.management.get(
     "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}" // string
@@ -148,25 +235,27 @@ function ResetPeerConnection() {
   snowflakeInfo.then(snowflake, reset);
 }
 
-function EnablePeerConnection() {
-  var webrtc = true;
-  var rtc = browser.privacy.network.peerConnectionEnabled.set({
-    value: webrtc,
-  });
-  rtc.then(AssurePeerConnection);
-  console.log("Enabled WebRTC");
-}
-
 function AssurePeerConnection() {
   function assure(webrtc) {
     browser.privacy.network.peerConnectionEnabled.set({
       value: true,
     });
-    browser.privacy.network.networkPredictionEnabled.set({
-      value: false,
-    });
     chrome.privacy.network.webRTCIPHandlingPolicy.set({
       value: "disable_non_proxied_udp",
+    });
+  }
+  let rtc = browser.privacy.network.peerConnectionEnabled.get({});
+  rtc.then(assure);
+}
+
+// UNINSTALL ONLY
+function UnsetPeerConnection(){
+  function assure(webrtc) {
+    browser.privacy.network.peerConnectionEnabled.set({
+      value: true,
+    });
+    chrome.privacy.network.webRTCIPHandlingPolicy.set({
+      value: "default",
     });
   }
   let rtc = browser.privacy.network.peerConnectionEnabled.get({});
@@ -191,9 +280,7 @@ function ResetDisableSavePasswords() {
 }
 
 function EnableSavePasswords() {
-  browser.privacy.services.passwordSavingEnabled.set({
-    value: true,
-  });
+  browser.privacy.services.passwordSavingEnabled.clear();
   console.log("Enabled saved passwords");
 }
 
@@ -401,7 +488,7 @@ function message(recieved) {
   console.log(recieved);
   if (recieved.rtc === "enableWebRTC") {
     console.log("enableWebRTC");
-    EnablePeerConnection();
+    AssurePeerConnection();
   } else if (recieved.rtc === "disableWebRTC") {
     console.log("disableWebRTC");
     ResetPeerConnection();
