@@ -39,14 +39,6 @@ var handleContextProxyRequest = async function(requestDetails) {
   }
   function btProxy() {
     proxy = routerProxy();
-    if (!requestDetails.url.includes('7662')) {
-      proxy = {
-        type: getScheme(),
-        host: getHost(),
-        port: getPort(),
-      };
-      return proxy;
-    }
     if (requestDetails.url.includes(':7662')) {
       proxy = null;
       return proxy;
