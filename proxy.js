@@ -55,9 +55,6 @@ var handleContextProxyRequest = async function(requestDetails) {
     if (requestDetails.url.includes('/i2psnark/')) {
       proxy = null;
     }
-    if (requestDetails.url.includes('/MuWire/')) {
-      proxy = null;
-    }
     return proxy;
   }
   function routerProxy() {
