@@ -47,16 +47,25 @@ var handleContextProxyRequest = async function(requestDetails) {
     return proxy;
   }
   function mainProxy() {
+    console.log('(proxy) mainproxy 0');
     proxy = {
       type: getScheme(),
       host: getHost(),
       port: getPort(),
     };
     let url = new URL(requestDetails.url);
-    console.log('(proxy) URL', url);
-    if (requestDetails.url.includes('/i2psnark/'+url.host)) {
+    console.log(
+      '(proxy) mainproxy 1',
+      requestDetails.url,
+      'http://' + getHost() + ':' + getConsolePort() + '/i2psnark/'
+    );
+    if (
+      requestDetails.url.startsWith(
+        'http://' + getHost() + ':' + getConsolePort() + '/i2psnark/'
+      )
+    ) {
       //+url.host)) {
-      console.log('(proxy) URL 2', url);
+      console.log('(proxy) mainproxy 2', url);
       proxy = null;
     }
     return proxy;
@@ -324,9 +333,9 @@ function getConsolePort() {
   if (control_port == undefined) {
     var scheme = getScheme();
     if (scheme == 'socks') proxy_port = '7657';
-    else proxy_port = '7657';
+    else control_port = '7657';
   }
-  return proxy_port;
+  return control_port;
 }
 
 function setupProxy() {
