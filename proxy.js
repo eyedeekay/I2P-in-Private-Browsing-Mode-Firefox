@@ -54,7 +54,7 @@ var handleContextProxyRequest = async function(requestDetails) {
     };
     let url = new URL(requestDetails.url);
     console.log('(proxy) URL', url);
-    if (requestDetails.url.includes('/i2psnark/')) {
+    if (requestDetails.url.includes('/i2psnark/'+url.host)) {
       //+url.host)) {
       console.log('(proxy) URL 2', url);
       proxy = null;
