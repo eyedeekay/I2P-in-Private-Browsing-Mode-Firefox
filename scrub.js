@@ -654,10 +654,12 @@ var coolheadersSetup = function(e) {
   var asyncSetPageAction = new Promise((resolve, reject) => {
     window.setTimeout(() => {
       let headers = e.responseHeaders.filter((word) =>
-        word.name.toUpperCase().startsWith('X-I2P')
+        word.name.toUpperCase().includes('I2P')
       );
+      if (headers.length == 0) return;
       for (i = headers.length - 1; i >= 0; i--) {
         let header = headers[i];
+        console.log(header);
         if (header.name.toUpperCase().endsWith('I2P-LOCATION')) {
           browser.pageAction.setPopup({
             tabId: e.tabId,
@@ -745,6 +747,9 @@ var coolheadersSetup = function(e) {
 };
 
 function getTabURL(tab) {
+  if (tab.url.includes("127.0.0.1")) return;
+  if (tab.url.includes("localhost")) return;
+  if (getHost()) return;
   if (tab.url.startsWith("https")) {
     try {
       browser.tabs
@@ -835,12 +840,7 @@ function logOnDOMContentLoaded(details) {
 }
 
 browser.tabs.onActivated.addListener(getClearTab);
-browser.tabs.onAttached.addListener(getClearTab);
-browser.tabs.onCreated.addListener(getClearTab);
-browser.tabs.onDetached.addListener(getClearTab);
 browser.tabs.onHighlighted.addListener(getClearTab);
-browser.tabs.onMoved.addListener(getClearTab);
-browser.tabs.onReplaced.addListener(getClearTab);
 
 browser.pageAction.onClicked.addListener(getClearTab);
 
