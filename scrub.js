@@ -653,13 +653,13 @@ var contextSetup = function(requestDetails) {
 var coolheadersSetup = function(e) {
   var asyncSetPageAction = new Promise((resolve, reject) => {
     window.setTimeout(() => {
-      if (e.tabId != undefined){
-        popup = browser.pageAction.getPopup({tabId: e.tabId})
-        popup.then(gotPopup)
+      if (e.tabId != undefined) {
+        popup = browser.pageAction.getPopup({ tabId: e.tabId });
+        popup.then(gotPopup);
       }
-      function gotPopup(p){
-        console.log("(scrub) checking popup", p)
-        if (p.length != 0) return
+      function gotPopup(p) {
+        console.log('(scrub) checking popup', p);
+        if (p.length != 0) return;
         /*if (p != undefined){
           return
         }*/
@@ -668,9 +668,9 @@ var coolheadersSetup = function(e) {
         );
         for (i = headers.length - 1; i >= 0; i--) {
           let header = headers[i];
-          console.log("(scrub) checking header", header)
+          console.log('(scrub) checking header', header);
           if (header.name.toUpperCase().endsWith('I2P-LOCATION')) {
-            let url = new URL(header.value)
+            let url = new URL(header.value);
             browser.pageAction.setPopup({
               tabId: e.tabId,
               popup: 'location.html',
@@ -681,7 +681,7 @@ var coolheadersSetup = function(e) {
             });
             browser.pageAction.setTitle({
               tabId: e.tabId,
-              title: "http://"+url.host,
+              title: 'http://' + url.host,
             });
             browser.pageAction.show(e.tabId);
             break;
@@ -707,7 +707,9 @@ var coolheadersSetup = function(e) {
                     innerHTML = video.innerHTML;
                     topInnerHTML = video.innerHTML.replace(
                       'src="',
-                      'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
+                      'src="http://127.0.0.1:7657/i2psnark/' +
+                        location.host +
+                        '/'
                     );
                     video.innerHTML = topInnerHTML; // + innerHTML;
                     video.onerror = function() {
@@ -724,7 +726,9 @@ var coolheadersSetup = function(e) {
                     innerHTML = audio.innerHTML;
                     topInnerHTML = audio.innerHTML.replace(
                       'src="',
-                      'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
+                      'src="http://127.0.0.1:7657/i2psnark/' +
+                        location.host +
+                        '/'
                     );
                     audio.innerHTML = topInnerHTML; // + innerHTML;
                     audio.onerror = function() {
