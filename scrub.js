@@ -13,30 +13,14 @@ var contextScrub = async function(requestDetails) {
   function onHeaderError() {
     console.log('Header scrub error');
   }
-  //console.log("(scrub)Scrubbing info from contextualized request");
   try {
     var headerScrub = function(context) {
       var ua = 'MYOB/6.66 (AN/ON)';
       if (!context) {
       } else if (context.name == titlepref) {
-        if (i2pHost(requestDetails.url)) {
-          for (var header of requestDetails.requestHeaders) {
-            if (header.name.toLowerCase() === 'user-agent') {
-              header.value = ua;
-              console.log('(scrub)User-Agent header modified', header.value);
-            }
-          }
-        }
-        return {
-          requestHeaders: requestDetails.requestHeaders,
-        };
-      } else if (context.name == routerpref) {
-        if (i2pHost(requestDetails.url)) {
-          for (var header of requestDetails.requestHeaders) {
-            if (header.name.toLowerCase() === 'user-agent') {
-              header.value = ua;
-              console.log('(scrub)User-Agent header modified', header.value);
-            }
+        for (var header of requestDetails.requestHeaders) {
+          if (header.name.toLowerCase() === 'user-agent') {
+            header.value = ua;
           }
         }
         return {
@@ -65,23 +49,10 @@ var contextScrub = async function(requestDetails) {
       }
     };
     if (requestDetails.tabId > 0) {
-      var tab = {};
-      var context = {};
-      var req = {};
-      if (i2pHost(requestDetails.url)) {
-        //console.log("(scrub)I2P URL detected, ");
-        tab = tabGet(requestDetails.tabId);
-        context = tab.then(contextGet, onHeaderError);
-        req = await context.then(headerScrub, onHeaderError);
-        //console.log("(scrub)Scrubbing I2P Request", req);
-        return req;
-      } else if (routerHost(requestDetails.url)) {
-        tab = tabGet(requestDetails.tabId);
-        context = tab.then(contextGet, onHeaderError);
-        req = await context.then(headerScrub, onHeaderError);
-        //console.log("(scrub)Scrubbing non-I2P Request", req);
-        return req;
-      }
+      tab = tabGet(requestDetails.tabId);
+      context = tab.then(contextGet, onHeaderError);
+      req = context.then(headerScrub, onHeaderError);
+      //console.log("(scrub)Scrubbing I2P Request", req);
       return req;
     }
   } catch (error) {
@@ -144,7 +115,6 @@ var contextSetup = function(requestDetails) {
   function onContextError() {
     console.log('Context launcher error');
   }
-  console.log('(scrub) host', requestDetails.url);
   //console.log("(isolate)Forcing I2P requests into context");
   try {
     var i2pTabFind = async function(tabId) {
@@ -617,57 +587,62 @@ var contextSetup = function(requestDetails) {
 
     if (requestDetails.tabId > 0) {
       var tab = tabGet(requestDetails.tabId);
-      if (i2pHost(requestDetails.url)) {
-        var thn = i2pHostName(requestDetails.url);
-        if (requestDetails.url.includes('=' + thn)) {
-          console.log('(scrub)checking search hostnames =' + thn);
-          var tpt = requestDetails.url.split('=' + thn, 2);
-          requestDetails.url =
-            'http://' + thn + '/' + tpt[1].replace('%2F', '');
-        }
-        console.log('(scrub) new hostname', requestDetails.url);
-        var setcookie = browser.cookies.set({
-          firstPartyDomain: i2pHostName(requestDetails.url),
-          url: requestDetails.url,
-          secure: true,
-        });
-        setcookie.then(onContextGotLog, onContextError);
-        var i2ptab = tab.then(i2pTabFind, onContextError);
-        return requestDetails;
-      }
-      if (extensionHost(requestDetails)) {
-        return requestDetails;
-      }
-      let localhost = localHost(requestDetails.url);
-      let routerhost = routerHost(requestDetails.url);
-      if (routerhost) {
-        if (routerhost === 'i2ptunnelmgr') {
-          var tunneltab = tab.then(i2ptunnelTabFind, onContextError);
-          return requestDetails;
-        } else if (routerhost === 'i2psnark') {
-          var snarktab = tab.then(snarkTabFind, onContextError);
-          return requestDetails;
-        } else if (routerhost === 'webmail') {
-          var mailtab = tab.then(mailTabFind, onContextError);
-          return requestDetails;
-        } else if (routerhost === 'muwire') {
-          var routertab = tab.then(muwireTabFind, onContextError);
-          return requestDetails;
-        } else if (routerhost === 'i2pbote') {
-          var routertab = tab.then(i2pboteTabFind, onContextError);
-          return requestDetails;
-        } else if (routerhost === 'routerconsole') {
-          var routertab = tab.then(routerTabFind, onContextError);
+      tab.then(isolate);
+      function isolate(oldtab) {
+        //        if (oldtab.cookieStoreId == 'firefox-default') {
+        if (i2pHost(requestDetails.url)) {
+          var thn = i2pHostName(requestDetails.url);
+          if (requestDetails.url.includes('=' + thn)) {
+            console.log('(scrub)checking search hostnames =' + thn);
+            var tpt = requestDetails.url.split('=' + thn, 2);
+            requestDetails.url =
+              'http://' + thn + '/' + tpt[1].replace('%2F', '');
+          }
+          console.log('(scrub) new hostname', requestDetails.url);
+          var setcookie = browser.cookies.set({
+            firstPartyDomain: i2pHostName(requestDetails.url),
+            url: requestDetails.url,
+            secure: true,
+          });
+          setcookie.then(onContextGotLog, onContextError);
+          var i2ptab = tab.then(i2pTabFind, onContextError);
           return requestDetails;
         }
-      } else {
-        if (localhost) {
-          var irctab = tab.then(ircTabFind, onContextError);
+        if (extensionHost(requestDetails)) {
           return requestDetails;
         }
-        var normalTab = tab.then(normalTabFind, onContextError);
-        return requestDetails;
-        //return requestDetails;
+        let localhost = localHost(requestDetails.url);
+        let routerhost = routerHost(requestDetails.url);
+        if (routerhost) {
+          if (routerhost === 'i2ptunnelmgr') {
+            var tunneltab = tab.then(i2ptunnelTabFind, onContextError);
+            return requestDetails;
+          } else if (routerhost === 'i2psnark') {
+            var snarktab = tab.then(snarkTabFind, onContextError);
+            return requestDetails;
+          } else if (routerhost === 'webmail') {
+            var mailtab = tab.then(mailTabFind, onContextError);
+            return requestDetails;
+          } else if (routerhost === 'muwire') {
+            var routertab = tab.then(muwireTabFind, onContextError);
+            return requestDetails;
+          } else if (routerhost === 'i2pbote') {
+            var routertab = tab.then(i2pboteTabFind, onContextError);
+            return requestDetails;
+          } else if (routerhost === 'routerconsole') {
+            var routertab = tab.then(routerTabFind, onContextError);
+            return requestDetails;
+          }
+        } else {
+          if (localhost) {
+            var irctab = tab.then(ircTabFind, onContextError);
+            return requestDetails;
+          }
+          var normalTab = tab.then(normalTabFind, onContextError);
+          return requestDetails;
+          //return requestDetails;
+        }
+        //}
       }
     }
   } catch (error) {
@@ -678,98 +653,28 @@ var contextSetup = function(requestDetails) {
 var coolheadersSetup = function(e) {
   var asyncSetPageAction = new Promise((resolve, reject) => {
     window.setTimeout(() => {
-      for (i = 0; i < e.responseHeaders.length; i++) {
-        let header = e.responseHeaders[i];
-        if (e.url.startsWith('https')) {
-          if (
-            header.name.toUpperCase() === 'I2P-LOCATION' ||
-            header.name.toUpperCase() === 'X-I2P-LOCATION'
-          ) {
-            browser.pageAction.setPopup({
-              tabId: e.tabId,
-              popup: 'location.html',
-            });
-            browser.pageAction.setIcon({
-              path: 'icons/i2plogo.png',
-              tabId: e.tabId,
-            });
-            browser.pageAction.setTitle({
-              tabId: e.tabId,
-              title: header.value,
-            });
-            browser.pageAction.show(e.tabId);
-            break;
-          }
-          if (
-            header.name.toUpperCase() === 'I2P-TORRENTLOCATION' ||
-            header.name.toUpperCase() === 'X-I2P-TORRENTLOCATION'
-          ) {
-            var imgs = document.getElementsByTagName('img');
-            for (let img of imgs) {
-              if (tmpsrc.host == location.host) {
-                img.src =
-                  'http://127.0.0.1:7657/i2psnark/' +
-                  tmpsrc.host +
-                  tmpsrc.pathname;
-                img.onerror = function() {
-                  img.src = tmpsrc;
-                };
-              }
-            }
-            var videos = document.getElementsByTagName('video');
-            for (let video of videos) {
-              let tmpsrc = new URL(video.currentSrc);
-              if (tmpsrc.host == location.host) {
-                if (!video.innerHTML.includes('127.0.0.1')) {
-                  innerHTML = video.innerHTML;
-                  topInnerHTML = video.innerHTML.replace(
-                    'src="',
-                    'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
-                  );
-                  video.innerHTML = topInnerHTML; // + innerHTML;
-                  video.onerror = function() {
-                    video.innerHTML = topInnerHTML + innerHTML;
-                  };
-                }
-              }
-            }
-            var audios = document.getElementsByTagName('audio');
-            for (let audio of audios) {
-              let tmpsrc = new URL(audio.currentSrc);
-              if (tmpsrc.host == location.host) {
-                if (!audio.innerHTML.includes('127.0.0.1')) {
-                  innerHTML = audio.innerHTML;
-                  topInnerHTML = audio.innerHTML.replace(
-                    'src="',
-                    'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
-                  );
-                  audio.innerHTML = topInnerHTML; // + innerHTML;
-                  audio.onerror = function() {
-                    audio.innerHTML = topInnerHTML + innerHTML;
-                  };
-                }
-              }
-            }
-            browser.pageAction.setPopup({
-              tabId: tabId.id,
-              popup: 'torrent.html',
-            });
-            browser.pageAction.setIcon({
-              path: 'icons/i2plogo.png',
-              tabId: e.tabId,
-            });
-            browser.pageAction.setTitle({
-              tabId: e.tabId,
-              title: header.value,
-            });
-            browser.pageAction.show(e.tabId);
-            break;
-          }
+      let headers = e.responseHeaders.filter((word) =>
+        word.name.toUpperCase().startsWith('X-I2P')
+      );
+      for (i = headers.length - 1; i >= 0; i--) {
+        let header = headers[i];
+        if (header.name.toUpperCase().endsWith('I2P-LOCATION')) {
+          browser.pageAction.setPopup({
+            tabId: e.tabId,
+            popup: 'location.html',
+          });
+          browser.pageAction.setIcon({
+            path: 'icons/i2plogo.png',
+            tabId: e.tabId,
+          });
+          browser.pageAction.setTitle({
+            tabId: e.tabId,
+            title: header.value,
+          });
+          browser.pageAction.show(e.tabId);
+          break;
         } else {
-          if (
-            header.name.toUpperCase() === 'I2P-TORRENTLOCATION' ||
-            header.name.toUpperCase() === 'X-I2P-TORRENTLOCATION'
-          ) {
+          if (header.name.toUpperCase().endsWith('I2P-TORRENTLOCATION')) {
             var imgs = document.getElementsByTagName('img');
             for (let img of imgs) {
               if (tmpsrc.host == location.host) {
@@ -840,26 +745,28 @@ var coolheadersSetup = function(e) {
 };
 
 function getTabURL(tab) {
-  console.log("(scrub)", tab);
   if (tab.url.startsWith("https")) {
     try {
       browser.tabs
         .sendMessage(tab.id, { req: "i2p-location" })
         .then((response) => {
-          if (response.content.toUpperCase() != "NO-ALT-LOCATION") {
-            browser.pageAction.setPopup({
-              tabId: tab.id,
-              popup: "location.html",
-            });
-            browser.pageAction.setIcon({
-              path: "icons/i2plogo.png",
-              tabId: tab.id,
-            });
-            browser.pageAction.setTitle({
-              tabId: tab.id,
-              title: response.content,
-            });
-            browser.pageAction.show(tab.id);
+          if (response != undefined) {
+            console.log("(scrub) i2p-location response object", response);
+            if (response.content.toUpperCase() != "NO-ALT-LOCATION") {
+              browser.pageAction.setPopup({
+                tabId: tab.id,
+                popup: "location.html",
+              });
+              browser.pageAction.setIcon({
+                path: "icons/i2plogo.png",
+                tabId: tab.id,
+              });
+              browser.pageAction.setTitle({
+                tabId: tab.id,
+                title: response.content,
+              });
+              browser.pageAction.show(tab.id);
+            }
           }
         });
       console.log("(pageaction)", tab.id, tab.url);
@@ -871,20 +778,23 @@ function getTabURL(tab) {
       browser.tabs
         .sendMessage(tab.id, { req: "i2p-torrentlocation" })
         .then((response) => {
-          if (response.content.toUpperCase() != "NO-ALT-LOCATION") {
-            browser.pageAction.setPopup({
-              tabId: tab.id,
-              popup: "torrent.html",
-            });
-            browser.pageAction.setIcon({
-              path: "icons/i2plogo.png",
-              tabId: tab.id,
-            });
-            browser.pageAction.setTitle({
-              tabId: tab.id,
-              title: response.content,
-            });
-            browser.pageAction.show(tab.id);
+          if (response != undefined) {
+            console.log("(scrub) i2p-location response object", response);
+            if (response.content.toUpperCase() != "NO-ALT-LOCATION") {
+              browser.pageAction.setPopup({
+                tabId: tab.id,
+                popup: "torrent.html",
+              });
+              browser.pageAction.setIcon({
+                path: "icons/i2plogo.png",
+                tabId: tab.id,
+              });
+              browser.pageAction.setTitle({
+                tabId: tab.id,
+                title: response.content,
+              });
+              browser.pageAction.show(tab.id);
+            }
           }
         });
       console.log("(pageaction)", tab.id, tab.url);
@@ -924,18 +834,13 @@ function logOnDOMContentLoaded(details) {
   console.log(`onDOMContentLoaded: ${details.url}`);
 }
 
-browser.webNavigation.onDOMContentLoaded.addListener(getClearTab, filter);
-
 browser.tabs.onActivated.addListener(getClearTab);
-browser.tabs.onUpdated.addListener(getClearTab);
 browser.tabs.onAttached.addListener(getClearTab);
 browser.tabs.onCreated.addListener(getClearTab);
 browser.tabs.onDetached.addListener(getClearTab);
 browser.tabs.onHighlighted.addListener(getClearTab);
 browser.tabs.onMoved.addListener(getClearTab);
-browser.tabs.onRemoved.addListener(getClearTab);
 browser.tabs.onReplaced.addListener(getClearTab);
-browser.tabs.onZoomChange.addListener(getClearTab);
 
 browser.pageAction.onClicked.addListener(getClearTab);
 
@@ -956,7 +861,7 @@ querying.then(reloadTabs, onError);
 // Set "blocking" and "responseHeaders".
 browser.webRequest.onHeadersReceived.addListener(
   coolheadersSetup,
-  { urls: ["<all_urls>"] },
+  { urls: ["*://*.i2p/*", "https://*/*"] },
   ["responseHeaders"]
 );
 
@@ -965,20 +870,13 @@ browser.webNavigation.onDOMContentLoaded.addListener(
   logOnDOMContentLoaded,
   filter
 );
-browser.webNavigation.onBeforeNavigate.addListener(getClearTab, filter);
-browser.webNavigation.onCommitted.addListener(getClearTab, filter);
-browser.webNavigation.onCompleted.addListener(getClearTab, filter);
 
-window.setInterval(getClearTab, 1500);
-
-browser.webRequest.onBeforeRequest.addListener(
-  contextSetup,
-  { urls: ["<all_urls>"] },
-  ["blocking"]
-);
+browser.webRequest.onBeforeRequest.addListener(contextSetup, {
+  urls: ["*://*.i2p/*", "*://localhost/*", "*://127.0.0.1/*", "*://*/*i2p*"],
+});
 
 browser.webRequest.onBeforeSendHeaders.addListener(
   contextScrub,
-  { urls: ["<all_urls>"] },
-  ["blocking", "requestHeaders"]
+  { urls: ["*://*.i2p/*"] },
+  ["requestHeaders"]
 );

@@ -14,7 +14,18 @@ var ircpref = chrome.i18n.getMessage('ircPreface');
 var ircprefpriv = chrome.i18n.getMessage('ircPrefacePrivate');
 var extensionpref = chrome.i18n.getMessage('extensionPreface');
 var muwirepref = chrome.i18n.getMessage('muwirePreface');
+var muwireprefpriv = chrome.i18n.getMessage('muwirePrefacePrivate');
 var botepref = chrome.i18n.getMessage('botePreface');
+
+function onError(err) {
+  console.log('(background)', err);
+}
+
+function onContextGotLog(contexts) {
+  if (contexts != null) {
+    console.log(contexts);
+  }
+}
 
 function onContextsGot(contexts) {
   var ids = [];
@@ -370,29 +381,31 @@ function handleUpdated(updateInfo) {
           them.originalTheme.images == null &&
           them.originalTheme.properties == null)
       ) {
-        if (
-          updateInfo.theme.colors.frame != "#4456B7" &&
-          updateInfo.theme.colors.frame != "#363A68"
-        ) {
-          function onSet() {
-            console.log("stored theme:", updateInfo.theme);
-          }
+        if (updateInfo.theme.colors != null) {
           if (
-            updateInfo.theme.colors != null ||
-            updateInfo.theme.images != null ||
-            updateInfo.theme.properties != null
+            updateInfo.theme.colors.frame != "#4456B7" &&
+            updateInfo.theme.colors.frame != "#363A68"
           ) {
-            console.log("storing theme:", updateInfo.theme);
-            browser.storage.local
-              .set({ originalTheme: updateInfo.theme })
-              .then(onSet, onError);
+            function onSet() {
+              console.log("stored theme:", updateInfo.theme);
+            }
+            if (
+              updateInfo.theme.colors != null &&
+              updateInfo.theme.images != null &&
+              updateInfo.theme.properties != null
+            ) {
+              console.log("storing theme:", updateInfo.theme);
+              browser.storage.local
+                .set({ originalTheme: updateInfo.theme })
+                .then(onSet, onError);
+            }
           }
         }
       } else {
         console.log("keeping stored theme:", them);
       }
-    } catch {
-      console.log("theme storage error");
+    } catch (e) {
+      console.log("theme storage error", e);
     }
   }
   browser.storage.local.get("originalTheme").then(maybeSet, onError);

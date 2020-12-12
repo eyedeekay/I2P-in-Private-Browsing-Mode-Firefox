@@ -339,7 +339,24 @@ snark-mirror:
 seed:
 	cp -v "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent" "$(HOME)/.i2p/i2psnark"
 	cp -v "../i2ppb-$(VERSION)@eyedeekay.github.io.xpi" "$(HOME)/.i2p/i2psnark"
-	
+
 wire:
 	cp -v "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent" "$(HOME)/i2p/MuWireDownloads/"
 	cp -v "../i2ppb-$(VERSION)@eyedeekay.github.io.xpi" "$(HOME)/i2p/MuWireDownloads/"
+
+test:
+	web-ext run -u about:debugging \
+		-u http://127.0.0.1:7657/home \
+		-u http://127.0.0.1:7657/i2ptunnel \
+		-u http://127.0.0.1:7657/i2psnark \
+		-u http://127.0.0.1:7657/webmail \
+		-u http://idk.i2p
+
+lht-test:
+	web-ext run -u about:debugging \
+		-u http://localhost:7657/home \
+		-u http://localhost:7657/i2ptunnel \
+		-u http://localhost:7657/i2psnark \
+		-u http://localhost:7657/webmail \
+		-u http://localhost:7657/MuWire/ \
+		-u http://idk.i2p

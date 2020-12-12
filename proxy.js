@@ -1,6 +1,7 @@
 var titlepref = chrome.i18n.getMessage('titlePreface');
 var webpref = chrome.i18n.getMessage('webPreface');
 var ircpref = chrome.i18n.getMessage('ircPreface');
+var torrentpref = chrome.i18n.getMessage('torrentPreface');
 var routerpref = chrome.i18n.getMessage('routerPreface');
 var routerprefpriv = chrome.i18n.getMessage('routerPrefacePrivate');
 var ircpref = chrome.i18n.getMessage('ircPreface');
@@ -22,6 +23,66 @@ function shouldProxyRequest(requestInfo) {
 }
 
 var handleContextProxyRequest = async function(requestDetails) {
+  function ircProxy() {
+    if (!requestDetails.url.includes('7669')) {
+      proxy = {
+        type: getScheme(),
+        host: getHost(),
+        port: getPort(),
+      };
+      return proxy;
+    }
+    if (requestDetails.url.includes(':7669')) {
+      proxy = null;
+      return proxy;
+    }
+  }
+  function btProxy() {
+    proxy = routerProxy();
+    if (requestDetails.url.includes(':7662')) {
+      proxy = null;
+      return proxy;
+    }
+    console.log('(bt proxy)', proxy);
+    return proxy;
+  }
+  function mainProxy() {
+    console.log('(proxy) mainproxy 0');
+    proxy = {
+      type: getScheme(),
+      host: getHost(),
+      port: getPort(),
+    };
+    let url = new URL(requestDetails.url);
+    console.log(
+      '(proxy) mainproxy 1',
+      requestDetails.url,
+      'http://' + getHost() + ':' + getConsolePort() + '/i2psnark/'
+    );
+    if (
+      requestDetails.url.startsWith(
+        'http://' + getHost() + ':' + getConsolePort() + '/i2psnark/'
+      )
+    ) {
+      //+url.host)) {
+      console.log('(proxy) mainproxy 2', url);
+      proxy = null;
+    }
+    return proxy;
+  }
+  function routerProxy() {
+    if (routerHost(requestDetails.url)) {
+      proxy = null;
+      return proxy;
+    } else if (!routerHost(requestDetails.url)) {
+      proxy = {
+        type: getScheme(),
+        host: getHost(),
+        port: getPort(),
+      };
+      return proxy;
+    }
+  }
   try {
     var handleProxyRequest = function(context) {
       proxy = {
@@ -32,85 +93,52 @@ var handleContextProxyRequest = async function(requestDetails) {
         proxy = null;
         return proxy;
       }
-      console.log('(proxy), context', context);
+
       if (context != undefined) {
+        console.log('(proxy), context', context);
+        proxy = routerProxy();
         if (context.name == ircpref) {
-          if (!requestDetails.url.includes('7669')) {
-            proxy = {
-              type: getScheme(),
-              host: getHost(),
-              port: getPort(),
-            };
-          }
-        }
-        if (context.name == titlepref) {
-          if (!requestDetails.url.includes('/i2psnark/')) {
-            console.log('URL', requestDetails.url);
-            proxy = {
-              type: getScheme(),
-              host: getHost(),
-              port: getPort(),
-            };
-          }
+          proxy = ircProxy();
           return proxy;
-        } else if (context.name == ircpref) {
+        } else if (context.name == titlepref) {
+          proxy = mainProxy();
+          return proxy;
+        } else if (context.name == routerpref) {
+          proxy = routerProxy();
+          return proxy;
+        } else if (context.name == torrentpref) {
+          proxy = btProxy();
+          return proxy;
+        }
+        return proxy;
+      } else {
+        if (!routerHost(requestDetails.url)) {
+          if (localHost(requestDetails.url)) {
+            if (requestDetails.url.includes(':7669')) {
+              proxy = null;
+            } else if (requestDetails.url.includes(':7662')) {
+              proxy = null;
+            } else {
+              console.log(
+                '(proxy) non-routerconsole localhost url, will not interfere',
+                requestDetails.url
+              );
+            }
+          }
+        } else if (i2pHost(requestDetails.url)) {
           proxy = {
             type: getScheme(),
             host: getHost(),
             port: getPort(),
           };
-          if (requestDetails.url.includes(':7669')) {
-            proxy = null;
-          }
-        } else if (context.name == routerpref) {
-          if (routerHost(requestDetails.url)) {
-            proxy = null;
-          } else if (!routerHost(requestDetails.url)) {
-            proxy = {
-              type: getScheme(),
-              host: getHost(),
-              port: getPort(),
-            };
-          }
-          return proxy;
-        } else if (context.name == webpref) {
-          if (localHost(requestDetails.url)) {
-            if (!routerHost(requestDetails.url)) {
-              proxy = {
-                type: 'http',
-                host: 'localhost',
-                port: '65535',
-              };
-            }
-          }
-          return proxy;
         }
+        //var tab = tabGet(requestDetails.tabId);
+        //tab.then(handleTabRequest,)
+        return proxy;
       }
-      if (!routerHost(requestDetails.url)) {
-        if (localHost(requestDetails.url)) {
-          if (requestDetails.url.includes(':7669')) {
-            proxy = null;
-          } else {
-            console.log(
-              '(proxy) non-routerconsole localhost url, will not interfere',
-              requestDetails.url
-            );
-          }
-        }
-      } else if (i2pHost(requestDetails.url)) {
-        proxy = {
-          type: getScheme(),
-          host: getHost(),
-          port: getPort(),
-        };
-      }
-      //var tab = tabGet(requestDetails.tabId);
-      //tab.then(handleTabRequest,)
-      return proxy;
     };
     var contextGet = async function(tabInfo) {
       try {
-        console.log('(proxy)Tab info from Function', tabInfo);
         context = await browser.contextualIdentities.get(tabInfo.cookieStoreId);
         return context;
       } catch (error) {
@@ -120,7 +148,6 @@ var handleContextProxyRequest = async function(requestDetails) {
     };
     var tabGet = async function(tabId) {
       try {
-        console.log('(proxy)Tab ID from Request', tabId);
         let tabInfo = await browser.tabs.get(tabId);
         return tabInfo;
       } catch (error) {
@@ -136,10 +163,6 @@ var handleContextProxyRequest = async function(requestDetails) {
       return proxy;
     }
     if (requestDetails.originUrl == browser.runtime.getURL('security.html')) {
-      console.log(
-        '(proxy) extension security URL',
-        browser.runtime.getURL('security.html')
-      );
       proxy = {
         type: getScheme(),
         host: getHost(),
@@ -154,6 +177,9 @@ var handleContextProxyRequest = async function(requestDetails) {
       return browser.proxy.settings.get({});
     }
     if (requestDetails.tabId > 0) {
+      if (requestDetails.url.includes('MuWire')) {
+        return;
+      }
       if (proxyHost(requestDetails.url)) {
         proxy = {
           type: getScheme(),
@@ -168,7 +194,7 @@ var handleContextProxyRequest = async function(requestDetails) {
         requestDetails.tabId = tab;
         var context = tab.then(contextGet);
         var proxy = await context.then(handleProxyRequest);
-        console.log('(proxy)Returning I2P Proxy', proxy);
+        //console.log('(proxy)Returning I2P Proxy', proxy);
         return proxy;
       } else {
         var tab = tabGet(requestDetails.tabId);
@@ -307,15 +333,15 @@ function getConsolePort() {
   if (control_port == undefined) {
     var scheme = getScheme();
     if (scheme == 'socks') proxy_port = '7657';
-    else proxy_port = '7657';
+    else control_port = '7657';
   }
-  return proxy_port;
+  return control_port;
 }
 
 function setupProxy() {
   console.log('Setting up Firefox WebExtension proxy');
   browser.proxy.onRequest.addListener(handleContextProxyRequest, {
-    urls: ['<all_urls>'],
+    urls: ['*://*.i2p/*', '*://localhost/*', '*://127.0.0.1/*', '*://*/*i2p*'],
   });
   console.log('i2p settings created for WebExtension Proxy');
 }
