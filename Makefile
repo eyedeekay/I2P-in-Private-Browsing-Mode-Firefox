@@ -350,7 +350,10 @@ test:
 		-u http://127.0.0.1:7657/i2ptunnel \
 		-u http://127.0.0.1:7657/i2psnark \
 		-u http://127.0.0.1:7657/webmail \
-		-u http://idk.i2p
+		-u http://127.0.0.1:7657/MuWire/ \
+		-u http://idk.i2p/video.html \
+		-u http://idk.i2p \
+		-u http://stats.i2p \
 
 lht-test:
 	web-ext run -u about:debugging \
