@@ -354,6 +354,8 @@ test:
 		-u http://idk.i2p/video.html \
 		-u http://idk.i2p \
 		-u http://stats.i2p \
+		-u https://ramble.pw \
+		-u https://ramble.pw/f/i2p \
 
 lht-test:
 	web-ext run -u about:debugging \

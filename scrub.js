@@ -660,9 +660,6 @@ var coolheadersSetup = function(e) {
       function gotPopup(p) {
         console.log('(scrub) checking popup', p);
         if (p.length != 0) return;
-        /*if (p != undefined){
-          return
-        }*/
         let headers = e.responseHeaders.filter((word) =>
           word.name.toUpperCase().includes('I2P')
         );
@@ -670,20 +667,26 @@ var coolheadersSetup = function(e) {
           let header = headers[i];
           console.log('(scrub) checking header', header);
           if (header.name.toUpperCase().endsWith('I2P-LOCATION')) {
-            let url = new URL(header.value);
-            browser.pageAction.setPopup({
-              tabId: e.tabId,
-              popup: 'location.html',
-            });
-            browser.pageAction.setIcon({
-              path: 'icons/i2plogo.png',
-              tabId: e.tabId,
-            });
-            browser.pageAction.setTitle({
-              tabId: e.tabId,
-              title: 'http://' + url.host,
-            });
-            browser.pageAction.show(e.tabId);
+            var tab = browser.tabs.get(e.tabId);
+            tab.then(altSrc);
+            function altSrc(tab) {
+              console.log('(scrub) X-I2P-LOCATION');
+              let url = new URL(header.value);
+              browser.pageAction.setPopup({
+                tabId: e.tabId,
+                popup: 'location.html',
+              });
+              browser.pageAction.setIcon({
+                path: 'icons/i2plogo.png',
+                tabId: e.tabId,
+              });
+              let eurl = new URL(tab.url);
+              browser.pageAction.setTitle({
+                tabId: e.tabId,
+                title: 'http://' + url.host + eurl.pathname,
+              });
+              browser.pageAction.show(e.tabId);
+            }
             break;
           } else {
             if (header.name.toUpperCase().endsWith('I2P-TORRENTLOCATION')) {
