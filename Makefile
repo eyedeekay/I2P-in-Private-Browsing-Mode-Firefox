@@ -37,11 +37,11 @@ clean: rc clean-artifacts
 ## EVEN RELEASES are AMO RELEASES
 ## ODD RELEASES are SELFHOSTED RELEASES
 
-MOZ_VERSION=0.88
-VERSION=0.87
+MOZ_VERSION=0.90
+VERSION=0.89
 
 ## INCREMENT THIS EVERY TIME YOU DO A RELEASE
-LAST_VERSION=0.85
+LAST_VERSION=0.87
 
 YELLOW=F7E59A
 ORANGE=FFC56D
@@ -350,7 +350,12 @@ test:
 		-u http://127.0.0.1:7657/i2ptunnel \
 		-u http://127.0.0.1:7657/i2psnark \
 		-u http://127.0.0.1:7657/webmail \
-		-u http://idk.i2p
+		-u http://127.0.0.1:7657/MuWire/ \
+		-u http://idk.i2p/video.html \
+		-u http://idk.i2p \
+		-u http://stats.i2p \
+		-u https://ramble.pw \
+		-u https://ramble.pw/f/i2p \
 
 lht-test:
 	web-ext run -u about:debugging \

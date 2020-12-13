@@ -54,11 +54,6 @@ var handleContextProxyRequest = async function(requestDetails) {
       port: getPort(),
     };
     let url = new URL(requestDetails.url);
-    console.log(
-      '(proxy) mainproxy 1',
-      requestDetails.url,
-      'http://' + getHost() + ':' + getConsolePort() + '/i2psnark/'
-    );
     if (
       requestDetails.url.startsWith(
         'http://' + getHost() + ':' + getConsolePort() + '/i2psnark/'
