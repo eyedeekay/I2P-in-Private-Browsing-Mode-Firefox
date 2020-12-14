@@ -1,7 +1,15 @@
+i2psetproxy.js (0.91-1) UNRELEASED; urgency=low
+
+  * Exclude clearnet code hosting sites from scrub checks
+
+ -- idk <hankhill19580@gmail.com>  Sat, 14 DEC 2020 2:46:23 -0400
+
 i2psetproxy.js (0.89-1) UNRELEASED; urgency=low
 
   * Pages with lots of AJAX requests could trigger a performance degradation
   * Improve performance of x-i2p-* headers and meta tags
+
+ -- idk <hankhill19580@gmail.com>  Sat, 13 DEC 2020 2:22:00 -0400
 
 i2psetproxy.js (0.87-1) UNRELEASED; urgency=low
 
