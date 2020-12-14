@@ -81,9 +81,11 @@ var handleContextProxyRequest = async function(requestDetails) {
   try {
     var handleProxyRequest = function(context) {
       proxy = {
-        failoverTimeout: 0,
-        proxyDns: false,
+        type: getScheme(),
+        host: getHost(),
+        port: getPort(),
       };
+
       if (context == 'firefox-default' || context == 'firefox-private') {
         proxy = null;
         return proxy;
@@ -336,7 +338,7 @@ function getConsolePort() {
 function setupProxy() {
   console.log('Setting up Firefox WebExtension proxy');
   browser.proxy.onRequest.addListener(handleContextProxyRequest, {
-    urls: ['*://*.i2p/*', '*://localhost/*', '*://127.0.0.1/*', '*://*/*i2p*'],
+    urls: ['<all_urls>'],
   });
   console.log('i2p settings created for WebExtension Proxy');
 }
