@@ -4,13 +4,33 @@
   <link type="text/html" rel="alternate" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases"/>
   <link type="application/atom+xml" rel="self" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases.atom"/>
   <title>Release notes from I2P-in-Private-Browsing-Mode-Firefox</title>
-  <updated>2020-12-06T17:13:52Z</updated>
+  <updated>2020-12-13T19:07:10Z</updated>
+  <entry>
+    <id>tag:github.com,2008:Repository/169256012/0.89</id>
+    <updated>2020-12-13T19:11:13Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/tag/0.89"/>
+    <title>0.89</title>
+    <enclosure url="magnet:?xt=urn:btih:7c941672fd7b36cbb2cec817549616ef51d70bfd" type="application/x-bittorrent" />
+    <content type="html">&lt;p&gt;============================&lt;/p&gt;
+&lt;p&gt;A simple plugin for configuring a Firefox based web browser to isolate I2P&lt;br&gt;
+Browsing to a single contextual identity, thus creating an I2P in Private&lt;br&gt;
+Browsing mode. It requires the use of a pre-installed I2P Router.&lt;br&gt;
+i2psetproxy.js (0.89-1) UNRELEASED; urgency=low&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Pages with lots of AJAX requests could trigger a performance degradation&lt;/li&gt;
+&lt;li&gt;Improve performance of x-i2p-* headers and meta tags&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;i2psetproxy.js (0.87-1) UNRELEASED; urgency=low&lt;/p&gt;</content>
+    <author>
+      <name>eyedeekay</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars3.githubusercontent.com/u/8733713?s=60&amp;v=4"/>
+  </entry>
   <entry>
     <id>tag:github.com,2008:Repository/169256012/0.87</id>
     <updated>2020-12-06T18:37:57Z</updated>
     <link rel="alternate" type="text/html" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/tag/0.87"/>
     <title>0.87</title>
-    <enclosure url="magnet:?xt=urn:btih:517e97aeb8ad60357d693c37fbc5a3f4eb9ac224" type="application/x-bittorrent" />
     <content type="html">&lt;p&gt;Browsing to a single contextual identity, thus creating an I2P in Private&lt;br&gt;
 Browsing mode. It requires the use of a pre-installed I2P Router.&lt;br&gt;
 i2psetproxy.js (0.87-1) UNRELEASED; urgency=low&lt;/p&gt;
@@ -171,26 +191,6 @@ i2psetproxy.js (0.71-1) UNRELEASED; urgency=low&lt;/p&gt;
 &lt;/ul&gt;
 &lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Tue, 24 MAR 2020 0:19:59 -0400&lt;/p&gt;
 &lt;p&gt;i2psetproxy.js (0.69-1) UNRELEASED; urgency=low&lt;/p&gt;</content>
-    <author>
-      <name>eyedeekay</name>
-    </author>
-    <media:thumbnail height="30" width="30" url="https://avatars3.githubusercontent.com/u/8733713?s=60&amp;v=4"/>
-  </entry>
-  <entry>
-    <id>tag:github.com,2008:Repository/169256012/0.69</id>
-    <updated>2020-03-24T04:19:44Z</updated>
-    <link rel="alternate" type="text/html" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/tag/0.69"/>
-    <title>0.69</title>
-    <content type="html">&lt;p&gt;A simple plugin for configuring a Firefox based web browser to isolate I2P&lt;br&gt;
-Browsing to a single contextual identity, thus creating an I2P in Private&lt;br&gt;
-Browsing mode. It requires the use of a pre-installed I2P Router.&lt;br&gt;
-i2psetproxy.js (0.69-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Add MuWire contextual ID&lt;/li&gt;
-&lt;li&gt;Fix bug occurring on certain modded I2P installs&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt; Tue, 24 MAR 2020 0:12:02 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.67-1) UNRELEASED; urgency=low&lt;/p&gt;</content>
     <author>
       <name>eyedeekay</name>
     </author>

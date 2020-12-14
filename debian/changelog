@@ -1,3 +1,8 @@
+i2psetproxy.js (0.89-1) UNRELEASED; urgency=low
+
+  * Pages with lots of AJAX requests could trigger a performance degradation
+  * Improve performance of x-i2p-* headers and meta tags
+
 i2psetproxy.js (0.87-1) UNRELEASED; urgency=low
 
   * Disable searching for i2p sites in non-i2p search engines

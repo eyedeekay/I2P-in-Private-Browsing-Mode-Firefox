@@ -593,10 +593,15 @@ var contextSetup = function(requestDetails) {
         if (i2pHost(requestDetails.url)) {
           var thn = i2pHostName(requestDetails.url);
           if (requestDetails.url.includes('=' + thn)) {
-            console.log('(scrub)checking search hostnames =' + thn);
-            var tpt = requestDetails.url.split('=' + thn, 2);
-            requestDetails.url =
-              'http://' + thn + '/' + tpt[1].replace('%2F', '');
+            if (!requestDetails.url.includes('github.com') ||
+                !requestDetails.url.includes('notabug.org') ||
+                !requestDetails.url.includes('i2pgit.org') ||
+                !requestDetails.url.includes('gitlab.com')) {
+              console.log('(scrub)checking search hostnames =' + thn);
+              var tpt = requestDetails.url.split('=' + thn, 2);
+              requestDetails.url =
+                'http://' + thn + '/' + tpt[1].replace('%2F', '');
+            }
           }
           console.log('(scrub) new hostname', requestDetails.url);
           var setcookie = browser.cookies.set({

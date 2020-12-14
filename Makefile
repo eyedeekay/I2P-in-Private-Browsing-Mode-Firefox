@@ -344,7 +344,7 @@ wire:
 	cp -v "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent" "$(HOME)/i2p/MuWireDownloads/"
 	cp -v "../i2ppb-$(VERSION)@eyedeekay.github.io.xpi" "$(HOME)/i2p/MuWireDownloads/"
 
-test:
+ndtest:
 	web-ext run -u about:debugging \
 		-u http://127.0.0.1:7657/home \
 		-u http://127.0.0.1:7657/i2ptunnel \
