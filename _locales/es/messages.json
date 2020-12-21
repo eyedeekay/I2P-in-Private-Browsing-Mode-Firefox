@@ -48,7 +48,7 @@
     "description": "Etiqueta de casilla de verificación de WebRTC."
   },
   "rtcDesc": {
-    "message": "WebRTC está deshabilitado de forma predeterminada, pero puede volver a encenderlo y forzarlo para que respete el proxy. Si es un usuario de la extensión del navegador Snowflake, esta opción está deshabilitada y WebRTC está activado de forma predeterminada." ,
+    "message": "WebRTC está deshabilitado de forma predeterminada, pero puede volver a encenderlo y forzarlo para que respete el proxy. Si es un usuario de la extensión del navegador Snowflake, esta opción está deshabilitada y WebRTC está activado de forma predeterminada.",
     "description": "Descripción de la acción de WebRTC"
   },
   "disableHistory": {
@@ -300,4 +300,3 @@
     "description": "Valor para el controlador de protocolo magnético"
   }
 }
-

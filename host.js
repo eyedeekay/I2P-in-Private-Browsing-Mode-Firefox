@@ -112,6 +112,8 @@ function routerHost(url) {
         final === 'home' ||
         final === 'console' ||
         final === 'dns' ||
+        final === 'susidns' ||
+        final.startsWith('susidns') ||
         final === 'sitemap' ||
         final.startsWith('config')
       ) {

@@ -588,36 +588,8 @@ var contextSetup = function(requestDetails) {
     if (requestDetails.tabId > 0) {
       var tab = tabGet(requestDetails.tabId);
       tab.then(isolate);
+
       function isolate(oldtab) {
-        //        if (oldtab.cookieStoreId == 'firefox-default') {
-        if (i2pHost(requestDetails.url)) {
-          var thn = i2pHostName(requestDetails.url);
-          if (requestDetails.url.includes('=' + thn)) {
-            if (
-              !requestDetails.url.includes('github.com') ||
-              !requestDetails.url.includes('notabug.org') ||
-              !requestDetails.url.includes('i2pgit.org') ||
-              !requestDetails.url.includes('gitlab.com')
-            ) {
-              console.log('(scrub)checking search hostnames =' + thn);
-              var tpt = requestDetails.url.split('=' + thn, 2);
-              requestDetails.url =
-                'http://' + thn + '/' + tpt[1].replace('%2F', '');
-            }
-          }
-          console.log('(scrub) new hostname', requestDetails.url);
-          var setcookie = browser.cookies.set({
-            firstPartyDomain: i2pHostName(requestDetails.url),
-            url: requestDetails.url,
-            secure: true,
-          });
-          setcookie.then(onContextGotLog, onContextError);
-          var i2ptab = tab.then(i2pTabFind, onContextError);
-          return requestDetails;
-        }
-        if (extensionHost(requestDetails)) {
-          return requestDetails;
-        }
         let localhost = localHost(requestDetails.url);
         let routerhost = routerHost(requestDetails.url);
         if (routerhost) {
@@ -649,6 +621,40 @@ var contextSetup = function(requestDetails) {
           return requestDetails;
           //return requestDetails;
         }
+        //        if (oldtab.cookieStoreId == 'firefox-default') {
+        if (i2pHost(requestDetails.url)) {
+          var thn = i2pHostName(requestDetails.url);
+          if (requestDetails.url.includes('=' + thn)) {
+            if (
+              !requestDetails.url.includes('://github.com') ||
+              !requestDetails.url.includes('://notabug.org') ||
+              !requestDetails.url.includes('://i2pgit.org') ||
+              !requestDetails.url.includes('://gitlab.com')
+            ) {
+              if (!localhost) {
+                console.log('(scrub)checking search hostnames =' + thn);
+                var tpt = requestDetails.url.split('=' + thn, 2);
+                requestDetails.url =
+                  'http://' + thn + '/' + tpt[1].replace('%2F', '');
+              }
+            }
+          }
+          console.log('(scrub) new hostname', requestDetails.url);
+          var setcookie = browser.cookies.set({
+            firstPartyDomain: i2pHostName(requestDetails.url),
+            url: requestDetails.url,
+            secure: true,
+          });
+          setcookie.then(onContextGotLog, onContextError);
+          if (!localhost) {
+            var i2ptab = tab.then(i2pTabFind, onContextError);
+          }
+          return requestDetails;
+        }
+        if (extensionHost(requestDetails)) {
+          return requestDetails;
+        }
+
         //}
       }
     }
