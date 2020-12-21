@@ -417,27 +417,37 @@ function forgetBrowsingData(storedSettings) {
 function i2pHostName(url) {
   let hostname = "";
   console.log("(hosts)", url);
-  if (url.includes("=")) {
+  let u = new URL(url);
+  if (u.host.endsWith(".i2p")) {
+    hostname = u.host;
+  } else if (url.includes("=")) {
+    console.log("(hosts) scrub 1", url);
     if (url.includes(".i2p")) {
       lsit = url.split("=");
+      console.log("(hosts) scrub 2", hostname);
       for (let item in lsit) {
-        var items = lsit[item].split(`\%`); //"\%")
+        var items = lsit[item].split(`\ % `); //"\%")
         for (let p in items) {
           if (items[p].includes(".i2p")) {
             hostname = items[p].replace("3D", 1);
           }
+          console.log("(hosts) scrub 3", hostname);
           break;
         }
         if (hostname != "") {
+          console.log("(hosts) scrub 4", hostname);
           break;
         }
       }
     }
   } else if (url.indexOf("://") > -1) {
     hostname = url.split("/")[2];
+    console.log("(hosts) scrub 5", hostname);
   } else {
     hostname = url.split("/")[0];
+    console.log("(hosts) scrub 6", hostname);
   }
+  console.log("(hosts) scrub 7", hostname);
   return hostname;
 }
 
