@@ -489,80 +489,6 @@ var contextSetup = function(requestDetails) {
         console.log('(isolate)Context Error', error);
       }
     };
-    var normalTabFind = async function(tabId) {
-      if (tabId == undefined) {
-        return;
-      }
-      try {
-        var anoncontext = await browser.contextualIdentities.query({
-          name: titlepref,
-        });
-        var irccontext = await browser.contextualIdentities.query({
-          name: ircpref,
-        });
-        var othercontexts = await notMyContextNotMyProblem();
-        var nmp = false;
-        for (context in othercontexts) {
-          if (tabId.cookieStoreId == othercontexts[context].cookieStoreId) {
-            console.log('Not my problem');
-            nmp = true;
-          }
-        }
-        if (
-          tabId.cookieStoreId == 'firefox-default' ||
-          tabId.cookieStoreId == 'firefox-private' ||
-          tabId.cookieStoreId == anoncontext[0].cookieStoreId ||
-          tabId.cookieStoreId == irccontext[0].cookieStoreId ||
-          nmp
-        ) {
-          console.log(
-            '(ISOLATE)',
-            tabId.cookieStoreId,
-            'not',
-            anoncontext[0].cookieStoreId,
-            irccontext[0].cookieStoreId
-          );
-          return;
-        } else {
-          function Create() {
-            function onCreated(tab) {
-              function closeOldTab() {
-                if (
-                  tabId.id != tab.id &&
-                  tabId.cookieStoreId != tab.cookieStoreId
-                ) {
-                  console.log(
-                    '(isolate) Closing isolated tab',
-                    tabId.id,
-                    'with context',
-                    tabId.cookieStoreId
-                  );
-                  console.log(
-                    '(isolate) in favor of',
-                    tab.id,
-                    'with context',
-                    tab.cookieStoreId
-                  );
-                  browser.tabs.remove(tabId.id);
-                }
-              }
-              closeOldTab(tab);
-            }
-            var created = browser.tabs.create({
-              active: true,
-              cookieStoreId: 'firefox-default',
-              url: requestDetails.url,
-            });
-            created.then(onCreated, onContextError);
-          }
-          var gettab = browser.tabs.get(tabId.id);
-          gettab.then(Create, onContextError);
-          return tabId;
-        }
-      } catch (error) {
-        console.log('(isolate)Context Error', error);
-      }
-    };
     var tabGet = async function(tabId) {
       try {
         //console.log("(isolate)Tab ID from Request", tabId);
@@ -588,36 +514,8 @@ var contextSetup = function(requestDetails) {
     if (requestDetails.tabId > 0) {
       var tab = tabGet(requestDetails.tabId);
       tab.then(isolate);
+
       function isolate(oldtab) {
-        //        if (oldtab.cookieStoreId == 'firefox-default') {
-        if (i2pHost(requestDetails.url)) {
-          var thn = i2pHostName(requestDetails.url);
-          if (requestDetails.url.includes('=' + thn)) {
-            if (
-              !requestDetails.url.includes('github.com') ||
-              !requestDetails.url.includes('notabug.org') ||
-              !requestDetails.url.includes('i2pgit.org') ||
-              !requestDetails.url.includes('gitlab.com')
-            ) {
-              console.log('(scrub)checking search hostnames =' + thn);
-              var tpt = requestDetails.url.split('=' + thn, 2);
-              requestDetails.url =
-                'http://' + thn + '/' + tpt[1].replace('%2F', '');
-            }
-          }
-          console.log('(scrub) new hostname', requestDetails.url);
-          var setcookie = browser.cookies.set({
-            firstPartyDomain: i2pHostName(requestDetails.url),
-            url: requestDetails.url,
-            secure: true,
-          });
-          setcookie.then(onContextGotLog, onContextError);
-          var i2ptab = tab.then(i2pTabFind, onContextError);
-          return requestDetails;
-        }
-        if (extensionHost(requestDetails)) {
-          return requestDetails;
-        }
         let localhost = localHost(requestDetails.url);
         let routerhost = routerHost(requestDetails.url);
         if (routerhost) {
@@ -645,10 +543,41 @@ var contextSetup = function(requestDetails) {
             var irctab = tab.then(ircTabFind, onContextError);
             return requestDetails;
           }
-          var normalTab = tab.then(normalTabFind, onContextError);
-          return requestDetails;
-          //return requestDetails;
         }
+        //        if (oldtab.cookieStoreId == 'firefox-default') {
+        if (i2pHost(requestDetails.url)) {
+          var thn = i2pHostName(requestDetails.url);
+          if (requestDetails.url.includes('=' + thn)) {
+            if (
+              !requestDetails.url.includes('://github.com') ||
+              !requestDetails.url.includes('://notabug.org') ||
+              !requestDetails.url.includes('://i2pgit.org') ||
+              !requestDetails.url.includes('://gitlab.com')
+            ) {
+              if (!localhost) {
+                console.log('(scrub)checking search hostnames =' + thn);
+                var tpt = requestDetails.url.split('=' + thn, 2);
+                requestDetails.url =
+                  'http://' + thn + '/' + tpt[1].replace('%2F', '');
+              }
+            }
+          }
+          console.log('(scrub) new hostname', requestDetails.url);
+          var setcookie = browser.cookies.set({
+            firstPartyDomain: i2pHostName(requestDetails.url),
+            url: requestDetails.url,
+            secure: true,
+          });
+          setcookie.then(onContextGotLog, onContextError);
+          if (!routerhost) {
+            var i2ptab = tab.then(i2pTabFind, onContextError);
+          }
+          return requestDetails;
+        }
+        if (extensionHost(requestDetails)) {
+          return requestDetails;
+        }
+
         //}
       }
     }

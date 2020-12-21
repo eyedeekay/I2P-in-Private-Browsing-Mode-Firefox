@@ -47,7 +47,10 @@ function extensionHost(url) {
 function i2pHostName(url) {
   let hostname = '';
   console.log('(hosts)', url);
-  if (url.includes('=')) {
+  let u = new URL(url);
+  if (u.host.endsWith('.i2p')) {
+    hostname = u.host;
+  } else if (url.includes('=')) {
     if (url.includes('.i2p')) {
       lsit = url.split('=');
       for (let item in lsit) {
@@ -68,6 +71,7 @@ function i2pHostName(url) {
   } else {
     hostname = url.split('/')[0];
   }
+  console.log('(hosts) scrub', hostname);
   return hostname;
 }
 
@@ -112,6 +116,8 @@ function routerHost(url) {
         final === 'home' ||
         final === 'console' ||
         final === 'dns' ||
+        final === 'susidns' ||
+        final.startsWith('susidns') ||
         final === 'sitemap' ||
         final.startsWith('config')
       ) {
