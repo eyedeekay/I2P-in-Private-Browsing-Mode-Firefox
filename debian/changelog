@@ -1,3 +1,9 @@
+i2psetproxy.js (0.95-1) UNRELEASED; urgency=low
+
+  * Fix github #102 and #103
+
+ -- idk <hankhill19580@gmail.com>  Sat, 21 DEC 2020 6:15:05 -0400
+
 i2psetproxy.js (0.93-1) UNRELEASED; urgency=low
 
   * Emergency fix of the first one
