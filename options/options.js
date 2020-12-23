@@ -34,15 +34,15 @@ function SetControlHelpText() {
 }
 
 function getBookmarksCreated() {
-  bookmarks_state = document.getElementById('bookmarks').value;
+  bookmarks_state = document.getElementById('bookmarks');
   console.log('(options)Got i2p bookmarks state:', bookmarks_state);
   if (bookmarks_state == undefined) {
     return false;
   }
-  if (bookmarks_state == 'false') {
+  if (bookmarks_state.value == 'false') {
     return false;
   }
-  if (bookmarks_state == 'true') {
+  if (bookmarks_state.value == 'true') {
     return true;
   }
   return false;

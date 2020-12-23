@@ -122,12 +122,16 @@ var handleContextProxyRequest = async function(requestDetails) {
               );
             }
           }
-        } else if (i2pHost(requestDetails.url)) {
+        }
+        if (i2pHost(requestDetails.url)) {
           proxy = {
             type: getScheme(),
             host: getHost(),
             port: getPort(),
           };
+        }
+        if (requestDetails.url.includes('rpc')){
+          console.log("(proxy for rpc url)", rpc)
         }
         //var tab = tabGet(requestDetails.tabId);
         //tab.then(handleTabRequest,)

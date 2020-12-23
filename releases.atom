@@ -4,13 +4,51 @@
   <link type="text/html" rel="alternate" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases"/>
   <link type="application/atom+xml" rel="self" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases.atom"/>
   <title>Release notes from I2P-in-Private-Browsing-Mode-Firefox</title>
-  <updated>2020-12-14T19:47:34Z</updated>
+  <updated>2020-12-21T23:13:19Z</updated>
+  <entry>
+    <id>tag:github.com,2008:Repository/169256012/0.95</id>
+    <updated>2020-12-21T23:21:35Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/tag/0.95"/>
+    <title>0.95</title>
+    <enclosure url="magnet:?xt=urn:btih:7ec361c3ddc3fb904e369a19cdf4259af94af624" type="application/x-bittorrent" />
+    <content type="html">&lt;p&gt;A simple plugin for configuring a Firefox based web browser to isolate I2P&lt;br&gt;
+Browsing to a single contextual identity, thus creating an I2P in Private&lt;br&gt;
+Browsing mode. It requires the use of a pre-installed I2P Router.&lt;br&gt;
+i2psetproxy.js (0.95-1) UNRELEASED; urgency=low&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Fix github &lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;763036769&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/issues/102&quot; data-hovercard-type=&quot;issue&quot; data-hovercard-url=&quot;/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/issues/102/hovercard&quot; href=&quot;https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/issues/102&quot;&gt;#102&lt;/a&gt; and &lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;763043125&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/issues/103&quot; data-hovercard-type=&quot;issue&quot; data-hovercard-url=&quot;/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/issues/103/hovercard&quot; href=&quot;https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/issues/103&quot;&gt;#103&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Sat, 21 DEC 2020 6:15:05 -0400&lt;/p&gt;
+&lt;p&gt;i2psetproxy.js (0.93-1) UNRELEASED; urgency=low&lt;/p&gt;</content>
+    <author>
+      <name>eyedeekay</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars3.githubusercontent.com/u/8733713?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/169256012/0.93</id>
+    <updated>2020-12-14T22:20:08Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/tag/0.93"/>
+    <title>0.93</title>
+    <content type="html">&lt;p&gt;A simple plugin for configuring a Firefox based web browser to isolate I2P&lt;br&gt;
+Browsing to a single contextual identity, thus creating an I2P in Private&lt;br&gt;
+Browsing mode. It requires the use of a pre-installed I2P Router.&lt;br&gt;
+i2psetproxy.js (0.93-1) UNRELEASED; urgency=low&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Emergency fix of the first one&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Sat, 14 DEC 2020 5:18:53 -0400&lt;/p&gt;
+&lt;p&gt;i2psetproxy.js (0.91-1) UNRELEASED; urgency=low&lt;/p&gt;</content>
+    <author>
+      <name>eyedeekay</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars3.githubusercontent.com/u/8733713?s=60&amp;v=4"/>
+  </entry>
   <entry>
     <id>tag:github.com,2008:Repository/169256012/0.91</id>
     <updated>2020-12-14T19:47:59Z</updated>
     <link rel="alternate" type="text/html" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/tag/0.91"/>
     <title>0.91</title>
-    <enclosure url="magnet:?xt=urn:btih:991cc1181d816c20629caef454ebabf14785fbf7" type="application/x-bittorrent" />
     <content type="html">&lt;p&gt;A simple plugin for configuring a Firefox based web browser to isolate I2P&lt;br&gt;
 Browsing to a single contextual identity, thus creating an I2P in Private&lt;br&gt;
 Browsing mode. It requires the use of a pre-installed I2P Router.&lt;br&gt;
@@ -151,45 +189,6 @@ i2psetproxy.js (0.79-1) UNRELEASED; urgency=low&lt;/p&gt;
     <content type="html">&lt;p&gt;Merge pull request &lt;a class=&quot;issue-link js-issue-link&quot; href=&quot;https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/pull/100&quot;&gt;#100&lt;/a&gt; from eyedeekay/bookmarks&lt;/p&gt;
 
 &lt;p&gt;make the bookmarks part of a subdirectory&lt;/p&gt;</content>
-    <author>
-      <name>eyedeekay</name>
-    </author>
-    <media:thumbnail height="30" width="30" url="https://avatars3.githubusercontent.com/u/8733713?s=60&amp;v=4"/>
-  </entry>
-  <entry>
-    <id>tag:github.com,2008:Repository/169256012/0.75</id>
-    <updated>2020-06-23T03:22:59Z</updated>
-    <link rel="alternate" type="text/html" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/tag/0.75"/>
-    <title>0.75</title>
-    <content type="html">&lt;p&gt;A simple plugin for configuring a Firefox based web browser to isolate I2P&lt;br&gt;
-Browsing to a single contextual identity, thus creating an I2P in Private&lt;br&gt;
-Browsing mode. It requires the use of a pre-installed I2P Router.&lt;br&gt;
-i2psetproxy.js (0.75-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Update bookmarks format&lt;/li&gt;
-&lt;li&gt;Deprecate WebRTC State Management&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Mon, 22 JUN 2020 11:22:37 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.73-1) UNRELEASED; urgency=low&lt;/p&gt;</content>
-    <author>
-      <name>eyedeekay</name>
-    </author>
-    <media:thumbnail height="30" width="30" url="https://avatars3.githubusercontent.com/u/8733713?s=60&amp;v=4"/>
-  </entry>
-  <entry>
-    <id>tag:github.com,2008:Repository/169256012/0.73</id>
-    <updated>2020-03-24T23:49:45Z</updated>
-    <link rel="alternate" type="text/html" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/tag/0.73"/>
-    <title>0.73</title>
-    <content type="html">&lt;p&gt;A simple plugin for configuring a Firefox based web browser to isolate I2P&lt;br&gt;
-Browsing to a single contextual identity, thus creating an I2P in Private&lt;br&gt;
-Browsing mode. It requires the use of a pre-installed I2P Router.&lt;br&gt;
-i2psetproxy.js (0.73-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Fix incomplete bugfix from 0.69 again&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Tue, 24 MAR 2020 19:48:14 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.71-1) UNRELEASED; urgency=low&lt;/p&gt;</content>
     <author>
       <name>eyedeekay</name>
     </author>

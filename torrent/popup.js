@@ -11,8 +11,11 @@ var TrpcCall = async function(meth, args) {
     myHeaders['Authorization'] =
       'Basic ' + btoa((server.username || '') + ':' + (server.btrpcpass || ''));
   }
-  console.log('(torrent) rpcurl', server.base_url + 'rpc');
-  return fetch(server.base_url + 'rpc', {
+
+  let req_url = server.bt_rpc_host
+  if (server.bt_rpc_port != 0) req_url += ":"+server.bt_rpc_port
+  console.log('(torrent) rpcurl', req_url);
+  return fetch(req_url + 'rpc', {
     method: 'POST',
     headers: myHeaders,
     body: JSON.stringify({ method: meth, arguments: args }),
