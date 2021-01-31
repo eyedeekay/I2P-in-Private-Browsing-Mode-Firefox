@@ -1,24 +1,24 @@
-var titlepref = chrome.i18n.getMessage('titlePreface');
-var titleprefpriv = chrome.i18n.getMessage('titlePrefacePrivate');
-var webpref = chrome.i18n.getMessage('webPreface');
-var webprefpriv = chrome.i18n.getMessage('webPrefacePrivate');
-var routerpref = chrome.i18n.getMessage('routerPreface');
-var routerprefpriv = chrome.i18n.getMessage('routerPrefacePrivate');
-var mailpref = chrome.i18n.getMessage('mailPreface');
-var mailprefpriv = chrome.i18n.getMessage('mailPrefacePrivate');
-var torrentpref = chrome.i18n.getMessage('torrentPreface');
-var torrentprefpriv = chrome.i18n.getMessage('torrentPrefacePrivate');
-var tunnelpref = chrome.i18n.getMessage('i2ptunnelPreface');
-var tunnelprefpriv = chrome.i18n.getMessage('i2ptunnelPrefacePrivate');
-var ircpref = chrome.i18n.getMessage('ircPreface');
-var ircprefpriv = chrome.i18n.getMessage('ircPrefacePrivate');
-var extensionpref = chrome.i18n.getMessage('extensionPreface');
-var muwirepref = chrome.i18n.getMessage('muwirePreface');
-var muwireprefpriv = chrome.i18n.getMessage('muwirePrefacePrivate');
-var botepref = chrome.i18n.getMessage('botePreface');
+var titlepref = chrome.i18n.getMessage("titlePreface");
+var titleprefpriv = chrome.i18n.getMessage("titlePrefacePrivate");
+var webpref = chrome.i18n.getMessage("webPreface");
+var webprefpriv = chrome.i18n.getMessage("webPrefacePrivate");
+var routerpref = chrome.i18n.getMessage("routerPreface");
+var routerprefpriv = chrome.i18n.getMessage("routerPrefacePrivate");
+var mailpref = chrome.i18n.getMessage("mailPreface");
+var mailprefpriv = chrome.i18n.getMessage("mailPrefacePrivate");
+var torrentpref = chrome.i18n.getMessage("torrentPreface");
+var torrentprefpriv = chrome.i18n.getMessage("torrentPrefacePrivate");
+var tunnelpref = chrome.i18n.getMessage("i2ptunnelPreface");
+var tunnelprefpriv = chrome.i18n.getMessage("i2ptunnelPrefacePrivate");
+var ircpref = chrome.i18n.getMessage("ircPreface");
+var ircprefpriv = chrome.i18n.getMessage("ircPrefacePrivate");
+var extensionpref = chrome.i18n.getMessage("extensionPreface");
+var muwirepref = chrome.i18n.getMessage("muwirePreface");
+var muwireprefpriv = chrome.i18n.getMessage("muwirePrefacePrivate");
+var botepref = chrome.i18n.getMessage("botePreface");
 
 function onError(err) {
-  console.log('(background)', err);
+  console.log("(background)", err);
 }
 
 function onContextGotLog(contexts) {
@@ -33,13 +33,13 @@ function onContextsGot(contexts) {
     console.log(`Name : ${context.name}`);
     ids.push(context.name);
   }
-  console.log('Checking new contexts');
+  console.log("Checking new contexts");
   if (ids.indexOf(titlepref) == -1) {
     browser.contextualIdentities
       .create({
         name: titlepref,
-        color: 'orange',
-        icon: 'fingerprint',
+        color: "orange",
+        icon: "fingerprint",
       })
       .then(onCreated, onNotCreated);
   }
@@ -47,8 +47,8 @@ function onContextsGot(contexts) {
     browser.contextualIdentities
       .create({
         name: webpref,
-        color: 'red',
-        icon: 'circle',
+        color: "red",
+        icon: "circle",
       })
       .then(onCreated, onNotCreated);
   }
@@ -56,8 +56,8 @@ function onContextsGot(contexts) {
     browser.contextualIdentities
       .create({
         name: routerpref,
-        color: 'blue',
-        icon: 'briefcase',
+        color: "blue",
+        icon: "briefcase",
       })
       .then(onCreated, onNotCreated);
   }
@@ -65,8 +65,8 @@ function onContextsGot(contexts) {
     browser.contextualIdentities
       .create({
         name: tunnelpref,
-        color: 'green',
-        icon: 'tree',
+        color: "green",
+        icon: "tree",
       })
       .then(onCreated, onNotCreated);
   }
@@ -74,8 +74,8 @@ function onContextsGot(contexts) {
     browser.contextualIdentities
       .create({
         name: mailpref,
-        color: 'yellow',
-        icon: 'briefcase',
+        color: "yellow",
+        icon: "briefcase",
       })
       .then(onCreated, onNotCreated);
   }
@@ -83,8 +83,8 @@ function onContextsGot(contexts) {
     browser.contextualIdentities
       .create({
         name: torrentpref,
-        color: 'purple',
-        icon: 'chill',
+        color: "purple",
+        icon: "chill",
       })
       .then(onCreated, onNotCreated);
   }
@@ -92,8 +92,8 @@ function onContextsGot(contexts) {
     browser.contextualIdentities
       .create({
         name: ircpref,
-        color: 'red',
-        icon: 'vacation',
+        color: "red",
+        icon: "vacation",
       })
       .then(onCreated, onNotCreated);
   }
@@ -101,8 +101,8 @@ function onContextsGot(contexts) {
     browser.contextualIdentities
       .create({
         name: muwirepref,
-        color: 'turquoise',
-        icon: 'gift',
+        color: "turquoise",
+        icon: "gift",
       })
       .then(onCreated, onNotCreated);
   }
@@ -110,30 +110,30 @@ function onContextsGot(contexts) {
     browser.contextualIdentities
       .create({
         name: botepref,
-        color: 'blue',
-        icon: 'fence',
+        color: "blue",
+        icon: "fence",
       })
       .then(onCreated, onNotCreated);
   }
 }
 
 function onContextsError() {
-  console.log('Error finding contextual identities, is the API enabled?');
+  console.log("Error finding contextual identities, is the API enabled?");
 }
 
 function onCreated(context) {
-  console.log(' ID:', context.cookieStoreId, 'created.');
+  console.log(" ID:", context.cookieStoreId, "created.");
 }
 
 function onNotCreated(context) {
-  console.log('ID:', context.cookieStoreId, 'not created.');
+  console.log("ID:", context.cookieStoreId, "not created.");
 }
 
 browser.contextualIdentities.query({}).then(onContextsGot, onContextsError);
 
 var gettingInfo = browser.runtime.getPlatformInfo();
 gettingInfo.then((got) => {
-  if (got.os != 'android') {
+  if (got.os != "android") {
     browser.windows.onCreated.addListener(themeWindow);
     browser.windows.onFocusChanged.addListener(themeWindow);
     browser.windows.onRemoved.addListener(themeWindow);
@@ -146,7 +146,7 @@ function themeWindowByTab(tabId) {
   function tabWindow(tab) {
     var gettingPlatformInfo = browser.runtime.getPlatformInfo();
     gettingPlatformInfo.then((got) => {
-      if (got.os == 'android') {
+      if (got.os == "android") {
         let getwindow = browser.tabs.get(tab.tabId);
         getwindow.then(themeWindow);
       } else {
@@ -155,7 +155,7 @@ function themeWindowByTab(tabId) {
       }
     });
   }
-  if (typeof tabId === 'number') {
+  if (typeof tabId === "number") {
     let tab = browser.tabs.get(tabId);
     tab.then(tabWindow);
   } else {
@@ -175,54 +175,50 @@ function isEmpty(obj) {
   return true;
 }
 
+let btheme = {
+  colors: {
+    frame: "#363A68",
+    toolbar: "#363A68",
+  },
+};
+
+let dtheme = {
+  colors: {
+    frame: "#4456B7",
+    toolbar: "#4456B7",
+  },
+};
+
 function themeWindow(window) {
   // Check if the window is in private browsing
   function onThemeError() {
-    console.log('theme color set error');
+    console.log("theme color set error");
   }
+
   function dynamicTheme() {
     if (window.incognito) {
-      browser.theme.update(window.id, {
-        colors: {
-          frame: '#4456B7',
-          toolbar: '#4456B7',
-        },
-      });
+      browser.theme.update(window.id, dtheme);
     } else {
-      browser.theme.update(window.id, {
-        colors: {
-          frame: '#4456B7',
-          toolbar: '#4456B7',
-        },
-      });
+      browser.theme.update(window.id, dtheme);
     }
   }
+
   function browserTheme() {
-    console.log('Active in I2P window');
+    console.log("Active in I2P window");
     if (window.incognito) {
-      browser.theme.update(window.id, {
-        colors: {
-          frame: '#363A68',
-          toolbar: '#363A68',
-        },
-      });
+      browser.theme.update(window.id, btheme);
     } else {
-      browser.theme.update(window.id, {
-        colors: {
-          frame: '#363A68',
-          toolbar: '#363A68',
-        },
-      });
+      browser.theme.update(window.id, btheme);
     }
   }
   function logTabs(tabInfo) {
     function onContextGotTheme(context) {
       if (context.name == titlepref) {
         browserTheme();
-        if (tabInfo[0].url.startsWith('https://')) {
+        if (tabInfo[0].url.startsWith("https://")) {
           browser.pageAction.setPopup({
             tabId: tabInfo[0].id,
-            popup: 'security.html',
+            popup: "security.html",
           });
           //console.log("(background) tabinfo", tabInfo[0].id)
           browser.pageAction.show(tabInfo[0].id);
@@ -230,46 +226,50 @@ function themeWindow(window) {
           //browser.pageAction.hide(tabInfo[0].id);
         }
       } else if (context.name == routerpref) {
-        console.log('Active in Router Console window');
+        console.log("Active in Router Console window");
         dynamicTheme();
       } else if (context.name == tunnelpref) {
-        console.log('Active in Hidden Services Manager window');
+        console.log("Active in Hidden Services Manager window");
         dynamicTheme();
       } else if (context.name == mailpref) {
-        console.log('Active in Web Mail window');
+        console.log("Active in Web Mail window");
         dynamicTheme();
       } else if (context.name == torrentpref) {
-        console.log('Active in Bittorrent window');
+        console.log("Active in Bittorrent window");
         dynamicTheme();
       } else if (context.name == botepref) {
-        console.log('Active in Bote window');
+        console.log("Active in Bote window");
         dynamicTheme();
       } else if (context.name == ircpref) {
-        console.log('Active in IRC window');
+        console.log("Active in IRC window");
         dynamicTheme();
       } else if (context.name == muwirepref) {
-        console.log('Active in MuWire window');
+        console.log("Active in MuWire window");
         dynamicTheme();
       }
     }
     if (
-      tabInfo[0].cookieStoreId != 'firefox-default' &&
-      tabInfo[0].cookieStoreId != 'firefox-private'
+      tabInfo[0].cookieStoreId != "firefox-default" &&
+      tabInfo[0].cookieStoreId != "firefox-private"
     ) {
       browser.contextualIdentities
         .get(tabInfo[0].cookieStoreId)
         .then(onContextGotTheme, onThemeError);
     } else {
-      console.log('Not active in I2P window');
+      console.log("Not active in I2P window");
       function unSetTheme(them) {
-        console.log('unsetting theme', them);
+        console.log("unsetting theme", them);
         if (Object.keys(them).length > 0) {
-          browser.theme.update(window.id, them.originalTheme);
+          try {
+            browser.theme.update(window.id, them.originalTheme);
+          }catch(e){
+            console.log("Original theme set error. Your theme must have an SVG in it.", e)
+          }
         } else {
           browser.theme.update(window.id, { colors: null });
         }
       }
-      browser.storage.local.get('originalTheme').then(unSetTheme, onError);
+      browser.storage.local.get("originalTheme").then(unSetTheme, onError);
     }
   }
 
@@ -283,62 +283,62 @@ function themeWindow(window) {
 function setTitle(window) {
   // Check if the window is in private browsing
   function onContextError() {
-    console.log('Context Error');
+    console.log("Context Error");
   }
   function setTitle(title, privtitle) {
     if (window.incognito) {
       browser.windows.update(window.id, {
-        titlePreface: privtitle + ': ',
+        titlePreface: privtitle + ": ",
       });
     } else {
       browser.windows.update(window.id, {
-        titlePreface: title + ': ',
+        titlePreface: title + ": ",
       });
     }
   }
   function logTabs(tabInfo) {
     function onContextGotTitle(context) {
       if (context.name == titlepref) {
-        console.log('Active in I2P window');
+        console.log("Active in I2P window");
         setTitle(titlepref, titleprefpriv);
       } else if (context.name == muwirepref) {
-        console.log('Active in MuWire window');
+        console.log("Active in MuWire window");
         setTitle(muwirepref, muwireprefpriv);
       } else if (context.name == routerpref) {
-        console.log('Active in Router Console window');
+        console.log("Active in Router Console window");
         setTitle(routerpref, routerprefpriv);
       } else if (context.name == botepref) {
-        console.log('Active in Bote window');
+        console.log("Active in Bote window");
         setTitle(botepref, boteprefpriv);
       } else if (context.name == tunnelpref) {
-        console.log('Active in Hidden Services Manager window');
+        console.log("Active in Hidden Services Manager window");
         setTitle(tunnelpref, tunnelprefpriv);
       } else if (context.name == mailpref) {
-        console.log('Active in I2P Web Mail window');
+        console.log("Active in I2P Web Mail window");
         setTitle(mailpref, mailprefpriv);
       } else if (context.name == torrentpref) {
-        console.log('Active in I2P Torrent window');
+        console.log("Active in I2P Torrent window");
         setTitle(torrentpref, torrentprefpriv);
       } else if (context.name == ircpref) {
-        console.log('Active in IRC window');
+        console.log("Active in IRC window");
         setTitle(ircpref, ircprefpriv);
       }
     }
 
     if (
-      tabInfo[0].cookieStoreId != 'firefox-default' &&
-      tabInfo[0].cookieStoreId != 'firefox-private'
+      tabInfo[0].cookieStoreId != "firefox-default" &&
+      tabInfo[0].cookieStoreId != "firefox-private"
     ) {
       browser.contextualIdentities
         .get(tabInfo[0].cookieStoreId)
         .then(onContextGotTitle, onContextError);
     } else if (window.incognito) {
       browser.windows.update(window.id, {
-        titlePreface: '',
+        titlePreface: "",
       });
     } else {
       browser.windows.update(window.id, {
-        titlePreface: '',
+        titlePreface: "",
       });
     }
   }
@@ -353,9 +353,9 @@ function setTitle(window) {
 var gettingListenerInfo = browser.runtime.getPlatformInfo();
 gettingListenerInfo.then((got) => {
   function onPlatformError() {
-    console.log('Error finding platform info');
+    console.log("Error finding platform info");
   }
-  if (got.os != 'android') {
+  if (got.os != "android") {
     browser.tabs.onCreated.addListener(() => {
       var getting = browser.windows.getCurrent({
         populate: true,
@@ -375,39 +375,31 @@ function handleUpdated(updateInfo) {
   function maybeSet(them) {
     console.log("original theme found:", them, Object.keys(them).length);
     try {
-      if (
-        Object.keys(them).length == 0 ||
-        (them.originalTheme.colors == null &&
-          them.originalTheme.images == null &&
-          them.originalTheme.properties == null)
-      ) {
-        if (updateInfo.theme.colors != null) {
-          if (
-            updateInfo.theme.colors.frame != "#4456B7" &&
-            updateInfo.theme.colors.frame != "#363A68"
-          ) {
-            function onSet() {
-              console.log("stored theme:", updateInfo.theme);
-            }
-            if (
-              updateInfo.theme.colors != null &&
-              updateInfo.theme.images != null &&
-              updateInfo.theme.properties != null
-            ) {
-              console.log("storing theme:", updateInfo.theme);
-              browser.storage.local
-                .set({ originalTheme: updateInfo.theme })
-                .then(onSet, onError);
-            }
+        console.log("testing theme", updateInfo.theme.colors.toolbar, "!=", btheme.colors.toolbar);
+        console.log("testing theme", updateInfo.theme.colors.toolbar, "!=", dtheme.colors.toolbar);
+        if (
+          updateInfo.theme.colors.toolbar != dtheme.colors.toolbar &&
+          updateInfo.theme.colors.toolbar != btheme.colors.toolbar
+        ) {
+          function onSet() {
+            console.log("stored theme:", updateInfo.theme);
           }
+          /*if (
+            updateInfo.theme.colors != null &&
+            updateInfo.theme.images != null &&
+            updateInfo.theme.properties != null
+          ) {*/
+            console.log("storing theme:", updateInfo.theme);
+            browser.storage.local
+              .set({ originalTheme: updateInfo.theme })
+              .then(onSet, onError);
+          //}
         }
-      } else {
-        console.log("keeping stored theme:", them);
-      }
     } catch (e) {
       console.log("theme storage error", e);
     }
   }
+  console.log("Handling theme", updateInfo);
   browser.storage.local.get("originalTheme").then(maybeSet, onError);
 }
 
