@@ -677,7 +677,7 @@ var coolheadersSetup = function (e) {
                 }
               }
               browser.pageAction.setPopup({
-                tabId: tabId.id,
+                tabId: e.tabId,
                 popup: "torrent.html",
               });
               browser.pageAction.setIcon({
