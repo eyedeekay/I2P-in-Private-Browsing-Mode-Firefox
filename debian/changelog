@@ -1,3 +1,9 @@
+i2psetproxy.js (0.97-1) UNRELEASED; urgency=low
+
+  * Fix theme issue, add x-i2p-torrentlocation HEADER support
+
+ -- idk <hankhill19580@gmail.com>  FRI, 5 FEB 2021 1:02:55 -0400
+
 i2psetproxy.js (0.95-1) UNRELEASED; urgency=low
 
   * Fix github #102 and #103
