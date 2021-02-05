@@ -624,8 +624,9 @@ var coolheadersSetup = function (e) {
               browser.pageAction.show(e.tabId);
             }
             break;
-          } else {
+          }
             if (header.name.toUpperCase().endsWith("I2P-TORRENTLOCATION")) {
+              console.log("(scrub) checking header torrentlocation", header);
               var imgs = document.getElementsByTagName("img");
               for (let img of imgs) {
                 if (tmpsrc.host == location.host) {
@@ -691,7 +692,6 @@ var coolheadersSetup = function (e) {
               browser.pageAction.show(e.tabId);
               break;
             }
-          }
         }
       }
       resolve({ responseHeaders: e.responseHeaders });

@@ -354,6 +354,7 @@ ndtest:
 		-u http://idk.i2p/video.html \
 		-u http://idk.i2p \
 		-u http://stats.i2p \
+		-u http://tvndxxkxcstbtqfxg7iigco6bj22ff2y6jxikmk7wqkyadkhrd4a.b32.i2p \
 		-u https://ramble.pw \
 		-u https://ramble.pw/f/i2p \
 
