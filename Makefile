@@ -37,11 +37,11 @@ clean: rc clean-artifacts
 ## EVEN RELEASES are AMO RELEASES
 ## ODD RELEASES are SELFHOSTED RELEASES
 
-MOZ_VERSION=0.96
-VERSION=0.95
+MOZ_VERSION=0.98
+VERSION=0.97
 
 ## INCREMENT THIS EVERY TIME YOU DO A RELEASE
-LAST_VERSION=0.93
+LAST_VERSION=0.95
 
 YELLOW=F7E59A
 ORANGE=FFC56D
@@ -354,6 +354,7 @@ ndtest:
 		-u http://idk.i2p/video.html \
 		-u http://idk.i2p \
 		-u http://stats.i2p \
+		-u http://tvndxxkxcstbtqfxg7iigco6bj22ff2y6jxikmk7wqkyadkhrd4a.b32.i2p \
 		-u https://ramble.pw \
 		-u https://ramble.pw/f/i2p \
 
