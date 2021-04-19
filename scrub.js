@@ -710,7 +710,7 @@ function getTabURL(tab) {
                 popup: "location.html",
               });
               browser.pageAction.setIcon({
-                path: "icons/i2plogo.png",
+                path: "icons/toopies.png",
                 tabId: tab.id,
               });
               browser.pageAction.setTitle({

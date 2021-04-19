@@ -220,6 +220,10 @@ function themeWindow(window) {
             tabId: tabInfo[0].id,
             popup: "security.html",
           });
+          browser.pageAction.setIcon({
+            path: "icons/toopies.png",
+            tabId: tabInfo[0].id,
+          });
           //console.log("(background) tabinfo", tabInfo[0].id)
           browser.pageAction.show(tabInfo[0].id);
         } else {
