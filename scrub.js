@@ -677,12 +677,12 @@ var coolheadersSetup = function (e) {
               tabId: e.tabId,
               popup: "torrent.html",
             });
-            if (tab.url.startsWith("https")){
+            if (tab.url.startsWith("https")) {
               browser.pageAction.setIcon({
                 path: "icons/infotoopiesbt.png",
                 tabId: e.tabId,
               });
-            }else{
+            } else {
               browser.pageAction.setIcon({
                 path: "icons/infotoopiebpt.png",
                 tabId: e.tabId,
@@ -705,18 +705,18 @@ var coolheadersSetup = function (e) {
 
 function getTabURL(tab) {
   if (tab.url.startsWith("https")) {
-    console.log(tab.url)
-    if (tab.url.endsWith(".i2p/")){
-        browser.pageAction.setPopup({
-          tabId: tab.id,
-          popup: "security.html",
-        });
-        browser.pageAction.setIcon({
-          path: "icons/infotoopies.png",
-          tabId: tab.id,
-        });
-          //console.log("(background) tabinfo", tabInfo[0].id)
-   }
+    console.log(tab.url);
+    if (tab.url.endsWith(".i2p/")) {
+      browser.pageAction.setPopup({
+        tabId: tab.id,
+        popup: "security.html",
+      });
+      browser.pageAction.setIcon({
+        path: "icons/infotoopies.png",
+        tabId: tab.id,
+      });
+      //console.log("(background) tabinfo", tabInfo[0].id)
+    }
     try {
       browser.tabs
         .sendMessage(tab.id, { req: "i2p-location" })

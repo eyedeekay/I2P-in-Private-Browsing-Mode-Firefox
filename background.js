@@ -214,11 +214,8 @@ function themeWindow(window) {
   function logTabs(tabInfo) {
     function onContextGotTheme(context) {
       if (context.name == titlepref) {
-          browserTheme();
-          browser.pageAction.show(tabInfo[0].id);
-        } else {
-          //browser.pageAction.hide(tabInfo[0].id);
-        }
+        browserTheme();
+        browser.pageAction.show(tabInfo[0].id);
       } else if (context.name == routerpref) {
         console.log("Active in Router Console window");
         dynamicTheme();
@@ -373,36 +370,36 @@ function handleUpdated(updateInfo) {
     console.log("original theme found:", them, Object.keys(them).length);
     try {
       if (updateInfo.theme.colors != null) {
-      console.log(
-        "testing theme",
-        updateInfo.theme.colors.toolbar,
-        "!=",
-        btheme.colors.toolbar
-      );
-      console.log(
-        "testing theme",
-        updateInfo.theme.colors.toolbar,
-        "!=",
-        dtheme.colors.toolbar
-      );
-      if (
-        updateInfo.theme.colors.toolbar != dtheme.colors.toolbar &&
-        updateInfo.theme.colors.toolbar != btheme.colors.toolbar
-      ) {
-        function onSet() {
-          console.log("stored theme:", updateInfo.theme);
-        }
-        /*if (
+        console.log(
+          "testing theme",
+          updateInfo.theme.colors.toolbar,
+          "!=",
+          btheme.colors.toolbar
+        );
+        console.log(
+          "testing theme",
+          updateInfo.theme.colors.toolbar,
+          "!=",
+          dtheme.colors.toolbar
+        );
+        if (
+          updateInfo.theme.colors.toolbar != dtheme.colors.toolbar &&
+          updateInfo.theme.colors.toolbar != btheme.colors.toolbar
+        ) {
+          function onSet() {
+            console.log("stored theme:", updateInfo.theme);
+          }
+          /*if (
             updateInfo.theme.colors != null &&
             updateInfo.theme.images != null &&
             updateInfo.theme.properties != null
           ) {*/
-        console.log("storing theme:", updateInfo.theme);
-        browser.storage.local
-          .set({ originalTheme: updateInfo.theme })
-          .then(onSet, onError);
-        //}
-      }
+          console.log("storing theme:", updateInfo.theme);
+          browser.storage.local
+            .set({ originalTheme: updateInfo.theme })
+            .then(onSet, onError);
+          //}
+        }
       }
     } catch (e) {
       console.log("theme storage error", e);
