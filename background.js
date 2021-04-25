@@ -214,17 +214,7 @@ function themeWindow(window) {
   function logTabs(tabInfo) {
     function onContextGotTheme(context) {
       if (context.name == titlepref) {
-        browserTheme();
-        if (tabInfo[0].url.startsWith("https://")) {
-          browser.pageAction.setPopup({
-            tabId: tabInfo[0].id,
-            popup: "security.html",
-          });
-          browser.pageAction.setIcon({
-            path: "icons/toopies.png",
-            tabId: tabInfo[0].id,
-          });
-          //console.log("(background) tabinfo", tabInfo[0].id)
+          browserTheme();
           browser.pageAction.show(tabInfo[0].id);
         } else {
           //browser.pageAction.hide(tabInfo[0].id);
@@ -382,6 +372,7 @@ function handleUpdated(updateInfo) {
   function maybeSet(them) {
     console.log("original theme found:", them, Object.keys(them).length);
     try {
+      if (updateInfo.theme.colors != null) {
       console.log(
         "testing theme",
         updateInfo.theme.colors.toolbar,
@@ -411,6 +402,7 @@ function handleUpdated(updateInfo) {
           .set({ originalTheme: updateInfo.theme })
           .then(onSet, onError);
         //}
+      }
       }
     } catch (e) {
       console.log("theme storage error", e);
