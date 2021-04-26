@@ -705,6 +705,14 @@ var coolheadersSetup = function (e) {
 
 function getTabURL(tab) {
   if (tab.url.startsWith("https")) {
+     browser.pageAction.setPopup({
+        tabId: tab.id,
+        popup: "security.html",
+      });
+         browser.pageAction.setIcon({
+         path: "icons/infotoopies.png",
+         tabId: tab.id,
+      });
     console.log(tab.url);
     if (tab.url.includes(".i2p")) {
 
@@ -733,15 +741,6 @@ function getTabURL(tab) {
                 });
                 browser.pageAction.show(tab.id);
               }
-            }else{
-      browser.pageAction.setPopup({
-        tabId: tab.id,
-        popup: "security.html",
-      });
-      browser.pageAction.setIcon({
-        path: "icons/infotoopies.png",
-        tabId: tab.id,
-      });
             }
           });
         console.log("(pageaction)", tab.id, tab.url);
@@ -781,6 +780,17 @@ function getTabURL(tab) {
       }
     }
   } else {
+    if (tab.url.includes(".i2p")) {
+      browser.pageAction.setPopup({
+        tabId: tab.id,
+        popup: "security.html",
+      });
+      browser.pageAction.setIcon({
+        path: "icons/infotoopie.png",
+        tabId: tab.id,
+      });
+      console.log(tab.url);
+    }
     try {
       browser.tabs
         .sendMessage(tab.id, { req: "i2p-torrentlocation" })
