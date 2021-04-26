@@ -705,17 +705,16 @@ var coolheadersSetup = function (e) {
 
 function getTabURL(tab) {
   if (tab.url.startsWith("https")) {
-     browser.pageAction.setPopup({
-        tabId: tab.id,
-        popup: "security.html",
-      });
-         browser.pageAction.setIcon({
-         path: "icons/infotoopies.png",
-         tabId: tab.id,
-      });
+    browser.pageAction.setPopup({
+      tabId: tab.id,
+      popup: "security.html",
+    });
+    browser.pageAction.setIcon({
+      path: "icons/infotoopies.png",
+      tabId: tab.id,
+    });
     console.log(tab.url);
     if (tab.url.includes(".i2p")) {
-
       //console.log("(background) tabinfo", tabInfo[0].id)
       try {
         browser.tabs
