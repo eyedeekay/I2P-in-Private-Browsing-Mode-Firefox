@@ -1,20 +1,19 @@
 body,
 html {
-  width: 450px
+  width: 600px
 }
 .panel {
   margin: 5px;
-  width: 450px;
-  height: 450px
+  width: 500px
 }
 .panel-section-header {
-  width: 450px
+  width: 500px
 }
 #text-section-torrents-header {
-  width: 450px
+  width: 500px
 }
 span.identity {
-  width: 450px;
+  width: 500px;
   display: block;
   margin-left: 1em
 }
