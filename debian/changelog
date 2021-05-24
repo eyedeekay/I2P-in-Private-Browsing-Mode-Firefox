@@ -1,4 +1,4 @@
-i2psetproxy.js (0.99-1) UNRELEASED; urgency=low
+i2psetproxy.js (0.101-1) UNRELEASED; urgency=low
 
   * Sweeping changes to styles
   * fix for issue when using noscript and visiting susimail
