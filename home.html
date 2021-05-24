@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href="home.css" rel="stylesheet">
+    <link href="search.css" rel="stylesheet">
+    <link href="sidebar.css" rel="stylesheet">
+    <title>
+    </title>
+</head>
+<body>
+    <!--<div>-->
+
+    <div class='background'>
+        <div class='content'>
+            <div class="text-section-header">
+                <h1 id="text-section-header">I2P Browsing</h1>
+            </div>
+
+            <div id="i2pbrowser-version">
+            </div>
+
+            <div id="i2pbrowser-description">
+                <p id="description">I2P in Private Browsing is a webextension to secure and enhance your I2P use in the browser.</p>
+
+                <p id="beta">This is an experimental product.</p>
+            </div>
+
+            <div id="readyness">
+                <!--<div id="consoleOn" class="hideIfI2PConsoleOff">
+              <img class="readyness" src="http://proxy.i2p/themes/console/images/local_up.png" alt="Proxy is not ready."/>
+              <span id="proxy-check">Proxy is ready.</span>
+            </div>-->
+                <!--<div id="proxyUnready" class="hideIfI2PProxyOn">The proxy is not ready yet.</div>-->
+
+                <div class="hideIfI2PProxyOff" id="proxyReady">
+                    <img alt="Proxy is not ready." class="readyness" src="http://proxy.i2p/themes/console/images/local_up.png"> <span id="proxy-check">Proxy is ready.</span>
+                </div>
+            </div>
+
+            <div class="hideIfI2PConsoleOff" id="onboarding">
+                <h3 id="onboardingTitle">New to I2P? Learn more here.</h3>
+
+                <h4 id="onboardingZero"><button class="showhider" id="onboardingButtonZero">Protect your Privacy</button>
+                </h4>
+
+                <p class="onboardingContent" id="onboardingContentZero">I2P Browser allows you to surf the internet using the private and secure I2P network. When using it, you are protected against tracking, surveillance, and censorship as a first-class participant in the I2P network. I2P Browser isolates cookies and deletes your browser history after your session. These modifications ensure your privacy and security are protected in the browser.</p>
+
+                <h4 id="onboardingOne"><button class="showhider" id="onboardingButtonOne">Configure your Experience</button>
+                </h4>
+
+                <p class="onboardingContent" id="onboardingContentOne">We also provide you with additional settings for bumping up your browser security. Our Security Settings allow you to block elements that could be used to attack your computer. Click below to see what the different options do. Note: By default, NoScript and HTTPS Everywhere are not included on the toolbar, but you can customize your toolbar to add them. With all the security and privacy features provided by I2P, your experience while browsing the internet may be a little different. Things may be a bit slower, and depending on your security level, some elements may not work or load. You may also be asked to prove you are a human and not a robot.</p>
+
+                <h4 id="onboardingTwo"><button class="showhider" id="onboardingButtonTwo">Share Files</button>
+                </h4>
+
+                <p class="onboardingContent" id="onboardingContentTwo">I2P is capable of using peer-to-peer applications like BitTorrent, protecting your identity when you share files. Our anonymous bittorrent client is available in the browser.</p>
+
+                <h4 id="onboardingThree"><button class="showhider" id="onboardingButtonThree">Hidden e-mail</button>
+                </h4>
+
+                <p class="onboardingContent" id="onboardingContentThree">There is also an anonymous e-mail service available inside of I2P, which is accessible from our browser via the menu directly below.</p>
+
+                <h4 id="onboardingFour"><button class="showhider" id="onboardingButtonFour">Experience Tips</button>
+                </h4>
+
+                <p class="onboardingContent" id="onboardingContentFour">With all the security and privacy features provided by I2P, your experience while browsing the internet may be a little different. Things may be a bit slower, and depending on your security level, some elements may not work or load. You may also be asked to prove you are a human and not a robot.</p>
+            </div>
+            <!--<p class="hideIfI2POn">&aboutI2p.warn_not_running; <a href="about:i2p">&aboutI2p.refresh_text;</a> &aboutI2p.reccommend_not_running;</p>-->
+
+            <div class="application-info">
+                <p class="hideIfI2PConsoleOff">
+                </p>
+
+                <h3 id="applicationHeader">Applications</h3>
+
+                <p id="applicationExplain">These applications use I2P to provide them with security and privacy.</p>
+
+                <ul>
+                    <!--<li class="application">
+                        <a class="applicationName" href="http://legwork.i2p" id="window-link-toopie" target="_blank">Search:</a> <span class="applicationDesc" id="search">Legwork is an in-I2P search engine.</span>
+                        <div class="topnav">
+                            <form action="http://legwork.i2p/yacysearch.html?" method="get">
+                                <input id="search-query" name="query" placeholder="Search on legwork.i2p(Opens a new tab)" type="search"> <input id="search-submit" text="Submit" type="submit">
+                            </form>
+                        </div>
+                    </li>-->
+
+                    <li class="application">
+                        <a class="applicationName" href="toopie.html" id="window-visit-toopie">Toopie</a> <span class="applicationDesc" id="toopie">For information about your I2P router status, go here:</span>
+                    </li>
+
+                    <li class="application">
+                        <a class="applicationName" href="http://127.0.0.1:7657/" id="window-visit-router">Router Console</a> <span class="applicationDesc" id="routerConsole">The entrypoint for all other I2P applications is the I2P Router Console. To visit it, click here.</span>
+                    </li>
+
+                    <li class="application">
+                        <a class="applicationName" href="http://127.0.0.1:7657/i2ptunnel" id="window-visit-i2ptunnel">Hidden Services Manager</a> <span class="applicationDesc" id="i2ptunnel">I2P has a web-based interface for configuring .i2p services like web sites, to set up your own web sites, go here:</span>
+                    </li>
+
+                    <li class="application">
+                        <a class="applicationName" href="http://127.0.0.1:7657/susimail" id="window-visit-susimail">E-Mail</a> <span class="applicationDesc" id="susimail">I2P also bundles a webmail client which can be used to access in-I2P e-mail. To use it, go here:</span>
+                    </li>
+
+                    <li class="application">
+                        <a class="applicationName" href="http://127.0.0.1:7657/i2psnark" id="window-visit-snark">BitTorrent</a> <span class="applicationDesc" id="snark">I2P is capable of anonymous Peer-to-Peer file sharing, to use the built-in bittorrent client go here:</span>
+                    </li>
+                </ul>
+
+                <p>
+                </p>
+            </div>
+
+            <div class="extended-info">
+                <h3 id="links"><button class="showhider" id="fliplinks">Links</button>
+                </h3>
+
+                <div id="info-content">
+                    <p id="linksExplain">If you want to get more information about I2P, you can visit these links.</p>
+
+                    <p>
+                    </p>
+
+                    <ul>
+                        <li class="application">
+                            <a href="http://i2p-projekt.i2p/" id="window-visit-i2p">I2P Project Homepage:</a> <span class="applicationDesc" id="i2ppage">More information is available here.</span>
+                        </li>
+
+                        <li class="application">
+                            <a href="/index.html" id="window-visit-homepage">Webextension Homepage:</a> <span class="applicationDesc" id="webpage">More information is available here.</span>
+                        </li>
+
+                        <li class="application">
+                            <a href="http://git.idk.i2p/idk/I2P-in-Private-Browsing-Mode-Firefox" id="window-visit-sources">Source Code:</a> <span class="applicationDesc" id="sources">Browse the source of this webextension or contribute here.</span>
+                        </li>
+
+                        <li class="application">
+                            <a href="http://git.idk.i2p/idk/I2P-in-Private-Browsing-Mode-Firefox/-/releases" id="window-visit-releases">Releases:</a> <span class="applicationDesc" id="releases">Check for new releases here.</span>
+                        </li>
+                    </ul>
+
+                    <p>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="home.js" type="text/javascript"></script> 
+    <script src="content.js" type="text/javascript"></script> <!--</div>-->
+</body>
+</html>
