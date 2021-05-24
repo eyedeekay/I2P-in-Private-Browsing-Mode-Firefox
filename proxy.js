@@ -188,8 +188,6 @@ var handleContextProxyRequest = async function (requestDetails) {
           port: getPort(),
         };
         return proxy;
-      } else if (extensionHost(requestDetails)) {
-        return;
       } else if (i2pHost(requestDetails.url)) {
         var tab = tabGet(requestDetails.tabId);
         requestDetails.tabId = tab;
@@ -197,6 +195,8 @@ var handleContextProxyRequest = async function (requestDetails) {
         var proxy = await context.then(handleProxyRequest);
         //console.log('(proxy)Returning I2P Proxy', proxy);
         return proxy;
+      } else if (extensionHost(requestDetails)) {
+        return;
       } else {
         var tab = tabGet(requestDetails.tabId);
         var context = tab.then(contextGet);
