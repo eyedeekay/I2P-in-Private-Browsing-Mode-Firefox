@@ -19,8 +19,10 @@ function routerHost(url) {
         console.log("(urlcheck) Torrent application path", final);
         return "i2psnark";
       } else if (final === "webmail" || final === "susimail") {
-        console.log("(urlcheck) Mail application path", final);
-        return "webmail";
+        if (!url.includes(".css")) {
+          console.log("(urlcheck) Mail application path", final);
+          return "webmail";
+        }
       } else if (final.startsWith("MuWire")) {
         if (!url.includes(".png")) {
           console.log("(urlcheck) MuWire application path", final);
@@ -35,6 +37,8 @@ function routerHost(url) {
         final === "home" ||
         final === "console" ||
         final === "dns" ||
+        final === "susidns" ||
+        final.startsWith("susidns") ||
         final === "sitemap" ||
         final.startsWith("config")
       ) {

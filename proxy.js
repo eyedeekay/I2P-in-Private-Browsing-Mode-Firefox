@@ -188,7 +188,7 @@ var handleContextProxyRequest = async function (requestDetails) {
           port: getPort(),
         };
         return proxy;
-      } else if (extensionHost(requestDetails.url)) {
+      } else if (extensionHost(requestDetails)) {
         return;
       } else if (i2pHost(requestDetails.url)) {
         var tab = tabGet(requestDetails.tabId);

@@ -1,95 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <link href="/home.css" rel="stylesheet">
-    <link href="options.css" rel="stylesheet">
     <title>
     </title>
 </head>
 <body>
-    <section class="scheme-options">
-        <span class="title">Proxy Scheme:</span> <select id="proxy_scheme">
-            <option selected value="http">
-                HTTP
-            </option>
-            <option value="socks5">
-                SOCKS5
-            </option>
-        </select>
-    </section>
-
-    <section class="scheme-options">
-        <span class="title">Bookmarks Status:</span> <input id="bookmarksState" name="bookmarksstate" type="checkbox" value="bookmarksstate"> <label for="bookmarksState">Bookmarks were created at install-time. <button id="bookmarksButton" type="submit">Re-Create Bookmarks</button></label>
-    </section>
-
-    <section class="scheme-options proxy-options" id="proxy-options">
-        <label for="bookmarksState"></label>
-        <div class="title">
-            <label for="bookmarksState">Proxy Options</label>
-        </div>
-        <label for="bookmarksState"></label>
-        <p id="proxyHelpText"><label for="bookmarksState"></label>
-        </p>
-        <label for="bookmarksState"><label id="portText">Host:</label> <input data="host" id="host" type="text" value="127.0.0.1">
-        <br>
-        <label id="hostText">Port:</label> <input data="port" id="port" type="text" value="4444"></label>
-    </section>
-    <!--<section class="scheme-options identity-options">
-      <div class="panel">
-        <div id="identity-list">Identity list?</div>
-      </div>
-    </section>-->
-
-    <section class="scheme-options console-options" id="console-options">
-        <div>
-            <div class="title">
-                Router Console Options
-            </div>
-
-            <p id="controlHelpText">Configure your router console options here.</p>
-            <label id="controlPortText">Console Host:</label> <input data="controlhost" id="controlhost" type="text" value="127.0.0.1">
-            <br>
-            <label id="controlHostText">Console Port:</label> <input data="controlport" id="controlport" type="text" value="7657">
-        </div>
-    </section>
-
-    <section class="scheme-options control-options" id="control-options">
-        <div>
-            <div class="title">
-                I2PControl RPC Client Options
-            </div>
-
-            <p id="rpcHelpText">Configure your I2PControl options here.</p>
-            <label id="rpcPortText">Control Host:</label> <input data="rpchost" id="rpchost" type="text" value="127.0.0.1">
-            <br>
-            <label id="rpcHostText">Control Port:</label> <input data="rpcport" id="rpcport" type="text" value="7657">
-            <br>
-            <label id="rpcPathText">Control Path:</label> <input data="rpcpath" id="rpcpath" type="text" value="jsonrpc">
-            <br>
-            <label id="rpcPassText">Control Password:</label> <input data="rpcpass" id="rpcpass" type="text" value="itoopie">
-        </div>
-    </section>
-
-    <section class="scheme-options transmission-options" id="transmission-options">
-        <div>
-            <div class="title">
-                Bittorrent RPC Client Options
-            </div>
-
-            <p id="rpcHelpText">Configure your Bittorrent options here.</p>
-            <label id="btRpcHostText">Torrent RPC Host:</label> <input data="btrpchost" id="btrpchost" type="text" value="127.0.0.1">
-            <br>
-            <label id="btRpcPortText">Torrent RPC Port:</label> <input data="btrpcport" id="btrpcport" type="text" value="7657">
-            <br>
-            <label id="btRpcPathText">Torrent RPC Path:</label> <input data="btrpcpath" id="btrpcpath" type="text" value="transmission/">
-            <br>
-            <label id="rpcPassText">Torrent RPC Password:</label> <input data="btrpcpass" id="btrpcpass" type="text" value="">
-        </div>
-    </section>
-    <input id="save-button" type="button" value="Save preferences"> 
-    <script src="options.js"></script> 
-    <script src="/bookmarks.js"></script> <!--<script src="/torrent/browser-polyfill.min.js"></script>
-    <script src="/torrent/options.js"></script>-->
 </body>
 </html>

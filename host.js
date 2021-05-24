@@ -34,14 +34,28 @@ function localHost(url) {
 }
 
 function extensionHost(url) {
+  var prefix = browser.runtime
+    .getURL("")
+    .replace("moz-extension://", "")
+    .replace("/", "");
   if (url.originUrl !== undefined) {
-    var res = url.originUrl.startsWith(browser.runtime.getURL(""));
+    var originUrl = url.originUrl
+      .replace("moz-extension://", "")
+      .replace("/", "");
+    //    console.log("(urlcheck) Extension application path", originUrl);
+    //    console.log("(urlcheck) Extension application path", prefix);
+    var res = originUrl.startsWith(prefix);
+    //    console.log("(urlcheck) Extension application path", res);
     if (res) return res;
   }
-  if (url.url !== undefined) {
-    var res = url.url.startsWith(browser.runtime.getURL(""));
+  if (url.documentUrl !== undefined) {
+    //    console.log("(urlcheck) Extension application path", originUrl);
+    //    console.log("(urlcheck) Extension application path", prefix);
+    var res = originUrl.startsWith(prefix);
+    //    console.log("(urlcheck) Extension application path", res);
     if (res) return res;
   }
+  console.log("(urlcheck) Extension application path", url);
 }
 
 function i2pHostName(url) {
@@ -100,8 +114,10 @@ function routerHost(url) {
         console.log("(urlcheck) Torrent application path", final);
         return "i2psnark";
       } else if (final === "webmail" || final === "susimail") {
-        console.log("(urlcheck) Mail application path", final);
-        return "webmail";
+        if (!url.includes(".css")) {
+          console.log("(urlcheck) Mail application path", final);
+          return "webmail";
+        }
       } else if (final.startsWith("MuWire")) {
         if (!url.includes(".png")) {
           console.log("(urlcheck) MuWire application path", final);

@@ -464,20 +464,37 @@ browser.webRequest.onHeadersReceived.addListener(
 function onClosedWindowCheck() {
   var getContext = browser.contextualIdentities.query({ name: titlepref });
   function checkTabs(ctx) {
-    function conditionallyDelete(tabs) {
-      if (tabs.length == 0) {
-        browser.contextualIdentities.remove(ctx[0].cookieStoreId);
-        browser.contextualIdentities
-          .query({})
-          .then(onContextsGot, onContextsError);
+    for (let context in ctx) {
+      function conditionallyDelete(tabs) {
+        if (tabs.length == 0) {
+          browser.contextualIdentities.remove(context.cookieStoreId);
+        }
       }
+      var tabs = browser.tabs.query({ cookieStoreId: context.cookieStoreId });
+      tabs.then(conditionallyDelete, onError);
     }
-    var tabs = browser.tabs.query({ cookieStoreId: ctx[0].cookieStoreId });
-    tabs.then(conditionallyDelete, onError);
   }
   getContext.then(checkTabs, onError);
 }
 
+function onOpenedWindowCheck() {
+  var getContext = browser.contextualIdentities.query({ name: titlepref });
+  function checkTabs(ctx) {
+    for (let context in ctx) {
+      function conditionallyDelete(tabs) {
+        if (tabs.length == 0) {
+          browser.contextualIdentities.remove(context.cookieStoreId);
+        }
+      }
+      var tabs = browser.tabs.query({ cookieStoreId: context.cookieStoreId });
+      tabs.then(conditionallyDelete, onError);
+    }
+  }
+  getContext.then(checkTabs, onError);
+}
+
+onOpenedWindowCheck();
+
 browser.tabs.onRemoved.addListener(onClosedWindowCheck);
 browser.windows.onRemoved.addListener(onClosedWindowCheck);
-browser.windows.onCreated.addListener(onClosedWindowCheck);
+browser.windows.onCreated.addListener(onOpenedWindowCheck);

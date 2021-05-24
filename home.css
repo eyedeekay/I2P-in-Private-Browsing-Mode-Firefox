@@ -353,5 +353,6 @@ video {
 }
 
 .hidden {
+  visibility: none;
   display: none
 }
