@@ -168,7 +168,7 @@ moz-sign: version clean-artifacts
 	@echo "Using the 'sign' target to instantly sign an extension for self-distribution"
 	@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
 	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
-	$(HOME)/node_modules/web-ext-submit/extender.sh --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET)
+	$(HOME)/node_modules/web-ext/bin/web-ext sign --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET)
 	make copyss
 	sleep 5
 
@@ -182,7 +182,7 @@ moz-submit: moz-version
 	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
 	mv manifest.json .manifest.json
 	grep -v update_url .manifest.json > manifest.json
-	web-ext sign --channel listed --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
+	$(HOME)/node_modules/web-ext/bin/web-ext sign --channel listed --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
 	sleep 5
 	mv .manifest.json manifest.json
 
@@ -328,7 +328,7 @@ upload-updatemanifest:
 	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t docs -n "updateManifest.json" -f updateManifest.json
 
 webext:
-	web-ext run -u "about:devtools-toolbox?type=extension&id=i2ppb%40eyedeekay.github.io"
+	$(HOME)/node_modules/web-ext/bin/web-ext run --firefox /usr/bin/firefox -u "about:devtools-toolbox?type=extension&id=i2ppb%40eyedeekay.github.io"
 
 snark-mirror:
 	http_proxy=http://127.0.0.1:4444 wget -c -O ../i2psnark-rpc.su3 http://stats.i2p/i2p/plugins/i2psnark-rpc.su3
@@ -345,7 +345,7 @@ wire:
 	cp -v "../i2ppb-$(VERSION)@eyedeekay.github.io.xpi" "$(HOME)/i2p/MuWireDownloads/"
 
 ndtest:
-	web-ext run -u about:debugging \
+	$(HOME)/node_modules/web-ext/bin/web-ext run --firefox /usr/bin/firefox -u about:debugging \
 		-u http://127.0.0.1:7657/home \
 		-u http://127.0.0.1:7657/i2ptunnel \
 		-u http://127.0.0.1:7657/i2psnark \
@@ -359,7 +359,7 @@ ndtest:
 		-u https://ramble.pw/f/i2p \
 
 lht-test:
-	web-ext run -u about:debugging \
+	$(HOME)/node_modules/web-ext/bin/web-ext run --firefox /usr/bin/firefox -u about:debugging \
 		-u http://localhost:7657/home \
 		-u http://localhost:7657/i2ptunnel \
 		-u http://localhost:7657/i2psnark \

@@ -27,7 +27,7 @@
   ],
   "manifest_version": 2,
   "name": "__MSG_extensionName__",
-  "version": "0.95",
+  "version": "0.99",
   "description": "__MSG_extensionDescription__",
   "homepage_url": "https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox",
   "icons": {
@@ -49,7 +49,7 @@
   "page_action": {
     "browser_style": true,
     "default_title": "__MSG_toopieTLS__",
-    "default_icon": "icons/toopie.png",
+    "default_icon": "icons/i2plogo.png",
     "show_matches": [
       "http://*.i2p/*",
       "https://*.i2p/*",
