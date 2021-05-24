@@ -1,3 +1,10 @@
+i2psetproxy.js (0.99-1) UNRELEASED; urgency=low
+
+  * Sweeping changes to styles
+  * fix for issue when using noscript and visiting susimail
+
+ -- idk <hankhill19580@gmail.com>  Mon, 24 May 2021 2:05:21 -0400
+
 i2psetproxy.js (0.97-1) UNRELEASED; urgency=low
 
   * Fix theme issue, add x-i2p-torrentlocation HEADER support
