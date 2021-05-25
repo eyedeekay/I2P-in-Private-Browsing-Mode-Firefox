@@ -1,3 +1,9 @@
+i2psetproxy.js (0.103-1) UNRELEASED; urgency=low
+
+  * Fix for double-test issue on /home.html page in the extension
+
+ -- idk <hankhill19580@gmail.com> Tue, 25 May 2021 16:26:58 -0400
+
 i2psetproxy.js (0.101-1) UNRELEASED; urgency=low
 
   * Sweeping changes to styles

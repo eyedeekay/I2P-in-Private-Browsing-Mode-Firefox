@@ -8,6 +8,8 @@ var ircpref = chrome.i18n.getMessage("ircPreface");
 var extensionpref = chrome.i18n.getMessage("extensionPreface");
 var muwirepref = chrome.i18n.getMessage("muwirePreface");
 var botepref = chrome.i18n.getMessage("botePreface");
+var blogpref = chrome.i18n.getMessage("blogPreface");
+var blogprefpriv = chrome.i18n.getMessage("blogPrefacePrivate");
 
 var contextScrub = async function (requestDetails) {
   function onHeaderError() {
@@ -85,6 +87,9 @@ var notMyContextNotMyProblem = async function () {
   });
   var context7 = await browser.contextualIdentities.query({
     name: botepref,
+  });
+  var context8 = await browser.contextualIdentities.query({
+    name: blogpref,
   });
   var othercontexts = [];
   console.log("Contexts:", contexts);
@@ -489,6 +494,50 @@ var contextSetup = function (requestDetails) {
         console.log("(isolate)Context Error", error);
       }
     };
+    var blogTabFind = async function (tabId) {
+      try {
+        var context = await browser.contextualIdentities.query({
+          name: blogpref,
+        });
+        if (tabId.cookieStoreId != context[0].cookieStoreId) {
+          if (requestDetails.url.includes(":8084")) {
+            function Create() {
+              function onCreated(tab) {
+                function closeOldTab(tabs) {
+                  if (tabId.id != tab.id) {
+                    console.log("(isolate) Closing un-isolated tab", tabId.id);
+                    console.log("in favor of", tab.id);
+                    console.log("with context", tab.cookieStoreId);
+                    browser.tabs.remove(tabId.id);
+                    browser.tabs.move(tab.id, { index: 0 });
+                  }
+                  for (index = 0; index < tabs.length; index++) {
+                    if (index != tabs.length - 1)
+                      browser.tabs.remove(tabs[index].id);
+                  }
+                }
+                var pins = browser.tabs.query({
+                  cookieStoreId: context[0].cookieStoreId,
+                });
+                pins.then(closeOldTab, onError);
+              }
+              var created = browser.tabs.create({
+                active: true,
+                pinned: true,
+                cookieStoreId: context[0].cookieStoreId,
+                url: requestDetails.url,
+              });
+              created.then(onCreated, onContextError);
+            }
+            var gettab = browser.tabs.get(tabId.id);
+            gettab.then(Create, onContextError);
+            return tabId;
+          }
+        }
+      } catch (error) {
+        console.log("(isolate)Context Error", error);
+      }
+    };
     var tabGet = async function (tabId) {
       try {
         //console.log("(isolate)Tab ID from Request", tabId);
@@ -540,8 +589,13 @@ var contextSetup = function (requestDetails) {
           }
         } else {
           if (localhost) {
-            var irctab = tab.then(ircTabFind, onContextError);
-            return requestDetails;
+            if (localhost === "blog") {
+              var routertab = tab.then(blogTabFind, onContextError);
+              return requestDetails;
+            } else if (localhost === "irc") {
+              var irctab = tab.then(ircTabFind, onContextError);
+              return requestDetails;
+            }
           }
         }
         //        if (oldtab.cookieStoreId == 'firefox-default') {

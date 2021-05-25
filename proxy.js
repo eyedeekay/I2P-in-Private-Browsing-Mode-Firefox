@@ -5,6 +5,8 @@ var torrentpref = chrome.i18n.getMessage("torrentPreface");
 var routerpref = chrome.i18n.getMessage("routerPreface");
 var routerprefpriv = chrome.i18n.getMessage("routerPrefacePrivate");
 var ircpref = chrome.i18n.getMessage("ircPreface");
+var blogpref = chrome.i18n.getMessage("blogPreface");
+var blogprefpriv = chrome.i18n.getMessage("blogPrefacePrivate");
 
 browser.privacy.network.peerConnectionEnabled.set({
   value: true,
@@ -37,6 +39,21 @@ var handleContextProxyRequest = async function (requestDetails) {
       return proxy;
     }
   }
+  function blogProxy() {
+    if (!requestDetails.url.includes("8084")) {
+      proxy = {
+        type: getScheme(),
+        host: getHost(),
+        port: getPort(),
+      };
+      return proxy;
+    }
+    if (requestDetails.url.includes(":8084")) {
+      proxy = null;
+      return proxy;
+    }
+  }
+
   function btProxy() {
     proxy = routerProxy();
     if (requestDetails.url.includes(":7662")) {
@@ -96,6 +113,9 @@ var handleContextProxyRequest = async function (requestDetails) {
         proxy = routerProxy();
         if (context.name == ircpref) {
           proxy = ircProxy();
+          return proxy;
+        } else if (context.name == blogpref) {
+          proxy = blogProxy();
           return proxy;
         } else if (context.name == titlepref) {
           proxy = mainProxy();

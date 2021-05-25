@@ -16,6 +16,8 @@ var extensionpref = chrome.i18n.getMessage("extensionPreface");
 var muwirepref = chrome.i18n.getMessage("muwirePreface");
 var muwireprefpriv = chrome.i18n.getMessage("muwirePrefacePrivate");
 var botepref = chrome.i18n.getMessage("botePreface");
+var blogpref = chrome.i18n.getMessage("blogPreface");
+var blogprefpriv = chrome.i18n.getMessage("blogPrefacePrivate");
 
 function onError(err) {
   console.log("(background)", err);
@@ -40,6 +42,15 @@ function onContextsGot(contexts) {
         name: titlepref,
         color: "orange",
         icon: "fingerprint",
+      })
+      .then(onCreated, onNotCreated);
+  }
+  if (ids.indexOf(blogpref) == -1) {
+    browser.contextualIdentities
+      .create({
+        name: blogpref,
+        color: "pink",
+        icon: "pet",
       })
       .then(onCreated, onNotCreated);
   }
@@ -234,6 +245,9 @@ function themeWindow(window) {
       } else if (context.name == ircpref) {
         console.log("Active in IRC window");
         dynamicTheme();
+      } else if (context.name == blogpref) {
+        console.log("Active in Blog window");
+        dynamicTheme();
       } else if (context.name == muwirepref) {
         console.log("Active in MuWire window");
         dynamicTheme();
@@ -310,6 +324,9 @@ function setTitle(window) {
       } else if (context.name == mailpref) {
         console.log("Active in I2P Web Mail window");
         setTitle(mailpref, mailprefpriv);
+      } else if (context.name == blogpref) {
+        console.log("Active in I2P Blog window");
+        setTitle(blogpref, blogprefpriv);
       } else if (context.name == torrentpref) {
         console.log("Active in I2P Torrent window");
         setTitle(torrentpref, torrentprefpriv);

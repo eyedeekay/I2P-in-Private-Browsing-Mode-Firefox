@@ -197,6 +197,9 @@ function showTorrentsMenu() {
 }
 
 function goHome() {
+  function onTabError() {
+    console.log("Help tab created");
+  }
   function gotProxyInfo(info) {
     let port = info.value.http.split(":")[1];
     if (port == "7644") {

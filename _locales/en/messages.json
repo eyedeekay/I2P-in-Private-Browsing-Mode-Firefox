@@ -16,7 +16,7 @@
     "description": "Description of the extension."
   },
   "extensionVersion": {
-    "message": "0.99",
+    "message": "0.103",
     "description": "Version of the extension."
   },
   "proxyFailedStatus": {
@@ -165,6 +165,14 @@
   },
   "ircPrefacePrivate": {
     "message": "Dispatch IRC (Private)",
+    "description": "Preface for the browser titlebar"
+  },
+  "blogPreface": {
+    "message": "Blog",
+    "description": "Preface for the browser titlebar"
+  },
+  "blogPrefacePrivate": {
+    "message": "Blog (Private)",
     "description": "Preface for the browser titlebar"
   },
   "botePreface": {
