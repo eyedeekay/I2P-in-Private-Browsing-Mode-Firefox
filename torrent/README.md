@@ -1,4 +1,4 @@
-Acknowledgement
+Acknowledgementindex
 ===============
 
 **Many, many thanks to the [Transmitter](https://github.com/myfreeweb/transmitter)
@@ -33,7 +33,7 @@ To install the plugin, go to [http://127.0.0.1:7657/configplugins](http://127.0.
 and scroll down to the section of the page where it says "Installation from URL"
 and paste the following URL:
 
-```http://stats.i2p/i2p/plugins/i2psnark-rpc.su3```
+`http://stats.i2p/i2p/plugins/i2psnark-rpc.su3`
 
 Click the "Install Plugin" button and you'll be ready to go. Now, open the
 extension options menu, and just click "Save." The defaults are correct for use

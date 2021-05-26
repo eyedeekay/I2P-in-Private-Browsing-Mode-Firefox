@@ -80,3 +80,14 @@ fetch("http://127.0.0.1:7657/themes/console/light/images/i2plogo.png")
     var consoleLinks = document.querySelectorAll(".application-info");
     hide(consoleLinks);
   });
+
+fetch("http://127.0.0.1:7657/jsonrpc/")
+  .then((myJson) => {
+    var toopieLinks = document.querySelectorAll(".window-visit-toopie");
+    unhide(toopieLinks);
+  })
+  .catch((error) => {
+    var toopieLinks = document.querySelectorAll(".window-visit-toopie");
+    hide(toopieLinks);
+  });
+

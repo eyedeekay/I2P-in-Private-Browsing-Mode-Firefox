@@ -1,5 +1,8 @@
-i2pcontrol.js
-=============
+toopie.html/i2pcontrol.js
+=========================
 
-This is inside of the webextension for now, but it's actually a fully-fledged,
-standalone library for talking to i2pcontrol.
+To enable toopie.html, the built in I2P monitoring system in this webextension,
+go to the [Web App Configuration page in the I2P Router and start I2PControl](http://127.0.0.1:7657/configwebapps).
+Click the "Start" button next to the menu item that says `jsonrpc`.
+
+- ![i2pcontrol.png](i2pcontrol.png)

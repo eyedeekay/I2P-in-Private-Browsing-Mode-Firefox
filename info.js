@@ -123,6 +123,12 @@ document.addEventListener("click", (clickEvent) => {
   } else if (clickEvent.target.id === "window-visit-index") {
     console.log("attempting to create index tab");
     goIndex();
+  } else if (clickEvent.target.id === "window-visit-torrent") {
+    console.log("attempting to create torrent tab");
+    goTorrent();
+  } else if (clickEvent.target.id === "window-visit-help") {
+    console.log("attempting to create torrent tab");
+    goHelp();
   } else if (clickEvent.target.id === "window-visit-homepage") {
     console.log("attempting to create homepage tab");
     goHome();
@@ -226,12 +232,36 @@ function goHome() {
 
 function goIndex() {
   function onTabError() {
-    console.log("Help tab created");
+    console.log("Help tab not created");
   }
   let createData = {
     url: "index.html",
   };
   console.log("visiting help");
+  let creating = browser.tabs.create(createData);
+  creating.then(onTabCreated, onTabError);
+}
+
+function goTorrent() {
+  function onTabError() {
+    console.log("Torrent Help tab not created");
+  }
+  let createData = {
+    url: "torrent/index.html",
+  };
+  console.log("visiting torrent help");
+  let creating = browser.tabs.create(createData);
+  creating.then(onTabCreated, onTabError);
+}
+
+function goHelp() {
+  function onTabError() {
+    console.log("Torrent Help tab not created");
+  }
+  let createData = {
+    url: "i2pcontrol/index.html",
+  };
+  console.log("visiting torrent help");
   let creating = browser.tabs.create(createData);
   creating.then(onTabCreated, onTabError);
 }

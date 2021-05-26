@@ -383,9 +383,30 @@ function UpdateContents() {
 }
 
 var done = Echo(hello);
-done.then(Done);
+done.then(Done).catch(Done);
 
 function Done(output) {
+  function hide(elements) {
+    elements = elements.length ? elements : [elements];
+    for (var index = 0; index < elements.length; index++) {
+      elements[index].style.display = "none";
+    }
+  }
+
+  function unhide(elements) {
+    elements = elements.length ? elements : [elements];
+    for (var index = 0; index < elements.length; index++) {
+      elements[index].style.display = "inline-block";
+    }
+  }
+
   console.log("(i2pcontrol) I2PControl connection tested,", output);
+  if (output == hello) {
+    var toopieLinks = document.querySelectorAll(".window-visit-toopie");
+    unhide(toopieLinks);
+  }else{
+    var toopieLinks = document.querySelectorAll(".window-visit-toopie");
+    hide(toopieLinks);
+  }
   return output;
 }
