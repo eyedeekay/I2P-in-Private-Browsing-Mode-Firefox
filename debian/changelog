@@ -1,3 +1,11 @@
+i2psetproxy.js (0.105-1) UNRELEASED; urgency=low
+
+  * Add help page for configuring i2pcontrol
+  * Add help page for configuring i2psnark-rpc
+  * Update the icons
+
+ -- idk <hankhill19580@gmail.com> Wed, 26 May 2021 12:56:56 -0400
+
 i2psetproxy.js (0.103-1) UNRELEASED; urgency=low
 
   * Fix for double-test issue on /home.html page in the extension
