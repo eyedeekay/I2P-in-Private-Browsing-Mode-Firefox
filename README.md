@@ -116,10 +116,11 @@ Usage:
   * ![Visiting i2psnark](i2psnark.png)
   * ![Monitoring torrents](transmissionrpc.png)
   * ![Distribute your site as a torrent.](x-i2p-torrentlocation.png)
-  * [Started] **Indicate** the level of authenticity provided by TLS. TLS is
+  * [Done] **Indicate** the level of authenticity provided by TLS. TLS is
    optional on I2P for now, but some sites offer it anyway. TLS support is
    experimental and in the works.
-  * [Started] **Provide** alternate, in-I2P destinations for web sites that want to
+  * ![Use HTTPS with your I2P Site.](i2p-https.png)
+  * [Done] **Provide** alternate, in-I2P destinations for web sites that want to
    mirror their content within I2P.
   * [Started] **Enhance** the I2P browsing experience by allowing site developers
    distribute some or all of their resources as torrents, allowing the torrents to
