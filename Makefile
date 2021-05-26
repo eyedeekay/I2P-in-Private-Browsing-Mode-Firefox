@@ -64,7 +64,7 @@ amo-readme:
 		sed 's|</h3>|</strong>|g' | \
 		grep -v '<img' > amo-index.html
 
-MAGNET=`torrent2magnet i2ppb@eyedeekay.github.io.xpi.torrent`
+MAGNET=`rhash --magnet i2ppb@eyedeekay.github.io.xpi.torrent`
 
 index:
 	@echo "<!DOCTYPE html>" > index.html
