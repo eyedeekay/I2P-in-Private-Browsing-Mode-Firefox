@@ -4,13 +4,33 @@
   <link type="text/html" rel="alternate" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases"/>
   <link type="application/atom+xml" rel="self" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases.atom"/>
   <title>Release notes from I2P-in-Private-Browsing-Mode-Firefox</title>
-  <updated>2021-05-26T16:57:41Z</updated>
+  <updated>2021-05-26T22:32:58Z</updated>
+  <entry>
+    <id>tag:github.com,2008:Repository/169256012/0.105</id>
+    <updated>2021-05-27T20:19:35Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/tag/0.105"/>
+    <title>0.105</title>
+    <enclosure url="magnet:?xl=2485<title>0.105</title>dn=i2ppb%40eyedeekay.github.io.xpi.torrent<title>0.105</title>xt=urn:tree:tiger:w6kewvpw25bnau2rwkczbnryrjdzn54ietse3zi<title>0.105</title>xt=urn:ed2k:1cd9743fb664404298b7f2ad7ee45db0<title>0.105</title>xt=urn:aich:4vhcsp6t3c2mkjzds2etixyinyj7xtkp" type="application/x-bittorrent" />
+    <content type="html">&lt;p&gt;Browsing to a single contextual identity, thus creating an I2P in Private&lt;br&gt;
+Browsing mode. It requires the use of a pre-installed I2P Router.&lt;br&gt;
+i2psetproxy.js (0.105-1) UNRELEASED; urgency=low&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Add help page for configuring i2pcontrol&lt;/li&gt;
+&lt;li&gt;Add help page for configuring i2psnark-rpc&lt;/li&gt;
+&lt;li&gt;Update the icons&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt; Wed, 26 May 2021 12:56:56 -0400&lt;/p&gt;
+&lt;p&gt;i2psetproxy.js (0.103-1) UNRELEASED; urgency=low&lt;/p&gt;</content>
+    <author>
+      <name>eyedeekay</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/8733713?s=60&amp;v=4"/>
+  </entry>
   <entry>
     <id>tag:github.com,2008:Repository/169256012/0.103</id>
     <updated>2021-05-26T16:59:28Z</updated>
     <link rel="alternate" type="text/html" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/tag/0.103"/>
     <title>0.103</title>
-    <enclosure url="magnet:?xl=2485<title>0.103</title>dn=i2ppb%40eyedeekay.github.io.xpi.torrent<title>0.103</title>xt=urn:tree:tiger:2uzzqx53ljenj2bozaw7qlj6dmx2tbsc6s6dwhq<title>0.103</title>xt=urn:ed2k:e44ab6ed891125f7514399acfdaa879b<title>0.103</title>xt=urn:aich:figpl2ubriy3koqliylodh7xqstehlp5" type="application/x-bittorrent" />
     <content type="html">&lt;p&gt;A simple plugin for configuring a Firefox based web browser to isolate I2P&lt;br&gt;
 Browsing to a single contextual identity, thus creating an I2P in Private&lt;br&gt;
 Browsing mode. It requires the use of a pre-installed I2P Router.&lt;br&gt;
@@ -175,25 +195,6 @@ i2psetproxy.js (0.87-1) UNRELEASED; urgency=low&lt;/p&gt;
 &lt;/ul&gt;
 &lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Sat, 10 NOV 2020 1:33:50 -0400&lt;/p&gt;
 &lt;p&gt;i2psetproxy.js (0.85-1) UNRELEASED; urgency=low&lt;/p&gt;</content>
-    <author>
-      <name>eyedeekay</name>
-    </author>
-    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/8733713?s=60&amp;v=4"/>
-  </entry>
-  <entry>
-    <id>tag:github.com,2008:Repository/169256012/0.85</id>
-    <updated>2020-11-11T06:44:44Z</updated>
-    <link rel="alternate" type="text/html" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/tag/0.85"/>
-    <title>0.85</title>
-    <content type="html">&lt;p&gt;A simple plugin for configuring a Firefox based web browser to isolate I2P&lt;br&gt;
-Browsing to a single contextual identity, thus creating an I2P in Private&lt;br&gt;
-Browsing mode. It requires the use of a pre-installed I2P Router.&lt;br&gt;
-i2psetproxy.js (0.85-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Fix a bug which was causing i2psnark to fail to isolate.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt;  Sat, 10 NOV 2020 1:33:50 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.83-1) UNRELEASED; urgency=low&lt;/p&gt;</content>
     <author>
       <name>eyedeekay</name>
     </author>
