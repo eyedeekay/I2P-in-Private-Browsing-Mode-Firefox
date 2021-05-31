@@ -3,6 +3,10 @@
     "message": "I2P en navegación privada",
     "description": "Nombre de la extensión."
   },
+  "extensionNameVariant": {
+    "message": "I2P en navegación privada - Rhizome",
+    "description": "Nombre de la extensión."
+  },
   "toopieName": {
     "message": "toopie.html",
     "description": "Nombre de la barra lateral."
