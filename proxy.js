@@ -126,8 +126,15 @@ var handleContextProxyRequest = async function (requestDetails) {
         } else if (context.name == torrentpref) {
           proxy = btProxy();
           return proxy;
+        }else if (context.name == mailpref) {
+          return proxy;
+        }else if (context.name == tunnelpref) {
+          return proxy;
+        }else if (context.name == muwirepref) {
+          return proxy;
+        }else if (context.name == botepref) {
+          return proxy;
         }
-        return proxy;
       } else {
         if (!routerHost(requestDetails.url)) {
           if (localHost(requestDetails.url)) {
@@ -149,6 +156,8 @@ var handleContextProxyRequest = async function (requestDetails) {
             host: getHost(),
             port: getPort(),
           };
+        }else{
+          proxy = null;
         }
         if (requestDetails.url.includes("rpc")) {
           console.log("(proxy for rpc url)", rpc);

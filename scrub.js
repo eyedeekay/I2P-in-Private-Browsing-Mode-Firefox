@@ -120,7 +120,7 @@ var contextSetup = function (requestDetails) {
   function onContextError() {
     console.error("Context launcher error");
   }
-  async function forceIntoIsolation(tabId, contextidentifier, tab) {
+  async function forceIntoIsolation(tabId, contextidentifier, tab, pin = true) {
     console.info(
       "(isolate) forcing context for",
       tabId,
@@ -158,6 +158,7 @@ var contextSetup = function (requestDetails) {
             active: true,
             cookieStoreId: context[0].cookieStoreId,
             url: requestDetails.url,
+            pinned: pin,
           });
           created.then(onCreated, onContextError);
         }
@@ -176,7 +177,7 @@ var contextSetup = function (requestDetails) {
         var context = await browser.contextualIdentities.query({
           name: titlepref,
         });
-        return forceIntoIsolation(tabId, titlepref, tab);
+        return forceIntoIsolation(tabId, titlepref, tab, false);
       } catch (error) {
         console.error("(isolate)Context Error", error);
       }
