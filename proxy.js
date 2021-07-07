@@ -1,10 +1,13 @@
 var titlepref = chrome.i18n.getMessage("titlePreface");
 var webpref = chrome.i18n.getMessage("webPreface");
-var ircpref = chrome.i18n.getMessage("ircPreface");
-var torrentpref = chrome.i18n.getMessage("torrentPreface");
 var routerpref = chrome.i18n.getMessage("routerPreface");
-var routerprefpriv = chrome.i18n.getMessage("routerPrefacePrivate");
+var mailpref = chrome.i18n.getMessage("mailPreface");
+var torrentpref = chrome.i18n.getMessage("torrentPreface");
+var tunnelpref = chrome.i18n.getMessage("i2ptunnelPreface");
 var ircpref = chrome.i18n.getMessage("ircPreface");
+var extensionpref = chrome.i18n.getMessage("extensionPreface");
+var muwirepref = chrome.i18n.getMessage("muwirePreface");
+var botepref = chrome.i18n.getMessage("botePreface");
 var blogpref = chrome.i18n.getMessage("blogPreface");
 var blogprefpriv = chrome.i18n.getMessage("blogPrefacePrivate");
 
