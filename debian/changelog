@@ -1,3 +1,9 @@
+i2psetproxy.js (0.111-1) UNRELEASED; urgency=low
+
+  * simplify background theme issue fix
+
+ -- idk <hankhill19580@gmail.com> Wed, 07 Jul 2021 23:27:27 -0400
+
 i2psetproxy.js (0.109-1) UNRELEASED; urgency=low
 
   * connection interrupted mid release, retry failed validation. Bump and retry
