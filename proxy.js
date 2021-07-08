@@ -129,13 +129,13 @@ var handleContextProxyRequest = async function (requestDetails) {
         } else if (context.name == torrentpref) {
           proxy = btProxy();
           return proxy;
-        }else if (context.name == mailpref) {
+        } else if (context.name == mailpref) {
           return proxy;
-        }else if (context.name == tunnelpref) {
+        } else if (context.name == tunnelpref) {
           return proxy;
-        }else if (context.name == muwirepref) {
+        } else if (context.name == muwirepref) {
           return proxy;
-        }else if (context.name == botepref) {
+        } else if (context.name == botepref) {
           return proxy;
         }
       } else {
@@ -159,7 +159,7 @@ var handleContextProxyRequest = async function (requestDetails) {
             host: getHost(),
             port: getPort(),
           };
-        }else{
+        } else {
           proxy = null;
         }
         if (requestDetails.url.includes("rpc")) {
