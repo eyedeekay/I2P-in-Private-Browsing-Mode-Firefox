@@ -37,11 +37,11 @@ clean: rc clean-artifacts
 ## EVEN RELEASES are AMO RELEASES
 ## ODD RELEASES are SELFHOSTED RELEASES
 
-MOZ_VERSION=0.110
-VERSION=0.109
+MOZ_VERSION=0.108
+VERSION=0.107
 
 ## INCREMENT THIS EVERY TIME YOU DO A RELEASE
-LAST_VERSION=0.107
+LAST_VERSION=0.105
 
 YELLOW=F7E59A
 ORANGE=FFC56D
@@ -98,15 +98,15 @@ version:
 	sed -i 's|7647|7657|g' *.js* torrent/*.js*
 	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(VERSION)\",|g' manifest.json
 #	sed -i 's|$(shell grep "\"version_name\": " manifest.json)|  \"version_name\": \"$(VERSION)\",|g' manifest.json
-	sed -si 's|$(shell grep $(LAST_VERSION) _locales/en/messages.json)|    "message": "$(VERSION)",|g' _locales/en/messages.json; true
-	sed -si 's|$(shell grep $(MOZ_VERSION) _locales/en/messages.json)|    "message": "$(VERSION)",|g' _locales/en/messages.json; true
+	find . -name 'messages.json' -exec sed -i 's|$(LAST_VERSION)|$(VERSION)|g' {} \;
+	find . -name 'messages.json' -exec sed -i 's|$(MOZ_VERSION)|$(VERSION)|g' {} \;
 
 moz-version:
 	sed -i 's|7647|7657|g' *.js* torrent/*.js*
 	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(MOZ_VERSION)\",|g' manifest.json
 #	sed -i 's|$(shell grep "\"version_name\": " manifest.json)|  \"version_name\": \"$(MOZ_VERSION)\",|g' manifest.json
-	sed -si 's|$(shell grep $(LAST_VERSION) _locales/en/messages.json)|    "message": "$(MOZ_VERSION)",|g' _locales/en/messages.json; true
-	sed -si 's|$(shell grep $(VERSION) _locales/en/messages.json)|    "message": "$(MOZ_VERSION)",|g' _locales/en/messages.json; true
+	find . -name 'messages.json' -exec sed -i 's|$(LAST_VERSION)|$(MOZ_VERSION)|g' {} \;
+	find . -name 'messages.json' -exec sed -i 's|$(VERSION)|$(MOZ_VERSION)|g' {} \;
 
 rhz-version:
 	sed -i 's|$(shell grep "\"version\": " manifest.json)|  \"version\": \"$(VERSION)1\",|g' manifest.json
