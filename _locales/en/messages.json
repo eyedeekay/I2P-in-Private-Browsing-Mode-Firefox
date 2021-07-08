@@ -3,6 +3,10 @@
     "message": "I2P In Private Browsing",
     "description": "Name of the extension."
   },
+  "extensionNameVariant": {
+    "message": "I2P In Private Browsing - Rhizome Variant",
+    "description": "Name of the extension."
+  },
   "toopieName": {
     "message": "toopie.html",
     "description": "Name of the sidebar."
@@ -16,7 +20,7 @@
     "description": "Description of the extension."
   },
   "extensionVersion": {
-    "message": "0.105",
+    "message": "0.107",
     "description": "Version of the extension."
   },
   "proxyFailedStatus": {

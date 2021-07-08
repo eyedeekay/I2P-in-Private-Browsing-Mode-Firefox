@@ -3,6 +3,10 @@
     "message": "I2P en navegación privada",
     "description": "Nombre de la extensión."
   },
+  "extensionNameVariant": {
+    "message": "I2P en navegación privada - Rhizome",
+    "description": "Nombre de la extensión."
+  },
   "toopieName": {
     "message": "toopie.html",
     "description": "Nombre de la barra lateral."
@@ -16,7 +20,7 @@
     "description": "Descripción de la extensión."
   },
   "extensionVersion": {
-    "message": "0,105",
+    "message": "0,107",
     "description": "Versión de la extensión."
   },
   "proxyFailedStatus": {

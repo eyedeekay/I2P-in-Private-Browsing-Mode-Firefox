@@ -404,7 +404,7 @@ function Done(output) {
   if (output == hello) {
     var toopieLinks = document.querySelectorAll(".window-visit-toopie");
     unhide(toopieLinks);
-  }else{
+  } else {
     var toopieLinks = document.querySelectorAll(".window-visit-toopie");
     hide(toopieLinks);
   }

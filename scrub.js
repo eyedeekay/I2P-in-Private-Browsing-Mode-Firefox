@@ -118,143 +118,94 @@ var notMyContextNotMyProblem = async function () {
 
 var contextSetup = function (requestDetails) {
   function onContextError() {
-    console.log("Context launcher error");
+    console.error("Context launcher error");
   }
-  //console.log("(isolate)Forcing I2P requests into context");
+  async function forceIntoIsolation(tabId, contextidentifier, tab, pin = true) {
+    console.info(
+      "(isolate) forcing context for",
+      tabId,
+      contextidentifier,
+      tab
+    );
+    try {
+      var context = await browser.contextualIdentities.query({
+        name: contextidentifier,
+      });
+      if (tabId.cookieStoreId != context[0].cookieStoreId) {
+        function Create() {
+          function onCreated(tab) {
+            function closeOldTab() {
+              if (tabId.id != tab.id) {
+                console.log(
+                  "(isolate) Closing un-isolated tab",
+                  tabId.id,
+                  "in favor of",
+                  tab.id,
+                  "with context",
+                  tab.cookieStoreId
+                );
+                browser.tabs.remove(tabId.id);
+              }
+              browser.pageAction.setPopup({
+                tabId: tabId.id,
+                popup: "security.html",
+              });
+              browser.pageAction.show(tabId.id);
+            }
+            closeOldTab(tab);
+          }
+          var created = browser.tabs.create({
+            active: true,
+            cookieStoreId: context[0].cookieStoreId,
+            url: requestDetails.url,
+            pinned: pin,
+          });
+          created.then(onCreated, onContextError);
+        }
+        var gettab = browser.tabs.get(tabId.id);
+        gettab.then(Create, onContextError);
+        return tabId;
+      }
+    } catch (error) {
+      console.error("(isolate)Context Error", error);
+    }
+  }
   try {
     var i2pTabFind = async function (tabId) {
+      console.info("(isolate)Context Discovery browser");
       try {
         var context = await browser.contextualIdentities.query({
           name: titlepref,
         });
-        if (tabId.cookieStoreId != context[0].cookieStoreId) {
-          function Create() {
-            function onCreated(tab) {
-              function closeOldTab() {
-                if (tabId.id != tab.id) {
-                  console.log("(isolate) Closing un-isolated tab", tabId.id);
-                  console.log("in favor of", tab.id);
-                  console.log("with context", tab.cookieStoreId);
-                  browser.tabs.remove(tabId.id);
-                }
-                browser.pageAction.setPopup({
-                  tabId: tabId.id,
-                  popup: "security.html",
-                });
-                browser.pageAction.show(tabId.id);
-              }
-              closeOldTab(tab);
-            }
-            var created = browser.tabs.create({
-              active: true,
-              cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url,
-            });
-            created.then(onCreated, onContextError);
-          }
-          var gettab = browser.tabs.get(tabId.id);
-          gettab.then(Create, onContextError);
-          return tabId;
-        }
+        return forceIntoIsolation(tabId, titlepref, tab, false);
       } catch (error) {
-        console.log("(isolate)Context Error", error);
+        console.error("(isolate)Context Error", error);
       }
     };
     var routerTabFind = async function (tabId) {
+      console.info("(isolate)Context Discovery console");
       try {
         var context = await browser.contextualIdentities.query({
           name: routerpref,
         });
-        if (tabId.cookieStoreId != context[0].cookieStoreId) {
-          function Create() {
-            function onCreated(tab) {
-              function closeOldTab(tabs) {
-                if (tabId.id != tab.id) {
-                  console.log("(isolate) Closing un-isolated tab", tabId.id);
-                  console.log("in favor of", tab.id);
-                  console.log("with context", tab.cookieStoreId);
-                  browser.tabs.remove(tabId.id);
-                  browser.tabs.move(tab.id, { index: 0 });
-                }
-                for (index = 0; index < tabs.length; index++) {
-                  if (index != tabs.length - 1)
-                    browser.tabs.remove(tabs[index].id);
-                }
-              }
-              var pins = browser.tabs.query({
-                cookieStoreId: context[0].cookieStoreId,
-              });
-              pins.then(closeOldTab, onError);
-            }
-            if (requestDetails.url.endsWith("xhr1.html")) {
-              hostname = url.split("/")[2];
-              let prefix = url.substr(0, url.indexOf("://") + 3);
-              requestDetails.url = prefix + hostname + "/home";
-            }
-            var created = browser.tabs.create({
-              active: true,
-              pinned: true,
-              cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url,
-            });
-            created.then(onCreated, onContextError);
-          }
-          var gettab = browser.tabs.get(tabId.id);
-          gettab.then(Create, onContextError);
-          return tabId;
-        }
+        return forceIntoIsolation(tabId, routerpref, tab);
       } catch (error) {
-        console.log("(isolate)Context Error", error);
+        console.error("(isolate)Context Error", error);
       }
     };
     var i2ptunnelTabFind = async function (tabId) {
+      console.info("(isolate)Context Discovery browser");
       try {
         var context = await browser.contextualIdentities.query({
           name: tunnelpref,
         });
-        if (tabId.cookieStoreId != context[0].cookieStoreId) {
-          function Create() {
-            function onCreated(tab) {
-              function closeOldTab(tabs) {
-                if (tabId.id != tab.id) {
-                  console.log("(isolate) Closing un-isolated tab", tabId.id);
-                  console.log("in favor of", tab.id);
-                  console.log("with context", tab.cookieStoreId);
-                  browser.tabs.remove(tabId.id);
-                  browser.tabs.move(tab.id, { index: 0 });
-                }
-                for (index = 0; index < tabs.length; index++) {
-                  if (index != tabs.length - 1)
-                    browser.tabs.remove(tabs[index].id);
-                }
-              }
-              var pins = browser.tabs.query({
-                cookieStoreId: context[0].cookieStoreId,
-              });
-              pins.then(closeOldTab, onError);
-            }
-            if (requestDetails.url.endsWith("xhr1.html")) {
-              hostname = url.split("/")[2];
-              let prefix = url.substr(0, url.indexOf("://") + 3);
-              requestDetails.url = prefix + hostname + "/i2ptunnelmgr/";
-            }
-            var created = browser.tabs.create({
-              active: true,
-              pinned: true,
-              cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url,
-            });
-            created.then(onCreated, onContextError);
-          }
-          var gettab = browser.tabs.get(tabId.id);
-          gettab.then(Create, onContextError);
-          return tabId;
-        }
+        return forceIntoIsolation(tabId, tunnelpref, tab);
       } catch (error) {
-        console.log("(isolate)Context Error", error);
+        console.error("(isolate)Context Error", error);
       }
     };
     var snarkTabFind = async function (tabId) {
+      console.info("(isolate)Context Discovery torrents");
       try {
         var context = await browser.contextualIdentities.query({
           name: torrentpref,
@@ -271,9 +222,14 @@ var contextSetup = function (requestDetails) {
               function onCreated(tab) {
                 function closeOldTab(tabs) {
                   if (tabId.id != tab.id) {
-                    console.log("(isolate) Closing un-isolated tab", tabId.id);
-                    console.log("in favor of", tab.id);
-                    console.log("with context", tab.cookieStoreId);
+                    console.log(
+                      "(isolate) Closing un-isolated tab",
+                      tabId.id,
+                      "in favor of",
+                      tab.id,
+                      "with context",
+                      tab.cookieStoreId
+                    );
                     browser.tabs.remove(tabId.id);
                     browser.tabs.move(tab.id, { index: 0 });
                   }
@@ -310,232 +266,58 @@ var contextSetup = function (requestDetails) {
       }
     };
     var muwireTabFind = async function (tabId) {
+      console.info("(isolate)Context Discovery muwire");
       try {
         var context = await browser.contextualIdentities.query({
           name: muwirepref,
         });
-        if (tabId.cookieStoreId != context[0].cookieStoreId) {
-          function Create() {
-            function onCreated(tab) {
-              function closeOldTab(tabs) {
-                if (tabId.id != tab.id) {
-                  console.log("(isolate) Closing un-isolated tab", tabId.id);
-                  console.log("in favor of", tab.id);
-                  console.log("with context", tab.cookieStoreId);
-                  browser.tabs.remove(tabId.id);
-                  browser.tabs.move(tab.id, { index: 0 });
-                }
-                for (index = 0; index < tabs.length; index++) {
-                  if (index != tabs.length - 1)
-                    browser.tabs.remove(tabs[index].id);
-                }
-              }
-              var pins = browser.tabs.query({
-                cookieStoreId: context[0].cookieStoreId,
-              });
-              pins.then(closeOldTab, onError);
-            }
-            if (requestDetails.url.endsWith("xhr1.html")) {
-              hostname = url.split("/")[2];
-              let prefix = url.substr(0, url.indexOf("://") + 3);
-              requestDetails.url = prefix + hostname + "/muwire/";
-            }
-            var created = browser.tabs.create({
-              active: true,
-              pinned: true,
-              cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url,
-            });
-            created.then(onCreated, onContextError);
-          }
-          var gettab = browser.tabs.get(tabId.id);
-          gettab.then(Create, onContextError);
-          return tabId;
-        }
+        return forceIntoIsolation(tabId, muwirepref, tab);
       } catch (error) {
-        console.log("(isolate)Context Error", error);
+        console.error("(isolate)Context Error", error);
       }
     };
     var i2pboteTabFind = async function (tabId) {
+      console.info("(isolate)Context Discovery bote");
       try {
         var context = await browser.contextualIdentities.query({
           name: botepref,
         });
-        if (tabId.cookieStoreId != context[0].cookieStoreId) {
-          function Create() {
-            function onCreated(tab) {
-              function closeOldTab(tabs) {
-                if (tabId.id != tab.id) {
-                  console.log("(isolate) Closing un-isolated tab", tabId.id);
-                  console.log("in favor of", tab.id);
-                  console.log("with context", tab.cookieStoreId);
-                  browser.tabs.remove(tabId.id);
-                  browser.tabs.move(tab.id, { index: 0 });
-                }
-                for (index = 0; index < tabs.length; index++) {
-                  if (index != tabs.length - 1)
-                    browser.tabs.remove(tabs[index].id);
-                }
-              }
-              var pins = browser.tabs.query({
-                cookieStoreId: context[0].cookieStoreId,
-              });
-              pins.then(closeOldTab, onError);
-            }
-            if (requestDetails.url.endsWith("xhr1.html")) {
-              hostname = url.split("/")[2];
-              let prefix = url.substr(0, url.indexOf("://") + 3);
-              requestDetails.url = prefix + hostname + "/i2pbote/";
-            }
-            var created = browser.tabs.create({
-              active: true,
-              pinned: true,
-              cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url,
-            });
-            created.then(onCreated, onContextError);
-          }
-          var gettab = browser.tabs.get(tabId.id);
-          gettab.then(Create, onContextError);
-          return tabId;
-        }
+        return forceIntoIsolation(tabId, botepref, tab);
       } catch (error) {
-        console.log("(isolate)Context Error", error);
+        console.error("(isolate)Context Error", error);
       }
     };
     var mailTabFind = async function (tabId) {
+      console.info("(isolate)Context Discovery mail");
       try {
         var context = await browser.contextualIdentities.query({
           name: mailpref,
         });
-        if (tabId.cookieStoreId != context[0].cookieStoreId) {
-          function Create() {
-            function onCreated(tab) {
-              function closeOldTab(tabs) {
-                if (tabId.id != tab.id) {
-                  console.log("(isolate) Closing un-isolated tab", tabId.id);
-                  console.log("in favor of", tab.id);
-                  console.log("with context", tab.cookieStoreId);
-                  browser.tabs.remove(tabId.id);
-                  browser.tabs.move(tab.id, { index: 0 });
-                }
-                for (index = 0; index < tabs.length; index++) {
-                  if (index != tabs.length - 1)
-                    browser.tabs.remove(tabs[index].id);
-                }
-              }
-              var pins = browser.tabs.query({
-                cookieStoreId: context[0].cookieStoreId,
-              });
-              pins.then(closeOldTab, onError);
-            }
-            if (requestDetails.url.endsWith("xhr1.html")) {
-              hostname = url.split("/")[2];
-              let prefix = url.substr(0, url.indexOf("://") + 3);
-              requestDetails.url = prefix + hostname + "/webmail/";
-            }
-            var created = browser.tabs.create({
-              active: true,
-              pinned: true,
-              cookieStoreId: context[0].cookieStoreId,
-              url: requestDetails.url,
-            });
-            created.then(onCreated, onContextError);
-          }
-          var gettab = browser.tabs.get(tabId.id);
-          gettab.then(Create, onContextError);
-          return tabId;
-        }
+        return forceIntoIsolation(tabId, mailpref, tab);
       } catch (error) {
-        console.log("(isolate)Context Error", error);
+        console.error("(isolate)Context Error", error);
       }
     };
     var ircTabFind = async function (tabId) {
+      console.info("(isolate)Context Discovery irc");
       try {
         var context = await browser.contextualIdentities.query({
           name: ircpref,
         });
-        if (tabId.cookieStoreId != context[0].cookieStoreId) {
-          if (requestDetails.url.includes(":7669")) {
-            function Create() {
-              function onCreated(tab) {
-                function closeOldTab(tabs) {
-                  if (tabId.id != tab.id) {
-                    console.log("(isolate) Closing un-isolated tab", tabId.id);
-                    console.log("in favor of", tab.id);
-                    console.log("with context", tab.cookieStoreId);
-                    browser.tabs.remove(tabId.id);
-                    browser.tabs.move(tab.id, { index: 0 });
-                  }
-                  for (index = 0; index < tabs.length; index++) {
-                    if (index != tabs.length - 1)
-                      browser.tabs.remove(tabs[index].id);
-                  }
-                }
-                var pins = browser.tabs.query({
-                  cookieStoreId: context[0].cookieStoreId,
-                });
-                pins.then(closeOldTab, onError);
-              }
-              var created = browser.tabs.create({
-                active: true,
-                pinned: true,
-                cookieStoreId: context[0].cookieStoreId,
-                url: requestDetails.url,
-              });
-              created.then(onCreated, onContextError);
-            }
-            var gettab = browser.tabs.get(tabId.id);
-            gettab.then(Create, onContextError);
-            return tabId;
-          }
-        }
+        return forceIntoIsolation(tabId, ircpref, tab);
       } catch (error) {
-        console.log("(isolate)Context Error", error);
+        console.error("(isolate)Context Error", error);
       }
     };
     var blogTabFind = async function (tabId) {
+      console.info("(isolate)Context Discovery blog");
       try {
         var context = await browser.contextualIdentities.query({
           name: blogpref,
         });
-        if (tabId.cookieStoreId != context[0].cookieStoreId) {
-          if (requestDetails.url.includes(":8084")) {
-            function Create() {
-              function onCreated(tab) {
-                function closeOldTab(tabs) {
-                  if (tabId.id != tab.id) {
-                    console.log("(isolate) Closing un-isolated tab", tabId.id);
-                    console.log("in favor of", tab.id);
-                    console.log("with context", tab.cookieStoreId);
-                    browser.tabs.remove(tabId.id);
-                    browser.tabs.move(tab.id, { index: 0 });
-                  }
-                  for (index = 0; index < tabs.length; index++) {
-                    if (index != tabs.length - 1)
-                      browser.tabs.remove(tabs[index].id);
-                  }
-                }
-                var pins = browser.tabs.query({
-                  cookieStoreId: context[0].cookieStoreId,
-                });
-                pins.then(closeOldTab, onError);
-              }
-              var created = browser.tabs.create({
-                active: true,
-                pinned: true,
-                cookieStoreId: context[0].cookieStoreId,
-                url: requestDetails.url,
-              });
-              created.then(onCreated, onContextError);
-            }
-            var gettab = browser.tabs.get(tabId.id);
-            gettab.then(Create, onContextError);
-            return tabId;
-          }
-        }
+        return forceIntoIsolation(tabId, blogpref, tab);
       } catch (error) {
-        console.log("(isolate)Context Error", error);
+        console.error("(isolate)Context Error", error);
       }
     };
     var tabGet = async function (tabId) {

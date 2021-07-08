@@ -1,10 +1,13 @@
 var titlepref = chrome.i18n.getMessage("titlePreface");
 var webpref = chrome.i18n.getMessage("webPreface");
-var ircpref = chrome.i18n.getMessage("ircPreface");
-var torrentpref = chrome.i18n.getMessage("torrentPreface");
 var routerpref = chrome.i18n.getMessage("routerPreface");
-var routerprefpriv = chrome.i18n.getMessage("routerPrefacePrivate");
+var mailpref = chrome.i18n.getMessage("mailPreface");
+var torrentpref = chrome.i18n.getMessage("torrentPreface");
+var tunnelpref = chrome.i18n.getMessage("i2ptunnelPreface");
 var ircpref = chrome.i18n.getMessage("ircPreface");
+var extensionpref = chrome.i18n.getMessage("extensionPreface");
+var muwirepref = chrome.i18n.getMessage("muwirePreface");
+var botepref = chrome.i18n.getMessage("botePreface");
 var blogpref = chrome.i18n.getMessage("blogPreface");
 var blogprefpriv = chrome.i18n.getMessage("blogPrefacePrivate");
 
@@ -126,8 +129,15 @@ var handleContextProxyRequest = async function (requestDetails) {
         } else if (context.name == torrentpref) {
           proxy = btProxy();
           return proxy;
+        } else if (context.name == mailpref) {
+          return proxy;
+        } else if (context.name == tunnelpref) {
+          return proxy;
+        } else if (context.name == muwirepref) {
+          return proxy;
+        } else if (context.name == botepref) {
+          return proxy;
         }
-        return proxy;
       } else {
         if (!routerHost(requestDetails.url)) {
           if (localHost(requestDetails.url)) {
@@ -149,6 +159,8 @@ var handleContextProxyRequest = async function (requestDetails) {
             host: getHost(),
             port: getPort(),
           };
+        } else {
+          proxy = null;
         }
         if (requestDetails.url.includes("rpc")) {
           console.log("(proxy for rpc url)", rpc);

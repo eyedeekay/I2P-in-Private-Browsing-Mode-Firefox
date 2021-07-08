@@ -90,4 +90,3 @@ fetch("http://127.0.0.1:7657/jsonrpc/")
     var toopieLinks = document.querySelectorAll(".window-visit-toopie");
     hide(toopieLinks);
   });
-
