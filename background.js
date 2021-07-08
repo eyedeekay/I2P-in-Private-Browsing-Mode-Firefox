@@ -222,6 +222,10 @@ function themeWindow(window) {
       browser.theme.update(window.id, btheme);
     }
   }
+
+  function unsetTheme() {
+    browser.theme.reset()
+  }
   function logTabs(tabInfo) {
     function onContextGotTheme(context) {
       if (context.name == titlepref) {
@@ -251,6 +255,8 @@ function themeWindow(window) {
       } else if (context.name == muwirepref) {
         console.log("Active in MuWire window");
         dynamicTheme();
+      } else {
+        browser.theme.reset();
       }
     }
     if (
@@ -262,22 +268,7 @@ function themeWindow(window) {
         .then(onContextGotTheme, onThemeError);
     } else {
       console.log("Not active in I2P window");
-      function unSetTheme(them) {
-        console.log("unsetting theme", them);
-        if (Object.keys(them).length > 0) {
-          try {
-            browser.theme.update(window.id, them.originalTheme);
-          } catch (e) {
-            console.log(
-              "Original theme set error. Your theme must have an SVG in it.",
-              e
-            );
-          }
-        } else {
-          browser.theme.update(window.id, { colors: null });
-        }
-      }
-      browser.storage.local.get("originalTheme").then(unSetTheme, onError);
+      browser.theme.reset();
     }
   }
 
