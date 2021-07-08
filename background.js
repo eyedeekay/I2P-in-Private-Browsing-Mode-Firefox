@@ -203,7 +203,8 @@ let dtheme = {
 function themeWindow(window) {
   // Check if the window is in private browsing
   function onThemeError() {
-    console.log("theme color set error");
+    console.log("(theme) color set error");
+    browser.theme.reset();
   }
 
   function dynamicTheme() {
@@ -215,12 +216,16 @@ function themeWindow(window) {
   }
 
   function browserTheme() {
-    console.log("Active in I2P window");
+    console.log("(theme)Active in I2P window");
     if (window.incognito) {
       browser.theme.update(window.id, btheme);
     } else {
       browser.theme.update(window.id, btheme);
     }
+  }
+
+  function unsetTheme() {
+    browser.theme.reset();
   }
   function logTabs(tabInfo) {
     function onContextGotTheme(context) {
@@ -228,29 +233,32 @@ function themeWindow(window) {
         browserTheme();
         browser.pageAction.show(tabInfo[0].id);
       } else if (context.name == routerpref) {
-        console.log("Active in Router Console window");
+        console.log("(theme) Active in Router Console window");
         dynamicTheme();
       } else if (context.name == tunnelpref) {
-        console.log("Active in Hidden Services Manager window");
+        console.log("(theme) Active in Hidden Services Manager window");
         dynamicTheme();
       } else if (context.name == mailpref) {
-        console.log("Active in Web Mail window");
+        console.log("(theme) Active in Web Mail window");
         dynamicTheme();
       } else if (context.name == torrentpref) {
-        console.log("Active in Bittorrent window");
+        console.log("(theme) Active in Bittorrent window");
         dynamicTheme();
       } else if (context.name == botepref) {
-        console.log("Active in Bote window");
+        console.log("(theme) Active in Bote window");
         dynamicTheme();
       } else if (context.name == ircpref) {
-        console.log("Active in IRC window");
+        console.log("(theme) Active in IRC window");
         dynamicTheme();
       } else if (context.name == blogpref) {
-        console.log("Active in Blog window");
+        console.log("(theme) (theme) Active in Blog window");
         dynamicTheme();
       } else if (context.name == muwirepref) {
-        console.log("Active in MuWire window");
+        console.log("(theme) Active in MuWire window");
         dynamicTheme();
+      } else {
+        console.log("(theme) Not active in MuWire window");
+        browser.theme.reset();
       }
     }
     if (
@@ -261,23 +269,8 @@ function themeWindow(window) {
         .get(tabInfo[0].cookieStoreId)
         .then(onContextGotTheme, onThemeError);
     } else {
-      console.log("Not active in I2P window");
-      function unSetTheme(them) {
-        console.log("unsetting theme", them);
-        if (Object.keys(them).length > 0) {
-          try {
-            browser.theme.update(window.id, them.originalTheme);
-          } catch (e) {
-            console.log(
-              "Original theme set error. Your theme must have an SVG in it.",
-              e
-            );
-          }
-        } else {
-          browser.theme.update(window.id, { colors: null });
-        }
-      }
-      browser.storage.local.get("originalTheme").then(unSetTheme, onError);
+      console.log("(theme) Not active in I2P window");
+      browser.theme.reset();
     }
   }
 
@@ -381,52 +374,6 @@ gettingListenerInfo.then((got) => {
     });
   }
 });
-
-function handleUpdated(updateInfo) {
-  function maybeSet(them) {
-    console.log("original theme found:", them, Object.keys(them).length);
-    try {
-      if (updateInfo.theme.colors != null) {
-        console.log(
-          "testing theme",
-          updateInfo.theme.colors.toolbar,
-          "!=",
-          btheme.colors.toolbar
-        );
-        console.log(
-          "testing theme",
-          updateInfo.theme.colors.toolbar,
-          "!=",
-          dtheme.colors.toolbar
-        );
-        if (
-          updateInfo.theme.colors.toolbar != dtheme.colors.toolbar &&
-          updateInfo.theme.colors.toolbar != btheme.colors.toolbar
-        ) {
-          function onSet() {
-            console.log("stored theme:", updateInfo.theme);
-          }
-          /*if (
-            updateInfo.theme.colors != null &&
-            updateInfo.theme.images != null &&
-            updateInfo.theme.properties != null
-          ) {*/
-          console.log("storing theme:", updateInfo.theme);
-          browser.storage.local
-            .set({ originalTheme: updateInfo.theme })
-            .then(onSet, onError);
-          //}
-        }
-      }
-    } catch (e) {
-      console.log("theme storage error", e);
-    }
-  }
-  console.log("Handling theme", updateInfo);
-  browser.storage.local.get("originalTheme").then(maybeSet, onError);
-}
-
-browser.theme.onUpdated.addListener(handleUpdated);
 
 function handleClick() {
   console.log("Opening page action");
