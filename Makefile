@@ -168,7 +168,7 @@ moz-sign: version clean-artifacts
 	@echo "Using the 'sign' target to instantly sign an extension for self-distribution"
 	@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
 	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
-	$(HOME)/web-ext/bin/web-ext sign --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET) --timeout=3000000 --verbose
+	$(HOME)/web-ext/bin/web-ext sign --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET) --timeout 900000 #--api-url-prefix http://localhost:3000/api/v4
 	make copyss
 	sleep 5
 
@@ -182,7 +182,7 @@ moz-submit: moz-version
 	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
 	mv manifest.json .manifest.json
 	grep -v update_url .manifest.json > manifest.json
-	$(HOME)/web-ext/bin/web-ext sign --channel listed --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET) --timeout=3000000 --verbose
+	$(HOME)/web-ext/bin/web-ext sign --channel listed --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET) --timeout 900000 --verbose #--api-url-prefix http://localhost:3000/api/v4
 	sleep 5
 	mv .manifest.json manifest.json
 
