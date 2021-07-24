@@ -1,5 +1,5 @@
 //var windowIds = []
-var titlepref = chrome.i18n.getMessage("titlePreface");
+var titlepref = browser.i18n.getMessage("titlePreface");
 
 function onError(error) {
   console.log(`Error : ${error}`);

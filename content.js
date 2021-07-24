@@ -1,6 +1,6 @@
 function contentUpdateById(id, message) {
   let infoTitle = document.getElementById(id);
-  let messageContent = chrome.i18n.getMessage(message);
+  let messageContent = browser.i18n.getMessage(message);
   if (infoTitle === null) {
     console.log("content error", id, messageContent);
     return;

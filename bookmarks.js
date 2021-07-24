@@ -191,7 +191,7 @@ function bookmarksSetup() {
 
       function toolDir(bookmarkToolbar) {
         let defaultSettings = {};
-        chrome.storage.local.set(defaultSettings);
+        browser.storage.local.set(defaultSettings);
         console.log("(bookmarks) created");
         var ibbt = browser.bookmarks.search("I2P Toolbar");
         function setupDir(ibbt) {

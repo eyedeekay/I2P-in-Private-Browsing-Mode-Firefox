@@ -1,15 +1,15 @@
-var titlepref = chrome.i18n.getMessage("titlePreface");
-var webpref = chrome.i18n.getMessage("webPreface");
-var routerpref = chrome.i18n.getMessage("routerPreface");
-var mailpref = chrome.i18n.getMessage("mailPreface");
-var torrentpref = chrome.i18n.getMessage("torrentPreface");
-var tunnelpref = chrome.i18n.getMessage("i2ptunnelPreface");
-var ircpref = chrome.i18n.getMessage("ircPreface");
-var extensionpref = chrome.i18n.getMessage("extensionPreface");
-var muwirepref = chrome.i18n.getMessage("muwirePreface");
-var botepref = chrome.i18n.getMessage("botePreface");
-var blogpref = chrome.i18n.getMessage("blogPreface");
-var blogprefpriv = chrome.i18n.getMessage("blogPrefacePrivate");
+var titlepref = browser.i18n.getMessage("titlePreface");
+var webpref = browser.i18n.getMessage("webPreface");
+var routerpref = browser.i18n.getMessage("routerPreface");
+var mailpref = browser.i18n.getMessage("mailPreface");
+var torrentpref = browser.i18n.getMessage("torrentPreface");
+var tunnelpref = browser.i18n.getMessage("i2ptunnelPreface");
+var ircpref = browser.i18n.getMessage("ircPreface");
+var extensionpref = browser.i18n.getMessage("extensionPreface");
+var muwirepref = browser.i18n.getMessage("muwirePreface");
+var botepref = browser.i18n.getMessage("botePreface");
+var blogpref = browser.i18n.getMessage("blogPreface");
+var blogprefpriv = browser.i18n.getMessage("blogPrefacePrivate");
 
 var contextScrub = async function (requestDetails) {
   function onHeaderError() {

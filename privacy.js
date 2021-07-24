@@ -1,4 +1,4 @@
-var titlepref = chrome.i18n.getMessage("titlePreface");
+var titlepref = browser.i18n.getMessage("titlePreface");
 
 function onSet(result) {
   if (result) {
@@ -241,7 +241,7 @@ function AssurePeerConnection() {
     browser.privacy.network.peerConnectionEnabled.set({
       value: true,
     });
-    chrome.privacy.network.webRTCIPHandlingPolicy.set({
+    browser.privacy.network.webRTCIPHandlingPolicy.set({
       value: "disable_non_proxied_udp",
     });
   }
@@ -255,7 +255,7 @@ function UnsetPeerConnection() {
     browser.privacy.network.peerConnectionEnabled.set({
       value: true,
     });
-    chrome.privacy.network.webRTCIPHandlingPolicy.set({
+    browser.privacy.network.webRTCIPHandlingPolicy.set({
       value: "default",
     });
   }

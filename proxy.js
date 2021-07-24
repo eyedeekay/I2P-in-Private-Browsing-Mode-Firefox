@@ -1,24 +1,24 @@
-var titlepref = chrome.i18n.getMessage("titlePreface");
-var webpref = chrome.i18n.getMessage("webPreface");
-var routerpref = chrome.i18n.getMessage("routerPreface");
-var mailpref = chrome.i18n.getMessage("mailPreface");
-var torrentpref = chrome.i18n.getMessage("torrentPreface");
-var tunnelpref = chrome.i18n.getMessage("i2ptunnelPreface");
-var ircpref = chrome.i18n.getMessage("ircPreface");
-var extensionpref = chrome.i18n.getMessage("extensionPreface");
-var muwirepref = chrome.i18n.getMessage("muwirePreface");
-var botepref = chrome.i18n.getMessage("botePreface");
-var blogpref = chrome.i18n.getMessage("blogPreface");
-var blogprefpriv = chrome.i18n.getMessage("blogPrefacePrivate");
+var titlepref = browser.i18n.getMessage("titlePreface");
+var webpref = browser.i18n.getMessage("webPreface");
+var routerpref = browser.i18n.getMessage("routerPreface");
+var mailpref = browser.i18n.getMessage("mailPreface");
+var torrentpref = browser.i18n.getMessage("torrentPreface");
+var tunnelpref = browser.i18n.getMessage("i2ptunnelPreface");
+var ircpref = browser.i18n.getMessage("ircPreface");
+var extensionpref = browser.i18n.getMessage("extensionPreface");
+var muwirepref = browser.i18n.getMessage("muwirePreface");
+var botepref = browser.i18n.getMessage("botePreface");
+var blogpref = browser.i18n.getMessage("blogPreface");
+var blogprefpriv = browser.i18n.getMessage("blogPrefacePrivate");
 
 browser.privacy.network.peerConnectionEnabled.set({
   value: true,
 });
 
-chrome.privacy.network.networkPredictionEnabled.set({
+browser.privacy.network.networkPredictionEnabled.set({
   value: false,
 });
-chrome.privacy.network.webRTCIPHandlingPolicy.set({
+browser.privacy.network.webRTCIPHandlingPolicy.set({
   value: "disable_non_proxied_udp",
 });
 console.log("Disabled unproxied UDP.");
@@ -303,9 +303,8 @@ function SetupSettings() {
     console.log("Initialising Control Host", storedSettings.control_host);
     setupProxy();
   }
-  var gettingControlHostStoredSettings = browser.storage.local.get(
-    "control_host"
-  );
+  var gettingControlHostStoredSettings =
+    browser.storage.local.get("control_host");
   gettingControlHostStoredSettings.then(
     checkControlHostStoredSettings,
     onSetupError
@@ -320,9 +319,8 @@ function SetupSettings() {
     console.log("Initialising Control Port", storedSettings.control_port);
     setupProxy();
   }
-  var gettingControlPortStoredSettings = browser.storage.local.get(
-    "control_port"
-  );
+  var gettingControlPortStoredSettings =
+    browser.storage.local.get("control_port");
   gettingControlPortStoredSettings.then(
     checkControlPortStoredSettings,
     onSetupError
@@ -340,9 +338,8 @@ function SetupSettings() {
     );
     setupProxy();
   }
-  var gettingHistoryStoredSettings = browser.storage.local.get(
-    "disable_history"
-  );
+  var gettingHistoryStoredSettings =
+    browser.storage.local.get("disable_history");
   gettingHistoryStoredSettings.then(checkHistoryStoredSettings, onSetupError);
 }
 
@@ -397,7 +394,7 @@ function update() {
 
 function updateFromStorage() {
   console.log("updating settings from storage");
-  chrome.storage.local.get(function () {
+  browser.storage.local.get(function () {
     SetupSettings();
     update();
     setupProxy();
@@ -412,7 +409,7 @@ setupProxy();
 var gettingListenerInfo = browser.runtime.getPlatformInfo();
 gettingListenerInfo.then((got) => {
   browser.windows.onCreated.addListener(() => {
-    chrome.storage.local.get(function () {
+    browser.storage.local.get(function () {
       setupProxy();
     });
   });
