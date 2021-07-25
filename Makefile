@@ -366,3 +366,8 @@ lht-test:
 		-u http://localhost:7657/webmail \
 		-u http://localhost:7657/MuWire/ \
 		-u http://idk.i2p
+
+compile:
+	closure-compiler --js background.js --js cert.js --js content.js --js handler.js --js host.js --js location.js --js privacy.js --js script.js \
+		--js  torrent.js --js bookmarks.js --js  config.js --js  context.js --js  home.js --js info.js --js platform.js --js proxy.js --js  scrub.js \
+		--js_output_file compile.js
