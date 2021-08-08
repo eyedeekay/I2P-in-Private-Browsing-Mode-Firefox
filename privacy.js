@@ -1,10 +1,10 @@
-var titlepref = browser.i18n.getMessage("titlePreface");
+var titlepref = browser.i18n.getMessage('titlePreface');
 
 function onSet(result) {
   if (result) {
-    console.log("->: Value was updated");
+    console.log('->: Value was updated');
   } else {
-    console.log("-X: Value was not updated");
+    console.log('-X: Value was not updated');
   }
 }
 
@@ -14,7 +14,7 @@ function disableHyperlinkAuditing() {
   var setting = browser.privacy.websites.hyperlinkAuditingEnabled.set({
     value: false,
   });
-  console.log("Disabling hyperlink auditing/val=", {
+  console.log('Disabling hyperlink auditing/val=', {
     value: false,
   });
   setting.then(onSet);
@@ -23,7 +23,7 @@ function disableHyperlinkAuditing() {
 // UNINSTALL ONLY
 function enableHyperlinkAuditing() {
   var setting = browser.privacy.websites.hyperlinkAuditingEnabled.clear();
-  console.log("Disabling hyperlink auditing/val=", {
+  console.log('Disabling hyperlink auditing/val=', {
     value: false,
   });
   setting.then(onSet);
@@ -34,7 +34,7 @@ function enableFirstPartyIsolation() {
   var setting = browser.privacy.websites.firstPartyIsolate.set({
     value: true,
   });
-  console.log("Enabling first party isolation/val=", {
+  console.log('Enabling first party isolation/val=', {
     value: true,
   });
   setting.then(onSet);
@@ -43,7 +43,7 @@ function enableFirstPartyIsolation() {
 // UNINSTALL ONLY
 function disableFirstPartyIsolation() {
   var setting = browser.privacy.websites.firstPartyIsolate.clear();
-  console.log("Enabling first party isolation/val=", {
+  console.log('Enabling first party isolation/val=', {
     value: true,
   });
   setting.then(onSet);
@@ -57,13 +57,13 @@ function disableEvilCookies() {
   getting.then((got) => {
     var setting = browser.privacy.websites.cookieConfig.set({
       value: {
-        behavior: "reject_third_party",
+        behavior: 'reject_third_party',
         nonPersistentCookies: got.value.nonPersistentCookies,
       },
     });
-    console.log("Setting cookie behavior/val=", {
+    console.log('Setting cookie behavior/val=', {
       value: {
-        behavior: "reject_third_party",
+        behavior: 'reject_third_party',
         nonPersistentCookies: got.value.nonPersistentCookies,
       },
     });
