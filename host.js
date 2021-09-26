@@ -24,12 +24,14 @@ function localHost(url) {
     hostname = url.split("/")[0];
   }
   hostname = hostname.split(":")[0];
-  console.log("(isolate) hostname localhost", hostname);
-  console.log("(isolate) url localhost", url);
+  console.log("(urlcheck) hostname localhost", hostname);
+  console.log("(urlcheck) url localhost", url);
   if (hostname === "127.0.0.1") {
-    if (url.indexOf("7669") != -1) return "irc";
+    if (url.indexOf("\:8084") != -1) return "blog";
+    if (url.indexOf("\:7669") != -1) return "irc";
   } else if (hostname === "localhost") {
-    if (url.indexOf("8084") != -1) return "blog";
+    if (url.indexOf("\:8084") != -1) return "blog";
+    if (url.indexOf("\:7669") != -1) return "irc";
   }
 
   return false;
