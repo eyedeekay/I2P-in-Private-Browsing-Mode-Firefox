@@ -1,3 +1,9 @@
+i2psetproxy.js (0.113-1) UNRELEASED; urgency=low
+
+  * Fix checks on BRB, railroad containers
+
+ -- idk <hankhill19580@gmail.com> Sun, 26 Sep 2021 00:37:22 -0400
+
 i2psetproxy.js (0.111-1) UNRELEASED; urgency=low
 
   * simplify background theme issue fix
