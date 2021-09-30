@@ -2,9 +2,9 @@ function checkPeerConnection() {
   let getting = browser.privacy.network.peerConnectionEnabled.get({});
   getting.then((got) => {
     let webrtc = got.value;
-    console.log("checking webrtc", webrtc);
-    if (document.getElementById("enable-web-rtc") !== null)
-      document.getElementById("enable-web-rtc").checked = webrtc;
+    console.log('checking webrtc', webrtc);
+    if (document.getElementById('enable-web-rtc') !== null)
+      document.getElementById('enable-web-rtc').checked = webrtc;
   });
 }
 
@@ -225,9 +225,11 @@ function goHome() {
     }
     console.log("(bookmarks) adding home page bookmark");
   }
-  console.log("(bookmarks) checking if we're running in an I2P Browser");
-  var gettingProxyInfo = browser.proxy.settings.get({});
-  gettingProxyInfo.then(gotProxyInfo);
+  if (browser.windows != undefined){
+    console.log("(bookmarks) checking if we're running in an I2P Browser");
+    var gettingProxyInfo = browser.proxy.settings.get({});
+    gettingProxyInfo.then(gotProxyInfo);
+  }
 }
 
 function goIndex() {

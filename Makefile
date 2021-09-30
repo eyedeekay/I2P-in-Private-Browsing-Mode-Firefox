@@ -366,3 +366,15 @@ lht-test:
 		-u http://localhost:7657/webmail \
 		-u http://localhost:7657/MuWire/ \
 		-u http://idk.i2p
+
+android:
+	$(HOME)/web-ext/bin/web-ext run --target firefox-android \
+		--android-device NE1GAM7780819544 \
+		--browser-console
+
+run:
+	$(HOME)/web-ext/bin/web-ext run --firefox /usr/bin/firefox -u about:debugging
+
+chromium:
+	$(HOME)/web-ext/bin/web-ext run --target chromium
+	
