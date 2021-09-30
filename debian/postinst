@@ -1,6 +1,0 @@
-#! /bin/sh
-
-ln -sf /usr/share/webext/i2ppb@eyedeekay.github.io \
-/usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/i2ppb@eyedeekay.github.io
-
-touch /usr/share/webext/i2ppb@eyedeekay.github.io/manifest.json

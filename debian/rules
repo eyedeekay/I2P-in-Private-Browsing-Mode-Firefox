@@ -1,9 +1,0 @@
-#!/usr/bin/make -f
-
-%:
-	dh $@
-
-export PREFIX=debian/i2psetproxy.js/usr
-
-override_dh_auto_install:
-	make install
