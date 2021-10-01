@@ -134,7 +134,7 @@ var contextSetup = function(requestDetails) {
       if (tabId.cookieStoreId != context[0].cookieStoreId) {
         function Create() {
           function onCreated(tab) {
-            function closeOldTab() {
+            function closeOldTab(tabs) {
               if (tabId.id != tab.id) {
                 console.log(
                   '(isolate) Closing un-isolated tab',
@@ -145,6 +145,13 @@ var contextSetup = function(requestDetails) {
                   tab.cookieStoreId
                 );
                 browser.tabs.remove(tabId.id);
+                if (pin) {
+	                browser.tabs.move(tab.id, { index: 0 });
+	                                  for (index = 0; index < tabs.length; index++) {
+                    if (index != tabs.length - 1)
+                      browser.tabs.remove(tabs[index].id);
+                  }
+                }
               }
               browser.pageAction.setPopup({
                 tabId: tabId.id,
@@ -152,7 +159,11 @@ var contextSetup = function(requestDetails) {
               });
               browser.pageAction.show(tabId.id);
             }
-            closeOldTab(tab);
+            var pins = browser.tabs.query({
+              cookieStoreId: context[0].cookieStoreId
+            });
+            pins.then(closeOldTab, onError);
+//            closeOldTab(tab);
           }
           var created = browser.tabs.create({
             active: true,
