@@ -284,6 +284,8 @@ fmt-js:
 	fixjsstyle torrent/*.js
 	fixjsstyle i2pcontrol/*.js
 	fixjsstyle manifest.json
+	#work around fixjsstyle issue
+	sed -i 's|= >|=>|g' *.js */*.js
 	#find . -path ./node_modules -prune -o -name '*.json' -exec fixjsstyle --write {} \;
 
 fmt-prettier:
