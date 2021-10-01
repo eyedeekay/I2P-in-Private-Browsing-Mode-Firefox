@@ -1,27 +1,27 @@
-'use strict';
+"use strict";
 
-var TrpcCall = async function(meth, args) {
+var TrpcCall = async function (meth, args) {
   const server = await browser.storage.local.get(null);
   const myHeaders = {
-    'Content-Type': 'application/json',
-    'x-transmission-session-id': server.session
+    "Content-Type": "application/json",
+    "x-transmission-session-id": server.session,
   };
-  console.log('(torrent) session', server.session);
-  if (server.username !== '' || server.bt_rpc_pass !== '') {
-    myHeaders['Authorization'] =
-      'Basic ' +
-      btoa((server.username || '') + ':' + (server.bt_rpc_pass || ''));
+  console.log("(torrent) session", server.session);
+  if (server.username !== "" || server.bt_rpc_pass !== "") {
+    myHeaders["Authorization"] =
+      "Basic " +
+      btoa((server.username || "") + ":" + (server.bt_rpc_pass || ""));
   }
 
-  let req_url = 'http://' + server.bt_rpc_host;
-  if (server.bt_rpc_port != 0) req_url += ':' + server.bt_rpc_port;
-  req_url += '/' + server.bt_rpc_path;
-  console.log('(torrent) rpcurl', req_url);
-  return fetch(req_url + 'rpc', {
-    method: 'POST',
+  let req_url = "http://" + server.bt_rpc_host;
+  if (server.bt_rpc_port != 0) req_url += ":" + server.bt_rpc_port;
+  req_url += "/" + server.bt_rpc_path;
+  console.log("(torrent) rpcurl", req_url);
+  return fetch(req_url + "rpc", {
+    method: "POST",
     headers: myHeaders,
     body: JSON.stringify({ method: meth, arguments: args }),
-    credentials: 'include' // allows HTTPS client certs!
+    credentials: "include", // allows HTTPS client certs!
   });
 
   /*.then(function(response) {
@@ -37,13 +37,13 @@ var TrpcCall = async function(meth, args) {
     error.response = response;
     throw error;
   });*/
-}
+};
 
-const torrentsPane = document.getElementById('torrents-pane');
-const configPane = document.getElementById('config-pane');
+const torrentsPane = document.getElementById("torrents-pane");
+const configPane = document.getElementById("config-pane");
 
-for (const opener of document.querySelectorAll('.config-opener')) {
-  opener.addEventListener('click', (e) => {
+for (const opener of document.querySelectorAll(".config-opener")) {
+  opener.addEventListener("click", (e) => {
     browser.runtime.openOptionsPage();
   });
 }

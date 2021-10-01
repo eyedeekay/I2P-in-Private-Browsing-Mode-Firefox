@@ -1,18 +1,18 @@
-'use strict';
+"use strict";
 
 ////// Session extraction
 
 function setupExtractor() {
   browser.webRequest.onHeadersReceived.removeListener(extractSession);
-  browser.storage.local.get('server').then(({ server }) => {
+  browser.storage.local.get("server").then(({ server }) => {
     if (!server) {
       return;
     }
-    console.log('Session extractor setup for', server.base_url);
+    console.log("Session extractor setup for", server.base_url);
     browser.webRequest.onBeforeSendHeaders.addListener(
       extractSession,
-      { urls: [server.base_url + '*'] },
-      ['requestHeaders']
+      { urls: [server.base_url + "*"] },
+      ["requestHeaders"]
     );
   });
 }
@@ -126,20 +126,22 @@ function createContextMenu() {
   });
 }
 
-if (browser.windows != undefined){
+if (browser.windows != undefined) {
   createContextMenu();
 
-browser.contextMenus.onClicked.addListener((info, tab) => {
-  if (info.menuItemId === "transmitter-add") {
-    return addUrl(info.linkUrl);
-  } else if (info.menuItemId.startsWith("transmitter-add-loc-")) {
-    let index = parseInt(info.menuItemId.substr("transmitter-add-loc-".length));
-    browser.storage.local.get("server").then(({ server }) => {
-      let path = server.locations[index].path;
-      addUrl(info.linkUrl, path);
-    });
-  }
-});
+  browser.contextMenus.onClicked.addListener((info, tab) => {
+    if (info.menuItemId === "transmitter-add") {
+      return addUrl(info.linkUrl);
+    } else if (info.menuItemId.startsWith("transmitter-add-loc-")) {
+      let index = parseInt(
+        info.menuItemId.substr("transmitter-add-loc-".length)
+      );
+      browser.storage.local.get("server").then(({ server }) => {
+        let path = server.locations[index].path;
+        addUrl(info.linkUrl, path);
+      });
+    }
+  });
 }
 ////// Badge
 
