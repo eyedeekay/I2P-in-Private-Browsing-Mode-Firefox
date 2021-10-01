@@ -558,8 +558,11 @@ var coolheadersSetup = function (e) {
 };
 
 function getTabURL(tab) {
-  if (tab.tabId != undefined) {
-    popup = browser.pageAction.getPopup({ tabId: tab.tabId });
+  console.log("(scrub)(equiv check) popup check", tab);
+
+  if (tab.id != undefined) {
+    popup = browser.pageAction.getPopup({ tabId: tab.id });
+    console.log("(scrub)(equiv check) popup check");
     popup.then(gotPopup);
   }
   function gotPopup(p) {
