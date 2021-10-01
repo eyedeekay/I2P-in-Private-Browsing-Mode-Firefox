@@ -441,14 +441,15 @@ var coolheadersSetup = function(e) {
         popup.then(gotPopup);
       }
       function gotPopup(p) {
-        console.log('(scrub) checking popup', p);
-        if (p.length != 0) return;
+        console.log('(scrub)(header check) checking popup', p);
+        console.log('(scrub)(header check) checking headers', e.responseHeaders);
         let headers = e.responseHeaders.filter((word) =>
           word.name.toUpperCase().includes('I2P')
         );
+		console.log('(scrub)(header check) checking filtered headers', headers);
         for (i = headers.length - 1; i >= 0; i--) {
           let header = headers[i];
-          console.log('(scrub) checking header', header);
+          console.log('(scrub)(header check) checking header', header);
           if (header.name.toUpperCase().endsWith('I2P-LOCATION')) {
             var tab = browser.tabs.get(e.tabId);
             tab.then(altSrc);
@@ -473,7 +474,7 @@ var coolheadersSetup = function(e) {
             break;
           }
           if (header.name.toUpperCase().endsWith('I2P-TORRENTLOCATION')) {
-            console.log('(scrub) checking header torrentlocation', header);
+            console.log('(scrub)(header check) checking header torrentlocation', header);
             var imgs = document.getElementsByTagName('img');
             for (let img of imgs) {
               if (tmpsrc.host == location.host) {
@@ -524,7 +525,7 @@ var coolheadersSetup = function(e) {
               tabId: e.tabId,
               popup: 'torrent.html'
             });
-            if (tab.url.startsWith('https')) {
+            if (tab != undefined && tab.url.startsWith('https')) {
               browser.pageAction.setIcon({
                 path: 'icons/infotoopiesbt.png',
                 tabId: e.tabId
@@ -551,6 +552,13 @@ var coolheadersSetup = function(e) {
 };
 
 function getTabURL(tab) {
+  if (tab.tabId != undefined) {
+    popup = browser.pageAction.getPopup({ tabId: tab.tabId });
+    popup.then(gotPopup);
+
+  }
+      function gotPopup(p) {
+                  if (p.length != 0) return;
   if (tab.url.startsWith("https")) {
     if (tab.url.includes(".i2p")) {
       browser.pageAction.setPopup({
@@ -569,7 +577,7 @@ function getTabURL(tab) {
           .then((response) => {
             if (response != undefined && response != "") {
               console.log(
-                "(pageaction) i2p-torrentlocation response object",
+                "(scrub)(equiv check) i2p-torrentlocation response object",
                 response
               );
               if (response.content.toUpperCase() != "NO-ALT-LOCATION") {
@@ -589,9 +597,9 @@ function getTabURL(tab) {
               }
             }
           });
-        console.log("(pageaction)", tab.id, tab.url);
+        console.log("(scrub)(equiv check)", tab.id, tab.url);
       } catch (e) {
-        console.log("(pageaction)", e);
+        console.log("(scrub)(equiv check)", e);
       }
     } else {
       try {
@@ -600,7 +608,7 @@ function getTabURL(tab) {
           .then((response) => {
             if (response != undefined) {
               console.log(
-                "(pageaction) i2p-location response object",
+                "(scrub)(equiv check) i2p-location response object",
                 response
               );
               if (response.content.toUpperCase() != "NO-ALT-LOCATION") {
@@ -620,9 +628,9 @@ function getTabURL(tab) {
               }
             }
           });
-        console.log("(pageaction)", tab.id, tab.url);
+        console.log("(scrub)(equiv check)", tab.id, tab.url);
       } catch (e) {
-        console.log("(pageaction)", e);
+        console.log("(scrub)(equiv check)", e);
       }
     }
   } else {
@@ -667,6 +675,7 @@ function getTabURL(tab) {
     } catch (e) {
       console.log("(pageaction)", e);
     }
+  }
   }
 }
 
