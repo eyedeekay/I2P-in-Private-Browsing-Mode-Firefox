@@ -204,7 +204,7 @@ function themeWindow(window) {
   // Check if the window is in private browsing
   function onThemeError() {
     console.log("(theme) color set error");
-    browser.theme.reset();
+    browserTheme();
   }
 
   function dynamicTheme() {
@@ -225,7 +225,8 @@ function themeWindow(window) {
   }
 
   function unsetTheme() {
-    browser.theme.reset();
+    console.log("(theme)Resetting theme window");
+    browser.theme.reset(window.id);
   }
   function logTabs(tabInfo) {
     function onContextGotTheme(context) {
@@ -257,8 +258,8 @@ function themeWindow(window) {
         console.log("(theme) Active in MuWire window");
         dynamicTheme();
       } else {
-        console.log("(theme) Not active in MuWire window");
-        browser.theme.reset();
+        console.log("(theme) Not active in I2P Window");
+        unsetTheme();
       }
     }
     if (
@@ -270,7 +271,7 @@ function themeWindow(window) {
         .then(onContextGotTheme, onThemeError);
     } else {
       console.log("(theme) Not active in I2P window");
-      browser.theme.reset();
+      unsetTheme();
     }
   }
 
