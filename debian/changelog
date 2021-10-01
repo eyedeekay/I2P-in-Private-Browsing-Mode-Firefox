@@ -1,3 +1,11 @@
+i2psetproxy.js (0.115-1) UNRELEASED; urgency=low
+
+  * Improve functionality of X-I2P-Location and X-I2P-Torrentlocation 
+  * Fix usage of browser.theme.reset()
+  * Add checks to disable features that are broken on Android
+
+ -- idk <hankhill19580@gmail.com> Fri, 1 Oct 2021 15:29:22 -0400
+
 i2psetproxy.js (0.113-1) UNRELEASED; urgency=low
 
   * Fix checks on BRB, railroad containers
