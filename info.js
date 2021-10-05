@@ -287,7 +287,7 @@ function goSearch() {
   }
   let createData = {
     url:
-      "http://yacy.idk.i2p/yacysearch.html?" +
+      "http://legwork.i2p/yacysearch.html?" +
       "query=" +
       document.getElementById("search-query").value,
   };
