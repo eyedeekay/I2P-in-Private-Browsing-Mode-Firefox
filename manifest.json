@@ -2,7 +2,7 @@
   "applications": {
     "gecko": {
       "id": "i2ppb@eyedeekay.github.io",
-      "strict_min_version": "85.0"
+      "strict_min_version": "91.1.0"
     }
   },
   "permissions": [
@@ -27,7 +27,7 @@
   ],
   "manifest_version": 2,
   "name": "__MSG_extensionName__",
-  "version": "0.115",
+  "version": "0.117",
   "description": "__MSG_extensionDescription__",
   "homepage_url": "https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox",
   "icons": {
