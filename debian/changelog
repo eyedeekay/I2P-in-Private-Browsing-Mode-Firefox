@@ -1,3 +1,9 @@
+i2psetproxy.js (0.119-1) UNRELEASED; urgency=low
+
+  * Fixes to ease releasing via AMO
+
+ -- idk <hankhill19580@gmail.com> Wed, 13 Oct 2021 20:37:30 -0400
+
 i2psetproxy.js (0.117-1) UNRELEASED; urgency=low
 
   * Switch to legwork for search provider.
