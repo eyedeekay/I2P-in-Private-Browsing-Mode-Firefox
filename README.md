@@ -2,13 +2,14 @@ I2P in Private Browsing Mode(Firefox-Only)
 ==========================================
 
 This is an webextension which introduces a set of new "Private Browsing" modes
-to Firefox-based browsers(Supporting webextensions) that makes it easier to
-configure a browser to use I2P securely and adds features for making I2P
-applications easier to use. It does this by isolating I2P-specific settings to
-Contextual Identities within Firefox, then loading them automatically when the
-user requests them. It also adds convenience and management features, like an
-embedded I2P console and Bittorrent integration with clients using the
-transmission-rpc API.
+to Firefox-based browsers(Supporting webextensions, must be current ESR or
+greater) that makes it easier to configure a browser to use I2P securely and
+adds features for making I2P applications easier to use. It does this by
+isolating I2P-specific settings to Contextual Identities within Firefox, then
+loading them automatically when the user requests them. It also adds convenience
+and management features, like an embedded I2P console and Bittorrent integration
+with clients using the transmission-rpc API and via in-browser protocol handling
+integrations.
 
 Privacy Policy
 --------------
