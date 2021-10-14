@@ -1,3 +1,9 @@
+i2psetproxy.js (0.121-1) UNRELEASED; urgency=low
+
+  * switch to browser_specific_settings manifest key
+
+ -- idk <hankhill19580@gmail.com> Wed, 13 Oct 2021 21:28:28 -0400
+
 i2psetproxy.js (0.119-1) UNRELEASED; urgency=low
 
   * Fixes to ease releasing via AMO
