@@ -5,6 +5,12 @@
       "strict_min_version": "91.1.0"
     }
   },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "addon@example.com",
+      "strict_min_version": "91.1.0"
+    }
+  },
   "permissions": [
     "theme",
     "alarms",
@@ -27,7 +33,7 @@
   ],
   "manifest_version": 2,
   "name": "__MSG_extensionName__",
-  "version": "0.117",
+  "version": "0.119",
   "description": "__MSG_extensionDescription__",
   "homepage_url": "https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox",
   "icons": {

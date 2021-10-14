@@ -149,6 +149,8 @@ upload: upload-xpi upload-deb
 
 full-release: release submit upload-xpi torrent upload-torrent deb upload-deb upload-rss seed
 
+full-sign: moz-sign upload-xpi torrent upload-torrent deb upload-deb upload-rss seed
+
 WEB_EXT_API_KEY=AMO_KEY
 WEB_EXT_API_SECRET=AMO_SECRET
 
@@ -182,7 +184,7 @@ moz-submit: moz-version
 	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
 	mv manifest.json .manifest.json
 	grep -v update_url .manifest.json > manifest.json
-	$(HOME)/web-ext/bin/web-ext sign --channel listed --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET) --timeout 900000 --verbose #--api-url-prefix http://localhost:3000/api/v4
+	$(HOME)/web-ext/bin/web-ext sign --channel listed --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET) --timeout 900000 --verbose; true #--api-url-prefix http://localhost:3000/api/v4
 	sleep 5
 	mv .manifest.json manifest.json
 
