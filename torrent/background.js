@@ -1,18 +1,18 @@
-"use strict";
+'use strict';
 
 ////// Session extraction
 
 function setupExtractor() {
   browser.webRequest.onHeadersReceived.removeListener(extractSession);
-  browser.storage.local.get("server").then(({ server }) => {
+  browser.storage.local.get('server').then(({ server }) => {
     if (!server) {
       return;
     }
-    console.log("Session extractor setup for", server.base_url);
+    console.log('Session extractor setup for', server.base_url);
     browser.webRequest.onBeforeSendHeaders.addListener(
       extractSession,
-      { urls: [server.base_url + "*"] },
-      ["requestHeaders"]
+      { urls: [server.base_url + '*'] },
+      ['requestHeaders']
     );
   });
 }

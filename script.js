@@ -1,7 +1,7 @@
 browser.runtime.onMessage.addListener((request) => {
-  var response = "no-alt-location";
+  var response = 'no-alt-location';
   console.log(request);
-  if (request.req === "i2p-location") {
+  if (request.req === 'i2p-location') {
     var tag = document.querySelector('meta[http-equiv="i2p-location"]');
     if (tag != undefined) {
       console.log(tag);
@@ -13,7 +13,7 @@ browser.runtime.onMessage.addListener((request) => {
       if (tag) response = tag.content;
     }
   }
-  if (request.req === "i2p-torrentlocation") {
+  if (request.req === 'i2p-torrentlocation') {
     var tag = document.querySelector('meta[http-equiv="i2p-torrentlocation"]');
     if (tag != undefined) {
       console.log(tag);
