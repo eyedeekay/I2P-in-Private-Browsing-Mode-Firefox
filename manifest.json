@@ -1,13 +1,7 @@
 {
-  "applications": {
-    "gecko": {
-      "id": "i2ppb@eyedeekay.github.io",
-      "strict_min_version": "91.1.0"
-    }
-  },
   "browser_specific_settings": {
     "gecko": {
-      "id": "addon@example.com",
+      "id": "i2ppb@eyedeekay.github.io",
       "strict_min_version": "91.1.0"
     }
   },
