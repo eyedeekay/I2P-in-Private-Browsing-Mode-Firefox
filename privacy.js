@@ -1,10 +1,10 @@
-var titlepref = chrome.i18n.getMessage('titlePreface');
+var titlepref = chrome.i18n.getMessage("titlePreface");
 
 function onSet(result) {
   if (result) {
-    console.log('->: Value was updated');
+    console.log("->: Value was updated");
   } else {
-    console.log('-X: Value was not updated');
+    console.log("-X: Value was not updated");
   }
 }
 
@@ -12,10 +12,10 @@ function onSet(result) {
    risky sites in your browser */
 function disableHyperlinkAuditing() {
   var setting = browser.privacy.websites.hyperlinkAuditingEnabled.set({
-    value: false
+    value: false,
   });
-  console.log('Disabling hyperlink auditing/val=', {
-    value: false
+  console.log("Disabling hyperlink auditing/val=", {
+    value: false,
   });
   setting.then(onSet);
 }
@@ -23,8 +23,8 @@ function disableHyperlinkAuditing() {
 // UNINSTALL ONLY
 function enableHyperlinkAuditing() {
   var setting = browser.privacy.websites.hyperlinkAuditingEnabled.clear();
-  console.log('Disabling hyperlink auditing/val=', {
-    value: false
+  console.log("Disabling hyperlink auditing/val=", {
+    value: false,
   });
   setting.then(onSet);
 }
@@ -32,10 +32,10 @@ function enableHyperlinkAuditing() {
 // This enables first-party isolation
 function enableFirstPartyIsolation() {
   var setting = browser.privacy.websites.firstPartyIsolate.set({
-    value: true
+    value: true,
   });
-  console.log('Enabling first party isolation/val=', {
-    value: true
+  console.log("Enabling first party isolation/val=", {
+    value: true,
   });
   setting.then(onSet);
 }
@@ -43,8 +43,8 @@ function enableFirstPartyIsolation() {
 // UNINSTALL ONLY
 function disableFirstPartyIsolation() {
   var setting = browser.privacy.websites.firstPartyIsolate.clear();
-  console.log('Enabling first party isolation/val=', {
-    value: true
+  console.log("Enabling first party isolation/val=", {
+    value: true,
   });
   setting.then(onSet);
 }
@@ -57,15 +57,15 @@ function disableEvilCookies() {
   getting.then((got) => {
     var setting = browser.privacy.websites.cookieConfig.set({
       value: {
-        behavior: 'reject_third_party',
-        nonPersistentCookies: got.value.nonPersistentCookies
-      }
+        behavior: "reject_third_party",
+        nonPersistentCookies: got.value.nonPersistentCookies,
+      },
     });
-    console.log('Setting cookie behavior/val=', {
+    console.log("Setting cookie behavior/val=", {
       value: {
-        behavior: 'reject_third_party',
-        nonPersistentCookies: got.value.nonPersistentCookies
-      }
+        behavior: "reject_third_party",
+        nonPersistentCookies: got.value.nonPersistentCookies,
+      },
     });
     setting.then(onSet);
   });
