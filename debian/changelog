@@ -1,3 +1,11 @@
+i2psetproxy.js (0.123-1) UNRELEASED; urgency=low
+
+  * Bump and resubmit to mozilla.
+  * I am not going to optionally keep cookies.
+  * That would be introducing a pointless security issue.
+
+ -- idk <hankhill19580@gmail.com> Wed, 30 Oct 2021 10:11:51 -0400
+
 i2psetproxy.js (0.121-1) UNRELEASED; urgency=low
 
   * switch to browser_specific_settings manifest key

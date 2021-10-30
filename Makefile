@@ -147,7 +147,7 @@ recreate-release: delete-release release upload
 
 upload: upload-xpi upload-deb
 
-full-release: release submit upload-xpi torrent upload-torrent deb upload-deb upload-rss seed
+full-release: release moz-submit upload-xpi torrent upload-torrent deb upload-deb upload-rss seed
 
 full-sign: moz-sign upload-xpi torrent upload-torrent deb upload-deb upload-rss seed
 
