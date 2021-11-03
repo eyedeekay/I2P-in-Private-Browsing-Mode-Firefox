@@ -1,3 +1,9 @@
+i2psetproxy.js (0.125-1) UNRELEASED; urgency=low
+
+  * Bump and resubmit to mozilla.
+
+ -- idk <hankhill19580@gmail.com> Wed, 3 Nov 2021 00:20:33 -0400
+
 i2psetproxy.js (0.123-1) UNRELEASED; urgency=low
 
   * Bump and resubmit to mozilla.

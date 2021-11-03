@@ -37,11 +37,11 @@ clean: rc clean-artifacts
 ## EVEN RELEASES are AMO RELEASES
 ## ODD RELEASES are SELFHOSTED RELEASES
 
-MOZ_VERSION=0.124
-VERSION=0.123
+MOZ_VERSION=0.126
+VERSION=0.125
 
 ## INCREMENT THIS EVERY TIME YOU DO A RELEASE
-LAST_VERSION=0.121
+LAST_VERSION=0.123
 
 YELLOW=F7E59A
 ORANGE=FFC56D
@@ -147,7 +147,8 @@ recreate-release: delete-release release upload
 
 upload: upload-xpi upload-deb
 
-full-release: release moz-submit upload-xpi torrent upload-torrent deb upload-deb upload-rss seed
+moz-release: release moz-submit 
+#upload-xpi torrent upload-torrent deb upload-deb upload-rss seed
 
 full-sign: moz-sign upload-xpi torrent upload-torrent deb upload-deb upload-rss seed
 
