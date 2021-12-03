@@ -12,7 +12,6 @@ function contentUpdateById(id, message) {
 contentUpdateById("text-section-header", "extensionName");
 contentUpdateById("description", "extensionDescription");
 contentUpdateById("i2pbrowser-version", "extensionVersion");
-contentUpdateById("proxy-check", "proxyFailedStatus");
 
 // Control Section
 contentUpdateById("controlHeader", "controlHeader");
@@ -50,6 +49,12 @@ contentUpdateById("releases", "releases");
 
 fetch("http://proxy.i2p").then((myJson) => {
   contentUpdateById("proxy-check", "proxySuccessStatus");
+  let readyness = document.querySelectorAll(".readyness");
+  if (readyness != null) {
+    hide(readyness);
+  }
+}, (error) => {
+  contentUpdateById("proxy-check", "proxyFailedStatus");
   let readyness = document.querySelectorAll(".readyness");
   if (readyness != null) {
     hide(readyness);
