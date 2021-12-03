@@ -126,6 +126,9 @@ document.addEventListener("click", (clickEvent) => {
   } else if (clickEvent.target.id === "window-visit-torrent") {
     console.log("attempting to create torrent tab");
     goTorrent();
+  } else if (clickEvent.target.id === "torrentui-opener") {
+    console.log("attempting to create torrent tab");
+    goSnark();
   } else if (clickEvent.target.id === "window-visit-help") {
     console.log("attempting to create torrent tab");
     goHelp();
