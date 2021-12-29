@@ -95,7 +95,8 @@ function i2pHostName(url) {
 
 function i2pHost(url) {
   let hostname = i2pHostName(url);
-  return hostname.endsWith(".i2p");
+  let postname = hostname.split(":")[0]
+  return postname.endsWith(".i2p");
 }
 
 function routerHost(url) {

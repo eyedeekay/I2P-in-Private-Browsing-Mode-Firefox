@@ -20,7 +20,7 @@
     "description": "Description of the extension."
   },
   "extensionVersion": {
-    "message": "0.108",
+    "message": "1.28",
     "description": "Version of the extension."
   },
   "proxyFailedStatus": {

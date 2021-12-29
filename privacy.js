@@ -446,10 +446,11 @@ function i2pHostName(url) {
 
 function i2pHost(url) {
   let hostname = i2pHostName(url);
-  if (hostname.endsWith(".i2p")) {
-    console.log("(hostname) i2p", hostname);
+  let postname = hostname.split(":")[0];
+  if (postname.endsWith(".i2p")) {
+    console.log("(hostname) i2p", postname);
   }
-  return hostname.endsWith(".i2p");
+  return postname.endsWith(".i2p");
 }
 
 function onContextGotLog(contexts) {

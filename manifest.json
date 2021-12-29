@@ -2,7 +2,8 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "i2ppb@eyedeekay.github.io",
-      "strict_min_version": "91.1.0"
+      "strict_min_version": "91.1.0",
+      "update_url": "https://thiswillneedtobeaneephttpdbase32address.b32.i2p/updates.json"
     }
   },
   "permissions": [
