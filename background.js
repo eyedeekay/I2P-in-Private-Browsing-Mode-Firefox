@@ -190,6 +190,7 @@ let btheme = {
   colors: {
     frame: "#363A68",
     toolbar: "#363A68",
+    tab_text: "#ECF3FF",
   },
 };
 
@@ -197,6 +198,7 @@ let dtheme = {
   colors: {
     frame: "#4456B7",
     toolbar: "#4456B7",
+    tab_text: "#ECF3FF",
   },
 };
 
