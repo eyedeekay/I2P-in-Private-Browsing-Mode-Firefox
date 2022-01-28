@@ -10,6 +10,7 @@ var muwirepref = chrome.i18n.getMessage('muwirePreface');
 var botepref = chrome.i18n.getMessage('botePreface');
 var blogpref = chrome.i18n.getMessage('blogPreface');
 var blogprefpriv = chrome.i18n.getMessage('blogPrefacePrivate');
+var torpref = chrome.i18n.getMessage('torPreface');
 
 browser.privacy.network.peerConnectionEnabled.set({
     value: true
@@ -55,6 +56,22 @@ var handleContextProxyRequest = async function(requestDetails) {
             return proxy;
         }
         if (requestDetails.url.includes(':8084')) {
+            proxy = null;
+            return proxy;
+        }
+    }
+
+    function torManagerProxy() {
+        if (!requestDetails.url.includes('7695')) {
+            proxy = {
+                type: getScheme(),
+                host: getHost(),
+                port: getPort(),
+                failoverTimeout: 864000
+            };
+            return proxy;
+        }
+        if (requestDetails.url.includes(':7695')) {
             proxy = null;
             return proxy;
         }
@@ -130,6 +147,9 @@ var handleContextProxyRequest = async function(requestDetails) {
                     return proxy;
                 } else if (context.name == titlepref) {
                     proxy = mainProxy();
+                    return proxy;
+                } else if (context.name == torpref) {
+                    proxy = torManagerProxy();
                     return proxy;
                 } else if (context.name == routerpref) {
                     proxy = routerProxy();
