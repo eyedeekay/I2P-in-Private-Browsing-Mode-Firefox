@@ -11,6 +11,7 @@ var botepref = chrome.i18n.getMessage('botePreface');
 var blogpref = chrome.i18n.getMessage('blogPreface');
 var blogprefpriv = chrome.i18n.getMessage('blogPrefacePrivate');
 var torpref = chrome.i18n.getMessage('torPreface');
+var reseedpref = chrome.i18n.getMessage('reseedPreface');
 
 var contextScrub = async function(requestDetails) {
     function onHeaderError() {
@@ -342,6 +343,17 @@ var contextSetup = function(requestDetails) {
                 console.error('(isolate)Context Error', error);
             }
         };
+        var reseedTabFind = async function(tabId) {
+            console.info('(isolate)Context Discovery Reseed Manager');
+            try {
+                var context = await browser.contextualIdentities.query({
+                    name: reseedpref
+                });
+                return forceIntoIsolation(tabId, reseedpref, tab);
+            } catch (error) {
+                console.error('(isolate)Context Error', error);
+            }
+        };
         var tabGet = async function(tabId) {
             try {
                 //console.log("(isolate)Tab ID from Request", tabId);
@@ -402,7 +414,11 @@ var contextSetup = function(requestDetails) {
                         } else if (localhost === 'tortab') {
                             var tortab = tab.then(torTabFind, onContextError);
                             return requestDetails;
+                        } else if (localhost === 'reseed') {
+                            var reseedtab = tab.then(reseedTabFind, onContextError);
+                            return requestDetails;
                         }
+
                     }
                 }
                 //        if (oldtab.cookieStoreId == 'firefox-default') {

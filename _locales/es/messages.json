@@ -159,6 +159,10 @@
         "message": "Tor Management",
         "description": "Preface for the browser titlebar"
     },
+    "reseedPreface": {
+        "message": "Reseed Management",
+        "description": "Preface for the browser titlebar"
+    },
     "webPreface": {
         "message": "Navegador web",
         "description": "Prefacio de la barra de título del navegador"

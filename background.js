@@ -19,6 +19,7 @@ var botepref = chrome.i18n.getMessage('botePreface');
 var blogpref = chrome.i18n.getMessage('blogPreface');
 var blogprefpriv = chrome.i18n.getMessage('blogPrefacePrivate');
 var torpref = chrome.i18n.getMessage('torPreface');
+var reseedpref = chrome.i18n.getMessage('reseedPreface');
 
 function onError(err) {
     console.log('(background)', err);
@@ -133,6 +134,15 @@ function onContextsGot(contexts) {
                 name: torpref,
                 color: 'purple',
                 icon: 'food'
+            })
+            .then(onCreated, onNotCreated);
+    }
+    if (ids.indexOf(reseedpref) == -1) {
+        browser.contextualIdentities
+            .create({
+                name: reseedpref,
+                color: 'green',
+                icon: 'briefcase'
             })
             .then(onCreated, onNotCreated);
     }

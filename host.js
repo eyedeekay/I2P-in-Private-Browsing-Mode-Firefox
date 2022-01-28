@@ -27,11 +27,17 @@ function localHost(url) {
     console.log('(urlcheck) hostname localhost', hostname);
     console.log('(urlcheck) url localhost', url);
     if (hostname === '127.0.0.1') {
+        if (url.indexOf(':7671') != -1) return 'reseed';
         if (url.indexOf(':8084') != -1) return 'blog';
+        if (url.indexOf(':7672') != -1) return 'blog';
+        if (url.indexOf(':7673') != -1) return 'blog';
         if (url.indexOf(':7669') != -1) return 'irc';
         if (url.indexOf(':7695') != -1) return 'tortab';
     } else if (hostname === 'localhost') {
+        if (url.indexOf(':7671') != -1) return 'reseed';
         if (url.indexOf(':8084') != -1) return 'blog';
+        if (url.indexOf(':7672') != -1) return 'blog';
+        if (url.indexOf(':7673') != -1) return 'blog';
         if (url.indexOf(':7669') != -1) return 'irc';
         if (url.indexOf(':7695') != -1) return 'tortab';
     }
