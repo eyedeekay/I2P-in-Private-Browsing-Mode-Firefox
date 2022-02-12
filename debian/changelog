@@ -1,3 +1,10 @@
+i2psetproxy.js (0.132-1) UNRELEASED; urgency=low
+
+  * Add several new contextual identities for plugin apps
+  * Add option to set the homepage and new tab page on the first run
+
+ -- idk <hankhill19580@gmail.com> Fri, 11 Feb 2022 20:28:16 -0400
+
 i2psetproxy.js (0.125-1) UNRELEASED; urgency=low
 
   * Bump and resubmit to mozilla.
