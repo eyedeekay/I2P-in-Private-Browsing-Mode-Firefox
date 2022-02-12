@@ -1,4 +1,4 @@
-i2psetproxy.js (0.132-1) UNRELEASED; urgency=low
+i2psetproxy.js (0.131-1) UNRELEASED; urgency=low
 
   * Add several new contextual identities for plugin apps
   * Add option to set the homepage and new tab page on the first run
