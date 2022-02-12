@@ -32,6 +32,14 @@ For desktop users this addon is available from addons.mozilla.org, where you
 will be able to recive automatic updates:
 [I2P in Private Browsing](https://addons.mozilla.org/en-US/firefox/addon/i2p-in-private-browsing/).
 
+### Setting the Homepage
+
+The first time you run the extension, Firefox will offer you the option of setting
+your homepage and new tab page to the homepage contained *within* the extension. You
+can decline this or edit it later and it will not affect your anonymity. Enabling
+this feature allows the extension to set your homepage to a local document with a
+number of useful I2P links.
+
 Debian Installation:
 --------------------
 
