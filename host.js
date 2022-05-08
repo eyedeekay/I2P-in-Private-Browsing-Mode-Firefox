@@ -177,5 +177,11 @@ function routerHost(url) {
     if (hostname === '127.0.0.1' + ':' + 7070) {
         return pathcheck(path);
     }
+    if (hostname === 'localhost' + ':' + 7667) {
+        return pathcheck(path);
+    }
+    if (hostname === '127.0.0.1' + ':' + 7667) {
+        return pathcheck(path);
+    }
     return false;
 }
