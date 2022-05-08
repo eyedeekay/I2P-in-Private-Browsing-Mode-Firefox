@@ -291,6 +291,9 @@ fmt-js:
 	sed -i 's|= >|=>|g' *.js */*.js
 	#find . -path ./node_modules -prune -o -name '*.json' -exec fixjsstyle --write {} \;
 
+fmt-locales:
+	find _locales -name '*.js*' -exec $(HOME)/node_modules/.bin/prettier -w {} \;
+
 fmt-prettier:
 	find . -name '*.js*' -exec $(HOME)/node_modules/.bin/prettier -w {} \;
 

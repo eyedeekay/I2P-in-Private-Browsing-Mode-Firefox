@@ -1,0 +1,46 @@
+{
+  "controlHelpText": {
+    "description": "B. 帮助精简重新启动的Tunnel但顿办法",
+    "message": "调整你的路线。"
+  },
+  "disableHistory": {
+    "description": "历史检查箱标签。",
+    "message": "I2P Tabs可观的历史?"
+  },
+  "histDesc": {
+    "description": "历史行动说明",
+    "message": "当你的I2Ptab被关闭时,历史就自动明确。 如果你想像你那样明确历史,检查这个箱。"
+  },
+  "mailPrefacePrivate": {
+    "description": "代页标题的序言",
+    "message": "网址:Mail(Private)"
+  },
+  "proxyHelpText": {
+    "description": "B. 帮助精简重新启动的Tunnel但顿办法",
+    "message": "调整你的I2P proxy。"
+  },
+  "releases": {
+    "description": "新发行页的说明",
+    "message": "这里新排放的检查"
+  },
+  "resetMessage": {
+    "description": "Reset Tunnel但顿先生",
+    "message": "B. 重新定位"
+  },
+  "routerConsole": {
+    "description": "标示路线。",
+    "message": "其他2P应用程序的切入点是I2P Router Console。 要访问,这里点击。"
+  },
+  "titlePrefacePrivate": {
+    "description": "代页标题的序言",
+    "message": "I2P Browser(Private)"
+  },
+  "torrentPreface": {
+    "description": "代页标题的序言",
+    "message": "Bittorrent"
+  },
+  "windowVisitI2ptunnel": {
+    "description": "标题一二",
+    "message": "Hidden服务经理:"
+  }
+}

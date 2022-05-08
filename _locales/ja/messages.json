@@ -1,0 +1,46 @@
+{
+  "controlHelpText": {
+    "description": "リセットトンネルボタンのオプションを設定するのに役立ちます",
+    "message": "ルーターのコンソールをここに構成します。"
+  },
+  "disableHistory": {
+    "description": "履歴チェックボックスラベル。",
+    "message": "I2Pタブで履歴を無効にできますか?"
+  },
+  "histDesc": {
+    "description": "履歴アクションの説明",
+    "message": "I2Pタブが閉じられたときに履歴は自動的に消去されます。 あなたが行くように歴史をクリアしたい場合は、このボックスをチェックしてください。"
+  },
+  "mailPrefacePrivate": {
+    "description": "ブラウザのタイトルバーのPreface",
+    "message": "Webメール(プライベート)"
+  },
+  "proxyHelpText": {
+    "description": "リセットトンネルボタンのオプションを設定するのに役立ちます",
+    "message": "ここでは、I2P プロキシを設定します。"
+  },
+  "releases": {
+    "description": "新しいリリースページの説明",
+    "message": "新規リリースはこちら"
+  },
+  "resetMessage": {
+    "description": "リセットトンネルボタンのメッセージ",
+    "message": "リセットトンネル"
+  },
+  "routerConsole": {
+    "description": "ルーターコンソールの説明。",
+    "message": "他のすべての I2P アプリケーションへのエントリーポイントは I2P ルータコンソールです。 詳しくはこちらをご覧ください。"
+  },
+  "titlePrefacePrivate": {
+    "description": "ブラウザのタイトルバーのPreface",
+    "message": "I2Pブラウザ(プライベート)"
+  },
+  "torrentPreface": {
+    "description": "ブラウザのタイトルバーのPreface",
+    "message": "ビットトレント"
+  },
+  "windowVisitI2ptunnel": {
+    "description": "I2ptunnelのタイトル",
+    "message": "隠されたサービスマネージャ:"
+  }
+}

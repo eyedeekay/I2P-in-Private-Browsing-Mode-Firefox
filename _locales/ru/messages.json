@@ -1,0 +1,46 @@
+{
+  "controlHelpText": {
+    "description": "Помощь для настройки вариантов для кнопки Reset Tunnel",
+    "message": "Настройте свою лоутерную консоль здесь."
+  },
+  "disableHistory": {
+    "description": "История checkbox label.",
+    "message": "Отключить историю в I2P Tabs?"
+  },
+  "histDesc": {
+    "description": "Описание действий по истории",
+    "message": "История автоматически очищается, когда ваши вкладки I2P закрыты. Если вы хотите очистить историю, как вы идете, проверьте эту коробку."
+  },
+  "mailPrefacePrivate": {
+    "description": "Предисловие для панели заголовка браузера",
+    "message": "Web Mail (Частная)"
+  },
+  "proxyHelpText": {
+    "description": "Помощь для настройки вариантов для кнопки Reset Tunnel",
+    "message": "Настройте свои I2P-прокси здесь."
+  },
+  "releases": {
+    "description": "Описание для новой страницы выпуска",
+    "message": "Проверьте новые релизы здесь"
+  },
+  "resetMessage": {
+    "description": "Сообщение для кнопки Reset Tunnel",
+    "message": "Сбросить тоннель"
+  },
+  "routerConsole": {
+    "description": "Описание для рулевой консоли.",
+    "message": "Вводная точка для всех других приложений I2P является I2P Router Console. Чтобы посетить его, нажмите здесь."
+  },
+  "titlePrefacePrivate": {
+    "description": "Предисловие для панели заголовка браузера",
+    "message": "I2P Браузер (Private)"
+  },
+  "torrentPreface": {
+    "description": "Предисловие для панели заголовка браузера",
+    "message": "Bittorrent"
+  },
+  "windowVisitI2ptunnel": {
+    "description": "Название для i2ptunnel",
+    "message": "Скрытые услуги менеджера:"
+  }
+}

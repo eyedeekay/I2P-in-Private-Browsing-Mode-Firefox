@@ -1,0 +1,46 @@
+{
+  "controlHelpText": {
+    "description": "المساعدة على تشكيل خيارات زر نفق ريست",
+    "message": "إعترفوا بأن مرشدكم هنا"
+  },
+  "disableHistory": {
+    "description": "بطاقة تدقيق التاريخ",
+    "message": "تاريخ معزول في تابس I2P؟"
+  },
+  "histDesc": {
+    "description": "وصف الإجراءات التاريخية",
+    "message": "التاريخ يُبرّر تلقائياً عندما تُغلق رسومات I2P الخاصة بك. إذا كنت تريد تصفية التاريخ كما تذهب، تحقق من هذا الصندوق."
+  },
+  "mailPrefacePrivate": {
+    "description": "وجه لقب المصفح",
+    "message": "البريد الإلكتروني (Private)"
+  },
+  "proxyHelpText": {
+    "description": "المساعدة على تشكيل خيارات زر نفق ريست",
+    "message": "إعترف بوكيلك هنا"
+  },
+  "releases": {
+    "description": "Description for new release page",
+    "message": "تحقق من الإطلاقات الجديدة هنا"
+  },
+  "resetMessage": {
+    "description": "رسالة لزر نفق ريست",
+    "message": "Reset Tunnel"
+  },
+  "routerConsole": {
+    "description": "وصف لجهاز التحكم",
+    "message": "نقطة الدخول لجميع تطبيقات I2P الأخرى هي كونسول I2P لزيارتها، انقر هنا"
+  },
+  "titlePrefacePrivate": {
+    "description": "وجه لقب المصفح",
+    "message": "I2P Browser (Private)"
+  },
+  "torrentPreface": {
+    "description": "وجه لقب المصفح",
+    "message": "Bittorrent"
+  },
+  "windowVisitI2ptunnel": {
+    "description": "العنوان: i2ptunnel",
+    "message": "مدير الخدمات المخفية:"
+  }
+}

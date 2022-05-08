@@ -1,0 +1,46 @@
+{
+  "controlHelpText": {
+    "description": "Hilfe zur Konfiguration der Optionen für den Reset Tunnel Button",
+    "message": "Konfigurieren Sie hier Ihre Router-Konsole."
+  },
+  "disableHistory": {
+    "description": "History Checkbox Label.",
+    "message": "Die Geschichte in I2P Tabs deaktivieren?"
+  },
+  "histDesc": {
+    "description": "Beschreibung der Geschichte",
+    "message": "Die Geschichte wird automatisch gelöscht, wenn Ihre I2P Tabs geschlossen sind. Wenn Sie die Geschichte wie Sie gehen, überprüfen Sie diese Box."
+  },
+  "mailPrefacePrivate": {
+    "description": "Vorwort für die Browser-Titelleiste",
+    "message": "Web Mail (Privat)"
+  },
+  "proxyHelpText": {
+    "description": "Hilfe zur Konfiguration der Optionen für den Reset Tunnel Button",
+    "message": "Konfigurieren Sie Ihren I2P-Proxy hier."
+  },
+  "releases": {
+    "description": "Beschreibung für neue Release-Seite",
+    "message": "Hier finden Sie neue Releases"
+  },
+  "resetMessage": {
+    "description": "Nachricht für den Reset Tunnel Knopf",
+    "message": "Zurück zur Übersicht"
+  },
+  "routerConsole": {
+    "description": "Beschreibung für die Router-Konsole.",
+    "message": "Der Ausgangspunkt für alle anderen I2P-Anwendungen ist die I2P Router Console. Um es zu besuchen, klicken Sie hier."
+  },
+  "titlePrefacePrivate": {
+    "description": "Vorwort für die Browser-Titelleiste",
+    "message": "I2P Browser (Privat)"
+  },
+  "torrentPreface": {
+    "description": "Vorwort für die Browser-Titelleiste",
+    "message": "In den Warenkorb"
+  },
+  "windowVisitI2ptunnel": {
+    "description": "Titel für i2ptunnel",
+    "message": "Hidden Services Manager:"
+  }
+}
