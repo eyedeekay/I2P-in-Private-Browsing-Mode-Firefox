@@ -10,8 +10,8 @@ var muwirepref = chrome.i18n.getMessage('muwirePreface');
 var botepref = chrome.i18n.getMessage('botePreface');
 var blogpref = chrome.i18n.getMessage('blogPreface');
 var blogprefpriv = chrome.i18n.getMessage('blogPrefacePrivate');
-var torpref = chrome.i18n.getMessage("torPreface");
-var torprefpriv = chrome.i18n.getMessage("torPrefacePrivate");
+var torpref = chrome.i18n.getMessage('torPreface');
+var torprefpriv = chrome.i18n.getMessage('torPrefacePrivate');
 
 var contextScrub = async function(requestDetails) {
     function onHeaderError() {
