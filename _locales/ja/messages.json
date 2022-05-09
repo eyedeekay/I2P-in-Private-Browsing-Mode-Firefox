@@ -1,46 +1,322 @@
 {
-  "controlHelpText": {
-    "description": "リセットトンネルボタンのオプションを設定するのに役立ちます",
-    "message": "ルーターのコンソールをここに構成します。"
-  },
-  "disableHistory": {
-    "description": "履歴チェックボックスラベル。",
-    "message": "I2Pタブで履歴を無効にできますか?"
-  },
-  "histDesc": {
-    "description": "履歴アクションの説明",
-    "message": "I2Pタブが閉じられたときに履歴は自動的に消去されます。 あなたが行くように歴史をクリアしたい場合は、このボックスをチェックしてください。"
-  },
-  "mailPrefacePrivate": {
-    "description": "ブラウザのタイトルバーのPreface",
-    "message": "Webメール(プライベート)"
-  },
-  "proxyHelpText": {
-    "description": "リセットトンネルボタンのオプションを設定するのに役立ちます",
-    "message": "ここでは、I2P プロキシを設定します。"
-  },
-  "releases": {
-    "description": "新しいリリースページの説明",
-    "message": "新規リリースはこちら"
-  },
-  "resetMessage": {
-    "description": "リセットトンネルボタンのメッセージ",
-    "message": "リセットトンネル"
-  },
-  "routerConsole": {
-    "description": "ルーターコンソールの説明。",
-    "message": "他のすべての I2P アプリケーションへのエントリーポイントは I2P ルータコンソールです。 詳しくはこちらをご覧ください。"
-  },
-  "titlePrefacePrivate": {
-    "description": "ブラウザのタイトルバーのPreface",
-    "message": "I2Pブラウザ(プライベート)"
-  },
-  "torrentPreface": {
-    "description": "ブラウザのタイトルバーのPreface",
-    "message": "ビットトレント"
-  },
-  "windowVisitI2ptunnel": {
-    "description": "I2ptunnelのタイトル",
-    "message": "隠されたサービスマネージャ:"
-  }
+    "abouthome": {
+        "description": "延長ボタンページの説明。",
+        "message": "この拡張機能の詳細については、このページをご覧ください。"
+    },
+    "applicationExplain": {
+        "description": "アプリケーションセクションの説明。",
+        "message": "これらのアプリケーションは、I2Pと直接連携して、セキュリティとプライバシーを提供します。"
+    },
+    "applicationHeader": {
+        "description": "アプリケーションセクションのヘッダー。",
+        "message": "アプリケーション"
+    },
+    "blogPreface": {
+        "description": "ブラウザのタイトルバーのPreface",
+        "message": "ニュース"
+    },
+    "blogPrefacePrivate": {
+        "description": "ブラウザのタイトルバーのPreface",
+        "message": "ブログ(プライベート)"
+    },
+    "botePreface": {
+        "description": "ブラウザのタイトルバーのPreface",
+        "message": "I2P-Bote メール"
+    },
+    "botePrefacePrivate": {
+        "description": "ブラウザのタイトルバーのPreface",
+        "message": "I2P-Bote メール(プライベート)"
+    },
+    "certAbsent": {
+        "description": "不在の場合の証明書情報のためのコンテンツ",
+        "message": "このサイトはHTTPSを利用していません。 I2Pによって暗号化されても検証されています。"
+    },
+    "certLabel": {
+        "description": "証明書情報ラベル",
+        "message": "証明書情報:"
+    },
+    "certPresent": {
+        "description": "証明書情報の内容 提示すれば",
+        "message": "このサイトは HTTPS を使用しています。 I2P上のHTTPSは実験的であり、自己署名された証明書または代替ルートの作者を必要とします。"
+    },
+    "clearData": {
+        "description": "データのメニュー項目を消去します。",
+        "message": "データの閲覧をクリア:"
+    },
+    "clearDesc": {
+        "description": "閲覧データアクションの説明をクリアします。",
+        "message": "これにより、I2Pの閲覧データを消去できます。"
+    },
+    "controlExplain": {
+        "description": "コントロールパネルを導入",
+        "message": "これらのコントロールは、I2P ブラウジングエクスペリエンスを調整するために使用されます。"
+    },
+    "controlHeader": {
+        "description": "制御のパネルのための見出し。",
+        "message": "コントロール"
+    },
+    "controlHelpText": {
+        "description": "リセットトンネルボタンのオプションを設定するのに役立ちます",
+        "message": "ルーターのコンソールをここに構成します。"
+    },
+    "controlHostText": {
+        "description": "ルーターコンソールのホスト",
+        "message": "制御ホスト:"
+    },
+    "controlHostValue": {
+        "description": "ルーターコンソールのホスト",
+        "message": "127.0.0.1の"
+    },
+    "controlPortText": {
+        "description": "ルーターコンソール用のポート",
+        "message": "制御港:"
+    },
+    "controlPortValue": {
+        "description": "ルーターコンソール用のポート",
+        "message": "ディストリクト7657"
+    },
+    "disableHistory": {
+        "description": "履歴チェックボックスラベル。",
+        "message": "I2Pタブで履歴を無効にできますか?"
+    },
+    "enableWebRTC": {
+        "description": "WebRTC チェックボックスラベル。",
+        "message": "プロキシでWebRTCを有効にする?"
+    },
+    "extensionDescription": {
+        "description": "拡張子の説明。",
+        "message": "お使いのブラウザは、I2P を使用するように設定されています。"
+    },
+    "extensionName": {
+        "description": "拡張子の名前。",
+        "message": "I2Pについて プライベートブラウジング"
+    },
+    "extensionNameVariant": {
+        "description": "拡張子の名前。",
+        "message": "I2P で プライベートブラウジング - Rhizome Variant"
+    },
+    "extensionPreface": {
+        "description": "ブラウザのタイトルバーのPreface",
+        "message": "I2P管理"
+    },
+    "extensionVersion": {
+        "description": "拡張子のバージョン。",
+        "message": "1.28の"
+    },
+    "forumMessage": {
+        "description": "サポートメッセージ",
+        "message": "I2Pフォーラムにアクセスして、より多くのことを学ぶか、援助を求める"
+    },
+    "help": {
+        "description": "延長ボタンページの説明。",
+        "message": "この拡張機能の詳細については、このページをご覧ください。"
+    },
+    "helpMessage": {
+        "description": "サポートメッセージ",
+        "message": "追加ヘルプを入手"
+    },
+    "histDesc": {
+        "description": "履歴アクションの説明",
+        "message": "I2Pタブが閉じられたときに履歴は自動的に消去されます。 あなたが行くように歴史をクリアしたい場合は、このボックスをチェックしてください。"
+    },
+    "homepage": {
+        "description": "詳細情報",
+        "message": "詳しくはこちらをご覧ください。"
+    },
+    "hostText": {
+        "description": "HTTP または SOCKS 5 プロキシのホスト",
+        "message": "ホスト:"
+    },
+    "i2ptunnel": {
+        "description": "I2ptunnelの説明",
+        "message": "I2P には、.i2p サービスの構成のための Web ベースのインターフェイスがあります。"
+    },
+    "i2ptunnelPreface": {
+        "description": "ブラウザのタイトルバーのPreface",
+        "message": "隠されたサービスマネージャ"
+    },
+    "i2ptunnelPrefacePrivate": {
+        "description": "ブラウザのタイトルバーのPreface",
+        "message": "隠しサービスマネージャ(プライベート)"
+    },
+    "infoMessage": {
+        "description": "サポートメッセージ",
+        "message": "EepWeb を閲覧できるようになりました。 お使いのブラウザは、I2Pネットワーク上で匿名で閲覧するように設定されています。 ご覧のとおり、トラフィックは他のネットワークノードを介してルーティングされ、サーバーとノード自身の両方の起源を偽装します。"
+    },
+    "infoTitle": {
+        "description": "ヘルプメニューのタイトル",
+        "message": "I2Pについて お問い合わせ"
+    },
+    "ircPreface": {
+        "description": "ブラウザのタイトルバーのPreface",
+        "message": "ディスパッチIRC"
+    },
+    "ircPrefacePrivate": {
+        "description": "ブラウザのタイトルバーのPreface",
+        "message": "ディスパッチIRC(プライベート)"
+    },
+    "isBase32": {
+        "description": "サイト情報パネルベース32のメッセージ",
+        "message": "I2P Base32-Formatted アドレス"
+    },
+    "isHostName": {
+        "description": "サイト情報パネルのホスト名のためのメッセージ",
+        "message": "I2Pについて ジャンプのホスト名"
+    },
+    "mailPreface": {
+        "description": "ブラウザのタイトルバーのPreface",
+        "message": "Webメール"
+    },
+    "mailPrefacePrivate": {
+        "description": "ブラウザのタイトルバーのPreface",
+        "message": "Webメール(プライベート)"
+    },
+    "muwirePreface": {
+        "description": "ブラウザのタイトルバーのPreface",
+        "message": "メニュー"
+    },
+    "muwirePrefacePrivate": {
+        "description": "ブラウザのタイトルバーのPreface",
+        "message": "MuWire(プライベート)"
+    },
+    "newsMessage": {
+        "description": "サポートメッセージ",
+        "message": "I2Pにアクセス i2pの最新情報を知るブログです。"
+    },
+    "portText": {
+        "description": "HTTP または SOCKS 5 プロキシのポート",
+        "message": "港:"
+    },
+    "protocolHandlerValue": {
+        "description": "マグネットプロトコルハンドラの値",
+        "message": "http://127.0.0.1:7657/i2psnark/?nofilter_newURL=%s\u0026action=Add\u0026foo=Add+torrent"
+    },
+    "proxyFailedStatus": {
+        "description": "プロキシが失敗したステータス。",
+        "message": "プロキシは準備が整っていない"
+    },
+    "proxyHelpText": {
+        "description": "リセットトンネルボタンのオプションを設定するのに役立ちます",
+        "message": "ここでは、I2P プロキシを設定します。"
+    },
+    "proxySuccessStatus": {
+        "description": "プロキシが失敗したステータス。",
+        "message": "プロキシは準備ができています"
+    },
+    "releases": {
+        "description": "新しいリリースページの説明",
+        "message": "新規リリースはこちら"
+    },
+    "resetMessage": {
+        "description": "リセットトンネルボタンのメッセージ",
+        "message": "リセットトンネル"
+    },
+    "routerConsole": {
+        "description": "ルーターコンソールの説明。",
+        "message": "他のすべての I2P アプリケーションへのエントリーポイントは I2P ルータコンソールです。 詳しくはこちらをご覧ください。"
+    },
+    "routerPreface": {
+        "description": "ブラウザのタイトルバーのPreface",
+        "message": "ルーターコンソール"
+    },
+    "routerPrefacePrivate": {
+        "description": "ブラウザのタイトルバーのPreface",
+        "message": "ルーターコンソール(プライベート)"
+    },
+    "rtcDesc": {
+        "description": "WebRTC アクションの説明",
+        "message": "WebRTC はデフォルトで無効になっていますが、それをオンにしてプロキシを称えるように強制することができます。 Snowflakeブラウザの拡張機能をご利用の場合、このオプションは無効になっており、デフォルトではWebRTCがオンになっています。"
+    },
+    "siteLabel": {
+        "description": "I2pサイトのラベル",
+        "message": "アドレス/サイト情報:"
+    },
+    "snark": {
+        "description": "Bittorrentの記述",
+        "message": "I2Pは、組み込みビットトレントアプリケーションを使用して匿名のピアツーピアファイル共有が可能です。"
+    },
+    "sources": {
+        "description": "ソースコードリンクの記述",
+        "message": "ソースコードを参照"
+    },
+    "susimail": {
+        "description": "電子メールの記述",
+        "message": "I2Pは、I2Pメールにアクセスするために使用できるWebメールクライアントもバンドルします。"
+    },
+    "titlePreface": {
+        "description": "ブラウザのタイトルバーのPreface",
+        "message": "I2Pブラウザ"
+    },
+    "titlePrefacePrivate": {
+        "description": "ブラウザのタイトルバーのPreface",
+        "message": "I2Pブラウザ(プライベート)"
+    },
+    "toopieName": {
+        "description": "サイドバーの名前。",
+        "message": "お問い合わせ ツイート"
+    },
+    "toopieTLS": {
+        "description": "セキュリティパネルの名前。",
+        "message": "サイトのプロパティ"
+    },
+    "torPreface": {
+        "description": "ブラウザのタイトルバーのPreface",
+        "message": "トー・マネージャー"
+    },
+    "torPrefacePrivate": {
+        "description": "ブラウザのタイトルバーのPreface",
+        "message": "トー・マネージャー(プライベート)"
+    },
+    "torrentPreface": {
+        "description": "ブラウザのタイトルバーのPreface",
+        "message": "ビットトレント"
+    },
+    "torrentPrefacePrivate": {
+        "description": "ブラウザのタイトルバーのPreface",
+        "message": "Bittorrent(プライベート)"
+    },
+    "webPreface": {
+        "description": "ブラウザのタイトルバーのPreface",
+        "message": "ウェブブラウザ"
+    },
+    "webPrefacePrivate": {
+        "description": "ブラウザのタイトルバーのPreface",
+        "message": "ウェブブラウザ(プライベート)"
+    },
+    "windowVisitConsole": {
+        "description": "ルーターコンソールラベル。",
+        "message": "ルーターコンソール:"
+    },
+    "windowVisitHelppage": {
+        "description": "拡張ラベルのヘルプページ。",
+        "message": "ヘルプページ:"
+    },
+    "windowVisitHomepage": {
+        "description": "エクステンションラベルのトップページです。",
+        "message": "ホームページ:"
+    },
+    "windowVisitI2ptunnel": {
+        "description": "I2ptunnelのタイトル",
+        "message": "隠されたサービスマネージャ:"
+    },
+    "windowVisitReleases": {
+        "description": "リリースページへ",
+        "message": "延長リリース:"
+    },
+    "windowVisitSnark": {
+        "description": "Bittorrentのタイトル",
+        "message": "Bittorrent:"
+    },
+    "windowVisitSources": {
+        "description": "ソースコードリンクのタイトル",
+        "message": "延長ソースコード:"
+    },
+    "windowVisitSusimail": {
+        "description": "メールのタイトル",
+        "message": "メール:"
+    },
+    "windowVisitWebPage": {
+        "description": "Githubの拡張ホームページにアクセス",
+        "message": "延長ホームページ:"
+    }
 }

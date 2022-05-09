@@ -1,46 +1,322 @@
 {
-  "controlHelpText": {
-    "description": "Hilfe zur Konfiguration der Optionen für den Reset Tunnel Button",
-    "message": "Konfigurieren Sie hier Ihre Router-Konsole."
-  },
-  "disableHistory": {
-    "description": "History Checkbox Label.",
-    "message": "Die Geschichte in I2P Tabs deaktivieren?"
-  },
-  "histDesc": {
-    "description": "Beschreibung der Geschichte",
-    "message": "Die Geschichte wird automatisch gelöscht, wenn Ihre I2P Tabs geschlossen sind. Wenn Sie die Geschichte wie Sie gehen, überprüfen Sie diese Box."
-  },
-  "mailPrefacePrivate": {
-    "description": "Vorwort für die Browser-Titelleiste",
-    "message": "Web Mail (Privat)"
-  },
-  "proxyHelpText": {
-    "description": "Hilfe zur Konfiguration der Optionen für den Reset Tunnel Button",
-    "message": "Konfigurieren Sie Ihren I2P-Proxy hier."
-  },
-  "releases": {
-    "description": "Beschreibung für neue Release-Seite",
-    "message": "Hier finden Sie neue Releases"
-  },
-  "resetMessage": {
-    "description": "Nachricht für den Reset Tunnel Knopf",
-    "message": "Zurück zur Übersicht"
-  },
-  "routerConsole": {
-    "description": "Beschreibung für die Router-Konsole.",
-    "message": "Der Ausgangspunkt für alle anderen I2P-Anwendungen ist die I2P Router Console. Um es zu besuchen, klicken Sie hier."
-  },
-  "titlePrefacePrivate": {
-    "description": "Vorwort für die Browser-Titelleiste",
-    "message": "I2P Browser (Privat)"
-  },
-  "torrentPreface": {
-    "description": "Vorwort für die Browser-Titelleiste",
-    "message": "In den Warenkorb"
-  },
-  "windowVisitI2ptunnel": {
-    "description": "Titel für i2ptunnel",
-    "message": "Hidden Services Manager:"
-  }
+    "abouthome": {
+        "description": "Beschreibung für die Schaltfläche Erweiterung.",
+        "message": "Weitere Informationen zu dieser Erweiterung finden Sie auf dieser Seite."
+    },
+    "applicationExplain": {
+        "description": "Beschreibung für Anwendungsbereich.",
+        "message": "Diese Anwendungen arbeiten mit I2P direkt, um ihnen Sicherheit und Privatsphäre zu bieten."
+    },
+    "applicationHeader": {
+        "description": "Header für Anwendungsbereiche.",
+        "message": "Anwendungen"
+    },
+    "blogPreface": {
+        "description": "Vorwort für die Browser-Titelleiste",
+        "message": "Blog"
+    },
+    "blogPrefacePrivate": {
+        "description": "Vorwort für die Browser-Titelleiste",
+        "message": "Blog (Privat)"
+    },
+    "botePreface": {
+        "description": "Vorwort für die Browser-Titelleiste",
+        "message": "I2P-Bote Mail"
+    },
+    "botePrefacePrivate": {
+        "description": "Vorwort für die Browser-Titelleiste",
+        "message": "I2P-Bote Mail (Private)"
+    },
+    "certAbsent": {
+        "description": "Inhalt für Zertifikatsinfo, wenn abwesend",
+        "message": "Diese Website verwendet nicht HTTPS. Es wird noch kryptographisch von I2P überprüft."
+    },
+    "certLabel": {
+        "description": "Label für Zertifikat Info",
+        "message": "Zertifikat Information:"
+    },
+    "certPresent": {
+        "description": "Inhalt für Zertifikatsinfo, wenn vorhanden",
+        "message": "Diese Website verwendet HTTPS. HTTPS über I2P ist experimentell und erfordert selbstsignierte Zertifikate oder alternative Wurzelautoriten."
+    },
+    "clearData": {
+        "description": "Löschen Sie den Menüpunkt Browserdaten.",
+        "message": "Löschen von Browserdaten:"
+    },
+    "clearDesc": {
+        "description": "Löschen Sie die Daten Aktion Beschreibung.",
+        "message": "Verwenden Sie dies, um Ihre I2P-Browserdaten zu löschen."
+    },
+    "controlExplain": {
+        "description": "Schalttafel einführen.",
+        "message": "Diese Steuerungen werden verwendet, um Ihre I2P Browsing Experience zuzuschneiden"
+    },
+    "controlHeader": {
+        "description": "Headline für Bedienfeld.",
+        "message": "Steuerung"
+    },
+    "controlHelpText": {
+        "description": "Hilfe zur Konfiguration der Optionen für den Reset Tunnel Button",
+        "message": "Konfigurieren Sie hier Ihre Router-Konsole."
+    },
+    "controlHostText": {
+        "description": "Host für die Router-Konsole",
+        "message": "Kontroll Host:"
+    },
+    "controlHostValue": {
+        "description": "Host für die Router-Konsole",
+        "message": "127.0.0.1"
+    },
+    "controlPortText": {
+        "description": "Hafen für die Router-Konsole",
+        "message": "Kontrollhafen:"
+    },
+    "controlPortValue": {
+        "description": "Hafen für die Router-Konsole",
+        "message": "7657"
+    },
+    "disableHistory": {
+        "description": "History Checkbox Label.",
+        "message": "Die Geschichte in I2P Tabs deaktivieren?"
+    },
+    "enableWebRTC": {
+        "description": "WebRTC-Checkbox-Label.",
+        "message": "WebRTC mit Proxy aktivieren?"
+    },
+    "extensionDescription": {
+        "description": "Beschreibung der Erweiterung.",
+        "message": "Ihr Browser ist nun eingerichtet, um I2P zu verwenden."
+    },
+    "extensionName": {
+        "description": "Name der Erweiterung.",
+        "message": "I2P Im privaten Browsing"
+    },
+    "extensionNameVariant": {
+        "description": "Name der Erweiterung.",
+        "message": "I2P In Private Browsing - Rhizome Variant"
+    },
+    "extensionPreface": {
+        "description": "Vorwort für die Browser-Titelleiste",
+        "message": "I2P Management"
+    },
+    "extensionVersion": {
+        "description": "Ausführung der Erweiterung.",
+        "message": "1.28"
+    },
+    "forumMessage": {
+        "description": "Hilfe",
+        "message": "Besuchen Sie das I2P Forum, um mehr zu erfahren oder um Hilfe zu bitten"
+    },
+    "help": {
+        "description": "Beschreibung für die Schaltfläche Erweiterung.",
+        "message": "Weitere Informationen zu dieser Erweiterung finden Sie auf dieser Seite."
+    },
+    "helpMessage": {
+        "description": "Hilfe",
+        "message": "Zusätzliche Hilfe"
+    },
+    "histDesc": {
+        "description": "Beschreibung der Geschichte",
+        "message": "Die Geschichte wird automatisch gelöscht, wenn Ihre I2P Tabs geschlossen sind. Wenn Sie die Geschichte wie Sie gehen, überprüfen Sie diese Box."
+    },
+    "homepage": {
+        "description": "Weitere Informationen",
+        "message": "Weitere Informationen finden Sie hier"
+    },
+    "hostText": {
+        "description": "Host für das HTTP oder SOCKS5 Proxy",
+        "message": "Host:"
+    },
+    "i2ptunnel": {
+        "description": "Beschreibung für i2ptunnel",
+        "message": "I2P verfügt über eine webbasierte Schnittstelle zur Konfiguration von .i2p-Diensten wie Websites, die Sie einrichten können."
+    },
+    "i2ptunnelPreface": {
+        "description": "Vorwort für die Browser-Titelleiste",
+        "message": "Hidden Services Manager"
+    },
+    "i2ptunnelPrefacePrivate": {
+        "description": "Vorwort für die Browser-Titelleiste",
+        "message": "Hidden Services Manager (Private)"
+    },
+    "infoMessage": {
+        "description": "Hilfe",
+        "message": "Sie sind jetzt frei, das eepWeb zu durchsuchen! Ihr Browser ist nun dazu konfiguriert, anonym auf dem I2P-Netzwerk zu surfen. Beim Durchsuchen wird Ihr Traffic über andere Netzknoten geleitet, um seinen Ursprung zu verbergen, sowohl vom Server als auch von den Knoten selbst."
+    },
+    "infoTitle": {
+        "description": "Titel für das Hilfemenü",
+        "message": "I2P Hilfe"
+    },
+    "ircPreface": {
+        "description": "Vorwort für die Browser-Titelleiste",
+        "message": "Versand IRC"
+    },
+    "ircPrefacePrivate": {
+        "description": "Vorwort für die Browser-Titelleiste",
+        "message": "Versand IRC (Private)"
+    },
+    "isBase32": {
+        "description": "Nachricht für Site Info Panel base32",
+        "message": "I2P Base32-Formatierte Adresse"
+    },
+    "isHostName": {
+        "description": "Nachricht für die Website Info Panel Hostname",
+        "message": "I2P Vorheriger Hostname"
+    },
+    "mailPreface": {
+        "description": "Vorwort für die Browser-Titelleiste",
+        "message": "Web Mail"
+    },
+    "mailPrefacePrivate": {
+        "description": "Vorwort für die Browser-Titelleiste",
+        "message": "Web Mail (Privat)"
+    },
+    "muwirePreface": {
+        "description": "Vorwort für die Browser-Titelleiste",
+        "message": "MuWire"
+    },
+    "muwirePrefacePrivate": {
+        "description": "Vorwort für die Browser-Titelleiste",
+        "message": "MuWire (Privat)"
+    },
+    "newsMessage": {
+        "description": "Hilfe",
+        "message": "Besuchen Sie die I2P Blog, um das neueste über i2p zu erfahren."
+    },
+    "portText": {
+        "description": "Port für das HTTP oder SOCKS5 Proxy",
+        "message": "Hafen:"
+    },
+    "protocolHandlerValue": {
+        "description": "Wert für den Magnetprotokoll-Handler",
+        "message": "http://127.0.0.1:7657/i2psnark/?nofilter_newURL=%s\u0026action=Add\u0026foo=Add+torrent"
+    },
+    "proxyFailedStatus": {
+        "description": "Proxy hat den Status versagt.",
+        "message": "Proxy ist nicht bereit"
+    },
+    "proxyHelpText": {
+        "description": "Hilfe zur Konfiguration der Optionen für den Reset Tunnel Button",
+        "message": "Konfigurieren Sie Ihren I2P-Proxy hier."
+    },
+    "proxySuccessStatus": {
+        "description": "Proxy hat den Status versagt.",
+        "message": "Proxy ist bereit"
+    },
+    "releases": {
+        "description": "Beschreibung für neue Release-Seite",
+        "message": "Hier finden Sie neue Releases"
+    },
+    "resetMessage": {
+        "description": "Nachricht für den Reset Tunnel Knopf",
+        "message": "Zurück zur Übersicht"
+    },
+    "routerConsole": {
+        "description": "Beschreibung für die Router-Konsole.",
+        "message": "Der Ausgangspunkt für alle anderen I2P-Anwendungen ist die I2P Router Console. Um es zu besuchen, klicken Sie hier."
+    },
+    "routerPreface": {
+        "description": "Vorwort für die Browser-Titelleiste",
+        "message": "Router Console"
+    },
+    "routerPrefacePrivate": {
+        "description": "Vorwort für die Browser-Titelleiste",
+        "message": "Router Console (Private)"
+    },
+    "rtcDesc": {
+        "description": "WebRTC Aktionsbeschreibung",
+        "message": "WebRTC ist standardmäßig deaktiviert, aber Sie können es wieder einschalten und zwingen, die Proxy zu ehren. Wenn Sie ein Benutzer der Snowflake Browser-Erweiterung sind, ist diese Option deaktiviert und WebRTC wird standardmäßig eingeschaltet."
+    },
+    "siteLabel": {
+        "description": "Label für i2p Site Info",
+        "message": "Anschrift/Site Information:"
+    },
+    "snark": {
+        "description": "Beschreibung für Bittorrent",
+        "message": "I2P ist in der Lage, anonyme Peer-to-Peer-Datei mit der eingebauten Bittorrent-Anwendung zu teilen."
+    },
+    "sources": {
+        "description": "Beschreibung des Quellcode-Links",
+        "message": "Hier den Quellcode durchsuchen"
+    },
+    "susimail": {
+        "description": "Beschreibung für E-Mail",
+        "message": "I2P bündelt auch einen Webmail-Client, der zum Zugriff auf in-I2P-E-Mail verwendet werden kann."
+    },
+    "titlePreface": {
+        "description": "Vorwort für die Browser-Titelleiste",
+        "message": "I2P Browser"
+    },
+    "titlePrefacePrivate": {
+        "description": "Vorwort für die Browser-Titelleiste",
+        "message": "I2P Browser (Privat)"
+    },
+    "toopieName": {
+        "description": "Name der Seitenleiste.",
+        "message": "auch. html"
+    },
+    "toopieTLS": {
+        "description": "Name des Sicherheitspanels.",
+        "message": "Site Properties"
+    },
+    "torPreface": {
+        "description": "Vorwort für die Browser-Titelleiste",
+        "message": "Tor Manager"
+    },
+    "torPrefacePrivate": {
+        "description": "Vorwort für die Browser-Titelleiste",
+        "message": "Tor Manager (Private)"
+    },
+    "torrentPreface": {
+        "description": "Vorwort für die Browser-Titelleiste",
+        "message": "In den Warenkorb"
+    },
+    "torrentPrefacePrivate": {
+        "description": "Vorwort für die Browser-Titelleiste",
+        "message": "Bittorrent (Privat)"
+    },
+    "webPreface": {
+        "description": "Vorwort für die Browser-Titelleiste",
+        "message": "Web Browser"
+    },
+    "webPrefacePrivate": {
+        "description": "Vorwort für die Browser-Titelleiste",
+        "message": "Web Browser (Private)"
+    },
+    "windowVisitConsole": {
+        "description": "Router Console Label.",
+        "message": "Router Console:"
+    },
+    "windowVisitHelppage": {
+        "description": "Hilfeseite für das Erweiterungslabel.",
+        "message": "Hilfeseite:"
+    },
+    "windowVisitHomepage": {
+        "description": "Startseite für das Erweiterungslabel.",
+        "message": "Startseite:"
+    },
+    "windowVisitI2ptunnel": {
+        "description": "Titel für i2ptunnel",
+        "message": "Hidden Services Manager:"
+    },
+    "windowVisitReleases": {
+        "description": "Besuchen Sie die Veröffentlichungsseite",
+        "message": "Erweiterung:"
+    },
+    "windowVisitSnark": {
+        "description": "Titel für Bittorrent",
+        "message": "Bittorrent:"
+    },
+    "windowVisitSources": {
+        "description": "Titel für Quellcode-Link",
+        "message": "Code der Erweiterung:"
+    },
+    "windowVisitSusimail": {
+        "description": "Titel für E-Mail",
+        "message": "E-Mail:"
+    },
+    "windowVisitWebPage": {
+        "description": "Besuchen Sie die Erweiterung Homepage auf Github",
+        "message": "Startseite:"
+    }
 }
