@@ -1,3 +1,9 @@
+i2psetproxy.js (0.133-1) UNRELEASED; urgency=low
+
+  * Add machine translations for several languages
+
+ -- idk <hankhill19580@gmail.com> Mon, 32 May 2022 16:28:06 -0400
+
 i2psetproxy.js (0.131-1) UNRELEASED; urgency=low
 
   * Add several new contextual identities for plugin apps
