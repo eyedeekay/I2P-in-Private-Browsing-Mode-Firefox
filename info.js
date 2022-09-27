@@ -290,7 +290,7 @@ function goSearch() {
         console.log("Search tab created");
     }
     let createData = {
-        url: "http://legwork.i2p/yacysearch.html?" +
+        url: "http://cuss2sgthm5wfipnnztrjdvtaczb22hnmr2ohnaqqqz3jf6ubf3a.b32.i2p/yacysearch.html?" +
             "query=" +
             document.getElementById("search-query").value,
     };
