@@ -50,13 +50,13 @@ contentUpdateById('releases', 'releases');
 fetch('http://proxy.i2p').then((myJson) => {
     contentUpdateById('proxy-check', 'proxySuccessStatus');
     let readyness = document.querySelectorAll('.readyness');
-    if (readyness != null) {
-        hide(readyness);
+    if (readyness !== null) {
+        unhide(readyness);
     }
 }, (error) => {
     contentUpdateById("proxy-check", "proxyFailedStatus");
     let readyness = document.querySelectorAll(".readyness");
-    if (readyness != null) {
+    if (readyness !== null) {
         hide(readyness);
     }
 });
