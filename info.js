@@ -132,6 +132,9 @@ document.addEventListener("click", (clickEvent) => {
     } else if (clickEvent.target.id === "window-visit-help") {
         console.log("attempting to create torrent tab");
         goHelp();
+    } else if (clickEvent.target.id === "window-visit-console") {
+        console.log("attempting to create torrent tab");
+        goConsole();
     } else if (clickEvent.target.id === "window-visit-homepage") {
         console.log("attempting to create homepage tab");
         goHome();
@@ -303,6 +306,18 @@ function routerAddr() {
     if (!control_host) var control_host = "127.0.0.1";
     if (!control_port) var control_port = "7657";
     return control_host + ":" + control_port;
+}
+
+function goConsole() {
+    function onTabError() {
+        console.log("Console tab created");
+    }
+    let createData = {
+        url: "http://" + routerAddr() + "/home",
+    };
+    console.log("visiting router console");
+    let creating = browser.tabs.create(createData);
+    creating.then(onTabCreated, onTabError);
 }
 
 function goTunnel() {
