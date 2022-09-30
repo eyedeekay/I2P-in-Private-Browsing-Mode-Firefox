@@ -65,7 +65,6 @@ if (browser.contextualIdentities === undefined) {
                 let span = document.createElement("div");
                 span.className = "identity";
                 span.innerText = identity.name;
-                span.style = `color: ${identity.color}`;
                 console.log(identity);
                 row.appendChild(span);
                 createOptions(row, identity);
