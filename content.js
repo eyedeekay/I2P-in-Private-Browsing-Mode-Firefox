@@ -64,14 +64,18 @@ fetch('http://proxy.i2p').then((myJson) => {
 function hide(elements) {
     elements = elements.length ? elements : [elements];
     for (var index = 0; index < elements.length; index++) {
-        elements[index].style.display = "none";
+        if (elements[index].style !== undefined) {
+            elements[index].style.display = "none";
+        }
     }
 }
 
 function unhide(elements) {
     elements = elements.length ? elements : [elements];
     for (var index = 0; index < elements.length; index++) {
-        elements[index].style.display = "inline-block";
+        if (elements[index].style !== undefined) {
+            elements[index].style.display = "inline-block";
+        }
     }
 }
 
