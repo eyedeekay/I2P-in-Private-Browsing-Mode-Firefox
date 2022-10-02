@@ -281,6 +281,7 @@ function goToopie() {
     }
     console.log("visiting toopie");
     let creating = browser.sidebarAction.open();
+    browser.sidebarAction.setPanel({ panel: browser.runtime.getURL("/toopie.html") });
     creating.then(onTabCreated, onTabError);
 }
 

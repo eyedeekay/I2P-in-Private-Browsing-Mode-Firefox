@@ -73,7 +73,10 @@ ul {
 
 li {
     margin-left: 0;
-    padding: 12px 15px 15px 20px;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-top: 2%;
+    padding-bottom: 2%;
     width: calc(100% - 40px);
     text-align: justify;
     border: 1px solid #9ab;
@@ -359,8 +362,9 @@ img.readyness {
 
 @media only screen and (min-width: 800px) {
     .application-info {
-        max-width: 50%;
-        min-width: 50% !important;
+        max-width: 46%;
+        min-width: 46% !important;
+        margin-right: 1%;
         float: right;
     }
 }

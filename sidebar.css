@@ -35,3 +35,7 @@ button {
 .hidden {
     display: none
 }
+
+.toopiebody {
+    min-width: 400px;
+}
