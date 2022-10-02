@@ -1,65 +1,84 @@
 body,
 html {
-  width: 600px
+    width: 600px
 }
+
 .panel {
-  margin: 5px;
-  width: 500px
+    margin: 5px;
+    width: 500px
 }
+
 .panel-section-header {
-  width: 500px
+    width: 500px
 }
+
 #text-section-torrents-header {
-  width: 500px
+    width: 500px
 }
+
 span.identity {
-  width: 500px;
-  display: block;
-  margin-left: 1em
+    width: 500px;
+    display: inline-block;
+    margin-left: 1em
 }
+
 figcaption {
-  display: block
+    display: inline-block
 }
+
 .section-header {
-  margin-bottom: 8px
+    margin-bottom: 8px
 }
+
 p {
-  font-size: 12px
+    font-size: 12px
 }
+
 h1 {
-  font-size: 25px
+    font-size: 25px
 }
+
 h2,
 h3 {
-  font-size: 18px
+    font-size: 18px
 }
+
 h4 {
-  font-size: 13px!important
+    font-size: 13px!important
 }
+
 #links .showhider {
-  font-size: 18px
+    font-size: 18px
 }
+
 #onboarding {
-  font-size: 2rem
+    font-size: 2rem
 }
+
 img.readyness {
-  height: 2rem
+    height: 2rem
 }
+
 #proxyUnready {
-  min-height: 2rem
+    min-height: 2rem
 }
+
 #proxyReady {
-  min-height: 2rem
+    min-height: 2rem
 }
+
 #consoleOn {
-  min-height: 2rem
+    min-height: 2rem
 }
+
 #torrentpanel {
-  display: none
+    display: none
 }
+
 .torrent-progress {
-  width: 90%
+    width: 90%
 }
+
 .tabicon {
-  width: 32px
+    width: 32px
 }
