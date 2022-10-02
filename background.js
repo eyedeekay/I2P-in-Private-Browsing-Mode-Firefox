@@ -238,8 +238,13 @@ function themeWindow(window) {
     }
 
     function unsetTheme() {
-        console.log('(theme)Resetting theme window');
-        browser.theme.reset(window.id);
+        if (storedTheme !== null) {
+            console.log('(theme)Resetting theme window to stored theme');
+            browser.theme.update(sanitizeTheme());
+        } else {
+            console.log('(theme)Resetting theme window to default theme');
+            browser.theme.reset(window.id);
+        }
     }
 
     function logTabs(tabInfo) {
@@ -484,6 +489,55 @@ function onOpenedWindowCheck() {
 onOpenedWindowCheck();
 
 browser.tabs.onRemoved.addListener(onClosedWindowCheck);
+
+var storedTheme = null;
+
+function sanitizeTheme() {
+    var cleanedTheme = storedTheme;
+    cleanedTheme.images = {};
+    return cleanedTheme;
+}
+
+function compareThemes(themea, themeb) {
+    var truth = 0;
+    if (themea.colors !== null) {
+        if (themea.colors !== null) {
+            if (themea.colors.frame == themeb.colors.frame) {
+                truth += 1;
+            }
+            if (themea.colors.toolbar == themeb.colors.toolbar) {
+                truth += 1;
+            }
+            if (themea.colors.tab_text == themeb.colors.tab_text) {
+                truth += 1;
+            }
+        }
+    }
+    if (truth >= 2) {
+        return true;
+    }
+    return false;
+}
+
+async function handleThemeUpdateWorkaround(updateInfo) {
+    const themeInfo = await browser.theme.getCurrent();
+    setStyle(themeInfo);
+
+    function setStyle(theme) {
+        console.log("updateInfo theme comparison: ", theme);
+        console.log("dynamic theme comparison:", dtheme);
+        if (compareThemes(theme, dtheme)) {
+            console.log(`Theme was applied after comparison: ${theme}`, theme);
+        } else if (compareThemes(theme, btheme)) {
+            console.log(`Theme was applied after comparison: ${theme}`, theme);
+        } else {
+            console.log(`Theme was stored after comparison: ${theme}`, theme);
+            storedTheme = theme;
+        }
+    }
+}
+
+browser.theme.onUpdated.addListener(handleThemeUpdateWorkaround);
 
 if (browser.windows != undefined) {
     console.log("windows unavailable on android", browser.runtime.PlatformOs);
