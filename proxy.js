@@ -446,6 +446,38 @@ function setupProxy() {
         urls: ['<all_urls>']
     });
     console.log('i2p settings created for WebExtension Proxy');
+    browser.proxy.onError.addListener(handleContextProxyError);
+}
+
+function handleContextProxyError(err) {
+    function changeTabErr(error) {
+        console.error(`Error: ${error}`);
+    }
+
+    function changeTabPage(tabs) {
+        function checkTabCookieStore(context) {
+            console.error("tabs", tabs, "context", context);
+            for (let index = 0; index < tabs.length; index += 1) {
+                let tab = tabs[index];
+                if (tab.cookieStoreId == context[0].cookieStoreId) {
+                    function onProxyErrorUpdated() {
+                        console.log(`Updated tab:`);
+                    }
+
+                    function onProxyError(error) {
+                        console.error(`Error: ${error}`);
+                    }
+                    let createData = {
+                        url: "proxyerr.html"
+                    };
+                    let creating = browser.tabs.update(tab.id, createData);
+                    creating.then(onProxyErrorUpdated, onProxyError);
+                }
+            }
+        }
+        browser.contextualIdentities.query({ name: titlepref }).then(checkTabCookieStore, changeTabErr);
+    }
+    browser.tabs.query({ url: ["*://*.i2p/*", "*://localhost/*", "*://127.0.0.1/*", "*://*/*i2p*"] }).then(changeTabPage, changeTabErr);
 }
 
 function update() {

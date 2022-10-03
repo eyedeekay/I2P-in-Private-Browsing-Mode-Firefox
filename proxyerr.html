@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href="home.css" rel="stylesheet">
+    <link href="search.css" rel="stylesheet">
+    <link href="sidebar.css" rel="stylesheet">
+    <title>
+    </title>
+</head>
+<body>
+    <!--<div>-->
+
+    <div class='background'>
+        <div class='content'>
+            <div class="text-section-header">
+                <h1 id="text-section-header">I2P Browsing</h1>
+            </div>
+
+            <div id="i2pbrowser-version">
+            </div>
+
+            <div id="i2pbrowser-description">
+                <p id="description">I2P in Private Browsing is a webextension to secure and enhance your I2P use in the browser.</p>
+
+                <p id="beta">This is an experimental product.</p>
+            </div>
+
+            <div id="readyness">
+                <div class="hideIfI2PProxyOff" id="readyness">
+                    <img class="readyness" src="icons/local_up.png"> <span id="proxy-check">Proxy is ready.</span>
+                </div>
+            </div>
+
+            <div class="hideIfI2PConsoleOff" id="onboarding">
+                <h3 id="onboardingTitle">New to I2P? Learn more here.</h3>
+
+                <h4 id="onboardingZero"><button class="showhider" id="onboardingButtonZero">Protect your Privacy</button>
+                </h4>
+
+                <p class="onboardingContent" id="onboardingContentZero">I2P Browser allows you to surf the internet using the private and secure I2P network. When using it, you are protected against tracking, surveillance, and censorship as a first-class participant in the I2P network. I2P Browser isolates cookies and deletes your browser history after your session. These modifications ensure your privacy and security are protected in the browser.</p>
+
+                <h4 id="onboardingOne"><button class="showhider" id="onboardingButtonOne">Configure your Experience</button>
+                </h4>
+
+                <p class="onboardingContent" id="onboardingContentOne">We also provide you with additional settings for bumping up your browser security. Our Security Settings allow you to block elements that could be used to attack your computer. Click below to see what the different options do. Note: By default, NoScript and HTTPS Everywhere are not included on the toolbar, but you can customize your toolbar to add them. With all the security and privacy features provided by I2P, your experience while browsing the internet may be a little different. Things may be a bit slower, and depending on your security level, some elements may not work or load. You may also be asked to prove you are a human and not a robot.</p>
+
+                <h4 id="onboardingTwo"><button class="showhider" id="onboardingButtonTwo">Share Files</button>
+                </h4>
+
+                <p class="onboardingContent" id="onboardingContentTwo">I2P is capable of using peer-to-peer applications like BitTorrent, protecting your identity when you share files. Our anonymous bittorrent client is available in the browser.</p>
+
+                <h4 id="onboardingThree"><button class="showhider" id="onboardingButtonThree">Hidden e-mail</button>
+                </h4>
+
+                <p class="onboardingContent" id="onboardingContentThree">There is also an anonymous e-mail service available inside of I2P, which is accessible from our browser via the menu directly below.</p>
+
+                <h4 id="onboardingFour"><button class="showhider" id="onboardingButtonFour">Browsing the Web</button>
+                </h4>
+
+                <p class="onboardingContent" id="onboardingContentFour">This extension works automatically when you are browsing I2P sites. If you want to use I2P as a proxy to non-I2P sites, use the I2P In Private Browsing button in the toolbar and click New I2P Browser Tab to switch to I2P Browsing in a new tab.</p>
+
+                <h4 id="onboardingFive"><button class="showhider" id="onboardingButtonFive">Experience Tips</button>
+                </h4>
+
+                <p class="onboardingContent" id="onboardingContentFive">With all the security and privacy features provided by I2P, your experience while browsing the internet may be a little different. Things may be a bit slower, and depending on your security level, some elements may not work or load. You may also be asked to prove you are a human and not a robot.</p>
+            </div>
+            <!--<p class="hideIfI2POn">&aboutI2p.warn_not_running; <a href="about:i2p">&aboutI2p.refresh_text;</a> &aboutI2p.reccommend_not_running;</p>-->
+        </div>
+    </div>
+    <script src="home.js" type="text/javascript"></script> 
+    <script src="content.js" type="text/javascript"></script> <!--</div>-->
+     
+    <script src="i2pcontrol/i2pcontrol.js" type="text/javascript"></script> <!--</div>-->
+</body>
+</html>
