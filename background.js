@@ -238,13 +238,46 @@ function themeWindow(window) {
     }
 
     function unsetTheme() {
-        if (storedTheme !== null) {
-            console.log('(theme)Resetting theme window to stored theme');
-            browser.theme.update(sanitizeTheme());
-        } else {
-            console.log('(theme)Resetting theme window to default theme');
-            browser.theme.reset(window.id);
+        console.log('(theme)Resetting theme window to stored theme');
+
+        function gotAllThemes(infoArray) {
+            for (const info of infoArray) {
+                if (info.type === "theme") {
+                    if (info.enabled) {
+                        console.log("(theme) found enabled theme in list", info.id);
+
+                        async function resetEnabled(disabled) {
+                            console.log("(theme) disabled theme temporarily", info.id);
+
+                            function logReset(prom) {
+                                console.log("(theme) re-enabled:", info.id);
+                            }
+
+                            function sleep(ms) {
+                                return new Promise(resolve => setTimeout(resolve, ms));
+                            }
+                            var slept = await sleep(2000);
+
+                            function sleepyTime(sleepyTimeOver) {
+                                return browser.management.setEnabled(
+                                    info.id,
+                                    true
+                                );
+                            }
+                            let settingEnabled = sleepyTime(slept);
+                            logReset(settingEnabled);
+                        }
+                        let settingDisabled = browser.management.setEnabled(
+                            info.id,
+                            false
+                        );
+                        resetEnabled(settingDisabled);
+                    }
+                }
+            }
         }
+        let gettingAll = browser.management.getAll();
+        gettingAll.then(gotAllThemes);
     }
 
     function logTabs(tabInfo) {
@@ -489,55 +522,6 @@ function onOpenedWindowCheck() {
 onOpenedWindowCheck();
 
 browser.tabs.onRemoved.addListener(onClosedWindowCheck);
-
-var storedTheme = null;
-
-function sanitizeTheme() {
-    var cleanedTheme = storedTheme;
-    cleanedTheme.images = {};
-    return cleanedTheme;
-}
-
-function compareThemes(themea, themeb) {
-    var truth = 0;
-    if (themea.colors !== null) {
-        if (themea.colors !== null) {
-            if (themea.colors.frame == themeb.colors.frame) {
-                truth += 1;
-            }
-            if (themea.colors.toolbar == themeb.colors.toolbar) {
-                truth += 1;
-            }
-            if (themea.colors.tab_text == themeb.colors.tab_text) {
-                truth += 1;
-            }
-        }
-    }
-    if (truth >= 2) {
-        return true;
-    }
-    return false;
-}
-
-async function handleThemeUpdateWorkaround(updateInfo) {
-    const themeInfo = await browser.theme.getCurrent();
-    setStyle(themeInfo);
-
-    function setStyle(theme) {
-        console.log("updateInfo theme comparison: ", theme);
-        console.log("dynamic theme comparison:", dtheme);
-        if (compareThemes(theme, dtheme)) {
-            console.log(`Theme was applied after comparison: ${theme}`, theme);
-        } else if (compareThemes(theme, btheme)) {
-            console.log(`Theme was applied after comparison: ${theme}`, theme);
-        } else {
-            console.log(`Theme was stored after comparison: ${theme}`, theme);
-            storedTheme = theme;
-        }
-    }
-}
-
-browser.theme.onUpdated.addListener(handleThemeUpdateWorkaround);
 
 if (browser.windows != undefined) {
     console.log("windows unavailable on android", browser.runtime.PlatformOs);
