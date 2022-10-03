@@ -1,0 +1,369 @@
+<html>
+  <head>
+    <title>
+      I2P in Private B...
+    </title>
+    <meta name="author" content="eyedeekay" />
+    <meta name="description" content="I2P-in-Private-Browsing-Mode-Firefox" />
+    <meta name="keywords" content="master" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="showhider.css" />
+    <script type="text/javascript" src="script.js"></script>
+  </head>
+  <body>
+    <div id="navbar">
+      <a href="#shownav">
+        Show navigation
+      </a>
+      <div id="shownav">
+        <div id="hidenav">
+          <ul>
+            <li>
+              <a href="..">
+                Up one level ^
+              </a>
+            </li>
+            <li>
+              <a href="index.html">
+                index
+              </a>
+            </li>
+            <li>
+              <a href="COLORS.html">
+                COLORS
+              </a>
+            </li>
+            <li>
+              <a href="GOALS.html">
+                GOALS
+              </a>
+            </li>
+            <li>
+              <a href="PLAN.html">
+                PLAN
+              </a>
+            </li>
+          </ul>
+          <br>
+          <a href="#hidenav">
+            Hide Navigation
+          </a>
+        </div>
+      </div>
+    </div>
+    <a id="returnhome" href="/">
+      /
+    </a>
+    <h1>
+      These are the goals of the I2P Browser, and not really this plugin in-and-of-itself
+    </h1>
+    <p>
+      A
+    </p>
+    <h2>
+      User Interface:
+    </h2>
+    <ul>
+      <li>
+        Remove search engines
+      </li>
+      <li>
+        Replace bookmarks
+      </li>
+      <li>
+        Donate banner / UI
+      </li>
+      <li>
+        Patch Firefox to have relative (from the binary) profile directory
+      </li>
+      <li>
+        Start use the Firefox update process to update browser installations
+      </li>
+      <li>
+        Mark .i2p cookies as secure
+      </li>
+      <li>
+        Mark .i2p domains as secure connection
+      </li>
+      <li>
+        Add tests for .i2p secure marking
+      </li>
+      <li>
+        Improve the delay-the-user XUL dialogs to be more accurate in regards
+        of where the router is in it’s bootup progress
+      </li>
+      <li>
+        Disable the WebIDE
+      </li>
+      <li>
+        Disable GamePad API by default
+      </li>
+      <li>
+        Disable Web Speech API by default
+      </li>
+      <li>
+        Disable the Web Audio API by default
+      </li>
+      <li>
+        UI redesign bootstrapping and configuration screens (delay-the-user dialogs)
+      </li>
+      <li>
+        Default browser choose wining should de disabled like
+        browser.shell.checkDefaultBrowser, it can be default, but then
+        choosen by the user without any begging ahead
+      </li>
+      <li>
+        Extend the firefox preferences UI for I2P router configuration thought
+        of as &ldquo;must have&rdquo; or &ldquo;very nice to have&rdquo;
+      </li>
+      <li>
+        Shrink the BroadcastChannel API&rsquo;s boundaries of access or disable completely
+      </li>
+      <li>
+        Make a API white/grey/black -list, in super paranoia mode we should
+        probably disable almost all, while in most cases the user probably want
+        to be as close to a normal browser/web experinence that
+        they are used to from before
+      </li>
+    </ul>
+    <h2>
+      Leak Avoidance:
+    </h2>
+    <ul>
+      <li>
+        Stop web socket DNS leak
+      </li>
+      <li>
+        If doable, slim down the CA store from unnecessary CAs
+      </li>
+      <li>
+        Disable the microphone by default
+      </li>
+      <li>
+        Ensure WebRTC is disabled in compile time
+      </li>
+      <li>
+        Disable mDNS features
+      </li>
+      <li>
+        Ensure links like sftp:// and smb:// ,
+        as well as \samba-share is blocked/denied
+      </li>
+      <li>
+        Don’t allow IndexedDB storage for third party domains (likability issue)
+      </li>
+      <li>
+        Patch the DNS service to prevent any browser or addon DNS resolution
+      </li>
+      <li>
+        Restrict what MIME types that are exposed to content scripts
+      </li>
+    </ul>
+    <h2>
+      General Security:
+    </h2>
+    <ul>
+      <li>
+        Backport any security patches that might appear from Mozilla
+      </li>
+      <li>
+        Don’t allow XHR/Websockets requests towards 127.0.0.1/localhost
+      </li>
+      <li>
+        Always use the  most sane form of preferences defaults in context
+        of privacy and security.
+      </li>
+    </ul>
+    <h2>
+      Unnecessary Connections:
+    </h2>
+    <ul>
+      <li>
+        Disable getpocket.com features and alike
+      </li>
+      <li>
+        Remove sync option from preferences
+      </li>
+      <li>
+        Clear state when the app exits, by default
+      </li>
+      <li>
+        Disable updater telemetry
+      </li>
+      <li>
+        Make firefox stop call home to mozilla for different reasons
+      </li>
+      <li>
+        Prevent non-Necko network connections
+      </li>
+      <li>
+        Figure out how to approach prerender, preconnect, and prefetch link tags
+      </li>
+    </ul>
+    <h2>
+      Disk Avoidance:
+    </h2>
+    <ul>
+      <li>
+        Don’t allow SSL key logging
+      </li>
+      <li>
+        Only cache media in memory
+      </li>
+      <li>
+        Disable the password saving functionality to avoid such being written to disk
+      </li>
+      <li>
+        Disable the Auto form-fill to keep as much as possible not written to disk
+      </li>
+    </ul>
+    <h2>
+      Platforms:
+    </h2>
+    <ul>
+      <li>
+        Support for Android?
+      </li>
+      <li>
+        Support for iOS?
+      </li>
+    </ul>
+    <h2>
+      Anti-Fingerprinting:
+    </h2>
+    <ul>
+      <li>
+        Test for preferences which ensures a sane default and
+        something to tell when/if we break it
+      </li>
+      <li>
+        Disable support for system adding
+      </li>
+      <li>
+        Disable Firefox enterprise policies
+      </li>
+      <li>
+        Disable NTLM authentication
+      </li>
+      <li>
+        Disable SPNEGO authentication
+      </li>
+      <li>
+        Handle privacy issues regarding window.name
+      </li>
+      <li>
+        Test runner for I2P Browser test cases
+      </li>
+      <li>
+        Block loading of plugins
+      </li>
+      <li>
+        Disable OS spesific firefox features that can help fingerprint
+        the end user&rsquo;s operating system
+      </li>
+      <li>
+        Block html5 canvas by default
+      </li>
+      <li>
+        Block by default or disable WebGL completely?
+      </li>
+      <li>
+        Never start fullscreen, always start with fixed width/height to
+        avoid expose screen resolution
+      </li>
+      <li>
+        Report fake system uptime to content scripts
+      </li>
+      <li>
+        Spoof Accept-Language and Accept-Charset headers no matter browser language
+      </li>
+      <li>
+        Spoof timezone to always be UTC
+      </li>
+      <li>
+        Develop methods to reduce the accuracy of JavaScript
+        performance fingerprinting
+      </li>
+      <li>
+        Always report only one CPU core (dom.maxHardwareConcurrencys)
+      </li>
+      <li>
+        Avoid Keystroke fingerprinting by messing with the event resolution
+      </li>
+      <li>
+        Disable GeoIP-based search results
+      </li>
+    </ul>
+    <h2>
+      ???
+    </h2>
+    <ul>
+      <li>
+        SVG drawing
+      </li>
+      <li>
+        MathML drawing
+      </li>
+      <li>
+        I2Pd flavor
+      </li>
+    </ul>
+    <div id="sourcecode">
+      <span id="sourcehead">
+        <strong>
+          Get the source code:
+        </strong>
+      </span>
+      <ul>
+        <li>
+          <a href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox">
+            Source Repository: (https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox)
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <a href="#show">
+        Show license
+      </a>
+      <div id="show">
+        <div id="hide">
+          <pre><code>MIT License
+
+Copyright (c) 2019 idk
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+</code></pre>
+          <a href="#hide">
+            Hide license
+          </a>
+        </div>
+      </div>
+    </div>
+    <div>
+      <iframe src="https://snowflake.torproject.org/embed.html" width="320" height="240" frameborder="0" scrolling="no"></iframe>
+    </div>
+    <div>
+      <a href="https://geti2p.net/">
+        <img src="i2plogo.png"></img>
+        I2P
+      </a>
+    </div>
+  </body>
+</html>
