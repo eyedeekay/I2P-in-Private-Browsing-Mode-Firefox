@@ -453,10 +453,10 @@ function handleContextProxyError(err) {
     function changeTabErr(error) {
         console.error(`Error: ${error}`);
     }
+    console.log(err);
 
     function changeTabPage(tabs) {
         function checkTabCookieStore(context) {
-            console.error("tabs", tabs, "context", context);
             for (let index = 0; index < tabs.length; index += 1) {
                 let tab = tabs[index];
                 if (tab.cookieStoreId == context[0].cookieStoreId) {
