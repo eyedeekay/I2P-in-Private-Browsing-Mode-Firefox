@@ -144,6 +144,9 @@ document.addEventListener("click", (clickEvent) => {
     } else if (clickEvent.target.id === "window-visit-i2ptunnel") {
         console.log("attempting to create i2ptunnel tab");
         goTunnel();
+    } else if (clickEvent.target.id === "window-visit-i2p") {
+        console.log("attempting to visit project homepage");
+        goHomepage();
     } else if (clickEvent.target.id === "window-visit-susimail") {
         console.log("attempting to create susimail tab");
         goMail();
@@ -259,6 +262,18 @@ function goTorrent() {
         url: "torrent/index.html",
     };
     console.log("visiting torrent help");
+    let creating = browser.tabs.create(createData);
+    creating.then(onTabCreated, onTabError);
+}
+
+function goHomepage() {
+    function onTabError() {
+        console.log("i2p-projekt tab not created");
+    }
+    let createData = {
+        url: "http://i2p-projekt.i2p",
+    };
+    console.log("visiting i2p-projekt");
     let creating = browser.tabs.create(createData);
     creating.then(onTabCreated, onTabError);
 }

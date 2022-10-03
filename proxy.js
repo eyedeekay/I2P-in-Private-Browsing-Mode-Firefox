@@ -453,31 +453,32 @@ function handleContextProxyError(err) {
     function changeTabErr(error) {
         console.error(`Error: ${error}`);
     }
-    console.log(err);
 
-    function changeTabPage(tabs) {
-        function checkTabCookieStore(context) {
-            for (let index = 0; index < tabs.length; index += 1) {
-                let tab = tabs[index];
-                if (tab.cookieStoreId == context[0].cookieStoreId) {
-                    function onProxyErrorUpdated() {
-                        console.log(`Updated tab:`);
-                    }
+    if (err.message !== "ProxyInfoData: Invalid proxy server type: \"undefined\"") {
+        function changeTabPage(tabs) {
+            function checkTabCookieStore(context) {
+                for (let index = 0; index < tabs.length; index += 1) {
+                    let tab = tabs[index];
+                    if (tab.cookieStoreId == context[0].cookieStoreId) {
+                        function onProxyErrorUpdated() {
+                            console.log(`Updated tab:`);
+                        }
 
-                    function onProxyError(error) {
-                        console.error(`Error: ${error}`);
+                        function onProxyError(error) {
+                            console.error(`Error: ${error}`);
+                        }
+                        let createData = {
+                            url: "proxyerr.html"
+                        };
+                        let creating = browser.tabs.update(tab.id, createData);
+                        creating.then(onProxyErrorUpdated, onProxyError);
                     }
-                    let createData = {
-                        url: "proxyerr.html"
-                    };
-                    let creating = browser.tabs.update(tab.id, createData);
-                    creating.then(onProxyErrorUpdated, onProxyError);
                 }
             }
+            browser.contextualIdentities.query({ name: titlepref }).then(checkTabCookieStore, changeTabErr);
         }
-        browser.contextualIdentities.query({ name: titlepref }).then(checkTabCookieStore, changeTabErr);
+        browser.tabs.query({ url: ["*://*.i2p/*", "*://localhost/*", "*://127.0.0.1/*", "*://*/*i2p*"] }).then(changeTabPage, changeTabErr);
     }
-    browser.tabs.query({ url: ["*://*.i2p/*", "*://localhost/*", "*://127.0.0.1/*", "*://*/*i2p*"] }).then(changeTabPage, changeTabErr);
 }
 
 function update() {
