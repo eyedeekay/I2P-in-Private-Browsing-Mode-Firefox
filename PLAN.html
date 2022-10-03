@@ -1,0 +1,202 @@
+<html>
+  <head>
+    <title>
+      I2P in Private B...
+    </title>
+    <meta name="author" content="eyedeekay" />
+    <meta name="description" content="I2P-in-Private-Browsing-Mode-Firefox" />
+    <meta name="keywords" content="master" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="showhider.css" />
+    <script type="text/javascript" src="script.js"></script>
+  </head>
+  <body>
+    <div id="navbar">
+      <a href="#shownav">
+        Show navigation
+      </a>
+      <div id="shownav">
+        <div id="hidenav">
+          <ul>
+            <li>
+              <a href="..">
+                Up one level ^
+              </a>
+            </li>
+            <li>
+              <a href="index.html">
+                index
+              </a>
+            </li>
+            <li>
+              <a href="COLORS.html">
+                COLORS
+              </a>
+            </li>
+            <li>
+              <a href="GOALS.html">
+                GOALS
+              </a>
+            </li>
+            <li>
+              <a href="PLAN.html">
+                PLAN
+              </a>
+            </li>
+          </ul>
+          <br>
+          <a href="#hidenav">
+            Hide Navigation
+          </a>
+        </div>
+      </div>
+    </div>
+    <a id="returnhome" href="/">
+      /
+    </a>
+    <p>
+      The I2P Browser has made strides at improving users anonymity when browsing
+      the anonymous web inside of I2P. However, it has in many ways simply re-hashed
+      the existing work of Tor on the Tor Browser. This is mostly a good thing, but it
+      is unfortunate because in a sense we have failed to add I2P specific features
+      that could improve the user experience and set us apart from the Tor Browser.
+    </p>
+    <p>
+      I think that moving forward, we should try to extend the functionality of I2P
+      Browser into more I2P-specific realms and make an effort to make those things
+      more accessible and highlight that they are in use. I don&rsquo;t really know how to
+      explain what I mean without describing what I want to do, so
+    </p>
+    <h2>
+      Let&rsquo;s avoid
+      <em>
+        adding
+      </em>
+      features to i2pbutton
+    </h2>
+    <p>
+      i2pbutton contains alot of code from Tor which even they don&rsquo;t really want to
+      maintain. It&rsquo;s dying the same long, slow death it&rsquo;s always been dying, since
+      back before there was a Tor Browser and torbutton was just an easy way to
+      configure Tor in your Firefox browser. I don&rsquo;t relish the thought of being one
+      the last two groups on the planet maintaining an XUL extension, so I think that
+      we should always be trying to do less with i2pbutton and more with a modern
+      extension. Other advantages of modern extensions are better debugging tools
+      and easier-to-use, more understandable API&rsquo;s for doing the following other
+      things.
+    </p>
+    <h2>
+      Contexts for Security and Placing Router Applications under their own Origin
+    </h2>
+    <p>
+      It is possible, however unlikely, for an attack on a local service or a router
+      plugin to leak information about what&rsquo;s going on on the router console because
+      they will share the same origin. We can resolve this issue, though, by placing
+      applications each into their own origin under a so-called &ldquo;Container Tab,&rdquo;
+      completely separating eepWeb traffic and Router Console administration. The
+      origin of the application will be the same as the part of the application URL
+      <em>
+        after
+      </em>
+      localhost:7657, so for instance &ldquo;
+      <a href="http://localhost:7657/torrents&quot;">
+        http://localhost:7657/torrents&rdquo;
+      </a>
+      would become just &ldquo;torrents&rdquo; in the URL bar and have that origin.
+    </p>
+    <h2>
+      Dynamic Themes
+    </h2>
+    <p>
+      Since I2P Browsing and Router Console Administration are going to be separated
+      to their own contextual identities, we can manipulate the appearance of the
+      Firefox browser to accomplish 2 things: We can indicate which context we are in
+      both by manipulating the UI text and color, and manipulate UI elements based on
+      what context we&rsquo;re in or even what URL(In the router console) we&rsquo;re on. We can
+      use this to make router console applications appear more tightly integrated with
+      the functionality of the browser. It&rsquo;s kind of obliquely like how many
+      applications are written with user-interfaces that are actually just
+      browsers(Including Mattermost), but with us using the whole browser,
+      acknowledging it&rsquo;s presence and utility but quite literally highlighting(in
+      color) our unique features. So for instance, when the user is using snark it
+      could change color to match snark and change text to say &ldquo;Torrent Client.&rdquo;
+    </p>
+    <h2>
+      Application Integration - Torrents
+    </h2>
+    <p>
+      I2P&rsquo;s strengths are in it&rsquo;s applications, but many users never even make it to
+      the applications, and even if they do, the I2P applications often lack the
+      familiar workflows that people are used to. For instance, when one downloads
+      a torrent on the non-anonymous internet, you simply click a link and the browser
+      &ldquo;Handles&rdquo; the link, automatically launching the torrent client, adding the
+      torrent, and sometimes prompting the user for more actions. This isn&rsquo;t possible
+      yet with i2psnark and an external browser, but in I2P browser we can write a
+      &ldquo;Protocol Handler&rdquo; which talks to snark-rpc, replicating the ease of just
+      clicking a torrent link to automatically add it to a torrent client. Of course
+      that does require us to bundle the snark-rpc plugin. Besides that, once we&rsquo;ve
+      added the torrent, we can keep talking to snark-rpc to keep track of the
+      download progress and display information about that in the already-available
+      Firefox downloads menu that users are already familiar with, so that they can
+      keep track of the files they are downloading after navigating away from the
+      snark interface, or perhaps even without needing to interact with snark at all.
+    </p>
+    <div id="sourcecode">
+      <span id="sourcehead">
+        <strong>
+          Get the source code:
+        </strong>
+      </span>
+      <ul>
+        <li>
+          <a href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox">
+            Source Repository: (https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox)
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <a href="#show">
+        Show license
+      </a>
+      <div id="show">
+        <div id="hide">
+          <pre><code>MIT License
+
+Copyright (c) 2019 idk
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+</code></pre>
+          <a href="#hide">
+            Hide license
+          </a>
+        </div>
+      </div>
+    </div>
+    <div>
+      <iframe src="https://snowflake.torproject.org/embed.html" width="320" height="240" frameborder="0" scrolling="no"></iframe>
+    </div>
+    <div>
+      <a href="https://geti2p.net/">
+        <img src="i2plogo.png"></img>
+        I2P
+      </a>
+    </div>
+  </body>
+</html>
