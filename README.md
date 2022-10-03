@@ -1,6 +1,10 @@
 I2P in Private Browsing Mode(Firefox-Only)
 ==========================================
 
+- **This extension requires a running I2P Router on the Host System**
+
+- [**This extension comes pre-installed in the Easy-Install Beta for Windows**](https://geti2p.net/en/download/easyinstall)
+
 This is an webextension which introduces a set of new "Private Browsing" modes
 to Firefox-based browsers(Supporting webextensions, must be current ESR or
 greater) that makes it easier to configure a browser to use I2P securely and
