@@ -399,7 +399,7 @@ if (browser.windows != undefined) {
     }
 
     var done = Echo(hello);
-    done.then(Done).catch(Done);
+    done.then(Done).catch (Done);
 
     function Done(output) {
         function hide(elements) {

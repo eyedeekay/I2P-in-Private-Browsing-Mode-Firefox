@@ -451,42 +451,42 @@ function setupProxy() {
 
 function handleContextProxyError(err) {
     function changeTabErr(error) {
-        console.error(`(proxy) Error: ${error}`);
+        console.error(`(proxy) Error : ${error}`);
     }
 
-    if (err.message !== "ProxyInfoData: Invalid proxy server type: \"undefined\"") {
-        console.warn("(proxy) Error:", err)
+    if (err.message !== 'ProxyInfoData: Invalid proxy server type: \"undefined\"') {
+        console.warn('(proxy) Error:', err);
     }
 
     function changeTabPage(tabs) {
         function checkTabCookieStore(context) {
             for (let index = 0; index < tabs.length; index += 1) {
                 let tab = tabs[index];
-                if (!tab.url.endsWith("proxyerr.html")) {
+                if (!tab.url.endsWith('proxyerr.html')) {
                     if (tab.cookieStoreId == context[0].cookieStoreId) {
                         function onProxyErrorUpdated() {
-                            console.warn(`(proxy) Updated tab:` + tab);
+                            console.warn(`(proxy) Updated tab : ` + tab);
                         }
 
                         function onProxyError(error) {
-                            console.error(`(proxy) Error: ${error}`);
+                            console.error(`(proxy) Error : ${error}`);
                         }
                         let createData = {
-                            url: "proxyerr.html"
+                            url: 'proxyerr.html'
                         };
                         let creating = browser.tabs.update(tab.id, createData);
                         creating.then(onProxyErrorUpdated, onProxyError);
                     } else {
-                        console.warn("Not directing to proxy error page due to context mismatch");
+                        console.warn('Not directing to proxy error page due to context mismatch');
                     }
                 } else {
-                    console.warn("Not directing to proxy error page due to hostname match");
+                    console.warn('Not directing to proxy error page due to hostname match');
                 }
             }
         }
         browser.contextualIdentities.query({ name: titlepref }).then(checkTabCookieStore, changeTabErr);
     }
-    browser.tabs.query({ url: ["*://*.i2p/*", "*://localhost/*", "*://127.0.0.1/*", "*://*/*i2p*"] }).then(changeTabPage, changeTabErr);
+    browser.tabs.query({ url: ['*://*.i2p/*', '*://localhost/*', '*://127.0.0.1/*', '*://*/*i2p*'] }).then(changeTabPage, changeTabErr);
 }
 
 function update() {

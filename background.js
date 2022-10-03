@@ -242,15 +242,15 @@ function themeWindow(window) {
 
         function gotAllThemes(infoArray) {
             for (const info of infoArray) {
-                if (info.type === "theme") {
+                if (info.type === 'theme') {
                     if (info.enabled) {
-                        console.log("(theme) found enabled theme in list", info.id);
+                        console.log('(theme) found enabled theme in list', info.id);
 
                         async function resetEnabled(disabled) {
-                            console.log("(theme) disabled theme temporarily", info.id);
+                            console.log('(theme) disabled theme temporarily', info.id);
 
                             function logReset(prom) {
-                                console.log("(theme) re-enabled:", info.id);
+                                console.log('(theme) re-enabled:', info.id);
                             }
 
                             function sleep(ms) {
