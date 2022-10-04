@@ -1,41 +1,33 @@
 li {
-    width: 90%;
-    margin-left: 0
+  width: 90%;
+  margin-left: 0
 }
-
 li.toopie {
-    width: fit-content;
-    margin-left: 0;
-    display: inline-table!important;
-    min-width: 30%;
-    max-width: 30%
+  width: fit-content;
+  margin-left: 0;
+  display: inline-table!important;
+  min-width: 30%;
+  max-width: 30%
 }
-
 ul {
-    width: 100%
+  width: 100%
 }
-
 button {
-    width: 45%;
-    text-align: center
+  width: 45%;
+  text-align: center
 }
-
 #applicationExplain {
-    float: unset
+  float: unset
 }
-
 .button-list {
-    display: inline
+  display: inline
 }
-
 #hidden {
-    display: none
+  display: none
 }
-
 .hidden {
-    display: none
+  display: none
 }
-
 .toopiebody {
-    min-width: 400px
+  min-width: 400px
 }
