@@ -1,344 +1,303 @@
 * {
-    padding: 0;
-    margin: 0
+  padding: 0;
+  margin: 0
 }
-
 html {
-    margin: 0 4%;
-    padding: 0 20px;
-    min-height: 100%;
-    background: #9ab;
-    background: #fff;
-    scrollbar-color: #bcd #789
+  margin: 0 4%;
+  padding: 0 20px;
+  min-height: 100%;
+  background: #9ab;
+  background: #fff;
+  scrollbar-color: #bcd #789
 }
-
 body {
-    margin: 0;
-    padding: 20px 40px;
-    font-family: Open Sans, Noto Sans, Segoe UI, sans-serif;
-    font-size: 12pt;
-    color: #fff;
-    text-decoration: none;
-    word-wrap: break-word;
-    background: #f2f2f2
+  margin: 0;
+  padding: 20px 40px;
+  font-family: Open Sans,Noto Sans,Segoe UI,sans-serif;
+  font-size: 12pt;
+  color: #fff;
+  text-decoration: none;
+  word-wrap: break-word;
+  background: #f2f2f2
 }
-
 h1,
 h2,
 h3,
 h4 {
-    display: block;
-    font-weight: 700
+  display: block;
+  font-weight: 700
 }
-
 h1 {
-    text-transform: uppercase;
-    font-weight: 900;
-    font-size: 200%
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: 200%
 }
-
 h2 {
-    font-size: 140%
+  font-size: 140%
 }
-
 h3 {
-    font-size: 120%
+  font-size: 120%
 }
-
 h4 {
-    margin-bottom: 5px;
-    text-align: right;
-    text-transform: none;
-    font-size: 90%;
-    font-weight: 600;
-    font-style: italic
+  margin-bottom: 5px;
+  text-align: right;
+  text-transform: none;
+  font-size: 90%;
+  font-weight: 600;
+  font-style: italic
 }
-
 p {
-    margin-bottom: 15px;
-    width: 100%;
-    line-height: 1.4;
-    word-wrap: break-word;
-    text-align: justify;
-    text-decoration: none
+  margin-bottom: 15px;
+  width: 100%;
+  line-height: 1.4;
+  word-wrap: break-word;
+  text-align: justify;
+  text-decoration: none
 }
-
 ul {
-    margin: 10px 20px;
-    list-style: none
+  margin: 10px 20px;
+  list-style: none
 }
-
 li {
-    margin-left: 0;
-    padding: 12px 15px 15px 20px;
-    width: calc(100% - 40px);
-    text-align: justify;
-    border: 1px solid #363a68;
-    border-radius: 25px;
-    box-shadow: inset 0 0 0 1px #363a68;
-    background: #4456b7
+  margin-left: 0;
+  padding: 12px 15px 15px 20px;
+  width: calc(100% - 40px);
+  text-align: justify;
+  border: 1px solid #363a68;
+  border-radius: 25px;
+  box-shadow: inset 0 0 0 1px #363a68;
+  background: #4456b7
 }
-
 li li {
-    padding-bottom: 0;
-    width: calc(100% - 40px);
-    text-align: left;
-    border: none;
-    border-top: 1px solid #9ab;
-    box-shadow: none
+  padding-bottom: 0;
+  width: calc(100% - 40px);
+  text-align: left;
+  border: none;
+  border-top: 1px solid #9ab;
+  box-shadow: none
 }
-
 li li:first-of-type {
-    margin-top: 15px;
-    border-top: none
+  margin-top: 15px;
+  border-top: none
 }
-
 li a:first-of-type {
-    display: block;
-    width: 100%
+  display: block;
+  width: 100%
 }
-
 #applicationExplain {
-    float: unset
+  float: unset
 }
-
 li+li {
-    margin-top: 15px
+  margin-top: 15px
 }
-
 h3+ul,
 ul+h2,
 ul+h3 {
-    margin-top: 20px
+  margin-top: 20px
 }
-
 a,
 button {
-    color: #f9f7dc;
-    text-decoration: none;
-    font-weight: 700;
-    word-wrap: break-word;
-    outline: 0
+  color: #f9f7dc;
+  text-decoration: none;
+  font-weight: 700;
+  word-wrap: break-word;
+  outline: 0
 }
-
 .applicationDesc {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 700;
-    word-wrap: break-word;
-    outline: 0
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  word-wrap: break-word;
+  outline: 0
 }
-
 a:hover,
 button:hover {
-    color: #ff9e7a;
-    text-decoration: none;
-    font-weight: 700;
-    word-wrap: break-word;
-    outline: 0
+  color: #ff9e7a;
+  text-decoration: none;
+  font-weight: 700;
+  word-wrap: break-word;
+  outline: 0
 }
-
 button {
-    border: none;
-    cursor: pointer;
-    color: #fff;
-    text-decoration: none;
-    font-weight: 700;
-    word-wrap: break-word;
-    outline: 0;
-    background: unset
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  word-wrap: break-word;
+  outline: 0;
+  background: unset
 }
-
-.background {}
-
+.background {
+  
+}
 .content {
-    margin: 1.5rem;
-    padding: 1rem;
-    min-height: 3rem;
-    min-width: 95%;
-    display: inline-block;
-    border: 1px solid #363a68;
-    border-radius: 25px;
-    background: #363a68
+  margin: 1.5rem;
+  padding: 1rem;
+  min-height: 3rem;
+  min-width: 95%;
+  display: inline-block;
+  border: 1px solid #363a68;
+  border-radius: 25px;
+  background: #363a68
 }
-
 #header,
 .application-info,
 .browser-info,
 .extended-info,
 .search-info {
-    margin-top: 1.5rem;
-    padding: 1rem;
-    min-height: 3rem;
-    min-width: 95%;
-    display: inline-block;
-    border: 1px solid #787ff6;
-    border-radius: 25px;
-    box-shadow: inset 0 0 0 1px #787ff6, 0 0 1px #ccc;
-    background: #363a68
+  margin-top: 1.5rem;
+  padding: 1rem;
+  min-height: 3rem;
+  min-width: 95%;
+  display: inline-block;
+  border: 1px solid #787ff6;
+  border-radius: 25px;
+  box-shadow: inset 0 0 0 1px #787ff6,0 0 1px #ccc;
+  background: #363a68
 }
-
 .showhider {
-    margin-right: auto;
-    padding: 0!important;
-    text-transform: uppercase;
-    background: none!important;
-    border: none;
-    width: 90%;
-    color: #fff;
-    text-decoration: none;
-    font-weight: 700;
-    word-wrap: break-word;
-    outline: 0;
-    text-align: left
+  margin-right: auto;
+  padding: 0!important;
+  text-transform: uppercase;
+  background: none!important;
+  border: none;
+  width: 90%;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  word-wrap: break-word;
+  outline: 0;
+  text-align: left
 }
-
 #links .showhider {
-    font-size: 25px
+  font-size: 25px
 }
-
 .section-header {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 80px
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 80px
 }
-
 #readyness {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    margin: 1rem;
-    width: 42%;
-    min-width: 42%;
-    display: inline-block
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  margin: 1rem;
+  width: 42%;
+  min-width: 42%;
+  display: inline-block
 }
-
 #onboarding {
-    min-height: 5rem;
-    padding: .5rem;
-    margin: .5rem;
-    margin-top: 4rem;
-    width: 42%;
-    min-width: 42%;
-    font-size: 2rem;
-    background: #4456b7;
-    text-align: center!important;
-    border: 2px solid #787ff6;
-    border-radius: 25px;
-    box-shadow: inset 0 0 0 1px #fff, 0 0 1px #ccc
+  min-height: 5rem;
+  padding: .5rem;
+  margin: .5rem;
+  margin-top: 4rem;
+  width: 42%;
+  min-width: 42%;
+  font-size: 2rem;
+  background: #4456b7;
+  text-align: center!important;
+  border: 2px solid #787ff6;
+  border-radius: 25px;
+  box-shadow: inset 0 0 0 1px #fff,0 0 1px #ccc
 }
-
 #i2pbrowser-description {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    width: 50%;
-    min-width: 50%;
-    display: inline-block
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  width: 50%;
+  min-width: 50%;
+  display: inline-block
 }
-
 #linksExplain {
-    min-height: 5rem;
-    padding: .5rem;
-    margin: .5rem;
-    width: 100%;
-    min-width: 100%
+  min-height: 5rem;
+  padding: .5rem;
+  margin: .5rem;
+  width: 100%;
+  min-width: 100%
 }
-
 #applicationExplain,
 #controlExplain {
-    min-height: 5rem;
-    padding: .5rem;
-    margin: .5rem;
-    width: 100%;
-    min-width: 100%;
-    float: left
+  min-height: 5rem;
+  padding: .5rem;
+  margin: .5rem;
+  width: 100%;
+  min-width: 100%;
+  float: left
 }
-
 #proxyReady {
-    min-height: 3rem;
-    padding: .5rem;
-    margin: .2rem;
-    width: 38%;
-    min-width: 38%;
-    display: inline-block;
-    background: #363a68;
-    float: right;
-    text-align: center!important;
-    border: 2px solid #787ff6;
-    border-radius: 25px;
-    box-shadow: inset 0 0 0 1px #fff, 0 0 1px #ccc
+  min-height: 3rem;
+  padding: .5rem;
+  margin: .2rem;
+  width: 38%;
+  min-width: 38%;
+  display: inline-block;
+  background: #363a68;
+  float: right;
+  text-align: center!important;
+  border: 2px solid #787ff6;
+  border-radius: 25px;
+  box-shadow: inset 0 0 0 1px #fff,0 0 1px #ccc
 }
-
 #proxyUnready {
-    min-height: 3rem;
-    padding: .5rem;
-    margin: .2rem;
-    width: 38%;
-    min-width: 38%;
-    display: inline-block;
-    background: #363a68;
-    float: right;
-    text-align: center!important;
-    border: 2px solid #787ff6;
-    border-radius: 25px
+  min-height: 3rem;
+  padding: .5rem;
+  margin: .2rem;
+  width: 38%;
+  min-width: 38%;
+  display: inline-block;
+  background: #363a68;
+  float: right;
+  text-align: center!important;
+  border: 2px solid #787ff6;
+  border-radius: 25px
 }
-
 #consoleOn {
-    min-height: 3rem;
-    padding: .5rem;
-    margin: .2rem;
-    width: 38%;
-    min-width: 38%;
-    display: inline-block;
-    float: left;
-    text-align: center!important;
-    border: 1px solid #f7e59a;
-    border-radius: 2px;
-    background: #f7e59a;
-    box-shadow: inset 0 0 0 1px #fff, 0 0 1px #ccc
+  min-height: 3rem;
+  padding: .5rem;
+  margin: .2rem;
+  width: 38%;
+  min-width: 38%;
+  display: inline-block;
+  float: left;
+  text-align: center!important;
+  border: 1px solid #f7e59a;
+  border-radius: 2px;
+  background: #f7e59a;
+  box-shadow: inset 0 0 0 1px #fff,0 0 1px #ccc
 }
-
 .onboardingContent {
-    font-size: .8rem!important;
-    text-align: left;
-    display: none
+  font-size: .8rem!important;
+  text-align: left;
+  display: none
 }
-
 #info-content {
-    display: none
+  display: none
 }
-
 .consoleOn:hover #proxy-check,
 .proxyReady:hover #proxy-check {
-    visibility: visible;
-    opacity: 1
+  visibility: visible;
+  opacity: 1
 }
-
 img {
-    max-width: 100%
+  max-width: 100%
 }
-
 img.readyness {
-    height: 100%;
-    width: auto
+  height: 100%;
+  width: auto
 }
-
 @media only screen and (max-width: 399px) {
-    .application-info {
-        display: none
-    }
-}
-
-@media screen and (max-width: 1200px) {
-    body {
-        font-size: 10.5pt
-    }
-}
-
-video {
-    width: 100%
-}
-
-.hidden {
-    visibility: none;
+  .application-info {
     display: none
+  }
+}
+@media screen and (max-width: 1200px) {
+  body {
+    font-size: 10.5pt
+  }
+}
+video {
+  width: 100%
+}
+.hidden {
+  visibility: none;
+  display: none
 }
