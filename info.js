@@ -404,12 +404,3 @@ const interval = minutes * 60 * 1000;
 setInterval(function() {
     if (UpdateContents !== undefined) UpdateContents();
 }, interval);
-
-fetch("http://127.0.0.1:7669").then((myJson) => {
-    if (myJson.status == 200) {
-        let irc = document.getElementById("visit-irc");
-        if (irc != null) {
-            irc.classList.remove("hidden");
-        }
-    }
-});
