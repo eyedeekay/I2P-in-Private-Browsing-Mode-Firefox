@@ -220,8 +220,7 @@ button {
   padding: .5rem;
   margin: .5rem;
   width: 100%;
-  min-width: 100%;
-  float: left
+  min-width: 100%
 }
 #proxyReady {
   min-height: 3rem;
