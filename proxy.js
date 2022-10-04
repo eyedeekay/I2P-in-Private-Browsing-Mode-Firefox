@@ -486,7 +486,7 @@ function handleContextProxyError(err) {
         }
         browser.contextualIdentities.query({ name: titlepref }).then(checkTabCookieStore, changeTabErr);
     }
-    browser.tabs.query({ url: ['*://*.i2p/*', '*://localhost/*', '*://127.0.0.1/*', '*://*/*i2p*'] }).then(changeTabPage, changeTabErr);
+    browser.tabs.query({ url: ['http://*.i2p/*'] }).then(changeTabPage, changeTabErr);
 }
 
 function update() {
