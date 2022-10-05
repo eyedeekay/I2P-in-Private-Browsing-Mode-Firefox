@@ -454,7 +454,9 @@ function handleContextProxyError(err) {
         console.error(`(proxy) Error : ${error}`);
     }
 
-    if (err.message !== 'ProxyInfoData: Invalid proxy server type: \"undefined\"') {
+    if (err.message === 'ProxyInfoData: Invalid proxy server type: \"undefined\"') {
+        return;
+    } else {
         console.warn('(proxy) Error:', err);
     }
 

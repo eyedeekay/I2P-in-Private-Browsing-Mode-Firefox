@@ -1,3 +1,5 @@
+var titlepref = chrome.i18n.getMessage('titlePreface');
+
 function checkPeerConnection() {
     let getting = browser.privacy.network.peerConnectionEnabled.get({});
     getting.then((got) => {
@@ -111,6 +113,9 @@ document.addEventListener("click", (clickEvent) => {
     } else if (clickEvent.target.id === "search-submit") {
         console.log("attempting to create search tab");
         goSearch();
+    } else if (clickEvent.target.id === "url-submit") {
+        console.log("attempting to create search tab");
+        goURL();
     } else if (clickEvent.target.id === "browser-action") {
         console.log("showing a browser action");
         showBrowsing();
@@ -316,6 +321,26 @@ function goSearch() {
     console.log("visiting legwork");
     let creating = browser.tabs.create(createData);
     creating.then(onTabCreated, onTabError);
+}
+
+function goURL() {
+    function onTabError() {
+        console.log("Search tab created");
+    }
+
+    function createNewURLTab(context) {
+        console.log("visiting URL");
+        let createData = {
+            url: document.getElementById("url-query").value,
+            cookieStoreId: context[0].cookieStoreId
+        };
+        let creating = browser.tabs.create(createData);
+        creating.then(onTabCreated, onTabError);
+    }
+    let context = browser.contextualIdentities.query({
+        name: titlepref
+    });
+    context.then(createNewURLTab, onTabError);
 }
 
 function routerAddr() {
