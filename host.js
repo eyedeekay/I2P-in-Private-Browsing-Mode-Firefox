@@ -1,5 +1,6 @@
 function proxyHost(requestDetails) {
-    if (requestDetails.tabId != -1) {
+    if (requestDetails.tabId != -1 || requestDetails.tabId !== undefined) {
+        console.warn("(host) requestDetails", requestDetails.tabId);
         return false;
     }
     let hostname = '';
