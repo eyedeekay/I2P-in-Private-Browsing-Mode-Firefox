@@ -414,7 +414,7 @@ function onVisited(historyItem) {
         searching.then(onCleaned);
     }
     if (!history) {
-        if (i2pHost(historyItem.url)) {
+        if (i2pHost(historyItem)) {
             var deletingUrl = browser.history.deleteUrl(historyItem.url);
         }
         deletingUrl.then(onRemoved);

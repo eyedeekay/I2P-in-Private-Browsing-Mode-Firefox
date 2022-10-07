@@ -1,9 +1,12 @@
-function proxyHost(url) {
+function proxyHost(requestDetails) {
+    if (requestDetails.tabId != -1) {
+        return false;
+    }
     let hostname = '';
-    if (url.indexOf('://') > -1) {
-        hostname = url.split('/')[2];
+    if (requestDetails.url.indexOf('://') > -1) {
+        hostname = requestDetails.url.split('/')[2];
     } else {
-        hostname = url.split('/')[0];
+        hostname = requestDetails.url.split('/')[0];
     }
     if (hostname == 'proxy.i2p') {
         return true;
@@ -96,7 +99,10 @@ function i2pHostName(url) {
 }
 
 function i2pHost(url) {
-    let hostname = i2pHostName(url);
+    if (proxyHost(url)) {
+        return false;
+    }
+    let hostname = i2pHostName(url.url);
     let postname = hostname.split(':')[0];
     return postname.endsWith('.i2p');
 }

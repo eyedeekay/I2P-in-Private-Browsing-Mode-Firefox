@@ -361,7 +361,7 @@ var contextSetup = function(requestDetails) {
         if (requestDetails == undefined) {
             return requestDetails;
         }
-        if (proxyHost(requestDetails.url)) {
+        if (proxyHost(requestDetails)) {
             setcookie = browser.cookies.set({
                 firstPartyDomain: i2pHostName(requestDetails.url),
                 url: requestDetails.url,

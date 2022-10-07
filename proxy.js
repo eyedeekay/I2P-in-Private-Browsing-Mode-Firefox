@@ -221,7 +221,7 @@ var handleContextProxyRequest = async function(requestDetails) {
                 console.log('(proxy)Tab error', error);
             }
         };
-        if (proxyHost(requestDetails.url)) {
+        if (proxyHost(requestDetails)) {
             proxy = {
                 type: getScheme(),
                 host: getHost(),
@@ -249,7 +249,7 @@ var handleContextProxyRequest = async function(requestDetails) {
             if (requestDetails.url.includes('MuWire')) {
                 return;
             }
-            if (proxyHost(requestDetails.url)) {
+            if (proxyHost(requestDetails)) {
                 proxy = {
                     type: getScheme(),
                     host: getHost(),
