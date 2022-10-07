@@ -1,322 +1,82 @@
 {
-    "abouthome": {
-        "description": "Описание для страницы кнопки расширения.",
-        "message": "Для получения дополнительной информации об этом расширении, посетите эту страницу."
-    },
-    "applicationExplain": {
-        "description": "Описание для раздела приложения.",
-        "message": "Эти приложения работают с I2P напрямую, чтобы обеспечить их безопасностью и конфиденциальностью."
-    },
-    "applicationHeader": {
-        "description": "Заголовок для раздела приложений.",
-        "message": "Приложения"
-    },
-    "blogPreface": {
-        "description": "Предисловие для панели заголовка браузера",
-        "message": "Блог"
-    },
-    "blogPrefacePrivate": {
-        "description": "Предисловие для панели заголовка браузера",
-        "message": "Блог (Частная)"
-    },
-    "botePreface": {
-        "description": "Предисловие для панели заголовка браузера",
-        "message": "I2P-Bote почта"
-    },
-    "botePrefacePrivate": {
-        "description": "Предисловие для панели заголовка браузера",
-        "message": "I2P-Bote Mail (Частная)"
-    },
-    "certAbsent": {
-        "description": "Содержание для информации о сертификате, если отсутствует",
-        "message": "Этот сайт не использует HTTPS. Он по-прежнему проверяется криптографически I2P."
-    },
-    "certLabel": {
-        "description": "Лейбл для информации о сертификате",
-        "message": "Информация о сертификате:"
-    },
-    "certPresent": {
-        "description": "Содержание для информации о сертификате, если есть",
-        "message": "Этот сайт использует HTTPS. HTTPS над I2P является экспериментальным и требует самоподписных сертификатов или альтернативных корневых авторитов."
-    },
-    "clearData": {
-        "description": "Очистить просмотр элемента меню данных.",
-        "message": "Прозрачные данные для просмотра:"
-    },
-    "clearDesc": {
-        "description": "Очистить описание действий по просмотру данных.",
-        "message": "Используйте это, чтобы стереть ваши данные I2P просмотра."
+    "TorrentTypeLabel": {
+        "description": "Torrent Links:",
+        "message": "Torrent Links:"
     },
     "controlExplain": {
-        "description": "Представьте панель управления.",
+        "description": "Введите панель управления.",
         "message": "Эти управления используются для адаптации вашего I2P Browsing Experience"
-    },
-    "controlHeader": {
-        "description": "Заголовок для панели управления.",
-        "message": "Контроль"
-    },
-    "controlHelpText": {
-        "description": "Помощь для настройки вариантов для кнопки Reset Tunnel",
-        "message": "Настройте свою лоутерную консоль здесь."
-    },
-    "controlHostText": {
-        "description": "Хост для Router Console",
-        "message": "Контролировать хозяин:"
-    },
-    "controlHostValue": {
-        "description": "Хост для Router Console",
-        "message": "0.0.1"
-    },
-    "controlPortText": {
-        "description": "Порт для Router Console",
-        "message": "Порт управления:"
-    },
-    "controlPortValue": {
-        "description": "Порт для Router Console",
-        "message": "7657"
-    },
-    "disableHistory": {
-        "description": "История checkbox label.",
-        "message": "Отключить историю в I2P Tabs?"
-    },
-    "enableWebRTC": {
-        "description": "WebRTC checkbox этикетка.",
-        "message": "Включить WebRTC с прокси?"
-    },
-    "extensionDescription": {
-        "description": "Описание расширения.",
-        "message": "Ваш браузер теперь настроен для использования I2P."
     },
     "extensionName": {
         "description": "Название расширения.",
-        "message": "И2П В Private Browsing"
-    },
-    "extensionNameVariant": {
-        "description": "Название расширения.",
-        "message": "I2P в частном просмотре - Rhizome Variant"
-    },
-    "extensionPreface": {
-        "description": "Предисловие для панели заголовка браузера",
-        "message": "I2P Менеджмент"
-    },
-    "extensionVersion": {
-        "description": "Версия расширения.",
-        "message": "1,28"
-    },
-    "forumMessage": {
-        "description": "Помощь Сообщение",
-        "message": "Посетите I2P форум, чтобы узнать больше или обратиться за помощью"
-    },
-    "help": {
-        "description": "Описание для страницы кнопки расширения.",
-        "message": "Для получения дополнительной информации об этом расширении, посетите эту страницу."
-    },
-    "helpMessage": {
-        "description": "Помощь Сообщение",
-        "message": "Получить дополнительную помощь"
-    },
-    "histDesc": {
-        "description": "Описание действий по истории",
-        "message": "История автоматически очищается, когда ваши вкладки I2P закрыты. Если вы хотите очистить историю, как вы идете, проверьте эту коробку."
-    },
-    "homepage": {
-        "description": "Найти больше информации",
-        "message": "Более подробная информация доступна здесь"
-    },
-    "hostText": {
-        "description": "Хост для HTTP или SOCKS5 Proxy",
-        "message": "Хост:"
-    },
-    "i2ptunnel": {
-        "description": "Описание для i2ptunnel",
-        "message": "I2P имеет веб-интерфейс для настройки .i2p сервисов, таких как веб-сайты, которые вы можете настроить."
-    },
-    "i2ptunnelPreface": {
-        "description": "Предисловие для панели заголовка браузера",
-        "message": "Менеджер скрытых услуг"
-    },
-    "i2ptunnelPrefacePrivate": {
-        "description": "Предисловие для панели заголовка браузера",
-        "message": "Скрытые услуги менеджер (Частная)"
-    },
-    "infoMessage": {
-        "description": "Помощь Сообщение",
-        "message": "Теперь вы можете бесплатно просматривать eepWeb! Ваш браузер теперь настроен, чтобы просматривать анонимно в сети I2P. Как вы просматриваете, ваш трафик будет маршрутизирован через другие сетевые узлы, чтобы отвратить его происхождение, как с сервера, так и от самих узлов."
+        "message": "I2P В частном рысе"
     },
     "infoTitle": {
-        "description": "Название для меню помощи",
-        "message": "И2П Помощь"
+        "description": "Название для меню справки",
+        "message": "I2P Помощь"
     },
-    "ircPreface": {
-        "description": "Предисловие для панели заголовка браузера",
-        "message": "Диспетчер IRC"
+    "label-router-status": {
+        "description": "Статус Маршрутизатора состояния:",
+        "message": "Статус Маршрутизатора состояния:"
     },
-    "ircPrefacePrivate": {
-        "description": "Предисловие для панели заголовка браузера",
-        "message": "Диспетчер IRC (Private)"
+    "links": {
+        "description": "Расширение и I2P",
+        "message": "Расширение и I2P"
     },
-    "isBase32": {
-        "description": "Сообщение для сайта info panel base32",
-        "message": "I2P Base32-Форматированный адрес"
+    "onboardingButtonTwo": {
+        "description": "Общие файлы",
+        "message": "Общие файлы"
     },
-    "isHostName": {
-        "description": "Сообщение для сайта info panel hostname",
-        "message": "И2П Перейти Hostname"
+    "onboardingContentThree": {
+        "description": "Существует также анонимный сервис электронной почты, доступный внутри I2P, который доступен из нашего браузера через меню прямо ниже.",
+        "message": "Существует также анонимный сервис электронной почты, доступный внутри I2P, который доступен из нашего браузера через меню прямо ниже."
     },
-    "mailPreface": {
-        "description": "Предисловие для панели заголовка браузера",
-        "message": "Веб-почта"
+    "readyness": {
+        "description": "Прокси готов.",
+        "message": "Прокси готов."
     },
-    "mailPrefacePrivate": {
-        "description": "Предисловие для панели заголовка браузера",
-        "message": "Web Mail (Частная)"
+    "router-net-bw-inbound-15s": {
+        "description": "Заменить на Router Bandwidth Outbound 15s",
+        "message": "Заменить на Router Bandwidth Outbound 15s"
     },
-    "muwirePreface": {
-        "description": "Предисловие для панели заголовка браузера",
-        "message": "Мувира"
+    "rpcPassText": {
+        "description": "Control Password: Torrent RPC Пароль:",
+        "message": "Control Password: Torrent RPC Пароль:"
     },
-    "muwirePrefacePrivate": {
-        "description": "Предисловие для панели заголовка браузера",
-        "message": "MuWire (Частная)"
+    "toopie": {
+        "description": "Для информации о вашем статусе маршрутизатора I2P, идите сюда:",
+        "message": "Для информации о вашем статусе маршрутизатора I2P, идите сюда:"
     },
-    "newsMessage": {
-        "description": "Помощь Сообщение",
-        "message": "Посетите I2P Блог, чтобы узнать последние о i2p."
-    },
-    "portText": {
-        "description": "Порт для HTTP или SOCKS5 Proxy",
-        "message": "Порт:"
-    },
-    "protocolHandlerValue": {
-        "description": "Значение для контроллера протокола магнита",
-        "message": "http://127.0.0.1:7657/i2psnark/?nofilter_newURL=%s\u0026action=Add\u0026foo=Add+torrent"
-    },
-    "proxyFailedStatus": {
-        "description": "Прокси не удалось статус.",
-        "message": "Прокси не готов"
-    },
-    "proxyHelpText": {
-        "description": "Помощь для настройки вариантов для кнопки Reset Tunnel",
-        "message": "Настройте свои I2P-прокси здесь."
-    },
-    "proxySuccessStatus": {
-        "description": "Прокси не удалось статус.",
-        "message": "Proxy готов"
-    },
-    "releases": {
-        "description": "Описание для новой страницы выпуска",
-        "message": "Проверьте новые релизы здесь"
-    },
-    "resetMessage": {
-        "description": "Сообщение для кнопки Reset Tunnel",
-        "message": "Сбросить тоннель"
-    },
-    "routerConsole": {
-        "description": "Описание для рулевой консоли.",
-        "message": "Вводная точка для всех других приложений I2P является I2P Router Console. Чтобы посетить его, нажмите здесь."
-    },
-    "routerPreface": {
-        "description": "Предисловие для панели заголовка браузера",
-        "message": "Router Консоль"
-    },
-    "routerPrefacePrivate": {
-        "description": "Предисловие для панели заголовка браузера",
-        "message": "Router Console (Частная)"
-    },
-    "rtcDesc": {
-        "description": "Описание действий WebRTC",
-        "message": "WebRTC отключен по умолчанию, но вы можете включить его и заставить его почитать прокси. Если вы являетесь пользователем расширения браузера Snowflake, этот вариант отключен и WebRTC по умолчанию включен."
-    },
-    "siteLabel": {
-        "description": "Лейбл для i2p сайта info",
-        "message": "Адрес/Сайт Информация:"
-    },
-    "snark": {
-        "description": "Описание для Bittorrent",
-        "message": "I2P способна анонимного обмена файлами Peer-to-Peer с использованием встроенного bittorrent приложения."
-    },
-    "sources": {
-        "description": "Описание для ссылки исходного кода",
-        "message": "Просмотр исходного кода здесь"
-    },
-    "susimail": {
-        "description": "Описание для электронной почты",
-        "message": "I2P также связывает клиент веб-почты, который может быть использован для доступа в I2P e-mail."
-    },
-    "titlePreface": {
-        "description": "Предисловие для панели заголовка браузера",
-        "message": "I2P Браузер"
-    },
-    "titlePrefacePrivate": {
-        "description": "Предисловие для панели заголовка браузера",
-        "message": "I2P Браузер (Private)"
-    },
-    "toopieName": {
-        "description": "Название боковой панели.",
-        "message": "тоже. html"
+    "toopieHtmlHeadline": {
+        "description": "Информация о маршруте I2P",
+        "message": "Информация о маршруте I2P"
     },
     "toopieTLS": {
-        "description": "Название панели безопасности.",
+        "description": "Название группы безопасности.",
         "message": "Свойства сайта"
     },
-    "torPreface": {
-        "description": "Предисловие для панели заголовка браузера",
-        "message": "Тор-менеджер"
+    "torrentControls": {
+        "description": "Торрент-контроль",
+        "message": "Торрент-контроль"
     },
-    "torPrefacePrivate": {
-        "description": "Предисловие для панели заголовка браузера",
-        "message": "Tor Manager (Частная)"
+    "torrentui-opener": {
+        "description": "Open WebUI",
+        "message": "Open WebUI"
     },
-    "torrentPreface": {
-        "description": "Предисловие для панели заголовка браузера",
-        "message": "Bittorrent"
-    },
-    "torrentPrefacePrivate": {
-        "description": "Предисловие для панели заголовка браузера",
-        "message": "Bittorrent (Частная)"
-    },
-    "webPreface": {
-        "description": "Предисловие для панели заголовка браузера",
-        "message": "Веб-браузер"
-    },
-    "webPrefacePrivate": {
-        "description": "Предисловие для панели заголовка браузера",
-        "message": "Веб-браузер (Private)"
-    },
-    "windowVisitConsole": {
-        "description": "Router Console этикетка.",
-        "message": "Router Консоль:"
+    "window-visit-console": {
+        "description": "Консоль маршрутизатора I2P",
+        "message": "Консоль маршрутизатора I2P"
     },
     "windowVisitHelppage": {
-        "description": "Помогите странице для ярлыка расширения.",
-        "message": "Страница помощи:"
-    },
-    "windowVisitHomepage": {
-        "description": "Домашняя страница для ярлыка расширения.",
-        "message": "Домашняя страница:"
-    },
-    "windowVisitI2ptunnel": {
-        "description": "Название для i2ptunnel",
-        "message": "Скрытые услуги менеджера:"
+        "description": "Страница справки для ярлыка расширения.",
+        "message": "Информация о расширении сети:"
     },
     "windowVisitReleases": {
         "description": "Посетите страницу релиза",
-        "message": "Расширение релизов:"
-    },
-    "windowVisitSnark": {
-        "description": "Название для Bittorrent",
-        "message": "Bittorrent:"
-    },
-    "windowVisitSources": {
-        "description": "Название для исходного кода link",
-        "message": "Код источника расширения:"
-    },
-    "windowVisitSusimail": {
-        "description": "Название для электронной почты",
-        "message": "Электронная почта:"
+        "message": "Расширение:"
     },
     "windowVisitWebPage": {
-        "description": "Посетите страницу расширения на Github",
-        "message": "Расширение домашняя страница:"
+        "description": "Продление посещения на сайте Github",
+        "message": "Главная страница:"
     }
 }
