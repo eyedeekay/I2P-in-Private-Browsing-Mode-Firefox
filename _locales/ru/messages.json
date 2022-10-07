@@ -1,82 +1,82 @@
 {
-    "TorrentTypeLabel": {
-        "description": "Torrent Links:",
-        "message": "Torrent Links:"
-    },
-    "controlExplain": {
-        "description": "Введите панель управления.",
-        "message": "Эти управления используются для адаптации вашего I2P Browsing Experience"
-    },
-    "extensionName": {
-        "description": "Название расширения.",
-        "message": "I2P В частном рысе"
-    },
-    "infoTitle": {
-        "description": "Название для меню справки",
-        "message": "I2P Помощь"
-    },
-    "label-router-status": {
-        "description": "Статус Маршрутизатора состояния:",
-        "message": "Статус Маршрутизатора состояния:"
-    },
-    "links": {
-        "description": "Расширение и I2P",
-        "message": "Расширение и I2P"
-    },
-    "onboardingButtonTwo": {
-        "description": "Общие файлы",
-        "message": "Общие файлы"
-    },
-    "onboardingContentThree": {
-        "description": "Существует также анонимный сервис электронной почты, доступный внутри I2P, который доступен из нашего браузера через меню прямо ниже.",
-        "message": "Существует также анонимный сервис электронной почты, доступный внутри I2P, который доступен из нашего браузера через меню прямо ниже."
-    },
-    "readyness": {
-        "description": "Прокси готов.",
-        "message": "Прокси готов."
-    },
-    "router-net-bw-inbound-15s": {
-        "description": "Заменить на Router Bandwidth Outbound 15s",
-        "message": "Заменить на Router Bandwidth Outbound 15s"
-    },
-    "rpcPassText": {
-        "description": "Control Password: Torrent RPC Пароль:",
-        "message": "Control Password: Torrent RPC Пароль:"
-    },
-    "toopie": {
-        "description": "Для информации о вашем статусе маршрутизатора I2P, идите сюда:",
-        "message": "Для информации о вашем статусе маршрутизатора I2P, идите сюда:"
-    },
-    "toopieHtmlHeadline": {
-        "description": "Информация о маршруте I2P",
-        "message": "Информация о маршруте I2P"
-    },
-    "toopieTLS": {
-        "description": "Название группы безопасности.",
-        "message": "Свойства сайта"
-    },
-    "torrentControls": {
-        "description": "Торрент-контроль",
-        "message": "Торрент-контроль"
-    },
-    "torrentui-opener": {
-        "description": "Open WebUI",
-        "message": "Open WebUI"
-    },
-    "window-visit-console": {
-        "description": "Консоль маршрутизатора I2P",
-        "message": "Консоль маршрутизатора I2P"
-    },
-    "windowVisitHelppage": {
-        "description": "Страница справки для ярлыка расширения.",
-        "message": "Информация о расширении сети:"
-    },
-    "windowVisitReleases": {
-        "description": "Посетите страницу релиза",
-        "message": "Расширение:"
-    },
-    "windowVisitWebPage": {
-        "description": "Продление посещения на сайте Github",
-        "message": "Главная страница:"
-    }
+  "TorrentTypeLabel": {
+    "description": "Torrent Links:",
+    "message": "Torrent Links:"
+  },
+  "controlExplain": {
+    "description": "Введите панель управления.",
+    "message": "Эти управления используются для адаптации вашего I2P Browsing Experience"
+  },
+  "extensionName": {
+    "description": "Название расширения.",
+    "message": "I2P В частном рысе"
+  },
+  "infoTitle": {
+    "description": "Название для меню справки",
+    "message": "I2P Помощь"
+  },
+  "label-router-status": {
+    "description": "Статус Маршрутизатора состояния:",
+    "message": "Статус Маршрутизатора состояния:"
+  },
+  "links": {
+    "description": "Расширение и I2P",
+    "message": "Расширение и I2P"
+  },
+  "onboardingButtonTwo": {
+    "description": "Общие файлы",
+    "message": "Общие файлы"
+  },
+  "onboardingContentThree": {
+    "description": "Существует также анонимный сервис электронной почты, доступный внутри I2P, который доступен из нашего браузера через меню прямо ниже.",
+    "message": "Существует также анонимный сервис электронной почты, доступный внутри I2P, который доступен из нашего браузера через меню прямо ниже."
+  },
+  "readyness": {
+    "description": "Прокси готов.",
+    "message": "Прокси готов."
+  },
+  "router-net-bw-inbound-15s": {
+    "description": "Заменить на Router Bandwidth Outbound 15s",
+    "message": "Заменить на Router Bandwidth Outbound 15s"
+  },
+  "rpcPassText": {
+    "description": "Control Password: Torrent RPC Пароль:",
+    "message": "Control Password: Torrent RPC Пароль:"
+  },
+  "toopie": {
+    "description": "Для информации о вашем статусе маршрутизатора I2P, идите сюда:",
+    "message": "Для информации о вашем статусе маршрутизатора I2P, идите сюда:"
+  },
+  "toopieHtmlHeadline": {
+    "description": "Информация о маршруте I2P",
+    "message": "Информация о маршруте I2P"
+  },
+  "toopieTLS": {
+    "description": "Название группы безопасности.",
+    "message": "Свойства сайта"
+  },
+  "torrentControls": {
+    "description": "Торрент-контроль",
+    "message": "Торрент-контроль"
+  },
+  "torrentui-opener": {
+    "description": "Open WebUI",
+    "message": "Open WebUI"
+  },
+  "window-visit-console": {
+    "description": "Консоль маршрутизатора I2P",
+    "message": "Консоль маршрутизатора I2P"
+  },
+  "windowVisitHelppage": {
+    "description": "Страница справки для ярлыка расширения.",
+    "message": "Информация о расширении сети:"
+  },
+  "windowVisitReleases": {
+    "description": "Посетите страницу релиза",
+    "message": "Расширение:"
+  },
+  "windowVisitWebPage": {
+    "description": "Продление посещения на сайте Github",
+    "message": "Главная страница:"
+  }
 }

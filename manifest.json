@@ -1,105 +1,108 @@
 {
-    "browser_specific_settings": {
-        "gecko": {
-            "id": "i2ppb@eyedeekay.github.io",
-            "strict_min_version": "91.1.0"
-        }
-    },
-    "permissions": [
-        "theme",
-        "alarms",
-        "browsingData",
-        "bookmarks",
-        "contextMenus",
-        "management",
-        "notifications",
-        "proxy",
-        "privacy",
-        "storage",
-        "webNavigation",
-        "webRequest",
-        "webRequestBlocking",
-        "contextualIdentities",
-        "cookies",
-        "history",
-        "tabs",
-        "<all_urls>"
-    ],
-    "manifest_version": 2,
-    "name": "__MSG_extensionName__",
-  "version": "0.133",
-    "description": "__MSG_extensionDescription__",
-    "homepage_url": "https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox",
-    "icons": {
-        "48": "icons/i2plogo.png"
-    },
-    "browser_action": {
-        "browser_style": true,
-        "default_icon": "icons/i2plogo.png",
-        "default_title": "__MSG_extensionName__",
-        "default_popup": "window.html"
-    },
-    "sidebar_action": {
-        "browser_style": true,
-        "default_icon": "icons/i2plogo.png",
-        "default_title": "__MSG_toopieName__",
-        "default_panel": "toopie.html",
-        "open_at_install": false
-    },
-    "page_action": {
-        "browser_style": true,
-        "default_title": "__MSG_toopieTLS__",
-        "default_icon": "icons/i2plogo.png",
-        "show_matches": [
-            "http://*.i2p/*",
-            "https://*.i2p/*",
-            "http://*.b32.i2p/*",
-            "https://*.b32.i2p/*"
-        ],
-        "pinned": true
-    },
-    "options_ui": {
-        "page": "options/options.html"
-    },
-    "content_scripts": [{
-        "matches": ["<all_urls>"],
-        "js": ["script.js"]
-    }],
-    "background": {
-        "persistent": true,
-        "scripts": [
-            "config.js",
-            "torrent/common.js",
-            "torrent/background.js",
-            "i2pcontrol/i2pcontrol.js",
-            "host.js",
-            "privacy.js",
-            "platform.js",
-            "background.js",
-            "handler.js",
-            "proxy.js",
-            "info.js",
-            "home.js",
-            "scrub.js",
-            "bookmarks.js"
-        ]
-    },
-    "protocol_handlers": [{
-            "protocol": "ext+rc",
-            "name": "RouterConsole",
-            "uriTemplate": "http://127.0.0.1:7657/%s"
-        },
-        {
-            "protocol": "magnet",
-            "name": "I2PTorrent",
-            "uriTemplate": "http://127.0.0.1:7657/i2psnark/?nofilter_newURL=%s&action=Add&foo=Add+torrent"
-        }
-    ],
-    "default_locale": "en",
-    "chrome_settings_overrides": {
-        "homepage": "home.html"
-    },
-    "chrome_url_overrides": {
-        "newtab": "home.html"
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "i2ppb@eyedeekay.github.io",
+      "strict_min_version": "91.1.0"
     }
+  },
+  "permissions": [
+    "theme",
+    "alarms",
+    "browsingData",
+    "bookmarks",
+    "contextMenus",
+    "management",
+    "notifications",
+    "proxy",
+    "privacy",
+    "storage",
+    "webNavigation",
+    "webRequest",
+    "webRequestBlocking",
+    "contextualIdentities",
+    "cookies",
+    "history",
+    "tabs",
+    "<all_urls>"
+  ],
+  "manifest_version": 2,
+  "name": "__MSG_extensionName__",
+  "version": "0.133",
+  "description": "__MSG_extensionDescription__",
+  "homepage_url": "https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox",
+  "icons": {
+    "48": "icons/i2plogo.png"
+  },
+  "browser_action": {
+    "browser_style": true,
+    "default_icon": "icons/i2plogo.png",
+    "default_title": "__MSG_extensionName__",
+    "default_popup": "window.html"
+  },
+  "sidebar_action": {
+    "browser_style": true,
+    "default_icon": "icons/i2plogo.png",
+    "default_title": "__MSG_toopieName__",
+    "default_panel": "toopie.html",
+    "open_at_install": false
+  },
+  "page_action": {
+    "browser_style": true,
+    "default_title": "__MSG_toopieTLS__",
+    "default_icon": "icons/i2plogo.png",
+    "show_matches": [
+      "http://*.i2p/*",
+      "https://*.i2p/*",
+      "http://*.b32.i2p/*",
+      "https://*.b32.i2p/*"
+    ],
+    "pinned": true
+  },
+  "options_ui": {
+    "page": "options/options.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["script.js"]
+    }
+  ],
+  "background": {
+    "persistent": true,
+    "scripts": [
+      "config.js",
+      "torrent/common.js",
+      "torrent/background.js",
+      "i2pcontrol/i2pcontrol.js",
+      "host.js",
+      "privacy.js",
+      "platform.js",
+      "background.js",
+      "handler.js",
+      "proxy.js",
+      "info.js",
+      "home.js",
+      "scrub.js",
+      "bookmarks.js"
+    ]
+  },
+  "protocol_handlers": [
+    {
+      "protocol": "ext+rc",
+      "name": "RouterConsole",
+      "uriTemplate": "http://127.0.0.1:7657/%s"
+    },
+    {
+      "protocol": "magnet",
+      "name": "I2PTorrent",
+      "uriTemplate": "http://127.0.0.1:7657/i2psnark/?nofilter_newURL=%s&action=Add&foo=Add+torrent"
+    }
+  ],
+  "default_locale": "en",
+  "chrome_settings_overrides": {
+    "homepage": "home.html"
+  },
+  "chrome_url_overrides": {
+    "newtab": "home.html"
+  }
 }

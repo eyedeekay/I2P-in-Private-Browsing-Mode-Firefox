@@ -1,7 +1,7 @@
-fetch("http://proxy.i2p").then(
+fetch('http://proxy.i2p').then(
   (myJson) => {
-    contentUpdateById("proxy-check", "proxySuccessStatus");
-    let readyness = document.querySelectorAll(".readyness");
+    contentUpdateById('proxy-check', 'proxySuccessStatus');
+    let readyness = document.querySelectorAll('.readyness');
     if (readyness !== null) {
       unhide(readyness);
     }

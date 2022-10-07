@@ -1,12 +1,11 @@
-
 function contentUpdateById(id, message) {
-	let infoTitle = document.getElementById(id);
-	let messageContent = chrome.i18n.getMessage(message);
-	if (infoTitle === null) {
-		console.log('content error', id, messageContent);
-		return;
-	}
-	infoTitle.textContent = messageContent;
+  let infoTitle = document.getElementById(id);
+  let messageContent = chrome.i18n.getMessage(message);
+  if (infoTitle === null) {
+    console.log('content error', id, messageContent);
+    return;
+  }
+  infoTitle.textContent = messageContent;
 }
 contentUpdateById('CertLabel', 'CertLabel');
 contentUpdateById('SignedLabel', 'SignedLabel');
@@ -39,13 +38,31 @@ contentUpdateById('label-router-activepeers', 'label-router-activepeers');
 contentUpdateById('label-router-bandwidth', 'label-router-bandwidth');
 contentUpdateById('label-router-bw-inbound-15s', 'label-router-bw-inbound-15s');
 contentUpdateById('label-router-bw-inbound-1s', 'label-router-bw-inbound-1s');
-contentUpdateById('label-router-bw-outbound-15s', 'label-router-bw-outbound-15s');
+contentUpdateById(
+  'label-router-bw-outbound-15s',
+  'label-router-bw-outbound-15s'
+);
 contentUpdateById('label-router-bw-outbound-1s', 'label-router-bw-outbound-1s');
-contentUpdateById('label-router-net-tunnels-participating', 'label-router-net-tunnels-participating');
-contentUpdateById('label-router-netdb-fastpeers', 'label-router-netdb-fastpeers');
-contentUpdateById('label-router-netdb-highcapacitypeers', 'label-router-netdb-highcapacitypeers');
-contentUpdateById('label-router-netdb-isreseeding', 'label-router-netdb-isreseeding');
-contentUpdateById('label-router-netdb-knownpeers', 'label-router-netdb-knownpeers');
+contentUpdateById(
+  'label-router-net-tunnels-participating',
+  'label-router-net-tunnels-participating'
+);
+contentUpdateById(
+  'label-router-netdb-fastpeers',
+  'label-router-netdb-fastpeers'
+);
+contentUpdateById(
+  'label-router-netdb-highcapacitypeers',
+  'label-router-netdb-highcapacitypeers'
+);
+contentUpdateById(
+  'label-router-netdb-isreseeding',
+  'label-router-netdb-isreseeding'
+);
+contentUpdateById(
+  'label-router-netdb-knownpeers',
+  'label-router-netdb-knownpeers'
+);
 contentUpdateById('label-router-peers', 'label-router-peers');
 contentUpdateById('label-router-status', 'label-router-status');
 contentUpdateById('label-router-uptime', 'label-router-uptime');
@@ -79,10 +96,16 @@ contentUpdateById('router-net-bw-inbound-15s', 'router-net-bw-inbound-15s');
 contentUpdateById('router-net-bw-inbound-1s', 'router-net-bw-inbound-1s');
 contentUpdateById('router-net-bw-outbound-15s', 'router-net-bw-outbound-15s');
 contentUpdateById('router-net-bw-outbound-1s', 'router-net-bw-outbound-1s');
-contentUpdateById('router-net-tunnels-participating', 'router-net-tunnels-participating');
+contentUpdateById(
+  'router-net-tunnels-participating',
+  'router-net-tunnels-participating'
+);
 contentUpdateById('router-netdb-activepeers', 'router-netdb-activepeers');
 contentUpdateById('router-netdb-fastpeers', 'router-netdb-fastpeers');
-contentUpdateById('router-netdb-highcapacitypeers', 'router-netdb-highcapacitypeers');
+contentUpdateById(
+  'router-netdb-highcapacitypeers',
+  'router-netdb-highcapacitypeers'
+);
 contentUpdateById('router-netdb-isreseeding', 'router-netdb-isreseeding');
 contentUpdateById('router-netdb-knownpeers', 'router-netdb-knownpeers');
 contentUpdateById('router-restart', 'router-restart');
@@ -103,8 +126,14 @@ contentUpdateById('sourcehead', 'sourcehead');
 contentUpdateById('sources', 'sources');
 contentUpdateById('susimail', 'susimail');
 contentUpdateById('text-section-header', 'text-section-header');
-contentUpdateById('text-section-proxyerr-header', 'text-section-proxyerr-header');
-contentUpdateById('text-section-torrents-header', 'text-section-torrents-header');
+contentUpdateById(
+  'text-section-proxyerr-header',
+  'text-section-proxyerr-header'
+);
+contentUpdateById(
+  'text-section-torrents-header',
+  'text-section-torrents-header'
+);
 contentUpdateById('toopie', 'toopie');
 contentUpdateById('torrentui-opener', 'torrentui-opener');
 contentUpdateById('visit-irc', 'visit-irc');

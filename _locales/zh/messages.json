@@ -1,742 +1,742 @@
 {
-    "CertLabel": {
-        "description": "证明信息:",
-        "message": "证明信息:"
-    },
-    "SignedLabel": {
-        "description": "常驻代表",
-        "message": "常驻代表"
-    },
-    "TorrentTypeLabel": {
-        "description": "引证联系:",
-        "message": "引证联系:"
-    },
-    "TypeLabel": {
-        "description": "引证联系:",
-        "message": "引证联系:"
-    },
-    "aboutconsole": {
-        "description": "进入路线者的主页。",
-        "message": "进入路线者的主页。"
-    },
-    "abouthome": {
-        "description": "展期页。.",
-        "message": "关于这一扩展的更多信息,本页访问。."
-    },
-    "addresstype": {
-        "description": "处理类型:",
-        "message": "处理类型:"
-    },
-    "applicationExplain": {
-        "description": "申请款的说明。.",
-        "message": "这些申请直接与I2P合作,向他们提供安全和隐私权。."
-    },
-    "applicationHeader": {
-        "description": "申请科长。.",
-        "message": "申请"
-    },
-    "beta": {
-        "description": "这是试验产品。.",
-        "message": "这是试验产品。."
-    },
-    "blogPreface": {
-        "description": "代页标题的序言",
-        "message": "评 注"
-    },
-    "blogPrefacePrivate": {
-        "description": "代页标题的序言",
-        "message": "Blog (Private)"
-    },
-    "bookmarksButton": {
-        "description": "Re-Create Books",
-        "message": "Re-Create Books"
-    },
-    "botePreface": {
-        "description": "代页标题的序言",
-        "message": "I2P-Bote Mail"
-    },
-    "botePrefacePrivate": {
-        "description": "代页标题的序言",
-        "message": "I2P-Bote Mail(Private)"
-    },
-    "browser-action": {
-        "description": "Browse",
-        "message": "Browse"
-    },
-    "btRpcHostText": {
-        "description": "D. 捕获方案 东道国:",
-        "message": "D. 捕获方案 东道国:"
-    },
-    "btRpcPathText": {
-        "description": "D. 捕获方案 Path:",
-        "message": "D. 捕获方案 Path:"
-    },
-    "btRpcPortText": {
-        "description": "D. 捕获方案 港口:",
-        "message": "D. 捕获方案 港口:"
-    },
-    "certAbsent": {
-        "description": "无证件的处理",
-        "message": "该网站没有使用HTTPS。 仍然由I2P核实。."
-    },
-    "certLabel": {
-        "description": "出生证明人",
-        "message": "证明信息:"
-    },
-    "certPresent": {
-        "description": "证明的内容",
-        "message": "该网站使用HTTPS。 在I2P的技转设备是试验性的,需要自发证书或副根基。."
-    },
-    "clearData": {
-        "description": "清点数据男性u项目。.",
-        "message": "数据交换:"
-    },
-    "clearDesc": {
-        "description": "数据行动说明。.",
-        "message": "利用这一手段使你的I2Prows数据消失。."
-    },
-    "controlExplain": {
-        "description": "介绍控制小组。.",
-        "message": "这些管制用来适应你的I2Prows的经历"
-    },
-    "controlHeader": {
-        "description": "控制小组负责人。.",
-        "message": "控制"
-    },
-    "controlHelpText": {
-        "description": "B. 帮助精简重新启动的Tunnel但顿办法",
-        "message": "调整你的路线。."
-    },
-    "controlHostText": {
-        "description": "B. 勒索的旅舍",
-        "message": "控制旅舍:"
-    },
-    "controlHostValue": {
-        "description": "B. 勒索的旅舍",
-        "message": "1270.0.1"
-    },
-    "controlPortText": {
-        "description": "Router Console港",
-        "message": "管制港:"
-    },
-    "controlPortValue": {
-        "description": "Router Console港",
-        "message": "7657"
-    },
-    "description": {
-        "description": "你现在能够在本代行使用I2P。.",
-        "message": "你现在能够在本代行使用I2P。."
-    },
-    "description2": {
-        "description": "如果你看到这一页,就是因为出现了一种错误。 已经提供了一些资料,以帮助你查明该问题。.",
-        "message": "如果你看到这一页,就是因为出现了一种错误。 已经提供了一些资料,以帮助你查明该问题。."
-    },
-    "disableHistory": {
-        "description": "历史检查箱标签。.",
-        "message": "I2P Tabs可观的历史?"
-    },
-    "enableWebRTC": {
-        "description": "RTC检查箱标签。.",
-        "message": "传真:?"
-    },
-    "extensionDescription": {
-        "description": "说明延期。.",
-        "message": "现已设立你的代行,以使用I2P。."
-    },
-    "extensionName": {
-        "description": "延期名称。.",
-        "message": "I2P 私人成长"
-    },
-    "extensionNameVariant": {
-        "description": "延期名称。.",
-        "message": "I2P in Private Brows - Rhizome Variant"
-    },
-    "extensionPreface": {
-        "description": "代页标题的序言",
-        "message": "I2 管理"
-    },
-    "extensionVersion": {
-        "description": "延长。.",
-        "message": "1.28"
-    },
-    "fliplinks": {
-        "description": "A. 推广和增加资源",
-        "message": "A. 推广和增加资源"
-    },
-    "forumMessage": {
-        "description": "求助者",
-        "message": "访问伊加特论坛学习更多或要求援助"
-    },
-    "headline": {
-        "description": "易读的因特网Browser",
-        "message": "易读的因特网Browser"
-    },
-    "help": {
-        "description": "展期页。.",
-        "message": "关于这一扩展的更多信息,本页访问。."
-    },
-    "helpMessage": {
-        "description": "求助者",
-        "message": "增加帮助"
-    },
-    "histDesc": {
-        "description": "历史行动说明",
-        "message": "当你的I2Ptab被关闭时,历史就自动明确。 如果你想像你那样明确历史,检查这个箱。."
-    },
-    "homepage": {
-        "description": "更多信息",
-        "message": "这方面的更多资料"
-    },
-    "hostText": {
-        "description": "HTTP或SOCKS5 Proxy",
-        "message": "东道国:"
-    },
-    "i2ppage": {
-        "description": "这里有更多资料。.",
-        "message": "这里有更多资料。."
-    },
-    "i2ptunnel": {
-        "description": "说明",
-        "message": "I2P有网站的接口,以精简网站等服务。 你可以设立。."
-    },
-    "i2ptunnelPreface": {
-        "description": "代页标题的序言",
-        "message": "Hidden服务主管"
-    },
-    "i2ptunnelPrefacePrivate": {
-        "description": "代页标题的序言",
-        "message": "Hidden Services经理(Private)"
-    },
-    "infoMessage": {
-        "description": "求助者",
-        "message": "你们现在可以自由地打下“我们”! 你的代行现在被安排在I2P网络上匿名。 正如你所想象的那样,你的交通将通过其他网络连接起来,使他们的起源,无论是从服务器还是从自己出发。."
-    },
-    "infoTitle": {
-        "description": "帮助男性的标题",
-        "message": "I2P 帮助"
-    },
-    "ircPreface": {
-        "description": "代页标题的序言",
-        "message": "副渔民协会"
-    },
-    "ircPrefacePrivate": {
-        "description": "代页标题的序言",
-        "message": "IRC(Private)"
-    },
-    "isBase32": {
-        "description": "F. 集群小组基地网站的邮件32",
-        "message": "I2P基地32-Format地址"
-    },
-    "isHostName": {
-        "description": "集群小组所在地的传单",
-        "message": "I2P Jump人质"
-    },
-    "label-router-activepeers": {
-        "description": "精算师:",
-        "message": "精算师:"
-    },
-    "label-router-bandwidth": {
-        "description": "Bandwith",
-        "message": "Bandwith"
-    },
-    "label-router-bw-inbound-15s": {
-        "description": "有15人:",
-        "message": "有15人:"
-    },
-    "label-router-bw-inbound-1s": {
-        "description": "有1人:",
-        "message": "有1人:"
-    },
-    "label-router-bw-outbound-15s": {
-        "description": "第15条:",
-        "message": "第15条:"
-    },
-    "label-router-bw-outbound-1s": {
-        "description": "无限的桶1:",
-        "message": "无限的桶1:"
-    },
-    "label-router-net-tunnels-participating": {
-        "description": "过境渠道:",
-        "message": "过境渠道:"
-    },
-    "label-router-netdb-fastpeers": {
-        "description": "Fast Peers:",
-        "message": "Fast Peers:"
-    },
-    "label-router-netdb-highcapacitypeers": {
-        "description": "高能力 作者:",
-        "message": "高能力 作者:"
-    },
-    "label-router-netdb-isreseeding": {
-        "description": "重新定性:",
-        "message": "重新定性:"
-    },
-    "label-router-netdb-knownpeers": {
-        "description": "Known Peers:",
-        "message": "Known Peers:"
-    },
-    "label-router-peers": {
-        "description": "导 言",
-        "message": "导 言"
-    },
-    "label-router-status": {
-        "description": "现状:",
-        "message": "现状:"
-    },
-    "label-router-uptime": {
-        "description": "时间:",
-        "message": "时间:"
-    },
-    "label-router-version": {
-        "description": "Router Version:",
-        "message": "Router Version:"
-    },
-    "links": {
-        "description": "A. 推广和增加资源",
-        "message": "A. 推广和增加资源"
-    },
-    "linksExplain": {
-        "description": "如果你想获得更多关于I2P的资料,你可以访问这些联系。.",
-        "message": "如果你想获得更多关于I2P的资料,你可以访问这些联系。."
-    },
-    "mailPreface": {
-        "description": "代页标题的序言",
-        "message": "网站"
-    },
-    "mailPrefacePrivate": {
-        "description": "代页标题的序言",
-        "message": "网址:Mail(Private)"
-    },
-    "muwirePreface": {
-        "description": "代页标题的序言",
-        "message": "MuWire"
-    },
-    "muwirePrefacePrivate": {
-        "description": "代页标题的序言",
-        "message": "MuWire(Private)"
-    },
-    "newsMessage": {
-        "description": "求助者",
-        "message": "访问I2P 学习最新一倍。."
-    },
-    "onboardingButtonFive": {
-        "description": "经验",
-        "message": "经验"
-    },
-    "onboardingButtonFour": {
-        "description": "B. 网站的浏览",
-        "message": "B. 网站的浏览"
-    },
-    "onboardingButtonOne": {
-        "description": "你们 经验",
-        "message": "你们 经验"
-    },
-    "onboardingButtonThree": {
-        "description": "Hidden email",
-        "message": "Hidden email"
-    },
-    "onboardingButtonTwo": {
-        "description": "Share Files",
-        "message": "Share Files"
-    },
-    "onboardingButtonZero": {
-        "description": "保护你的隐私",
-        "message": "保护你的隐私"
-    },
-    "onboardingContentFive": {
-        "description": "由于I2P提供的所有安全和隐私权特点,在因特网上播出的经验可能很小。 口号可能是缓慢的,取决于你的安全水平,有些要素可能不会工作或装载。 也请你证明你是人类,而不是一种抢劫。.",
-        "message": "由于I2P提供的所有安全和隐私权特点,在因特网上播出的经验可能很小。 口号可能是缓慢的,取决于你的安全水平,有些要素可能不会工作或装载。 也请你证明你是人类,而不是一种抢劫。."
-    },
-    "onboardingContentFour": {
-        "description": "这一扩展工作自然,因为你正在掠夺I2P地点。 如果你想把I2P用作非I2P地点的辅助性,则使用I2P的私人Browsing button在工具bar和点击新I2PBrowser Tab转向新的表格。.",
-        "message": "这一扩展工作自然,因为你正在掠夺I2P地点。 如果你想把I2P用作非I2P地点的辅助性,则使用I2P的私人Browsing button在工具bar和点击新I2PBrowser Tab转向新的表格。."
-    },
-    "onboardingContentOne": {
-        "description": "我们还为你提供额外的环境来倾弃你的荒谬安全。 我们的安全标志允许你阻止可用于攻击你计算机的因素。 下面的注视不同的选择。 注: 违约、无罪释放和猛虎 每一个地方都未列入工具包,但你可以把你的工具包化为补充工具。 由于I2P提供的所有安全和隐私权特点,在因特网上播出的经验可能很小。 口号可能是缓慢的,取决于你的安全水平,有些要素可能不会工作或装载。 也请你证明你是人类,而不是一种抢劫。.",
-        "message": "我们还为你提供额外的环境来倾弃你的荒谬安全。 我们的安全标志允许你阻止可用于攻击你计算机的因素。 下面的注视不同的选择。 注: 违约、无罪释放和猛虎 每一个地方都未列入工具包,但你可以把你的工具包化为补充工具。 由于I2P提供的所有安全和隐私权特点,在因特网上播出的经验可能很小。 口号可能是缓慢的,取决于你的安全水平,有些要素可能不会工作或装载。 也请你证明你是人类,而不是一种抢劫。."
-    },
-    "onboardingContentThree": {
-        "description": "在I2P内也可提供匿名电子邮件服务,这些服务可以直接通过下文的男性获得。.",
-        "message": "在I2P内也可提供匿名电子邮件服务,这些服务可以直接通过下文的男性获得。."
-    },
-    "onboardingContentTwo": {
-        "description": "I2P在你分享档案时能够使用像BitTorrent这样的同侪对用户的应用,保护你的身份。 我们一个匿名的客户可在代管处获得。.",
-        "message": "I2P在你分享档案时能够使用像BitTorrent这样的同侪对用户的应用,保护你的身份。 我们一个匿名的客户可在代管处获得。."
-    },
-    "onboardingContentZero": {
-        "description": "I2P 代办允许你利用私人和有保障的I2P网络,收缩互联网。 当你利用它时,作为I2P网络的第一等参与者,保护他们不受跟踪、监视和检查。 I2PBrowser是厨房,在你届会之后删除了你的代行历史。 这些修改确保你的隐私权和安全在代行得到保护。.",
-        "message": "I2P 代办允许你利用私人和有保障的I2P网络,收缩互联网。 当你利用它时,作为I2P网络的第一等参与者,保护他们不受跟踪、监视和检查。 I2PBrowser是厨房,在你届会之后删除了你的代行历史。 这些修改确保你的隐私权和安全在代行得到保护。."
-    },
-    "onboardingFive": {
-        "description": "经验",
-        "message": "经验"
-    },
-    "onboardingFour": {
-        "description": "B. 网站的浏览",
-        "message": "B. 网站的浏览"
-    },
-    "onboardingOne": {
-        "description": "你们 经验",
-        "message": "你们 经验"
-    },
-    "onboardingThree": {
-        "description": "Hidden email",
-        "message": "Hidden email"
-    },
-    "onboardingTitle": {
-        "description": "新到I2P? 这里的教训。.",
-        "message": "新到I2P? 这里的教训。."
-    },
-    "onboardingTwo": {
-        "description": "Share Files",
-        "message": "Share Files"
-    },
-    "onboardingZero": {
-        "description": "保护你的隐私",
-        "message": "保护你的隐私"
-    },
-    "portText": {
-        "description": "HTTP或SOCKS5 Proxy港",
-        "message": "港口:"
-    },
-    "protocolHandlerValue": {
-        "description": "对磁带议定书手的价值",
-        "message": "http://127.0.0.1:7657/i2psnark/吗?nofilter_newURL=%s\u0026action=Add\u0026foo=Add+torrentrenttorrent"
-    },
-    "proxy-check": {
-        "description": "准备好。.",
-        "message": "准备好。."
-    },
-    "proxyFailedStatus": {
-        "description": "失败状况。.",
-        "message": "没有准备好的。"
-    },
-    "proxyHelpText": {
-        "description": "B. 帮助精简重新启动的Tunnel但顿办法",
-        "message": "调整你的I2P proxy。."
-    },
-    "proxySuccessStatus": {
-        "description": "失败状况。.",
-        "message": "准备好"
-    },
-    "readyness": {
-        "description": "准备好。.",
-        "message": "准备好。."
-    },
-    "releases": {
-        "description": "新发行页的说明",
-        "message": "这里新排放的检查"
-    },
-    "resetMessage": {
-        "description": "Reset Tunnel但顿先生",
-        "message": "B. 重新定位"
-    },
-    "returnhome": {
-        "description": "/",
-        "message": "/"
-    },
-    "router-net-bw-inbound-15s": {
-        "description": "将Router Bandwidth外语改为15",
-        "message": "将Router Bandwidth外语改为15"
-    },
-    "router-net-bw-inbound-1s": {
-        "description": "第1条",
-        "message": "第1条"
-    },
-    "router-net-bw-outbound-15s": {
-        "description": "将Router Bandwidth外语改为15",
-        "message": "将Router Bandwidth外语改为15"
-    },
-    "router-net-bw-outbound-1s": {
-        "description": "改为Router Bandwidth外1",
-        "message": "改为Router Bandwidth外1"
-    },
-    "router-net-tunnels-participating": {
-        "description": "改为:",
-        "message": "改为:"
-    },
-    "router-netdb-activepeers": {
-        "description": "改为:",
-        "message": "改为:"
-    },
-    "router-netdb-fastpeers": {
-        "description": "将Router Fast Peers改为",
-        "message": "将Router Fast Peers改为"
-    },
-    "router-netdb-highcapacitypeers": {
-        "description": "高容量器的更换",
-        "message": "高容量器的更换"
-    },
-    "router-netdb-isreseeding": {
-        "description": "改为:",
-        "message": "改为:"
-    },
-    "router-netdb-knownpeers": {
-        "description": "将Router Known Peers改为",
-        "message": "将Router Known Peers改为"
-    },
-    "router-restart": {
-        "description": "宽恕",
-        "message": "宽恕"
-    },
-    "router-shutdown": {
-        "description": "穿梭关闭路线",
-        "message": "穿梭关闭路线"
-    },
-    "router-status": {
-        "description": "改为:",
-        "message": "改为:"
-    },
-    "router-uptime": {
-        "description": "改为:",
-        "message": "改为:"
-    },
-    "router-version": {
-        "description": "将Router Version改为",
-        "message": "将Router Version改为"
-    },
-    "routerConsole": {
-        "description": "标示路线。.",
-        "message": "其他2P应用程序的切入点是I2P Router Console。 要访问,这里点击。."
-    },
-    "routerPreface": {
-        "description": "代页标题的序言",
-        "message": "Router Console"
-    },
-    "routerPrefacePrivate": {
-        "description": "代页标题的序言",
-        "message": "Router Console(Private)"
-    },
-    "rpcHelpText": {
-        "description": "调整你的I2PControl备选办法。 调整你在这方面的可支配性选择。.",
-        "message": "调整你的I2PControl备选办法。 调整你在这方面的可支配性选择。."
-    },
-    "rpcHostText": {
-        "description": "管制港:",
-        "message": "管制港:"
-    },
-    "rpcPassText": {
-        "description": "管制护照前言:逮捕证 护照:",
-        "message": "管制护照前言:逮捕证 护照:"
-    },
-    "rpcPathText": {
-        "description": "控制包:",
-        "message": "控制包:"
-    },
-    "rpcPortText": {
-        "description": "控制旅舍:",
-        "message": "控制旅舍:"
-    },
-    "rtcDesc": {
-        "description": "海报业务说明",
-        "message": "RTC网站因违约而残疾,但你可以回到它身上并迫使它名誉。 如果你是Snowflake browser展的用户,这一选择是残疾的,而网络检查中心则以违约方式提出。."
-    },
-    "signingcert": {
-        "description": "常驻代表",
-        "message": "常驻代表"
-    },
-    "siteLabel": {
-        "description": "Label for i2psite info",
-        "message": "地址/新闻:"
-    },
-    "sitecert": {
-        "description": "证明信息:",
-        "message": "证明信息:"
-    },
-    "snark": {
-        "description": "对Bittor的通知",
-        "message": "I2P能够使用建造的轨道申请来分享匿名同人-to-Peer档案。."
-    },
-    "sourcehead": {
-        "description": "来源守则:",
-        "message": "来源守则:"
-    },
-    "sources": {
-        "description": "源代码联系的说明",
-        "message": "加入本源代码"
-    },
-    "susimail": {
-        "description": "电子邮件说明",
-        "message": "I2P还购了一个网址用户,可以用来进入I2P电子邮件。."
-    },
-    "text-section-header": {
-        "description": "易读的因特网Browser",
-        "message": "易读的因特网Browser"
-    },
-    "text-section-proxyerr-header": {
-        "description": "A Proxy Error公司",
-        "message": "A Proxy Error公司"
-    },
-    "text-section-torrents-header": {
-        "description": "卸货",
-        "message": "卸货"
-    },
-    "titlePreface": {
-        "description": "代页标题的序言",
-        "message": "I2PBrowser"
-    },
-    "titlePrefacePrivate": {
-        "description": "代页标题的序言",
-        "message": "I2P Browser(Private)"
-    },
-    "toopie": {
-        "description": "关于你的I2P路线地位的资料,见下文:",
-        "message": "关于你的I2P路线地位的资料,见下文:"
-    },
-    "toopieHtmlHeadline": {
-        "description": "I2P Router Information",
-        "message": "I2P Router Information"
-    },
-    "toopieName": {
-        "description": "一方的名字。.",
-        "message": "也是这样。 评 注"
-    },
-    "toopieTLS": {
-        "description": "安全小组名称。.",
-        "message": "特 费"
-    },
-    "topbar": {
-        "description": "Browse Down",
-        "message": "Browse Down"
-    },
-    "torPreface": {
-        "description": "代页标题的序言",
-        "message": "管理人员"
-    },
-    "torPrefacePrivate": {
-        "description": "代页标题的序言",
-        "message": "导 言"
-    },
-    "torrent-action": {
-        "description": "D. 所有权",
-        "message": "D. 所有权"
-    },
-    "torrentControls": {
-        "description": "前体管制",
-        "message": "前体管制"
-    },
-    "torrentDownloads": {
-        "description": "卸货",
-        "message": "卸货"
-    },
-    "torrentPreface": {
-        "description": "代页标题的序言",
-        "message": "Bittorrent"
-    },
-    "torrentPrefacePrivate": {
-        "description": "代页标题的序言",
-        "message": "Bittorrent (Private)"
-    },
-    "torrentui-opener": {
-        "description": "开放网站",
-        "message": "开放网站"
-    },
-    "visit-irc": {
-        "description": "B. 访问索马里",
-        "message": "B. 访问索马里"
-    },
-    "webPreface": {
-        "description": "代页标题的序言",
-        "message": "Browser"
-    },
-    "webPrefacePrivate": {
-        "description": "代页标题的序言",
-        "message": "网站Browser(Private)"
-    },
-    "webpage": {
-        "description": "这里有更多资料。.",
-        "message": "这里有更多资料。."
-    },
-    "window-visit-console": {
-        "description": "I2P Router Console",
-        "message": "I2P Router Console"
-    },
-    "window-visit-help": {
-        "description": "推广助产",
-        "message": "推广助产"
-    },
-    "window-visit-homepage": {
-        "description": "易读的因特网Browser",
-        "message": "易读的因特网Browser"
-    },
-    "window-visit-i2p": {
-        "description": "I2P 项目家页:",
-        "message": "I2P 项目家页:"
-    },
-    "window-visit-i2ptunnel": {
-        "description": "Hidden服务主管",
-        "message": "Hidden服务主管"
-    },
-    "window-visit-index": {
-        "description": "网页:",
-        "message": "网页:"
-    },
-    "window-visit-releases": {
-        "description": "产出:",
-        "message": "产出:"
-    },
-    "window-visit-router": {
-        "description": "Router Console",
-        "message": "Router Console"
-    },
-    "window-visit-settings": {
-        "description": "开放环境",
-        "message": "开放环境"
-    },
-    "window-visit-snark": {
-        "description": "BitTorrent",
-        "message": "BitTorrent"
-    },
-    "window-visit-sources": {
-        "description": "资料来源法典:",
-        "message": "资料来源法典:"
-    },
-    "window-visit-susimail": {
-        "description": "E-Mail",
-        "message": "E-Mail"
-    },
-    "window-visit-toopie": {
-        "description": "通 力",
-        "message": "通 力"
-    },
-    "window-visit-torrent": {
-        "description": "关于援助,访问亲临帮助页",
-        "message": "关于援助,访问亲临帮助页"
-    },
-    "windowVisitConsole": {
-        "description": "Router Console标签。.",
-        "message": "Router Console:"
-    },
-    "windowVisitHelppage": {
-        "description": "推广标签的助页。.",
-        "message": "网址:"
-    },
-    "windowVisitHomepage": {
-        "description": "推广标签的主页。.",
-        "message": "家庭页:"
-    },
-    "windowVisitI2ptunnel": {
-        "description": "标题一二",
-        "message": "Hidden服务经理:"
-    },
-    "windowVisitReleases": {
-        "description": "访问释放页",
-        "message": "推广:"
-    },
-    "windowVisitSnark": {
-        "description": "Bittorrent勋爵",
-        "message": "Bitt:"
-    },
-    "windowVisitSources": {
-        "description": "源码联系的标题",
-        "message": "推广源法典:"
-    },
-    "windowVisitSusimail": {
-        "description": "电子邮件的标题",
-        "message": "E-Mail:"
-    },
-    "windowVisitWebPage": {
-        "description": "B. 访问吉隆布的主页",
-        "message": "推广家庭页:"
-    }
+  "CertLabel": {
+    "description": "证明信息:",
+    "message": "证明信息:"
+  },
+  "SignedLabel": {
+    "description": "常驻代表",
+    "message": "常驻代表"
+  },
+  "TorrentTypeLabel": {
+    "description": "引证联系:",
+    "message": "引证联系:"
+  },
+  "TypeLabel": {
+    "description": "引证联系:",
+    "message": "引证联系:"
+  },
+  "aboutconsole": {
+    "description": "进入路线者的主页。",
+    "message": "进入路线者的主页。"
+  },
+  "abouthome": {
+    "description": "展期页。.",
+    "message": "关于这一扩展的更多信息,本页访问。."
+  },
+  "addresstype": {
+    "description": "处理类型:",
+    "message": "处理类型:"
+  },
+  "applicationExplain": {
+    "description": "申请款的说明。.",
+    "message": "这些申请直接与I2P合作,向他们提供安全和隐私权。."
+  },
+  "applicationHeader": {
+    "description": "申请科长。.",
+    "message": "申请"
+  },
+  "beta": {
+    "description": "这是试验产品。.",
+    "message": "这是试验产品。."
+  },
+  "blogPreface": {
+    "description": "代页标题的序言",
+    "message": "评 注"
+  },
+  "blogPrefacePrivate": {
+    "description": "代页标题的序言",
+    "message": "Blog (Private)"
+  },
+  "bookmarksButton": {
+    "description": "Re-Create Books",
+    "message": "Re-Create Books"
+  },
+  "botePreface": {
+    "description": "代页标题的序言",
+    "message": "I2P-Bote Mail"
+  },
+  "botePrefacePrivate": {
+    "description": "代页标题的序言",
+    "message": "I2P-Bote Mail(Private)"
+  },
+  "browser-action": {
+    "description": "Browse",
+    "message": "Browse"
+  },
+  "btRpcHostText": {
+    "description": "D. 捕获方案 东道国:",
+    "message": "D. 捕获方案 东道国:"
+  },
+  "btRpcPathText": {
+    "description": "D. 捕获方案 Path:",
+    "message": "D. 捕获方案 Path:"
+  },
+  "btRpcPortText": {
+    "description": "D. 捕获方案 港口:",
+    "message": "D. 捕获方案 港口:"
+  },
+  "certAbsent": {
+    "description": "无证件的处理",
+    "message": "该网站没有使用HTTPS。 仍然由I2P核实。."
+  },
+  "certLabel": {
+    "description": "出生证明人",
+    "message": "证明信息:"
+  },
+  "certPresent": {
+    "description": "证明的内容",
+    "message": "该网站使用HTTPS。 在I2P的技转设备是试验性的,需要自发证书或副根基。."
+  },
+  "clearData": {
+    "description": "清点数据男性u项目。.",
+    "message": "数据交换:"
+  },
+  "clearDesc": {
+    "description": "数据行动说明。.",
+    "message": "利用这一手段使你的I2Prows数据消失。."
+  },
+  "controlExplain": {
+    "description": "介绍控制小组。.",
+    "message": "这些管制用来适应你的I2Prows的经历"
+  },
+  "controlHeader": {
+    "description": "控制小组负责人。.",
+    "message": "控制"
+  },
+  "controlHelpText": {
+    "description": "B. 帮助精简重新启动的Tunnel但顿办法",
+    "message": "调整你的路线。."
+  },
+  "controlHostText": {
+    "description": "B. 勒索的旅舍",
+    "message": "控制旅舍:"
+  },
+  "controlHostValue": {
+    "description": "B. 勒索的旅舍",
+    "message": "1270.0.1"
+  },
+  "controlPortText": {
+    "description": "Router Console港",
+    "message": "管制港:"
+  },
+  "controlPortValue": {
+    "description": "Router Console港",
+    "message": "7657"
+  },
+  "description": {
+    "description": "你现在能够在本代行使用I2P。.",
+    "message": "你现在能够在本代行使用I2P。."
+  },
+  "description2": {
+    "description": "如果你看到这一页,就是因为出现了一种错误。 已经提供了一些资料,以帮助你查明该问题。.",
+    "message": "如果你看到这一页,就是因为出现了一种错误。 已经提供了一些资料,以帮助你查明该问题。."
+  },
+  "disableHistory": {
+    "description": "历史检查箱标签。.",
+    "message": "I2P Tabs可观的历史?"
+  },
+  "enableWebRTC": {
+    "description": "RTC检查箱标签。.",
+    "message": "传真:?"
+  },
+  "extensionDescription": {
+    "description": "说明延期。.",
+    "message": "现已设立你的代行,以使用I2P。."
+  },
+  "extensionName": {
+    "description": "延期名称。.",
+    "message": "I2P 私人成长"
+  },
+  "extensionNameVariant": {
+    "description": "延期名称。.",
+    "message": "I2P in Private Brows - Rhizome Variant"
+  },
+  "extensionPreface": {
+    "description": "代页标题的序言",
+    "message": "I2 管理"
+  },
+  "extensionVersion": {
+    "description": "延长。.",
+    "message": "1.28"
+  },
+  "fliplinks": {
+    "description": "A. 推广和增加资源",
+    "message": "A. 推广和增加资源"
+  },
+  "forumMessage": {
+    "description": "求助者",
+    "message": "访问伊加特论坛学习更多或要求援助"
+  },
+  "headline": {
+    "description": "易读的因特网Browser",
+    "message": "易读的因特网Browser"
+  },
+  "help": {
+    "description": "展期页。.",
+    "message": "关于这一扩展的更多信息,本页访问。."
+  },
+  "helpMessage": {
+    "description": "求助者",
+    "message": "增加帮助"
+  },
+  "histDesc": {
+    "description": "历史行动说明",
+    "message": "当你的I2Ptab被关闭时,历史就自动明确。 如果你想像你那样明确历史,检查这个箱。."
+  },
+  "homepage": {
+    "description": "更多信息",
+    "message": "这方面的更多资料"
+  },
+  "hostText": {
+    "description": "HTTP或SOCKS5 Proxy",
+    "message": "东道国:"
+  },
+  "i2ppage": {
+    "description": "这里有更多资料。.",
+    "message": "这里有更多资料。."
+  },
+  "i2ptunnel": {
+    "description": "说明",
+    "message": "I2P有网站的接口,以精简网站等服务。 你可以设立。."
+  },
+  "i2ptunnelPreface": {
+    "description": "代页标题的序言",
+    "message": "Hidden服务主管"
+  },
+  "i2ptunnelPrefacePrivate": {
+    "description": "代页标题的序言",
+    "message": "Hidden Services经理(Private)"
+  },
+  "infoMessage": {
+    "description": "求助者",
+    "message": "你们现在可以自由地打下“我们”! 你的代行现在被安排在I2P网络上匿名。 正如你所想象的那样,你的交通将通过其他网络连接起来,使他们的起源,无论是从服务器还是从自己出发。."
+  },
+  "infoTitle": {
+    "description": "帮助男性的标题",
+    "message": "I2P 帮助"
+  },
+  "ircPreface": {
+    "description": "代页标题的序言",
+    "message": "副渔民协会"
+  },
+  "ircPrefacePrivate": {
+    "description": "代页标题的序言",
+    "message": "IRC(Private)"
+  },
+  "isBase32": {
+    "description": "F. 集群小组基地网站的邮件32",
+    "message": "I2P基地32-Format地址"
+  },
+  "isHostName": {
+    "description": "集群小组所在地的传单",
+    "message": "I2P Jump人质"
+  },
+  "label-router-activepeers": {
+    "description": "精算师:",
+    "message": "精算师:"
+  },
+  "label-router-bandwidth": {
+    "description": "Bandwith",
+    "message": "Bandwith"
+  },
+  "label-router-bw-inbound-15s": {
+    "description": "有15人:",
+    "message": "有15人:"
+  },
+  "label-router-bw-inbound-1s": {
+    "description": "有1人:",
+    "message": "有1人:"
+  },
+  "label-router-bw-outbound-15s": {
+    "description": "第15条:",
+    "message": "第15条:"
+  },
+  "label-router-bw-outbound-1s": {
+    "description": "无限的桶1:",
+    "message": "无限的桶1:"
+  },
+  "label-router-net-tunnels-participating": {
+    "description": "过境渠道:",
+    "message": "过境渠道:"
+  },
+  "label-router-netdb-fastpeers": {
+    "description": "Fast Peers:",
+    "message": "Fast Peers:"
+  },
+  "label-router-netdb-highcapacitypeers": {
+    "description": "高能力 作者:",
+    "message": "高能力 作者:"
+  },
+  "label-router-netdb-isreseeding": {
+    "description": "重新定性:",
+    "message": "重新定性:"
+  },
+  "label-router-netdb-knownpeers": {
+    "description": "Known Peers:",
+    "message": "Known Peers:"
+  },
+  "label-router-peers": {
+    "description": "导 言",
+    "message": "导 言"
+  },
+  "label-router-status": {
+    "description": "现状:",
+    "message": "现状:"
+  },
+  "label-router-uptime": {
+    "description": "时间:",
+    "message": "时间:"
+  },
+  "label-router-version": {
+    "description": "Router Version:",
+    "message": "Router Version:"
+  },
+  "links": {
+    "description": "A. 推广和增加资源",
+    "message": "A. 推广和增加资源"
+  },
+  "linksExplain": {
+    "description": "如果你想获得更多关于I2P的资料,你可以访问这些联系。.",
+    "message": "如果你想获得更多关于I2P的资料,你可以访问这些联系。."
+  },
+  "mailPreface": {
+    "description": "代页标题的序言",
+    "message": "网站"
+  },
+  "mailPrefacePrivate": {
+    "description": "代页标题的序言",
+    "message": "网址:Mail(Private)"
+  },
+  "muwirePreface": {
+    "description": "代页标题的序言",
+    "message": "MuWire"
+  },
+  "muwirePrefacePrivate": {
+    "description": "代页标题的序言",
+    "message": "MuWire(Private)"
+  },
+  "newsMessage": {
+    "description": "求助者",
+    "message": "访问I2P 学习最新一倍。."
+  },
+  "onboardingButtonFive": {
+    "description": "经验",
+    "message": "经验"
+  },
+  "onboardingButtonFour": {
+    "description": "B. 网站的浏览",
+    "message": "B. 网站的浏览"
+  },
+  "onboardingButtonOne": {
+    "description": "你们 经验",
+    "message": "你们 经验"
+  },
+  "onboardingButtonThree": {
+    "description": "Hidden email",
+    "message": "Hidden email"
+  },
+  "onboardingButtonTwo": {
+    "description": "Share Files",
+    "message": "Share Files"
+  },
+  "onboardingButtonZero": {
+    "description": "保护你的隐私",
+    "message": "保护你的隐私"
+  },
+  "onboardingContentFive": {
+    "description": "由于I2P提供的所有安全和隐私权特点,在因特网上播出的经验可能很小。 口号可能是缓慢的,取决于你的安全水平,有些要素可能不会工作或装载。 也请你证明你是人类,而不是一种抢劫。.",
+    "message": "由于I2P提供的所有安全和隐私权特点,在因特网上播出的经验可能很小。 口号可能是缓慢的,取决于你的安全水平,有些要素可能不会工作或装载。 也请你证明你是人类,而不是一种抢劫。."
+  },
+  "onboardingContentFour": {
+    "description": "这一扩展工作自然,因为你正在掠夺I2P地点。 如果你想把I2P用作非I2P地点的辅助性,则使用I2P的私人Browsing button在工具bar和点击新I2PBrowser Tab转向新的表格。.",
+    "message": "这一扩展工作自然,因为你正在掠夺I2P地点。 如果你想把I2P用作非I2P地点的辅助性,则使用I2P的私人Browsing button在工具bar和点击新I2PBrowser Tab转向新的表格。."
+  },
+  "onboardingContentOne": {
+    "description": "我们还为你提供额外的环境来倾弃你的荒谬安全。 我们的安全标志允许你阻止可用于攻击你计算机的因素。 下面的注视不同的选择。 注: 违约、无罪释放和猛虎 每一个地方都未列入工具包,但你可以把你的工具包化为补充工具。 由于I2P提供的所有安全和隐私权特点,在因特网上播出的经验可能很小。 口号可能是缓慢的,取决于你的安全水平,有些要素可能不会工作或装载。 也请你证明你是人类,而不是一种抢劫。.",
+    "message": "我们还为你提供额外的环境来倾弃你的荒谬安全。 我们的安全标志允许你阻止可用于攻击你计算机的因素。 下面的注视不同的选择。 注: 违约、无罪释放和猛虎 每一个地方都未列入工具包,但你可以把你的工具包化为补充工具。 由于I2P提供的所有安全和隐私权特点,在因特网上播出的经验可能很小。 口号可能是缓慢的,取决于你的安全水平,有些要素可能不会工作或装载。 也请你证明你是人类,而不是一种抢劫。."
+  },
+  "onboardingContentThree": {
+    "description": "在I2P内也可提供匿名电子邮件服务,这些服务可以直接通过下文的男性获得。.",
+    "message": "在I2P内也可提供匿名电子邮件服务,这些服务可以直接通过下文的男性获得。."
+  },
+  "onboardingContentTwo": {
+    "description": "I2P在你分享档案时能够使用像BitTorrent这样的同侪对用户的应用,保护你的身份。 我们一个匿名的客户可在代管处获得。.",
+    "message": "I2P在你分享档案时能够使用像BitTorrent这样的同侪对用户的应用,保护你的身份。 我们一个匿名的客户可在代管处获得。."
+  },
+  "onboardingContentZero": {
+    "description": "I2P 代办允许你利用私人和有保障的I2P网络,收缩互联网。 当你利用它时,作为I2P网络的第一等参与者,保护他们不受跟踪、监视和检查。 I2PBrowser是厨房,在你届会之后删除了你的代行历史。 这些修改确保你的隐私权和安全在代行得到保护。.",
+    "message": "I2P 代办允许你利用私人和有保障的I2P网络,收缩互联网。 当你利用它时,作为I2P网络的第一等参与者,保护他们不受跟踪、监视和检查。 I2PBrowser是厨房,在你届会之后删除了你的代行历史。 这些修改确保你的隐私权和安全在代行得到保护。."
+  },
+  "onboardingFive": {
+    "description": "经验",
+    "message": "经验"
+  },
+  "onboardingFour": {
+    "description": "B. 网站的浏览",
+    "message": "B. 网站的浏览"
+  },
+  "onboardingOne": {
+    "description": "你们 经验",
+    "message": "你们 经验"
+  },
+  "onboardingThree": {
+    "description": "Hidden email",
+    "message": "Hidden email"
+  },
+  "onboardingTitle": {
+    "description": "新到I2P? 这里的教训。.",
+    "message": "新到I2P? 这里的教训。."
+  },
+  "onboardingTwo": {
+    "description": "Share Files",
+    "message": "Share Files"
+  },
+  "onboardingZero": {
+    "description": "保护你的隐私",
+    "message": "保护你的隐私"
+  },
+  "portText": {
+    "description": "HTTP或SOCKS5 Proxy港",
+    "message": "港口:"
+  },
+  "protocolHandlerValue": {
+    "description": "对磁带议定书手的价值",
+    "message": "http://127.0.0.1:7657/i2psnark/吗?nofilter_newURL=%s\u0026action=Add\u0026foo=Add+torrentrenttorrent"
+  },
+  "proxy-check": {
+    "description": "准备好。.",
+    "message": "准备好。."
+  },
+  "proxyFailedStatus": {
+    "description": "失败状况。.",
+    "message": "没有准备好的。"
+  },
+  "proxyHelpText": {
+    "description": "B. 帮助精简重新启动的Tunnel但顿办法",
+    "message": "调整你的I2P proxy。."
+  },
+  "proxySuccessStatus": {
+    "description": "失败状况。.",
+    "message": "准备好"
+  },
+  "readyness": {
+    "description": "准备好。.",
+    "message": "准备好。."
+  },
+  "releases": {
+    "description": "新发行页的说明",
+    "message": "这里新排放的检查"
+  },
+  "resetMessage": {
+    "description": "Reset Tunnel但顿先生",
+    "message": "B. 重新定位"
+  },
+  "returnhome": {
+    "description": "/",
+    "message": "/"
+  },
+  "router-net-bw-inbound-15s": {
+    "description": "将Router Bandwidth外语改为15",
+    "message": "将Router Bandwidth外语改为15"
+  },
+  "router-net-bw-inbound-1s": {
+    "description": "第1条",
+    "message": "第1条"
+  },
+  "router-net-bw-outbound-15s": {
+    "description": "将Router Bandwidth外语改为15",
+    "message": "将Router Bandwidth外语改为15"
+  },
+  "router-net-bw-outbound-1s": {
+    "description": "改为Router Bandwidth外1",
+    "message": "改为Router Bandwidth外1"
+  },
+  "router-net-tunnels-participating": {
+    "description": "改为:",
+    "message": "改为:"
+  },
+  "router-netdb-activepeers": {
+    "description": "改为:",
+    "message": "改为:"
+  },
+  "router-netdb-fastpeers": {
+    "description": "将Router Fast Peers改为",
+    "message": "将Router Fast Peers改为"
+  },
+  "router-netdb-highcapacitypeers": {
+    "description": "高容量器的更换",
+    "message": "高容量器的更换"
+  },
+  "router-netdb-isreseeding": {
+    "description": "改为:",
+    "message": "改为:"
+  },
+  "router-netdb-knownpeers": {
+    "description": "将Router Known Peers改为",
+    "message": "将Router Known Peers改为"
+  },
+  "router-restart": {
+    "description": "宽恕",
+    "message": "宽恕"
+  },
+  "router-shutdown": {
+    "description": "穿梭关闭路线",
+    "message": "穿梭关闭路线"
+  },
+  "router-status": {
+    "description": "改为:",
+    "message": "改为:"
+  },
+  "router-uptime": {
+    "description": "改为:",
+    "message": "改为:"
+  },
+  "router-version": {
+    "description": "将Router Version改为",
+    "message": "将Router Version改为"
+  },
+  "routerConsole": {
+    "description": "标示路线。.",
+    "message": "其他2P应用程序的切入点是I2P Router Console。 要访问,这里点击。."
+  },
+  "routerPreface": {
+    "description": "代页标题的序言",
+    "message": "Router Console"
+  },
+  "routerPrefacePrivate": {
+    "description": "代页标题的序言",
+    "message": "Router Console(Private)"
+  },
+  "rpcHelpText": {
+    "description": "调整你的I2PControl备选办法。 调整你在这方面的可支配性选择。.",
+    "message": "调整你的I2PControl备选办法。 调整你在这方面的可支配性选择。."
+  },
+  "rpcHostText": {
+    "description": "管制港:",
+    "message": "管制港:"
+  },
+  "rpcPassText": {
+    "description": "管制护照前言:逮捕证 护照:",
+    "message": "管制护照前言:逮捕证 护照:"
+  },
+  "rpcPathText": {
+    "description": "控制包:",
+    "message": "控制包:"
+  },
+  "rpcPortText": {
+    "description": "控制旅舍:",
+    "message": "控制旅舍:"
+  },
+  "rtcDesc": {
+    "description": "海报业务说明",
+    "message": "RTC网站因违约而残疾,但你可以回到它身上并迫使它名誉。 如果你是Snowflake browser展的用户,这一选择是残疾的,而网络检查中心则以违约方式提出。."
+  },
+  "signingcert": {
+    "description": "常驻代表",
+    "message": "常驻代表"
+  },
+  "siteLabel": {
+    "description": "Label for i2psite info",
+    "message": "地址/新闻:"
+  },
+  "sitecert": {
+    "description": "证明信息:",
+    "message": "证明信息:"
+  },
+  "snark": {
+    "description": "对Bittor的通知",
+    "message": "I2P能够使用建造的轨道申请来分享匿名同人-to-Peer档案。."
+  },
+  "sourcehead": {
+    "description": "来源守则:",
+    "message": "来源守则:"
+  },
+  "sources": {
+    "description": "源代码联系的说明",
+    "message": "加入本源代码"
+  },
+  "susimail": {
+    "description": "电子邮件说明",
+    "message": "I2P还购了一个网址用户,可以用来进入I2P电子邮件。."
+  },
+  "text-section-header": {
+    "description": "易读的因特网Browser",
+    "message": "易读的因特网Browser"
+  },
+  "text-section-proxyerr-header": {
+    "description": "A Proxy Error公司",
+    "message": "A Proxy Error公司"
+  },
+  "text-section-torrents-header": {
+    "description": "卸货",
+    "message": "卸货"
+  },
+  "titlePreface": {
+    "description": "代页标题的序言",
+    "message": "I2PBrowser"
+  },
+  "titlePrefacePrivate": {
+    "description": "代页标题的序言",
+    "message": "I2P Browser(Private)"
+  },
+  "toopie": {
+    "description": "关于你的I2P路线地位的资料,见下文:",
+    "message": "关于你的I2P路线地位的资料,见下文:"
+  },
+  "toopieHtmlHeadline": {
+    "description": "I2P Router Information",
+    "message": "I2P Router Information"
+  },
+  "toopieName": {
+    "description": "一方的名字。.",
+    "message": "也是这样。 评 注"
+  },
+  "toopieTLS": {
+    "description": "安全小组名称。.",
+    "message": "特 费"
+  },
+  "topbar": {
+    "description": "Browse Down",
+    "message": "Browse Down"
+  },
+  "torPreface": {
+    "description": "代页标题的序言",
+    "message": "管理人员"
+  },
+  "torPrefacePrivate": {
+    "description": "代页标题的序言",
+    "message": "导 言"
+  },
+  "torrent-action": {
+    "description": "D. 所有权",
+    "message": "D. 所有权"
+  },
+  "torrentControls": {
+    "description": "前体管制",
+    "message": "前体管制"
+  },
+  "torrentDownloads": {
+    "description": "卸货",
+    "message": "卸货"
+  },
+  "torrentPreface": {
+    "description": "代页标题的序言",
+    "message": "Bittorrent"
+  },
+  "torrentPrefacePrivate": {
+    "description": "代页标题的序言",
+    "message": "Bittorrent (Private)"
+  },
+  "torrentui-opener": {
+    "description": "开放网站",
+    "message": "开放网站"
+  },
+  "visit-irc": {
+    "description": "B. 访问索马里",
+    "message": "B. 访问索马里"
+  },
+  "webPreface": {
+    "description": "代页标题的序言",
+    "message": "Browser"
+  },
+  "webPrefacePrivate": {
+    "description": "代页标题的序言",
+    "message": "网站Browser(Private)"
+  },
+  "webpage": {
+    "description": "这里有更多资料。.",
+    "message": "这里有更多资料。."
+  },
+  "window-visit-console": {
+    "description": "I2P Router Console",
+    "message": "I2P Router Console"
+  },
+  "window-visit-help": {
+    "description": "推广助产",
+    "message": "推广助产"
+  },
+  "window-visit-homepage": {
+    "description": "易读的因特网Browser",
+    "message": "易读的因特网Browser"
+  },
+  "window-visit-i2p": {
+    "description": "I2P 项目家页:",
+    "message": "I2P 项目家页:"
+  },
+  "window-visit-i2ptunnel": {
+    "description": "Hidden服务主管",
+    "message": "Hidden服务主管"
+  },
+  "window-visit-index": {
+    "description": "网页:",
+    "message": "网页:"
+  },
+  "window-visit-releases": {
+    "description": "产出:",
+    "message": "产出:"
+  },
+  "window-visit-router": {
+    "description": "Router Console",
+    "message": "Router Console"
+  },
+  "window-visit-settings": {
+    "description": "开放环境",
+    "message": "开放环境"
+  },
+  "window-visit-snark": {
+    "description": "BitTorrent",
+    "message": "BitTorrent"
+  },
+  "window-visit-sources": {
+    "description": "资料来源法典:",
+    "message": "资料来源法典:"
+  },
+  "window-visit-susimail": {
+    "description": "E-Mail",
+    "message": "E-Mail"
+  },
+  "window-visit-toopie": {
+    "description": "通 力",
+    "message": "通 力"
+  },
+  "window-visit-torrent": {
+    "description": "关于援助,访问亲临帮助页",
+    "message": "关于援助,访问亲临帮助页"
+  },
+  "windowVisitConsole": {
+    "description": "Router Console标签。.",
+    "message": "Router Console:"
+  },
+  "windowVisitHelppage": {
+    "description": "推广标签的助页。.",
+    "message": "网址:"
+  },
+  "windowVisitHomepage": {
+    "description": "推广标签的主页。.",
+    "message": "家庭页:"
+  },
+  "windowVisitI2ptunnel": {
+    "description": "标题一二",
+    "message": "Hidden服务经理:"
+  },
+  "windowVisitReleases": {
+    "description": "访问释放页",
+    "message": "推广:"
+  },
+  "windowVisitSnark": {
+    "description": "Bittorrent勋爵",
+    "message": "Bitt:"
+  },
+  "windowVisitSources": {
+    "description": "源码联系的标题",
+    "message": "推广源法典:"
+  },
+  "windowVisitSusimail": {
+    "description": "电子邮件的标题",
+    "message": "E-Mail:"
+  },
+  "windowVisitWebPage": {
+    "description": "B. 访问吉隆布的主页",
+    "message": "推广家庭页:"
+  }
 }
