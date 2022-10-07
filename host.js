@@ -1,8 +1,15 @@
 function proxyHost(requestDetails) {
-    if (requestDetails.tabId != -1 || requestDetails.tabId !== undefined) {
-        console.warn("(host) requestDetails", requestDetails.tabId);
-        return false;
+    switch (requestDetails.tabId) {
+        case -1:
+            break;
+        case undefined:
+            break;
+        case null:
+            break;
+        default:
+            return false;
     }
+    console.warn("(host) requestDetails", requestDetails.tabId);
     let hostname = '';
     if (requestDetails.url.indexOf('://') > -1) {
         hostname = requestDetails.url.split('/')[2];
