@@ -1,15 +1,47 @@
 {
+    "CertLabel": {
+        "description": "Zertifikat Information:",
+        "message": "Zertifikat Information:"
+    },
     "SignedLabel": {
         "description": "Unterzeichnet von:",
         "message": "Unterzeichnet von:"
+    },
+    "TorrentTypeLabel": {
+        "description": "Torrent Links:",
+        "message": "Torrent Links:"
     },
     "TypeLabel": {
         "description": "Torrent Links:",
         "message": "Torrent Links:"
     },
+    "aboutconsole": {
+        "description": "Um auf die Homepage der Router-Konsole zuzugreifen, gehen Sie hier:",
+        "message": "Um auf die Homepage der Router-Konsole zuzugreifen, gehen Sie hier:"
+    },
     "abouthome": {
         "description": "Beschreibung für die Schaltfläche Erweiterung.",
         "message": "Weitere Informationen zu dieser Erweiterung finden Sie auf dieser Seite."
+    },
+    "addresstype": {
+        "description": "Anschrift:",
+        "message": "Anschrift:"
+    },
+    "applicationExplain": {
+        "description": "Beschreibung für Anwendungsbereich.",
+        "message": "Diese Anwendungen arbeiten mit I2P direkt, um ihnen Sicherheit und Privatsphäre zu bieten."
+    },
+    "applicationHeader": {
+        "description": "Header für Anwendungsbereiche.",
+        "message": "Anwendungen"
+    },
+    "beta": {
+        "description": "Dies ist ein experimentelles Produkt.",
+        "message": "Dies ist ein experimentelles Produkt."
+    },
+    "blogPreface": {
+        "description": "Vorwort für die Browser-Titelleiste",
+        "message": "Blog"
     },
     "blogPrefacePrivate": {
         "description": "Vorwort für die Browser-Titelleiste",
@@ -51,6 +83,10 @@
         "description": "Label für Zertifikat Info",
         "message": "Zertifikat Information:"
     },
+    "certPresent": {
+        "description": "Inhalt für Zertifikatsinfo, wenn vorhanden",
+        "message": "Diese Website verwendet HTTPS. HTTPS über I2P ist experimentell und erfordert selbstsignierte Zertifikate oder alternative Wurzelautoriten."
+    },
     "clearData": {
         "description": "Löschen Sie den Menüpunkt Browserdaten.",
         "message": "Löschen von Browserdaten:"
@@ -59,13 +95,29 @@
         "description": "Löschen Sie die Daten Aktion Beschreibung.",
         "message": "Verwenden Sie dies, um Ihre I2P-Browserdaten zu löschen."
     },
+    "controlExplain": {
+        "description": "Schalttafel einführen.",
+        "message": "Diese Steuerungen werden verwendet, um Ihre I2P Browsing Experience zuzuschneiden"
+    },
+    "controlHeader": {
+        "description": "Headline für Bedienfeld.",
+        "message": "Steuerung"
+    },
     "controlHelpText": {
         "description": "Hilfe zur Konfiguration der Optionen für den Reset Tunnel Button",
         "message": "Konfigurieren Sie hier Ihre Router-Konsole."
     },
+    "controlHostText": {
+        "description": "Host für die Router-Konsole",
+        "message": "Kontroll Host:"
+    },
     "controlHostValue": {
         "description": "Host für die Router-Konsole",
         "message": "127.0.0.1"
+    },
+    "controlPortText": {
+        "description": "Hafen für die Router-Konsole",
+        "message": "Kontrollhafen:"
     },
     "controlPortValue": {
         "description": "Hafen für die Router-Konsole",
@@ -91,6 +143,14 @@
         "description": "Beschreibung der Erweiterung.",
         "message": "Ihr Browser ist nun eingerichtet, um I2P zu verwenden."
     },
+    "extensionName": {
+        "description": "Name der Erweiterung.",
+        "message": "I2P Im privaten Browsing"
+    },
+    "extensionNameVariant": {
+        "description": "Name der Erweiterung.",
+        "message": "I2P In Private Browsing - Rhizome Variant"
+    },
     "extensionPreface": {
         "description": "Vorwort für die Browser-Titelleiste",
         "message": "I2P Management"
@@ -115,6 +175,10 @@
         "description": "Beschreibung für die Schaltfläche Erweiterung.",
         "message": "Weitere Informationen zu dieser Erweiterung finden Sie auf dieser Seite."
     },
+    "helpMessage": {
+        "description": "Hilfe",
+        "message": "Zusätzliche Hilfe"
+    },
     "histDesc": {
         "description": "Beschreibung der Geschichte",
         "message": "Die Geschichte wird automatisch gelöscht, wenn Ihre I2P Tabs geschlossen sind. Wenn Sie die Geschichte wie Sie gehen, überprüfen Sie diese Box."
@@ -123,9 +187,21 @@
         "description": "Weitere Informationen",
         "message": "Weitere Informationen finden Sie hier"
     },
+    "hostText": {
+        "description": "Host für das HTTP oder SOCKS5 Proxy",
+        "message": "Host:"
+    },
     "i2ppage": {
         "description": "Weitere Informationen finden Sie hier.",
         "message": "Weitere Informationen finden Sie hier."
+    },
+    "i2ptunnel": {
+        "description": "Beschreibung für i2ptunnel",
+        "message": "I2P verfügt über eine webbasierte Schnittstelle zur Konfiguration von .i2p-Diensten wie Websites, die Sie einrichten können."
+    },
+    "i2ptunnelPreface": {
+        "description": "Vorwort für die Browser-Titelleiste",
+        "message": "Hidden Services Manager"
     },
     "i2ptunnelPrefacePrivate": {
         "description": "Vorwort für die Browser-Titelleiste",
@@ -139,9 +215,17 @@
         "description": "Titel für das Hilfemenü",
         "message": "I2P Hilfe"
     },
+    "ircPreface": {
+        "description": "Vorwort für die Browser-Titelleiste",
+        "message": "Versand IRC"
+    },
     "ircPrefacePrivate": {
         "description": "Vorwort für die Browser-Titelleiste",
         "message": "Versand IRC (Private)"
+    },
+    "isBase32": {
+        "description": "Nachricht für Site Info Panel base32",
+        "message": "I2P Base32-Formatierte Adresse"
     },
     "isHostName": {
         "description": "Nachricht für die Website Info Panel Hostname",
@@ -151,9 +235,21 @@
         "description": "Aktive Peers:",
         "message": "Aktive Peers:"
     },
+    "label-router-bandwidth": {
+        "description": "Bandbreite",
+        "message": "Bandbreite"
+    },
     "label-router-bw-inbound-15s": {
         "description": "Inbound bw 15s:",
         "message": "Inbound bw 15s:"
+    },
+    "label-router-bw-inbound-1s": {
+        "description": "Inbound bw 1s:",
+        "message": "Inbound bw 1s:"
+    },
+    "label-router-bw-outbound-15s": {
+        "description": "Ausstoß bw 15s:",
+        "message": "Ausstoß bw 15s:"
     },
     "label-router-bw-outbound-1s": {
         "description": "Ausstoß bw 1s:",
@@ -162,6 +258,10 @@
     "label-router-net-tunnels-participating": {
         "description": "Transit Tunnels:",
         "message": "Transit Tunnels:"
+    },
+    "label-router-netdb-fastpeers": {
+        "description": "Fast Peers:",
+        "message": "Fast Peers:"
     },
     "label-router-netdb-highcapacitypeers": {
         "description": "Hohe Kapazität Peers:",
@@ -187,6 +287,10 @@
         "description": "Router-Uptime(Ms):",
         "message": "Router-Uptime(Ms):"
     },
+    "label-router-version": {
+        "description": "Router Version:",
+        "message": "Router Version:"
+    },
     "links": {
         "description": "Erweiterung und I2P-Ressourcen",
         "message": "Erweiterung und I2P-Ressourcen"
@@ -210,6 +314,14 @@
     "muwirePrefacePrivate": {
         "description": "Vorwort für die Browser-Titelleiste",
         "message": "MuWire (Privat)"
+    },
+    "newsMessage": {
+        "description": "Hilfe",
+        "message": "Besuchen Sie die I2P Blog, um das neueste über i2p zu erfahren."
+    },
+    "onboardingButtonFive": {
+        "description": "Erfahrungen Tipps",
+        "message": "Erfahrungen Tipps"
     },
     "onboardingButtonFour": {
         "description": "Das Web durchsuchen",
@@ -259,6 +371,10 @@
         "description": "Erfahrungen Tipps",
         "message": "Erfahrungen Tipps"
     },
+    "onboardingFour": {
+        "description": "Das Web durchsuchen",
+        "message": "Das Web durchsuchen"
+    },
     "onboardingOne": {
         "description": "Konfigurieren Sie Ihre Erfahrung",
         "message": "Konfigurieren Sie Ihre Erfahrung"
@@ -274,6 +390,10 @@
     "onboardingTwo": {
         "description": "Teilen von Dateien",
         "message": "Teilen von Dateien"
+    },
+    "onboardingZero": {
+        "description": "Schutz Ihrer Privatsphäre",
+        "message": "Schutz Ihrer Privatsphäre"
     },
     "portText": {
         "description": "Port für das HTTP oder SOCKS5 Proxy",
@@ -291,9 +411,17 @@
         "description": "Proxy hat den Status versagt.",
         "message": "Proxy ist nicht bereit"
     },
+    "proxyHelpText": {
+        "description": "Hilfe zur Konfiguration der Optionen für den Reset Tunnel Button",
+        "message": "Konfigurieren Sie Ihren I2P-Proxy hier."
+    },
     "proxySuccessStatus": {
         "description": "Proxy hat den Status versagt.",
         "message": "Proxy ist bereit"
+    },
+    "readyness": {
+        "description": "Proxy ist bereit.",
+        "message": "Proxy ist bereit."
     },
     "releases": {
         "description": "Beschreibung für neue Release-Seite",
@@ -306,6 +434,10 @@
     "returnhome": {
         "description": "/",
         "message": "/"
+    },
+    "router-net-bw-inbound-15s": {
+        "description": "Ersetzen mit Router Bandwidth Outbound 15s",
+        "message": "Ersetzen mit Router Bandwidth Outbound 15s"
     },
     "router-net-bw-inbound-1s": {
         "description": "Ersetzen mit Router Bandbreite Inbound 1s",
@@ -327,9 +459,25 @@
         "description": "Ersetzen mit Router Active Peers",
         "message": "Ersetzen mit Router Active Peers"
     },
+    "router-netdb-fastpeers": {
+        "description": "Ersetzen mit Router Fast Peers",
+        "message": "Ersetzen mit Router Fast Peers"
+    },
+    "router-netdb-highcapacitypeers": {
+        "description": "Ersetzen mit High Capacity Peers",
+        "message": "Ersetzen mit High Capacity Peers"
+    },
+    "router-netdb-isreseeding": {
+        "description": "Ersetzen mit Router netDB Ersatzstatus",
+        "message": "Ersetzen mit Router netDB Ersatzstatus"
+    },
     "router-netdb-knownpeers": {
         "description": "Ersetzen mit Router bekannten Peers",
         "message": "Ersetzen mit Router bekannten Peers"
+    },
+    "router-restart": {
+        "description": "Angenehm Router neu starten",
+        "message": "Angenehm Router neu starten"
     },
     "router-shutdown": {
         "description": "Anmutig herunterfahren Router",
@@ -343,6 +491,10 @@
         "description": "Ersetzen mit Router-Uptime",
         "message": "Ersetzen mit Router-Uptime"
     },
+    "router-version": {
+        "description": "Ersetzen mit Router Version",
+        "message": "Ersetzen mit Router Version"
+    },
     "routerConsole": {
         "description": "Beschreibung für die Router-Konsole.",
         "message": "Der Ausgangspunkt für alle anderen I2P-Anwendungen ist die I2P Router Console. Um es zu besuchen, klicken Sie hier."
@@ -350,6 +502,10 @@
     "routerPreface": {
         "description": "Vorwort für die Browser-Titelleiste",
         "message": "Router Console"
+    },
+    "routerPrefacePrivate": {
+        "description": "Vorwort für die Browser-Titelleiste",
+        "message": "Router Console (Private)"
     },
     "rpcHelpText": {
         "description": "Konfigurieren Sie hier Ihre I2PControl-Optionen. Konfigurieren Sie hier Ihre Bittorrent-Optionen.",
@@ -359,9 +515,21 @@
         "description": "Kontrollhafen:",
         "message": "Kontrollhafen:"
     },
+    "rpcPassText": {
+        "description": "Kontroll-Passwort: Torrent RPC Passwort:",
+        "message": "Kontroll-Passwort: Torrent RPC Passwort:"
+    },
     "rpcPathText": {
         "description": "Kontrollpfad:",
         "message": "Kontrollpfad:"
+    },
+    "rpcPortText": {
+        "description": "Kontroll Host:",
+        "message": "Kontroll Host:"
+    },
+    "rtcDesc": {
+        "description": "WebRTC Aktionsbeschreibung",
+        "message": "WebRTC ist standardmäßig deaktiviert, aber Sie können es wieder einschalten und zwingen, die Proxy zu ehren. Wenn Sie ein Benutzer der Snowflake Browser-Erweiterung sind, ist diese Option deaktiviert und WebRTC wird standardmäßig eingeschaltet."
     },
     "signingcert": {
         "description": "Unterzeichnet von:",
@@ -370,6 +538,10 @@
     "siteLabel": {
         "description": "Label für i2p Site Info",
         "message": "Anschrift/Site Information:"
+    },
+    "sitecert": {
+        "description": "Zertifikat Information:",
+        "message": "Zertifikat Information:"
     },
     "snark": {
         "description": "Beschreibung für Bittorrent",
@@ -394,6 +566,10 @@
     "text-section-proxyerr-header": {
         "description": "Ein Proxy-Fehler wurde behoben",
         "message": "Ein Proxy-Fehler wurde behoben"
+    },
+    "text-section-torrents-header": {
+        "description": "Torrent Downloads",
+        "message": "Torrent Downloads"
     },
     "titlePreface": {
         "description": "Vorwort für die Browser-Titelleiste",
@@ -427,6 +603,10 @@
         "description": "Vorwort für die Browser-Titelleiste",
         "message": "Tor Manager"
     },
+    "torPrefacePrivate": {
+        "description": "Vorwort für die Browser-Titelleiste",
+        "message": "Tor Manager (Private)"
+    },
     "torrent-action": {
         "description": "Downloads",
         "message": "Downloads"
@@ -447,6 +627,18 @@
         "description": "Vorwort für die Browser-Titelleiste",
         "message": "Bittorrent (Privat)"
     },
+    "torrentui-opener": {
+        "description": "Open WebUI",
+        "message": "Open WebUI"
+    },
+    "visit-irc": {
+        "description": "Besuchen Sie IRC",
+        "message": "Besuchen Sie IRC"
+    },
+    "webPreface": {
+        "description": "Vorwort für die Browser-Titelleiste",
+        "message": "Web Browser"
+    },
     "webPrefacePrivate": {
         "description": "Vorwort für die Browser-Titelleiste",
         "message": "Web Browser (Private)"
@@ -458,6 +650,18 @@
     "window-visit-console": {
         "description": "I2P Router Konsole",
         "message": "I2P Router Konsole"
+    },
+    "window-visit-help": {
+        "description": "Unterstützungsseite",
+        "message": "Unterstützungsseite"
+    },
+    "window-visit-homepage": {
+        "description": "Der unsichtbare Internet-Browser",
+        "message": "Der unsichtbare Internet-Browser"
+    },
+    "window-visit-i2p": {
+        "description": "I2P Projektseite:",
+        "message": "I2P Projektseite:"
     },
     "window-visit-i2ptunnel": {
         "description": "Hidden Services Manager",
@@ -471,6 +675,10 @@
         "description": "Veröffentlichungen:",
         "message": "Veröffentlichungen:"
     },
+    "window-visit-router": {
+        "description": "Router Console",
+        "message": "Router Console"
+    },
     "window-visit-settings": {
         "description": "Öffnen Sie die Einstellungen",
         "message": "Öffnen Sie die Einstellungen"
@@ -479,9 +687,21 @@
         "description": "BitTorrent",
         "message": "BitTorrent"
     },
+    "window-visit-sources": {
+        "description": "Quelle Code:",
+        "message": "Quelle Code:"
+    },
     "window-visit-susimail": {
         "description": "E-Mail",
         "message": "E-Mail"
+    },
+    "window-visit-toopie": {
+        "description": "Toopie",
+        "message": "Toopie"
+    },
+    "window-visit-torrent": {
+        "description": "Für Hilfe, besuchen Sie die Torrent Hilfe Seite",
+        "message": "Für Hilfe, besuchen Sie die Torrent Hilfe Seite"
     },
     "windowVisitConsole": {
         "description": "Router Console Label.",
@@ -491,9 +711,17 @@
         "description": "Hilfeseite für das Erweiterungslabel.",
         "message": "WebExtension Informationen:"
     },
+    "windowVisitHomepage": {
+        "description": "Startseite für das Erweiterungslabel.",
+        "message": "Startseite:"
+    },
     "windowVisitI2ptunnel": {
         "description": "Titel für i2ptunnel",
         "message": "Hidden Services Manager:"
+    },
+    "windowVisitReleases": {
+        "description": "Besuchen Sie die Veröffentlichungsseite",
+        "message": "Erweiterung:"
     },
     "windowVisitSnark": {
         "description": "Titel für Bittorrent",
