@@ -1,619 +1,328 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>
-      I2P in Private B...
-    </title>
-    <meta name="author" content="eyedeekay" />
-    <meta name="description" content="i2p-in-private-browsing-mode-firefox" />
-    <meta name="keywords" content="master" />
-    <link rel="stylesheet" type="text/css" href="style.css" />
-    <link rel="stylesheet" type="text/css" href="showhider.css" />
-    <script type="text/javascript" src="script.js"></script>
-  </head>
-  <body>
+<head>
+    <title>I2P in Private B...</title>
+    <meta content="eyedeekay" name="author">
+    <meta content="i2p-in-private-browsing-mode-firefox" name="description">
+    <meta content="master" name="keywords">
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <link href="showhider.css" rel="stylesheet" type="text/css">
+    <script src="script.js" type="text/javascript"></script>
+</head>
+<body>
     <div id="navbar">
-      <a href="#shownav">
-        Show navigation
-      </a>
-      <div id="shownav">
-        <div id="hidenav">
-          <ul>
-            <li>
-              <a href="..">
-                Up one level ^
-              </a>
-            </li>
-            <li>
-              <a href="index.html">
-                index
-              </a>
-            </li>
-            <li>
-              <a href="COLORS.html">
-                COLORS
-              </a>
-            </li>
-            <li>
-              <a href="GOALS.html">
-                GOALS
-              </a>
-            </li>
-            <li>
-              <a href="PLAN.html">
-                PLAN
-              </a>
-            </li>
-            <li>
-              <a href="home.html">
-                home.html
-              </a>
-            </li>
-            <li>
-              <a href="index.html">
-                index.html
-              </a>
-            </li>
-            <li>
-              <a href="location.html">
-                location.html
-              </a>
-            </li>
-            <li>
-              <a href="proxyerr.html">
-                proxyerr.html
-              </a>
-            </li>
-            <li>
-              <a href="sectorrent.html">
-                sectorrent.html
-              </a>
-            </li>
-            <li>
-              <a href="security.html">
-                security.html
-              </a>
-            </li>
-            <li>
-              <a href="toopie.html">
-                toopie.html
-              </a>
-            </li>
-            <li>
-              <a href="torrent.html">
-                torrent.html
-              </a>
-            </li>
-            <li>
-              <a href="window.html">
-                window.html
-              </a>
-            </li>
-          </ul>
-          <br>
-          <a href="#hidenav">
-            Hide Navigation
-          </a>
+        <a href="#shownav">Show navigation</a>
+        <div id="shownav">
+            <div id="hidenav">
+                <ul>
+                    <li>
+                        <a href="..">Up one level ^</a>
+                    </li>
+
+                    <li>
+                        <a href="index.html">index</a>
+                    </li>
+
+                    <li>
+                        <a href="COLORS.html">COLORS</a>
+                    </li>
+
+                    <li>
+                        <a href="GOALS.html">GOALS</a>
+                    </li>
+
+                    <li>
+                        <a href="PLAN.html">PLAN</a>
+                    </li>
+
+                    <li>
+                        <a href="home.html">home.html</a>
+                    </li>
+
+                    <li>
+                        <a href="index.html">index.html</a>
+                    </li>
+
+                    <li>
+                        <a href="location.html">location.html</a>
+                    </li>
+
+                    <li>
+                        <a href="proxyerr.html">proxyerr.html</a>
+                    </li>
+
+                    <li>
+                        <a href="sectorrent.html">sectorrent.html</a>
+                    </li>
+
+                    <li>
+                        <a href="security.html">security.html</a>
+                    </li>
+
+                    <li>
+                        <a href="toopie.html">toopie.html</a>
+                    </li>
+
+                    <li>
+                        <a href="torrent.html">torrent.html</a>
+                    </li>
+
+                    <li>
+                        <a href="window.html">window.html</a>
+                    </li>
+                </ul>
+
+                <br>
+                <a href="#hidenav">Hide Navigation</a>
+            </div>
         </div>
-      </div>
     </div>
-    <a id="returnhome" href="/">
-      /
-    </a>
-    <h1>
-      I2P in Private Browsing Mode(Firefox-Only)
-    </h1>
+    <a href="/" id="returnhome">/</a>
+    <h1>I2P in Private Browsing Mode(Firefox-Only)</h1>
+
     <ul>
-      <li>
-        <p>
-          <strong>
-            This extension requires a running I2P Router on the Host System
-          </strong>
-        </p>
-      </li>
-      <li>
-        <p>
-          <a href="https://geti2p.net/en/download/easyinstall">
-            <strong>
-              This extension comes pre-installed in the Easy-Install Beta for Windows
-            </strong>
-          </a>
-        </p>
-      </li>
+        <li>
+            <p><strong>This extension requires a running I2P Router on the Host System</strong>
+            </p>
+        </li>
+
+        <li>
+            <p><a href="https://geti2p.net/en/download/easyinstall"><strong>This extension comes pre-installed in the Easy-Install Beta for Windows</strong></a>
+            </p>
+        </li>
     </ul>
-    <p>
-      This is an webextension which introduces a set of new &ldquo;Private Browsing&rdquo; modes
-      to Firefox-based browsers(Supporting webextensions, must be current ESR or
-      greater) that makes it easier to configure a browser to use I2P securely and
-      adds features for making I2P applications easier to use. It does this by
-      isolating I2P-specific settings to Contextual Identities within Firefox, then
-      loading them automatically when the user requests them. It also adds convenience
-      and management features, like an embedded I2P console and Bittorrent integration
-      with clients using the transmission-rpc API and via in-browser protocol handling
-      integrations.
-    </p>
-    <h2>
-      Privacy Policy
-    </h2>
-    <p>
-      This browser extension does not collect any personal information. It requires
-      access to local storage and browsing data permissions in order to delete them
-      when directed to by the user. This browser extension does not transmit any
-      information to any third party, nor will it, ever.
-    </p>
-    <p>
-      This browser extension cannot influence telemetry carried out by browser vendors
-      to determine performance in their distribution channels, nor can it mitigate any
-      other browser vendor telemetry.
-    </p>
-    <p>
-      This browser extension is entirely Free, Open-Source software.
-    </p>
-    <h2>
-      Installation(Cross-Platform):
-    </h2>
-    <p>
-      For desktop users this addon is available from addons.mozilla.org, where you
-      will be able to recive automatic updates:
-      <a href="https://addons.mozilla.org/en-US/firefox/addon/i2p-in-private-browsing/">
-        I2P in Private Browsing
-      </a>
-      .
-    </p>
-    <h3>
-      Setting the Homepage
-    </h3>
-    <p>
-      The first time you run the extension, Firefox will offer you the option of setting
-      your homepage and new tab page to the homepage contained
-      <em>
-        within
-      </em>
-      the extension. You
-      can decline this or edit it later and it will not affect your anonymity. Enabling
-      this feature allows the extension to set your homepage to a local document with a
-      number of useful I2P links.
-    </p>
-    <h2>
-      Debian Installation:
-    </h2>
-    <p>
-      Should you prefer, it is possible to install this extension system-wide by
-      side-loading it into Debian. You can generate your own deb file by running the
-      command:
-    </p>
+
+    <p>This is an webextension which introduces a set of new “Private Browsing” modes to Firefox-based browsers(Supporting webextensions, must be current ESR or greater) that makes it easier to configure a browser to use I2P securely and adds features for making I2P applications easier to use. It does this by isolating I2P-specific settings to Contextual Identities within Firefox, then loading them automatically when the user requests them. It also adds convenience and management features, like an embedded I2P console and Bittorrent integration with clients using the transmission-rpc API and via in-browser protocol handling integrations.</p>
+
+    <h2>Privacy Policy</h2>
+
+    <p>This browser extension does not collect any personal information. It requires access to local storage and browsing data permissions in order to delete them when directed to by the user. This browser extension does not transmit any information to any third party, nor will it, ever.</p>
+
+    <p>This browser extension cannot influence telemetry carried out by browser vendors to determine performance in their distribution channels, nor can it mitigate any other browser vendor telemetry.</p>
+
+    <p>This browser extension is entirely Free, Open-Source software.</p>
+
+    <h2>Installation(Cross-Platform):</h2>
+
+    <p>For desktop users this addon is available from addons.mozilla.org, where you will be able to recive automatic updates: <a href="https://addons.mozilla.org/en-US/firefox/addon/i2p-in-private-browsing/">I2P in Private Browsing</a> .</p>
+
+    <h3>Setting the Homepage</h3>
+
+    <p>The first time you run the extension, Firefox will offer you the option of setting your homepage and new tab page to the homepage contained <em>within</em> the extension. You can decline this or edit it later and it will not affect your anonymity. Enabling this feature allows the extension to set your homepage to a local document with a number of useful I2P links.</p>
+
+    <h2>Debian Installation:</h2>
+
+    <p>Should you prefer, it is possible to install this extension system-wide by side-loading it into Debian. You can generate your own deb file by running the command:</p>
+
     <pre><code>    make deb
 </code></pre>
-    <p>
-      and then you can install it with:
-    </p>
+    <p>and then you can install it with:</p>
+
     <pre><code>    sudo apt install ../i2psetproxy.js_*.deb
 </code></pre>
-    <h2>
-      Bittorrent Download:
-    </h2>
-    <p>
-      The self-hosted plugin is available from bittorrent both within the I2P and
-      Clearnet Bittorrent network(With a web seed to support it in case one goes
-      dead).
-    </p>
+    <h2>Bittorrent Download:</h2>
+
+    <p>The self-hosted plugin is available from bittorrent both within the I2P and Clearnet Bittorrent network(With a web seed to support it in case one goes dead).</p>
+
     <ul>
-      <li>
-        magnetsub
-      </li>
-      <li>
-        <a href="./i2ppb@eyedeekay.github.io.xpi.torrent">
-          Get the .torrent file
-        </a>
-      </li>
-    </ul>
-    <h2>
-      Usage:
-    </h2>
-    <ul>
-      <li>
-        Basically, it &ldquo;Just Works.&rdquo; After you install the plugin, browsing to an I2P
-        domain will automatically stop the current tab and re-open the I2P site in an
-        I2P Browser tab.
-      </li>
-      <li>
-        Besides that, four bookmarks are added to the &ldquo;Bookmarks Toolbar,&rdquo; which
-        will take you to visit your Java I2P applications, or the &ldquo;Simplified I2P
-        Landing Page&rdquo; embedded in the plugin:
-      </li>
-      <li>
-        <img src="lander.png" alt="Landing page" />
-      </li>
-      <li>
-        Also, there&rsquo;s a menu for accessing I2P functionality while you&rsquo;re browsing.
-        It lets you control a few settings in a granular way.
-      </li>
-      <li>
-        <img src="menu.png" alt="Menu" />
-      </li>
-      <li>
-        You can re-enable WebRTC but force it to always use the proxy that is
-        enforced by the tab.
-      </li>
-      <li>
-        You can either force the browser to delete all history for I2P sites
-        immediately, or you can close all your I2P Browser tabs at once and delete
-        the history for I2P browsing when you&rsquo;re done.
-      </li>
-      <li>
-        That&rsquo;s all there is to it! Your browser is configured to safely use and
-        administer I2P.
-      </li>
-      <li>
-        Optionally, you can add I2PSnark-RPC and use Bittorrent-over-I2P via the
-        transmission-rpc interface. To do this, have a look at the torrent guide:
-        <a href="torrent/README.md">
-          Torrent guide
-        </a>
-      </li>
-    </ul>
-    <h3>
-      Features
-    </h3>
-    <ul>
-      <li>
-        [done]
-        <strong>
-          Provide
-        </strong>
-        a way to launch into an I2P-Specific contextual identity
-        (container). Intercept requests to .i2p domains and automatically route them
-        to the I2P container. Isolate the router console from other local
-        applications by automatically intercepting requests to the router console to
-        another container.
-      </li>
-      <li>
-        <img src="i2psetproxy.js.png" alt="Visiting i2p-projekt.i2p" />
-      </li>
-      <li>
-        [done]
-        <strong>
-          Indicate
-        </strong>
-        the I2P browser is in use visually. Find an
-        acceptable way to indicate it on Android.
-      </li>
-      <li>
-        <img src="susimail.png" alt="Visiting webmail" />
-      </li>
-      <li>
-        [done]
-        <strong>
-          Set
-        </strong>
-        the http proxy to use the local I2P proxy automatically.
-        Provide specific configuration for other types of I2P proxies(SOCKS,
-        isolating HTTP)
-      </li>
-      <li>
-        [done]
-        <strong>
-          Disable
-        </strong>
-        risky webRTC features/offer the option to re-enable
-        them with the proxy enforced.
-      </li>
-      <li>
-        [done]
-        <strong>
-          Change
-        </strong>
-        the color of the browser window to indicate that I2P is in
-        use
-      </li>
-      <li>
-        <img src="i2ptunnel.png" alt="Visiting i2ptunnel" />
-      </li>
-      <li>
-        [ready]
-        <strong>
-          Provide
-        </strong>
-        help in a variety of languages.
-      </li>
-      <li>
-        [done]
-        <strong>
-          Monitor
-        </strong>
-        the health and readiness of the I2P router it is
-        instructed to use. Currently the plugin checks whether the HTTP Proxy is
-        working by fetching an image from &ldquo;
-        <a href="http://proxy.i2p&quot;">
-          http://proxy.i2p&rdquo;
-        </a>
-        and displaying a result.
-        A work-in-progress binding to i2pcontrol is available in ./i2pcontrol, it is
-        inert at this time.
-      </li>
-      <li>
-        <img src="toopie.png" alt="Visiting toopie.html" />
-      </li>
-      <li>
-        [Done]
-        <strong>
-          Handle
-        </strong>
-        router console applications under their own origins and
-        within their own contextual identity. (1) The router console is automatically
-        confined to it&rsquo;s own container tab. (2) Use a custom protocol handler to
-        place each i2p application/plugin under it&rsquo;s own origin, shortening router
-        console URL&rsquo;s and placing applications under their own origin.
-      </li>
-      <li>
-        <img src="routerconsole.png" alt="Visiting routerconsole" />
-      </li>
-      <li>
-        [Done]
-        <strong>
-          Handle Torrents
-        </strong>
-        by talking to i2psnark-rpc plugin and then
-        adding them directly into the Firefox downloads drop-downs, menus, etc. Enable
-        the use of I2PSnark as a peer-to-peer delivery mechanism for media files.
-      </li>
-      <li>
-        <img src="i2psnark.png" alt="Visiting i2psnark" />
-      </li>
-      <li>
-        <img src="transmissionrpc.png" alt="Monitoring torrents" />
-      </li>
-      <li>
-        [Done]
-        <strong>
-          Enhance
-        </strong>
-        the I2P browsing experience by allowing site developers
-        distribute some or all of their resources as torrents, allowing the torrents to
-        be treated effectively as a CDN.
-      </li>
-      <li>
-        <img src="x-i2p-torrentlocation.png" alt="Distribute your site as a torrent." />
-      </li>
-      <li>
-        [Done]
-        <strong>
-          Indicate
-        </strong>
-        the level of authenticity provided by TLS. TLS is
-        optional on I2P for now, but some sites offer it anyway. TLS support is
-        experimental and in the works.
-      </li>
-      <li>
-        <img src="i2p-https.png" alt="Use HTTPS with your I2P Site." />
-      </li>
-      <li>
-        [Done]
-        <strong>
-          Provide
-        </strong>
-        alternate, in-I2P destinations for web sites that want to
-        mirror their content within I2P.
-      </li>
-      <li>
-        [barely started]
-        <strong>
-          Isolate
-        </strong>
-        traffic by contextual identity to it&rsquo;s own HTTP
-        Proxy tunnel, each reflecting it&rsquo;s own pseudonymous identity within I2P. The
-        contextual identities. For now, the contextual identities used to manage
-        browsing are &ldquo;I2P Browsing&rdquo; and &ldquo;Web Browsing&rdquo; where I2P Browsing is capable
-        of using an outproxy but in the case of traffic destined for the clearnet
-        does not do header rewriting, and Web Browsing falls back to the Proxy
-        configured in Firefox. The I2P Browsing will be expanded to
-        <ul>
-          <li>
-            I2P Amnesiac Browsing: Use for General Browsing, stores no history and
-            uses an HTTP Proxy with a very short tunnel-close timeout and no key-reuse.
-          </li>
-          <li>
-            I2P Social Networking: Use this for logging into social network accounts,
-            forums, and other interactive asynchronous public communication platforms
-            where your identity is behaviorally linkable. This has a very long
-            tunnel-close timeout and key-reuse until specifically invoked.
-          </li>
-          <li>
-            I2P Blogging: Use this for posting content to the web interface of your
-            blog or to other similar websites that you create content on.
-          </li>
-        </ul>
-      </li>
-      <li>
-        <img src="clearweb.png" alt="Visiting clearweb" />
-      </li>
-    </ul>
-    <h3>
-      Video
-    </h3>
-    <ul>
-      <li>
-        <img src="i2psetproxy.js.gif" alt="Video of the plugin in action" />
-      </li>
-    </ul>
-    <h2>
-      Documents
-    </h2>
-    <ul>
-      <li>
-        <strong>
-          <a href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/download/docs/Browser.Design.Documentation.pdf">
-            Browser Outline
-          </a>
-        </strong>
-        : This document is an outline of each of
-        the browser extension&rsquo;s feature panels in presentation form.
-      </li>
-      <li>
-        <strong>
-          <a href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/download/docs/Landing.Page.Documentation.pdf">
-            Smart Lander Design
-          </a>
-        </strong>
-        : This is the original outline of
-        the smart landing page which became the I2P home page within the browser and
-        the drop-down control panel.
-      </li>
-      <li>
-        <strong>
-          <a href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/wiki/Other-Extensions">
-            Other extensions
-          </a>
-        </strong>
-        : and how they work with this one.
-      </li>
-    </ul>
-    <h2>
-      Super Extra Important Background Info:
-    </h2>
-    <p>
-      This plugin&rsquo;s viability is directly related to the viability of Mozilla and
-      Tor&rsquo;s work on hardening Firefox itself and of particular interest are the
-      &ldquo;Uplift&rdquo; and &ldquo;Fusion(Firefox Using Onions)&rdquo; projects.
-    </p>
-    <h3>
-      Links about Project Uplift
-    </h3>
-    <ul>
-      <li>
-        <a href="https://wiki.mozilla.org/Security/Tor_Uplift">
-          Tor Uplift
-        </a>
-        is a project which
-        brings important features of the Tor Browser to the mainstream of Firefox
-        users by including patches from Tor Browser Bundle into Firefox where it is
-        appropriate.
-      </li>
-      <li>
-        <a href="https://wiki.mozilla.org/Security/FirstPartyIsolation">
-          First Party Isolation
-        </a>
-        is a feature in Firefox and other browsers which keeps information from
-        leaking across first-party domains.
-      </li>
-      <li>
-        <a href="https://wiki.mozilla.org/Security/Fingerprinting">
-          Fingerprinting
-        </a>
-        is a
-        technique where a tracker attempts to extract unique information about a user
-        from a side-channel in order to create an identifier that can be used to
-        correlate the user across many sites.
-      </li>
-      <li>
-        <a href="https://wiki.mozilla.org/Security/Fennec%2BTor_Project">
-          Fennec
-        </a>
-        is Firefox
-        for Android and this link has some analysis of the privacy consequences of the
-        Android platform.
-      </li>
-      <li>
-        <a href="https://wiki.mozilla.org/Security/Tor_Uplift/Tracking">
-          Tracking
-        </a>
-        in Firefox
-        is surveyed here.
-      </li>
-    </ul>
-    <p>
-      Project uplift seems to have largely been accomplished?
-    </p>
-    <h3>
-      Links about Project Fusion
-    </h3>
-    <ul>
-      <li>
-        <a href="https://wiki.mozilla.org/Security/Fusion">
-          Project Fusion
-        </a>
-        or Firefox using
-        Onions is a joint Mozilla/Tor effort to create an enhanced Private Browsing
-        mode for Firefox which uses Tor.
-      </li>
-      <li>
-        <a href="https://trac.torproject.org/projects/tor/wiki/org/meetings/2018Rome/Notes/FusionProject">
-          Notes
-        </a>
-        from a meeting about Fusion.
-      </li>
-      <li>
-        <a href="https://blog.torproject.org/tor-heart-firefox">
-          Tor at the Heart: Firefox
-        </a>
-        is
-        a blog about Tor and the relationship they have to Firefox re: TBB, Fusion.
-      </li>
-    </ul>
-    <h2>
-      The
-      <strong>
-        Other
-      </strong>
-      Version
-    </h2>
-    <p>
-      New versions of this extension create an I2P in Private Browsing mode instead,
-      using container tabs.
-    </p>
-    <p>
-      Since this is a drastic change to the behavior of the old plugin, and since there
-      is no UI a new entry
-      for the new plugin has been made at a new location on addons.mozilla.org.
-    </p>
-    <ul>
-      <li>
-        <p>
-          This is the new version:
-          <a href="https://addons.mozilla.org/en-US/firefox/addon/i2p-in-private-browsing/">
-            [link]
-          </a>
-        </p>
-      </li>
-      <li>
-        <p>
-          This is the old version:
-          <a href="https://addons.mozilla.org/en-US/firefox/addon/I2P-Proxy/">
-            [link]
-          </a>
-        </p>
-      </li>
-    </ul>
-    <h2>
-      Android usage:
-    </h2>
-    <p>
-      Use the old version, on either an old version of Firefox(pre-68) or by enabling
-      this custom collection: [Recommended Plugins]
-      <a href="https://addons.mozilla.org/en-US/firefox/collections/14614396/I2P-Browser-Fork/">
-        https://addons.mozilla.org/en-US/firefox/collections/14614396/I2P-Browser-Fork/
-      </a>
-    </p>
-    <div id="sourcecode">
-      <span id="sourcehead">
-        <strong>
-          Get the source code:
-        </strong>
-      </span>
-      <ul>
+        <li>magnetsub</li>
+
         <li>
-          <a href="https://github.com/eyedeekay/i2p-in-private-browsing-mode-firefox">
-            Source Repository: (https://github.com/eyedeekay/i2p-in-private-browsing-mode-firefox)
-          </a>
+            <a href="./i2ppb@eyedeekay.github.io.xpi.torrent">Get the .torrent file</a>
         </li>
-      </ul>
+    </ul>
+
+    <h2>Usage:</h2>
+
+    <ul>
+        <li>Basically, it “Just Works.” After you install the plugin, browsing to an I2P domain will automatically stop the current tab and re-open the I2P site in an I2P Browser tab.</li>
+
+        <li>Besides that, four bookmarks are added to the “Bookmarks Toolbar,” which will take you to visit your Java I2P applications, or the “Simplified I2P Landing Page” embedded in the plugin:</li>
+
+        <li><img alt="Landing page" src="lander.png">
+        </li>
+
+        <li>Also, there’s a menu for accessing I2P functionality while you’re browsing. It lets you control a few settings in a granular way.</li>
+
+        <li><img alt="Menu" src="menu.png">
+        </li>
+
+        <li>You can re-enable WebRTC but force it to always use the proxy that is enforced by the tab.</li>
+
+        <li>You can either force the browser to delete all history for I2P sites immediately, or you can close all your I2P Browser tabs at once and delete the history for I2P browsing when you’re done.</li>
+
+        <li>That’s all there is to it! Your browser is configured to safely use and administer I2P.</li>
+
+        <li>Optionally, you can add I2PSnark-RPC and use Bittorrent-over-I2P via the transmission-rpc interface. To do this, have a look at the torrent guide: <a href="torrent/README.md">Torrent guide</a>
+        </li>
+    </ul>
+
+    <h3>Features</h3>
+
+    <ul>
+        <li>[done] <strong>Provide</strong> a way to launch into an I2P-Specific contextual identity (container). Intercept requests to .i2p domains and automatically route them to the I2P container. Isolate the router console from other local applications by automatically intercepting requests to the router console to another container.</li>
+
+        <li><img alt="Visiting i2p-projekt.i2p" src="i2psetproxy.js.png">
+        </li>
+
+        <li>[done] <strong>Indicate</strong> the I2P browser is in use visually. Find an acceptable way to indicate it on Android.</li>
+
+        <li><img alt="Visiting webmail" src="susimail.png">
+        </li>
+
+        <li>[done] <strong>Set</strong> the http proxy to use the local I2P proxy automatically. Provide specific configuration for other types of I2P proxies(SOCKS, isolating HTTP)</li>
+
+        <li>[done] <strong>Disable</strong> risky webRTC features/offer the option to re-enable them with the proxy enforced.</li>
+
+        <li>[done] <strong>Change</strong> the color of the browser window to indicate that I2P is in use</li>
+
+        <li><img alt="Visiting i2ptunnel" src="i2ptunnel.png">
+        </li>
+
+        <li>[ready] <strong>Provide</strong> help in a variety of languages.</li>
+
+        <li>[done] <strong>Monitor</strong> the health and readiness of the I2P router it is instructed to use. Currently the plugin checks whether the HTTP Proxy is working by fetching an image from “ <a href="http://proxy.i2p&quot;">http://proxy.i2p”</a> and displaying a result. A work-in-progress binding to i2pcontrol is available in ./i2pcontrol, it is inert at this time.
+        </li>
+
+        <li><img alt="Visiting toopie.html" src="toopie.png">
+        </li>
+
+        <li>[Done] <strong>Handle</strong> router console applications under their own origins and within their own contextual identity. (1) The router console is automatically confined to it’s own container tab. (2) Use a custom protocol handler to place each i2p application/plugin under it’s own origin, shortening router console URL’s and placing applications under their own origin.</li>
+
+        <li><img alt="Visiting routerconsole" src="routerconsole.png">
+        </li>
+
+        <li>[Done] <strong>Handle Torrents</strong> by talking to i2psnark-rpc plugin and then adding them directly into the Firefox downloads drop-downs, menus, etc. Enable the use of I2PSnark as a peer-to-peer delivery mechanism for media files.</li>
+
+        <li><img alt="Visiting i2psnark" src="i2psnark.png">
+        </li>
+
+        <li><img alt="Monitoring torrents" src="transmissionrpc.png">
+        </li>
+
+        <li>[Done] <strong>Enhance</strong> the I2P browsing experience by allowing site developers distribute some or all of their resources as torrents, allowing the torrents to be treated effectively as a CDN.</li>
+
+        <li><img alt="Distribute your site as a torrent." src="x-i2p-torrentlocation.png">
+        </li>
+
+        <li>[Done] <strong>Indicate</strong> the level of authenticity provided by TLS. TLS is optional on I2P for now, but some sites offer it anyway. TLS support is experimental and in the works.</li>
+
+        <li><img alt="Use HTTPS with your I2P Site." src="i2p-https.png">
+        </li>
+
+        <li>[Done] <strong>Provide</strong> alternate, in-I2P destinations for web sites that want to mirror their content within I2P.</li>
+
+        <li>[barely started] <strong>Isolate</strong> traffic by contextual identity to it’s own HTTP Proxy tunnel, each reflecting it’s own pseudonymous identity within I2P. The contextual identities. For now, the contextual identities used to manage browsing are “I2P Browsing” and “Web Browsing” where I2P Browsing is capable of using an outproxy but in the case of traffic destined for the clearnet does not do header rewriting, and Web Browsing falls back to the Proxy configured in Firefox. The I2P Browsing will be expanded to
+            <ul>
+                <li>I2P Amnesiac Browsing: Use for General Browsing, stores no history and uses an HTTP Proxy with a very short tunnel-close timeout and no key-reuse.</li>
+
+                <li>I2P Social Networking: Use this for logging into social network accounts, forums, and other interactive asynchronous public communication platforms where your identity is behaviorally linkable. This has a very long tunnel-close timeout and key-reuse until specifically invoked.</li>
+
+                <li>I2P Blogging: Use this for posting content to the web interface of your blog or to other similar websites that you create content on.</li>
+            </ul>
+        </li>
+
+        <li><img alt="Visiting clearweb" src="clearweb.png">
+        </li>
+    </ul>
+
+    <h3>Video</h3>
+
+    <ul>
+        <li><img alt="Video of the plugin in action" src="i2psetproxy.js.gif">
+        </li>
+    </ul>
+
+    <h2>Documents</h2>
+
+    <ul>
+        <li><strong><a href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/download/docs/Browser.Design.Documentation.pdf">Browser Outline</a></strong> : This document is an outline of each of the browser extension’s feature panels in presentation form.</li>
+
+        <li><strong><a href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/download/docs/Landing.Page.Documentation.pdf">Smart Lander Design</a></strong> : This is the original outline of the smart landing page which became the I2P home page within the browser and the drop-down control panel.</li>
+
+        <li><strong><a href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/wiki/Other-Extensions">Other extensions</a></strong> : and how they work with this one.</li>
+    </ul>
+
+    <h2>Super Extra Important Background Info:</h2>
+
+    <p>This plugin’s viability is directly related to the viability of Mozilla and Tor’s work on hardening Firefox itself and of particular interest are the “Uplift” and “Fusion(Firefox Using Onions)” projects.</p>
+
+    <h3>Links about Project Uplift</h3>
+
+    <ul>
+        <li>
+            <a href="https://wiki.mozilla.org/Security/Tor_Uplift">Tor Uplift</a> is a project which brings important features of the Tor Browser to the mainstream of Firefox users by including patches from Tor Browser Bundle into Firefox where it is appropriate.
+        </li>
+
+        <li>
+            <a href="https://wiki.mozilla.org/Security/FirstPartyIsolation">First Party Isolation</a> is a feature in Firefox and other browsers which keeps information from leaking across first-party domains.
+        </li>
+
+        <li>
+            <a href="https://wiki.mozilla.org/Security/Fingerprinting">Fingerprinting</a> is a technique where a tracker attempts to extract unique information about a user from a side-channel in order to create an identifier that can be used to correlate the user across many sites.
+        </li>
+
+        <li>
+            <a href="https://wiki.mozilla.org/Security/Fennec%2BTor_Project">Fennec</a> is Firefox for Android and this link has some analysis of the privacy consequences of the Android platform.
+        </li>
+
+        <li>
+            <a href="https://wiki.mozilla.org/Security/Tor_Uplift/Tracking">Tracking</a> in Firefox is surveyed here.
+        </li>
+    </ul>
+
+    <p>Project uplift seems to have largely been accomplished?</p>
+
+    <h3>Links about Project Fusion</h3>
+
+    <ul>
+        <li>
+            <a href="https://wiki.mozilla.org/Security/Fusion">Project Fusion</a> or Firefox using Onions is a joint Mozilla/Tor effort to create an enhanced Private Browsing mode for Firefox which uses Tor.
+        </li>
+
+        <li>
+            <a href="https://trac.torproject.org/projects/tor/wiki/org/meetings/2018Rome/Notes/FusionProject">Notes</a> from a meeting about Fusion.
+        </li>
+
+        <li>
+            <a href="https://blog.torproject.org/tor-heart-firefox">Tor at the Heart: Firefox</a> is a blog about Tor and the relationship they have to Firefox re: TBB, Fusion.
+        </li>
+    </ul>
+
+    <h2>The <strong>Other</strong> Version</h2>
+
+    <p>New versions of this extension create an I2P in Private Browsing mode instead, using container tabs.</p>
+
+    <p>Since this is a drastic change to the behavior of the old plugin, and since there is no UI a new entry for the new plugin has been made at a new location on addons.mozilla.org.</p>
+
+    <ul>
+        <li>
+            <p>This is the new version: <a href="https://addons.mozilla.org/en-US/firefox/addon/i2p-in-private-browsing/">[link]</a></p>
+        </li>
+
+        <li>
+            <p>This is the old version: <a href="https://addons.mozilla.org/en-US/firefox/addon/I2P-Proxy/">[link]</a></p>
+        </li>
+    </ul>
+
+    <h2>Android usage:</h2>
+
+    <p>Use the old version, on either an old version of Firefox(pre-68) or by enabling this custom collection: [Recommended Plugins] <a href="https://addons.mozilla.org/en-US/firefox/collections/14614396/I2P-Browser-Fork/">https://addons.mozilla.org/en-US/firefox/collections/14614396/I2P-Browser-Fork/</a></p>
+
+    <div id="sourcecode">
+        <span id="sourcehead"><strong>Get the source code:</strong></span>
+        <ul>
+            <li>
+                <a href="https://github.com/eyedeekay/i2p-in-private-browsing-mode-firefox">Source Repository: (https://github.com/eyedeekay/i2p-in-private-browsing-mode-firefox)</a>
+            </li>
+        </ul>
     </div>
+
     <div>
-      <a href="#show">
-        Show license
-      </a>
-      <div id="show">
-        <div id="hide">
-          <pre><code>MIT License
+        <a href="#show">Show license</a>
+        <div id="show">
+            <div id="hide">
+                <pre><code>MIT License
 
 Copyright (c) 2019 idk
 
@@ -634,21 +343,17 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-</code></pre>
-          <a href="#hide">
-            Hide license
-          </a>
+</code></pre><a href="#hide">Hide license</a>
+            </div>
         </div>
-      </div>
     </div>
+
     <div>
-      <iframe src="https://snowflake.torproject.org/embed.html" width="320" height="240" frameborder="0" scrolling="no"></iframe>
+        <iframe frameborder="0" height="240" scrolling="no" src="https://snowflake.torproject.org/embed.html" width="320"></iframe>
     </div>
+
     <div>
-      <a href="https://geti2p.net/">
-        <img src="i2plogo.png"></img>
-        I2P
-      </a>
+        <a href="https://geti2p.net/"><img src="i2plogo.png"> I2P</a>
     </div>
-  </body>
+</body>
 </html>

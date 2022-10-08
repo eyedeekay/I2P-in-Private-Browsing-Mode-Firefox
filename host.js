@@ -16,9 +16,9 @@ function proxyHost(requestDetails) {
     } else {
         hostname = requestDetails.url.split('/')[0];
     }
-    console.warn("(host)", hostname);
+    console.warn('(host)', hostname);
     if (hostname == 'proxy.i2p') {
-        console.warn("(host) is proxy.i2p", hostname);
+        console.warn('(host) is proxy.i2p', hostname);
         return true;
     }
     if (
@@ -110,12 +110,12 @@ function i2pHostName(url) {
 
 function i2pHost(url) {
     if (proxyHost(url)) {
-        console.warn("(host) proxy.i2p", url.url)
+        console.warn('(host) proxy.i2p', url.url);
         return false;
     }
     let hostname = i2pHostName(url.url);
     let postname = hostname.split(':')[0];
-    if (postname.endsWith("proxy.i2p")){
+    if (postname.endsWith('proxy.i2p')) {
       return false;
     }
     return postname.endsWith('.i2p');
