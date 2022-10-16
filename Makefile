@@ -41,7 +41,7 @@ MOZ_VERSION=0.134
 VERSION=0.133
 
 ## INCREMENT THIS EVERY TIME YOU DO A RELEASE
-LAST_VERSION=`grep '"version"' manifest.json | sed 's|"version"||g' | tr -d " :,'" | tr -d '"'`
+LAST_VERSION=$(shell grep '"version"' manifest.json | sed 's|"version"||g' | tr -d " :,'" | tr -d '"')
 
 YELLOW=F7E59A
 ORANGE=FFC56D
@@ -97,18 +97,15 @@ xpi: getxpi
 
 version:
 	sed -i 's|7647|7657|g' *.js* torrent/*.js*
-	sed -i 's|$(shell grep " \"version\": " manifest.json)|  \"version\": \"$(VERSION)\",|g' manifest.json
 	find . -name 'messages.json' -exec sed -i 's|$(LAST_VERSION)|$(VERSION)|g' {} \;
 	find . -name 'messages.json' -exec sed -i 's|$(MOZ_VERSION)|$(VERSION)|g' {} \;
 
 moz-version:
 	sed -i 's|7647|7657|g' *.js* torrent/*.js*
-	sed -i 's|$(shell grep " \"version\": " manifest.json)|  \"version\": \"$(MOZ_VERSION)\",|g' manifest.json
 	find . -name 'messages.json' -exec sed -i 's|$(LAST_VERSION)|$(MOZ_VERSION)|g' {} \;
 	find . -name 'messages.json' -exec sed -i 's|$(VERSION)|$(MOZ_VERSION)|g' {} \;
 
 rhz-version:
-	sed -i 's|$(shell grep " \" version\": " manifest.json)|  \"version\": \"$(VERSION)1\",|g' manifest.json
 	sed -i 's|7657|7647|g' *.js* torrent/*.js*
 
 zip: version

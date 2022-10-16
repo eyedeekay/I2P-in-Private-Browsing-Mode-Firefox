@@ -1,23 +1,27 @@
-document.addEventListener('DOMContentLoaded', function() {
-    fetch('http://proxy.i2p').then(
-        (myJson) => {
-            console.warn('(proxyinfo)', myJson);
-            contentUpdateById('proxy-check', 'proxySuccessStatus');
-            let readyness = document.querySelectorAll('.readyness');
-            if (readyness !== null) {
-                unhide(readyness);
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+        fetch("http://proxy.i2p").then(
+            (myJson) => {
+                console.warn("(proxyinfo)", myJson);
+                contentUpdateById("proxy-check", "proxySuccessStatus");
+                let readyness = document.querySelectorAll(".readyness");
+                if (readyness !== null) {
+                    unhide(readyness);
+                }
+            },
+            (error) => {
+                console.error("(proxyinfo)", error);
+                contentUpdateById("proxy-check", "proxyFailedStatus");
+                let readyness = document.querySelectorAll(".readyness");
+                if (readyness !== null) {
+                    hide(readyness);
+                }
             }
-        },
-        (error) => {
-            console.error("(proxyinfo)", error);
-            contentUpdateById("proxy-check", "proxyFailedStatus");
-            let readyness = document.querySelectorAll(".readyness");
-            if (readyness !== null) {
-                hide(readyness);
-            }
-        }
-    );
-}, false);
+        );
+    },
+    false
+);
 
 function hide(elements) {
     elements = elements.length ? elements : [elements];
