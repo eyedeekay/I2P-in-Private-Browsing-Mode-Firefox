@@ -122,6 +122,13 @@ var handleContextProxyRequest = async function(requestDetails) {
     }
     try {
         var handleProxyRequest = function(context) {
+            if (proxyHost(requestDetails)) {
+                proxy = {
+                    type: getScheme(),
+                    host: getHost(),
+                    port: getPort()
+                };
+            }
             proxy = {
                 type: getScheme(),
                 host: getHost(),
@@ -192,13 +199,11 @@ var handleContextProxyRequest = async function(requestDetails) {
                     };
                 } else {
                     if (proxyHost(requestDetails)) {
-                        if (requestDetails.tabId < 0) {
-                            proxy = {
-                                type: getScheme(),
-                                host: getHost(),
-                                port: getPort()
-                            };
-                        }
+                        proxy = {
+                            type: getScheme(),
+                            host: getHost(),
+                            port: getPort()
+                        };
                     } else {
                         proxy = null;
                     }

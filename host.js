@@ -2,8 +2,7 @@ function proxyHost(requestDetails) {
     if (requestDetails.tabId > 0) {
         return false;
     }
-    console.warn('(host) requestDetails', requestDetails.tabId);
-    console.warn('(host) requestDetails', requestDetails.url);
+
     let hostname = '';
     if (requestDetails.url.indexOf('://') > -1) {
         hostname = requestDetails.url.split('/')[2];
@@ -15,6 +14,8 @@ function proxyHost(requestDetails) {
         console.warn('(host) is proxy.i2p', hostname);
         return true;
     }
+    console.warn('(host) requestDetails', requestDetails.tabId);
+    console.warn('(host) requestDetails', requestDetails.url);
     if (
         hostname == 'c6lilt4cr5x7jifxridpkesf2zgfwqfchtp6laihr4pdqomq25iq.b32.i2p'
     ) {
