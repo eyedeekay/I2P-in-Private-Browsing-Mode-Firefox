@@ -41,7 +41,7 @@ MOZ_VERSION=0.134
 VERSION=0.133
 
 ## INCREMENT THIS EVERY TIME YOU DO A RELEASE
-LAST_VERSION=`grep '1\.' _locales/en/messages.json | sed 's|"message"||g' | tr -d ' :"'`
+LAST_VERSION=`grep '"version"' manifest.json | sed 's|"version"||g' | tr -d " :,'" | tr -d '"'`
 
 YELLOW=F7E59A
 ORANGE=FFC56D
