@@ -343,41 +343,9 @@ seed:
 	cp -v "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent" "$(HOME)/.i2p/i2psnark"
 	cp -v "../i2ppb-$(VERSION)@eyedeekay.github.io.xpi" "$(HOME)/.i2p/i2psnark"
 
-wire:
-	cp -v "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent" "$(HOME)/i2p/MuWireDownloads/"
-	cp -v "../i2ppb-$(VERSION)@eyedeekay.github.io.xpi" "$(HOME)/i2p/MuWireDownloads/"
-
-ndtest:
-	$(HOME)/web-ext/bin/web-ext run --firefox /usr/bin/firefox -u about:debugging \
-		-u http://127.0.0.1:7657/home \
-		-u http://127.0.0.1:7657/i2ptunnel \
-		-u http://127.0.0.1:7657/i2psnark \
-		-u http://127.0.0.1:7657/webmail \
-		-u http://127.0.0.1:7657/MuWire \
-		-u http://idk.i2p/video.html \
-		-u http://idk.i2p \
-		-u http://stats.i2p \
-		-u http://tvndxxkxcstbtqfxg7iigco6bj22ff2y6jxikmk7wqkyadkhrd4a.b32.i2p \
-		-u https://ramble.pw \
-		-u https://ramble.pw/f/i2p \
-
-lht-test:
-	$(HOME)/web-ext/bin/web-ext run --firefox /usr/bin/firefox -u about:debugging \
-		-u http://localhost:7657/home \
-		-u http://localhost:7657/i2ptunnel \
-		-u http://localhost:7657/i2psnark \
-		-u http://localhost:7657/webmail \
-		-u http://localhost:7657/MuWire/ \
-		-u http://idk.i2p
-
 android:
 	$(HOME)/web-ext/bin/web-ext run --target firefox-android \
 		--android-device NE1GAM7780819544 \
 		--browser-console
 
-run:
-	$(HOME)/web-ext/bin/web-ext run --firefox /usr/bin/firefox -u about:debugging
-
-chromium:
-	$(HOME)/web-ext/bin/web-ext run --target chromium
-	
+run: webext

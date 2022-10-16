@@ -1,742 +1,218 @@
 {
-  "CertLabel": {
-    "description": "شهادة المعلومات:",
-    "message": "شهادة المعلومات:"
-  },
-  "SignedLabel": {
-    "description": "توقيع:",
-    "message": "توقيع:"
-  },
-  "TorrentTypeLabel": {
-    "description": "Torrent Links:",
-    "message": "Torrent Links:"
-  },
-  "TypeLabel": {
-    "description": "Torrent Links:",
-    "message": "Torrent Links:"
-  },
-  "aboutconsole": {
-    "description": "للولوج إلى الصفحة الرئيسية لجهاز التحكم، يذهب هنا:",
-    "message": "للولوج إلى الصفحة الرئيسية لجهاز التحكم، يذهب هنا:"
-  },
-  "abouthome": {
-    "description": "وصف لصفحة الزر.",
-    "message": "وللمزيد من المعلومات عن هذا التمديد، يرجى زيارة هذه الصفحة."
-  },
-  "addresstype": {
-    "description": "العنوان:",
-    "message": "العنوان:"
-  },
-  "applicationExplain": {
-    "description": "Description for application section.",
-    "message": "وتعمل هذه التطبيقات مع I2P مباشرة لتزويدها بالأمن والخصوصية."
-  },
-  "applicationHeader": {
-    "description": "رئيس قسم الطلبات.",
-    "message": "التطبيقات"
-  },
-  "beta": {
-    "description": "هذا منتج تجريبي.",
-    "message": "هذا منتج تجريبي."
-  },
-  "blogPreface": {
-    "description": "وجه لقب المصفح",
-    "message": "Blog"
-  },
-  "blogPrefacePrivate": {
-    "description": "وجه لقب المصفح",
-    "message": "Blog (Private)"
-  },
-  "bookmarksButton": {
-    "description": "Re-Create Bookmarks",
-    "message": "Re-Create Bookmarks"
-  },
-  "botePreface": {
-    "description": "وجه لقب المصفح",
-    "message": "I2P-Bote Mail"
-  },
-  "botePrefacePrivate": {
-    "description": "وجه لقب المصفح",
-    "message": "I2P-Bote Mail (Private)"
-  },
-  "browser-action": {
-    "description": "Browse",
-    "message": "Browse"
-  },
-  "btRpcHostText": {
-    "description": "التجمع الكونغولي من أجل الديمقراطية المضيف:",
-    "message": "التجمع الكونغولي من أجل الديمقراطية المضيف:"
-  },
-  "btRpcPathText": {
-    "description": "التجمع الكونغولي من أجل الديمقراطية الطريق:",
-    "message": "التجمع الكونغولي من أجل الديمقراطية الطريق:"
-  },
-  "btRpcPortText": {
-    "description": "التجمع الكونغولي من أجل الديمقراطية بورت:",
-    "message": "التجمع الكونغولي من أجل الديمقراطية بورت:"
-  },
-  "certAbsent": {
-    "description": "مضمون المعلومات المتعلقة بالشهادة إذا لم يكن هناك",
-    "message": "هذا الموقع لا يستخدم جهاز تحديد المواقع ما زالَ يُتأكّدُ مِنْ المُبْكَرَةِ مِن قِبل I2P."
-  },
-  "certLabel": {
-    "description": "Label for certificate info",
-    "message": "شهادة المعلومات:"
-  },
-  "certPresent": {
-    "description": "مضمون المعلومات المتعلقة بالشهادة إذا كان حاضرا",
-    "message": "هذا الموقعِ يَستعملُ HTTPS. HTTPS over I2P is experimental and requires self-signed certificates or alternate root authorites."
-  },
-  "clearData": {
-    "description": "تصفية قائمة البيانات.",
-    "message": "بيانات الحشد:"
-  },
-  "clearDesc": {
-    "description": "مسح وصف إجراءات البيانات.",
-    "message": "إستخدم هذا لمسح بياناتك."
-  },
-  "controlExplain": {
-    "description": "أدخل لوحة التحكم.",
-    "message": "هذه الضوابط تُستخدم لتكييف تجربتك في الحشد"
-  },
-  "controlHeader": {
-    "description": "عنوان لوحة التحكم.",
-    "message": "الرقابة"
-  },
-  "controlHelpText": {
-    "description": "المساعدة على تشكيل خيارات زر نفق ريست",
-    "message": "إعترفوا بأن مرشدكم هنا."
-  },
-  "controlHostText": {
-    "description": "(مضيف (روتر كونسول",
-    "message": "الجهة المضيفة:"
-  },
-  "controlHostValue": {
-    "description": "(مضيف (روتر كونسول",
-    "message": "127.0.0.1"
-  },
-  "controlPortText": {
-    "description": "Port for the Router Console",
-    "message": "مركز المراقبة:"
-  },
-  "controlPortValue": {
-    "description": "Port for the Router Console",
-    "message": "7657"
-  },
-  "description": {
-    "description": "أنت الآن قادرة على استخدام I2P في هذا بروزر.",
-    "message": "أنت الآن قادرة على استخدام I2P في هذا بروزر."
-  },
-  "description2": {
-    "description": "إذا كنت ترى هذه الصفحة، هو لأن خطأ محترف حدث. تم تقديم بعض المعلومات لمساعدتك في تشخيص المسألة.",
-    "message": "إذا كنت ترى هذه الصفحة، هو لأن خطأ محترف حدث. تم تقديم بعض المعلومات لمساعدتك في تشخيص المسألة."
-  },
-  "disableHistory": {
-    "description": "بطاقة تدقيق التاريخ.",
-    "message": "تاريخ معزول في تابس I2P؟?"
-  },
-  "enableWebRTC": {
-    "description": "(ويرتك).",
-    "message": "هل تستطيع أن تُخبر (ويك) بالوكالة؟?"
-  },
-  "extensionDescription": {
-    "description": "وصف التمديد.",
-    "message": "منظفك جاهز الآن لإستخدام I2P."
-  },
-  "extensionName": {
-    "description": "اسم التمديد.",
-    "message": "I2P In Private Browsing"
-  },
-  "extensionNameVariant": {
-    "description": "اسم التمديد.",
-    "message": "I2P In Private Browsing - Rhizome Variant"
-  },
-  "extensionPreface": {
-    "description": "وجه لقب المصفح",
-    "message": "I2P Management"
-  },
-  "extensionVersion": {
-    "description": "صورة التمديد.",
-    "message": "1.28"
-  },
-  "fliplinks": {
-    "description": "تمديد ونفقات الموارد",
-    "message": "تمديد ونفقات الموارد"
-  },
-  "forumMessage": {
-    "description": "رسالة المساعدة",
-    "message": "زيارة منتدى شركاء التنفيذ لتعلم المزيد أو طلب المساعدة"
-  },
-  "headline": {
-    "description": "قاذفة الإنترنت غير المرئية",
-    "message": "قاذفة الإنترنت غير المرئية"
-  },
-  "help": {
-    "description": "وصف لصفحة الزر.",
-    "message": "وللمزيد من المعلومات عن هذا التمديد، يرجى زيارة هذه الصفحة."
-  },
-  "helpMessage": {
-    "description": "رسالة المساعدة",
-    "message": "الحصول على مساعدة إضافية"
-  },
-  "histDesc": {
-    "description": "وصف الإجراءات التاريخية",
-    "message": "التاريخ يُبرّر تلقائياً عندما تُغلق رسومات I2P الخاصة بك. إذا كنت تريد تصفية التاريخ كما تذهب، تحقق من هذا الصندوق."
-  },
-  "homepage": {
-    "description": "البحث عن المزيد من المعلومات",
-    "message": "هناك المزيد من المعلومات المتاحة هنا"
-  },
-  "hostText": {
-    "description": "المضيف لشركة HTTP أو شركة SOCKS5",
-    "message": "المضيف:"
-  },
-  "i2ppage": {
-    "description": "وهناك المزيد من المعلومات المتاحة هنا.",
-    "message": "وهناك المزيد من المعلومات المتاحة هنا."
-  },
-  "i2ptunnel": {
-    "description": "Description for i2ptunnel",
-    "message": "I2P has a web-based interface for configuring.i2p services like web sites which you can set up."
-  },
-  "i2ptunnelPreface": {
-    "description": "وجه لقب المصفح",
-    "message": "مدير خدمات مخفي"
-  },
-  "i2ptunnelPrefacePrivate": {
-    "description": "وجه لقب المصفح",
-    "message": "مدير خدمات مخفي )مدير("
-  },
-  "infoMessage": {
-    "description": "رسالة المساعدة",
-    "message": "أنت الآن حرّ لتَغْطّمْ فوق ويب! مصففك الآن مجهز ليتصفح بشكل مجهول على شبكة I2P كما تَتصفحُ، حركة المرور الخاصة بكَ سَتُوجّهُ من خلال عقدِ شبكةِ أخرى لإخفاء هو أصلُ، كِلاً مِنْ الخادمِ و مِنْ العقدِ نفسهِ."
-  },
-  "infoTitle": {
-    "description": "عنوان قائمة المساعدة",
-    "message": "I2P النجدة"
-  },
-  "ircPreface": {
-    "description": "وجه لقب المصفح",
-    "message": "Dispatch IRC"
-  },
-  "ircPrefacePrivate": {
-    "description": "وجه لقب المصفح",
-    "message": "الهيئة الدولية لمراقبة المخدرات"
-  },
-  "isBase32": {
-    "description": "رسالة إلى قاعدة معلومات الموقع 32",
-    "message": "I2P Base32-Formatted Address"
-  },
-  "isHostName": {
-    "description": "رسالة لاستضافة لوحة معلومات الموقع",
-    "message": "I2P القفزة المضيفة"
-  },
-  "label-router-activepeers": {
-    "description": "ناشطين",
-    "message": "ناشطين"
-  },
-  "label-router-bandwidth": {
-    "description": "Bandwidth",
-    "message": "Bandwidth"
-  },
-  "label-router-bw-inbound-15s": {
-    "description": "في حدود 15",
-    "message": "في حدود 15"
-  },
-  "label-router-bw-inbound-1s": {
-    "description": "مقياس الجسم 1:",
-    "message": "مقياس الجسم 1:"
-  },
-  "label-router-bw-outbound-15s": {
-    "description": "مقاس 15 بوصة:",
-    "message": "مقاس 15 بوصة:"
-  },
-  "label-router-bw-outbound-1s": {
-    "description": "الرصيف الأول",
-    "message": "الرصيف الأول"
-  },
-  "label-router-net-tunnels-participating": {
-    "description": "سلالات العبور:",
-    "message": "سلالات العبور:"
-  },
-  "label-router-netdb-fastpeers": {
-    "description": "بسرعة",
-    "message": "بسرعة"
-  },
-  "label-router-netdb-highcapacitypeers": {
-    "description": "القدرات العالية بيرز:",
-    "message": "القدرات العالية بيرز:"
-  },
-  "label-router-netdb-isreseeding": {
-    "description": "Reseed status:",
-    "message": "Reseed status:"
-  },
-  "label-router-netdb-knownpeers": {
-    "description": "المعلمة بيرز:",
-    "message": "المعلمة بيرز:"
-  },
-  "label-router-peers": {
-    "description": "Peers",
-    "message": "Peers"
-  },
-  "label-router-status": {
-    "description": "Status Router Status:",
-    "message": "Status Router Status:"
-  },
-  "label-router-uptime": {
-    "description": "وقت التخرج",
-    "message": "وقت التخرج"
-  },
-  "label-router-version": {
-    "description": "الراقصة:",
-    "message": "الراقصة:"
-  },
-  "links": {
-    "description": "تمديد ونفقات الموارد",
-    "message": "تمديد ونفقات الموارد"
-  },
-  "linksExplain": {
-    "description": "إذا كنت تريد الحصول على المزيد من المعلومات عن I2P، يمكنك زيارة هذه الروابط.",
-    "message": "إذا كنت تريد الحصول على المزيد من المعلومات عن I2P، يمكنك زيارة هذه الروابط."
-  },
-  "mailPreface": {
-    "description": "وجه لقب المصفح",
-    "message": "البريد الشبكي"
-  },
-  "mailPrefacePrivate": {
-    "description": "وجه لقب المصفح",
-    "message": "البريد الإلكتروني (Private)"
-  },
-  "muwirePreface": {
-    "description": "وجه لقب المصفح",
-    "message": "MuWire"
-  },
-  "muwirePrefacePrivate": {
-    "description": "وجه لقب المصفح",
-    "message": "مووير (بريفيت)"
-  },
-  "newsMessage": {
-    "description": "رسالة المساعدة",
-    "message": "زيارة I2P اعتذر لتعلم آخر شيء عن (اي2ب)."
-  },
-  "onboardingButtonFive": {
-    "description": "تحسين الخبرة",
-    "message": "تحسين الخبرة"
-  },
-  "onboardingButtonFour": {
-    "description": "Sharing Files",
-    "message": "تبادل الملفات"
-  },
-  "onboardingButtonOne": {
-    "description": "I2P Network Browsing and Non-I2P Network Browsing",
-    "message": "I2P Network Browsing and Non-I2P Network Browsing"
-  },
-  "onboardingButtonThree": {
-    "description": "البريد الإلكتروني المخفي",
-    "message": "البريد الإلكتروني المخفي"
-  },
-  "onboardingButtonTwo": {
-    "description": "شبكة الحماية",
-    "message": "شبكة الحماية"
-  },
-  "onboardingButtonZero": {
-    "description": "احمي خصوصيتك",
-    "message": "احمي خصوصيتك"
-  },
-  "onboardingContentFive": {
-    "description": "هذا التمديد يمكن أن يقترن بتمديدات أخرى التي تُحسّن أحياناً وظيفتها شركة أوبلوك أوريغين، وشركة محلية، وشركة jShelter مفيدة للتعجيل بتحميل الصفحات، وحجب الإعلانات، والحد من قوة جافرين. وبالنسبة للمستعملين الذين يرغبون في حجب كل الجافوري، يوصى بـ \" NoScript \" .",
-    "message": "هذا التمديد يمكن أن يقترن بتمديدات أخرى التي تُحسّن أحياناً وظيفتها شركة أوبلوك أوريغين، وشركة محلية، وشركة jShelter مفيدة للتعجيل بتحميل الصفحات، وحجب الإعلانات، والحد من قوة جافرين. وبالنسبة للمستعملين الذين يرغبون في حجب كل الجافوري، يوصى بـ \" NoScript \" ."
-  },
-  "onboardingContentFour": {
-    "description": "I2P is capable of using peer-to-peer applications like Bit Torrent, protecting your identity when you share files. زبوننا الصغير المجهول متوفر في المسبح.",
-    "message": "I2P is capable of using peer-to-peer applications like Bit Torrent, protecting your identity when you share files. زبوننا الصغير المجهول متوفر في المسبح."
-  },
-  "onboardingContentOne": {
-    "description": "هذا التوسيع يعمل تلقائياً عندما تنظف مواقع I2P إذا كنت ترغب في استخدام I2P كوكيل للمواقع غير I2P، استخدام زر I2P In Private Browsing in the toolbar خبرتك بينما تنظف الانترنت قد تكون مختلفة قليلا قد تكون الأمور أبطأ قليلاً، ورهناً بمستوى أمنك، قد لا تعمل بعض العناصر أو تحملها. قد يُطلب منك أيضاً أن تثبت أنك إنسان وليس إنسان آلي.",
-    "message": "هذا التوسيع يعمل تلقائياً عندما تنظف مواقع I2P إذا كنت ترغب في استخدام I2P كوكيل للمواقع غير I2P، استخدام زر I2P In Private Browsing in the toolbar خبرتك بينما تنظف الانترنت قد تكون مختلفة قليلا قد تكون الأمور أبطأ قليلاً، ورهناً بمستوى أمنك، قد لا تعمل بعض العناصر أو تحملها. قد يُطلب منك أيضاً أن تثبت أنك إنسان وليس إنسان آلي."
-  },
-  "onboardingContentThree": {
-    "description": "وهناك أيضا خدمة بريد إلكتروني مجهولة الهوية متاحة داخل I2P، ويمكن الحصول عليها من مصففنا عن طريق القائمة مباشرة أدناه.",
-    "message": "وهناك أيضا خدمة بريد إلكتروني مجهولة الهوية متاحة داخل I2P، ويمكن الحصول عليها من مصففنا عن طريق القائمة مباشرة أدناه."
-  },
-  "onboardingContentTwo": {
-    "description": "I2P is normally administered via a WebUI (The \"Router Console \"), which the user sometimes views in the same browser they use to visit remote sites. ومن الضروري منع المواقع من الحصول على المعلومات من هذا الموقع وغيره من الخدمات التي يديرها محليا. ولا تزال مواقع شبكة التطهير في حاوية الدفء - الديوكس، ولكن بمجرد أن تطلب حاوية دفوكس - قاذف الديوكس (A)-onion أو *.i2p موقعا، ستتم حاويته فورا. أداة إدارة هوية (تور بروزر) تتحكم في تابوتات الشبكه النظيفه و هم يقتربون من استخدام المعالجه الخارجيه لـ (آي 2 بي) أو (بلوجين).",
-    "message": "I2P is normally administered via a WebUI (The Router Console) which the user sometimes views in the same browser they use to visit remote sites. ومن الضروري منع المواقع من الحصول على المعلومات من هذا الموقع وغيره من الخدمات التي يديرها محليا. ولا تزال مواقع شبكة التطهير في حاوية الدفء - الديوكس، ولكن بمجرد أن تطلب حاوية دفوكس - قاذف الديوكس (A)-onion أو *.i2p موقعا، ستتم حاويته فورا. أداة إدارة هوية (تور بروزر) تتحكم في تابوتات الشبكه النظيفه و هم يقتربون من استخدام المعالجه الخارجيه لـ (آي 2 بي) أو (بلوجين)."
-  },
-  "onboardingContentZero": {
-    "description": "عندما تستخدم (إي تو بي) في (مود) الخاص، فأنت محمي من التتبع والمراقبة. الـ (إي تو بي بروزر) يعزل الكعك ويحذف تاريخك بعد دورتك هذه التعديلات تضمن أن خصوصيتك وأمنك محمية كبروزك.",
-    "message": "عندما تستخدم (إي تو بي) في (مود) الخاص، فأنت محمي من التتبع والمراقبة. الـ (إي تو بي بروزر) يعزل الكعك ويحذف تاريخك بعد دورتك هذه التعديلات تضمن أن خصوصيتك وأمنك محمية كبروزك."
-  },
-  "onboardingFive": {
-    "description": "الخبرة",
-    "message": "الخبرة"
-  },
-  "onboardingFour": {
-    "description": "تحشد الشبكة",
-    "message": "تحشد الشبكة"
-  },
-  "onboardingOne": {
-    "description": "إئتمنْك الخبرة",
-    "message": "إئتمنْك الخبرة"
-  },
-  "onboardingThree": {
-    "description": "البريد الإلكتروني المخفي",
-    "message": "البريد الإلكتروني المخفي"
-  },
-  "onboardingTitle": {
-    "description": "حول I2P In Private Browsing",
-    "message": "حول I2P In Private Browsing"
-  },
-  "onboardingTwo": {
-    "description": "Share Files",
-    "message": "Share Files"
-  },
-  "onboardingZero": {
-    "description": "احمي خصوصيتك",
-    "message": "احمي خصوصيتك"
-  },
-  "portText": {
-    "description": "Port for the HTTP or SOCKS5 Proxy",
-    "message": "بورت:"
-  },
-  "protocolHandlerValue": {
-    "description": "قيمة معالج بروتوكول المغناطيس",
-    "message": "http://127.0.0.1:7657/i2psnark/?nofilter_newURL=%saction=Addfoo=Add+torrent"
-  },
-  "proxy-check": {
-    "description": "الوكيل جاهز.",
-    "message": "الوكيل جاهز."
-  },
-  "proxyFailedStatus": {
-    "description": "فشل الوكيل.",
-    "message": "الوكيل لَيسَ جاهزَ"
-  },
-  "proxyHelpText": {
-    "description": "المساعدة على تشكيل خيارات زر نفق ريست",
-    "message": "إعترف بوكيلك هنا."
-  },
-  "proxySuccessStatus": {
-    "description": "فشل الوكيل.",
-    "message": "الوكيل جاهز"
-  },
-  "readyness": {
-    "description": "الوكيل جاهز.",
-    "message": "الوكيل جاهز."
-  },
-  "releases": {
-    "description": "Description for new release page",
-    "message": "تحقق من الإطلاقات الجديدة هنا"
-  },
-  "resetMessage": {
-    "description": "رسالة لزر نفق ريست",
-    "message": "Reset Tunnel"
-  },
-  "returnhome": {
-    "description": "/",
-    "message": "/"
-  },
-  "router-net-bw-inbound-15s": {
-    "description": "يستعاض عن عبارة Router Bandwidth Outbound 15s",
-    "message": "يستعاض عن عبارة Router Bandwidth Outbound 15s"
-  },
-  "router-net-bw-inbound-1s": {
-    "description": "يستعاض عن عبارة Router Bandwidth Inbound 1s",
-    "message": "يستعاض عن عبارة Router Bandwidth Inbound 1s"
-  },
-  "router-net-bw-outbound-15s": {
-    "description": "يستعاض عن عبارة Router Bandwidth Outbound 15s",
-    "message": "يستعاض عن عبارة Router Bandwidth Outbound 15s"
-  },
-  "router-net-bw-outbound-1s": {
-    "description": "يستعاض عن عبارة Router Bandwidth Outbound 1s",
-    "message": "يستعاض عن عبارة Router Bandwidth Outbound 1s"
-  },
-  "router-net-tunnels-participating": {
-    "description": "يستعاض عن عبارة \" روتر \" التي تشارك في الكونت",
-    "message": "يستعاض عن عبارة \" روتر \" التي تشارك في الكونت"
-  },
-  "router-netdb-activepeers": {
-    "description": "يستعاض عن عبارة \" ناشطين \"",
-    "message": "يستعاض عن عبارة \" ناشطين \""
-  },
-  "router-netdb-fastpeers": {
-    "description": "يستعاض عن عبارة Router Fast Peers",
-    "message": "يستعاض عن عبارة Router Fast Peers"
-  },
-  "router-netdb-highcapacitypeers": {
-    "description": "يستعاض عن عبارة \" أصحاب القدرات العالية \"",
-    "message": "يستعاض عن عبارة \" أصحاب القدرات العالية \""
-  },
-  "router-netdb-isreseeding": {
-    "description": "يستعاض عن عبارة \" شبكة Router netDB Reseeding Status \"",
-    "message": "يستعاض عن عبارة \" شبكة Router netDB Reseeding Status \""
-  },
-  "router-netdb-knownpeers": {
-    "description": "يستعاض عن عبارة Router Known Peers",
-    "message": "يستعاض عن عبارة Router Known Peers"
-  },
-  "router-restart": {
-    "description": "ممر راحه",
-    "message": "ممر راحه"
-  },
-  "router-shutdown": {
-    "description": "ممر مقفل",
-    "message": "ممر مقفل"
-  },
-  "router-status": {
-    "description": "يستعاض عن عبارة \" Router Status \"",
-    "message": "يستعاض عن عبارة \" Router Status \""
-  },
-  "router-uptime": {
-    "description": "يستعاض عن عبارة \" الروت \" في وقت العمل",
-    "message": "يستعاض عن عبارة \" الروت \" في وقت العمل"
-  },
-  "router-version": {
-    "description": "يستعاض عن عبارة Router Version",
-    "message": "يستعاض عن عبارة Router Version"
-  },
-  "routerConsole": {
-    "description": "وصف لجهاز التحكم.",
-    "message": "نقطة الدخول لجميع تطبيقات I2P الأخرى هي كونسول I2P لزيارتها، انقر هنا."
-  },
-  "routerPreface": {
-    "description": "وجه لقب المصفح",
-    "message": "Router Console"
-  },
-  "routerPrefacePrivate": {
-    "description": "وجه لقب المصفح",
-    "message": "Router Console (Private)"
-  },
-  "rpcHelpText": {
-    "description": "إعترف بخياراتك هنا إعترف بخياراتك هنا.",
-    "message": "إعترف بخياراتك هنا إعترف بخياراتك هنا."
-  },
-  "rpcHostText": {
-    "description": "مركز المراقبة:",
-    "message": "مركز المراقبة:"
-  },
-  "rpcPassText": {
-    "description": "كلمة سر المراقبة: رشاش من طراز RPC كلمة السر:",
-    "message": "كلمة سر المراقبة: رشاش من طراز RPC كلمة السر:"
-  },
-  "rpcPathText": {
-    "description": "مركز التحكم:",
-    "message": "مركز التحكم:"
-  },
-  "rpcPortText": {
-    "description": "الجهة المضيفة:",
-    "message": "الجهة المضيفة:"
-  },
-  "rtcDesc": {
-    "description": "وصف عمل الشبكة",
-    "message": "(ويرتي سي) معوقة بسبب الفشل، لكن يمكنك إعادة تشغيله وإجباره على تكريم العميل. إذا كنت مستعملاً لتمديد \"سنوفليك برووزر\" هذا الخيار معوق و \"ويب آر تي سي\" يتحول إلى عجز."
-  },
-  "signingcert": {
-    "description": "توقيع:",
-    "message": "توقيع:"
-  },
-  "siteLabel": {
-    "description": "Label for i2p site info",
-    "message": "العنوان/الموقع:"
-  },
-  "sitecert": {
-    "description": "شهادة المعلومات:",
-    "message": "شهادة المعلومات:"
-  },
-  "snark": {
-    "description": "Description for Bittorrent",
-    "message": "I2P is capable of anonymous Peer-to-Peer file sharing using the built-in bittorrent application."
-  },
-  "sourcehead": {
-    "description": "الحصول على رمز المصدر:",
-    "message": "الحصول على رمز المصدر:"
-  },
-  "sources": {
-    "description": "Description for the Source code link",
-    "message": "فجر رمز المصدر هنا"
-  },
-  "susimail": {
-    "description": "وصف البريد الإلكتروني",
-    "message": "ويجمع I2P أيضا زبون بريد إلكتروني يمكن استخدامه للوصول إلى البريد الإلكتروني I2P."
-  },
-  "text-section-header": {
-    "description": "قاذفة الإنترنت غير المرئية",
-    "message": "قاذفة الإنترنت غير المرئية"
-  },
-  "text-section-proxyerr-header": {
-    "description": "\"المحقق (إير)\"",
-    "message": "\"المحقق (إير)\""
-  },
-  "text-section-torrents-header": {
-    "description": "الحمولات المروعة",
-    "message": "الحمولات المروعة"
-  },
-  "titlePreface": {
-    "description": "وجه لقب المصفح",
-    "message": "I2P Browser"
-  },
-  "titlePrefacePrivate": {
-    "description": "وجه لقب المصفح",
-    "message": "I2P Browser (Private)"
-  },
-  "toopie": {
-    "description": "للحصول على معلومات عن وضعية جهاز توجيه I2P الخاص بك، انتقل هنا:",
-    "message": "للحصول على معلومات عن وضعية جهاز توجيه I2P الخاص بك، انتقل هنا:"
-  },
-  "toopieHtmlHeadline": {
-    "description": "I2P Router Information",
-    "message": "I2P Router Information"
-  },
-  "toopieName": {
-    "description": "اسم الجانب.",
-    "message": "أيضاً html"
-  },
-  "toopieTLS": {
-    "description": "اسم فريق الأمن.",
-    "message": "Site Properties"
-  },
-  "topbar": {
-    "description": "الحمولة",
-    "message": "الحمولة"
-  },
-  "torPreface": {
-    "description": "وجه لقب المصفح",
-    "message": "Tor Manager"
-  },
-  "torPrefacePrivate": {
-    "description": "وجه لقب المصفح",
-    "message": "Tor Manager (Private)"
-  },
-  "torrent-action": {
-    "description": "تحميل",
-    "message": "تحميل"
-  },
-  "torrentControls": {
-    "description": "الضوابط الرهيبة",
-    "message": "الضوابط الرهيبة"
-  },
-  "torrentDownloads": {
-    "description": "الحمولات المروعة",
-    "message": "الحمولات المروعة"
-  },
-  "torrentPreface": {
-    "description": "وجه لقب المصفح",
-    "message": "Bittorrent"
-  },
-  "torrentPrefacePrivate": {
-    "description": "وجه لقب المصفح",
-    "message": "Bittorrent (Private)"
-  },
-  "torrentui-opener": {
-    "description": "Open WebUI",
-    "message": "Open WebUI"
-  },
-  "visit-irc": {
-    "description": "Visit IRC",
-    "message": "Visit IRC"
-  },
-  "webPreface": {
-    "description": "وجه لقب المصفح",
-    "message": "Web Browser"
-  },
-  "webPrefacePrivate": {
-    "description": "وجه لقب المصفح",
-    "message": "بروزر (بريفيت)"
-  },
-  "webpage": {
-    "description": "وهناك المزيد من المعلومات المتاحة هنا.",
-    "message": "وهناك المزيد من المعلومات المتاحة هنا."
-  },
-  "window-visit-console": {
-    "description": "I2P Router Console",
-    "message": "I2P Router Console"
-  },
-  "window-visit-help": {
-    "description": "تقديم المساعدة",
-    "message": "تقديم المساعدة"
-  },
-  "window-visit-homepage": {
-    "description": "قاذفة الإنترنت غير المرئية",
-    "message": "قاذفة الإنترنت غير المرئية"
-  },
-  "window-visit-i2p": {
-    "description": "I2P Project Homepage:",
-    "message": "I2P Project Homepage:"
-  },
-  "window-visit-i2ptunnel": {
-    "description": "مدير خدمات مخفي",
-    "message": "مدير خدمات مخفي"
-  },
-  "window-visit-index": {
-    "description": "Webextension Homepage:",
-    "message": "Webextension Homepage:"
-  },
-  "window-visit-releases": {
-    "description": "الإطلاقات:",
-    "message": "الإطلاقات:"
-  },
-  "window-visit-router": {
-    "description": "Router Console",
-    "message": "Router Console"
-  },
-  "window-visit-settings": {
-    "description": "افتحي البيئات",
-    "message": "افتحي البيئات"
-  },
-  "window-visit-snark": {
-    "description": "Bit Torrent",
-    "message": "Bit Torrent"
-  },
-  "window-visit-sources": {
-    "description": "المصدر:",
-    "message": "المصدر:"
-  },
-  "window-visit-susimail": {
-    "description": "E-Mail",
-    "message": "E-Mail"
-  },
-  "window-visit-toopie": {
-    "description": "Toopie",
-    "message": "Toopie"
-  },
-  "window-visit-torrent": {
-    "description": "For assistance, visit the torrent help page",
-    "message": "For assistance, visit the torrent help page"
-  },
-  "windowVisitConsole": {
-    "description": "(روتر كونسول).",
-    "message": "Router Console:"
-  },
-  "windowVisitHelppage": {
-    "description": "صفحة مساعدة لعلامة التمديد.",
-    "message": "معلومات توسيع الشبكة:"
-  },
-  "windowVisitHomepage": {
-    "description": "صفحة منزل لعلامة التمديد.",
-    "message": "Home Page:"
-  },
-  "windowVisitI2ptunnel": {
-    "description": "العنوان: i2ptunnel",
-    "message": "مدير الخدمات المخفية:"
-  },
-  "windowVisitReleases": {
-    "description": "زيارة الصفحة",
-    "message": "إصدارات التمديد:"
-  },
-  "windowVisitSnark": {
-    "description": "Title for Bittorrent",
-    "message": "بيتيرنت:"
-  },
-  "windowVisitSources": {
-    "description": "Title for source code link",
-    "message": "قانون التمديد"
-  },
-  "windowVisitSusimail": {
-    "description": "عنوان البريد الإلكتروني",
-    "message": "E-Mail:"
-  },
-  "windowVisitWebPage": {
-    "description": "صحيفة \" غيثوب \" لتوسيع نطاق الزيارات",
-    "message": "Home Page:"
-  }
+    "CertLabel": {
+        "description": "شهادة المعلومات:",
+        "message": "شهادة المعلومات:"
+    },
+    "abouthome": {
+        "description": "وصف لصفحة الزر.",
+        "message": "وللمزيد من المعلومات عن هذا التمديد، يرجى زيارة هذه الصفحة."
+    },
+    "applicationHeader": {
+        "description": "رئيس قسم الطلبات.",
+        "message": "التطبيقات"
+    },
+    "blogPreface": {
+        "description": "وجه لقب المصفح",
+        "message": "Blog"
+    },
+    "blogPrefacePrivate": {
+        "description": "وجه لقب المصفح",
+        "message": "Blog (Private)"
+    },
+    "certLabel": {
+        "description": "Label for certificate info",
+        "message": "شهادة المعلومات:"
+    },
+    "clearDesc": {
+        "description": "مسح وصف إجراءات البيانات.",
+        "message": "إستخدم هذا لمسح بياناتك."
+    },
+    "controlExplain": {
+        "description": "أدخل لوحة التحكم.",
+        "message": "هذه الضوابط تُستخدم لتكييف تجربتك في الحشد"
+    },
+    "controlHelpText": {
+        "description": "المساعدة على تشكيل خيارات زر نفق ريست",
+        "message": "إعترفوا بأن مرشدكم هنا."
+    },
+    "controlPortText": {
+        "description": "Port for the Router Console",
+        "message": "مركز المراقبة:"
+    },
+    "controlPortValue": {
+        "description": "Port for the Router Console",
+        "message": "7657"
+    },
+    "description": {
+        "description": "أنت الآن قادرة على استخدام I2P في هذا بروزر.",
+        "message": "أنت الآن قادرة على استخدام I2P في هذا بروزر."
+    },
+    "extensionDescription": {
+        "description": "وصف التمديد.",
+        "message": "شبكة \"آي 2 بي\" سهلت."
+    },
+    "extensionName": {
+        "description": "اسم التمديد.",
+        "message": "I2P In Private Browsing"
+    },
+    "extensionPreface": {
+        "description": "وجه لقب المصفح",
+        "message": "I2P Management"
+    },
+    "extensionVersion": {
+        "description": "صورة التمديد.",
+        "message": "1.28"
+    },
+    "fliplinks": {
+        "description": "تمديد ونفقات الموارد",
+        "message": "تمديد ونفقات الموارد"
+    },
+    "headline": {
+        "description": "قاذفة الإنترنت غير المرئية",
+        "message": "قاذفة الإنترنت غير المرئية"
+    },
+    "help": {
+        "description": "وصف لصفحة الزر.",
+        "message": "وللمزيد من المعلومات عن هذا التمديد، يرجى زيارة هذه الصفحة."
+    },
+    "label-router-bw-inbound-15s": {
+        "description": "في حدود 15",
+        "message": "في حدود 15"
+    },
+    "label-router-bw-inbound-1s": {
+        "description": "مقياس الجسم 1:",
+        "message": "مقياس الجسم 1:"
+    },
+    "label-router-bw-outbound-1s": {
+        "description": "الرصيف الأول",
+        "message": "الرصيف الأول"
+    },
+    "label-router-peers": {
+        "description": "Peers",
+        "message": "Peers"
+    },
+    "label-router-version": {
+        "description": "الراقصة:",
+        "message": "الراقصة:"
+    },
+    "linksExplain": {
+        "description": "إذا كنت تريد الحصول على المزيد من المعلومات عن I2P، يمكنك زيارة هذه الروابط.",
+        "message": "إذا كنت تريد الحصول على المزيد من المعلومات عن I2P، يمكنك زيارة هذه الروابط."
+    },
+    "muwirePreface": {
+        "description": "وجه لقب المصفح",
+        "message": "MuWire"
+    },
+    "onboardingButtonFive": {
+        "description": "تحسين الخبرة",
+        "message": "تحسين الخبرة"
+    },
+    "onboardingButtonOne": {
+        "description": "I2P Network Browsing and Non-I2P Network Browsing",
+        "message": "I2P Network Browsing and Non-I2P Network Browsing"
+    },
+    "onboardingContentOne": {
+        "description": "هذا التوسيع يعمل تلقائياً عندما تنظف مواقع I2P إذا كنت ترغب في استخدام I2P كوكيل للمواقع غير I2P، استخدام زر I2P In Private Browsing in the toolbar خبرتك بينما تنظف الانترنت قد تكون مختلفة قليلا قد تكون الأمور أبطأ قليلاً، ورهناً بمستوى أمنك، قد لا تعمل بعض العناصر أو تحملها. قد يُطلب منك أيضاً أن تثبت أنك إنسان وليس إنسان آلي.",
+        "message": "هذا التوسيع يعمل تلقائياً عندما تنظف مواقع I2P إذا كنت ترغب في استخدام I2P كوكيل للمواقع غير I2P، استخدام زر I2P In Private Browsing in the toolbar خبرتك بينما تنظف الانترنت قد تكون مختلفة قليلا قد تكون الأمور أبطأ قليلاً، ورهناً بمستوى أمنك، قد لا تعمل بعض العناصر أو تحملها. قد يُطلب منك أيضاً أن تثبت أنك إنسان وليس إنسان آلي."
+    },
+    "onboardingContentThree": {
+        "description": "وهناك أيضاً خدمة بريد إلكتروني مجهولة الهوية متاحة داخل I2P، ويمكن الحصول عليها من منظفنا عن طريق القائمة مباشرة إلى اليمين.",
+        "message": "وهناك أيضاً خدمة بريد إلكتروني مجهولة الهوية متاحة داخل I2P، ويمكن الحصول عليها من منظفنا عن طريق القائمة مباشرة إلى اليمين."
+    },
+    "onboardingFive": {
+        "description": "الخبرة",
+        "message": "الخبرة"
+    },
+    "onboardingThree": {
+        "description": "البريد الإلكتروني المخفي",
+        "message": "البريد الإلكتروني المخفي"
+    },
+    "proxy-check": {
+        "description": "الوكيل جاهز.",
+        "message": "الوكيل جاهز."
+    },
+    "router-net-bw-outbound-15s": {
+        "description": "يستعاض عن عبارة Router Bandwidth Outbound 15s",
+        "message": "يستعاض عن عبارة Router Bandwidth Outbound 15s"
+    },
+    "router-netdb-activepeers": {
+        "description": "يستعاض عن عبارة \" ناشطين \"",
+        "message": "يستعاض عن عبارة \" ناشطين \""
+    },
+    "router-netdb-isreseeding": {
+        "description": "يستعاض عن عبارة \" شبكة Router netDB Reseeding Status \"",
+        "message": "يستعاض عن عبارة \" شبكة Router netDB Reseeding Status \""
+    },
+    "router-uptime": {
+        "description": "يستعاض عن عبارة \" الروت \" في وقت العمل",
+        "message": "يستعاض عن عبارة \" الروت \" في وقت العمل"
+    },
+    "routerPrefacePrivate": {
+        "description": "وجه لقب المصفح",
+        "message": "Router Console (Private)"
+    },
+    "rpcHostText": {
+        "description": "مركز المراقبة:",
+        "message": "مركز المراقبة:"
+    },
+    "text-section-proxyerr-header": {
+        "description": "\"المحقق (إير)\"",
+        "message": "\"المحقق (إير)\""
+    },
+    "toopieName": {
+        "description": "اسم الجانب.",
+        "message": "أيضاً html"
+    },
+    "torrentControls": {
+        "description": "الضوابط الرهيبة",
+        "message": "الضوابط الرهيبة"
+    },
+    "torrentPreface": {
+        "description": "وجه لقب المصفح",
+        "message": "Bittorrent"
+    },
+    "visit-irc": {
+        "description": "Visit IRC",
+        "message": "Visit IRC"
+    },
+    "window-visit-console": {
+        "description": "I2P Router Console",
+        "message": "I2P Router Console"
+    },
+    "window-visit-homepage": {
+        "description": "قاذفة الإنترنت غير المرئية",
+        "message": "قاذفة الإنترنت غير المرئية"
+    },
+    "window-visit-router": {
+        "description": "Router Console",
+        "message": "Router Console"
+    },
+    "window-visit-settings": {
+        "description": "افتحي البيئات",
+        "message": "افتحي البيئات"
+    },
+    "window-visit-snark": {
+        "description": "Bit Torrent",
+        "message": "Bit Torrent"
+    },
+    "window-visit-torrent": {
+        "description": "For assistance, visit the torrent help page",
+        "message": "For assistance, visit the torrent help page"
+    },
+    "windowVisitHelppage": {
+        "description": "صفحة مساعدة لعلامة التمديد.",
+        "message": "معلومات توسيع الشبكة:"
+    },
+    "windowVisitHomepage": {
+        "description": "صفحة منزل لعلامة التمديد.",
+        "message": "Home Page:"
+    },
+    "windowVisitReleases": {
+        "description": "زيارة الصفحة",
+        "message": "إصدارات التمديد:"
+    },
+    "windowVisitWebPage": {
+        "description": "صحيفة \" غيثوب \" لتوسيع نطاق الزيارات",
+        "message": "Home Page:"
+    }
 }
