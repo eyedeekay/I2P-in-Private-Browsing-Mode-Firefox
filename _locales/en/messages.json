@@ -20,7 +20,7 @@
   "addresstype": { "description": "Address Type:", "message": "Address Type:" },
   "applicationExplain": {
     "description": "Description for application section.",
-    "message": "These applications work with I2P directly to provide them with security and privacy."
+    "message": "The I2P router console and applications open in their own tab, providing them with the same security benefits as browsing with this extension. This adds more protection by isolating each application and preventing other tabs ( ie social media, etc ) from fingerprinting or scripts. All tabs use identifying colours to keep track of your I2P workflow."
   },
   "applicationHeader": {
     "description": "Header for applications section.",
@@ -185,7 +185,7 @@
   },
   "i2ptunnel": {
     "description": "Description for i2ptunnel",
-    "message": "I2P has a web-based interface for configuring .i2p services like web sites which you can set up."
+    "message": "View proxy status messages and configure services and tunnels."
   },
   "i2ptunnelPreface": {
     "description": "Preface for the browser titlebar",
@@ -476,7 +476,7 @@
   },
   "routerConsole": {
     "description": "Description for the router console.",
-    "message": "The entrypoint for all other I2P applications is the I2P Router Console. To visit it, click here."
+    "message": "Access your I2P router console and its full range of applications and configurations."
   },
   "routerPreface": {
     "description": "Preface for the browser titlebar",
@@ -512,7 +512,7 @@
   },
   "snark": {
     "description": "Description for Bittorrent",
-    "message": "I2P is capable of anonymous Peer-to-Peer file sharing using the built-in bittorrent application."
+    "message": "Quick access to Snark, the Peer-to-peer I2P network specific file sharing application."
   },
   "sourcehead": {
     "description": "Get the source code:",
@@ -524,7 +524,7 @@
   },
   "susimail": {
     "description": "Description for e-mail",
-    "message": "I2P also bundles a webmail client which can be used to access in-I2P e-mail."
+    "message": "Quick access to the SusiMail I2P network email client."
   },
   "text-section-header": {
     "description": "The Invisible Internet Browser",
