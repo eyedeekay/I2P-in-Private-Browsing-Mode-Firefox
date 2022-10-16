@@ -16,4 +16,4 @@ git commit -am "checkin translations pt" && git push ---all
 webext-translator -lang="ru"
 git commit -am "checkin translations ru" && git push ---all
 webext-translator -lang="es"
-git commit -am "checkin translations ex" && git push ---all
+git commit -am "checkin translations es" && git push ---all
