@@ -129,7 +129,7 @@
     },
     "extensionDescription": {
         "description": "Description of the extension.",
-        "message": "Your browser is now set up to use I2P."
+        "message": "I2P network browsing made easy."
     },
     "extensionName": {
         "description": "Name of the extension.",
@@ -341,8 +341,8 @@
         "message": "This extension works automatically when you are browsing I2P sites. If you want to use I2P as a proxy to non-I2P sites, use the I2P In Private Browsing button in the toolbar and click New I2P Browser Tab to switch to I2P Browsing in a new tab. Your experience while browsing the internet may be a little different. Things may be a bit slower, and depending on your security level, some elements may not work or load. You may also be asked to prove you are a human and not a robot."
     },
     "onboardingContentThree": {
-        "description": "There is also an anonymous e-mail service available inside of I2P, which is accessible from our browser via the menu directly below.",
-        "message": "There is also an anonymous e-mail service available inside of I2P, which is accessible from our browser via the menu directly below."
+        "description": "There is also an anonymous e-mail service available inside of I2P, which is accessible from our browser via the menu directly to the right.",
+        "message": "There is also an anonymous e-mail service available inside of I2P, which is accessible from our browser via the menu directly to the right."
     },
     "onboardingContentTwo": {
         "description": "I2P is normally administered via a WebUI(The \"Router Console \"), which the user sometimes views in the same browser they use to visit remote sites. It is essential to prevent sites from being able to access information from this WebUI and other locally running services.  Clearnet sites remain in the firefox-default container, but as soon as the firefox-default container requests a *.onion or *.i2p site, it will be instantly containerized. Tor Browser's identity management tooling controls clearnet tabs, and they are proxied using the default I2P outproxy or outproxy plugin.",

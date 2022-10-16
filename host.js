@@ -1,15 +1,9 @@
 function proxyHost(requestDetails) {
-    switch (requestDetails.tabId) {
-        case -1:
-            break;
-        case undefined:
-            break;
-        case null:
-            break;
-        default:
-            return false;
+    if (requestDetails.tabId > 0) {
+        return false;
     }
     console.warn('(host) requestDetails', requestDetails.tabId);
+    console.warn('(host) requestDetails', requestDetails.url);
     let hostname = '';
     if (requestDetails.url.indexOf('://') > -1) {
         hostname = requestDetails.url.split('/')[2];
@@ -116,7 +110,7 @@ function i2pHost(url) {
     let hostname = i2pHostName(url.url);
     let postname = hostname.split(':')[0];
     if (postname.endsWith('proxy.i2p')) {
-      return false;
+        return false;
     }
     return postname.endsWith('.i2p');
 }

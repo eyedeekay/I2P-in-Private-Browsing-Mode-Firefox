@@ -166,9 +166,6 @@ var handleContextProxyRequest = async function(requestDetails) {
                 } else if (context.name == botepref) {
                     proxy = routerProxy();
                     return proxy;
-                } else if (context.name == torpref) {
-                    proxy = routerProxy();
-                    return proxy;
                 }
             } else {
                 if (!routerHost(requestDetails.url)) {
@@ -194,7 +191,17 @@ var handleContextProxyRequest = async function(requestDetails) {
                         port: getPort()
                     };
                 } else {
-                    proxy = null;
+                    if (proxyHost(requestDetails)) {
+                        if (requestDetails.tabId < 0) {
+                            proxy = {
+                                type: getScheme(),
+                                host: getHost(),
+                                port: getPort()
+                            };
+                        }
+                    } else {
+                        proxy = null;
+                    }
                 }
                 if (requestDetails.url.includes('rpc')) {
                     console.log('(proxy for rpc url)', rpc);
