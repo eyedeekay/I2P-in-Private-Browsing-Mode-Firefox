@@ -37,8 +37,8 @@ clean: rc clean-artifacts
 ## EVEN RELEASES are AMO RELEASES
 ## ODD RELEASES are SELFHOSTED RELEASES
 
-MOZ_VERSION=1.36
-VERSION=1.35
+MOZ_VERSION=1.38
+VERSION=1.37
 
 ## INCREMENT THIS EVERY TIME YOU DO A RELEASE
 LAST_VERSION=$(shell grep '"version"' manifest.json | sed 's|"version"||g' | tr -d " :,'" | tr -d '"')
@@ -97,13 +97,13 @@ xpi: getxpi
 
 version:
 	sed -i 's|7647|7657|g' *.js* torrent/*.js*
-	find . -name 'messages.json' -exec sed -i 's|$(LAST_VERSION)|$(VERSION)|g' {} \;
-	find . -name 'messages.json' -exec sed -i 's|$(MOZ_VERSION)|$(VERSION)|g' {} \;
+	find . -name '*.json' -exec sed -i 's|$(LAST_VERSION)|$(VERSION)|g' {} \;
+	find . -name '*.json' -exec sed -i 's|$(MOZ_VERSION)|$(VERSION)|g' {} \;
 
 moz-version:
 	sed -i 's|7647|7657|g' *.js* torrent/*.js*
-	find . -name 'messages.json' -exec sed -i 's|$(LAST_VERSION)|$(MOZ_VERSION)|g' {} \;
-	find . -name 'messages.json' -exec sed -i 's|$(VERSION)|$(MOZ_VERSION)|g' {} \;
+	find . -name '*.json' -exec sed -i 's|$(LAST_VERSION)|$(MOZ_VERSION)|g' {} \;
+	find . -name '*.json' -exec sed -i 's|$(VERSION)|$(MOZ_VERSION)|g' {} \;
 
 rhz-version:
 	sed -i 's|7657|7647|g' *.js* torrent/*.js*
