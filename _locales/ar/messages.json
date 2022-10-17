@@ -79,10 +79,6 @@
         "description": "مضمون المعلومات المتعلقة بالشهادة إذا لم يكن هناك",
         "message": "هذا الموقع لا يستخدم جهاز تحديد المواقع ما زالَ يُتأكّدُ مِنْ المُبْكَرَةِ مِن قِبل I2P."
     },
-    "certLabel": {
-        "description": "Label for certificate info",
-        "message": "شهادة المعلومات:"
-    },
     "certPresent": {
         "description": "مضمون المعلومات المتعلقة بالشهادة إذا كان حاضرا",
         "message": "هذا الموقعِ يَستعملُ HTTPS. HTTPS over I2P is experimental and requires self-signed certificates or alternate root authorites."
