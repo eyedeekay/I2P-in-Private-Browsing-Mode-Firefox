@@ -4,6 +4,7 @@ i2psetproxy.js (0.135-1) UNRELEASED; urgency=low
   * Fix compatibility with third-party themes
   * Update text
   * Improve translation coverage
+  * Descriptive proxy error page
 
  -- idk <hankhill19580@gmail.com> Sun, 16 Oct 2022 09:21:20 -0400
 
