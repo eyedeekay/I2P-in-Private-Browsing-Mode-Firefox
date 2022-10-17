@@ -1,8 +1,17 @@
+i2psetproxy.js (0.135-1) UNRELEASED; urgency=low
+
+  * Style update
+  * Fix compatibility with third-party themes
+  * Update text
+  * Improve translation coverage
+
+ -- idk <hankhill19580@gmail.com> Sun, 16 Oct 2022 09:21:20 -0400
+
 i2psetproxy.js (0.133-1) UNRELEASED; urgency=low
 
   * Add machine translations for several languages
 
- -- idk <hankhill19580@gmail.com> Mon, 32 May 2022 16:28:06 -0400
+ -- idk <hankhill19580@gmail.com> Mon, 31 May 2022 16:28:06 -0400
 
 i2psetproxy.js (0.131-1) UNRELEASED; urgency=low
 
