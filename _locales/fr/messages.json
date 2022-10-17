@@ -79,10 +79,6 @@
         "description": "Contenu de l'information de certificat si absent",
         "message": "Ce site n'utilise pas HTTPS. Il est encore vérifié cryptographiquement par I2P."
     },
-    "certLabel": {
-        "description": "Étiquette pour info certificat",
-        "message": "Renseignements sur le certificat:"
-    },
     "certPresent": {
         "description": "Contenu pour les informations de certificat si présent",
         "message": "Ce site utilise HTTPS. HTTPS sur I2P est expérimental et nécessite des certificats autosignés ou des auteurs root alternatifs."

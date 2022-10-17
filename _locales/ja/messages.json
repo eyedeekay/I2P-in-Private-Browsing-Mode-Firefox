@@ -79,10 +79,6 @@
         "description": "不在の場合の証明書情報のためのコンテンツ",
         "message": "このサイトはHTTPSを利用していません。 I2Pによって暗号化されても検証されています。."
     },
-    "certLabel": {
-        "description": "証明書情報ラベル",
-        "message": "証明書情報:"
-    },
     "certPresent": {
         "description": "証明書情報の内容 提示すれば",
         "message": "このサイトは HTTPS を使用しています。 I2P上のHTTPSは実験的であり、自己署名された証明書または代替ルートの作者を必要とします。."

@@ -79,10 +79,6 @@
         "description": "无证件的处理",
         "message": "该网站没有使用HTTPS。 仍然由I2P核实。."
     },
-    "certLabel": {
-        "description": "出生证明人",
-        "message": "证明信息:"
-    },
     "certPresent": {
         "description": "证明的内容",
         "message": "该网站使用HTTPS。 在I2P的技转设备是试验性的,需要自发证书或副根基。."

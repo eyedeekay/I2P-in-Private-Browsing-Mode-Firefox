@@ -19,7 +19,7 @@ function contentUpdateById(id, message) {
 
 contentUpdateById("TypeLabel", "siteLabel");
 
-contentUpdateById("CertLabel", "certLabel");
+contentUpdateById("CertLabel", "CertLabel");
 
 function tabCheck(tabInfo) {
   // Information Section
