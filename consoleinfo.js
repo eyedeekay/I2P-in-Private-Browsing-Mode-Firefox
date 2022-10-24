@@ -1,44 +1,44 @@
 document.addEventListener(
-    'DOMContentLoaded',
-    function() {
-        fetch('http://127.0.0.1:7657').then(
-            (myJson) => {
-                console.warn('(consoleinfo)', myJson);
-                contentUpdateById('router-check', 'consoleSuccessStatus');
-                let routerness = document.querySelectorAll('.routerness');
-                if (routerness !== null) {
-                    unhide(routerness);
-                }
-            },
-            (error) => {
-                console.error('(consoleinfo)', error);
-                contentUpdateById('router-check', 'consoleFailedStatus');
-                let routerness = document.querySelectorAll('.routerness');
-                if (routerness !== null) {
-                    hide(routerness);
-                }
-            }
-        );
-    },
-    false
+  "DOMContentLoaded",
+  function () {
+    fetch("http://127.0.0.1:7657/welcome").then(
+      (myJson) => {
+        console.warn("(consoleinfo)", myJson);
+        contentUpdateById("router-check", "consoleSuccessStatus");
+        let routerness = document.querySelectorAll(".routerness");
+        if (routerness !== null) {
+          unhide(routerness);
+        }
+      },
+      (error) => {
+        console.error("(consoleinfo)", error);
+        contentUpdateById("router-check", "consoleFailedStatus");
+        let routerness = document.querySelectorAll(".routerness");
+        if (routerness !== null) {
+          hide(routerness);
+        }
+      }
+    );
+  },
+  false
 );
 
 function hide(elements) {
-    elements = elements.length ? elements : [elements];
-    for (var index = 0; index < elements.length; index++) {
-        if (elements[index].style !== undefined) {
-            elements[index].style.display = "none";
-        }
+  elements = elements.length ? elements : [elements];
+  for (var index = 0; index < elements.length; index++) {
+    if (elements[index].style !== undefined) {
+      elements[index].style.display = "none";
     }
+  }
 }
 
 function unhide(elements) {
-    elements = elements.length ? elements : [elements];
-    for (var index = 0; index < elements.length; index++) {
-        if (elements[index].style !== undefined) {
-            elements[index].style.display = "inline-block";
-        }
+  elements = elements.length ? elements : [elements];
+  for (var index = 0; index < elements.length; index++) {
+    if (elements[index].style !== undefined) {
+      elements[index].style.display = "inline-block";
     }
+  }
 }
 
 //TODO: Don't hard-code this.

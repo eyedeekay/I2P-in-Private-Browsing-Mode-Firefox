@@ -1,5 +1,5 @@
 //var windowIds = []
-var titlepref = chrome.i18n.getMessage('titlePreface');
+var titlepref = chrome.i18n.getMessage("titlePreface");
 
 function onError(error) {
   console.log(`Error : ${error}`);
@@ -10,20 +10,20 @@ function eventHandler(event) {
     console.log(`Created window : ${windowInfo.id}`);
     browser.tabs.create({
       windowId: windowInfo.id,
-      url: 'about:blank',
-      cookieStoreId: event.target.dataset.identity
+      url: "about:blank",
+      cookieStoreId: event.target.dataset.identity,
     });
   }
-  if (event.target.dataset.action == 'new-i2p browser tab') {
+  if (event.target.dataset.action == "new-i2p browser tab") {
     var creating = browser.tabs.create({
-      cookieStoreId: event.target.dataset.identity
+      cookieStoreId: event.target.dataset.identity,
     });
     creating.then(onCreated, onError);
   }
-  if (event.target.dataset.action == 'close-all i2p browser tabs') {
+  if (event.target.dataset.action == "close-all i2p browser tabs") {
     browser.tabs
       .query({
-        cookieStoreId: event.target.dataset.identity
+        cookieStoreId: event.target.dataset.identity,
       })
       .then((tabs) => {
         browser.tabs.remove(tabs.map((rem) => rem.id));
