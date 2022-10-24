@@ -1,38 +1,38 @@
-var titlepref = chrome.i18n.getMessage("titlePreface");
-var webpref = chrome.i18n.getMessage("webPreface");
-var routerpref = chrome.i18n.getMessage("routerPreface");
-var mailpref = chrome.i18n.getMessage("mailPreface");
-var torrentpref = chrome.i18n.getMessage("torrentPreface");
-var tunnelpref = chrome.i18n.getMessage("i2ptunnelPreface");
-var ircpref = chrome.i18n.getMessage("ircPreface");
-var extensionpref = chrome.i18n.getMessage("extensionPreface");
-var muwirepref = chrome.i18n.getMessage("muwirePreface");
-var botepref = chrome.i18n.getMessage("botePreface");
-var blogpref = chrome.i18n.getMessage("blogPreface");
-var blogprefpriv = chrome.i18n.getMessage("blogPrefacePrivate");
-var torpref = chrome.i18n.getMessage("torPreface");
-var torprefpriv = chrome.i18n.getMessage("torPrefacePrivate");
+var titlepref = chrome.i18n.getMessage('titlePreface');
+var webpref = chrome.i18n.getMessage('webPreface');
+var routerpref = chrome.i18n.getMessage('routerPreface');
+var mailpref = chrome.i18n.getMessage('mailPreface');
+var torrentpref = chrome.i18n.getMessage('torrentPreface');
+var tunnelpref = chrome.i18n.getMessage('i2ptunnelPreface');
+var ircpref = chrome.i18n.getMessage('ircPreface');
+var extensionpref = chrome.i18n.getMessage('extensionPreface');
+var muwirepref = chrome.i18n.getMessage('muwirePreface');
+var botepref = chrome.i18n.getMessage('botePreface');
+var blogpref = chrome.i18n.getMessage('blogPreface');
+var blogprefpriv = chrome.i18n.getMessage('blogPrefacePrivate');
+var torpref = chrome.i18n.getMessage('torPreface');
+var torprefpriv = chrome.i18n.getMessage('torPrefacePrivate');
 
-var contextScrub = async function (requestDetails) {
+var contextScrub = async function(requestDetails) {
   function onHeaderError() {
-    console.log("Header scrub error");
+    console.log('Header scrub error');
   }
   try {
-    var headerScrub = function (context) {
-      var ua = "MYOB/6.66 (AN/ON)";
+    var headerScrub = function(context) {
+      var ua = 'MYOB/6.66 (AN/ON)';
       if (!context) {
       } else if (context.name == titlepref) {
         for (var header of requestDetails.requestHeaders) {
-          if (header.name.toLowerCase() === "user-agent") {
+          if (header.name.toLowerCase() === 'user-agent') {
             header.value = ua;
           }
         }
         return {
-          requestHeaders: requestDetails.requestHeaders,
+          requestHeaders: requestDetails.requestHeaders
         };
       }
     };
-    var contextGet = async function (tabInfo) {
+    var contextGet = async function(tabInfo) {
       try {
         //console.log("(scrub)Tab info from Function", tabInfo);
         let context = await browser.contextualIdentities.get(
@@ -43,7 +43,7 @@ var contextScrub = async function (requestDetails) {
         return undefined;
       }
     };
-    var tabGet = async function (tabId) {
+    var tabGet = async function(tabId) {
       try {
         //console.log("(scrub)Tab ID from Request", tabId);
         let tabInfo = await browser.tabs.get(tabId);
@@ -60,44 +60,44 @@ var contextScrub = async function (requestDetails) {
       return req;
     }
   } catch (error) {
-    console.log("(scrub)Not scrubbing non-I2P request.", error);
+    console.log('(scrub)Not scrubbing non-I2P request.', error);
   }
-};
+}
 
-var notMyContextNotMyProblem = async function () {
+var notMyContextNotMyProblem = async function() {
   var contexts = await browser.contextualIdentities.query({});
   var context1 = await browser.contextualIdentities.query({
-    name: titlepref,
+    name: titlepref
   });
   var context2 = await browser.contextualIdentities.query({
-    name: routerpref,
+    name: routerpref
   });
   var context3 = await browser.contextualIdentities.query({
-    name: mailpref,
+    name: mailpref
   });
   var context4 = await browser.contextualIdentities.query({
-    name: torrentpref,
+    name: torrentpref
   });
   var context5 = await browser.contextualIdentities.query({
-    name: tunnelpref,
+    name: tunnelpref
   });
   var context6 = await browser.contextualIdentities.query({
-    name: ircpref,
+    name: ircpref
   });
   var context7 = await browser.contextualIdentities.query({
-    name: muwirepref,
+    name: muwirepref
   });
   var context8 = await browser.contextualIdentities.query({
-    name: botepref,
+    name: botepref
   });
   var context9 = await browser.contextualIdentities.query({
-    name: blogpref,
+    name: blogpref
   });
   var context10 = await browser.contextualIdentities.query({
-    name: torpref,
+    name: torpref
   });
   var othercontexts = [];
-  console.log("Contexts:", contexts);
+  console.log('Contexts:', contexts);
   for (context in contexts) {
     if (
       contexts[context].cookieStoreId == context1[0].cookieStoreId ||
@@ -112,9 +112,9 @@ var notMyContextNotMyProblem = async function () {
       contexts[context].cookieStoreId == context10[0].cookieStoreId
     ) {
       console.log(
-        "Context found",
+        'Context found',
         contexts[context].cookieStoreId,
-        "is my responsibility"
+        'is my responsibility'
       );
     } else {
       //console.log("Context found", contexts[context].cookieStoreId, "is not my responsibility")
@@ -122,22 +122,22 @@ var notMyContextNotMyProblem = async function () {
     }
   }
   return othercontexts;
-};
+}
 
-var contextSetup = function (requestDetails) {
+var contextSetup = function(requestDetails) {
   function onContextError() {
-    console.error("Context launcher error");
+    console.error('Context launcher error');
   }
   async function forceIntoIsolation(tabId, contextidentifier, tab, pin = true) {
     console.info(
-      "(isolate) forcing context for",
+      '(isolate) forcing context for',
       tabId,
       contextidentifier,
       tab
     );
     try {
       var context = await browser.contextualIdentities.query({
-        name: contextidentifier,
+        name: contextidentifier
       });
       if (tabId.cookieStoreId != context[0].cookieStoreId) {
         function Create() {
@@ -145,11 +145,11 @@ var contextSetup = function (requestDetails) {
             function closeOldTab(tabs) {
               if (tabId.id != tab.id) {
                 console.log(
-                  "(isolate) Closing un-isolated tab",
+                  '(isolate) Closing un-isolated tab',
                   tabId.id,
-                  "in favor of",
+                  'in favor of',
                   tab.id,
-                  "with context",
+                  'with context',
                   tab.cookieStoreId
                 );
                 browser.tabs.remove(tabId.id);
@@ -163,12 +163,12 @@ var contextSetup = function (requestDetails) {
               }
               browser.pageAction.setPopup({
                 tabId: tabId.id,
-                popup: "security.html",
+                popup: 'security.html'
               });
               browser.pageAction.show(tabId.id);
             }
             var pins = browser.tabs.query({
-              cookieStoreId: context[0].cookieStoreId,
+              cookieStoreId: context[0].cookieStoreId
             });
             pins.then(closeOldTab, onError);
             //            closeOldTab(tab);
@@ -177,7 +177,7 @@ var contextSetup = function (requestDetails) {
             active: true,
             cookieStoreId: context[0].cookieStoreId,
             url: requestDetails.url,
-            pinned: pin,
+            pinned: pin
           });
           created.then(onCreated, onContextError);
         }
@@ -186,67 +186,67 @@ var contextSetup = function (requestDetails) {
         return tabId;
       }
     } catch (error) {
-      console.error("(isolate)Context Error", error);
+      console.error('(isolate)Context Error', error);
     }
   }
   try {
-    var i2pTabFind = async function (tabId) {
-      console.info("(isolate)Context Discovery browser");
+    var i2pTabFind = async function(tabId) {
+      console.info('(isolate)Context Discovery browser');
       try {
         var context = await browser.contextualIdentities.query({
-          name: titlepref,
+          name: titlepref
         });
         return forceIntoIsolation(tabId, titlepref, tab, false);
       } catch (error) {
-        console.error("(isolate)Context Error", error);
+        console.error('(isolate)Context Error', error);
       }
     };
-    var routerTabFind = async function (tabId) {
-      console.info("(isolate)Context Discovery console");
+    var routerTabFind = async function(tabId) {
+      console.info('(isolate)Context Discovery console');
       try {
         var context = await browser.contextualIdentities.query({
-          name: routerpref,
+          name: routerpref
         });
         return forceIntoIsolation(tabId, routerpref, tab);
       } catch (error) {
-        console.error("(isolate)Context Error", error);
+        console.error('(isolate)Context Error', error);
       }
     };
-    var i2ptunnelTabFind = async function (tabId) {
-      console.info("(isolate)Context Discovery browser");
+    var i2ptunnelTabFind = async function(tabId) {
+      console.info('(isolate)Context Discovery browser');
       try {
         var context = await browser.contextualIdentities.query({
-          name: tunnelpref,
+          name: tunnelpref
         });
         return forceIntoIsolation(tabId, tunnelpref, tab);
       } catch (error) {
-        console.error("(isolate)Context Error", error);
+        console.error('(isolate)Context Error', error);
       }
     };
-    var snarkTabFind = async function (tabId) {
-      console.info("(isolate)Context Discovery torrents");
+    var snarkTabFind = async function(tabId) {
+      console.info('(isolate)Context Discovery torrents');
       try {
         var context = await browser.contextualIdentities.query({
-          name: torrentpref,
+          name: torrentpref
         });
         if (tabId.cookieStoreId != context[0].cookieStoreId) {
           var exemptContext = await browser.contextualIdentities.query({
-            name: titlepref,
+            name: titlepref
           });
           let tmp = new URL(tabId.url);
-          console.log("(isolate)tabid host", tmp.host);
-          if (!requestDetails.url.includes("snark/" + tmp.host)) {
+          console.log('(isolate)tabid host', tmp.host);
+          if (!requestDetails.url.includes('snark/' + tmp.host)) {
             //          if (tabId.cookieStoreId != exemptContext[0].cookieStoreId){
             function Create() {
               function onCreated(tab) {
                 function closeOldTab(tabs) {
                   if (tabId.id != tab.id) {
                     console.log(
-                      "(isolate) Closing un-isolated tab",
+                      '(isolate) Closing un-isolated tab',
                       tabId.id,
-                      "in favor of",
+                      'in favor of',
                       tab.id,
-                      "with context",
+                      'with context',
                       tab.cookieStoreId
                     );
                     browser.tabs.remove(tabId.id);
@@ -258,20 +258,20 @@ var contextSetup = function (requestDetails) {
                   }
                 }
                 var pins = browser.tabs.query({
-                  cookieStoreId: context[0].cookieStoreId,
+                  cookieStoreId: context[0].cookieStoreId
                 });
                 pins.then(closeOldTab, onError);
               }
-              if (requestDetails.url.endsWith("xhr1.html")) {
-                hostname = url.split("/")[2];
-                let prefix = url.substr(0, url.indexOf("://") + 3);
-                requestDetails.url = prefix + hostname + "/i2psnark/";
+              if (requestDetails.url.endsWith('xhr1.html')) {
+                hostname = url.split('/')[2];
+                let prefix = url.substr(0, url.indexOf('://') + 3);
+                requestDetails.url = prefix + hostname + '/i2psnark/';
               }
               var created = browser.tabs.create({
                 active: true,
                 pinned: true,
                 cookieStoreId: context[0].cookieStoreId,
-                url: requestDetails.url,
+                url: requestDetails.url
               });
               created.then(onCreated, onContextError);
             }
@@ -281,82 +281,82 @@ var contextSetup = function (requestDetails) {
           }
         }
       } catch (error) {
-        console.log("(isolate)Context Error", error);
+        console.log('(isolate)Context Error', error);
       }
     };
-    var muwireTabFind = async function (tabId) {
-      console.info("(isolate)Context Discovery muwire");
+    var muwireTabFind = async function(tabId) {
+      console.info('(isolate)Context Discovery muwire');
       try {
         var context = await browser.contextualIdentities.query({
-          name: muwirepref,
+          name: muwirepref
         });
         return forceIntoIsolation(tabId, muwirepref, tab);
       } catch (error) {
-        console.error("(isolate)Context Error", error);
+        console.error('(isolate)Context Error', error);
       }
     };
-    var i2pboteTabFind = async function (tabId) {
-      console.info("(isolate)Context Discovery bote");
+    var i2pboteTabFind = async function(tabId) {
+      console.info('(isolate)Context Discovery bote');
       try {
         var context = await browser.contextualIdentities.query({
-          name: botepref,
+          name: botepref
         });
         return forceIntoIsolation(tabId, botepref, tab);
       } catch (error) {
-        console.error("(isolate)Context Error", error);
+        console.error('(isolate)Context Error', error);
       }
     };
-    var mailTabFind = async function (tabId) {
-      console.info("(isolate)Context Discovery mail");
+    var mailTabFind = async function(tabId) {
+      console.info('(isolate)Context Discovery mail');
       try {
         var context = await browser.contextualIdentities.query({
-          name: mailpref,
+          name: mailpref
         });
         return forceIntoIsolation(tabId, mailpref, tab);
       } catch (error) {
-        console.error("(isolate)Context Error", error);
+        console.error('(isolate)Context Error', error);
       }
     };
-    var ircTabFind = async function (tabId) {
-      console.info("(isolate)Context Discovery irc");
+    var ircTabFind = async function(tabId) {
+      console.info('(isolate)Context Discovery irc');
       try {
         var context = await browser.contextualIdentities.query({
-          name: ircpref,
+          name: ircpref
         });
         return forceIntoIsolation(tabId, ircpref, tab);
       } catch (error) {
-        console.error("(isolate)Context Error", error);
+        console.error('(isolate)Context Error', error);
       }
     };
-    var torTabFind = async function (tabId) {
-      console.info("(isolate)Context Discovery tor");
+    var torTabFind = async function(tabId) {
+      console.info('(isolate)Context Discovery tor');
       try {
         var context = await browser.contextualIdentities.query({
-          name: torpref,
+          name: torpref
         });
         return forceIntoIsolation(tabId, torpref, tab);
       } catch (error) {
-        console.error("(isolate)Context Error", error);
+        console.error('(isolate)Context Error', error);
       }
     };
-    var blogTabFind = async function (tabId) {
-      console.info("(isolate)Context Discovery blog");
+    var blogTabFind = async function(tabId) {
+      console.info('(isolate)Context Discovery blog');
       try {
         var context = await browser.contextualIdentities.query({
-          name: blogpref,
+          name: blogpref
         });
         return forceIntoIsolation(tabId, blogpref, tab);
       } catch (error) {
-        console.error("(isolate)Context Error", error);
+        console.error('(isolate)Context Error', error);
       }
     };
-    var tabGet = async function (tabId) {
+    var tabGet = async function(tabId) {
       try {
         //console.log("(isolate)Tab ID from Request", tabId);
         let tabInfo = await browser.tabs.get(tabId);
         return tabInfo;
       } catch (error) {
-        console.log("(isolate)Tab error", error);
+        console.log('(isolate)Tab error', error);
       }
     };
     if (requestDetails == undefined) {
@@ -366,7 +366,7 @@ var contextSetup = function (requestDetails) {
       setcookie = browser.cookies.set({
         firstPartyDomain: i2pHostName(requestDetails.url),
         url: requestDetails.url,
-        secure: true,
+        secure: true
       });
       setcookie.then(onContextGotLog, onContextError);
       return requestDetails;
@@ -380,34 +380,34 @@ var contextSetup = function (requestDetails) {
         let localhost = localHost(requestDetails.url);
         let routerhost = routerHost(requestDetails.url);
         if (routerhost) {
-          if (routerhost === "i2ptunnelmgr") {
+          if (routerhost === 'i2ptunnelmgr') {
             var tunneltab = tab.then(i2ptunnelTabFind, onContextError);
             return requestDetails;
-          } else if (routerhost === "i2psnark") {
+          } else if (routerhost === 'i2psnark') {
             var snarktab = tab.then(snarkTabFind, onContextError);
             return requestDetails;
-          } else if (routerhost === "webmail") {
+          } else if (routerhost === 'webmail') {
             var mailtab = tab.then(mailTabFind, onContextError);
             return requestDetails;
-          } else if (routerhost === "muwire") {
+          } else if (routerhost === 'muwire') {
             var routertab = tab.then(muwireTabFind, onContextError);
             return requestDetails;
-          } else if (routerhost === "i2pbote") {
+          } else if (routerhost === 'i2pbote') {
             var routertab = tab.then(i2pboteTabFind, onContextError);
             return requestDetails;
-          } else if (routerhost === "routerconsole") {
+          } else if (routerhost === 'routerconsole') {
             var routertab = tab.then(routerTabFind, onContextError);
             return requestDetails;
           }
         } else {
           if (localhost) {
-            if (localhost === "blog") {
+            if (localhost === 'blog') {
               var routertab = tab.then(blogTabFind, onContextError);
               return requestDetails;
-            } else if (localhost === "irc") {
+            } else if (localhost === 'irc') {
               var irctab = tab.then(ircTabFind, onContextError);
               return requestDetails;
-            } else if (localhost === "tor") {
+            } else if (localhost === 'tor') {
               var tortab = tab.then(torTabFind, onContextError);
               return requestDetails;
             }
@@ -416,26 +416,26 @@ var contextSetup = function (requestDetails) {
         //        if (oldtab.cookieStoreId == 'firefox-default') {
         if (i2pHost(requestDetails)) {
           var thn = i2pHostName(requestDetails.url);
-          if (requestDetails.url.includes("=" + thn)) {
+          if (requestDetails.url.includes('=' + thn)) {
             if (
-              !requestDetails.url.includes("://github.com") ||
-              !requestDetails.url.includes("://notabug.org") ||
-              !requestDetails.url.includes("://i2pgit.org") ||
-              !requestDetails.url.includes("://gitlab.com")
+              !requestDetails.url.includes('://github.com') ||
+              !requestDetails.url.includes('://notabug.org') ||
+              !requestDetails.url.includes('://i2pgit.org') ||
+              !requestDetails.url.includes('://gitlab.com')
             ) {
               if (!localhost) {
-                console.log("(scrub)checking search hostnames =" + thn);
-                var tpt = requestDetails.url.split("=" + thn, 2);
+                console.log('(scrub)checking search hostnames =' + thn);
+                var tpt = requestDetails.url.split('=' + thn, 2);
                 requestDetails.url =
-                  "http://" + thn + "/" + tpt[1].replace("%2F", "");
+                  'http://' + thn + '/' + tpt[1].replace('%2F', '');
               }
             }
           }
-          console.log("(scrub) new hostname", requestDetails.url);
+          console.log('(scrub) new hostname', requestDetails.url);
           var setcookie = browser.cookies.set({
             firstPartyDomain: i2pHostName(requestDetails.url),
             url: requestDetails.url,
-            secure: true,
+            secure: true
           });
           setcookie.then(onContextGotLog, onContextError);
           if (!routerhost) {
@@ -451,11 +451,11 @@ var contextSetup = function (requestDetails) {
       }
     }
   } catch (error) {
-    console.log("(isolate)Not an I2P request, blackholing", error);
+    console.log('(isolate)Not an I2P request, blackholing', error);
   }
 };
 
-var coolheadersSetup = function (e) {
+var coolheadersSetup = function(e) {
   var asyncSetPageAction = new Promise((resolve, reject) => {
     window.setTimeout(() => {
       if (e.tabId != undefined) {
@@ -464,88 +464,88 @@ var coolheadersSetup = function (e) {
       }
 
       function gotPopup(p) {
-        console.log("(scrub)(header check) checking popup", p);
+        console.log('(scrub)(header check) checking popup', p);
         console.log(
-          "(scrub)(header check) checking headers",
+          '(scrub)(header check) checking headers',
           e.responseHeaders
         );
         let headers = e.responseHeaders.filter((word) =>
-          word.name.toUpperCase().includes("I2P")
+          word.name.toUpperCase().includes('I2P')
         );
-        console.log("(scrub)(header check) checking filtered headers", headers);
+        console.log('(scrub)(header check) checking filtered headers', headers);
         for (i = headers.length - 1; i >= 0; i--) {
           let header = headers[i];
-          console.log("(scrub)(header check) checking header", header);
-          if (header.name.toUpperCase().endsWith("I2P-LOCATION")) {
+          console.log('(scrub)(header check) checking header', header);
+          if (header.name.toUpperCase().endsWith('I2P-LOCATION')) {
             var tab = browser.tabs.get(e.tabId);
             tab.then(altSrc);
 
             function altSrc(tab) {
-              console.log("(scrub) X-I2P-LOCATION", header.value);
+              console.log('(scrub) X-I2P-LOCATION', header.value);
               let url = new URL(header.value);
               browser.pageAction.setPopup({
                 tabId: e.tabId,
-                popup: "location.html",
+                popup: 'location.html'
               });
               browser.pageAction.setIcon({
-                path: "icons/i2plogo.png",
-                tabId: e.tabId,
+                path: 'icons/i2plogo.png',
+                tabId: e.tabId
               });
               let eurl = new URL(tab.url);
               browser.pageAction.setTitle({
                 tabId: e.tabId,
-                title: "http://" + url.host + eurl.pathname,
+                title: 'http://' + url.host + eurl.pathname
               });
               browser.pageAction.show(e.tabId);
             }
             break;
           }
-          if (header.name.toUpperCase().endsWith("I2P-TORRENTLOCATION")) {
+          if (header.name.toUpperCase().endsWith('I2P-TORRENTLOCATION')) {
             console.log(
-              "(scrub)(header check) checking header torrentlocation",
+              '(scrub)(header check) checking header torrentlocation',
               header
             );
-            var imgs = document.getElementsByTagName("img");
+            var imgs = document.getElementsByTagName('img');
             for (let img of imgs) {
               if (tmpsrc.host == location.host) {
                 img.src =
-                  "http://127.0.0.1:7657/i2psnark/" +
+                  'http://127.0.0.1:7657/i2psnark/' +
                   tmpsrc.host +
                   tmpsrc.pathname;
-                img.onerror = function () {
+                img.onerror = function() {
                   img.src = tmpsrc;
                 };
               }
             }
-            var videos = document.getElementsByTagName("video");
+            var videos = document.getElementsByTagName('video');
             for (let video of videos) {
               let tmpsrc = new URL(video.currentSrc);
               if (tmpsrc.host == location.host) {
-                if (!video.innerHTML.includes("127.0.0.1")) {
+                if (!video.innerHTML.includes('127.0.0.1')) {
                   innerHTML = video.innerHTML;
                   topInnerHTML = video.innerHTML.replace(
                     'src="',
-                    'src="http://127.0.0.1:7657/i2psnark/' + location.host + "/"
+                    'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
                   );
                   video.innerHTML = topInnerHTML; // + innerHTML;
-                  video.onerror = function () {
+                  video.onerror = function() {
                     video.innerHTML = topInnerHTML + innerHTML;
                   };
                 }
               }
             }
-            var audios = document.getElementsByTagName("audio");
+            var audios = document.getElementsByTagName('audio');
             for (let audio of audios) {
               let tmpsrc = new URL(audio.currentSrc);
               if (tmpsrc.host == location.host) {
-                if (!audio.innerHTML.includes("127.0.0.1")) {
+                if (!audio.innerHTML.includes('127.0.0.1')) {
                   innerHTML = audio.innerHTML;
                   topInnerHTML = audio.innerHTML.replace(
                     'src="',
-                    'src="http://127.0.0.1:7657/i2psnark/' + location.host + "/"
+                    'src="http://127.0.0.1:7657/i2psnark/' + location.host + '/'
                   );
                   audio.innerHTML = topInnerHTML; // + innerHTML;
-                  audio.onerror = function () {
+                  audio.onerror = function() {
                     audio.innerHTML = topInnerHTML + innerHTML;
                   };
                 }
@@ -553,22 +553,22 @@ var coolheadersSetup = function (e) {
             }
             browser.pageAction.setPopup({
               tabId: e.tabId,
-              popup: "torrent.html",
+              popup: 'torrent.html'
             });
-            if (tab != undefined && tab.url.startsWith("https")) {
+            if (tab != undefined && tab.url.startsWith('https')) {
               browser.pageAction.setIcon({
-                path: "icons/infotoopiesbt.png",
-                tabId: e.tabId,
+                path: 'icons/infotoopiesbt.png',
+                tabId: e.tabId
               });
             } else {
               browser.pageAction.setIcon({
-                path: "icons/infotoopiebt.png",
-                tabId: e.tabId,
+                path: 'icons/infotoopiebt.png',
+                tabId: e.tabId
               });
             }
             browser.pageAction.setTitle({
               tabId: e.tabId,
-              title: header.value,
+              title: header.value
             });
             browser.pageAction.show(e.tabId);
             break;
