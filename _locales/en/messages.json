@@ -389,6 +389,10 @@
         "description": "Proxy failed status.",
         "message": "Proxy is not ready"
     },
+    "consoleFailedStatus": {
+        "description": "Proxy failed status.",
+        "message": "Console is not available, I2P is not started yet. If you have not intstalled I2P yet, please get it from https://geti2p.net."
+    },
     "proxyHelpText": {
         "description": "Help for configuring the options for the Reset Tunnel button",
         "message": "Configure your I2P proxy here."
@@ -397,9 +401,17 @@
         "description": "Proxy failed status.",
         "message": "Proxy is ready"
     },
+    "proxyConsoleSuccessStatus": {
+        "description": "Proxy failed status.",
+        "message": "I2P is running."
+    },
     "readyness": {
         "description": "Proxy is ready.",
         "message": "Proxy is ready."
+    },
+    "routerness": {
+        "description": "Proxy is ready.",
+        "message": "Router is ready."
     },
     "releases": {
         "description": "Description for new release page",

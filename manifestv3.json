@@ -100,6 +100,9 @@
     "chrome_settings_overrides": {
         "homepage": "home.html"
     },
+    "content_security_policy": {
+        "extension_pages": "default-src 'self' http://proxy.i2p"
+    },
     "chrome_url_overrides": {
         "newtab": "home.html"
     }
