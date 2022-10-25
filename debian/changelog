@@ -1,4 +1,4 @@
-i2psetproxy.js (0.141-1) UNRELEASED; urgency=low
+i2psetproxy.js (1.41-1) UNRELEASED; urgency=low
 
   * Fix wrong color pageAction icon
   * Add router status to proxy error page
