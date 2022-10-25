@@ -1,9 +1,17 @@
+i2psetproxy.js (1.43-1) UNRELEASED; urgency=low
+
+  * Fix wrong color pageAction icon
+  * Add router status to proxy error page
+
+ -- idk <hankhill19580@gmail.com> Sun, 24 Oct 2022 09:35:20 -0400
+
+
 i2psetproxy.js (1.41-1) UNRELEASED; urgency=low
 
   * Fix wrong color pageAction icon
   * Add router status to proxy error page
 
- -- idk <hankhill19580@gmail.com> Sun, 16 Oct 2022 09:21:20 -0400
+ -- idk <hankhill19580@gmail.com> Sun, 24 Oct 2022 09:21:20 -0400
 
 i2psetproxy.js (0.135-1) UNRELEASED; urgency=low
 
