@@ -1,7 +1,7 @@
 document.addEventListener(
   "DOMContentLoaded",
   function () {
-    fetch("http://proxy.i2p").then(
+    fetch("http://proxy.i2p", { cache: "no-store" }).then(
       (myJson) => {
         console.warn("(proxyinfo)", myJson);
         contentUpdateById("proxy-check", "proxySuccessStatus");

@@ -47,7 +47,7 @@ contentUpdateById("sources", "sources");
 contentUpdateById("window-visit-releases", "windowVisitReleases");
 contentUpdateById("releases", "releases");
 
-fetch("http://proxy.i2p").then(
+fetch("http://proxy.i2p", { cache: "no-store" }).then(
   (myJson) => {
     contentUpdateById("proxy-check", "proxySuccessStatus");
     let readyness = document.querySelectorAll(".readyness");

@@ -331,7 +331,7 @@ upload-updatemanifest:
 	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t docs -n "updateManifest.json" -f updateManifest.json
 
 webext:
-	$(HOME)/node_modules/.bin/web-ext run --firefox /usr/bin/firefox -u "about:devtools-toolbox?type=extension&id=i2ppb%40eyedeekay.github.io"
+	$(HOME)/node_modules/.bin/web-ext run --firefox /usr/bin/firefox --firefox-profile ./profile -u "about:devtools-toolbox?type=extension&id=i2ppb%40eyedeekay.github.io"
 
 snark-mirror:
 	http_proxy=http://127.0.0.1:4444 wget -c -O ../i2psnark-rpc.su3 http://stats.i2p/i2p/plugins/i2psnark-rpc.su3
