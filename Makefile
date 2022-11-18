@@ -76,7 +76,9 @@ index:
 	@echo "  <link rel=\"stylesheet\" type=\"text/css\" href=\"sidebar.css\" />" >> index.html
 	@echo "</head>" >> index.html
 	@echo "<body>" >> index.html
+	@echo "<div class=\"content\" id=\"browserpanel\">" >> index.html
 	sed "s|magnetsub|[Magnet Link]($(MAGNET))|g" README.md | sed 's|README.md|index.html|g' | markdown >> index.html
+	@echo "</div>" >> index.html
 	@echo "</body>" >> index.html
 	@echo "</html>" >> index.html
 
