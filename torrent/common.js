@@ -1,4 +1,5 @@
-"use strict";
+/* eslint-disable no-inline-comments */
+/* eslint-disable line-comment-position */
 
 ////// RPC
 
@@ -6,7 +7,7 @@ function rpcCall(meth, args) {
   return browser.storage.local.get(function (server) {
     const myHeaders = {
       "Content-Type": "application/json",
-      "x-transmission-session-id": server.session,
+      "x-transmission-session-id": server.session
     };
     //console.log("(torrent)", server.session)
     if (server.username !== "" || server.btrpcpass !== "") {
@@ -18,8 +19,11 @@ function rpcCall(meth, args) {
     return fetch(server.base_url + "rpc", {
       method: "POST",
       headers: myHeaders,
-      body: JSON.stringify({ method: meth, arguments: args }),
-      credentials: "include", // allows HTTPS client certs!
+      body: JSON.stringify({
+        method: meth,
+        arguments: args
+      }),
+      credentials: "include" // allows HTTPS client certs!
     })
       .then(function (response) {
         const session = response.headers.get("x-transmission-session-id");
@@ -47,14 +51,14 @@ function rpcCall(meth, args) {
 
 ////// Util
 
-function formatSpeed(s) {
+function formatSpeed(speed) {
   // Firefox shows 4 characters max
-  if (s < 1000 * 1000) {
-    return (s / 1000).toFixed() + "K";
+  if (speed < 1000 * 1000) {
+    return (speed / 1000).toFixed() + "K";
   }
-  if (s < 1000 * 1000 * 1000) {
-    return (s / 1000 / 1000).toFixed() + "M";
+  if (speed < 1000 * 1000 * 1000) {
+    return (speed / 1000 / 1000).toFixed() + "M";
   }
   // You probably don't have that download speed…
-  return (s / 1000 / 1000 / 1000).toFixed() + "T";
+  return (speed / 1000 / 1000 / 1000).toFixed() + "T";
 }

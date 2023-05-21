@@ -13,7 +13,7 @@ var blogprefpriv = chrome.i18n.getMessage("blogPrefacePrivate");
 var torpref = chrome.i18n.getMessage("torPreface");
 var torprefpriv = chrome.i18n.getMessage("torPrefacePrivate");
 
-var contextScrub = async function (requestDetails) {
+var contextScrub = requestDetails => {
   function onHeaderError() {
     console.log("Header scrub error");
   }

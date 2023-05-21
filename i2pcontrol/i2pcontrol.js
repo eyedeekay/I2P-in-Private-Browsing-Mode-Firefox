@@ -43,11 +43,11 @@ if (browser.windows != undefined) {
             this._credentials = value;
           },
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json"
           },
           redirect: "follow", // manual, *follow, error
           referrerPolicy: "no-referrer", // no-referrer, *client
-          body: requestBody, // body data type must match "Content-Type" header
+          body: requestBody // body data type must match "Content-Type" header
         };
         const response = await fetch(url, opts);
         return response.json(); // parses JSON response into native JavaScript objects
