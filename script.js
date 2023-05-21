@@ -1,6 +1,6 @@
 browser.runtime.onMessage.addListener((request) => {
   var response = "no-alt-location";
-  console.log(request);
+  console.info("script page" + request);
   if (request.req === "i2p-location") {
     var tag = document.querySelector('meta[http-equiv="i2p-location"]');
     if (tag != undefined) {
