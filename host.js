@@ -37,13 +37,25 @@ function localHost(url) {
   console.log("(urlcheck) hostname localhost", hostname);
   console.log("(urlcheck) url localhost", url);
   if (hostname === "127.0.0.1") {
-    if (url.indexOf(":8084") != -1) return "blog";
-    if (url.indexOf(":7669") != -1) return "irc";
-    if (url.indexOf(":7695") != -1) return "tor";
+    if (url.indexOf(":8084") != -1) {
+      return "blog";
+    }
+    if (url.indexOf(":7669") != -1) {
+      return "irc";
+    }
+    if (url.indexOf(":7695") != -1) {
+      return "tor";
+    }
   } else if (hostname === "localhost") {
-    if (url.indexOf(":8084") != -1) return "blog";
-    if (url.indexOf(":7669") != -1) return "irc";
-    if (url.indexOf(":7695") != -1) return "tor";
+    if (url.indexOf(":8084") != -1) {
+      return "blog";
+    }
+    if (url.indexOf(":7669") != -1) {
+      return "irc";
+    }
+    if (url.indexOf(":7695") != -1) {
+      return "tor";
+    }
   }
 
   return false;
@@ -58,42 +70,43 @@ function extensionHost(url) {
     var originUrl = url.originUrl
       .replace("moz-extension://", "")
       .replace("/", "");
-    //    console.log("(urlcheck) Extension application path", originUrl);
-    //    console.log("(urlcheck) Extension application path", prefix);
+    /*    console.log("(urlcheck) Extension application path", originUrl);
+          console.log("(urlcheck) Extension application path", prefix); */
     var res = originUrl.startsWith(prefix);
     //    console.log("(urlcheck) Extension application path", res);
-    if (res) return res;
+    if (res) {
+      return res;
+    }
   }
   if (url.documentUrl !== undefined) {
-    //    console.log("(urlcheck) Extension application path", originUrl);
-    //    console.log("(urlcheck) Extension application path", prefix);
+    /*    console.log("(urlcheck) Extension application path", originUrl);
+          console.log("(urlcheck) Extension application path", prefix); */
     var res = originUrl.startsWith(prefix);
     //    console.log("(urlcheck) Extension application path", res);
-    if (res) return res;
+    if (res) {
+      return res;
+    }
   }
   console.log("(urlcheck) Extension application path", url);
 }
 
 function i2pHostName(url) {
   let hostname = "";
-  console.log("(hosts)", url);
-  let u = new URL(url);
+  const u = new URL(url);
   if (u.host.endsWith(".i2p")) {
     hostname = u.host;
-  } else if (url.includes("=")) {
-    if (url.includes(".i2p")) {
-      lsit = url.split("=");
-      for (let item in lsit) {
-        var items = lsit[item].split(`\ % `); //"\%")
-        for (let p in items) {
-          if (items[p].includes(".i2p")) {
-            hostname = items[p].replace("3D", 1);
-          }
+  } else if (url.includes("=") && url.includes(".i2p")) {
+    const lsit = url.split("=");
+    for (const item of lsit) {
+      const items = item.split(" % "); //"\%")
+      for (const p of items) {
+        if (p.includes(".i2p")) {
+          hostname = p.replace("3D", 1);
           break;
         }
-        if (hostname != "") {
-          break;
-        }
+      }
+      if (hostname !== "") {
+        break;
       }
     }
   } else if (url.indexOf("://") > -1) {
@@ -101,7 +114,6 @@ function i2pHostName(url) {
   } else {
     hostname = url.split("/")[0];
   }
-  console.log("(hosts) scrub", hostname);
   return hostname;
 }
 
@@ -118,56 +130,63 @@ function i2pHost(url) {
   return postname.endsWith(".i2p");
 }
 
+function notAnImage(url, path) {
+  if (!url.includes(".png")) {
+    return path;
+  }
+}
+
+function getPathApplication(str, url) {
+  if (!str) return true;
+
+  const path = str.split("/")[0];
+
+  if (path === "i2ptunnelmgr" || path === "i2ptunnel") {
+    return "i2ptunnelmgr";
+  }
+
+  if (
+    path === "i2psnark" ||
+    path === "torrents" ||
+    path.startsWith("transmission") ||
+    path.startsWith("tracker") ||
+    url.includes(":7662")
+  ) {
+    return "i2psnark";
+  }
+
+  if (path === "webmail" || path === "susimail") {
+    return "webmail";
+  }
+
+  if (path.startsWith("MuWire")) {
+    return notAnImage("muwire");
+  }
+
+  if (path.startsWith("i2pbote")) {
+    return notAnImage("i2pbote");
+  }
+
+  if (
+    path === "home" ||
+    path === "console" ||
+    path === "dns" ||
+    path === "susidns" ||
+    path.startsWith("susidns") ||
+    path === "sitemap" ||
+    path.startsWith("config")
+  ) {
+    return "routerconsole";
+  }
+
+  return true;
+}
+
 function routerHost(url) {
   //  console.log("(urlcheck) HOST URL CHECK");
   let hostname = "";
   let path = "";
 
-  function pathcheck(str) {
-    if (str != undefined) {
-      let final = str.split("/")[0];
-      if (final === "i2ptunnelmgr" || final === "i2ptunnel") {
-        console.log("(urlcheck) Tunnel application path", final);
-        return "i2ptunnelmgr";
-      } else if (
-        final === "i2psnark" ||
-        final === "torrents" ||
-        final.startsWith("transmission") ||
-        final.startsWith("tracker") ||
-        url.includes(":7662")
-      ) {
-        console.log("(urlcheck) Torrent application path", final);
-        return "i2psnark";
-      } else if (final === "webmail" || final === "susimail") {
-        if (!url.includes(".css")) {
-          console.log("(urlcheck) Mail application path", final);
-          return "webmail";
-        }
-      } else if (final.startsWith("MuWire")) {
-        if (!url.includes(".png")) {
-          console.log("(urlcheck) MuWire application path", final);
-          return "muwire";
-        }
-      } else if (final.startsWith("i2pbote")) {
-        if (!url.includes(".png")) {
-          console.log("(urlcheck) I2PBote application path", final);
-          return "i2pbote";
-        }
-      } else if (
-        final === "home" ||
-        final === "console" ||
-        final === "dns" ||
-        final === "susidns" ||
-        final.startsWith("susidns") ||
-        final === "sitemap" ||
-        final.startsWith("config")
-      ) {
-        console.log("(urlcheck) Console application path", final);
-        return "routerconsole";
-      }
-    }
-    return true;
-  }
   if (url.indexOf("://") > -1) {
     hostname = url.split("/")[2];
     let prefix = url.substr(0, url.indexOf("://") + 3);
@@ -180,25 +199,25 @@ function routerHost(url) {
     path = url.replace(hostname + "/", "");
   }
   if (hostname === control_host + ":" + control_port) {
-    return pathcheck(path);
+    return getPathApplication(path, url);
   }
-  if (hostname === "localhost" + ":" + control_port) {
-    return pathcheck(path);
+  if (hostname === "localhost:" + control_port) {
+    return getPathApplication(path, url);
   }
-  if (hostname === "127.0.0.1" + ":" + control_port) {
-    return pathcheck(path);
+  if (hostname === "127.0.0.1:" + control_port) {
+    return getPathApplication(path, url);
   }
   if (hostname === "localhost" + ":" + 7070) {
-    return pathcheck(path);
+    return getPathApplication(path, url);
   }
   if (hostname === "127.0.0.1" + ":" + 7070) {
-    return pathcheck(path);
+    return getPathApplication(path, url);
   }
   if (hostname === "localhost" + ":" + 7667) {
-    return pathcheck(path);
+    return getPathApplication(path, url);
   }
   if (hostname === "127.0.0.1" + ":" + 7667) {
-    return pathcheck(path);
+    return getPathApplication(path, url);
   }
   return false;
 }
