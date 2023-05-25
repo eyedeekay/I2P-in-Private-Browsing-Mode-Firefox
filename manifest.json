@@ -70,6 +70,7 @@
   "background": {
     "persistent": false,
     "scripts": [
+      "options/options.js",
       "config.js",
       "torrent/common.js",
       "torrent/background.js",
@@ -82,7 +83,7 @@
       "proxy.js",
       "info.js",
       "home.js",
-      "scrub-2.js",
+      "scrub.js",
       "bookmarks.js"
     ]
   },

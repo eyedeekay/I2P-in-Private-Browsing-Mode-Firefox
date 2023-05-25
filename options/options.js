@@ -6,37 +6,49 @@ function SetBookButton() {
 
 function SetHostText() {
   var hostid = document.getElementById("hostText");
-  hostid.textContent = chrome.i18n.getMessage("hostText");
+  if (hostid != undefined) {
+    hostid.textContent = chrome.i18n.getMessage("hostText");
+  }
 }
 
 function SetPortText() {
   var portid = document.getElementById("portText");
-  portid.textContent = chrome.i18n.getMessage("portText");
+  if (portid != undefined) {
+    portid.textContent = chrome.i18n.getMessage("portText");
+  }
 }
 
 function SetPortHelpText() {
   var portid = document.getElementById("proxyHelpText");
-  portid.textContent = chrome.i18n.getMessage("proxyHelpText");
+  if (portid != undefined) {
+    portid.textContent = chrome.i18n.getMessage("proxyHelpText");
+  }
 }
 
 function SetControlHostText() {
   var controlhostid = document.getElementById("controlHostText");
-  controlhostid.textContent = chrome.i18n.getMessage("controlHostText");
+  if (controlhostid != undefined) {
+    controlhostid.textContent = chrome.i18n.getMessage("controlHostText");
+  }
 }
 
 function SetControlPortText() {
   var controlportid = document.getElementById("controlPortText");
-  controlportid.textContent = chrome.i18n.getMessage("controlPortText");
+  if (controlportid != undefined) {
+    controlportid.textContent = chrome.i18n.getMessage("controlPortText");
+  }
 }
 
 function SetControlHelpText() {
   var portid = document.getElementById("controlHelpText");
-  portid.textContent = chrome.i18n.getMessage("controlHelpText");
+  if (portid != undefined) {
+    portid.textContent = chrome.i18n.getMessage("controlHelpText");
+  }
 }
 
 function getBoolFromStorage(key) {
   let key_state = localStorage.getItem(key);
-  console.log("(options) Got i2p settings key state", key, key_state);
+  console.info("(options) Got i2p settings key state", key, key_state);
   if (key_state == undefined) {
     return false;
   }
@@ -51,7 +63,7 @@ function getBoolFromStorage(key) {
 
 function getStringFromStorage(key, valdef) {
   let key_state = localStorage.getItem(key);
-  console.log("(options) Got i2p settings key state", key, key_state);
+  console.info("(options) Got i2p settings key state", key, key_state);
   if (key_state == undefined) {
     return valdef;
   }
@@ -60,7 +72,7 @@ function getStringFromStorage(key, valdef) {
 
 function getFromStorageBookmarksCreated() {
   let bookmarks_state = getBoolFromStorage("bookmarks_created");
-  console.log("(options)Got i2p bookmarks state:", bookmarks_state);
+  console.info("(options)Got i2p bookmarks state:", bookmarks_state);
   return bookmarks_state;
 }
 
@@ -81,7 +93,7 @@ function getFromHTMLValueBookmarksCreated() {
 
 function getFromStorageProxyScheme() {
   let proxy_scheme = getStringFromStorage("proxy_scheme", "http");
-  console.log("(options)Got i2p proxy scheme:", proxy_scheme);
+  console.info("(options)Got i2p proxy scheme:", proxy_scheme);
   return proxy_scheme;
 }
 
@@ -105,8 +117,8 @@ function getFromHTMLValueScheme() {
 }
 
 function getFromStorageHost() {
-  let proxy_host = getStringFromStorage("proxy_host","127.0.0.1");
-  console.log("(options)Got i2p proxy host:", proxy_host);
+  let proxy_host = getStringFromStorage("proxy_host", "127.0.0.1");
+  console.info("(options)Got i2p proxy host:", proxy_host);
   return proxy_host;
 }
 
@@ -121,7 +133,7 @@ function getFromHTMLValueHost() {
 
 function getFromStoragePort() {
   let proxy_port = getStringFromStorage("proxy_port", 4444);
-  console.log("(options)Got i2p proxy port:", proxy_port);
+  console.info("(options)Got i2p proxy port:", proxy_port);
   return proxy_port;
 }
 
@@ -135,8 +147,8 @@ function getFromHTMLValuePort() {
 }
 
 function getFromStorageControlHost() {
-  let control_host = getStringFromStorage("control_host");
-  console.log("(options)Got i2p control host:", control_host);
+  let control_host = getStringFromStorage("control_host", "127.0.0.1");
+  console.info("(options)Got i2p control host:", control_host);
   return control_host;
 }
 
@@ -150,8 +162,8 @@ function getFromHTMLValueControlHost() {
 }
 
 function getFromStorageControlPort() {
-  let control_port = getStringFromStorage("control_port");
-  console.log("(options)Got i2p control port:", control_port);
+  let control_port = getStringFromStorage("control_port", 7657);
+  console.info("(options)Got i2p control port:", control_port);
   return control_port;
 }
 
@@ -165,8 +177,8 @@ function getFromHTMLValueControlPort() {
 }
 
 function getFromStorageRPCHost() {
-  let rpc_host = getStringFromStorage("rpc_host");
-  console.log("(options)Got i2pcontrol rpc host:", rpc_host);
+  let rpc_host = getStringFromStorage("rpc_host", "127.0.0.1");
+  console.info("(options)Got i2pcontrol rpc host:", rpc_host);
   return rpc_host;
 }
 
@@ -180,8 +192,8 @@ function getFromHTMLValueRPCHost() {
 }
 
 function getFromStorageRPCPort() {
-  let rpc_port = getStringFromStorage("rpc_port");
-  console.log("(options)Got i2pcontrol rpc port:", rpc_port);
+  let rpc_port = getStringFromStorage("rpc_port", "7657");
+  console.info("(options)Got i2pcontrol rpc port:", rpc_port);
   return rpc_port;
 }
 
@@ -195,8 +207,8 @@ function getFromHTMLValueRPCPort() {
 }
 
 function getFromStorageRPCPath() {
-  let rpc_path = getStringFromStorage("rpc_path");
-  console.log("(options)Got i2pcontrol rpc path:", rpc_path);
+  let rpc_path = getStringFromStorage("rpc_path", "jsonrpc");
+  console.info("(options)Got i2pcontrol rpc path:", rpc_path);
   return rpc_path;
 }
 
@@ -210,8 +222,8 @@ function getFromHTMLValueRPCPath() {
 }
 
 function getFromStorageRPCPass() {
-  let rpc_pass = getStringFromStorage("rpc_pass");
-  console.log("(options)Got i2pcontrol rpc password:", rpc_pass);
+  let rpc_pass = getStringFromStorage("rpc_pass", "itoopie");
+  console.info("(options)Got i2pcontrol rpc password:", rpc_pass);
   return rpc_pass;
 }
 
@@ -225,8 +237,8 @@ function getFromHTMLValueRPCPass() {
 }
 
 function getFromStorageBTRPCHost() {
-  let bt_rpc_host = getStringFromStorage("bt_rpc_host");
-  console.log("(options)Got torrent rpc host:", bt_rpc_host);
+  let bt_rpc_host = getStringFromStorage("bt_rpc_host", "127.0.0.1");
+  console.info("(options)Got torrent rpc host:", bt_rpc_host);
   return bt_rpc_host;
 }
 
@@ -240,8 +252,8 @@ function getFromHTMLValueBTRPCHost() {
 }
 
 function getFromStorageBTRPCPort() {
-  let bt_rpc_port = getStringFromStorage("bt_rpc_port");
-  console.log("(options)Got torrent rpc port:", bt_rpc_port);
+  let bt_rpc_port = getStringFromStorage("bt_rpc_port", "7657");
+  console.info("(options)Got torrent rpc port:", bt_rpc_port);
   return bt_rpc_port;
 }
 
@@ -255,8 +267,8 @@ function getFromHTMLValueBTRPCPort() {
 }
 
 function getFromStorageBTRPCPath() {
-  let bt_rpc_path = getStringFromStorage("bt_rpc_path");
-  console.log("(options)Got torrent rpc path:", bt_rpc_path);
+  let bt_rpc_path = getStringFromStorage("bt_rpc_path", "transmission/rpc");
+  console.info("(options)Got torrent rpc path:", bt_rpc_path);
   return bt_rpc_path;
 }
 
@@ -270,8 +282,8 @@ function getFromHTMLValueBTRPCPath() {
 }
 
 function getFromStorageBTRPCPass() {
-  let bt_rpc_pass = getStringFromStorage("bt_rpc_pass");
-  console.log("(options)Got torrent rpc password:", bt_rpc_pass);
+  let bt_rpc_pass = getStringFromStorage("bt_rpc_pass", "itoopie");
+  console.info("(options)Got torrent rpc password:", bt_rpc_pass);
   return bt_rpc_pass;
 }
 
@@ -297,32 +309,20 @@ function checkStoredSettings(storedSettings) {
     settings.bookmarks_state = storedSettings.bookmarks_state || false;
     settings.proxy_scheme = storedSettings.proxy_scheme || "http";
     settings.proxy_host =
-      storedSettings.proxy_host || (host === ""
-? "127.0.0.1"
-: host);
+      storedSettings.proxy_host || (host === "" ? "127.0.0.1" : host);
     settings.proxy_port =
       storedSettings.proxy_port ||
-      (port === undefined
-? 4444
-: port === 7644
-? port
-: 4444);
+      (port === undefined ? 4444 : port === 7644 ? port : 4444);
     settings.control_host =
-      storedSettings.control_host || (host === ""
-? "127.0.0.1"
-: host);
+      storedSettings.control_host || (host === "" ? "127.0.0.1" : host);
     settings.control_port = storedSettings.control_port || 7657;
     settings.rpc_host =
-      storedSettings.rpc_host || (host === ""
-? "127.0.0.1"
-: host);
+      storedSettings.rpc_host || (host === "" ? "127.0.0.1" : host);
     settings.rpc_port = storedSettings.rpc_port || 7657;
     settings.rpc_path = storedSettings.rpc_path || "jsonrpc";
     settings.rpc_pass = storedSettings.rpc_pass || "itoopie";
     settings.bt_rpc_host =
-      storedSettings.bt_rpc_host || (host === ""
-? "127.0.0.1"
-: host);
+      storedSettings.bt_rpc_host || (host === "" ? "127.0.0.1" : host);
     settings.bt_rpc_port = storedSettings.bt_rpc_port || 7657;
     settings.bt_rpc_path = storedSettings.bt_rpc_path || "transmission/";
     settings.bt_rpc_pass = storedSettings.bt_rpc_pass || "transmission";
@@ -333,7 +333,7 @@ function checkStoredSettings(storedSettings) {
     return settings;
   }
   const gettingInfo = browser.proxy.settings.get({});
-  return gettingInfo.then(gotProxyInfo).catch(error => {
+  return gettingInfo.then(gotProxyInfo).catch((error) => {
     console.error(error);
     throw new Error("Error in checkStoredSettings");
   });
@@ -354,20 +354,15 @@ function checkAndroidStoredSettings(settings) {
     btRpcHost: "127.0.0.1",
     btRpcPort: 7657,
     btRpcPath: "transmission/rpc",
-    btRpcPass: "transmission"
+    btRpcPass: "transmission",
   };
 
-  const mergedSettings = { ...defaults,
-...settings };
+  const mergedSettings = { ...defaults, ...settings };
   const { proxyHost: host, proxyPort: port } = mergedSettings;
 
   mergedSettings.proxyHost = host || defaults.proxyHost;
   mergedSettings.proxyPort =
-    port === undefined
-? 4444
-: port === 7644
-? port
-: 4444;
+    port === undefined ? 4444 : port === 7644 ? port : 4444;
 
   console.log("Merged settings:", mergedSettings);
 
@@ -392,7 +387,12 @@ function storeSettings() {
   storableSettings["bt_rpc_path"] = getFromHTMLValueBTRPCPath();
   storableSettings["bt_rpc_pass"] = getFromHTMLValueBTRPCPass();
   storableSettings["base_url"] =
-    "http://" + storableSettings["rpc_host"] + ":" + storableSettings["bt_rpc_port"] + "/" + storableSettings["bt_rpc_path"];
+    "http://" +
+    storableSettings["rpc_host"] +
+    ":" +
+    storableSettings["bt_rpc_port"] +
+    "/" +
+    storableSettings["bt_rpc_path"];
   console.log("storing", storableSettings);
   chrome.storage.local.set(storableSettings);
 }
@@ -423,13 +423,13 @@ function updateUI(restoredSettings) {
   //console.log("(options)showing proxy port:", portitem.value);
 
   const controlhostitem = document.getElementById("controlhost");
-  if (controlhostitem == undefined) {
+  if (controlhostitem != undefined) {
     controlhostitem.value = restoredSettings.control_host;
   }
   //console.log("(options)showing control host:", controlhostitem.value);
 
   const controlportitem = document.getElementById("controlport");
-  if (controlportitem == undefined) {
+  if (controlportitem != undefined) {
     controlportitem.value = restoredSettings.control_port;
   }
   //console.log("(options)showing control port:", controlportitem.value);
@@ -500,15 +500,17 @@ gettingInfo.then(function (gotPlatform) {
   if (gotPlatform.os == "android") {
     browser.storage.local.get(function (gotSettings) {
       checkAndroidStoredSettings(gotSettings);
-      updateUI(gotSettings);
+      updateUI(gotSettings, onError);
     });
   } else {
     chrome.storage.local.get(function (gotSettings) {
       let settings = checkStoredSettings(gotSettings);
-      settings.then(updateUI);
+      settings.then(updateUI, onError);
     });
   }
 });
 
 const saveButton = document.querySelector("#save-button");
-saveButton.addEventListener("click", storeSettings);
+if (saveButton != undefined) {
+  saveButton.addEventListener("click", storeSettings);
+}

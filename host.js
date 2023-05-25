@@ -1,63 +1,40 @@
 function proxyHost(requestDetails) {
-  if (requestDetails.originUrl != browser.runtime.getURL("window.html")) {
-  } else if (requestDetails.originUrl != browser.runtime.getURL("home.html")) {
-  } else {
+  const originUrl = requestDetails.originUrl;
+  const isWindowOrHomeUrl =
+    originUrl !== browser.runtime.getURL("window.html") &&
+    originUrl !== browser.runtime.getURL("home.html");
+
+  if (isWindowOrHomeUrl) {
     return false;
   }
 
-  let hostname = "";
-  if (requestDetails.url.indexOf("://") > -1) {
-    hostname = requestDetails.url.split("/")[2];
-  } else {
-    hostname = requestDetails.url.split("/")[0];
-  }
-  console.warn("(host) hostname", hostname);
-  if (hostname == "proxy.i2p") {
-    console.warn("(host) is proxy.i2p", hostname);
-    return true;
-  }
+  const urlParts = requestDetails.url.split("/");
+  const hostname = urlParts[2].indexOf("://") > -1 ? urlParts[2] : urlParts[0];
 
-  console.warn("(host) requestDetails", requestDetails.url);
   if (
-    hostname == "c6lilt4cr5x7jifxridpkesf2zgfwqfchtp6laihr4pdqomq25iq.b32.i2p"
+    hostname === "proxy.i2p" ||
+    hostname === "c6lilt4cr5x7jifxridpkesf2zgfwqfchtp6laihr4pdqomq25iq.b32.i2p"
   ) {
     return true;
   }
+
   return false;
 }
 
-function localHost(url) {
-  let hostname = "";
-  if (url.indexOf("://") > -1) {
-    hostname = url.split("/")[2];
-  } else {
-    hostname = url.split("/")[0];
-  }
-  hostname = hostname.split(":")[0];
-  console.log("(urlcheck) hostname localhost", hostname);
-  console.log("(urlcheck) url localhost", url);
-  if (hostname === "127.0.0.1") {
-    if (url.indexOf(":8084") != -1) {
+function isLocalHost(url) {
+  //  function getLocalhostUrlType(url) {
+  const urlPath = url.split("/")[2].split(":")[0];
+  if (urlPath === "127.0.0.1" || urlPath === "localhost") {
+    if (url.includes(":8084")) {
       return "blog";
     }
-    if (url.indexOf(":7669") != -1) {
+    if (url.includes(":7669")) {
       return "irc";
     }
-    if (url.indexOf(":7695") != -1) {
-      return "tor";
-    }
-  } else if (hostname === "localhost") {
-    if (url.indexOf(":8084") != -1) {
-      return "blog";
-    }
-    if (url.indexOf(":7669") != -1) {
-      return "irc";
-    }
-    if (url.indexOf(":7695") != -1) {
+    if (url.includes(":7695")) {
       return "tor";
     }
   }
-
   return false;
 }
 
@@ -182,42 +159,45 @@ function getPathApplication(str, url) {
   return true;
 }
 
-function routerHost(url) {
-  //  console.log("(urlcheck) HOST URL CHECK");
+function isRouterHost(url) {
   let hostname = "";
   let path = "";
 
   if (url.indexOf("://") > -1) {
     hostname = url.split("/")[2];
-    let prefix = url.substr(0, url.indexOf("://") + 3);
-    path = url.replace(prefix + hostname + "/", "");
+    const protocol = url.substr(0, url.indexOf("://") + 3);
+    path = url.replace(protocol + hostname + "/", "");
   } else if (identifyProtocolHandler(url)) {
-    let newurl = identifyProtocolHandler(url);
-    return routerHost(newurl);
+    const newUrl = identifyProtocolHandler(url);
+    return isRouterHost(newUrl);
   } else {
     hostname = url.split("/")[0];
     path = url.replace(hostname + "/", "");
   }
-  if (hostname === control_host + ":" + control_port) {
+
+  const localHosts = ["localhost", "127.0.0.1"];
+  const controlHost = control_host();
+  const controlPort = control_port();
+  const isLocalHost = localHosts.includes(hostname.split(":")[0]);
+
+  if (hostname === `${controlHost}:${controlPort}` || isLocalHost) {
     return getPathApplication(path, url);
   }
-  if (hostname === "localhost:" + control_port) {
-    return getPathApplication(path, url);
-  }
-  if (hostname === "127.0.0.1:" + control_port) {
-    return getPathApplication(path, url);
-  }
-  if (hostname === "localhost" + ":" + 7070) {
-    return getPathApplication(path, url);
-  }
-  if (hostname === "127.0.0.1" + ":" + 7070) {
-    return getPathApplication(path, url);
-  }
-  if (hostname === "localhost" + ":" + 7667) {
-    return getPathApplication(path, url);
-  }
-  if (hostname === "127.0.0.1" + ":" + 7667) {
-    return getPathApplication(path, url);
+
+  return false;
+}
+
+
+function identifyProtocolHandler(url) {
+  //console.log("looking for handler-able requests")
+  if (isRouterHost(url)) {
+    if (url.includes(encodeURIComponent("ext+rc:"))) {
+      return url.replace(encodeURIComponent("ext+rc:"), "");
+    } else if (url.includes("ext+rc:")) {
+      return url.replace("ext+rc:", "");
+    }
+  } else if (url.includes("ext+rc:")) {
+    return url;
   }
   return false;
 }
