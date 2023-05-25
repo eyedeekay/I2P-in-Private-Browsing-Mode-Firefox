@@ -1,6 +1,7 @@
+/* eslint-disable max-len */
 function SetBookButton() {
-  //  var bmid = document.getElementById("bookmark");
-  //bmid.textContent = chrome.i18n.getMessage("bookmarkButton");
+  /*   var bmid = document.getElementById("bookmark");
+     bmid.textContent = chrome.i18n.getMessage("bookmarkButton"); */
 }
 
 function SetHostText() {
@@ -33,8 +34,38 @@ function SetControlHelpText() {
   portid.textContent = chrome.i18n.getMessage("controlHelpText");
 }
 
-function getBookmarksCreated() {
-  bookmarks_state = document.getElementById("bookmarks");
+function getBoolFromStorage(key) {
+  let key_state = localStorage.getItem(key);
+  console.log("(options) Got i2p settings key state", key, key_state);
+  if (key_state == undefined) {
+    return false;
+  }
+  if (key_state.value == "false") {
+    return false;
+  }
+  if (key_state.value == "true") {
+    return true;
+  }
+  return key_state.value;
+}
+
+function getStringFromStorage(key, valdef) {
+  let key_state = localStorage.getItem(key);
+  console.log("(options) Got i2p settings key state", key, key_state);
+  if (key_state == undefined) {
+    return valdef;
+  }
+  return key_state;
+}
+
+function getFromStorageBookmarksCreated() {
+  let bookmarks_state = getBoolFromStorage("bookmarks_created");
+  console.log("(options)Got i2p bookmarks state:", bookmarks_state);
+  return bookmarks_state;
+}
+
+function getFromHTMLValueBookmarksCreated() {
+  let bookmarks_state = document.getElementById("bookmarks");
   console.log("(options)Got i2p bookmarks state:", bookmarks_state);
   if (bookmarks_state == undefined) {
     return false;
@@ -48,7 +79,13 @@ function getBookmarksCreated() {
   return false;
 }
 
-function getScheme() {
+function getFromStorageProxyScheme() {
+  let proxy_scheme = getStringFromStorage("proxy_scheme", "http");
+  console.log("(options)Got i2p proxy scheme:", proxy_scheme);
+  return proxy_scheme;
+}
+
+function getFromHTMLValueScheme() {
   const proxy_scheme = document.querySelector("#proxy_scheme");
   console.log("(options)Got i2p proxy scheme:", proxy_scheme.value);
   if (proxy_scheme.value == "HTTP") {
@@ -57,13 +94,24 @@ function getScheme() {
   if (proxy_scheme.value == "SOCKS") {
     return "socks";
   }
-  if (proxy_scheme.value == "http") return "http";
-  if (proxy_scheme.value == "socks") return "socks";
-  else return "http";
+  if (proxy_scheme.value == "http") {
+    return "http";
+  }
+  if (proxy_scheme.value == "socks") {
+    return "socks";
+  } else {
+    return "http";
+  }
 }
 
-function getHost() {
-  proxy_host = document.getElementById("host").value;
+function getFromStorageHost() {
+  let proxy_host = getStringFromStorage("proxy_host","127.0.0.1");
+  console.log("(options)Got i2p proxy host:", proxy_host);
+  return proxy_host;
+}
+
+function getFromHTMLValueHost() {
+  let proxy_host = document.getElementById("host").value;
   console.log("(options)Got i2p proxy host:", proxy_host);
   if (proxy_host == undefined) {
     return "127.0.0.1";
@@ -71,8 +119,14 @@ function getHost() {
   return proxy_host;
 }
 
-function getPort() {
-  proxy_port = document.getElementById("port").value;
+function getFromStoragePort() {
+  let proxy_port = getStringFromStorage("proxy_port", 4444);
+  console.log("(options)Got i2p proxy port:", proxy_port);
+  return proxy_port;
+}
+
+function getFromHTMLValuePort() {
+  let proxy_port = document.getElementById("port").value;
   console.log("(options)Got i2p proxy port:", proxy_port);
   if (proxy_port == undefined) {
     return "4444";
@@ -80,8 +134,14 @@ function getPort() {
   return proxy_port;
 }
 
-function getControlHost() {
-  control_host = document.getElementById("controlhost").value;
+function getFromStorageControlHost() {
+  let control_host = getStringFromStorage("control_host");
+  console.log("(options)Got i2p control host:", control_host);
+  return control_host;
+}
+
+function getFromHTMLValueControlHost() {
+  let control_host = document.getElementById("controlhost").value;
   console.log("(options)Got i2p control host:", control_host);
   if (control_host == undefined) {
     return "127.0.0.1";
@@ -89,8 +149,14 @@ function getControlHost() {
   return control_host;
 }
 
-function getControlPort() {
-  control_port = document.getElementById("controlport").value;
+function getFromStorageControlPort() {
+  let control_port = getStringFromStorage("control_port");
+  console.log("(options)Got i2p control port:", control_port);
+  return control_port;
+}
+
+function getFromHTMLValueControlPort() {
+  let control_port = document.getElementById("controlport").value;
   console.log("(options)Got i2p control port:", control_port);
   if (control_port == undefined) {
     return "4444";
@@ -98,8 +164,14 @@ function getControlPort() {
   return control_port;
 }
 
-function getRPCHost() {
-  rpc_host = document.getElementById("rpchost").value;
+function getFromStorageRPCHost() {
+  let rpc_host = getStringFromStorage("rpc_host");
+  console.log("(options)Got i2pcontrol rpc host:", rpc_host);
+  return rpc_host;
+}
+
+function getFromHTMLValueRPCHost() {
+  let rpc_host = document.getElementById("rpchost").value;
   console.log("(options)Got i2pcontrol rpc host:", rpc_host);
   if (rpc_host == undefined) {
     return "127.0.0.1";
@@ -107,8 +179,14 @@ function getRPCHost() {
   return rpc_host;
 }
 
-function getRPCPort() {
-  rpc_port = document.getElementById("rpcport").value;
+function getFromStorageRPCPort() {
+  let rpc_port = getStringFromStorage("rpc_port");
+  console.log("(options)Got i2pcontrol rpc port:", rpc_port);
+  return rpc_port;
+}
+
+function getFromHTMLValueRPCPort() {
+  let rpc_port = document.getElementById("rpcport").value;
   console.log("(options)Got i2pcontrol rpc port:", rpc_port);
   if (rpc_port == undefined) {
     return "7657";
@@ -116,8 +194,14 @@ function getRPCPort() {
   return rpc_port;
 }
 
-function getRPCPath() {
-  rpc_path = document.getElementById("rpcpath").value;
+function getFromStorageRPCPath() {
+  let rpc_path = getStringFromStorage("rpc_path");
+  console.log("(options)Got i2pcontrol rpc path:", rpc_path);
+  return rpc_path;
+}
+
+function getFromHTMLValueRPCPath() {
+  let rpc_path = document.getElementById("rpcpath").value;
   console.log("(options)Got i2pcontrol rpc path:", rpc_path);
   if (rpc_path == undefined) {
     return "jsonrpc";
@@ -125,8 +209,14 @@ function getRPCPath() {
   return rpc_path;
 }
 
-function getRPCPass() {
-  rpc_pass = document.getElementById("rpcpass").value;
+function getFromStorageRPCPass() {
+  let rpc_pass = getStringFromStorage("rpc_pass");
+  console.log("(options)Got i2pcontrol rpc password:", rpc_pass);
+  return rpc_pass;
+}
+
+function getFromHTMLValueRPCPass() {
+  let rpc_pass = document.getElementById("rpcpass").value;
   console.log("(options)Got i2pcontrol rpc password:");
   if (rpc_pass == undefined) {
     return "itoopie";
@@ -134,8 +224,14 @@ function getRPCPass() {
   return rpc_pass;
 }
 
-function getBTRPCHost() {
-  bt_rpc_host = document.getElementById("btrpchost").value;
+function getFromStorageBTRPCHost() {
+  let bt_rpc_host = getStringFromStorage("bt_rpc_host");
+  console.log("(options)Got torrent rpc host:", bt_rpc_host);
+  return bt_rpc_host;
+}
+
+function getFromHTMLValueBTRPCHost() {
+  let bt_rpc_host = document.getElementById("btrpchost").value;
   console.log("(options)Got torrent rpc host:", bt_rpc_host);
   if (bt_rpc_host == undefined) {
     return "127.0.0.1";
@@ -143,8 +239,14 @@ function getBTRPCHost() {
   return bt_rpc_host;
 }
 
-function getBTRPCPort() {
-  bt_rpc_port = document.getElementById("btrpcport").value;
+function getFromStorageBTRPCPort() {
+  let bt_rpc_port = getStringFromStorage("bt_rpc_port");
+  console.log("(options)Got torrent rpc port:", bt_rpc_port);
+  return bt_rpc_port;
+}
+
+function getFromHTMLValueBTRPCPort() {
+  let bt_rpc_port = document.getElementById("btrpcport").value;
   console.log("(options)Got torrent rpc port:", bt_rpc_port);
   if (bt_rpc_port == undefined) {
     return "7657";
@@ -152,8 +254,14 @@ function getBTRPCPort() {
   return bt_rpc_port;
 }
 
-function getBTRPCPath() {
-  bt_rpc_path = document.getElementById("btrpcpath").value;
+function getFromStorageBTRPCPath() {
+  let bt_rpc_path = getStringFromStorage("bt_rpc_path");
+  console.log("(options)Got torrent rpc path:", bt_rpc_path);
+  return bt_rpc_path;
+}
+
+function getFromHTMLValueBTRPCPath() {
+  let bt_rpc_path = document.getElementById("btrpcpath").value;
   console.log("(options)Got torrent rpc path:", bt_rpc_path);
   if (bt_rpc_path == undefined) {
     return "transmission/rpc";
@@ -161,8 +269,14 @@ function getBTRPCPath() {
   return bt_rpc_path;
 }
 
-function getBTRPCPass() {
-  bt_rpc_pass = document.getElementById("btrpcpass").value;
+function getFromStorageBTRPCPass() {
+  let bt_rpc_pass = getStringFromStorage("bt_rpc_pass");
+  console.log("(options)Got torrent rpc password:", bt_rpc_pass);
+  return bt_rpc_pass;
+}
+
+function getFromHTMLValueBTRPCPass() {
+  let bt_rpc_pass = document.getElementById("btrpcpass").value;
   console.log("(options)Got torrent rpc password:");
   if (bt_rpc_pass == undefined) {
     return "itoopie";
@@ -172,261 +286,200 @@ function getBTRPCPass() {
 
 function checkStoredSettings(storedSettings) {
   function gotProxyInfo(info) {
-    let defaultSettings = {};
-    let host = info.value.http.split(":")[0];
-    let port = info.value.http.split(":")[1];
+    const settings = {};
+    const { http } = info.value;
+    const host = http.split(":")[0];
+    let port = http.split(":")[1];
     if (port != 7644) {
       port = undefined;
     }
-    console.log("(options)proxy", "'" + host + "'", ":", port);
-    if (!storedSettings["bookmarks_state"])
-      defaultSettings["bookmarks_state"] = false;
-    else defaultSettings["bookmarks_state"] = storedSettings["bookmarks_state"];
-    if (!storedSettings["proxy_scheme"])
-      defaultSettings["proxy_scheme"] = "http";
-    else defaultSettings["proxy_scheme"] = storedSettings["proxy_scheme"];
-    if (!storedSettings["proxy_host"]) {
-      if (host == "") defaultSettings["proxy_host"] = "127.0.0.1";
-      else defaultSettings["proxy_host"] = host;
-    } else defaultSettings["proxy_host"] = storedSettings["proxy_host"];
 
-    if (!storedSettings["proxy_port"]) {
-      if (port == undefined) defaultSettings["proxy_port"] = 4444;
-      else if (port == 7644) defaultSettings["proxy_port"] = port;
-      else defaultSettings["proxy_port"] = 4444;
-    } else defaultSettings["proxy_port"] = storedSettings.proxy_port;
+    settings.bookmarks_state = storedSettings.bookmarks_state || false;
+    settings.proxy_scheme = storedSettings.proxy_scheme || "http";
+    settings.proxy_host =
+      storedSettings.proxy_host || (host === ""
+? "127.0.0.1"
+: host);
+    settings.proxy_port =
+      storedSettings.proxy_port ||
+      (port === undefined
+? 4444
+: port === 7644
+? port
+: 4444);
+    settings.control_host =
+      storedSettings.control_host || (host === ""
+? "127.0.0.1"
+: host);
+    settings.control_port = storedSettings.control_port || 7657;
+    settings.rpc_host =
+      storedSettings.rpc_host || (host === ""
+? "127.0.0.1"
+: host);
+    settings.rpc_port = storedSettings.rpc_port || 7657;
+    settings.rpc_path = storedSettings.rpc_path || "jsonrpc";
+    settings.rpc_pass = storedSettings.rpc_pass || "itoopie";
+    settings.bt_rpc_host =
+      storedSettings.bt_rpc_host || (host === ""
+? "127.0.0.1"
+: host);
+    settings.bt_rpc_port = storedSettings.bt_rpc_port || 7657;
+    settings.bt_rpc_path = storedSettings.bt_rpc_path || "transmission/";
+    settings.bt_rpc_pass = storedSettings.bt_rpc_pass || "transmission";
 
-    if (!storedSettings["control_host"]) {
-      if (host == "") defaultSettings["control_host"] = "127.0.0.1";
-      else defaultSettings["control_host"] = host;
-    } else defaultSettings["control_host"] = storedSettings.control_host;
+    settings.base_url = `http://${settings.bt_rpc_host}:${settings.bt_rpc_port}/${settings.bt_rpc_path}`;
 
-    if (!storedSettings["control_port"]) {
-      defaultSettings["control_port"] = 7657;
-    } else defaultSettings["control_port"] = storedSettings.control_port;
-
-    if (!storedSettings["rpc_host"]) {
-      if (host == "") defaultSettings["rpc_host"] = "127.0.0.1";
-      else defaultSettings["rpc_host"] = host;
-    } else defaultSettings["rpc_host"] = storedSettings.rpc_host;
-
-    if (!storedSettings["rpc_port"]) {
-      defaultSettings["rpc_port"] = 7657;
-    } else defaultSettings["rpc_port"] = storedSettings.rpc_port;
-
-    if (!storedSettings["rpc_path"]) {
-      defaultSettings["rpc_path"] = "jsonrpc";
-    } else defaultSettings["rpc_path"] = storedSettings.rpc_path;
-
-    if (!storedSettings["rpc_pass"]) {
-      defaultSettings["rpc_pass"] = "itoopie";
-    } else defaultSettings["rpc_pass"] = storedSettings.rpc_pass;
-
-    if (!storedSettings["bt_rpc_host"]) {
-      if (host == "") defaultSettings["bt_rpc_host"] = "127.0.0.1";
-      else defaultSettings["bt_rpc_host"] = host;
-    } else defaultSettings["bt_rpc_host"] = storedSettings.bt_rpc_host;
-
-    if (!storedSettings["bt_rpc_port"]) {
-      defaultSettings["bt_rpc_port"] = 7657;
-    } else defaultSettings["bt_rpc_port"] = storedSettings.bt_rpc_port;
-
-    if (!storedSettings["bt_rpc_path"]) {
-      defaultSettings["bt_rpc_path"] = "transmission/";
-    } else defaultSettings["bt_rpc_path"] = storedSettings.bt_rpc_path;
-
-    if (!storedSettings["bt_rpc_pass"]) {
-      defaultSettings["bt_rpc_pass"] = "transmission";
-    } else defaultSettings["bt_rpc_pass"] = storedSettings.bt_rpc_pass;
-
-    console.log("(options)(browserinfo) NATIVE PROXYSETTINGS", info.value);
-    defaultSettings["base_url"] =
-      "http://" +
-      defaultSettings["bt_rpc_host"] +
-      ":" +
-      defaultSettings["bt_rpc_port"] +
-      "/" +
-      defaultSettings["bt_rpc_path"];
-    console.log(
-      "(options)",
-      defaultSettings["proxy_scheme"],
-      defaultSettings["proxy_host"],
-      defaultSettings["proxy_port"],
-      defaultSettings["control_host"],
-      defaultSettings["control_port"],
-      defaultSettings["base_url"]
-    );
-
-    chrome.storage.local.set(defaultSettings);
-    return defaultSettings;
+    browser.storage.local.set(settings);
+    return settings;
   }
-  var gettingInfo = browser.proxy.settings.get({});
-  return gettingInfo.then(gotProxyInfo);
+  const gettingInfo = browser.proxy.settings.get({});
+  return gettingInfo.then(gotProxyInfo).catch(error => {
+    console.error(error);
+    throw new Error("Error in checkStoredSettings");
+  });
 }
 
-function checkAndroidStoredSettings(storedSettings) {
-  let defaultSettings = {};
-  let host = "";
-  let port = "";
-  if (!storedSettings["bookmarks_state"])
-    defaultSettings["bookmarks_state"] = false;
-  else defaultSettings["bookmarks_state"] = storedSettings["bookmarks_state"];
-  if (!storedSettings["proxy_scheme"]) defaultSettings["proxy_scheme"] = "http";
-  else defaultSettings["proxy_scheme"] = storedSettings["proxy_scheme"];
-  if (!storedSettings["proxy_host"]) {
-    if (host == "") defaultSettings["proxy_host"] = "127.0.0.1";
-    else defaultSettings["proxy_host"] = host;
-  } else defaultSettings["proxy_host"] = storedSettings["proxy_host"];
+function checkAndroidStoredSettings(settings) {
+  const defaults = {
+    bookmarksState: false,
+    proxyScheme: "http",
+    proxyHost: "127.0.0.1",
+    proxyPort: 4444,
+    controlHost: "127.0.0.1",
+    controlPort: 7657,
+    rpcHost: "127.0.0.1",
+    rpcPort: 7657,
+    rpcPath: "jsonrpc",
+    rpcPass: "itoopie",
+    btRpcHost: "127.0.0.1",
+    btRpcPort: 7657,
+    btRpcPath: "transmission/rpc",
+    btRpcPass: "transmission"
+  };
 
-  if (!storedSettings["proxy_port"]) {
-    if (port == undefined) defaultSettings["proxy_port"] = 4444;
-    else if (port == 7644) defaultSettings["proxy_port"] = port;
-    else defaultSettings["proxy_port"] = 4444;
-  } else defaultSettings["proxy_port"] = storedSettings.proxy_port;
+  const mergedSettings = { ...defaults,
+...settings };
+  const { proxyHost: host, proxyPort: port } = mergedSettings;
 
-  if (!storedSettings["control_host"]) {
-    if (host == "") defaultSettings["control_host"] = "127.0.0.1";
-    else defaultSettings["control_host"] = host;
-  } else defaultSettings["control_host"] = storedSettings.control_host;
+  mergedSettings.proxyHost = host || defaults.proxyHost;
+  mergedSettings.proxyPort =
+    port === undefined
+? 4444
+: port === 7644
+? port
+: 4444;
 
-  if (!storedSettings["control_port"]) {
-    defaultSettings["control_port"] = 7657;
-  } else defaultSettings["control_port"] = storedSettings.control_port;
+  console.log("Merged settings:", mergedSettings);
 
-  if (!storedSettings["rpc_host"]) {
-    if (host == "") defaultSettings["rpc_host"] = "127.0.0.1";
-    else defaultSettings["rpc_host"] = host;
-  } else defaultSettings["rpc_host"] = storedSettings.rpc_host;
-
-  if (!storedSettings["rpc_port"]) {
-    defaultSettings["rpc_port"] = 7657;
-  } else defaultSettings["rpc_port"] = storedSettings.rpc_port;
-
-  if (!storedSettings["rpc_path"]) {
-    defaultSettings["rpc_path"] = "jsonrpc";
-  } else defaultSettings["rpc_path"] = storedSettings.rpc_path;
-
-  if (!storedSettings["rpc_pass"]) {
-    defaultSettings["rpc_pass"] = "itoopie";
-  } else defaultSettings["rpc_pass"] = storedSettings.rpc_pass;
-
-  if (!storedSettings["bt_rpc_host"]) {
-    if (host == "") defaultSettings["bt_rpc_host"] = "127.0.0.1";
-    else defaultSettings["bt_rpc_host"] = host;
-  } else defaultSettings["bt_rpc_host"] = storedSettings.bt_rpc_host;
-
-  if (!storedSettings["bt_rpc_port"]) {
-    defaultSettings["bt_rpc_port"] = 7657;
-  } else defaultSettings["bt_rpc_port"] = storedSettings.bt_rpc_port;
-
-  if (!storedSettings["bt_rpc_path"]) {
-    defaultSettings["bt_rpc_path"] = "transmission/rpc";
-  } else defaultSettings["bt_rpc_path"] = storedSettings.bt_rpc_path;
-
-  if (!storedSettings["bt_rpc_pass"]) {
-    defaultSettings["bt_rpc_pass"] = "transmission";
-  } else defaultSettings["bt_rpc_pass"] = storedSettings.bt_rpc_pass;
-
-  console.log("(options)(browserinfo) NATIVE PROXYSETTINGS", info.value);
-  console.log(
-    "(options)",
-    defaultSettings["proxy_scheme"],
-    defaultSettings["proxy_host"],
-    defaultSettings["proxy_port"],
-    defaultSettings["control_host"],
-    defaultSettings["control_port"]
-  );
-  chrome.storage.local.set(defaultSettings);
-  return defaultSettings;
-}
-
-function onError(e) {
-  console.error(e);
+  chrome.storage.local.set(mergedSettings);
+  return mergedSettings;
 }
 
 function storeSettings() {
   let storableSettings = {};
-  storableSettings["bookmarks_state"] = getBookmarksCreated();
-  storableSettings["proxy_scheme"] = getScheme();
-  storableSettings["proxy_host"] = getHost();
-  storableSettings["proxy_port"] = getPort();
-  storableSettings["control_host"] = getControlHost();
-  storableSettings["control_port"] = getControlPort();
-  storableSettings["rpc_host"] = getRPCHost();
-  storableSettings["rpc_port"] = getRPCPort();
-  storableSettings["rpc_path"] = getRPCPath();
-  storableSettings["rpc_pass"] = getRPCPass();
-  storableSettings["bt_rpc_host"] = getBTRPCHost();
-  storableSettings["bt_rpc_port"] = getBTRPCPort();
-  storableSettings["bt_rpc_path"] = getBTRPCPath();
-  storableSettings["bt_rpc_pass"] = getBTRPCPass();
+  storableSettings["bookmarks_state"] = getFromHTMLValueBookmarksCreated();
+  storableSettings["proxy_scheme"] = getFromHTMLValueScheme();
+  storableSettings["proxy_host"] = getFromHTMLValueHost();
+  storableSettings["proxy_port"] = getFromHTMLValuePort();
+  storableSettings["control_host"] = getFromHTMLValueControlHost();
+  storableSettings["control_port"] = getFromHTMLValueControlPort();
+  storableSettings["rpc_host"] = getFromHTMLValueRPCHost();
+  storableSettings["rpc_port"] = getFromHTMLValueRPCPort();
+  storableSettings["rpc_path"] = getFromHTMLValueRPCPath();
+  storableSettings["rpc_pass"] = getFromHTMLValueRPCPass();
+  storableSettings["bt_rpc_host"] = getFromHTMLValueBTRPCHost();
+  storableSettings["bt_rpc_port"] = getFromHTMLValueBTRPCPort();
+  storableSettings["bt_rpc_path"] = getFromHTMLValueBTRPCPath();
+  storableSettings["bt_rpc_pass"] = getFromHTMLValueBTRPCPass();
   storableSettings["base_url"] =
-    "http://" + bt_rpc_host + ":" + bt_rpc_port + "/" + bt_rpc_path;
+    "http://" + storableSettings["rpc_host"] + ":" + storableSettings["bt_rpc_port"] + "/" + storableSettings["bt_rpc_path"];
   console.log("storing", storableSettings);
   chrome.storage.local.set(storableSettings);
 }
 
 function updateUI(restoredSettings) {
   const selectList = document.querySelector("#proxy_scheme");
-  if (selectList != undefined) selectList.value = restoredSettings.proxy_scheme;
+  if (selectList != undefined) {
+    selectList.value = restoredSettings.proxy_scheme;
+  }
   //console.log("(options)showing proxy scheme:", selectList.value);
 
   console.log(restoredSettings);
   const bms = document.getElementById("bookmarksState");
-  if (bms != undefined) bms.checked = restoredSettings.bookmarks_state;
+  if (bms != undefined) {
+    bms.checked = restoredSettings.bookmarks_state;
+  }
 
   const hostitem = document.getElementById("host");
-  if (hostitem != undefined) hostitem.value = restoredSettings.proxy_host;
+  if (hostitem != undefined) {
+    hostitem.value = restoredSettings.proxy_host;
+  }
   //console.log("(options)showing proxy host:", hostitem.value);
 
   const portitem = document.getElementById("port");
-  if (portitem != undefined) portitem.value = restoredSettings.proxy_port;
+  if (portitem != undefined) {
+    portitem.value = restoredSettings.proxy_port;
+  }
   //console.log("(options)showing proxy port:", portitem.value);
 
   const controlhostitem = document.getElementById("controlhost");
-  if (controlhostitem == undefined)
+  if (controlhostitem == undefined) {
     controlhostitem.value = restoredSettings.control_host;
+  }
   //console.log("(options)showing control host:", controlhostitem.value);
 
   const controlportitem = document.getElementById("controlport");
-  if (controlportitem == undefined)
+  if (controlportitem == undefined) {
     controlportitem.value = restoredSettings.control_port;
+  }
   //console.log("(options)showing control port:", controlportitem.value);
 
   const rpchostitem = document.getElementById("rpchost");
-  if (rpchostitem != undefined) rpchostitem.value = restoredSettings.rpc_host;
+  if (rpchostitem != undefined) {
+    rpchostitem.value = restoredSettings.rpc_host;
+  }
   //console.log("(options)showing rpc host:", rpchostitem.value);
 
   const rpcportitem = document.getElementById("rpcport");
-  if (rpcportitem != undefined) rpcportitem.value = restoredSettings.rpc_port;
+  if (rpcportitem != undefined) {
+    rpcportitem.value = restoredSettings.rpc_port;
+  }
   //console.log("(options)showing rpc port:", rpcportitem.value);
 
   const rpcpathitem = document.getElementById("rpcpath");
-  if (rpcpathitem != undefined) rpcpathitem.value = restoredSettings.rpc_path;
+  if (rpcpathitem != undefined) {
+    rpcpathitem.value = restoredSettings.rpc_path;
+  }
   //console.log("(options)showing rpc path:", rpcpathitem.value);
 
   const rpcpassitem = document.getElementById("rpcpass");
-  if (rpcpassitem != undefined) rpcpassitem.value = restoredSettings.rpc_pass;
+  if (rpcpassitem != undefined) {
+    rpcpassitem.value = restoredSettings.rpc_pass;
+  }
   //console.log("(options)showing rpc pass:");
 
   const btrpchostitem = document.getElementById("btrpchost");
-  if (btrpchostitem != undefined)
+  if (btrpchostitem != undefined) {
     btrpchostitem.value = restoredSettings.bt_rpc_host;
+  }
   //console.log("(options)showing bt rpc host:", btrpchostitem.value);
 
   const btrpcportitem = document.getElementById("btrpcport");
-  if (btrpcportitem != undefined)
+  if (btrpcportitem != undefined) {
     btrpcportitem.value = restoredSettings.bt_rpc_port;
+  }
   //console.log("(options)showing rbt pc port:", rpcportitem.value);
 
   const btrpcpathitem = document.getElementById("btrpcpath");
-  if (btrpcpathitem != undefined)
+  if (btrpcpathitem != undefined) {
     btrpcpathitem.value = restoredSettings.bt_rpc_path;
+  }
   //console.log("(options)showing bt rpc path:", btrpcpathitem.value);
 
   const btrpcpassitem = document.getElementById("btrpcpass");
-  if (btrpcpassitem != undefined)
+  if (btrpcpassitem != undefined) {
     btrpcpassitem.value = restoredSettings.bt_rpc_pass;
+  }
   //console.log("(options)showing bt rpc pass:");
 
   SetBookButton();
@@ -438,21 +491,21 @@ function updateUI(restoredSettings) {
   SetControlHelpText();
 }
 
-function onError(e) {
-  console.error(e);
+function onError(err) {
+  console.error(err);
 }
 
 var gettingInfo = browser.runtime.getPlatformInfo();
-gettingInfo.then((got) => {
-  if (got.os != "android") {
-    chrome.storage.local.get(function (got) {
-      let settings = checkStoredSettings(got);
-      settings.then(updateUI);
+gettingInfo.then(function (gotPlatform) {
+  if (gotPlatform.os == "android") {
+    browser.storage.local.get(function (gotSettings) {
+      checkAndroidStoredSettings(gotSettings);
+      updateUI(gotSettings);
     });
   } else {
-    chrome.storage.local.get(function (got) {
-      checkAndroidStoredSettings(got);
-      updateUI(got);
+    chrome.storage.local.get(function (gotSettings) {
+      let settings = checkStoredSettings(gotSettings);
+      settings.then(updateUI);
     });
   }
 });
