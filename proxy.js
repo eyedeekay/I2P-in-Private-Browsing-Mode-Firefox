@@ -30,7 +30,7 @@ function shouldProxyRequest(requestInfo) {
 }
 
 var handleContextProxyRequest = async function (requestDetails) {
-  if (proxyHost(requestDetails)) {
+  if (isProxyHost(requestDetails)) {
     proxy = {
       type: proxy_scheme(),
       host: proxy_host(),
@@ -179,7 +179,7 @@ var handleContextProxyRequest = async function (requestDetails) {
         }
       } else {
         if (!isRouterHost(requestDetails.url)) {
-          if (getLocalhostUrlType(requestDetails.url)) {
+          if (isLocalHost(requestDetails.url)) {
             if (requestDetails.url.includes(":7669")) {
               proxy = null;
             } else if (requestDetails.url.includes(":7662")) {
@@ -200,7 +200,7 @@ var handleContextProxyRequest = async function (requestDetails) {
             host: proxy_host(),
             port: proxy_port()
           };
-        } else if (proxyHost(requestDetails)) {
+        } else if (isProxyHost(requestDetails)) {
           proxy = {
             type: proxy_scheme(),
             host: proxy_host(),
@@ -234,7 +234,7 @@ var handleContextProxyRequest = async function (requestDetails) {
         console.log("(proxy)Tab error", error);
       }
     };
-    if (proxyHost(requestDetails)) {
+    if (isProxyHost(requestDetails)) {
       proxy = {
         type: proxy_scheme(),
         host: proxy_host(),
@@ -262,7 +262,7 @@ var handleContextProxyRequest = async function (requestDetails) {
       if (requestDetails.url.includes("MuWire")) {
         return;
       }
-      if (proxyHost(requestDetails)) {
+      if (isProxyHost(requestDetails)) {
         proxy = {
           type: proxy_scheme(),
           host: proxy_host(),
@@ -276,7 +276,7 @@ var handleContextProxyRequest = async function (requestDetails) {
         var proxy = await context.then(handleProxyRequest);
         //console.log('(proxy)Returning I2P Proxy', proxy);
         return proxy;
-      } else if (extensionHost(requestDetails)) {
+      } else if (isExtensionHost(requestDetails)) {
         return;
       } else {
         var tab = tabGet(requestDetails.tabId);

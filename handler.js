@@ -12,7 +12,7 @@ function trimHost(url) {
   return path;
 }
 
-var handlerSetup = function (requestDetails) {
+function handlerSetup(requestDetails) {
   //console.log("checking protocol handler listener")
   let rwurl = identifyProtocolHandler(requestDetails.url);
   if (rwurl != false) {
@@ -22,7 +22,7 @@ var handlerSetup = function (requestDetails) {
     requestDetails.originUrl = trimHost(rwurl);
   }
   return requestDetails;
-};
+}
 /*
 browser.webRequest.onBeforeRequest.addListener(handlerSetup, {
   urls: ['<all_urls>'],

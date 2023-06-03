@@ -1,4 +1,4 @@
-function proxyHost(requestDetails) {
+function isProxyHost(requestDetails) {
   const originUrl = requestDetails.originUrl;
   const isWindowOrHomeUrl =
     originUrl !== browser.runtime.getURL("window.html") &&
@@ -22,8 +22,8 @@ function proxyHost(requestDetails) {
 }
 
 function isLocalHost(url) {
-  //  function getLocalhostUrlType(url) {
-  const urlPath = url.split("/")[2].split(":")[0];
+  console.error("(host) checking local host", url);
+  const urlPath = url.toString().split("/")[2].split(":")[0];
   if (urlPath === "127.0.0.1" || urlPath === "localhost") {
     if (url.includes(":8084")) {
       return "blog";
@@ -38,33 +38,28 @@ function isLocalHost(url) {
   return false;
 }
 
-function extensionHost(url) {
-  var prefix = browser.runtime
+function isExtensionHost(url) {
+  const extensionPrefix = browser.runtime
     .getURL("")
     .replace("moz-extension://", "")
     .replace("/", "");
+  let isHost = false;
+
   if (url.originUrl !== undefined) {
-    var originUrl = url.originUrl
+    const originUrl = url.originUrl
       .replace("moz-extension://", "")
       .replace("/", "");
-    /*    console.log("(urlcheck) Extension application path", originUrl);
-          console.log("(urlcheck) Extension application path", prefix); */
-    var res = originUrl.startsWith(prefix);
-    //    console.log("(urlcheck) Extension application path", res);
-    if (res) {
-      return res;
-    }
+    isHost = originUrl.startsWith(extensionPrefix);
+  } else if (url.documentUrl !== undefined) {
+    const documentUrl = url.documentUrl
+      .replace("moz-extension://", "")
+      .replace("/", "");
+    isHost = documentUrl.startsWith(extensionPrefix);
   }
-  if (url.documentUrl !== undefined) {
-    /*    console.log("(urlcheck) Extension application path", originUrl);
-          console.log("(urlcheck) Extension application path", prefix); */
-    var res = originUrl.startsWith(prefix);
-    //    console.log("(urlcheck) Extension application path", res);
-    if (res) {
-      return res;
-    }
-  }
-  console.log("(urlcheck) Extension application path", url);
+
+  console.log(`(urlcheck) Is URL from extension host? ${isHost}`);
+
+  return isHost;
 }
 
 function i2pHostName(url) {
@@ -95,7 +90,7 @@ function i2pHostName(url) {
 }
 
 function i2pHost(url) {
-  if (proxyHost(url)) {
+  if (isProxyHost(url)) {
     console.warn("(host) proxy.i2p", url.url);
     return false;
   }
@@ -114,7 +109,9 @@ function notAnImage(url, path) {
 }
 
 function getPathApplication(str, url) {
-  if (!str) return true;
+  if (!str) {
+    return true;
+  }
 
   const path = str.split("/")[0];
 
@@ -178,15 +175,14 @@ function isRouterHost(url) {
   const localHosts = ["localhost", "127.0.0.1"];
   const controlHost = control_host();
   const controlPort = control_port();
-  const isLocalHost = localHosts.includes(hostname.split(":")[0]);
+  //const isLocalHost = localHosts.includes(hostname.split(":")[0]);
 
-  if (hostname === `${controlHost}:${controlPort}` || isLocalHost) {
+  if (hostname === `${controlHost}:${controlPort}` || isLocalHost(url)) {
     return getPathApplication(path, url);
   }
 
   return false;
 }
-
 
 function identifyProtocolHandler(url) {
   //console.log("looking for handler-able requests")

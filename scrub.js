@@ -296,7 +296,7 @@ function contextSetup(requestDetails) {
     if (requestDetails == undefined) {
       return requestDetails;
     }
-    if (proxyHost(requestDetails)) {
+    if (isProxyHost(requestDetails)) {
       let setcookie = browser.cookies.set({
         firstPartyDomain: i2pHostName(requestDetails.url),
         url: requestDetails.url,
@@ -395,7 +395,7 @@ function contextSetup(requestDetails) {
           const i2ptab = tab.then(i2pTabFind, onContextError);
           i2ptab.then(tabUpdate);
           return requestDetails;
-        } else if (extensionHost(requestDetails)) {
+        } else if (isExtensionHost(requestDetails)) {
           return requestDetails;
         }
       }
