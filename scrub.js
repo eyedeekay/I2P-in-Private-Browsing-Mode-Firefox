@@ -222,7 +222,10 @@ async function findOtherContexts() {
 
 function contextSetup(requestDetails) {
   async function findSnarkTab(tabId) {
-    console.info("(isolate)Context Discovery torrents", tabId);
+    console.info("(isolate)Context Discovery torrent tab", tabId);
+    if (!tabId) {
+      return;
+    }
     try {
       var context = await browser.contextualIdentities.query({
         name: torrentpref
@@ -233,25 +236,17 @@ function contextSetup(requestDetails) {
             name: titlepref
           });
           let tmp = new URL(tabId.url);
-          console.log("(isolate)tabid host", tmp.host, exemptContext);
+          console.log("(isolate) torrent tabid host", tmp.host, exemptContext);
           if (
             !requestDetails.url.includes("snark/" + tmp.host) &&
             tabId.cookieStoreId != exemptContext[0].cookieStoreId
           ) {
             function Create() {
               function onCreated(currentTab) {
-                function closeOldTabs(tabs) {
-                  for (let ti = 0; ti < tabs.length - 1; ti++) {
-                    browser.tabs.remove(tabs[ti].id);
-                  }
-                  browser.tabs.query({}).then(allTabs => {
-                    for (const innerTab of allTabs) {
-                      if (innerTab.id !== currentTab.id && innerTab.cookieStoreId === context[0].cookieStoreId) {
-                        browser.tabs.remove(innerTab.id);
-                      }
-                    }
-                    browser.tabs.move(currentTab.id, { index: 0 });
-                  });
+                console.warn("(isolate) torrent tab created", currentTab);
+                function closeOldTabs() {
+                  browser.tabs.remove(tabId.id);
+                  browser.tabs.move(currentTab.id, { index: 0 });
                 }
                 const pins = browser.tabs.query({
                   cookieStoreId: context[0].cookieStoreId
@@ -260,9 +255,11 @@ function contextSetup(requestDetails) {
               }
               if (requestDetails.url.endsWith("xhr1.html")) {
                 let hostname = requestDetails.url.split("/")[2];
-                let prefix = requestDetails.url.substr(0, requestDetails.url.indexOf("://") + 3);
+                let prefix = requestDetails.url.substr(
+                  0,
+                  requestDetails.url.indexOf("://") + 3
+                );
                 requestDetails.url = prefix + hostname + "/i2psnark/";
-                return;
               }
               var created = browser.tabs.create({
                 active: true,
