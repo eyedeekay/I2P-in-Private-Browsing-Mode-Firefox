@@ -1,3 +1,9 @@
+i2psetproxy.js (1.47-1) UNRELEASED; urgency=low
+
+  * only reset the theme if we're resetting from one we own
+
+ -- idk <hankhill19580@gmail.com> Sun, 11 Jun 2023 14:05:08 -0400 
+
 i2psetproxy.js (1.45-1) UNRELEASED; urgency=low
 
   * Refactor scrub-and-capture code
