@@ -89,7 +89,6 @@ function themeWindow(window) {
     let ctheme = browser.theme.getCurrent();
     ctheme.then(setDynamicTheme);
     function setDynamicTheme(oldtheme) {
-      dtheme.images = oldtheme.images;
       if (window.incognito) {
         browser.theme.update(window.id, dtheme);
       } else {
@@ -407,19 +406,24 @@ browser.tabs.onCreated.addListener(putCurrentThemeInLocalStorage);
 function unsetTheme() {
   const storedTheme = browser.storage.local.get("theme");
   storedTheme.then(restoreTheme, restoreThemeError);
-  function restoreTheme(theme) {
-    if (theme.theme) {
-      console.debug("(theme) analyzing theme", theme.theme);
-      if (theme.theme.colors) {
-        theme.theme.images = {};
-        console.warn("(theme) There's not a way to restore theme images yet.");
-        browser.theme.update(theme.theme);
-        console.log("(theme) restored the stored theme", theme);
-      } else {
-        browser.theme.reset();
+  async function restoreTheme(theme) {
+    let mt = await isMyTheme();
+    if (mt) {
+      if (theme.theme) {
+        console.debug("(theme) analyzing theme", theme.theme);
+        if (theme.theme.colors) {
+          theme.theme.images = {};
+          console.warn(
+            "(theme) There's not a way to restore theme images yet."
+          );
+          browser.theme.update(theme.theme);
+          console.log("(theme) restored the stored theme", theme);
+        } else {
+          browser.theme.reset();
+        }
       }
+      restoreLatestThemeIDInLocalStorage();
     }
-    restoreLatestThemeIDInLocalStorage();
   }
   function restoreThemeError(err) {
     console.debug("(theme) theme restore error", err);
