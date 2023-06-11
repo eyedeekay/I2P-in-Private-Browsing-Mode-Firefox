@@ -343,8 +343,8 @@ snark-mirror:
 	github-release upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psnark-rpc-update.su3" -f ../i2psnark-rpc-update.su3
 
 seed:
-	cp -v "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent" "$(PWD)/.i2p/i2psnark"
-	cp -v "../i2ppb-$(VERSION)@eyedeekay.github.io.xpi" "$(PWD)/.i2p/i2psnark"
+	cp -v "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent" "$(HOME)/.i2p/i2psnark"
+	cp -v "../i2ppb-$(VERSION)@eyedeekay.github.io.xpi" "$(HOME)/.i2p/i2psnark"
 
 android:
 	$(PWD)/node_modules/.bin/web-ext run \
