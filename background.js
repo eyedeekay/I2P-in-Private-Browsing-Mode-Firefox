@@ -401,6 +401,8 @@ function onThemeError(err) {
 }
 
 browser.theme.onUpdated.addListener(putCurrentThemeInLocalStorage);
+browser.windows.onCreated.addListener(putCurrentThemeInLocalStorage);
+browser.tabs.onCreated.addListener(putCurrentThemeInLocalStorage);
 
 function unsetTheme() {
   const storedTheme = browser.storage.local.get("theme");
@@ -413,6 +415,8 @@ function unsetTheme() {
         console.warn("(theme) There's not a way to restore theme images yet.");
         browser.theme.update(theme.theme);
         console.log("(theme) restored the stored theme", theme);
+      } else {
+        browser.theme.reset();
       }
     }
     restoreLatestThemeIDInLocalStorage();
