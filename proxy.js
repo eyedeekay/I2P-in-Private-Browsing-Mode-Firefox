@@ -14,14 +14,14 @@ var torpref = chrome.i18n.getMessage("torPreface");
 var torprefpriv = chrome.i18n.getMessage("torPreface");
 
 browser.privacy.network.peerConnectionEnabled.set({
-  value: true
+  value: true,
 });
 
 chrome.privacy.network.networkPredictionEnabled.set({
-  value: false
+  value: false,
 });
 chrome.privacy.network.webRTCIPHandlingPolicy.set({
-  value: "disable_non_proxied_udp"
+  value: "disable_non_proxied_udp",
 });
 console.log("Disabled unproxied UDP.");
 
@@ -34,7 +34,7 @@ var handleContextProxyRequest = async function (requestDetails) {
     proxy = {
       type: proxy_scheme(),
       host: proxy_host(),
-      port: proxy_port()
+      port: proxy_port(),
     };
     console.warn("(proxy) is proxy check");
     return proxy;
@@ -45,7 +45,7 @@ var handleContextProxyRequest = async function (requestDetails) {
       proxy = {
         type: proxy_scheme(),
         host: proxy_host(),
-        port: proxy_port()
+        port: proxy_port(),
       };
       return proxy;
     }
@@ -62,7 +62,7 @@ var handleContextProxyRequest = async function (requestDetails) {
       proxy = {
         type: proxy_scheme(),
         host: proxy_host(),
-        port: proxy_port()
+        port: proxy_port(),
       };
       return proxy;
     }
@@ -77,7 +77,7 @@ var handleContextProxyRequest = async function (requestDetails) {
       proxy = {
         type: proxy_scheme(),
         host: proxy_host(),
-        port: proxy_port()
+        port: proxy_port(),
       };
       return proxy;
     }
@@ -102,7 +102,7 @@ var handleContextProxyRequest = async function (requestDetails) {
     proxy = {
       type: proxy_scheme(),
       host: proxy_host(),
-      port: proxy_port()
+      port: proxy_port(),
     };
     let url = new URL(requestDetails.url);
     if (
@@ -125,7 +125,7 @@ var handleContextProxyRequest = async function (requestDetails) {
       proxy = {
         type: proxy_scheme(),
         host: proxy_host(),
-        port: proxy_port()
+        port: proxy_port(),
       };
       return proxy;
     }
@@ -135,7 +135,7 @@ var handleContextProxyRequest = async function (requestDetails) {
       proxy = {
         type: proxy_scheme(),
         host: proxy_host(),
-        port: proxy_port()
+        port: proxy_port(),
       };
 
       if (context == "firefox-default" || context == "firefox-private") {
@@ -198,13 +198,13 @@ var handleContextProxyRequest = async function (requestDetails) {
           proxy = {
             type: proxy_scheme(),
             host: proxy_host(),
-            port: proxy_port()
+            port: proxy_port(),
           };
         } else if (isProxyHost(requestDetails)) {
           proxy = {
             type: proxy_scheme(),
             host: proxy_host(),
-            port: proxy_port()
+            port: proxy_port(),
           };
         } else {
           proxy = null;
@@ -238,7 +238,7 @@ var handleContextProxyRequest = async function (requestDetails) {
       proxy = {
         type: proxy_scheme(),
         host: proxy_host(),
-        port: proxy_port()
+        port: proxy_port(),
       };
       return proxy;
     }
@@ -246,7 +246,7 @@ var handleContextProxyRequest = async function (requestDetails) {
       proxy = {
         type: proxy_scheme(),
         host: proxy_host(),
-        port: proxy_port()
+        port: proxy_port(),
       };
       return proxy;
     }
@@ -266,7 +266,7 @@ var handleContextProxyRequest = async function (requestDetails) {
         proxy = {
           type: proxy_scheme(),
           host: proxy_host(),
-          port: proxy_port()
+          port: proxy_port(),
         };
         return proxy;
       } else if (i2pHost(requestDetails)) {
@@ -292,7 +292,7 @@ var handleContextProxyRequest = async function (requestDetails) {
       proxy = {
         type: proxy_scheme(),
         host: proxy_host(),
-        port: proxy_port()
+        port: proxy_port(),
       };
       //console.log('(proxy for rpc url)', rpc);
       return proxy;
@@ -309,7 +309,7 @@ function SetupSettings() {
 function setupProxy() {
   console.log("Setting up Firefox WebExtension proxy");
   browser.proxy.onRequest.addListener(handleContextProxyRequest, {
-    urls: ["<all_urls>"]
+    urls: ["<all_urls>"],
   });
   console.log("i2p settings created for WebExtension Proxy");
   browser.proxy.onError.addListener(handleContextProxyError);
@@ -320,7 +320,7 @@ function handleContextProxyError(err) {
     console.error(`(proxy) Error : ${error}`);
   }
   console.warn("(proxy) Error:", err);
-  if (err.message = "ProxyInfoData: Invalid proxy server type: \"undefined\"") {
+  if ((err.message = 'ProxyInfoData: Invalid proxy server type: "undefined"')) {
     return;
   }
 
@@ -338,7 +338,7 @@ function handleContextProxyError(err) {
               console.error(`(proxy) Error : ${error}`);
             }
             let createData = {
-              url: "proxyerr.html"
+              url: "proxyerr.html",
             };
             let creating = browser.tabs.update(tab.id, createData);
             creating.then(onProxyErrorUpdated, onProxyError);
@@ -386,7 +386,7 @@ SetupSettings();
 setupProxy();
 
 var gettingListenerInfo = browser.runtime.getPlatformInfo();
-gettingListenerInfo.then(got => {
+gettingListenerInfo.then((got) => {
   if (browser.windows != undefined) {
     browser.windows.onCreated.addListener(() => {
       chrome.storage.local.get(function () {

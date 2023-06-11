@@ -37,43 +37,21 @@ function logContexts(contexts) {
 
 function onContextsGot(contexts) {
   const prefList = [
-    { name: titlepref,
-color: "orange",
-icon: "fingerprint" },
-    { name: blogpref,
-color: "pink",
-icon: "pet" },
-    { name: webpref,
-color: "red",
-icon: "circle" },
-    { name: routerpref,
-color: "blue",
-icon: "briefcase" },
-    { name: tunnelpref,
-color: "green",
-icon: "tree" },
-    { name: mailpref,
-color: "yellow",
-icon: "briefcase" },
-    { name: torrentpref,
-color: "purple",
-icon: "chill" },
-    { name: ircpref,
-color: "red",
-icon: "vacation" },
-    { name: torpref,
-color: "purple",
-icon: "circle" },
-    { name: muwirepref,
-color: "turquoise",
-icon: "gift" },
-    { name: botepref,
-color: "blue",
-icon: "fence" }
+    { name: titlepref, color: "orange", icon: "fingerprint" },
+    { name: blogpref, color: "pink", icon: "pet" },
+    { name: webpref, color: "red", icon: "circle" },
+    { name: routerpref, color: "blue", icon: "briefcase" },
+    { name: tunnelpref, color: "green", icon: "tree" },
+    { name: mailpref, color: "yellow", icon: "briefcase" },
+    { name: torrentpref, color: "purple", icon: "chill" },
+    { name: ircpref, color: "red", icon: "vacation" },
+    { name: torpref, color: "purple", icon: "circle" },
+    { name: muwirepref, color: "turquoise", icon: "gift" },
+    { name: botepref, color: "blue", icon: "fence" },
   ];
-  const ids = contexts.map(context => context.name);
+  const ids = contexts.map((context) => context.name);
   console.log("Checking new contexts");
-  prefList.forEach(pref => {
+  prefList.forEach((pref) => {
     if (ids.indexOf(pref.name) === -1) {
       browser.contextualIdentities.create(pref).then(onCreated, onNotCreated);
     }
@@ -95,7 +73,7 @@ function onNotCreated(context) {
 browser.contextualIdentities.query({}).then(onContextsGot, onContextsError);
 
 var gettingInfo = browser.runtime.getPlatformInfo();
-gettingInfo.then(got => {
+gettingInfo.then((got) => {
   if (got.os != "android") {
     browser.windows.onCreated.addListener(themeWindow);
     browser.windows.onFocusChanged.addListener(themeWindow);
@@ -190,7 +168,7 @@ function themeWindow(window) {
 
   var querying = browser.tabs.query({
     currentWindow: true,
-    active: true
+    active: true,
   });
   querying.then(logTabs, onThemeError);
 }
@@ -202,9 +180,7 @@ function queryTitle(window) {
   }
 
   function setTitle(title, privTitle) {
-    const titlePreface = window.incognito
-? privTitle
-: title;
+    const titlePreface = window.incognito ? privTitle : title;
     browser.windows.update(window.id, { titlePreface });
   }
 
@@ -219,7 +195,7 @@ function queryTitle(window) {
       blogpref: "Active in I2P Blog window",
       torrentpref: "Active in I2P Torrent window",
       ircpref: "Active in IRC window",
-      torpref: "Active in Tor Manager window"
+      torpref: "Active in Tor Manager window",
     };
     const { name } = context;
     console.log(titleMap[name]);
@@ -228,7 +204,10 @@ function queryTitle(window) {
 
   function logTabs(tabInfo) {
     const { cookieStoreId } = tabInfo[0];
-    if (cookieStoreId === "firefox-default" || cookieStoreId === "firefox-private") {
+    if (
+      cookieStoreId === "firefox-default" ||
+      cookieStoreId === "firefox-private"
+    ) {
       setTitle("", "");
     } else {
       browser.contextualIdentities
@@ -237,27 +216,25 @@ function queryTitle(window) {
     }
   }
 
-  const querying = browser.tabs.query({ currentWindow: true,
-active: true });
+  const querying = browser.tabs.query({ currentWindow: true, active: true });
   querying.then(logTabs, onContextError);
 }
 
-
 var gettingListenerInfo = browser.runtime.getPlatformInfo();
-gettingListenerInfo.then(got => {
+gettingListenerInfo.then((got) => {
   function onPlatformError() {
     console.log("Error finding platform info");
   }
   if (got.os != "android") {
     browser.tabs.onCreated.addListener(() => {
       var getting = browser.windows.getCurrent({
-        populate: true
+        populate: true,
       });
       getting.then(queryTitle, onPlatformError);
     });
     browser.tabs.onActivated.addListener(() => {
       var getting = browser.windows.getCurrent({
-        populate: true
+        populate: true,
       });
       getting.then(queryTitle, onPlatformError);
     });
@@ -299,20 +276,18 @@ async function checkCertificate(details) {
   }
 }
 
-
 /* Listen for onHeaderReceived for the target page.
    Set "blocking" and "responseHeaders". */
 browser.webRequest.onHeadersReceived.addListener(
   checkCertificate,
   { urls: ["<all_urls>"] },
-  [
-"blocking",
-"responseHeaders"
-]
+  ["blocking", "responseHeaders"]
 );
 
 function onClosedWindowCheck() {
-  const contextQuery = browser.contextualIdentities.query({ name: "titlepref" });
+  const contextQuery = browser.contextualIdentities.query({
+    name: "titlepref",
+  });
 
   function checkTabs(context) {
     for (let ctx of context) {
@@ -329,9 +304,10 @@ function onClosedWindowCheck() {
   contextQuery.then(checkTabs, onError);
 }
 
-
 async function onOpenedWindowCheck() {
-  const contexts = await browser.contextualIdentities.query({ name: titlepref });
+  const contexts = await browser.contextualIdentities.query({
+    name: titlepref,
+  });
 
   function deleteContextIfNoTabs(tabs, context) {
     if (tabs.length == 0 && context != 0) {
@@ -340,7 +316,9 @@ async function onOpenedWindowCheck() {
   }
 
   async function checkTabs(context) {
-    const tabs = await browser.tabs.query({ cookieStoreId: context.cookieStoreId });
+    const tabs = await browser.tabs.query({
+      cookieStoreId: context.cookieStoreId,
+    });
     await deleteContextIfNoTabs(tabs, context);
   }
 
@@ -372,8 +350,7 @@ function putCurrentThemeInLocalStorage() {
     currentTheme.then(storeTheme, themeStoreError);
     function storeTheme(theme) {
       console.debug("(theme) stored the current theme:", theme);
-      browser.storage.local.set({name: "theme",
-theme});
+      browser.storage.local.set({ name: "theme", theme });
     }
   }
   function themeStoreError(err) {
@@ -392,7 +369,7 @@ function putLatestThemeIDInLocalStorage(extensionInfo) {
     console.debug("(theme) storing theme by ID", extensionInfo.id);
     if (extensionInfo.type === "theme") {
       let themeID = extensionInfo.id;
-      browser.storage.local.set({themeID});
+      browser.storage.local.set({ themeID });
     }
   }
   function themeStoreError(err) {
@@ -406,7 +383,7 @@ function restoreLatestThemeIDInLocalStorage() {
   function restoreTheme(theme) {
     if (theme.themeID) {
       let dis = browser.management.setEnabled(theme.themeID, false);
-      dis.then(function() {
+      dis.then(function () {
         console.debug("(theme) theme restored by ID", theme.themeID);
         browser.management.setEnabled(theme.themeID, true);
       });
@@ -449,16 +426,16 @@ let btheme = {
   colors: {
     frame: "#363A68",
     toolbar: "#363A68",
-    tab_text: "#ECF3FF"
-  }
+    tab_text: "#ECF3FF",
+  },
 };
 
 let dtheme = {
   colors: {
     frame: "#4456B7",
     toolbar: "#4456B7",
-    tab_text: "#ECF3FF"
-  }
+    tab_text: "#ECF3FF",
+  },
 };
 
 async function isMyTheme() {
@@ -467,7 +444,11 @@ async function isMyTheme() {
     if (theme.colors === null || targetColors.colors === null) {
       return false;
     }
-    return theme.colors.frame == targetColors.colors.frame && theme.colors.toolbar == targetColors.colors.toolbar && theme.colors.tab_text == targetColors.colors.tab_text;
+    return (
+      theme.colors.frame == targetColors.colors.frame &&
+      theme.colors.toolbar == targetColors.colors.toolbar &&
+      theme.colors.tab_text == targetColors.colors.tab_text
+    );
   }
 
   const currentTheme = await browser.theme.getCurrent();

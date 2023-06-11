@@ -132,13 +132,13 @@ rc:
 rtest: rc index torrenthelp
 
 release: rc index torrenthelp
-	cat desc debian/changelog | grep -B 10 "$(LAST_VERSION)" | gothub release -p -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n $(VERSION) -d -; true
+	cat desc debian/changelog | grep -B 10 "$(LAST_VERSION)" | github-release release -p -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n $(VERSION) -d -; true
 
 update-release:
-	cat desc debian/changelog | grep -B 10 "$(LAST_VERSION)" | gothub edit -p -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n $(VERSION) -d -; true
+	cat desc debian/changelog | grep -B 10 "$(LAST_VERSION)" | github-release edit -p -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n $(VERSION) -d -; true
 
 delete-release:
-	gothub delete -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION); true
+	github-release delete -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION); true
 
 recreate-release: delete-release release upload
 
@@ -168,7 +168,7 @@ moz-sign: version clean-artifacts
 	@echo "Using the 'sign' target to instantly sign an extension for self-distribution"
 	@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
 	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
-	$(HOME)/node_modules/.bin/web-ext sign --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET) --timeout 900000 #--api-url-prefix http://localhost:3000/api/v4
+	$(PWD)/node_modules/.bin/web-ext sign --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET) --timeout 900000 #--api-url-prefix http://localhost:3000/api/v4
 	make copyss
 	sleep 5
 
@@ -182,7 +182,7 @@ moz-submit: moz-version
 	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
 	mv manifest.json .manifest.json
 	grep -v update_url .manifest.json > manifest.json
-	$(HOME)/node_modules/.bin/web-ext sign --channel listed --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET) --timeout 900000 --verbose; true #--api-url-prefix http://localhost:3000/api/v4
+	$(PWD)/node_modules/.bin/web-ext sign --channel listed --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET) --timeout 900000 --verbose; true #--api-url-prefix http://localhost:3000/api/v4
 	sleep 5
 	mv .manifest.json manifest.json
 
@@ -191,11 +191,11 @@ rhz-submit: rhz-version
 	#@echo "Using the 'sign' target to instantly sign an extension for self-distribution"
 	#@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
 	#@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
-	#$HOME/node_modules/web-ext-submit/extender.sh --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
+	#$PWD/node_modules/web-ext-submit/extender.sh --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET); true
 	#cp web-ext-artifacts/*.xpi ./i2ppb@eyedeekay.github.io.xpi
 
 getxpi:
-	gothub download -t $(VERSION) -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -n i2ppb@eyedeekay.github.io.xpi
+	github-release download -t $(VERSION) -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -n i2ppb@eyedeekay.github.io.xpi
 	mv ./i2ppb@eyedeekay.github.io.xpi ../i2ppb-$(VERSION)@eyedeekay.github.io.xpi
 	cp ../i2ppb-$(VERSION)@eyedeekay.github.io.xpi ../i2ppb@eyedeekay.github.io.xpi
 
@@ -243,23 +243,23 @@ torrent: getxpi
 	make index
 
 upload-torrent:
-	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2ppb@eyedeekay.github.io.xpi.torrent" -f "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent"
+	github-release upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2ppb@eyedeekay.github.io.xpi.torrent" -f "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent"
 
 upload-xpi:
-	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2ppb@eyedeekay.github.io.xpi" -f "../i2ppb@eyedeekay.github.io.xpi"
+	github-release upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2ppb@eyedeekay.github.io.xpi" -f "../i2ppb@eyedeekay.github.io.xpi"
 
 upload-deb:
-	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psetproxy.js_$(VERSION)-1_amd64.deb" -f "../i2psetproxy.js_$(VERSION)-1_amd64.deb"
-	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psetproxy.js_$(VERSION).orig.tar.gz" -f "../i2psetproxy.js_$(VERSION).orig.tar.gz"
-	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psetproxy.js_$(VERSION)-1.debian.tar.xz" -f "../i2psetproxy.js_$(VERSION)-1.debian.tar.xz"
-	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psetproxy.js_$(VERSION)-1.dsc" -f "../i2psetproxy.js_$(VERSION)-1.dsc"
-	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psetproxy.js_$(VERSION)-1_amd64.changes" -f "../i2psetproxy.js_$(VERSION)-1_amd64.changes"
-	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psetproxy.js_$(VERSION)-1_amd64.buildinfo" -f "../i2psetproxy.js_$(VERSION)-1_amd64.buildinfo"
+	github-release upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psetproxy.js_$(VERSION)-1_amd64.deb" -f "../i2psetproxy.js_$(VERSION)-1_amd64.deb"
+	github-release upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psetproxy.js_$(VERSION).orig.tar.gz" -f "../i2psetproxy.js_$(VERSION).orig.tar.gz"
+	github-release upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psetproxy.js_$(VERSION)-1.debian.tar.xz" -f "../i2psetproxy.js_$(VERSION)-1.debian.tar.xz"
+	github-release upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psetproxy.js_$(VERSION)-1.dsc" -f "../i2psetproxy.js_$(VERSION)-1.dsc"
+	github-release upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psetproxy.js_$(VERSION)-1_amd64.changes" -f "../i2psetproxy.js_$(VERSION)-1_amd64.changes"
+	github-release upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psetproxy.js_$(VERSION)-1_amd64.buildinfo" -f "../i2psetproxy.js_$(VERSION)-1_amd64.buildinfo"
 
 upload-docs:
-	gothub release -p -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t docs -n "Documentation" -d "PDF's and text about the extension"; true
-	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t docs -n "Landing Page Documentation.pdf" -f ../smartlander.pdf
-	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t docs -n "Browser Design Documentation.pdf" -f ../browser.pdf
+	github-release release -p -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t docs -n "Documentation" -d "PDF's and text about the extension"; true
+	github-release upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t docs -n "Landing Page Documentation.pdf" -f ../smartlander.pdf
+	github-release upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t docs -n "Browser Design Documentation.pdf" -f ../browser.pdf
 
 fmt: fmt-css fmt-html fmt-js
 
@@ -289,10 +289,10 @@ fmt-js:
 	#find . -path ./node_modules -prune -o -name '*.json' -exec fixjsstyle --write {} \;
 
 fmt-locales:
-	find _locales -name '*.js*' -exec $(HOME)/node_modules/.bin/prettier -w {} \;
+	find _locales -name '*.js*' -exec $(PWD)/node_modules/.bin/prettier -w {} \;
 
 fmt-prettier:
-	find . -name '*.js*' -exec $(HOME)/node_modules/.bin/prettier -w {} \;
+	find . -name '*.js*' -exec $(PWD)/node_modules/.bin/prettier -w {} \;
 
 lint:
 
@@ -327,27 +327,27 @@ rss: torrent
 	sed -i "s|<title>$(VERSION)</title>|<title>$(VERSION)</title>\n    <enclosure url=\"$(MAGNET)\" type=\"application/x-bittorrent\" />|g" releases.atom
 
 upload-rss: rss
-	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t docs -n "releases.atom" -f releases.atom
+	github-release upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t docs -n "releases.atom" -f releases.atom
 
 upload-updatemanifest:
-	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t docs -n "updateManifest.json" -f updateManifest.json
+	github-release upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t docs -n "updateManifest.json" -f updateManifest.json
 
 webext:
 	mkdir -p profile
-	$(HOME)/node_modules/.bin/web-ext run --firefox /usr/bin/firefox --firefox-profile ./profile -u "about:devtools-toolbox?type=extension&id=i2ppb%40eyedeekay.github.io"
+	$(PWD)/node_modules/.bin/web-ext run --firefox /usr/bin/firefox --firefox-profile ./profile -u "about:devtools-toolbox?type=extension&id=i2ppb%40eyedeekay.github.io"
 
 snark-mirror:
 	http_proxy=http://127.0.0.1:4444 wget -c -O ../i2psnark-rpc.su3 http://stats.i2p/i2p/plugins/i2psnark-rpc.su3
-	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psnark-rpc.su3" -f ../i2psnark-rpc.su3
+	github-release upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psnark-rpc.su3" -f ../i2psnark-rpc.su3
 	http_proxy=http://127.0.0.1:4444 wget -c -O ../i2psnark-rpc-update.su3 http://stats.i2p/i2p/plugins/i2psnark-rpc-update.su3
-	gothub upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psnark-rpc-update.su3" -f ../i2psnark-rpc-update.su3
+	github-release upload -R -u eyedeekay -r I2P-in-Private-Browsing-Mode-Firefox -t $(VERSION) -n "i2psnark-rpc-update.su3" -f ../i2psnark-rpc-update.su3
 
 seed:
-	cp -v "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent" "$(HOME)/.i2p/i2psnark"
-	cp -v "../i2ppb-$(VERSION)@eyedeekay.github.io.xpi" "$(HOME)/.i2p/i2psnark"
+	cp -v "./i2ppb-$(VERSION)@eyedeekay.github.io.xpi.torrent" "$(PWD)/.i2p/i2psnark"
+	cp -v "../i2ppb-$(VERSION)@eyedeekay.github.io.xpi" "$(PWD)/.i2p/i2psnark"
 
 android:
-	$(HOME)/node_modules/.bin/web-ext run \
+	$(PWD)/node_modules/.bin/web-ext run \
 		--target firefox-android \
 		--android-device HT78N1A00453 \
 		--firefox-apk org.mozilla.fenix

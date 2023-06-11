@@ -22,7 +22,7 @@ function isProxyHost(requestDetails) {
 }
 
 function isLocalHost(url) {
-  console.error("(host) checking local host", url);
+  console.log("(host) checking local host", url);
   const urlPath = url.toString().split("/")[2].split(":")[0];
   if (urlPath === "127.0.0.1" || urlPath === "localhost") {
     if (url.includes(":8084")) {
