@@ -155,15 +155,16 @@ function fixURL(contextidentifier, url) {
       case mailpref:
         return routerURL + "webmail";
       case ircpref:
-        return "127.0.0.1:7669";
+        return "http://127.0.0.1:7669";
       case torpref:
-        return "127.0.0.1:7695";
+        return "http://127.0.0.1:7695";
       case blogpref:
-        return "127.0.0.1:8084";
+        return "http://127.0.0.1:8084";
       default:
         return "http://proxy.i2p";
     }
   }
+  return url;
 }
 
 async function forceIntoIsolation(tabId, contextidentifier, pin = true) {
@@ -172,7 +173,7 @@ async function forceIntoIsolation(tabId, contextidentifier, pin = true) {
     var context = await browser.contextualIdentities.query({
       name: contextidentifier,
     });
-    console.log("(scrub) tabId URL", tabId.url);
+    console.log("(scrub) tabId URL", tabId);
     let newURL = fixURL(contextidentifier, tabId.url);
     if (tabId.cookieStoreId != context[0].cookieStoreId) {
       function Create(beforeTab) {
