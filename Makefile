@@ -37,8 +37,8 @@ clean: rc clean-artifacts
 ## EVEN RELEASES are AMO RELEASES
 ## ODD RELEASES are SELFHOSTED RELEASES
 
-MOZ_VERSION=1.48
-VERSION=1.47
+MOZ_VERSION=1.50
+VERSION=1.49
 
 ## INCREMENT THIS EVERY TIME YOU DO A RELEASE
 LAST_VERSION=$(shell grep '"version"' manifest.json | sed 's|"version"||g' | tr -d " :,'" | tr -d '"')
