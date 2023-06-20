@@ -1,5 +1,10 @@
 function isProxyHost(requestDetails) {
-  if (requestDetails.url.includes(control_host()+":"+control_port()+"/jsonrpc")) return false;
+  if (
+    requestDetails.url.includes(
+      control_host() + ":" + control_port() + "/jsonrpc"
+    )
+  )
+    return false;
   const originUrl = requestDetails.originUrl;
   const isWindowOrHomeUrl =
     originUrl !== browser.runtime.getURL("window.html") &&
@@ -168,7 +173,7 @@ function isRouterHost(url) {
     path = url.replace(protocol + hostname + "/", "");
   } else if (identifyProtocolHandler(url)) {
     const newUrl = identifyProtocolHandler(url);
-    console.log("(host) testing router host protocol handler identified")
+    console.log("(host) testing router host protocol handler identified");
     return isRouterHost(newUrl);
   } else {
     hostname = url.split("/")[0];

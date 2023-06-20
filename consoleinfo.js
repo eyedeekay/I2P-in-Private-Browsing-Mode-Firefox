@@ -28,7 +28,7 @@ function hide(elementsToHide) {
     ? elementsToHide
     : [elementsToHide];
   elements.forEach((element) => {
-    console.log("(consoleinfo) hiding")
+    console.log("(consoleinfo) hiding");
     el.classList.add("hidden");
   });
 }
@@ -39,7 +39,7 @@ function unhide(elementsToShow) {
     : [elementsToShow];
   elements.forEach((element) => {
     if (element.style) {
-      console.log("(consoleinfo) unhiding")
+      console.log("(consoleinfo) unhiding");
       el.classList.remove("hidden");
     }
   });

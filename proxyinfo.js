@@ -31,7 +31,7 @@ function hide(elements) {
   const elems = Array.isArray(elements) ? elements : [elements];
   elems.forEach((elem) => {
     if (elem.style) {
-      console.log("(proxyinfo) hiding")
+      console.log("(proxyinfo) hiding");
       elem.classList.add("hidden");
     }
   });
@@ -42,7 +42,7 @@ function unhide(elements) {
   const elems = Array.isArray(elements) ? elements : [elements];
   elems.forEach((elem) => {
     if (elem.style) {
-      console.log("(proxyinfo) unhiding")
+      console.log("(proxyinfo) unhiding");
       elem.classList.remove("hidden");
     }
   });
@@ -76,4 +76,3 @@ fetch("http://127.0.0.1:7657/jsonrpc/")
     var toopieIDLinks = document.querySelectorAll(".window-visit-toopie");
     hide(toopieIDLinks);
   });
-
