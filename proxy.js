@@ -318,9 +318,7 @@ function handleContextProxyError(err) {
   function changeTabErr(error) {
     console.error(`(proxy) Tab change error : ${error}`);
   }
-  if (err.message === 'ProxyInfoData: Invalid proxy server type: "undefined"') {
-    return;
-  }
+  console.error("(proxy) proxy error", err);
 
   function changeTabPage(tabs) {
     function checkTabCookieStore(context) {
