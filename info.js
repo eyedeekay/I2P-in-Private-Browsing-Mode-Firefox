@@ -4,7 +4,7 @@ function checkPeerConnection() {
   let getting = browser.privacy.network.peerConnectionEnabled.get({});
   getting.then((got) => {
     let webrtc = got.value;
-    console.log("checking webrtc", webrtc);
+    console.log("(info) checking webrtc", webrtc);
     if (document.getElementById("enable-web-rtc") !== null)
       document.getElementById("enable-web-rtc").checked = webrtc;
   });
@@ -15,7 +15,10 @@ checkPeerConnection();
 function checkSnowflake() {
   try {
     function snowflake(snowflake) {
-      console.log("snowflake plugin found, leaving WebRTC alone", snowflake);
+      console.log(
+        "(info) snowflake plugin found, leaving WebRTC alone",
+        snowflake
+      );
       AssurePeerConnection();
     }
     var snowflakeInfo = browser.management.get(
@@ -23,7 +26,7 @@ function checkSnowflake() {
     );
     snowflakeInfo.then(snowflake);
   } catch (err) {
-    console.log("snowflake not found", err);
+    console.log("(info) snowflake not found", err);
   }
 }
 
@@ -36,7 +39,7 @@ function checkHistory() {
     if (disable_history == undefined) {
       disable_history = false;
     }
-    console.log("checking history", disable_history);
+    console.log("(info) checking history", disable_history);
     if (document.getElementById("disable-history") !== null)
       document.getElementById("disable-history").checked = disable_history;
   });
@@ -44,143 +47,109 @@ function checkHistory() {
 
 checkHistory();
 
-document.addEventListener("click", (clickEvent) => {
-  if (clickEvent.target.id === "window-create-help-panel") {
-    let createData = {
-      type: "panel",
-      incognito: true,
-    };
-    let creating = browser.tabs.create(createData);
-    creating.then(() => {
-      console.log("The help panel has been created");
+document.addEventListener("click", clickHandler);
+
+function clickHandler(clickEvent) {
+  const targetId = clickEvent.target.id;
+
+  if (
+    targetId === "window-create-help-panel" ||
+    targetId === "window-create-news-panel"
+  ) {
+    const createData = { type: "panel", incognito: true };
+    browser.tabs.create(createData).then(() => {
+      console.log(`The ${targetId.split("-")[2]} panel has been created`);
     });
-  } else if (clickEvent.target.id === "window-create-news-panel") {
-    let createData = {
-      type: "panel",
-      incognito: true,
-    };
-    let creating = browser.tabs.create(createData);
-    creating.then(() => {
-      console.log("The news panel has been created");
-    });
-  } else if (clickEvent.target.id === "visit-irc") {
+  } else if (targetId === "visit-irc") {
     browser.sidebarAction.setPanel({ panel: "http://127.0.0.1:7669" });
     browser.sidebarAction.open();
-  } else if (clickEvent.target.id === "generate-fresh-tunnel") {
+  } else if (targetId === "generate-fresh-tunnel") {
     function refreshIdentity() {
-      console.log("Generating new identity");
+      console.log("(info) Generating new identity");
       const Http = new XMLHttpRequest();
-      const url = "http://" + controlHost + ":" + controlPort;
+      const url = `http://${controlHost}:${controlPort}`;
       Http.open("GET", url);
       Http.send();
-      Http.onreadystatechange = (event) => {
+      Http.onreadystatechange = () => {
         console.log(Http.responseText);
       };
     }
     refreshIdentity();
-  } else if (clickEvent.target.id === "label-router-restart") {
-    console.log("attempting to initiate graceful restart");
-    RouterManager("RestartGraceful");
-  } else if (clickEvent.target.id === "label-router-shutdown") {
-    console.log("attempting to initiate graceful shutdown");
-    RouterManager("ShutdownGraceful");
-  } else if (clickEvent.target.id === "label-router-status") {
-    if (document.getElementById("label-status-list").style.display !== "none") {
-      console.log("hiding label-status-list");
-      document.getElementById("label-status-list").style.display = "none";
+  } else if (targetId.startsWith("label-router")) {
+    const listId = `label-${targetId.split("-")[2]}-list`;
+    const list = document.getElementById(listId);
+
+    if (list.style.display !== "none") {
+      console.log(`hiding ${listId}`);
+      list.style.display = "none";
     } else {
-      console.log("showing label-status-list");
-      document.getElementById("label-status-list").style.display = "block";
+      console.log(`showing ${listId}`);
+      list.style.display = "block";
     }
-  } else if (clickEvent.target.id === "label-router-peers") {
-    if (document.getElementById("label-peers-list").style.display !== "none") {
-      console.log("hiding label-peers-list");
-      document.getElementById("label-peers-list").style.display = "none";
-    } else {
-      console.log("showing label-peers-list");
-      document.getElementById("label-peers-list").style.display = "block";
-    }
-  } else if (clickEvent.target.id === "label-router-bandwidth") {
-    if (
-      document.getElementById("label-bandwidth-list").style.display !== "none"
-    ) {
-      console.log("hiding label-bandwidth-list");
-      document.getElementById("label-bandwidth-list").style.display = "none";
-    } else {
-      console.log("showing label-bandwidth-list");
-      document.getElementById("label-bandwidth-list").style.display = "block";
-    }
-  } else if (clickEvent.target.id === "search-submit") {
-    console.log("attempting to create search tab");
+  } else if (targetId === "search-submit") {
+    console.log("(info) attempting to create search tab");
     goSearch();
-  } else if (clickEvent.target.id === "url-submit") {
-    console.log("attempting to create search tab");
+  } else if (targetId === "url-submit") {
+    console.log("(info) attempting to create search tab");
     goURL();
-  } else if (clickEvent.target.id === "browser-action") {
-    console.log("showing a browser action");
+  } else if (targetId === "browser-action") {
+    console.log("(info) showing a browser action");
     showBrowsing();
-  } else if (clickEvent.target.id === "torrent-action") {
-    console.log("showing a torrent action");
+  } else if (targetId === "torrent-action" || targetId === "torrentui-opener") {
+    console.log("(info) showing a torrent action");
     showTorrentsMenu();
-  } else if (clickEvent.target.id === "window-preface-title") {
-    console.log("attempting to create homepage tab");
-    goHome();
-  } else if (clickEvent.target.id === "window-visit-index") {
-    console.log("attempting to create index tab");
-    goIndex();
-  } else if (clickEvent.target.id === "window-visit-torrent") {
-    console.log("attempting to create torrent tab");
-    goTorrent();
-  } else if (clickEvent.target.id === "torrentui-opener") {
-    console.log("attempting to create torrent tab");
-    goSnark();
-  } else if (clickEvent.target.id === "window-visit-help") {
-    console.log("attempting to create torrent tab");
-    goHelp();
-  } else if (clickEvent.target.id === "window-visit-console") {
-    console.log("attempting to create torrent tab");
-    goConsole();
-  } else if (clickEvent.target.id === "window-visit-homepage") {
-    console.log("attempting to create homepage tab");
-    goHome();
-  } else if (clickEvent.target.id === "window-visit-toopie") {
-    console.log("attempting to create toopie tab");
-    goToopie();
-  } else if (clickEvent.target.id === "window-visit-i2ptunnel") {
-    console.log("attempting to create i2ptunnel tab");
-    goTunnel();
-  } else if (clickEvent.target.id === "window-visit-i2p") {
-    console.log("attempting to visit project homepage");
-    goHomepage();
-  } else if (clickEvent.target.id === "window-visit-susimail") {
-    console.log("attempting to create susimail tab");
-    goMail();
-  } else if (clickEvent.target.id === "window-visit-snark") {
-    console.log("attempting to create snark tab");
-    goSnark();
-  } else if (clickEvent.target.id === "clear-browser-data") {
-    forgetBrowsingData();
-  } else if (clickEvent.target.id === "check-i2p-control") {
-    //echo("I2P Router Detected", "panel-section-i2pcontrol-check");
-  } else if (clickEvent.target.id === "enable-web-rtc") {
-    if (clickEvent.target.checked) {
-      browser.runtime.sendMessage({ rtc: "enableWebRTC" });
-    } else {
-      browser.runtime.sendMessage({ rtc: "disableWebRTC" });
+  } else if (targetId.startsWith("window-visit")) {
+    const page = targetId.split("-")[2];
+    console.log(`attempting to create ${page} tab`);
+    switch (page) {
+      case "homepage":
+      case "help":
+        goHome();
+        break;
+      case "index":
+        goIndex();
+        break;
+      case "torrent":
+        goTorrent();
+        break;
+      case "console":
+        goConsole();
+        break;
+      case "toopie":
+        goToopie();
+        break;
+      case "i2ptunnel":
+        goTunnel();
+        break;
+      case "i2p":
+        goHomepage();
+        break;
+      case "susimail":
+        goMail();
+        break;
+      case "snark":
+        goSnark();
+        break;
     }
+  } else if (targetId === "clear-browser-data") {
+    forgetBrowsingData();
+  } else if (targetId === "enable-web-rtc") {
+    const isWebRTCEnabled = clickEvent.target.checked;
+    browser.runtime.sendMessage({
+      rtc: isWebRTCEnabled ? "enableWebRTC" : "disableWebRTC",
+    });
     checkPeerConnection();
     return;
-  } else if (clickEvent.target.id === "disable-history") {
-    if (clickEvent.target.checked) {
-      browser.runtime.sendMessage({ history: "disableHistory" });
-    } else {
-      browser.runtime.sendMessage({ history: "enableHistory" });
-    }
+  } else if (targetId === "disable-history") {
+    const isHistoryEnabled = !clickEvent.target.checked;
+    browser.runtime.sendMessage({
+      history: isHistoryEnabled ? "enableHistory" : "disableHistory",
+    });
     return;
   }
 
   clickEvent.preventDefault();
-});
+}
 
 window.onload = function (e) {
   if (document.getElementById("label-peers-list") != null) {
@@ -218,88 +187,69 @@ function showTorrentsMenu() {
 
 function goHome() {
   function onTabError() {
-    console.log("Help tab created");
+    console.log("(info) Help tab not created");
   }
-
-  function gotProxyInfo(info) {
-    let port = info.value.http.split(":")[1];
-    if (port == "7644") {
-      let createRhizomeData = {
-        url: "about:I2p",
-      };
-      console.log("visiting homepage");
-      let creating = browser.tabs.create(createRhizomeData);
-      creating.then(onTabCreated, onTabError);
-    } else {
-      let createData = {
-        url: "home.html",
-      };
-      console.log("visiting homepage");
-      let creating = browser.tabs.create(createData);
-      creating.then(onTabCreated, onTabError);
-    }
-    console.log("(bookmarks) adding home page bookmark");
-  }
-  if (browser.windows != undefined) {
-    console.log("(bookmarks) checking if we're running in an I2P Browser");
-    var gettingProxyInfo = browser.proxy.settings.get({});
-    gettingProxyInfo.then(gotProxyInfo);
-  }
+  let createData = {
+    url: "home.html",
+  };
+  console.log("(info) visiting homepage");
+  let creating = browser.tabs.create(createData);
+  creating.then(onTabCreated, onTabError);
 }
 
 function goIndex() {
   function onTabError() {
-    console.log("Help tab not created");
+    console.log("(info) Help tab not created");
   }
   let createData = {
     url: "index.html",
   };
-  console.log("visiting help");
+  console.log("(info) visiting help");
   let creating = browser.tabs.create(createData);
   creating.then(onTabCreated, onTabError);
 }
 
 function goTorrent() {
   function onTabError() {
-    console.log("Torrent Help tab not created");
+    console.log("(info) Torrent Help tab not created");
   }
   let createData = {
     url: "torrent/index.html",
   };
-  console.log("visiting torrent help");
+  console.log("(info) visiting torrent help");
   let creating = browser.tabs.create(createData);
   creating.then(onTabCreated, onTabError);
 }
 
 function goHomepage() {
   function onTabError() {
-    console.log("i2p-projekt tab not created");
+    console.log("(info) i2p-projekt tab not created");
   }
   let createData = {
     url: "http://i2p-projekt.i2p",
   };
-  console.log("visiting i2p-projekt");
+  console.log("(info) visiting i2p-projekt");
   let creating = browser.tabs.create(createData);
   creating.then(onTabCreated, onTabError);
 }
 
 function goHelp() {
   function onTabError() {
-    console.log("Torrent Help tab not created");
+    console.log("(info) Torrent Help tab not created");
   }
   let createData = {
     url: "i2pcontrol/index.html",
   };
-  console.log("visiting torrent help");
+  console.log("(info) visiting torrent help");
   let creating = browser.tabs.create(createData);
   creating.then(onTabCreated, onTabError);
 }
 
 function goToopie() {
   function onTabError() {
-    console.log("Toopie tab created");
+    console.log("(info) Toopie tab created");
   }
-  console.log("visiting toopie");
+  console.log("(info) visiting toopie");
   let creating = browser.sidebarAction.open();
   browser.sidebarAction.setPanel({
     panel: browser.runtime.getURL("/toopie.html"),
@@ -308,12 +258,12 @@ function goToopie() {
 }
 
 function onTabCreated() {
-  console.log("Tab Created");
+  console.log("(info) Tab Created");
 }
 
 function goSearch() {
   function onTabError() {
-    console.log("Search tab created");
+    console.log("(info) Search tab created");
   }
   let createData = {
     url:
@@ -321,18 +271,18 @@ function goSearch() {
       "query=" +
       document.getElementById("search-query").value,
   };
-  console.log("visiting legwork");
+  console.log("(info) visiting legwork");
   let creating = browser.tabs.create(createData);
   creating.then(onTabCreated, onTabError);
 }
 
 function goURL() {
   function onTabError() {
-    console.log("Search tab created");
+    console.log("(info) Search tab created");
   }
 
   function createNewURLTab(context) {
-    console.log("visiting URL");
+    console.log("(info) visiting URL");
     let createData = {
       url: document.getElementById("url-query").value,
       cookieStoreId: context[0].cookieStoreId,
@@ -347,53 +297,57 @@ function goURL() {
 }
 
 function routerAddr() {
-  return control_host() + ":" + control_port();
+  try {
+    return control_host() + ":" + control_port();
+  } catch {
+    return "127.0.0.1:7657";
+  }
 }
 
 function goConsole() {
   function onTabError() {
-    console.log("Console tab created");
+    console.log("(info) Console tab not created");
   }
   let createData = {
     url: "http://" + routerAddr() + "/home",
   };
-  console.log("visiting router console");
+  console.log("(info) visiting router console");
   let creating = browser.tabs.create(createData);
   creating.then(onTabCreated, onTabError);
 }
 
 function goTunnel() {
   function onTabError() {
-    console.log("I2PTunnel tab created");
+    console.log("(info) I2PTunnel tab created");
   }
   let createData = {
     url: "http://" + routerAddr() + "/i2ptunnel",
   };
-  console.log("visiting i2ptunnel");
+  console.log("(info) visiting i2ptunnel");
   let creating = browser.tabs.create(createData);
   creating.then(onTabCreated, onTabError);
 }
 
 function goMail() {
   function onTabError() {
-    console.log("Mail tab created");
+    console.log("(info) Mail tab created");
   }
   let createData = {
     url: "http://" + routerAddr() + "/susimail",
   };
-  console.log("visiting mail");
+  console.log("(info) visiting mail");
   let creating = browser.tabs.create(createData);
   creating(onTabCreated, onTabError);
 }
 
 function goSnark() {
   function onTabError() {
-    console.log("Snark tab created");
+    console.log("(info) Snark tab created");
   }
   let createData = {
     url: "http://" + routerAddr() + "/i2psnark",
   };
-  console.log("visiting snark");
+  console.log("(info) visiting snark");
   let creating = browser.tabs.create(createData);
   creating.then(onTabCreated, onTabError);
 }
@@ -401,9 +355,9 @@ function goSnark() {
 function onVisited(historyItem) {
   function onCleaned(results) {
     if (results.length) {
-      console.log(" was not removed");
+      console.log("(info)  was not removed");
     } else {
-      console.log(" was removed");
+      console.log("(info)  was removed");
     }
   }
 

@@ -28,7 +28,8 @@ function hide(elementsToHide) {
     ? elementsToHide
     : [elementsToHide];
   elements.forEach((element) => {
-    element.style.display = "none";
+    console.log("(consoleinfo) hiding")
+    el.classList.add("hidden");
   });
 }
 
@@ -38,7 +39,8 @@ function unhide(elementsToShow) {
     : [elementsToShow];
   elements.forEach((element) => {
     if (element.style) {
-      element.style.display = "inline-block";
+      console.log("(consoleinfo) unhiding")
+      el.classList.remove("hidden");
     }
   });
 }

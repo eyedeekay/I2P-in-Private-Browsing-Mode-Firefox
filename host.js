@@ -1,5 +1,5 @@
 function isProxyHost(requestDetails) {
-  if (requestDetails.url.includes("jsonrpc")) return false;
+  if (requestDetails.url.includes(control_host()+":"+control_port()+"/jsonrpc")) return false;
   const originUrl = requestDetails.originUrl;
   const isWindowOrHomeUrl =
     originUrl !== browser.runtime.getURL("window.html") &&
@@ -160,6 +160,7 @@ function getPathApplication(str, url) {
 function isRouterHost(url) {
   let hostname = "";
   let path = "";
+  console.log("(host) testing router host", url);
 
   if (url.indexOf("://") > -1) {
     hostname = url.split("/")[2];
@@ -167,19 +168,23 @@ function isRouterHost(url) {
     path = url.replace(protocol + hostname + "/", "");
   } else if (identifyProtocolHandler(url)) {
     const newUrl = identifyProtocolHandler(url);
+    console.log("(host) testing router host protocol handler identified")
     return isRouterHost(newUrl);
   } else {
     hostname = url.split("/")[0];
     path = url.replace(hostname + "/", "");
   }
+  console.log("(host) testing router hostname", hostname, path);
 
-  const localHosts = ["localhost", "127.0.0.1"];
-  const controlHost = control_host();
+  const localHosts = ["localhost", "127.0.0.1", control_host()];
   const controlPort = control_port();
-  //const isLocalHost = localHosts.includes(hostname.split(":")[0]);
 
-  if (hostname === `${controlHost}:${controlPort}` || isLocalHost(url)) {
-    return getPathApplication(path, url);
+  for (const host of localHosts) {
+    let controlHost = host;
+    console.log("(host) testing router hostname", hostname);
+    if (hostname === `${controlHost}:${controlPort}` || isLocalHost(url)) {
+      return getPathApplication(path, url);
+    }
   }
 
   return false;

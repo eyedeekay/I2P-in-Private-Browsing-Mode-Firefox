@@ -47,39 +47,26 @@ contentUpdateById("sources", "sources");
 contentUpdateById("window-visit-releases", "windowVisitReleases");
 contentUpdateById("releases", "releases");
 
-fetch("http://proxy.i2p", { cache: "no-store" }).then(
-  (myJson) => {
-    contentUpdateById("proxy-check", "proxySuccessStatus");
-    let readyness = document.querySelectorAll(".readyness");
-    if (readyness !== null) {
-      unhide(readyness);
-    }
-  },
-  (error) => {
-    contentUpdateById("proxy-check", "proxyFailedStatus");
-    let readyness = document.querySelectorAll(".readyness");
-    if (readyness !== null) {
-      hide(readyness);
-    }
-  }
-);
-
 function hide(elements) {
-  elements = elements.length ? elements : [elements];
-  for (var index = 0; index < elements.length; index++) {
-    if (elements[index].style !== undefined) {
-      elements[index].style.display = "none";
+  const elems = Array.isArray(elements) ? elements : [elements];
+  for (let i = 0; i < elems.length; i++) {
+    const el = elems[i];
+    if (el.style) {
+      console.log("(content) hiding");
+      el.classList.add("hidden");
     }
   }
 }
 
 function unhide(elements) {
-  elements = elements.length ? elements : [elements];
-  for (var index = 0; index < elements.length; index++) {
-    if (elements[index].style !== undefined) {
-      elements[index].style.display = "inline-block";
+  const elems = Array.isArray(elements) ? elements : [elements];
+  elems.forEach(el => {
+    if (el.style) {
+      //el.style.display = "inline-block";
+      console.log("(content) unhiding");
+      el.classList.remove("hidden");
     }
-  }
+  });
 }
 
 //TODO: Don't hard-code this.

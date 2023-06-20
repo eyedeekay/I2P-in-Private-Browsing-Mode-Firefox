@@ -433,7 +433,7 @@ if (browser.windows != undefined) {
         var elementlist = elements.length ? elements : [elements];
         for (var index = 0; index < elementlist.length; index++) {
           if (elementlist[index].style !== undefined) {
-            elementlist[index].style.display = "none";
+            elementlist[index].classList.add("hidden");
           }
         }
       }
@@ -442,14 +442,14 @@ if (browser.windows != undefined) {
         var elementlist = elements.length ? elements : [elements];
         for (var index = 0; index < elementlist.length; index++) {
           if (elementlist[index].style !== undefined) {
-            elementlist[index].style.display = "inline-block";
+            elementlist[index].classList.remove("hidden");
           }
         }
       }
 
-      console.log("(i2pcontrol) I2PControl connection tested,", output);
+      console.log("(i2pcontrol) I2PControl connection tested,", output.result.Result);
       var toopieLinks = "";
-      if (output == hello) {
+      if (output.result.Result == hello) {
         toopieLinks = document.querySelectorAll(".window-visit-toopie");
         unhide(toopieLinks);
       } else {
