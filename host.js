@@ -1,4 +1,5 @@
 function isProxyHost(requestDetails) {
+  if (requestDetails.url.includes("jsonrpc")) return false;
   const originUrl = requestDetails.originUrl;
   const isWindowOrHomeUrl =
     originUrl !== browser.runtime.getURL("window.html") &&
@@ -7,14 +8,14 @@ function isProxyHost(requestDetails) {
   if (isWindowOrHomeUrl) {
     return false;
   }
-
-  const urlParts = requestDetails.url.split("/");
-  const hostname = urlParts[2].indexOf("://") > -1 ? urlParts[2] : urlParts[0];
-
+  let rurl = new URL(requestDetails.url);
+  let hostname = rurl.hostname;
+  console.log("(proxy) proxyinfo proxy.i2p check", hostname);
   if (
     hostname === "proxy.i2p" ||
     hostname === "c6lilt4cr5x7jifxridpkesf2zgfwqfchtp6laihr4pdqomq25iq.b32.i2p"
   ) {
+    console.log("(proxy) proxyinfo proxy.i2p positive", hostname);
     return true;
   }
 

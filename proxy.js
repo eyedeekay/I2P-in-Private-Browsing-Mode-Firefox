@@ -30,13 +30,14 @@ function shouldProxyRequest(requestInfo) {
 }
 
 var handleContextProxyRequest = async function (requestDetails) {
+  console.log("(proxy) proxyinfo request Details", requestDetails.url);
   if (isProxyHost(requestDetails)) {
     proxy = {
       type: proxy_scheme(),
       host: proxy_host(),
       port: proxy_port(),
     };
-    console.warn("(proxy) is proxy check");
+    console.warn("(proxy) is proxyinfo proxy.i2p check");
     return proxy;
   }
 
