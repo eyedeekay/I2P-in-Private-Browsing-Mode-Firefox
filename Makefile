@@ -168,7 +168,7 @@ moz-sign: version clean-artifacts
 	@echo "Using the 'sign' target to instantly sign an extension for self-distribution"
 	@echo "requires a JWT API Key and Secret from addons.mozilla.org to be made available"
 	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
-	$(PWD)/node_modules/.bin/web-ext sign --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET) --timeout 900000 #--api-url-prefix http://localhost:3000/api/v4
+	$(HOME)/node_modules/.bin/web-ext sign --channel unlisted --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET) --timeout 900000 #--api-url-prefix http://localhost:3000/api/v4
 	make copyss
 	sleep 5
 
@@ -182,7 +182,7 @@ moz-submit: moz-version
 	@echo "to the Makefile under the variables WEB_EXT_API_KEY and WEB_EXT_API_SECRET."
 	mv manifest.json .manifest.json
 	grep -v update_url .manifest.json > manifest.json
-	$(PWD)/node_modules/.bin/web-ext sign --channel listed --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET) --timeout 900000 --verbose; true #--api-url-prefix http://localhost:3000/api/v4
+	$(HOME)/node_modules/.bin/web-ext sign --channel listed --config-discovery false --api-key $(WEB_EXT_API_KEY) --api-secret $(WEB_EXT_API_SECRET) --timeout 900000 --verbose; true #--api-url-prefix http://localhost:3000/api/v4
 	sleep 5
 	mv .manifest.json manifest.json
 
@@ -289,10 +289,10 @@ fmt-js:
 	#find . -path ./node_modules -prune -o -name '*.json' -exec fixjsstyle --write {} \;
 
 fmt-locales:
-	find _locales -name '*.js*' -exec $(PWD)/node_modules/.bin/prettier -w {} \;
+	find _locales -name '*.js*' -exec $(HOME)/node_modules/.bin/prettier -w {} \;
 
 fmt-prettier:
-	find . -name '*.js*' -exec $(PWD)/node_modules/.bin/prettier -w {} \;
+	find . -name '*.js*' -exec $(HOME)/node_modules/.bin/prettier -w {} \;
 
 lint:
 
@@ -334,7 +334,7 @@ upload-updatemanifest:
 
 webext:
 	mkdir -p profile
-	$(PWD)/node_modules/.bin/web-ext run --firefox /usr/bin/firefox --firefox-profile ./profile -u "about:devtools-toolbox?type=extension&id=i2ppb%40eyedeekay.github.io"
+	$(HOME)/node_modules/.bin/web-ext run --firefox /usr/bin/firefox --firefox-profile ./profile -u "about:devtools-toolbox?type=extension&id=i2ppb%40eyedeekay.github.io"
 
 snark-mirror:
 	http_proxy=http://127.0.0.1:4444 wget -c -O ../i2psnark-rpc.su3 http://stats.i2p/i2p/plugins/i2psnark-rpc.su3
@@ -347,7 +347,7 @@ seed:
 	cp -v "../i2ppb-$(VERSION)@eyedeekay.github.io.xpi" "$(HOME)/.i2p/i2psnark"
 
 android:
-	$(PWD)/node_modules/.bin/web-ext run \
+	$(HOME)/node_modules/.bin/web-ext run \
 		--target firefox-android \
 		--android-device HT78N1A00453 \
 		--firefox-apk org.mozilla.fenix
