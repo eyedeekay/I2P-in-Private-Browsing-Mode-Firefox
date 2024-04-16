@@ -1,20 +1,6 @@
 function isProxyHost(requestDetails) {
-  if (
-    requestDetails.url.includes(
-      control_host() + ":" + control_port() + "/jsonrpc"
-    )
-  )
-    return false;
-  const originUrl = requestDetails.originUrl;
-  const isWindowOrHomeUrl =
-    originUrl !== browser.runtime.getURL("window.html") &&
-    originUrl !== browser.runtime.getURL("home.html");
-
-  if (isWindowOrHomeUrl) {
-    return false;
-  }
-  let rurl = new URL(requestDetails.url);
-  let hostname = rurl.hostname;
+  let requestUrl = new URL(requestDetails.url);
+  let hostname = requestUrl.hostname;
   console.log("(proxy) proxyinfo proxy.i2p check", hostname);
   if (
     hostname === "proxy.i2p" ||
@@ -23,14 +9,15 @@ function isProxyHost(requestDetails) {
     console.log("(proxy) proxyinfo proxy.i2p positive", hostname);
     return true;
   }
-
+  console.log("(proxy) proxyinfo proxy.i2p check negative", hostname);
   return false;
 }
 
 function isLocalHost(url) {
   console.log("(host) checking local host", url);
-  const urlPath = url.toString().split("/")[2].split(":")[0];
-  if (urlPath === "127.0.0.1" || urlPath === "localhost") {
+  let requestUrl = new URL(url);
+  let hostname = requestUrl.hostname;
+  if (hostname === "localhost" || hostname === "127.0.0.1") {
     if (url.includes(":8084")) {
       return "blog";
     }
@@ -40,6 +27,7 @@ function isLocalHost(url) {
     if (url.includes(":7695")) {
       return "tor";
     }
+    return true;
   }
   return false;
 }
@@ -62,9 +50,7 @@ function isExtensionHost(url) {
       .replace("/", "");
     isHost = documentUrl.startsWith(extensionPrefix);
   }
-
   console.log(`(urlcheck) Is URL from extension host? ${isHost}`);
-
   return isHost;
 }
 
@@ -100,12 +86,9 @@ function i2pHost(url) {
     console.warn("(host) proxy.i2p", url.url);
     return false;
   }
-  let hostname = i2pHostName(url.url);
-  let postname = hostname.split(":")[0];
-  if (postname.endsWith("proxy.i2p")) {
-    return false;
-  }
-  return postname.endsWith(".i2p");
+  console.log("(host) i2p", url.url);
+  let requestUrl = new URL(url.url);
+  return requestUrl.hostname.endsWith(".i2p")
 }
 
 function notAnImage(url, path) {
@@ -114,12 +97,10 @@ function notAnImage(url, path) {
   }
 }
 
-function getPathApplication(str, url) {
-  if (!str) {
-    return true;
-  }
+function getPathApplication(url) {
+  let requestUrl = new URL(url);
 
-  const path = str.split("/")[0];
+  const path = requestUrl.pathname.split("/")[1];
 
   if (path === "i2ptunnelmgr" || path === "i2ptunnel") {
     return "i2ptunnelmgr";
@@ -146,7 +127,6 @@ function getPathApplication(str, url) {
   if (path.startsWith("i2pbote")) {
     return notAnImage("i2pbote");
   }
-
   if (
     path === "home" ||
     path === "console" ||
@@ -154,30 +134,25 @@ function getPathApplication(str, url) {
     path === "susidns" ||
     path.startsWith("susidns") ||
     path === "sitemap" ||
-    path.startsWith("config")
+    path.startsWith("config") ||
+    path === ""
   ) {
     return "routerconsole";
   }
-
+  console.warn("(host) unknown path", path);
   return true;
 }
 
 function isRouterHost(url) {
-  let hostname = "";
-  let path = "";
-  console.log("(host) testing router host", url);
+  let requestUrl = new URL(url);
+  let hostname = requestUrl.hostname;
+  let path = requestUrl.pathname;
+  let protocol = requestUrl.protocol;
 
-  if (url.indexOf("://") > -1) {
-    hostname = url.split("/")[2];
-    const protocol = url.substr(0, url.indexOf("://") + 3);
-    path = url.replace(protocol + hostname + "/", "");
-  } else if (identifyProtocolHandler(url)) {
+  if (identifyProtocolHandler(url)) {
     const newUrl = identifyProtocolHandler(url);
     console.log("(host) testing router host protocol handler identified");
     return isRouterHost(newUrl);
-  } else {
-    hostname = url.split("/")[0];
-    path = url.replace(hostname + "/", "");
   }
   console.log("(host) testing router hostname", hostname, path);
 
@@ -188,7 +163,7 @@ function isRouterHost(url) {
     let controlHost = host;
     console.log("(host) testing router hostname", hostname);
     if (hostname === `${controlHost}:${controlPort}` || isLocalHost(url)) {
-      return getPathApplication(path, url);
+      return getPathApplication(url);
     }
   }
 
@@ -197,14 +172,10 @@ function isRouterHost(url) {
 
 function identifyProtocolHandler(url) {
   //console.log("looking for handler-able requests")
-  if (isRouterHost(url)) {
     if (url.includes(encodeURIComponent("ext+rc:"))) {
       return url.replace(encodeURIComponent("ext+rc:"), "");
     } else if (url.includes("ext+rc:")) {
       return url.replace("ext+rc:", "");
     }
-  } else if (url.includes("ext+rc:")) {
-    return url;
-  }
   return false;
 }
