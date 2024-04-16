@@ -299,6 +299,7 @@ var handleContextProxyRequest = async function (requestDetails) {
   } catch (error) {
     console.log("(proxy)Not using I2P Proxy.", error);
   }
+  return {type: "direct"}
 };
 
 function SetupSettings() {
@@ -315,47 +316,10 @@ function setupProxy() {
 }
 
 function handleContextProxyError(err) {
-  function changeTabErr(error) {
-    console.error(`(proxy) Tab change error : ${error}`);
+  if (err == 'ProxyInfoData: Invalid proxy server type: "undefined"') {
+    console.warn("(proxy) Invalid proxy server type: ", err);
   }
-
-  function changeTabPage(tabs) {
-    function checkTabCookieStore(context) {
-      for (let index = 0; index < tabs.length; index += 1) {
-        let tab = tabs[index];
-        if (!tab.url.endsWith("proxyerr.html")) {
-          if (tab.cookieStoreId == context[0].cookieStoreId) {
-            function onProxyErrorUpdated() {
-              console.warn("(proxy) Updated tab : " + tab);
-            }
-
-            function onProxyError(error) {
-              console.error(`(proxy) Error : ${error}`);
-            }
-            let createData = {
-              url: "proxyerr.html",
-            };
-            let creating = browser.tabs.update(tab.id, createData);
-            creating.then(onProxyErrorUpdated, onProxyError);
-          } else {
-            console.warn(
-              "Not directing to proxy error page due to context mismatch"
-            );
-          }
-        } else {
-          console.warn(
-            "Not directing to proxy error page due to hostname match"
-          );
-        }
-      }
-    }
-    browser.contextualIdentities
-      .query({ name: titlepref })
-      .then(checkTabCookieStore, changeTabErr);
-  }
-  browser.tabs
-    .query({ url: ["http://*.i2p/*"] })
-    .then(changeTabPage, changeTabErr);
+  console.error("(proxy) Context Proxy Error: ", err);
 }
 
 function update() {
