@@ -25,7 +25,7 @@ information to any third party, nor will it, ever.
 
 This browser extension cannot influence telemetry carried out by browser vendors
 to determine performance in their distribution channels, nor can it mitigate any
-other browser vendor telemetry. 
+other browser vendor telemetry.
 
 This browser extension is entirely Free, Open-Source software.
 
