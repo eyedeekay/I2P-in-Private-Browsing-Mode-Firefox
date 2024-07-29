@@ -1,10 +1,9 @@
 function isProxyHost(requestDetails) {
   let requestUrl = new URL(requestDetails.url);
   let hostname = requestUrl.hostname;
-  console.log("(proxy) proxyinfo proxy.i2p check", hostname);
+  console.debug("(proxy) proxyinfo proxy.i2p check", hostname);
   if (
-    hostname === "proxy.i2p" ||
-    hostname === "c6lilt4cr5x7jifxridpkesf2zgfwqfchtp6laihr4pdqomq25iq.b32.i2p"
+    hostname === "proxy.i2p"
   ) {
     console.log("(proxy) proxyinfo proxy.i2p positive", hostname);
     return true;
@@ -14,22 +13,48 @@ function isProxyHost(requestDetails) {
 }
 
 function isLocalHost(url) {
-  console.log("(host) checking local host", url);
+  console.debug("(host) checking local host", url);
+  if (!url.startsWith("http")){
+    url = "http://" + url
+  }
   let requestUrl = new URL(url);
   let hostname = requestUrl.hostname;
   if (hostname === "localhost" || hostname === "127.0.0.1") {
-    if (url.includes(":8084")) {
-      return "blog";
-    }
-    if (url.includes(":7669")) {
-      return "irc";
-    }
-    if (url.includes(":7695")) {
-      return "tor";
-    }
-    return true;
+    return hostname+":"+requestUrl.port;
   }
   return false;
+}
+
+function tidyLocalHost(url) {
+  let hostPort = isLocalHost(url)
+  if (hostPort) {
+    return hostPort.replace("127.0.0.1", "localhost")
+  }
+  return url.hostname+":"+url.port
+}
+
+function isTorHost(url) {
+  let host = isLocalHost(url)
+  if (host.includes(":7695")) {
+    return "tor";
+  }
+  return false
+}
+
+function isBlogHost(url) {
+  let host = isLocalHost(url)
+  if (host.includes(":8084")) {
+    return "blog";
+  }
+  return false
+}
+
+function isIRCHost(url) {
+  let host = isLocalHost(url)
+  if (host.includes(":7669")) {
+    return "irc";
+  }
+  return false
 }
 
 function isExtensionHost(url) {
@@ -50,33 +75,15 @@ function isExtensionHost(url) {
       .replace("/", "");
     isHost = documentUrl.startsWith(extensionPrefix);
   }
-  console.log(`(urlcheck) Is URL from extension host? ${isHost}`);
+  console.debug(`(urlcheck) Is URL from extension host? ${isHost}`);
   return isHost;
 }
 
 function i2pHostName(url) {
-  let hostname = "";
-  const u = new URL(url);
+  let hostname = false;
+  const requestUrl = new URL(url);
   if (u.host.endsWith(".i2p")) {
-    hostname = u.host;
-  } else if (url.includes("=") && url.includes(".i2p")) {
-    const lsit = url.split("=");
-    for (const item of lsit) {
-      const items = item.split(" % "); //"\%")
-      for (const p of items) {
-        if (p.includes(".i2p")) {
-          hostname = p.replace("3D", 1);
-          break;
-        }
-      }
-      if (hostname !== "") {
-        break;
-      }
-    }
-  } else if (url.indexOf("://") > -1) {
-    hostname = url.split("/")[2];
-  } else {
-    hostname = url.split("/")[0];
+    hostname = requestUrl.host;
   }
   return hostname;
 }
@@ -97,14 +104,21 @@ function notAnImage(url, path) {
   }
 }
 
-function getPathApplication(url) {
+function getFirstPathElement(url) {
   let requestUrl = new URL(url);
+  let path = requestUrl.pathname
+  while (path.startsWith("/")) {
+    path = path.substring(1)
+  }
+  return path.split("/")[0]
+}
 
-  const path = requestUrl.pathname.split("/")[1];
-
+function getPathApplication(url) {
+  const path = getFirstPathElement(url)
   if (path === "i2ptunnelmgr" || path === "i2ptunnel") {
     return "i2ptunnelmgr";
   }
+  console.debug("(host) router path name",path)
 
   if (
     path === "i2psnark" ||
@@ -147,26 +161,18 @@ function isRouterHost(url) {
   let requestUrl = new URL(url);
   let hostname = requestUrl.hostname;
   let path = requestUrl.pathname;
-  let protocol = requestUrl.protocol;
-
+  let port = requestUrl.port;
   if (identifyProtocolHandler(url)) {
     const newUrl = identifyProtocolHandler(url);
     console.log("(host) testing router host protocol handler identified");
     return isRouterHost(newUrl);
   }
-  console.log("(host) testing router hostname", hostname, path);
-
-  const localHosts = ["localhost", "127.0.0.1", control_host()];
+  const controlHost = control_host();
   const controlPort = control_port();
-
-  for (const host of localHosts) {
-    let controlHost = host;
-    console.log("(host) testing router hostname", hostname);
-    if (hostname === `${controlHost}:${controlPort}` || isLocalHost(url)) {
-      return getPathApplication(url);
-    }
+  console.log("(host) testing router hostname", tidyLocalHost(`${hostname}:${port}`) ,"against", tidyLocalHost(`${controlHost}:${controlPort}`));
+  if (tidyLocalHost(`${hostname}:${port}`) === tidyLocalHost(`${controlHost}:${controlPort}`)) {
+    return getPathApplication(url);
   }
-
   return false;
 }
 

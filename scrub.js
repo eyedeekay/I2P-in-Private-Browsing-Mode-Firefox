@@ -87,14 +87,6 @@ function i2ptunnelTabFind(tabId) {
   }
 }
 
-function muwireTabFind(tabId) {
-  console.info("(isolate)Context Discovery muwire");
-  try {
-    return forceIntoIsolation(tabId, muwirepref, true);
-  } catch (error) {
-    console.error("(isolate)Context Error", error);
-  }
-}
 function i2pboteTabFind(tabId) {
   console.info("(isolate)Context Discovery bote");
   try {
@@ -365,10 +357,6 @@ function contextSetup(requestDetails) {
               return requestDetails;
             case "webmail":
               routertab = tab.then(mailTabFind, onContextError);
-              routertab.then(tabUpdate);
-              return requestDetails;
-            case "muwire":
-              routertab = tab.then(muwireTabFind, onContextError);
               routertab.then(tabUpdate);
               return requestDetails;
             case "i2pbote":
