@@ -138,8 +138,10 @@ var handleContextProxyRequest = async function (requestDetails) {
       };
 
       if (context == "firefox-default" || context == "firefox-private") {
-        proxy = null;
-        return proxy;
+        if (!i2pHost(requestDetails.URL))
+          if (!isProxyHost(requestDetails.URL))
+            proxy = null;
+          return proxy;
       }
 
       // eslint-disable-next-line no-negated-condition
