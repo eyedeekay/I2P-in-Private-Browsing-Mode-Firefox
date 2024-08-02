@@ -389,20 +389,6 @@ function contextSetup(requestDetails) {
               return requestDetails;
           }
         } else if (i2pHost(requestDetails)) {
-          const thn = i2pHostName(url);
-          if (url.includes("=" + thn)) {
-            if (
-              !url.includes("://github.com") ||
-              !url.includes("://notabug.org") ||
-              !url.includes("://i2pgit.org") ||
-              !url.includes("://gitlab.com")
-            ) {
-              console.log("(scrub)checking search hostnames =" + thn);
-              const tpt = url.split("=" + thn, 2);
-              requestDetails.url =
-                "http://" + thn + "/" + tpt[1].replace("%2F", "");
-            }
-          }
           console.log("(scrub) new hostname", url);
           const setcookie = browser.cookies.set({
             firstPartyDomain: i2pHostName(url),
@@ -471,7 +457,6 @@ function gotPopup(pageTest, tab) {
         path: "icons/infotoopies.png",
         tabId: tab.id,
       });
-
       try {
         browser.tabs
           .sendMessage(tab.id, { req: "i2p-torrentlocation" })

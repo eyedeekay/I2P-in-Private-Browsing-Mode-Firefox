@@ -1,35 +1,52 @@
-browser.runtime.onMessage.addListener((request) => {
-  var response = "no-alt-location";
-  console.info("script page" + request);
+function hasI2PLocation(request) {
+  let response = false;
   if (request.req === "i2p-location") {
-    //head > meta:nth-child(5)
-    var tag = document.querySelector('meta[http-equiv="i2p-location"]');
+    let tag = document.querySelector('meta[http-equiv="i2p-location"]');
     if (tag != undefined) {
-      console.log(tag);
+      console.debug("(script) i2p site discovered",tag);
       if (tag) response = tag.content;
     }
-    var tag = document.querySelector('meta[http-equiv="x-i2p-location"]');
+    tag = document.querySelector('meta[http-equiv="x-i2p-location"]');
     if (tag != undefined) {
-      console.log(tag);
+      console.debug("(script) i2p site discovered", tag);
       if (tag) response = tag.content;
     }
   }
+  return response
+}
+
+function hasTorrentResource(request) {
+  let response = false
+  if (!i2pHost(request.URL))
+    return response
   if (request.req === "i2p-torrentlocation") {
-    var tag = document.querySelector('meta[http-equiv="i2p-torrentlocation"]');
+    let tag = document.querySelector('meta[http-equiv="i2p-torrentlocation"]');
     if (tag != undefined) {
-      console.log(tag);
+      console.debug("(script) torrent resource", tag);
       response = i2pTorrent(tag);
     }
-    var tag = document.querySelector(
+    tag = document.querySelector(
       'meta[http-equiv="x-i2p-torrentlocation"]'
     );
     if (tag != undefined) {
-      console.log(tag);
+      console.debug("(script) torrent resource", tag);
       response = i2pTorrent(tag);
     }
   }
+  return response
+}
+
+function hasExtraLocation(request){
+  var response = false;
+  console.info("(script) page" + request);
+  torrentLocation = hasTorrentResource(request)
+  if (torrentLocation) return torrentLocation
+  i2pLocation = hasI2PLocation(request)
+  if (i2pLocation) return i2pLocation
   return Promise.resolve({ content: response });
-});
+}
+
+browser.runtime.onMessage.addListener(hasExtraLocation);
 
 window.document.onload = function (e) {
   console.log("presetting x-i2p-torrentlocation");

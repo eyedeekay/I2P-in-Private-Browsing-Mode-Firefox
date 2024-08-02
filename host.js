@@ -160,7 +160,6 @@ function getPathApplication(url) {
 function isRouterHost(url) {
   let requestUrl = new URL(url);
   let hostname = requestUrl.hostname;
-  let path = requestUrl.pathname;
   let port = requestUrl.port;
   if (identifyProtocolHandler(url)) {
     const newUrl = identifyProtocolHandler(url);
