@@ -1,3 +1,9 @@
+i2psetproxy.js (2.6.1-1) UNRELEASED; urgency=low
+
+  * Fix bug where all local services were routed to the routerconsole container
+
+ -- idk <hankhill19580@gmail.com> Sun, 18 August 2024 21:20:04 -0400
+
 i2psetproxy.js (2.5.9-1) UNRELEASED; urgency=low
 
   * Minor refactoring, simplifications

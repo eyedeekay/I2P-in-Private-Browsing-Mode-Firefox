@@ -310,10 +310,6 @@ var handleContextProxyRequest = async function (requestDetails) {
   return {type: "direct"}
 };
 
-function SetupSettings() {
-  console.log("Initialising Settings");
-}
-
 function setupProxy() {
   console.log("Setting up Firefox WebExtension proxy");
   browser.proxy.onRequest.addListener(handleContextProxyRequest, {
@@ -341,7 +337,6 @@ function update() {
 function updateFromStorage() {
   console.log("updating settings from storage");
   chrome.storage.local.get(function () {
-    SetupSettings();
     update();
     setupProxy();
   });
@@ -349,7 +344,6 @@ function updateFromStorage() {
 
 //updateFromStorage();
 browser.storage.onChanged.addListener(updateFromStorage);
-SetupSettings();
 setupProxy();
 
 var gettingListenerInfo = browser.runtime.getPlatformInfo();
