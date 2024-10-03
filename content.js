@@ -21,6 +21,7 @@ contentUpdateById("clear-desc", "clearDesc");
 contentUpdateById("enable-web-rtc", "enableWebRTC");
 contentUpdateById("rtcDesc", "rtcDesc");
 contentUpdateById("disable-history", "disableHistory");
+//contentUpdateById("disable-referers", "disableReferers");
 contentUpdateById("histDesc", "histDesc");
 
 // Application Section

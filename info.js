@@ -47,6 +47,21 @@ function checkHistory() {
 
 checkHistory();
 
+function checkReferer() {
+  let getting = browser.storage.local.get("disable_referer");
+  getting.then((got) => {
+    let disable_referer = got.disable_referer;
+    if (disable_referer == undefined) {
+      disable_referer = false;
+    }
+    console.log("(info) checking referer", disable_referer);
+    if (document.getElementById("disable-referer") !== null)
+      document.getElementById("disable-referer").checked = disable_referer;
+  });
+}
+
+checkReferer();
+
 document.addEventListener("click", clickHandler);
 
 function clickHandler(clickEvent) {
@@ -144,6 +159,12 @@ function clickHandler(clickEvent) {
     const isHistoryEnabled = !clickEvent.target.checked;
     browser.runtime.sendMessage({
       history: isHistoryEnabled ? "enableHistory" : "disableHistory",
+    });
+    return;
+  } else if (targetId === "disable-referer") {
+    const isRefererEnabled = !clickEvent.target.checked;
+    browser.runtime.sendMessage({
+      referers: isRefererEnabled ? "enableReferer" : "disableReferer",
     });
     return;
   }

@@ -209,7 +209,7 @@ function setAllPrivacy() {
   disableHyperlinkAuditing();
   enableFirstPartyIsolation();
   disableEvilCookies();
-  disableReferrers();
+  //disableReferrers();
   enableTrackingProtection();
   enableResistFingerprinting();
   disableDigitalRestrictionsManagement();
@@ -487,6 +487,37 @@ function disableHistory() {
     }
     var setting = browser.storage.local.set(storedSettings);
     setting.then(enablehistory);
+  }
+  const gettingStoredSettings = browser.storage.local.get();
+  gettingStoredSettings.then(checkStoredSettings, onError);
+}
+
+
+function enableReferer() {
+  function checkStoredSettings(storedSettings) {
+    storedSettings["disable_referer"] = false;
+    console.log(storedSettings);
+
+    function enablereferer(settings) {
+      console.log("Store Referer:", settings);
+    }
+    let setting = browser.storage.local.set(storedSettings);
+    setting.then(enablereferer);
+  }
+  const gettingStoredSettings = browser.storage.local.get();
+  gettingStoredSettings.then(checkStoredSettings, onError);
+}
+
+function disableReferer() {
+  function checkStoredSettings(storedSettings) {
+    storedSettings["disable_referer"] = true;
+    console.log(storedSettings);
+
+    function enablereferer(settings) {
+      console.log("Store Referer:", settings);
+    }
+    var setting = browser.storage.local.set(storedSettings);
+    setting.then(enablereferer);
   }
   const gettingStoredSettings = browser.storage.local.get();
   gettingStoredSettings.then(checkStoredSettings, onError);

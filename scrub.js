@@ -27,6 +27,9 @@ function contextScrub(requestDetails) {
         if (header.name.toLowerCase() === "user-agent") {
           header.value = userAgent;
         }
+        if (header.name.toLowerCase == "referer") {
+          header.value = "";
+        }
       }
       return { requestHeaders: requestDetails.requestHeaders };
     }
