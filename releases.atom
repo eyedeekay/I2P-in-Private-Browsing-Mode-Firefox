@@ -4,13 +4,24 @@
   <link type="text/html" rel="alternate" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases"/>
   <link type="application/atom+xml" rel="self" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases.atom"/>
   <title>Release notes from I2P-in-Private-Browsing-Mode-Firefox</title>
-  <updated>2024-08-19T01:23:47Z</updated>
+  <updated>2024-10-04T21:40:03Z</updated>
+  <entry>
+    <id>tag:github.com,2008:Repository/169256012/2.7.1</id>
+    <updated>2024-10-04T21:51:55Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/tag/2.7.1"/>
+    <title>2.7.1</title>
+    <enclosure url="magnet:?xl=1246<title>2.7.1</title>dn=i2ppb%40eyedeekay.github.io.xpi.torrent<title>2.7.1</title>xt=urn:tree:tiger:eyme2fkldmntehx4m7ujho6fgxklugx2bfsnzti<title>2.7.1</title>xt=urn:ed2k:1bd6f65a3dc2027c9ac265da2c61e6d6<title>2.7.1</title>xt=urn:aich:t7hfnrsgwjjeh5nctj5qe7kwaclnahbc" type="application/x-bittorrent" />
+    <content>No content.</content>
+    <author>
+      <name>eyedeekay</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/8733713?s=60&amp;v=4"/>
+  </entry>
   <entry>
     <id>tag:github.com,2008:Repository/169256012/2.6.1</id>
     <updated>2024-08-20T13:31:21Z</updated>
     <link rel="alternate" type="text/html" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/tag/2.6.1"/>
     <title>2.6.1</title>
-    <enclosure url="magnet:?xl=1246<title>2.6.1</title>dn=i2ppb%40eyedeekay.github.io.xpi.torrent<title>2.6.1</title>xt=urn:tree:tiger:kueenpqxnijl47f7ezdpmcwxt4cprjuqfeox7oa<title>2.6.1</title>xt=urn:ed2k:93a13865ce467c561567b6e74610bb15<title>2.6.1</title>xt=urn:aich:nmb7lvhb2fqpx25qun5zmploe4xoi4vv" type="application/x-bittorrent" />
     <content>No content.</content>
     <author>
       <name>eyedeekay</name>
@@ -145,25 +156,6 @@ i2psetproxy.js (0.133-1) UNRELEASED; urgency=low&lt;/p&gt;
     <link rel="alternate" type="text/html" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/tag/0.131"/>
     <title>0.131</title>
     <content>No content.</content>
-    <author>
-      <name>eyedeekay</name>
-    </author>
-    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/8733713?s=60&amp;v=4"/>
-  </entry>
-  <entry>
-    <id>tag:github.com,2008:Repository/169256012/0.125</id>
-    <updated>2021-11-03T04:23:53Z</updated>
-    <link rel="alternate" type="text/html" href="https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/tag/0.125"/>
-    <title>0.125</title>
-    <content type="html">&lt;p&gt;A simple plugin for configuring a Firefox based web browser to isolate I2P&lt;br&gt;
-Browsing to a single contextual identity, thus creating an I2P in Private&lt;br&gt;
-Browsing mode. It requires the use of a pre-installed I2P Router.&lt;br&gt;
-i2psetproxy.js (0.125-1) UNRELEASED; urgency=low&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Bump and resubmit to mozilla.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-- idk &lt;a href=&quot;mailto:hankhill19580@gmail.com&quot;&gt;hankhill19580@gmail.com&lt;/a&gt; Wed, 3 Nov 2021 00:20:33 -0400&lt;/p&gt;
-&lt;p&gt;i2psetproxy.js (0.123-1) UNRELEASED; urgency=low&lt;/p&gt;</content>
     <author>
       <name>eyedeekay</name>
     </author>
