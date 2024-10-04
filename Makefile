@@ -40,7 +40,6 @@ clean: rc clean-artifacts
 MOZ_VERSION=2.7.0
 VERSION=2.7.1
 
-## INCREMENT THIS EVERY TIME YOU DO A RELEASE
 LAST_VERSION=$(shell grep '"version"' manifest.json | sed 's|"version"||g' | tr -d " :,'" | tr -d '"')
 
 YELLOW=F7E59A
