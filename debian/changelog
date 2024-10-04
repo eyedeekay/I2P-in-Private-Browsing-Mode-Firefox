@@ -1,14 +1,20 @@
+i2psetproxy.js (2.7.1-1) UNRELEASED; urgency=low
+
+  * Make `Referer:` header handling more fine-grained
+
+ -- idk <hankhill19580@gmail.com> Fri, 04 Sep 2024 17:38:04 -0400
+
 i2psetproxy.js (2.6.1-1) UNRELEASED; urgency=low
 
   * Fix bug where all local services were routed to the routerconsole container
 
- -- idk <hankhill19580@gmail.com> Sun, 18 August 2024 21:20:04 -0400
+ -- idk <hankhill19580@gmail.com> Sun, 18 Aug 2024 21:20:04 -0400
 
 i2psetproxy.js (2.5.9-1) UNRELEASED; urgency=low
 
   * Minor refactoring, simplifications
 
- -- idk <hankhill19580@gmail.com> Thu, 10 July 2024 13:40:40 -0400
+ -- idk <hankhill19580@gmail.com> Thu, 10 Jul 2024 13:40:40 -0400
 
 i2psetproxy.js (1.49-1) UNRELEASED; urgency=low
 
