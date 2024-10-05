@@ -2,13 +2,6 @@ li {
   width: 90%;
   margin-left: 0
 }
-li.toopie {
-  width: fit-content;
-  margin-left: 0;
-  display: inline-table!important;
-  min-width: 30%;
-  max-width: 30%
-}
 ul {
   width: 100%
 }
@@ -27,7 +20,4 @@ button {
 }
 .hidden {
   display: none
-}
-.toopiebody {
-  min-width: 400px
 }

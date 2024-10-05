@@ -149,5 +149,4 @@ contentUpdateById("window-visit-router", "window-visit-router");
 contentUpdateById("window-visit-snark", "window-visit-snark");
 contentUpdateById("window-visit-sources", "window-visit-sources");
 contentUpdateById("window-visit-susimail", "window-visit-susimail");
-contentUpdateById("window-visit-toopie", "window-visit-toopie");
 contentUpdateById("window-visit-torrent", "window-visit-torrent");

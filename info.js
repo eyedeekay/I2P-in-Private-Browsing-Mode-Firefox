@@ -130,9 +130,6 @@ function clickHandler(clickEvent) {
       case "console":
         goConsole();
         break;
-      case "toopie":
-        goToopie();
-        break;
       case "i2ptunnel":
         goTunnel();
         break;
@@ -263,18 +260,6 @@ function goHelp() {
   };
   console.log("(info) visiting torrent help");
   let creating = browser.tabs.create(createData);
-  creating.then(onTabCreated, onTabError);
-}
-
-function goToopie() {
-  function onTabError() {
-    console.log("(info) Toopie tab created");
-  }
-  console.log("(info) visiting toopie");
-  let creating = browser.sidebarAction.open();
-  browser.sidebarAction.setPanel({
-    panel: browser.runtime.getURL("/toopie.html"),
-  });
   creating.then(onTabCreated, onTabError);
 }
 
