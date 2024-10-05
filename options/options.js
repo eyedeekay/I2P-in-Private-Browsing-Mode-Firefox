@@ -176,66 +176,6 @@ function getFromHTMLValueControlPort() {
   return control_port;
 }
 
-function getFromStorageBTRPCHost() {
-  let bt_rpc_host = getStringFromStorage("bt_rpc_host", "127.0.0.1");
-  console.info("(options)Got torrent rpc host:", bt_rpc_host);
-  return bt_rpc_host;
-}
-
-function getFromHTMLValueBTRPCHost() {
-  let bt_rpc_host = document.getElementById("btrpchost").value;
-  console.log("(options)Got torrent rpc host:", bt_rpc_host);
-  if (bt_rpc_host == undefined) {
-    return "127.0.0.1";
-  }
-  return bt_rpc_host;
-}
-
-function getFromStorageBTRPCPort() {
-  let bt_rpc_port = getStringFromStorage("bt_rpc_port", "7657");
-  console.info("(options)Got torrent rpc port:", bt_rpc_port);
-  return bt_rpc_port;
-}
-
-function getFromHTMLValueBTRPCPort() {
-  let bt_rpc_port = document.getElementById("btrpcport").value;
-  console.log("(options)Got torrent rpc port:", bt_rpc_port);
-  if (bt_rpc_port == undefined) {
-    return "7657";
-  }
-  return bt_rpc_port;
-}
-
-function getFromStorageBTRPCPath() {
-  let bt_rpc_path = getStringFromStorage("bt_rpc_path", "transmission/rpc");
-  console.info("(options)Got torrent rpc path:", bt_rpc_path);
-  return bt_rpc_path;
-}
-
-function getFromHTMLValueBTRPCPath() {
-  let bt_rpc_path = document.getElementById("btrpcpath").value;
-  console.log("(options)Got torrent rpc path:", bt_rpc_path);
-  if (bt_rpc_path == undefined) {
-    return "transmission/rpc";
-  }
-  return bt_rpc_path;
-}
-
-function getFromStorageBTRPCPass() {
-  let bt_rpc_pass = getStringFromStorage("bt_rpc_pass", "itoopie");
-  console.info("(options)Got torrent rpc password:", bt_rpc_pass);
-  return bt_rpc_pass;
-}
-
-function getFromHTMLValueBTRPCPass() {
-  let bt_rpc_pass = document.getElementById("btrpcpass").value;
-  console.log("(options)Got torrent rpc password:");
-  if (bt_rpc_pass == undefined) {
-    return "itoopie";
-  }
-  return bt_rpc_pass;
-}
-
 function checkStoredSettings(storedSettings) {
   function gotProxyInfo(info) {
     const settings = {};
@@ -256,13 +196,6 @@ function checkStoredSettings(storedSettings) {
     settings.control_host =
       storedSettings.control_host || (host === "" ? "127.0.0.1" : host);
     settings.control_port = storedSettings.control_port || 7657;
-    settings.bt_rpc_host =
-      storedSettings.bt_rpc_host || (host === "" ? "127.0.0.1" : host);
-    settings.bt_rpc_port = storedSettings.bt_rpc_port || 7657;
-    settings.bt_rpc_path = storedSettings.bt_rpc_path || "transmission/";
-    settings.bt_rpc_pass = storedSettings.bt_rpc_pass || "transmission";
-
-    settings.base_url = `http://${settings.bt_rpc_host}:${settings.bt_rpc_port}/${settings.bt_rpc_path}`;
 
     browser.storage.local.set(settings);
     return settings;
@@ -282,10 +215,6 @@ function checkAndroidStoredSettings(settings) {
     proxyPort: 4444,
     controlHost: "127.0.0.1",
     controlPort: 7657,
-    btRpcHost: "127.0.0.1",
-    btRpcPort: 7657,
-    btRpcPath: "transmission/rpc",
-    btRpcPass: "transmission",
   };
 
   const mergedSettings = { ...defaults, ...settings };
@@ -309,17 +238,6 @@ function storeSettings() {
   storableSettings["proxy_port"] = getFromHTMLValuePort();
   storableSettings["control_host"] = getFromHTMLValueControlHost();
   storableSettings["control_port"] = getFromHTMLValueControlPort();
-  storableSettings["bt_rpc_host"] = getFromHTMLValueBTRPCHost();
-  storableSettings["bt_rpc_port"] = getFromHTMLValueBTRPCPort();
-  storableSettings["bt_rpc_path"] = getFromHTMLValueBTRPCPath();
-  storableSettings["bt_rpc_pass"] = getFromHTMLValueBTRPCPass();
-  storableSettings["base_url"] =
-    "http://" +
-    storableSettings["bt_rpc_host"] +
-    ":" +
-    storableSettings["bt_rpc_port"] +
-    "/" +
-    storableSettings["bt_rpc_path"];
   console.log("storing", storableSettings);
   chrome.storage.local.set(storableSettings);
 }
@@ -360,30 +278,6 @@ function updateUI(restoredSettings) {
     controlportitem.value = restoredSettings.control_port;
   }
   //console.log("(options)showing control port:", controlportitem.value);
-
-  const btrpchostitem = document.getElementById("btrpchost");
-  if (btrpchostitem != undefined) {
-    btrpchostitem.value = restoredSettings.bt_rpc_host;
-  }
-  //console.log("(options)showing bt rpc host:", btrpchostitem.value);
-
-  const btrpcportitem = document.getElementById("btrpcport");
-  if (btrpcportitem != undefined) {
-    btrpcportitem.value = restoredSettings.bt_rpc_port;
-  }
-  //console.log("(options)showing rbt pc port:", rpcportitem.value);
-
-  const btrpcpathitem = document.getElementById("btrpcpath");
-  if (btrpcpathitem != undefined) {
-    btrpcpathitem.value = restoredSettings.bt_rpc_path;
-  }
-  //console.log("(options)showing bt rpc path:", btrpcpathitem.value);
-
-  const btrpcpassitem = document.getElementById("btrpcpass");
-  if (btrpcpassitem != undefined) {
-    btrpcpassitem.value = restoredSettings.bt_rpc_pass;
-  }
-  //console.log("(options)showing bt rpc pass:");
 
   SetBookButton();
   SetHostText();
