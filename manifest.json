@@ -67,7 +67,6 @@
       "config.js",
       "torrent/common.js",
       "torrent/background.js",
-      "i2pcontrol/i2pcontrol.js",
       "host.js",
       "privacy.js",
       "platform.js",
