@@ -99,56 +99,6 @@
 
     <br>
 
-    <div id="torrentpanel">
-        <div class="panel content" id="torrentstatus">
-            <div class="section-header panel-section panel-section-header">
-                <div class="text-section-header" id="text-section-torrents-header">
-                    <h1>Torrent Downloads</h1>
-                </div>
-            </div>
-
-            <div id="config-pane">
-                <strong>Torrent RPC Configuration</strong>
-                <br>
-                The server address is not set yet.
-                <br>
-                <a class="torrent-opener" href="#" id="window-visit-torrent">For assistance, visit the torrent help page</a>.
-                <br>
-                <a class="config-opener" href="#">Open the settings</a> to continue.
-            </div>
-
-            <div id="torrents-pane">
-                <header>
-                    <h1>Torrent Controls</h1>
-                    <img alt="Open WebUI" src="icons/i2plogo.png"> <a class="webui-opener" href="#" id="torrentui-opener">Open WebUI</a> <!--<a class="config-opener" href="#">
-                            <img alt="Settings" src="images/gear.svg"></a>
-                            <a class="info-opener" href="https://github.com/myfreeweb/transmitter" target="_blank">
-                            <img alt="Extension Info" src="images/info.svg"></a>-->
-                </header>
-                <input id="torrents-search" placeholder="Search…" type="search">
-                <template id="torrents-tpl">
-                    <ul>
-                        <li>
-                            <div class="torrent-head">
-                                <div class="torrent-name">
-                                </div>
-
-                                <div class="torrent-speeds">
-                                </div>
-                            </div>
-                            <progress class="torrent-progress" max="100"></progress>
-                        </li>
-                    </ul>
-                </template>
-
-                <ul id="torrents-list">
-                </ul>
-
-                <div id="torrents-error">
-                </div>
-            </div>
-        </div>
-    </div>
     <script src="context.js"></script> 
     <script src="privacy.js"></script> 
     <script src="info.js"></script> 
@@ -157,7 +107,5 @@
     <script crossorigin="anonymous" src="content.js"></script> 
     <script crossorigin="anonymous" src="i2pd.js"></script> 
     <script src="proxyinfo.js" type="text/javascript"></script> 
-    <script src="torrent/popup.js"></script> 
-    <script src="torrent/common.js"></script>
 </body>
 </html>
