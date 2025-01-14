@@ -1,62 +1,205 @@
-document.addEventListener("DOMContentLoaded", proxyStatus, false);
+/**
+ * @fileoverview I2P Proxy Status Manager
+ * Handles proxy connectivity checking and UI updates for I2P extension
+ */
 
-function proxyStatus() {
-  console.log("(proxyinfo) checking proxy status");
-  fetch("http://proxy.i2p", { cache: "no-store" }).then(
-    proxyStatusSuccess,
-    proxyStatusError
-  );
-}
+// Constants
+const PROXY_CONFIG = {
+  PROXY_URL: "http://proxy.i2p",
+  CONSOLE_URL: "http://127.0.0.1:7657",
+  LOGO_PATH: "/themes/console/light/images/i2plogo.png",
+  FETCH_OPTIONS: { cache: "no-store" },
+};
 
-function proxyStatusSuccess(myJson) {
-  console.warn("(proxyinfo)", myJson);
-  contentUpdateById("proxy-check", "proxySuccessStatus");
-  let readyness = document.querySelectorAll(".readyness");
-  if (readyness !== null) {
-    unhide(readyness);
+const UI_ELEMENTS = {
+  PROXY_STATUS: "proxy-check",
+  READINESS_CLASS: ".readyness",
+  CONSOLE_LINKS: ".application-info",
+  HIDDEN_CLASS: "hidden",
+};
+
+const MESSAGE_KEYS = {
+  SUCCESS: "proxySuccessStatus",
+  FAILURE: "proxyFailedStatus",
+};
+
+/**
+ * UI Manager for handling element visibility
+ */
+class UIManager {
+  /**
+   * Toggle element visibility
+   * @param {Element|NodeList} elements - Elements to modify
+   * @param {boolean} show - Whether to show or hide
+   */
+  /**
+   * Toggle element visibility with strict null checking
+   * @param {Element|NodeList} elements - Elements to modify
+   * @param {boolean} show - Whether to show or hide
+   */
+  static toggleVisibility(elements, show) {
+    try {
+      // Validate input
+      if (!elements) {
+        throw new Error("Elements parameter is null or undefined");
+      }
+
+      // Convert to array if NodeList
+      const elementArray =
+        elements instanceof NodeList ? Array.from(elements) : [elements];
+
+      elementArray.forEach((element) => {
+        // Explicit null check for element and style property
+        if (element && element.style !== undefined && element.style !== null) {
+          const action = show ? "remove" : "add";
+          element.classList[action](UI_ELEMENTS.HIDDEN_CLASS);
+          console.debug(`(proxyinfo) ${show ? "showing" : "hiding"} element`);
+        } else {
+          console.warn(
+            "(proxyinfo) Invalid element encountered during visibility toggle"
+          );
+        }
+      });
+    } catch (error) {
+      console.error("Visibility toggle failed:", error);
+      throw error; // Re-throw for error boundary handling
+    }
+  }
+
+  /**
+   * Update element content by ID
+   * @param {string} elementId - Target element ID
+   * @param {string} messageKey - i18n message key
+   */
+  static updateContent(elementId, messageKey) {
+    try {
+      const element = document.getElementById(elementId);
+      if (!element) {
+        throw new Error(`Element not found : ${elementId}`);
+      }
+      element.textContent = chrome.i18n.getMessage(messageKey);
+    } catch (error) {
+      console.error("Content update failed:", error);
+    }
+  }
+
+  /**
+   * Get elements by selector
+   * @param {string} selector - CSS selector
+   * @return {?NodeList}
+   */
+  static getElements(selector) {
+    try {
+      return document.querySelectorAll(selector);
+    } catch (error) {
+      console.error("Element selection failed:", error);
+      return null;
+    }
   }
 }
 
-function proxyStatusError(error) {
-  console.error("(proxyinfo)", error);
-  contentUpdateById("proxy-check", "proxyFailedStatus");
-  let readyness = document.querySelectorAll(".readyness");
-  if (readyness !== null) {
-    hide(readyness);
+/**
+ * Proxy Status Manager
+ */
+class ProxyStatusManager {
+  /**
+   * Check proxy connectivity
+   * @return {Promise<void>}
+   */
+  static async checkProxyStatus() {
+    console.info("(proxyinfo) Checking proxy status");
+    try {
+      const response = await fetch(
+        PROXY_CONFIG.PROXY_URL,
+        PROXY_CONFIG.FETCH_OPTIONS
+      );
+      await this.handleProxySuccess(response);
+    } catch (error) {
+      await this.handleProxyError(error);
+    }
+  }
+
+  /**
+   * Handle successful proxy connection
+   * @param {Response} response - Fetch response
+   */
+  static async handleProxySuccess(response) {
+    console.info("(proxyinfo) Proxy check successful");
+    UIManager.updateContent(UI_ELEMENTS.PROXY_STATUS, MESSAGE_KEYS.SUCCESS);
+
+    const readinessElements = UIManager.getElements(
+      UI_ELEMENTS.READINESS_CLASS
+    );
+    if (readinessElements) {
+      UIManager.toggleVisibility(readinessElements, true);
+    }
+  }
+
+  /**
+   * Handle proxy connection failure
+   * @param {Error} error - Connection error
+   */
+  static async handleProxyError(error) {
+    console.error("(proxyinfo) Proxy check failed:", error);
+    UIManager.updateContent(UI_ELEMENTS.PROXY_STATUS, MESSAGE_KEYS.FAILURE);
+
+    const readinessElements = UIManager.getElements(
+      UI_ELEMENTS.READINESS_CLASS
+    );
+    if (readinessElements) {
+      UIManager.toggleVisibility(readinessElements, false);
+    }
+  }
+
+  /**
+   * Check console connectivity
+   * @return {Promise<void>}
+   */
+  static async checkConsoleStatus() {
+    const logoUrl = `${PROXY_CONFIG.CONSOLE_URL}${PROXY_CONFIG.LOGO_PATH}`;
+    console.info("(proxyinfo) Checking console status");
+
+    try {
+      await fetch(logoUrl);
+      const consoleLinks = UIManager.getElements(UI_ELEMENTS.CONSOLE_LINKS);
+      if (consoleLinks) {
+        UIManager.toggleVisibility(consoleLinks, true);
+      }
+      console.info("(proxyinfo) Console check successful");
+    } catch (error) {
+      const consoleLinks = UIManager.getElements(UI_ELEMENTS.CONSOLE_LINKS);
+      if (consoleLinks) {
+        UIManager.toggleVisibility(consoleLinks, false);
+      }
+      console.error("(proxyinfo) Console check failed:", error);
+    }
   }
 }
 
-function hide(elements) {
-  console.log("(proxyinfo) hiding", elements);
-  const elems = Array.isArray(elements) ? elements : [elements];
-  elems.forEach((elem) => {
-    if (elem.style) {
-      console.log("(proxyinfo) hiding");
-      elem.classList.add("hidden");
-    }
-  });
+/**
+ * Initialize proxy status checking
+ */
+function initializeProxyChecks() {
+  try {
+    ProxyStatusManager.checkProxyStatus();
+    ProxyStatusManager.checkConsoleStatus();
+  } catch (error) {
+    console.error("Proxy initialization failed:", error);
+  }
 }
 
-function unhide(elements) {
-  console.log("(proxyinfo) unhiding", elements);
-  const elems = Array.isArray(elements) ? elements : [elements];
-  elems.forEach((elem) => {
-    if (elem.style) {
-      console.log("(proxyinfo) unhiding");
-      elem.classList.remove("hidden");
-    }
-  });
-}
+// Event Listeners
+document.addEventListener("DOMContentLoaded", initializeProxyChecks, {
+  passive: true,
+  capture: false,
+});
 
-//TODO: Don't hard-code this.
-fetch("http://127.0.0.1:7657/themes/console/light/images/i2plogo.png")
-  .then((myJson) => {
-    console.log("(proxyinfo) img test pass", myJson);
-    var consoleLinks = document.querySelectorAll(".application-info");
-    unhide(consoleLinks);
-  })
-  .catch((error) => {
-    console.log("(proxyinfo) img test fail", error);
-    var consoleLinks = document.querySelectorAll(".application-info");
-    hide(consoleLinks);
-  });
+// Export for testing
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = {
+    ProxyStatusManager,
+    UIManager,
+    PROXY_CONFIG,
+    UI_ELEMENTS,
+  };
+}
