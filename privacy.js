@@ -492,7 +492,6 @@ function disableHistory() {
   gettingStoredSettings.then(checkStoredSettings, onError);
 }
 
-
 function enableReferer() {
   function checkStoredSettings(storedSettings) {
     storedSettings["disable_referer"] = false;

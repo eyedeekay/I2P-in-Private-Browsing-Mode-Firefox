@@ -61,7 +61,7 @@ function hide(elements) {
 
 function unhide(elements) {
   const elems = Array.isArray(elements) ? elements : [elements];
-  elems.forEach(el => {
+  elems.forEach((el) => {
     if (el.style) {
       //el.style.display = "inline-block";
       console.log("(content) unhiding");

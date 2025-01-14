@@ -1,186 +1,249 @@
+/**
+ * @fileoverview I2P Host Management Module
+ * Handles host verification, routing, and application paths for I2P browser extension
+ */
+
+// Constants for URL patterns and ports
+const URL_PATTERNS = {
+  I2P_SUFFIX: ".i2p",
+  PROXY_HOST: "proxy.i2p",
+  LOCALHOST: ["localhost", "127.0.0.1"],
+  PROTOCOL_PREFIX: "ext+rc:",
+};
+
+const PORT_APPLICATIONS = {
+  TOR: "7695",
+  BLOG: "8084",
+  IRC: "7669",
+};
+
+const ROUTER_PATHS = {
+  TUNNEL_MGR: ["i2ptunnelmgr", "i2ptunnel"],
+  TORRENT: ["i2psnark", "torrents", "transmission", "tracker"],
+  MAIL: ["webmail", "susimail"],
+  MUWIRE: ["MuWire"],
+  BOTE: ["i2pbote"],
+  CONSOLE: ["home", "console", "dns", "susidns", "config", "sitemap", ""],
+};
+
+/**
+ * Validates and processes URLs for host checking
+ * @param {string|URL|Object} urlInput - URL to process
+ * @return {URL} Processed URL object
+ * @throws {Error} If URL is invalid
+ */
+function processURL(urlInput) {
+  try {
+    if (typeof urlInput === "string") {
+      if (!urlInput.startsWith("http")) {
+        urlInput = "http://" + urlInput;
+      }
+      return new URL(urlInput);
+    }
+    if (urlInput instanceof URL) {
+      return urlInput;
+    }
+    return new URL(urlInput.url);
+  } catch (error) {
+    console.error("Invalid URL processing:", error);
+    throw new Error("Invalid URL format");
+  }
+}
+
+/**
+ * Checks if request is for proxy host
+ * @param {Object} requestDetails - Request details object
+ * @return {boolean}
+ */
 function isProxyHost(requestDetails) {
-  let requestUrl = new URL(requestDetails.url);
-  let hostname = requestUrl.hostname;
-  console.debug("(proxy) proxyinfo proxy.i2p check", hostname);
-  if (
-    hostname === "proxy.i2p"
-  ) {
-    console.log("(proxy) proxyinfo proxy.i2p positive", hostname);
-    return true;
+  try {
+    const requestUrl = processURL(requestDetails);
+    const isProxy = requestUrl.hostname === URL_PATTERNS.PROXY_HOST;
+    console.debug("(proxy) proxyinfo check:", requestUrl.hostname, isProxy);
+    return isProxy;
+  } catch (error) {
+    console.error("Proxy host check failed:", error);
+    return false;
   }
-  console.log("(proxy) proxyinfo proxy.i2p check negative", hostname);
-  return false;
 }
 
+/**
+ * Validates if URL points to localhost
+ * @param {string|URL} url
+ * @return {string|false} Host:port if local, false otherwise
+ */
 function isLocalHost(url) {
-  console.debug("(host) checking local host", url);
-  if (!url.startsWith("http")){
-    url = "http://" + url
+  try {
+    const requestUrl = processURL(url);
+    if (URL_PATTERNS.LOCALHOST.includes(requestUrl.hostname)) {
+      return `${requestUrl.hostname}:${requestUrl.port}`;
+    }
+    return false;
+  } catch (error) {
+    console.error("Local host check failed:", error);
+    return false;
   }
-  let requestUrl = new URL(url);
-  let hostname = requestUrl.hostname;
-  if (hostname === "localhost" || hostname === "127.0.0.1") {
-    return hostname+":"+requestUrl.port;
-  }
-  return false;
 }
 
+/**
+ * Standardizes localhost representation
+ * @param {string|URL} url
+ * @return {string}
+ */
 function tidyLocalHost(url) {
-  let hostPort = isLocalHost(url)
+  const hostPort = isLocalHost(url);
   if (hostPort) {
-    return hostPort.replace("127.0.0.1", "localhost")
+    return hostPort.replace("127.0.0.1", "localhost");
   }
-  return url.hostname+":"+url.port
+  const processedUrl = processURL(url);
+  return `${processedUrl.hostname}:${processedUrl.port}`;
 }
 
-function isTorHost(url) {
-  let host = isLocalHost(url)
-  if (host.includes(":7695")) {
-    return "tor";
+/**
+ * Service-specific host checks
+ * @param {string|URL} url
+ * @param {string} port
+ * @param {string} service
+ * @return {string|false}
+ */
+function checkServiceHost(url, port, service) {
+  const host = isLocalHost(url);
+  if (!host) {
+    return false;
   }
-  return false
+  return host.includes(` : ${port}`) ? service : false;
 }
 
-function isBlogHost(url) {
-  let host = isLocalHost(url)
-  if (host.includes(":8084")) {
-    return "blog";
-  }
-  return false
-}
+const isTorHost = (url) => checkServiceHost(url, PORT_APPLICATIONS.TOR, "tor");
+const isBlogHost = (url) =>
+  checkServiceHost(url, PORT_APPLICATIONS.BLOG, "blog");
+const isIRCHost = (url) => checkServiceHost(url, PORT_APPLICATIONS.IRC, "irc");
 
-function isIRCHost(url) {
-  let host = isLocalHost(url)
-  if (host.includes(":7669")) {
-    return "irc";
-  }
-  return false
-}
-
+/**
+ * Verifies if request comes from extension
+ * @param {Object} url - Request URL object
+ * @return {boolean}
+ */
 function isExtensionHost(url) {
   const extensionPrefix = browser.runtime
     .getURL("")
     .replace("moz-extension://", "")
     .replace("/", "");
-  let isHost = false;
 
-  if (url.originUrl !== undefined) {
-    const originUrl = url.originUrl
+  const checkUrl = (sourceUrl) => {
+    if (!sourceUrl) return false;
+    return sourceUrl
       .replace("moz-extension://", "")
-      .replace("/", "");
-    isHost = originUrl.startsWith(extensionPrefix);
-  } else if (url.documentUrl !== undefined) {
-    const documentUrl = url.documentUrl
-      .replace("moz-extension://", "")
-      .replace("/", "");
-    isHost = documentUrl.startsWith(extensionPrefix);
-  }
-  console.debug(`(urlcheck) Is URL from extension host? ${isHost}`);
-  return isHost;
+      .replace("/", "")
+      .startsWith(extensionPrefix);
+  };
+
+  return checkUrl(url.originUrl) || checkUrl(url.documentUrl);
 }
 
+/**
+ * Extracts I2P hostname from URL
+ * @param {string|URL} url
+ * @returns {string|false}
+ */
 function i2pHostName(url) {
-  let hostname = false;
-  const requestUrl = new URL(url);
-  if (u.host.endsWith(".i2p")) {
-    hostname = requestUrl.host;
-  }
-  return hostname;
-}
-
-function i2pHost(url) {
-  if (isProxyHost(url)) {
-    console.warn("(host) proxy.i2p", url.url);
+  try {
+    const requestUrl = processURL(url);
+    return requestUrl.host.endsWith(URL_PATTERNS.I2P_SUFFIX)
+      ? requestUrl.host
+      : false;
+  } catch (error) {
+    console.error("I2P hostname extraction failed:", error);
     return false;
   }
-  console.log("(host) i2p", url.url);
-  let requestUrl = new URL(url.url);
-  return requestUrl.hostname.endsWith(".i2p")
 }
 
-function notAnImage(url, path) {
-  if (!url.includes(".png")) {
-    return path;
+/**
+ * Validates I2P host
+ * @param {Object} url
+ * @returns {boolean}
+ */
+function i2pHost(url) {
+  if (isProxyHost(url)) {
+    console.warn("(host) proxy.i2p detected");
+    return false;
   }
+  const requestUrl = processURL(url.url);
+  return requestUrl.hostname.endsWith(URL_PATTERNS.I2P_SUFFIX);
 }
 
+/**
+ * Gets first path element from URL
+ * @param {string|URL} url
+ * @returns {string}
+ */
 function getFirstPathElement(url) {
-  let requestUrl = new URL(url);
-  let path = requestUrl.pathname
-  while (path.startsWith("/")) {
-    path = path.substring(1)
-  }
-  return path.split("/")[0]
+  const requestUrl = processURL(url);
+  const path = requestUrl.pathname.replace(/^\/+/, "");
+  return path.split("/")[0];
 }
 
+/**
+ * Identifies application from path
+ * @param {string|URL} url
+ * @returns {string|boolean}
+ */
 function getPathApplication(url) {
-  const path = getFirstPathElement(url)
-  if (path === "i2ptunnelmgr" || path === "i2ptunnel") {
-    return "i2ptunnelmgr";
-  }
-  console.debug("(host) router path name",path)
+  const path = getFirstPathElement(url);
 
-  if (
-    path === "i2psnark" ||
-    path === "torrents" ||
-    path.startsWith("transmission") ||
-    path.startsWith("tracker") ||
-    url.includes(":7662")
-  ) {
-    return "i2psnark";
-  }
+  if (ROUTER_PATHS.TUNNEL_MGR.includes(path)) return "i2ptunnelmgr";
+  if (ROUTER_PATHS.TORRENT.includes(path)) return "i2psnark";
+  if (ROUTER_PATHS.MAIL.includes(path)) return "webmail";
+  if (path.startsWith("MuWire")) return "muwire";
+  if (path.startsWith("i2pbote")) return "i2pbote";
+  if (ROUTER_PATHS.CONSOLE.includes(path)) return "routerconsole";
 
-  if (path === "webmail" || path === "susimail") {
-    return "webmail";
-  }
-
-  if (path.startsWith("MuWire")) {
-    return notAnImage("muwire");
-  }
-
-  if (path.startsWith("i2pbote")) {
-    return notAnImage("i2pbote");
-  }
-  if (
-    path === "home" ||
-    path === "console" ||
-    path === "dns" ||
-    path === "susidns" ||
-    path.startsWith("susidns") ||
-    path === "sitemap" ||
-    path.startsWith("config") ||
-    path === ""
-  ) {
-    return "routerconsole";
-  }
-  console.warn("(host) unknown path", path);
+  console.warn("(host) unknown path:", path);
   return true;
 }
 
+/**
+ * Verifies router host status
+ * @param {string|URL} url
+ * @returns {string|boolean}
+ */
 function isRouterHost(url) {
-  let requestUrl = new URL(url);
-  let hostname = requestUrl.hostname;
-  let port = requestUrl.port;
-  if (identifyProtocolHandler(url)) {
-    const newUrl = identifyProtocolHandler(url);
-    console.log("(host) testing router host protocol handler identified");
-    return isRouterHost(newUrl);
+  try {
+    const protocolUrl = identifyProtocolHandler(url);
+    if (protocolUrl) {
+      return isRouterHost(protocolUrl);
+    }
+
+    const requestUrl = processURL(url);
+    const { hostname, port } = requestUrl;
+    const controlHost = control_host();
+    const controlPort = control_port();
+
+    if (
+      tidyLocalHost(`${hostname}:${port}`) ===
+      tidyLocalHost(`${controlHost}:${controlPort}`)
+    ) {
+      return getPathApplication(url);
+    }
+    return false;
+  } catch (error) {
+    console.error("Router host check failed:", error);
+    return false;
   }
-  const controlHost = control_host();
-  const controlPort = control_port();
-  console.log("(host) testing router hostname", tidyLocalHost(`${hostname}:${port}`) ,"against", tidyLocalHost(`${controlHost}:${controlPort}`));
-  if (tidyLocalHost(`${hostname}:${port}`) === tidyLocalHost(`${controlHost}:${controlPort}`)) {
-    return getPathApplication(url);
-  }
-  return false;
 }
 
+/**
+ * Identifies protocol handler in URL
+ * @param {string} url
+ * @returns {string|false}
+ */
 function identifyProtocolHandler(url) {
-  //console.log("looking for handler-able requests")
-    if (url.includes(encodeURIComponent("ext+rc:"))) {
-      return url.replace(encodeURIComponent("ext+rc:"), "");
-    } else if (url.includes("ext+rc:")) {
-      return url.replace("ext+rc:", "");
-    }
+  const encoded = encodeURIComponent(URL_PATTERNS.PROTOCOL_PREFIX);
+  if (url.includes(encoded)) {
+    return url.replace(encoded, "");
+  }
+  if (url.includes(URL_PATTERNS.PROTOCOL_PREFIX)) {
+    return url.replace(URL_PATTERNS.PROTOCOL_PREFIX, "");
+  }
   return false;
 }

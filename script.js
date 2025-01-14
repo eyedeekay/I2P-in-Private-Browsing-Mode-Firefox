@@ -3,7 +3,7 @@ function hasI2PLocation(request) {
   if (request.req === "i2p-location") {
     let tag = document.querySelector('meta[http-equiv="i2p-location"]');
     if (tag != undefined) {
-      console.debug("(script) i2p site discovered",tag);
+      console.debug("(script) i2p site discovered", tag);
       if (tag) response = tag.content;
     }
     tag = document.querySelector('meta[http-equiv="x-i2p-location"]');
@@ -12,37 +12,34 @@ function hasI2PLocation(request) {
       if (tag) response = tag.content;
     }
   }
-  return response
+  return response;
 }
 
 function hasTorrentResource(request) {
-  let response = false
-  if (!i2pHost(request.URL))
-    return response
+  let response = false;
+  if (!i2pHost(request.URL)) return response;
   if (request.req === "i2p-torrentlocation") {
     let tag = document.querySelector('meta[http-equiv="i2p-torrentlocation"]');
     if (tag != undefined) {
       console.debug("(script) torrent resource", tag);
       response = i2pTorrent(tag);
     }
-    tag = document.querySelector(
-      'meta[http-equiv="x-i2p-torrentlocation"]'
-    );
+    tag = document.querySelector('meta[http-equiv="x-i2p-torrentlocation"]');
     if (tag != undefined) {
       console.debug("(script) torrent resource", tag);
       response = i2pTorrent(tag);
     }
   }
-  return response
+  return response;
 }
 
-function hasExtraLocation(request){
+function hasExtraLocation(request) {
   var response = false;
   console.info("(script) page" + request);
-  torrentLocation = hasTorrentResource(request)
-  if (torrentLocation) return torrentLocation
-  i2pLocation = hasI2PLocation(request)
-  if (i2pLocation) return i2pLocation
+  torrentLocation = hasTorrentResource(request);
+  if (torrentLocation) return torrentLocation;
+  i2pLocation = hasI2PLocation(request);
+  if (i2pLocation) return i2pLocation;
   return Promise.resolve({ content: response });
 }
 

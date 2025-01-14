@@ -139,9 +139,8 @@ var handleContextProxyRequest = async function (requestDetails) {
 
       if (context == "firefox-default" || context == "firefox-private") {
         if (!i2pHost(requestDetails.URL))
-          if (!isProxyHost(requestDetails.URL))
-            proxy = null;
-          return proxy;
+          if (!isProxyHost(requestDetails.URL)) proxy = null;
+        return proxy;
       }
 
       // eslint-disable-next-line no-negated-condition
@@ -261,11 +260,11 @@ var handleContextProxyRequest = async function (requestDetails) {
     }
     if (requestDetails.tabId > 0) {
       if (requestDetails.url.includes("MuWire")) {
-        console.debug("(proxy) test is muwire host:", requestDetails)
+        console.debug("(proxy) test is muwire host:", requestDetails);
         return;
       }
       if (isProxyHost(requestDetails)) {
-        console.debug("(proxy) test is proxy host:", requestDetails)
+        console.debug("(proxy) test is proxy host:", requestDetails);
         proxy = {
           type: proxy_scheme(),
           host: proxy_host(),
@@ -273,7 +272,7 @@ var handleContextProxyRequest = async function (requestDetails) {
         };
         return proxy;
       } else if (i2pHost(requestDetails)) {
-        console.debug("(proxy) test I2P host:", requestDetails)
+        console.debug("(proxy) test I2P host:", requestDetails);
         var tab = tabGet(requestDetails.tabId);
         requestDetails.tabId = tab;
         var context = tab.then(contextGet);
@@ -281,10 +280,10 @@ var handleContextProxyRequest = async function (requestDetails) {
         //console.log('(proxy)Returning I2P Proxy', proxy);
         return proxy;
       } else if (isExtensionHost(requestDetails)) {
-        console.debug("(proxy) test extension host:", requestDetails)
+        console.debug("(proxy) test extension host:", requestDetails);
         return;
       } else {
-        console.debug("(proxy) test else in:", requestDetails)
+        console.debug("(proxy) test else in:", requestDetails);
         var tab = tabGet(requestDetails.tabId);
         var context = tab.then(contextGet);
         var proxy = await context.then(handleProxyRequest);
@@ -295,7 +294,7 @@ var handleContextProxyRequest = async function (requestDetails) {
                                     console.log("(proxy)Returning unset Proxy", proxy);
                                     return proxy;*/
     } else {
-      console.debug("(proxy) test else:", requestDetails)
+      console.debug("(proxy) test else:", requestDetails);
       proxy = {
         type: proxy_scheme(),
         host: proxy_host(),
@@ -307,7 +306,7 @@ var handleContextProxyRequest = async function (requestDetails) {
   } catch (error) {
     console.log("(proxy)Not using I2P Proxy.", error);
   }
-  return {type: "direct"}
+  return { type: "direct" };
 };
 
 function setupProxy() {
