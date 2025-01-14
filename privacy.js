@@ -1,541 +1,364 @@
-var titlepref = chrome.i18n.getMessage("titlePreface");
+/**
+ * @fileoverview I2P Privacy Manager
+ * Handles Firefox privacy settings and data cleanup for I2P container tabs
+ */
 
-function onSet(result) {
-  if (result) {
-    console.log("->: Value was updated");
-  } else {
-    console.log("-X: Value was not updated");
-  }
-}
-
-/* This disables queries to centralized databases of bad URLs to screen for
-   risky sites in your browser */
-function disableHyperlinkAuditing() {
-  var setting = browser.privacy.websites.hyperlinkAuditingEnabled.set({
-    value: false,
-  });
-  console.log("Disabling hyperlink auditing/val=", {
-    value: false,
-  });
-  setting.then(onSet);
-}
-
-// UNINSTALL ONLY
-function enableHyperlinkAuditing() {
-  var setting = browser.privacy.websites.hyperlinkAuditingEnabled.clear();
-  console.log("Disabling hyperlink auditing/val=", {
-    value: false,
-  });
-  setting.then(onSet);
-}
-
-// This enables first-party isolation
-function enableFirstPartyIsolation() {
-  var setting = browser.privacy.websites.firstPartyIsolate.set({
-    value: true,
-  });
-  console.log("Enabling first party isolation/val=", {
-    value: true,
-  });
-  setting.then(onSet);
-}
-
-// UNINSTALL ONLY
-function disableFirstPartyIsolation() {
-  var setting = browser.privacy.websites.firstPartyIsolate.clear();
-  console.log("Enabling first party isolation/val=", {
-    value: true,
-  });
-  setting.then(onSet);
-}
-
-/* This rejects tracking cookies and third-party cookies but it
-   LEAVES "Persistent" Cookies unmodified in favor of an option in the content
-   interface for now */
-function disableEvilCookies() {
-  var getting = browser.privacy.websites.cookieConfig.get({});
-  getting.then((got) => {
-    var setting = browser.privacy.websites.cookieConfig.set({
-      value: {
-        behavior: "reject_third_party",
-        nonPersistentCookies: got.value.nonPersistentCookies,
-      },
-    });
-    console.log("Setting cookie behavior/val=", {
-      value: {
-        behavior: "reject_third_party",
-        nonPersistentCookies: got.value.nonPersistentCookies,
-      },
-    });
-    setting.then(onSet);
-  });
-}
-
-function enableEvilCookies() {
-  var getting = browser.privacy.websites.cookieConfig.clear();
-}
-
-// Make sure that they're gone
-/*function disableBadCookies(){
-    var setting = browser.privacy.websites.thirdPartyCookiesAllowed.set({
-      value: false
-    });
-    console.log("Disabling third party cookies/val=", {
-      value: false
-    })
-    setting.then(onSet);
-}*/
-
-// this disables the use of referrer headers
-function disableReferrers() {
-  var setting = browser.privacy.websites.referrersEnabled.set({
-    value: false,
-  });
-  console.log("Disabling referrer headers/val=", {
-    value: false,
-  });
-  setting.then(onSet);
-}
-
-// UNINSATALL ONLY
-function enableReferrers() {
-  var setting = browser.privacy.websites.referrersEnabled.clear();
-  console.log("Disabling referrer headers/val=", {
-    value: false,
-  });
-  setting.then(onSet);
-}
-
-// enable fingerprinting resistent features(letterboxing and stuff)
-function enableResistFingerprinting() {
-  var setting = browser.privacy.websites.resistFingerprinting.set({
-    value: true,
-  });
-  console.log("Enabling resist fingerprinting/val=", {
-    value: true,
-  });
-  setting.then(onSet);
-}
-
-// UNINSTALL ONLY
-function disableResistFingerprinting() {
-  var setting = browser.privacy.websites.resistFingerprinting.clear();
-  console.log("Enabling resist fingerprinting/val=", {
-    value: false,
-  });
-  setting.then(onSet);
-}
-
-// This is essentially a blocklist of clearnet web-sites known to do bad tracking
-function enableTrackingProtection() {
-  var setting = browser.privacy.websites.trackingProtectionMode.set({
-    value: "always",
-  });
-  console.log("Enabling tracking protection/val=", {
-    value: "always",
-  });
-  setting.then(onSet);
-}
-
-// UNINSTALL ONLY
-function disableTrackingProtection() {
-  var setting = browser.privacy.websites.trackingProtectionMode.clear();
-  console.log("Enabling tracking protection/val=", {
-    value: "always",
-  });
-  setting.then(onSet);
-}
-
-/* This disables protected content, which is a form of digital restrictions
-   management dependent on identifying information */
-function disableDigitalRestrictionsManagement() {
-  var gettingInfo = browser.runtime.getPlatformInfo();
-  gettingInfo.then((got) => {
-    if (got.os == "win") {
-      var setting = browser.privacy.websites.protectedContentEnabled.set({
-        value: false,
-      });
-      console.log(
-        "Setting Protected Content(Digital Restrictions Management) false/val=",
-        {
-          value: false,
-        }
-      );
-      setting.then(onSet);
-    }
-  });
-}
-
-// UNINSTALL ONLY
-function disableDigitalRestrictionsManagement() {
-  var gettingInfo = browser.runtime.getPlatformInfo();
-  gettingInfo.then((got) => {
-    if (got.os == "win") {
-      var setting = browser.privacy.websites.protectedContentEnabled.clear();
-      console.log(
-        "Setting Protected Content(Digital Restrictions Management) false/val=",
-        {
-          value: true,
-        }
-      );
-      setting.then(onSet);
-    }
-  });
-}
-
-function unsetAllPrivacy() {
-  enableHyperlinkAuditing();
-  disableFirstPartyIsolation();
-  enableEvilCookies();
-  enableReferrers();
-  disableTrackingProtection();
-  disableResistFingerprinting();
-  enableDigitalRestrictionsManagement();
-  UnsetPeerConnection();
-  EnableSavePasswords();
-}
-
-browser.management.onUninstalled.addListener((info) => {
-  function gotSelf(selfinfo) {
-    if (info.name == selfinfo.name) {
-      unsetAllPrivacy();
-    }
-  }
-  var gettingSelf = browser.management.getSelf();
-  gettingSelf.then(gotSelf);
-});
-
-function setAllPrivacy() {
-  disableHyperlinkAuditing();
-  enableFirstPartyIsolation();
-  disableEvilCookies();
-  //disableReferrers();
-  enableTrackingProtection();
-  enableResistFingerprinting();
-  disableDigitalRestrictionsManagement();
-}
-
-setAllPrivacy();
-
-function ResetPeerConnection() {
-  function reset(snowflake) {
-    var webrtc = true;
-    console.log("No snowflake plugin found, pre-disabled WebRTC");
-    var rtc = browser.privacy.network.peerConnectionEnabled.set({
-      value: webrtc,
-    });
-    rtc.then(AssurePeerConnection);
-  }
-
-  function snowflake(snowflake) {
-    console.log("snowflake plugin found, leaving WebRTC alone", snowflake);
-    AssurePeerConnection();
-  }
-  var snowflakeInfo = browser.management.get(
-    "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}" // string
-  );
-  snowflakeInfo.then(snowflake, reset);
-}
-
-function AssurePeerConnection() {
-  function assure(webrtc) {
-    browser.privacy.network.peerConnectionEnabled.set({
-      value: true,
-    });
-    chrome.privacy.network.webRTCIPHandlingPolicy.set({
-      value: "disable_non_proxied_udp",
-    });
-  }
-  let rtc = browser.privacy.network.peerConnectionEnabled.get({});
-  rtc.then(assure);
-}
-
-// UNINSTALL ONLY
-function UnsetPeerConnection() {
-  function assure(webrtc) {
-    browser.privacy.network.peerConnectionEnabled.set({
-      value: true,
-    });
-    chrome.privacy.network.webRTCIPHandlingPolicy.set({
-      value: "default",
-    });
-  }
-  let rtc = browser.privacy.network.peerConnectionEnabled.get({});
-  rtc.then(assure);
-}
-
-var gettingInfo = browser.runtime.getPlatformInfo();
-gettingInfo.then((got) => {
-  if (got.os == "android") {
-    browser.tabs.onCreated.addListener(ResetPeerConnection);
-  } else {
-    browser.windows.onCreated.addListener(ResetPeerConnection);
-  }
-});
-//AssurePeerConnection();
-
-function ResetDisableSavePasswords() {
-  browser.privacy.services.passwordSavingEnabled.set({
-    value: false,
-  });
-  console.log("Re-disabled saved passwords");
-}
-
-function EnableSavePasswords() {
-  browser.privacy.services.passwordSavingEnabled.clear();
-  console.log("Enabled saved passwords");
-}
-
-//ResetDisableSavePasswords()
-
-var defaultSettings = {
-  since: "forever",
-  dataTypes: ["downloads", "passwords", "formData", "localStorage", "history"],
+const PRIVACY_CONFIG = {
+  TITLE_PREFACE: chrome.i18n.getMessage("titlePreface"),
+  SNOWFLAKE_ID: "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}",
+  WINDOWS: {
+    OS: "win",
+  },
+  BROWSING_DATA: {
+    SINCE: "forever",
+    TYPES: ["downloads", "passwords", "formData", "localStorage", "history"],
+  },
 };
 
-function onError(therror) {
-  console.error(therror);
+/**
+ * Privacy Manager for handling browser privacy settings
+ */
+class PrivacyManager {
+  /**
+   * Set browser privacy settings
+   * @param {Object} settings Privacy setting configuration
+   * @return {Promise<boolean>}
+   */
+  static async setSetting(setting, value) {
+    try {
+      const result = await setting.set({ value });
+      console.info(`Privacy setting updated : ${value}`);
+      return true;
+    } catch (error) {
+      console.error("Privacy setting failed:", error);
+      return false;
+    }
+  }
+
+  /**
+   * Configure hyperlink auditing
+   * @param {boolean} enabled Whether to enable auditing
+   */
+  static async configureHyperlinkAuditing(enabled = false) {
+    await this.setSetting(
+      browser.privacy.websites.hyperlinkAuditingEnabled,
+      enabled
+    );
+  }
+
+  /**
+   * Configure first party isolation
+   * @param {boolean} enabled Whether to enable isolation
+   */
+  static async configureFirstPartyIsolation(enabled = true) {
+    await this.setSetting(browser.privacy.websites.firstPartyIsolate, enabled);
+  }
+
+  /**
+   * Configure cookie behavior
+   * @param {boolean} allowThirdParty Whether to allow third party cookies
+   */
+  static async configureCookies(allowThirdParty = false) {
+    try {
+      const cookieConfig = await browser.privacy.websites.cookieConfig.get({});
+      await browser.privacy.websites.cookieConfig.set({
+        value: {
+          behavior: allowThirdParty ? "allow_all" : "reject_third_party",
+          nonPersistentCookies: cookieConfig.value.nonPersistentCookies,
+        },
+      });
+    } catch (error) {
+      console.error("Cookie configuration failed:", error);
+    }
+  }
+
+  /**
+   * Configure referrer policy
+   * @param {boolean} enabled Whether to enable referrers
+   */
+  static async configureReferrers(enabled = false) {
+    await this.setSetting(browser.privacy.websites.referrersEnabled, enabled);
+  }
+
+  /**
+   * Configure fingerprinting resistance
+   * @param {boolean} enabled Whether to enable resistance
+   */
+  static async configureFingerprinting(enabled = true) {
+    await this.setSetting(
+      browser.privacy.websites.resistFingerprinting,
+      enabled
+    );
+  }
+
+  /**
+   * Configure tracking protection
+   * @param {boolean} enabled Whether to enable protection
+   */
+  static async configureTrackingProtection(enabled = true) {
+    await this.setSetting(
+      browser.privacy.websites.trackingProtectionMode,
+      enabled ? "always" : "never"
+    );
+  }
+
+  /**
+   * Configure DRM content
+   * @param {boolean} enabled Whether to enable DRM
+   */
+  static async configureDRM(enabled = false) {
+    const platformInfo = await browser.runtime.getPlatformInfo();
+    if (platformInfo.os === PRIVACY_CONFIG.WINDOWS.OS) {
+      await this.setSetting(
+        browser.privacy.websites.protectedContentEnabled,
+        enabled
+      );
+    }
+  }
+
+  /**
+   * Configure WebRTC
+   * @param {boolean} enabled Whether to enable WebRTC
+   */
+  static async configureWebRTC(enabled = false) {
+    try {
+      const snowflake = await browser.management.get(
+        PRIVACY_CONFIG.SNOWFLAKE_ID
+      );
+      console.info("Snowflake detected, preserving WebRTC");
+      return;
+    } catch {
+      await this.setSetting(
+        browser.privacy.network.peerConnectionEnabled,
+        enabled
+      );
+      await this.setSetting(
+        chrome.privacy.network.webRTCIPHandlingPolicy,
+        enabled ? "disable_non_proxied_udp" : "default"
+      );
+    }
+  }
+
+  /**
+   * Configure password saving
+   * @param {boolean} enabled Whether to enable password saving
+   */
+  static async configurePasswordSaving(enabled = false) {
+    await this.setSetting(
+      browser.privacy.services.passwordSavingEnabled,
+      enabled
+    );
+  }
+
+  /**
+   * Apply recommended privacy settings
+   */
+  static async applyRecommendedSettings() {
+    await Promise.all([
+      this.configureHyperlinkAuditing(false),
+      this.configureFirstPartyIsolation(true),
+      this.configureCookies(false),
+      this.configureFingerprinting(true),
+      this.configureTrackingProtection(true),
+      this.configureDRM(false),
+      this.configureWebRTC(false),
+      this.configurePasswordSaving(false),
+    ]);
+  }
+
+  /**
+   * Reset all privacy settings to defaults
+   */
+  static async resetAllSettings() {
+    await Promise.all([
+      browser.privacy.websites.hyperlinkAuditingEnabled.clear(),
+      browser.privacy.websites.firstPartyIsolate.clear(),
+      browser.privacy.websites.cookieConfig.clear(),
+      browser.privacy.websites.referrersEnabled.clear(),
+      browser.privacy.websites.resistFingerprinting.clear(),
+      browser.privacy.websites.trackingProtectionMode.clear(),
+      browser.privacy.websites.protectedContentEnabled.clear(),
+      browser.privacy.network.peerConnectionEnabled.clear(),
+      browser.privacy.services.passwordSavingEnabled.clear(),
+    ]);
+  }
 }
 
-function forgetBrowsingData(storedSettings) {
-  function getSince(selectedSince) {
-    if (selectedSince === "forever") {
-      return 0;
-    }
+/**
+ * Data Cleanup Manager for handling browsing data
+ */
+class DataCleanupManager {
+  /**
+   * Clean browsing data for I2P domains
+   * @param {Object} options Cleanup options
+   */
+  static async cleanBrowsingData(options = {}) {
+    const since = this.calculateCleanupTime(
+      options.since || PRIVACY_CONFIG.BROWSING_DATA.SINCE
+    );
 
+    try {
+      const i2pHistory = await browser.history.search({
+        text: "i2p",
+        startTime: 0,
+      });
+
+      for (const item of i2pHistory) {
+        if (this.isI2PUrl(item.url)) {
+          await this.cleanupForDomain(item.url, since);
+        }
+      }
+
+      await this.notifyCleanup();
+    } catch (error) {
+      console.error("Data cleanup failed:", error);
+    }
+  }
+
+  /**
+   * Calculate cleanup timestamp
+   * @param {string} timeframe Cleanup timeframe
+   * @returns {number} Timestamp
+   */
+  static calculateCleanupTime(timeframe) {
     const times = {
       hour: () => 1000 * 60 * 60,
       day: () => 1000 * 60 * 60 * 24,
       week: () => 1000 * 60 * 60 * 24 * 7,
+      forever: () => 0,
     };
 
-    const sinceMilliseconds = times[selectedSince].call();
-    return Date.now() - sinceMilliseconds;
+    return timeframe === "forever"
+      ? 0
+      : Date.now() - (times[timeframe] || times.forever)();
   }
 
-  function getTypes(selectedTypes) {
-    let dataTypes = {};
-    for (let item of selectedTypes) {
-      dataTypes[item] = true;
+  /**
+   * Clean up data for specific domain
+   * @param {string} url Domain URL
+   * @param {number} since Timestamp
+   */
+  static async cleanupForDomain(url, since) {
+    const hostname = this.extractI2PHostname(url);
+
+    await Promise.all([
+      browser.history.deleteUrl({ url }),
+      browser.browsingData.removeCache({}),
+      browser.browsingData.removePasswords({ hostnames: [hostname], since }),
+      browser.browsingData.removeDownloads({ hostnames: [hostname], since }),
+      browser.browsingData.removeFormData({ hostnames: [hostname], since }),
+      browser.browsingData.removeLocalStorage({ hostnames: [hostname], since }),
+    ]);
+
+    await this.cleanupContainerCookies(url);
+  }
+
+  /**
+   * Clean up container cookies
+   * @param {string} url Domain URL
+   */
+  static async cleanupContainerCookies(url) {
+    const containers = await browser.contextualIdentities.query({
+      name: PRIVACY_CONFIG.TITLE_PREFACE,
+    });
+
+    for (const container of containers) {
+      const cookies = await browser.cookies.getAll({
+        firstPartyDomain: null,
+        storeId: container.cookieStoreId,
+      });
+
+      for (const cookie of cookies) {
+        await browser.cookies.remove({
+          firstPartyDomain: cookie.firstPartyDomain,
+          name: cookie.name,
+          url: url,
+        });
+      }
     }
-    return dataTypes;
   }
 
-  const since = getSince(defaultSettings.since);
-  const dataTypes = getTypes(defaultSettings.dataTypes);
+  /**
+   * Extract I2P hostname from URL
+   * @param {string} url URL to parse
+   * @returns {string} I2P hostname
+   */
+  static extractI2PHostname(url) {
+    try {
+      const urlObj = new URL(url);
+      if (urlObj.host.endsWith(".i2p")) {
+        return urlObj.host;
+      }
 
-  function notify() {
-    let dataTypesString = Object.keys(dataTypes).join(", ");
-    let sinceString = new Date(since).toLocaleString();
-    browser.notifications.create({
+      if (url.includes(".i2p")) {
+        const parts = url.split("=");
+        for (const part of parts) {
+          const items = part.split("%");
+          for (const item of items) {
+            if (item.includes(".i2p")) {
+              return item.replace("3D", "");
+            }
+          }
+        }
+      }
+
+      return url.split("/")[2] || url.split("/")[0];
+    } catch (error) {
+      console.error("Hostname extraction failed:", error);
+      return "";
+    }
+  }
+
+  /**
+   * Check if URL is I2P
+   * @param {string} url URL to check
+   * @returns {boolean}
+   */
+  static isI2PUrl(url) {
+    const hostname = this.extractI2PHostname(url);
+    return hostname.split(":")[0].endsWith(".i2p");
+  }
+
+  /**
+   * Send cleanup notification
+   */
+  static async notifyCleanup() {
+    await browser.notifications.create({
       type: "basic",
       title: "Removed browsing data",
-      message: `Removed ${dataTypesString}\n for I2P Browsing`,
+      message: "Cleaned I2P browsing data and history",
     });
   }
-
-  function deepCleanHistory(historyItems) {
-    console.log("Deep cleaning history");
-    for (let item of historyItems) {
-      if (i2pCheck(item.url)) {
-        browser.history.deleteUrl({
-          url: item.url,
-        });
-        browser.browsingData.removeCache({});
-        console.log("cleared Cache");
-        browser.browsingData
-          .removePasswords({
-            hostnames: [i2pHostName(item.url)],
-            since,
-          })
-          .then(onContextGotLog);
-        console.log("cleared Passwords");
-        browser.browsingData
-          .removeDownloads({
-            hostnames: [i2pHostName(item.url)],
-            since,
-          })
-          .then(onContextGotLog);
-        console.log("cleared Downloads");
-        browser.browsingData
-          .removeFormData({
-            hostnames: [i2pHostName(item.url)],
-            since,
-          })
-          .then(onContextGotLog);
-        console.log("cleared Form Data");
-        browser.browsingData
-          .removeLocalStorage({
-            hostnames: [i2pHostName(item.url)],
-            since,
-          })
-          .then(onContextGotLog);
-        console.log("cleared Local Storage");
-
-        let contexts = browser.contextualIdentities.query({
-          name: titlepref,
-        });
-
-        function deepCleanCookies(cookies) {
-          for (let cookie of cookies) {
-            var removing = browser.cookies.remove({
-              firstPartyDomain: cookie.firstPartyDomain,
-              name: cookie.name,
-              url: item.url,
-            });
-            removing.then(onContextGotLog, onError);
-          }
-          console.log("Cleared cookies");
-        }
-
-        function deepCleanContext(cookieStoreIds) {
-          for (let cookieStoreId of cookieStoreIds) {
-            var removing = browser.cookies.getAll({
-              firstPartyDomain: null,
-              storeId: cookieStoreId.cookieStoreId,
-            });
-            removing.then(deepCleanCookies, onError);
-          }
-        }
-
-        contexts.then(deepCleanContext, onError);
-      }
-    }
-    notify();
-  }
-
-  var searching = browser.history.search({
-    text: "i2p",
-    startTime: 0,
-  });
-
-  searching.then(deepCleanHistory);
-
-  setAllPrivacy();
-  ResetPeerConnection();
 }
 
-function i2pHostName(url) {
-  let hostname = "";
-  console.log("(hosts)", url);
-  let u = new URL(url);
-  if (u.host.endsWith(".i2p")) {
-    hostname = u.host;
-  } else if (url.includes("=")) {
-    if (url.includes(".i2p")) {
-      lsit = url.split("=");
-      for (let item in lsit) {
-        var items = lsit[item].split(`\ % `); //"\%")
-        for (let p in items) {
-          if (items[p].includes(".i2p")) {
-            hostname = items[p].replace("3D", 1);
-          }
-          break;
-        }
-        if (hostname != "") {
-          break;
-        }
-      }
-    }
-  } else if (url.indexOf("://") > -1) {
-    hostname = url.split("/")[2];
-  } else {
-    hostname = url.split("/")[0];
+// Initialize privacy settings
+PrivacyManager.applyRecommendedSettings();
+
+// Listen for uninstall
+browser.management.onUninstalled.addListener(async (info) => {
+  const selfInfo = await browser.management.getSelf();
+  if (info.name === selfInfo.name) {
+    await PrivacyManager.resetAllSettings();
   }
-  return hostname;
-}
+});
 
-function i2pCheck(url) {
-  let hostname = i2pHostName(url);
-  let postname = hostname.split(":")[0];
-  if (postname.endsWith(".i2p")) {
-    console.log("(hostname) i2p", postname);
+// Listen for messages
+browser.runtime.onMessage.addListener(async (message) => {
+  switch (message.type) {
+    case "cleanupData":
+      await DataCleanupManager.cleanBrowsingData(message.options);
+      break;
+    case "updatePrivacy":
+      await PrivacyManager.applyRecommendedSettings();
+      break;
   }
-  return postname.endsWith(".i2p");
-}
+});
 
-function onContextGotLog(contexts) {
-  if (contexts != null) {
-    console.log(contexts);
-  }
-}
-
-browser.runtime.onMessage.addListener(message);
-
-function enableHistory() {
-  function checkStoredSettings(storedSettings) {
-    storedSettings["disable_history"] = false;
-    console.log(storedSettings);
-
-    function enablehistory(settings) {
-      console.log("Store History:", settings);
-    }
-    let setting = browser.storage.local.set(storedSettings);
-    setting.then(enablehistory);
-  }
-  const gettingStoredSettings = browser.storage.local.get();
-  gettingStoredSettings.then(checkStoredSettings, onError);
-}
-
-function disableHistory() {
-  function checkStoredSettings(storedSettings) {
-    storedSettings["disable_history"] = true;
-    console.log(storedSettings);
-
-    function enablehistory(settings) {
-      console.log("Store History:", settings);
-    }
-    var setting = browser.storage.local.set(storedSettings);
-    setting.then(enablehistory);
-  }
-  const gettingStoredSettings = browser.storage.local.get();
-  gettingStoredSettings.then(checkStoredSettings, onError);
-}
-
-function enableReferer() {
-  function checkStoredSettings(storedSettings) {
-    storedSettings["disable_referer"] = false;
-    console.log(storedSettings);
-
-    function enablereferer(settings) {
-      console.log("Store Referer:", settings);
-    }
-    let setting = browser.storage.local.set(storedSettings);
-    setting.then(enablereferer);
-  }
-  const gettingStoredSettings = browser.storage.local.get();
-  gettingStoredSettings.then(checkStoredSettings, onError);
-}
-
-function disableReferer() {
-  function checkStoredSettings(storedSettings) {
-    storedSettings["disable_referer"] = true;
-    console.log(storedSettings);
-
-    function enablereferer(settings) {
-      console.log("Store Referer:", settings);
-    }
-    var setting = browser.storage.local.set(storedSettings);
-    setting.then(enablereferer);
-  }
-  const gettingStoredSettings = browser.storage.local.get();
-  gettingStoredSettings.then(checkStoredSettings, onError);
-}
-
-function message(recieved) {
-  console.log(recieved);
-  if (recieved.rtc === "enableWebRTC") {
-    console.log("enableWebRTC");
-    AssurePeerConnection();
-  } else if (recieved.rtc === "disableWebRTC") {
-    console.log("disableWebRTC");
-    ResetPeerConnection();
-  }
-  if (recieved.history === "enableHistory") {
-    console.log("enableHistory");
-    enableHistory();
-  } else if (recieved.history === "disableHistory") {
-    console.log("disableHistory");
-    disableHistory();
-  }
+// Export for testing
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = {
+    PrivacyManager,
+    DataCleanupManager,
+    PRIVACY_CONFIG,
+  };
 }

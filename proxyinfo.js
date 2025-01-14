@@ -26,7 +26,7 @@ const MESSAGE_KEYS = {
 /**
  * UI Manager for handling element visibility
  */
-class UIManager {
+class ProxyUIManager {
   /**
    * Toggle element visibility
    * @param {Element|NodeList} elements - Elements to modify
@@ -125,13 +125,16 @@ class ProxyStatusManager {
    */
   static async handleProxySuccess(response) {
     console.info("(proxyinfo) Proxy check successful");
-    UIManager.updateContent(UI_ELEMENTS.PROXY_STATUS, MESSAGE_KEYS.SUCCESS);
+    ProxyUIManager.updateContent(
+      UI_ELEMENTS.PROXY_STATUS,
+      MESSAGE_KEYS.SUCCESS
+    );
 
-    const readinessElements = UIManager.getElements(
+    const readinessElements = ProxyUIManager.getElements(
       UI_ELEMENTS.READINESS_CLASS
     );
     if (readinessElements) {
-      UIManager.toggleVisibility(readinessElements, true);
+      ProxyUIManager.toggleVisibility(readinessElements, true);
     }
   }
 
@@ -141,13 +144,16 @@ class ProxyStatusManager {
    */
   static async handleProxyError(error) {
     console.error("(proxyinfo) Proxy check failed:", error);
-    UIManager.updateContent(UI_ELEMENTS.PROXY_STATUS, MESSAGE_KEYS.FAILURE);
+    ProxyUIManager.updateContent(
+      UI_ELEMENTS.PROXY_STATUS,
+      MESSAGE_KEYS.FAILURE
+    );
 
-    const readinessElements = UIManager.getElements(
+    const readinessElements = ProxyUIManager.getElements(
       UI_ELEMENTS.READINESS_CLASS
     );
     if (readinessElements) {
-      UIManager.toggleVisibility(readinessElements, false);
+      ProxyUIManager.toggleVisibility(readinessElements, false);
     }
   }
 
@@ -161,15 +167,19 @@ class ProxyStatusManager {
 
     try {
       await fetch(logoUrl);
-      const consoleLinks = UIManager.getElements(UI_ELEMENTS.CONSOLE_LINKS);
+      const consoleLinks = ProxyUIManager.getElements(
+        UI_ELEMENTS.CONSOLE_LINKS
+      );
       if (consoleLinks) {
-        UIManager.toggleVisibility(consoleLinks, true);
+        ProxyUIManager.toggleVisibility(consoleLinks, true);
       }
       console.info("(proxyinfo) Console check successful");
     } catch (error) {
-      const consoleLinks = UIManager.getElements(UI_ELEMENTS.CONSOLE_LINKS);
+      const consoleLinks = ProxyUIManager.getElements(
+        UI_ELEMENTS.CONSOLE_LINKS
+      );
       if (consoleLinks) {
-        UIManager.toggleVisibility(consoleLinks, false);
+        ProxyUIManager.toggleVisibility(consoleLinks, false);
       }
       console.error("(proxyinfo) Console check failed:", error);
     }
@@ -198,7 +208,7 @@ document.addEventListener("DOMContentLoaded", initializeProxyChecks, {
 if (typeof module !== "undefined" && module.exports) {
   module.exports = {
     ProxyStatusManager,
-    UIManager,
+    UIManager: ProxyUIManager,
     PROXY_CONFIG,
     UI_ELEMENTS,
   };

@@ -29,7 +29,7 @@ const UI_ELEMENTS = {
 /**
  * Privacy Manager for handling browser privacy settings
  */
-class PrivacyManager {
+class PrivacyManagerInfo {
   /**
    * Check WebRTC peer connection status
    */
@@ -291,10 +291,10 @@ async function initialize() {
   try {
     // Initialize privacy settings
     await Promise.all([
-      PrivacyManager.checkPeerConnection(),
-      PrivacyManager.checkSnowflake(),
-      PrivacyManager.checkHistory(),
-      PrivacyManager.checkReferer(),
+      PrivacyManagerInfo.checkPeerConnection(),
+      PrivacyManagerInfo.checkSnowflake(),
+      PrivacyManagerInfo.checkHistory(),
+      PrivacyManagerInfo.checkReferer(),
     ]);
 
     // Initialize UI
@@ -323,7 +323,7 @@ if (browser?.windows) {
 // Export for testing
 if (typeof module !== "undefined" && module.exports) {
   module.exports = {
-    PrivacyManager,
+    PrivacyManager: PrivacyManagerInfo,
     TabManager,
     RouterManager,
     UIManager,

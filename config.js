@@ -15,6 +15,7 @@ function control_host() {
   console.info("(config)Got i2p:", getFuncName());
   return getFromStorageControlHost();
 }
+
 function control_port() {
   console.info("(config)Got i2p:", getFuncName());
   return getFromStorageControlPort();

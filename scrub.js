@@ -1,642 +1,1081 @@
-/* eslint-disable max-len */
-var titlepref = chrome.i18n.getMessage("titlePreface");
-var webpref = chrome.i18n.getMessage("webPreface");
-var routerpref = chrome.i18n.getMessage("routerPreface");
-var mailpref = chrome.i18n.getMessage("mailPreface");
-var torrentpref = chrome.i18n.getMessage("torrentPreface");
-var tunnelpref = chrome.i18n.getMessage("i2ptunnelPreface");
-var ircpref = chrome.i18n.getMessage("ircPreface");
-var extensionpref = chrome.i18n.getMessage("extensionPreface");
-var muwirepref = chrome.i18n.getMessage("muwirePreface");
-var botepref = chrome.i18n.getMessage("botePreface");
-var blogpref = chrome.i18n.getMessage("blogPreface");
-var blogprefpriv = chrome.i18n.getMessage("blogPrefacePrivate");
-var torpref = chrome.i18n.getMessage("torPreface");
-var torprefpriv = chrome.i18n.getMessage("torPrefacePrivate");
+/**
+ * @fileoverview I2P Container Tab Manager
+ * Handles container isolation, header scrubbing and tab management
+ */
 
-function contextScrub(requestDetails) {
-  function handleHeaderError() {
-    // log error message
-    console.log("Error: Header could not be scrubbed");
-  }
-  function headerScrub() {
-    const titlePrefix = "myob";
-    const userAgent = "MYOB/6.66 (AN/ON)";
-    if (requestDetails && requestDetails.name === titlePrefix) {
-      for (const header of requestDetails.requestHeaders) {
-        if (header.name.toLowerCase() === "user-agent") {
-          header.value = userAgent;
-        }
-        if (header.name.toLowerCase == "referer") {
-          header.value = "";
-        }
-      }
-      return { requestHeaders: requestDetails.requestHeaders };
-    }
-  }
-  async function getContext(tabInfo) {
+// Configuration constants
+const CONTAINER_CONFIG = {
+  MESSAGES: {
+    TITLE: chrome.i18n.getMessage("titlePreface"),
+    WEB: chrome.i18n.getMessage("webPreface"),
+    ROUTER: chrome.i18n.getMessage("routerPreface"),
+    MAIL: chrome.i18n.getMessage("mailPreface"),
+    TORRENT: chrome.i18n.getMessage("torrentPreface"),
+    TUNNEL: chrome.i18n.getMessage("i2ptunnelPreface"),
+    IRC: chrome.i18n.getMessage("ircPreface"),
+    EXTENSION: chrome.i18n.getMessage("extensionPreface"),
+    MUWIRE: chrome.i18n.getMessage("muwirePreface"),
+    BOTE: chrome.i18n.getMessage("botePreface"),
+    BLOG: chrome.i18n.getMessage("blogPreface"),
+    BLOG_PRIVATE: chrome.i18n.getMessage("blogPrefacePrivate"),
+    TOR: chrome.i18n.getMessage("torPreface"),
+    TOR_PRIVATE: chrome.i18n.getMessage("torPrefacePrivate"),
+  },
+
+  HEADER_CONFIG: {
+    USER_AGENT: "MYOB/6.66 (AN/ON)",
+    TITLE_PREFIX: "myob",
+  },
+
+  URLS: {
+    BASE: "http://proxy.i2p",
+    LOCAL: {
+      IRC: "http://127.0.0.1:7669",
+      TOR: "http://127.0.0.1:7695",
+      BLOG: "http://127.0.0.1:8084",
+    },
+    POPUPS: {
+      SECURITY: "security.html",
+      LOCATION: "location.html",
+      TORRENT: "torrent.html",
+    },
+    ICONS: {
+      I2P: "icons/i2plogo.png",
+      INFOTOOPIE: "icons/infotoopie.png",
+      INFOTOOPIES: "icons/infotoopies.png",
+      INFOTOOPIEBT: "icons/infotoopiesbt.png",
+    },
+  },
+};
+
+/**
+ * Header Manager for privacy protection
+ */
+class HeaderManager {
+  /**
+   * Get container context for tab
+   * @param {Object} tabInfo Tab information
+   * @return {Promise<Object>} Container context or null for default contexts
+   */
+  static async getContext(tabInfo) {
     try {
+      if (!tabInfo || !tabInfo.cookieStoreId) {
+        return null;
+      }
+
+      // Handle default and private contexts
+      if (
+        tabInfo.cookieStoreId === "firefox-default" ||
+        tabInfo.cookieStoreId === "firefox-private"
+      ) {
+        return null;
+      }
+
+      // Only lookup context for container tabs
       const context = await browser.contextualIdentities.get(
         tabInfo.cookieStoreId
       );
       return context;
     } catch (error) {
+      console.debug("Tab is using default context");
+      return null;
+    }
+  }
+
+  /**
+   * Process headers for request
+   * @param {Object} requestDetails Request details
+   * @return {Promise<Object>} Modified request
+   */
+  static async processHeaders(requestDetails) {
+    try {
+      if (
+        !requestDetails ||
+        !requestDetails.tabId ||
+        requestDetails.tabId <= 0
+      ) {
+        return HeaderManager.scrubHeaders(requestDetails);
+      }
+
+      const tab = await UITabManager.getTab(requestDetails.tabId);
+      if (!tab) {
+        return HeaderManager.scrubHeaders(requestDetails);
+      }
+
+      // Always scrub headers regardless of container context
+      return HeaderManager.scrubHeaders(requestDetails);
+    } catch (error) {
+      console.error("Header processing failed:", error);
+      // Fail safe: still scrub headers even if context lookup fails
+      return HeaderManager.scrubHeaders(requestDetails);
+    }
+  }
+
+  /**
+   * Scrub privacy-sensitive headers
+   * @param {Object} requestDetails Request details
+   * @return {Object} Modified headers
+   */
+  static scrubHeaders(requestDetails) {
+    if (!requestDetails || !requestDetails.requestHeaders) {
+      return { requestHeaders: [] };
+    }
+
+    const headers = requestDetails.requestHeaders;
+    headers.forEach((header) => {
+      const headerName = header.name.toLowerCase();
+
+      if (headerName === "user-agent") {
+        header.value = CONTAINER_CONFIG.HEADER_CONFIG.USER_AGENT;
+      }
+
+      if (headerName === "referer") {
+        header.value = "";
+      }
+    });
+
+    return { requestHeaders: headers };
+  }
+}
+
+/**
+ * Tab Manager for handling browser tabs
+ */
+class UITabManager {
+  /**
+   * Get tab information
+   * @param {number} tabId Tab ID
+   * @returns {Promise<Object>} Tab info
+   */
+  static async getTab(tabId) {
+    try {
+      if (!tabId || tabId <= 0) {
+        return undefined;
+      }
+      return await browser.tabs.get(tabId);
+    } catch (error) {
+      console.error("Tab lookup failed:", error);
       return undefined;
     }
   }
-  try {
-    if (requestDetails.tabId > 0) {
-      let tab = getTab(requestDetails.tabId);
-      let context = tab.then(getContext, handleHeaderError);
-      let req = context.then(headerScrub, handleHeaderError);
-      return req;
-    }
-  } catch (error) {
-    console.log("(scrub)Not scrubbing non-I2P request.", error);
-  }
-}
 
-async function getTab(tabId) {
-  try {
-    let tabInfo = await browser.tabs.get(tabId);
-    return tabInfo;
-  } catch (error) {
-    return undefined;
-  }
-}
-
-function i2pTabFind(tabId) {
-  console.info("(isolate)Context Discovery browser", tabId);
-  try {
-    return forceIntoIsolation(tabId, titlepref, false);
-  } catch (error) {
-    console.error("(isolate)Context Error", error);
-  }
-}
-function routerTabFind(tabId) {
-  console.info("(isolate)Context Discovery console");
-  try {
-    return forceIntoIsolation(tabId, routerpref, true);
-  } catch (error) {
-    console.error("(isolate)Context Error", error);
-  }
-}
-function i2ptunnelTabFind(tabId) {
-  console.info("(isolate)Context Discovery browser");
-  try {
-    return forceIntoIsolation(tabId, tunnelpref, true);
-  } catch (error) {
-    console.error("(isolate)Context Error", error);
-  }
-}
-
-function i2pboteTabFind(tabId) {
-  console.info("(isolate)Context Discovery bote");
-  try {
-    return forceIntoIsolation(tabId, botepref, true);
-  } catch (error) {
-    console.error("(isolate)Context Error", error);
-  }
-}
-function mailTabFind(tabId) {
-  console.info("(isolate)Context Discovery mail");
-  try {
-    return forceIntoIsolation(tabId, mailpref, true);
-  } catch (error) {
-    console.error("(isolate)Context Error", error);
-  }
-}
-function ircTabFind(tabId) {
-  console.info("(isolate)Context Discovery irc");
-  try {
-    return forceIntoIsolation(tabId, ircpref, true);
-  } catch (error) {
-    console.error("(isolate)Context Error", error);
-  }
-}
-function torTabFind(tabId) {
-  console.info("(isolate)Context Discovery tor");
-  try {
-    return forceIntoIsolation(tabId, torpref, true);
-  } catch (error) {
-    console.error("(isolate)Context Error", error);
-  }
-}
-function blogTabFind(tabId) {
-  console.info("(isolate)Context Discovery blog");
-  try {
-    return forceIntoIsolation(tabId, blogpref, true);
-  } catch (error) {
-    console.error("(isolate)Context Error", error);
-  }
-}
-
-function fixURL(contextidentifier, url) {
-  routerHost = control_host();
-  routerPort = control_port();
-  routerURL = new URL("http://" + routerHost + ":" + routerPort + "/");
-  if (url.startsWith("moz-extension://")) {
-    switch (contextidentifier) {
-      case titlepref:
-        return "http://proxy.i2p";
-      case routerpref:
-        return routerURL + "console";
-      case tunnelpref:
-        return routerURL + "i2ptunnel";
-      case muwirepref:
-        return routerURL + "MuWire";
-      case botepref:
-        return routerURL + "i2pbote";
-      case mailpref:
-        return routerURL + "webmail";
-      case ircpref:
-        return "http://127.0.0.1:7669";
-      case torpref:
-        return "http://127.0.0.1:7695";
-      case blogpref:
-        return "http://127.0.0.1:8084";
-      default:
-        return "http://proxy.i2p";
-    }
-  }
-  return url;
-}
-
-async function forceIntoIsolation(tabId, contextidentifier, pin = true) {
-  console.info("(isolate) forcing context for", tabId, contextidentifier, pin);
-  try {
-    var context = await browser.contextualIdentities.query({
-      name: contextidentifier,
-    });
-    console.log("(scrub) tabId URL", tabId);
-    let newURL = fixURL(contextidentifier, tabId.url);
-    if (tabId.cookieStoreId != context[0].cookieStoreId) {
-      function Create(beforeTab) {
-        console.info("(isolate) isolating before tab:", beforeTab);
-        function onCreated(afterTab) {
-          console.info("(isolate) created isolated tab:", afterTab);
-          function closeOldTab(tabs) {
-            console.info("(isolate) cleaning up tab:", beforeTab);
-            console.info(
-              "(isolate) Closing un-isolated tab",
-              tabId.id,
-              "in favor of",
-              beforeTab.id,
-              "with context",
-              beforeTab.cookieStoreId
-            );
-            browser.tabs.remove(tabId.id);
-            if (pin) {
-              browser.tabs.move(beforeTab.id, { index: 0 });
-              for (let index = 0; index < tabs.length; index++) {
-                if (index != tabs.length - 1) {
-                  browser.tabs.remove(tabs[index].id);
-                }
-              }
-            }
-            browser.pageAction.setPopup({
-              tabId: tabId.id,
-              popup: "security.html",
-            });
-            browser.pageAction.show(tabId.id);
-          }
-          var pins = browser.tabs.query({
-            cookieStoreId: context[0].cookieStoreId,
-          });
-          pins.then(closeOldTab, onScrubError);
-          return afterTab;
-        }
-        var created = browser.tabs.create({
-          active: true,
-          cookieStoreId: context[0].cookieStoreId,
-          url: newURL,
-          pinned: pin,
-        });
-        return created.then(onCreated, onContextError);
-      }
-      var gettab = browser.tabs.get(tabId.id);
-      var tab = gettab.then(Create, onContextError);
-      return tab;
-    }
-  } catch (error) {
-    console.error("(isolate)Context Error", error);
-  }
-}
-
-async function findOtherContexts() {
-  const prefs = [
-    "titlepref",
-    "routerpref",
-    "mailpref",
-    "torrentpref",
-    "tunnelpref",
-    "ircpref",
-    "muwirepref",
-    "botepref",
-    "blogpref",
-    "torpref",
-  ];
-  const contexts = await browser.contextualIdentities.query({});
-  const myContexts = await Promise.all(
-    prefs.map((pref) => browser.contextualIdentities.query({ name: pref }))
-  );
-  const otherContexts = contexts.filter(
-    (context) =>
-      !myContexts.some(
-        (myContext) => myContext[0].cookieStoreId === context.cookieStoreId
-      )
-  );
-  return otherContexts;
-}
-
-function contextSetup(requestDetails) {
-  async function findSnarkTab(tabId) {
-    console.info("(isolate)Context Discovery torrent tab", tabId);
-    if (!tabId) {
-      return;
-    }
+  /**
+   * Update tab URL
+   * @param {Object} tab Browser tab
+   * @param {string} url New URL
+   */
+  static async updateTab(tab, url) {
     try {
-      var context = await browser.contextualIdentities.query({
-        name: torrentpref,
+      if (!tab || !tab.id || !url) {
+        return;
+      }
+      await browser.tabs.update(tab.id, { url });
+    } catch (error) {
+      console.error("Tab update failed:", error);
+    }
+  }
+
+  /**
+   * Process tab for container
+   * @param {Object} tab Browser tab
+   * @param {string} containerName Container name
+   * @param {boolean} pin Whether to pin tab
+   */
+  static async processContainerTab(tab, containerName, pin) {
+    try {
+      if (!tab || !containerName) {
+        return;
+      }
+      return await ContainerManager.forceIntoContainer(tab, containerName, pin);
+    } catch (error) {
+      console.error("Container tab processing failed:", error);
+    }
+  }
+}
+/**
+ * Container Manager for handling I2P container isolation
+ */
+/**
+ * Container Manager for handling I2P container isolation
+ */
+class ContainerManager {
+  /**
+   * Force tab into container
+   * @param {Object} tab Tab to isolate
+   * @param {string} contextId Container context ID
+   * @param {boolean} pin Whether to pin tab
+   * @returns {Promise<Object>} Containerized tab
+   */
+  static async forceIntoContainer(tab, contextId, pin = true) {
+    try {
+      if (!tab || !contextId) {
+        throw new Error("Invalid tab or context");
+      }
+
+      const context = await browser.contextualIdentities.query({
+        name: contextId,
       });
-      if (tabId) {
-        if (tabId.cookieStoreId != context[0].cookieStoreId) {
-          var exemptContext = await browser.contextualIdentities.query({
-            name: titlepref,
-          });
-          let tmp = new URL(tabId.url);
-          console.log("(isolate) torrent tabid host", tmp.host, exemptContext);
-          if (
-            !requestDetails.url.includes("snark/" + tmp.host) &&
-            tabId.cookieStoreId != exemptContext[0].cookieStoreId
-          ) {
-            function Create() {
-              function onCreated(currentTab) {
-                console.warn("(isolate) torrent tab created", currentTab);
-                function closeOldTabs() {
-                  browser.tabs.remove(tabId.id);
-                  browser.tabs.move(currentTab.id, { index: 0 });
-                }
-                const pins = browser.tabs.query({
-                  cookieStoreId: context[0].cookieStoreId,
-                });
-                pins.then(closeOldTabs, onScrubError);
-              }
-              if (requestDetails.url.endsWith("xhr1.html")) {
-                let hostname = requestDetails.url.split("/")[2];
-                let prefix = requestDetails.url.substr(
-                  0,
-                  requestDetails.url.indexOf("://") + 3
-                );
-                requestDetails.url = prefix + hostname + "/i2psnark/";
-              }
-              var created = browser.tabs.create({
-                active: true,
-                pinned: true,
-                cookieStoreId: context[0].cookieStoreId,
-                url: requestDetails.url,
-              });
-              created.then(onCreated, onContextError);
-            }
-            var gettab = browser.tabs.get(tabId.id);
-            gettab.then(Create, onContextError);
-            return tabId;
-          }
+
+      if (!context || !context[0]) {
+        throw new Error(`Container not found: ${contextId}`);
+      }
+
+      // Important: Check if tab is already in ANY container
+      if (
+        tab.cookieStoreId !== "firefox-default" &&
+        tab.cookieStoreId !== "firefox-private"
+      ) {
+        return tab; // Tab is already containerized
+      }
+
+      const newURL = URLManager.getContainerURL(contextId, tab.url);
+      const newTab = await this.createContainerTab(context[0], newURL, pin);
+      await this.cleanupTabs(tab, newTab, context[0], pin);
+
+      return newTab;
+    } catch (error) {
+      console.error("Container isolation failed:", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Check if tab is in container
+   * @param {Object} tab Browser tab
+   * @returns {boolean} Whether tab is in container
+   */
+  static isInContainer(tab) {
+    return (
+      tab.cookieStoreId !== "firefox-default" &&
+      tab.cookieStoreId !== "firefox-private"
+    );
+  }
+
+  /**
+   * Create new container tab
+   * @private
+   * @param {Object} context Container context
+   * @param {string} url Tab URL
+   * @param {boolean} pin Whether to pin tab
+   * @returns {Promise<Object>} Created tab
+   */
+  static async createContainerTab(context, url, pin) {
+    return await browser.tabs.create({
+      active: true,
+      cookieStoreId: context.cookieStoreId,
+      url: url,
+      pinned: pin,
+    });
+  }
+
+  /**
+   * Clean up tabs after container move
+   * @private
+   * @param {Object} oldTab Original tab
+   * @param {Object} newTab New container tab
+   * @param {Object} context Container context
+   * @param {boolean} pin Whether to pin tab
+   */
+  static async cleanupTabs(oldTab, newTab, context, pin) {
+    // Only remove the old tab if it's not in a container
+    if (!this.isInContainer(oldTab)) {
+      await browser.tabs.remove(oldTab.id);
+    }
+
+    if (pin) {
+      await browser.tabs.move(newTab.id, { index: 0 });
+
+      // Only clean up other tabs if explicitly requested
+      const tabs = await browser.tabs.query({
+        cookieStoreId: context.cookieStoreId,
+      });
+
+      for (const tab of tabs) {
+        if (tab.id !== newTab.id && !tab.pinned) {
+          await browser.tabs.remove(tab.id);
+        }
+      }
+    }
+
+    await PageActionManager.setupSecurityPopup(newTab.id);
+  }
+}
+
+/**
+ * URL Manager for handling container URLs
+ */
+class URLManager {
+  /**
+   * Get URL for container context
+   * @param {string} contextId Container context ID
+   * @param {string} url Original URL
+   * @returns {string} Container URL
+   */
+  static getContainerURL(contextId, url) {
+    if (!url.startsWith("moz-extension://")) {
+      return url;
+    }
+
+    const routerUrl = this.getRouterBaseURL();
+
+    const urlMap = {
+      [CONTAINER_CONFIG.MESSAGES.TITLE]: CONTAINER_CONFIG.URLS.BASE,
+      [CONTAINER_CONFIG.MESSAGES.ROUTER]: `${routerUrl}console`,
+      [CONTAINER_CONFIG.MESSAGES.TUNNEL]: `${routerUrl}i2ptunnel`,
+      [CONTAINER_CONFIG.MESSAGES.MUWIRE]: `${routerUrl}MuWire`,
+      [CONTAINER_CONFIG.MESSAGES.BOTE]: `${routerUrl}i2pbote`,
+      [CONTAINER_CONFIG.MESSAGES.MAIL]: `${routerUrl}webmail`,
+      [CONTAINER_CONFIG.MESSAGES.IRC]: CONTAINER_CONFIG.URLS.LOCAL.IRC,
+      [CONTAINER_CONFIG.MESSAGES.TOR]: CONTAINER_CONFIG.URLS.LOCAL.TOR,
+      [CONTAINER_CONFIG.MESSAGES.BLOG]: CONTAINER_CONFIG.URLS.LOCAL.BLOG,
+    };
+
+    return urlMap[contextId] || CONTAINER_CONFIG.URLS.BASE;
+  }
+
+  /**
+   * Get router base URL
+   * @private
+   * @returns {string} Router URL
+   */
+  static getRouterBaseURL() {
+    const host = control_host();
+    const port = control_port();
+    return `http://${host}:${port}/`;
+  }
+
+  /**
+   * Fix torrent URL
+   * @param {string} url Original URL
+   * @returns {string} Fixed URL
+   */
+  static fixTorrentURL(url) {
+    if (!url.endsWith("xhr1.html")) {
+      return url;
+    }
+
+    const urlParts = url.split("/");
+    const hostname = urlParts[2];
+    const protocol = url.substr(0, url.indexOf("://") + 3);
+
+    return `${protocol}${hostname}/i2psnark/`;
+  }
+
+  /**
+   * Check if URL is extension URL
+   * @param {Object} details Request details
+   * @returns {boolean} Whether URL is extension
+   */
+  static isExtensionURL(details) {
+    return details && details.url && details.url.startsWith("moz-extension://");
+  }
+
+  /**
+   * Check if URL is router URL
+   * @param {string} url URL to check
+   * @returns {string|null} Router host type or null
+   */
+  static getRouterHostType(url) {
+    try {
+      const urlObj = new URL(url);
+      const isRouterConsole =
+        urlObj.port === "7657" &&
+        (urlObj.hostname === "127.0.0.1" || urlObj.hostname === "localhost");
+
+      if (!isRouterConsole) {
+        return null;
+      }
+
+      // Map router console paths to container types
+      const routerPaths = {
+        "/i2ptunnel/": "i2ptunnelmgr",
+        "/i2psnark/": "i2psnark",
+        "/webmail": "webmail",
+        "/i2pbote/": "i2pbote",
+        "/console": "routerconsole",
+      };
+
+      for (const [path, type] of Object.entries(routerPaths)) {
+        if (urlObj.pathname.startsWith(path)) {
+          return type;
+        }
+      }
+
+      // Default to router console for root path
+      if (urlObj.pathname === "/" || urlObj.pathname === "") {
+        return "routerconsole";
+      }
+    } catch (error) {
+      console.error("Router host type check failed:", error);
+    }
+
+    return null;
+  }
+}
+
+/**
+ * Page Action Manager for browser toolbar icons
+ */
+class PageActionManager {
+  /**
+   * Set up page action for tab
+   * @param {Object} tab Browser tab
+   */
+  static async setupPageAction(tab) {
+    try {
+      if (!tab || !tab.id || !tab.url) {
+        return;
+      }
+
+      const isHttps = tab.url.startsWith("https://");
+      const isI2p = tab.url.includes(".i2p");
+
+      if (isHttps && isI2p) {
+        await this.setI2PSecurePageAction(tab);
+      } else if (isHttps) {
+        await this.checkI2PLocation(tab);
+      } else if (isI2p) {
+        await this.setI2PPageAction(tab);
+      }
+
+      await this.checkTorrentLocation(tab);
+    } catch (error) {
+      console.error("Page action setup failed:", error);
+    }
+  }
+
+  /**
+   * Set up security popup
+   * @param {number} tabId Tab ID
+   */
+  static async setupSecurityPopup(tabId) {
+    try {
+      await Promise.all([
+        browser.pageAction.setPopup({
+          tabId: tabId,
+          popup: CONTAINER_CONFIG.URLS.POPUPS.SECURITY,
+        }),
+        browser.pageAction.show(tabId),
+      ]);
+    } catch (error) {
+      console.error("Security popup setup failed:", error);
+    }
+  }
+
+  /**
+   * Set I2P secure page action
+   * @private
+   * @param {Object} tab Browser tab
+   */
+  static async setI2PSecurePageAction(tab) {
+    await Promise.all([
+      browser.pageAction.setPopup({
+        tabId: tab.id,
+        popup: CONTAINER_CONFIG.URLS.POPUPS.SECURITY,
+      }),
+      browser.pageAction.setIcon({
+        path: CONTAINER_CONFIG.URLS.ICONS.INFOTOOPIES,
+        tabId: tab.id,
+      }),
+    ]);
+  }
+
+  /**
+   * Set I2P page action
+   * @private
+   * @param {Object} tab Browser tab
+   */
+  static async setI2PPageAction(tab) {
+    await Promise.all([
+      browser.pageAction.setPopup({
+        tabId: tab.id,
+        popup: CONTAINER_CONFIG.URLS.POPUPS.SECURITY,
+      }),
+      browser.pageAction.setIcon({
+        path: CONTAINER_CONFIG.URLS.ICONS.INFOTOOPIE,
+        tabId: tab.id,
+      }),
+    ]);
+  }
+
+  /**
+   * Check for I2P location
+   * @private
+   * @param {Object} tab Browser tab
+   */
+  static async checkI2PLocation(tab) {
+    try {
+      const response = await browser.tabs.sendMessage(tab.id, {
+        req: "i2p-location",
+      });
+
+      if (
+        response &&
+        response.content &&
+        response.content.toUpperCase() !== "NO-ALT-LOCATION"
+      ) {
+        await this.setLocationPageAction(tab, response.content);
+      }
+    } catch (error) {
+      console.debug("No I2P location found");
+    }
+  }
+
+  /**
+   * Check for torrent location
+   * @private
+   * @param {Object} tab Browser tab
+   */
+  static async checkTorrentLocation(tab) {
+    try {
+      const response = await browser.tabs.sendMessage(tab.id, {
+        req: "i2p-torrentlocation",
+      });
+
+      if (
+        response &&
+        response.content &&
+        response.content.toUpperCase() !== "NO-ALT-LOCATION"
+      ) {
+        await this.setTorrentPageAction(tab, response.content);
+      }
+    } catch (error) {
+      console.debug("No torrent location found");
+    }
+  }
+
+  /**
+   * Set location page action
+   * @private
+   * @param {Object} tab Browser tab
+   * @param {string} location I2P location
+   */
+  static async setLocationPageAction(tab, location) {
+    await Promise.all([
+      browser.pageAction.setPopup({
+        tabId: tab.id,
+        popup: CONTAINER_CONFIG.URLS.POPUPS.LOCATION,
+      }),
+      browser.pageAction.setIcon({
+        path: CONTAINER_CONFIG.URLS.ICONS.I2P,
+        tabId: tab.id,
+      }),
+      browser.pageAction.setTitle({
+        tabId: tab.id,
+        title: location,
+      }),
+      browser.pageAction.show(tab.id),
+    ]);
+  }
+
+  /**
+   * Set torrent page action
+   * @private
+   * @param {Object} tab Browser tab
+   * @param {string} location Torrent location
+   */
+  static async setTorrentPageAction(tab, location) {
+    await Promise.all([
+      browser.pageAction.setPopup({
+        tabId: tab.id,
+        popup: CONTAINER_CONFIG.URLS.POPUPS.TORRENT,
+      }),
+      browser.pageAction.setIcon({
+        path: CONTAINER_CONFIG.URLS.ICONS.INFOTOOPIEBT,
+        tabId: tab.id,
+      }),
+      browser.pageAction.setTitle({
+        tabId: tab.id,
+        title: location,
+      }),
+      browser.pageAction.show(tab.id),
+    ]);
+  }
+}
+
+/**
+ * Event Manager for browser events
+ */
+class EventManager {
+  /**
+   * Initialize event listeners
+   */
+  static initializeListeners() {
+    // Tab events
+    const tabEvents = [
+      "onActivated",
+      "onAttached",
+      "onCreated",
+      "onDetached",
+      "onHighlighted",
+      "onMoved",
+      "onReplaced",
+    ];
+
+    tabEvents.forEach((event) => {
+      browser.tabs[event].addListener(EventManager.handleTabEvent);
+    });
+
+    // Page action events
+    browser.pageAction.onClicked.addListener(EventManager.handleTabEvent);
+
+    // Web request events
+    browser.webRequest.onHeadersReceived.addListener(
+      EventManager.handleHeaders,
+      { urls: ["*://*.i2p/*", "https://*/*"] },
+      ["responseHeaders"]
+    );
+
+    // Navigation events
+    const navFilter = {
+      url: [{ hostContains: ".i2p" }],
+    };
+
+    browser.webNavigation.onDOMContentLoaded.addListener(
+      EventManager.handleTabEvent,
+      navFilter
+    );
+
+    browser.webRequest.onBeforeRequest.addListener(
+      RequestManager.handleRequest,
+      {
+        urls: [
+          "*://*.i2p/*",
+          "*://localhost/*",
+          "*://127.0.0.1/*",
+          "*://*/*i2p*",
+        ],
+      }
+    );
+
+    browser.webRequest.onBeforeSendHeaders.addListener(
+      // Bind the handler explicitly to preserve context
+      (requestDetails) => HeaderManager.processHeaders(requestDetails),
+      { urls: ["*://*.i2p/*"] },
+      ["requestHeaders", "blocking"] // Add blocking to ensure headers are processed
+    );
+  }
+
+  /**
+   * Handle tab event
+   * @private
+   * @param {Object} tab Browser tab
+   */
+  static async handleTabEvent(tab) {
+    try {
+      if (typeof tab === "number") {
+        const tabInfo = await browser.tabs.get(tab);
+        await PageActionManager.setupPageAction(tabInfo);
+      } else if (tab && typeof tab.tabId === "number") {
+        const tabInfo = await browser.tabs.get(tab.tabId);
+        await PageActionManager.setupPageAction(tabInfo);
+      } else if (tab && Array.isArray(tab.tabIds)) {
+        for (const tabId of tab.tabIds) {
+          const tabInfo = await browser.tabs.get(tabId);
+          await PageActionManager.setupPageAction(tabInfo);
         }
       }
     } catch (error) {
-      console.log("(isolate)Context Error", error);
+      console.error("Tab event handling failed:", error);
     }
   }
-  try {
-    async function tabGet(tabId) {
-      try {
-        //console.log("(isolate)Tab ID from Request", tabId);
-        let tabInfo = await browser.tabs.get(tabId);
-        return tabInfo;
-      } catch (error) {
-        console.log("(isolate)Tab error", error);
+
+  /**
+   * Handle headers
+   * @private
+   * @param {Object} headers Header details
+   * @returns {Promise<Object>} Modified headers
+   */
+  static handleHeaders(headers) {
+    return new Promise((resolve) => {
+      window.setTimeout(() => {
+        if (headers.tabId !== undefined) {
+          browser.pageAction
+            .getPopup({ tabId: headers.tabId })
+            .then(PageActionManager.setupPageAction);
+        }
+
+        resolve({ responseHeaders: headers.responseHeaders });
+      }, 2000);
+    });
+  }
+}
+
+/**
+ * Request Manager for handling browser requests
+ */
+class RequestManager {
+  /**
+   * Handle web request
+   * @param {Object} requestDetails Request details
+   * @returns {Promise<Object>} Modified request
+   */
+  static async handleRequest(requestDetails) {
+    try {
+      if (!requestDetails) {
+        return requestDetails;
       }
-    }
-    if (requestDetails == undefined) {
+
+      // Handle proxy requests
+      if (RequestManager.isProxyRequest(requestDetails)) {
+        await RequestManager.handleProxyRequest(requestDetails);
+        return requestDetails;
+      }
+
+      // Handle tab requests
+      if (requestDetails.tabId > 0) {
+        return await RequestManager.handleTabRequest(requestDetails);
+      }
+
+      return requestDetails;
+    } catch (error) {
+      console.error("Request handling failed:", error);
       return requestDetails;
     }
-    if (isProxyHost(requestDetails)) {
-      let setcookie = browser.cookies.set({
-        firstPartyDomain: i2pHostName(requestDetails.url),
+  }
+
+  /**
+   * Handle proxy request
+   * @private
+   * @param {Object} requestDetails Request details
+   */
+  static async handleProxyRequest(requestDetails) {
+    try {
+      await browser.cookies.set({
+        firstPartyDomain: this.getI2PHostname(requestDetails.url),
         url: requestDetails.url,
         secure: true,
       });
-      setcookie.then(onContextGotLog, onContextError);
+    } catch (error) {
+      console.error("Proxy request handling failed:", error);
+    }
+  }
+
+  /**
+   * Handle tab request
+   * @private
+   * @param {Object} requestDetails Request details
+   * @returns {Promise<Object>} Modified request
+   */
+  static async handleTabRequest(requestDetails) {
+    try {
+      const tab = await UITabManager.getTab(requestDetails.tabId);
+      if (!tab) {
+        return requestDetails;
+      }
+
+      const url = requestDetails.url;
+      const routerHost = URLManager.getRouterHostType(url);
+      const localHost = this.getLocalHostType(url);
+
+      // Handle router console requests (127.0.0.1:7657)
+      if (routerHost) {
+        return await this.handleRouterRequest(tab, routerHost, requestDetails);
+      }
+
+      // Handle other local services
+      if (localHost) {
+        return await this.handleLocalRequest(tab, localHost, requestDetails);
+      }
+
+      // Handle I2P host requests
+      if (this.isI2PHost(requestDetails)) {
+        return await this.handleI2PRequest(tab, requestDetails);
+      }
+
+      return requestDetails;
+    } catch (error) {
+      console.error("Tab request handling failed:", error);
+      return requestDetails;
+    }
+  }
+
+  /**
+   * Handle router request
+   * @private
+   * @param {Object} tab Browser tab
+   * @param {string} routerHost Router host type
+   * @param {Object} requestDetails Request details
+   * @returns {Promise<Object>} Modified request
+   */
+  static async handleRouterRequest(tab, routerHost, requestDetails) {
+    const routerMap = {
+      i2ptunnelmgr: {
+        handler: this.handleTunnelRequest,
+        container: CONTAINER_CONFIG.MESSAGES.TUNNEL,
+      },
+      i2psnark: {
+        handler: this.handleTorrentRequest,
+        container: CONTAINER_CONFIG.MESSAGES.TORRENT,
+      },
+      webmail: {
+        handler: this.handleMailRequest,
+        container: CONTAINER_CONFIG.MESSAGES.MAIL,
+      },
+      i2pbote: {
+        handler: this.handleBoteRequest,
+        container: CONTAINER_CONFIG.MESSAGES.BOTE,
+      },
+      routerconsole: {
+        handler: this.handleConsoleRequest,
+        container: CONTAINER_CONFIG.MESSAGES.ROUTER,
+      },
+    };
+
+    const service = routerMap[routerHost];
+    if (!service) {
       return requestDetails;
     }
 
-    if (requestDetails.tabId > 0) {
-      var tab = tabGet(requestDetails.tabId);
-      tab.then(isolate);
-
-      function isolate() {
-        const url = requestDetails.url;
-        const localhost = isLocalHost(url);
-        const routerhost = isRouterHost(url);
-        console.info("routerhost:", routerhost);
-        console.info("localhost:", localhost);
-        function tabUpdate(outboundTab) {
-          if (outboundTab) {
-            console.info("updating", outboundTab);
-            browser.tabs.update(outboundTab.id, { url });
-          }
-        }
-        if (routerhost) {
-          let routertab = {};
-          switch (routerhost) {
-            case "i2ptunnelmgr":
-              routertab = tab.then(i2ptunnelTabFind, onContextError);
-              routertab.then(tabUpdate);
-              return requestDetails;
-            case "i2psnark":
-              routertab = tab.then(findSnarkTab, onContextError);
-              routertab.then(tabUpdate);
-              return requestDetails;
-            case "webmail":
-              routertab = tab.then(mailTabFind, onContextError);
-              routertab.then(tabUpdate);
-              return requestDetails;
-            case "i2pbote":
-              routertab = tab.then(i2pboteTabFind, onContextError);
-              routertab.then(tabUpdate);
-              return requestDetails;
-            case "routerconsole":
-              routertab = tab.then(routerTabFind, onContextError);
-              routertab.then(tabUpdate);
-              return requestDetails;
-            default:
-              return requestDetails;
-          }
-        } else if (localhost) {
-          let routertab = {};
-          switch (localhost) {
-            case "blog":
-              routertab = tab.then(blogTabFind, onContextError);
-              routertab.then(tabUpdate);
-              return requestDetails;
-            case "irc":
-              routertab = tab.then(ircTabFind, onContextError);
-              routertab.then(tabUpdate);
-              return requestDetails;
-            case "tor":
-              routertab = tab.then(torTabFind, onContextError);
-              routertab.then(tabUpdate);
-              return requestDetails;
-            default:
-              return requestDetails;
-          }
-        } else if (i2pHost(requestDetails)) {
-          console.log("(scrub) new hostname", url);
-          const setcookie = browser.cookies.set({
-            firstPartyDomain: i2pHostName(url),
-            url,
-            secure: true,
-          });
-          setcookie.then(onContextGotLog, onContextError);
-          const i2ptab = tab.then(i2pTabFind, onContextError);
-          i2ptab.then(tabUpdate);
-          return requestDetails;
-        } else if (isExtensionHost(requestDetails)) {
-          return requestDetails;
-        }
-      }
-    }
-  } catch (error) {
-    console.log("(isolate)Not an I2P request, blackholing", error);
+    return await this.processServiceRequest(
+      tab,
+      requestDetails,
+      service.container,
+      true
+    );
   }
-}
 
-function coolheadersSetup(incomingHeaders) {
-  var asyncSetPageAction = new Promise((resolve, reject) => {
-    window.setTimeout(() => {
-      if (incomingHeaders.tabId != undefined) {
-        let popup = browser.pageAction.getPopup({
-          tabId: incomingHeaders.tabId,
-        });
-        popup.then(gotPopup);
-      }
+  /**
+   * Handle local request
+   * @private
+   * @param {Object} tab Browser tab
+   * @param {string} localHost Local host type
+   * @param {Object} requestDetails Request details
+   * @returns {Promise<Object>} Modified request
+   */
+  static async handleLocalRequest(tab, localHost, requestDetails) {
+    const localMap = {
+      blog: this.handleBlogRequest,
+      irc: this.handleIRCRequest,
+      tor: this.handleTorRequest,
+    };
 
-      resolve({ responseHeaders: incomingHeaders.responseHeaders });
-    }, 2000);
-  });
-  return asyncSetPageAction;
-}
-
-function getTabURL(tab) {
-  console.log("(scrub)(equiv check) popup check", tab);
-
-  if (tab.id != undefined) {
-    let popup = browser.pageAction.getPopup({ tabId: tab.id });
-    console.log("(scrub)(equiv check) popup check");
-    popup.then(gotPopup);
-  }
-}
-
-function gotPopup(pageTest, tab) {
-  if (pageTest === undefined) {
-    return;
-  }
-  console.info("pageTest:", pageTest);
-  let isHttps = false;
-  let isI2p = false;
-  if (tab === undefined) {
-    return;
-  }
-  isHttps = tab.url.startsWith("https://");
-  isI2p = tab.url.includes(".i2p");
-  if (isHttps) {
-    if (isI2p) {
-      browser.pageAction.setPopup({
-        tabId: tab.id,
-        popup: "security.html",
-      });
-      browser.pageAction.setIcon({
-        path: "icons/infotoopies.png",
-        tabId: tab.id,
-      });
-      try {
-        browser.tabs
-          .sendMessage(tab.id, { req: "i2p-torrentlocation" })
-          .then((response) => {
-            if (
-              response &&
-              response.content.toUpperCase() !== "NO-ALT-LOCATION"
-            ) {
-              browser.pageAction.setPopup({
-                tabId: tab.id,
-                popup: "torrent.html",
-              });
-              browser.pageAction.setIcon({
-                path: "icons/infotoopiesbt.png",
-                tabId: tab.id,
-              });
-              browser.pageAction.setTitle({
-                tabId: tab.id,
-                title: response.content,
-              });
-              browser.pageAction.show(tab.id);
-            }
-          });
-      } catch (err) {
-        console.error("(scrub)(equiv check)", err);
-      }
-    } else {
-      try {
-        browser.tabs
-          .sendMessage(tab.id, { req: "i2p-location" })
-          .then((response) => {
-            if (
-              response &&
-              response.content.toUpperCase() !== "NO-ALT-LOCATION"
-            ) {
-              browser.pageAction.setPopup({
-                tabId: tab.id,
-                popup: "location.html",
-              });
-              browser.pageAction.setIcon({
-                path: "icons/i2plogo.png",
-                tabId: tab.id,
-              });
-              browser.pageAction.setTitle({
-                tabId: tab.id,
-                title: response.content,
-              });
-              browser.pageAction.show(tab.id);
-            }
-          });
-      } catch (err) {
-        console.error("(scrub)(equiv check)", err);
-      }
-    }
-  } else {
-    if (isI2p) {
-      browser.pageAction.setPopup({
-        tabId: tab.id,
-        popup: "security.html",
-      });
-      browser.pageAction.setIcon({
-        path: "icons/infotoopie.png",
-        tabId: tab.id,
-      });
+    const handler = localMap[localHost];
+    if (!handler) {
+      return requestDetails;
     }
 
+    return await handler.call(this, tab, requestDetails);
+  }
+
+  /**
+   * Handle I2P request
+   * @private
+   * @param {Object} tab Browser tab
+   * @param {Object} requestDetails Request details
+   * @returns {Promise<Object>} Modified request
+   */
+  static async handleI2PRequest(tab, requestDetails) {
     try {
-      browser.tabs
-        .sendMessage(tab.id, { req: "i2p-torrentlocation" })
-        .then((response) => {
-          if (
-            response &&
-            response.content.toUpperCase() !== "NO-ALT-LOCATION"
-          ) {
-            browser.pageAction.setPopup({
-              tabId: tab.id,
-              popup: "torrent.html",
-            });
-            browser.pageAction.setIcon({
-              path: "icons/infotoopiebt.png",
-              tabId: tab.id,
-            });
-            browser.pageAction.setTitle({
-              tabId: tab.id,
-              title: response.content,
-            });
-            browser.pageAction.show(tab.id);
-          }
-        });
-    } catch (err) {
-      console.error("(pageaction)", err);
-    }
-  }
-}
+      await this.handleProxyRequest(requestDetails);
 
-function getClearTab(tab) {
-  function setupTabs() {
-    if (typeof tab === "number") {
-      browser.tabs.get(tab).then(getTabURL, onScrubError);
-    } else if (typeof tab === "object" && typeof tab.tabId === "number") {
-      browser.tabs.get(tab.tabId).then(getTabURL, onScrubError);
-    } else if (typeof tab === "object" && Array.isArray(tab.tabIds)) {
-      for (let tabId of tab.tabIds) {
-        browser.tabs.get(tabId).then(getTabURL, onScrubError);
+      // Only containerize if not already in a container
+      if (!ContainerManager.isInContainer(tab)) {
+        const containerTab = await UITabManager.processContainerTab(
+          tab,
+          CONTAINER_CONFIG.MESSAGES.TITLE,
+          false
+        );
+
+        if (containerTab) {
+          await UITabManager.updateTab(containerTab, requestDetails.url);
+        }
       }
+
+      return requestDetails;
+    } catch (error) {
+      console.error("I2P request handling failed:", error);
+      return requestDetails;
     }
   }
-  if (tab === undefined) {
-    browser.tabs.query({}).then(setupTabs);
-  } else {
-    setupTabs();
+
+  /**
+   * Service-specific request handlers
+   */
+  static async handleTunnelRequest(tab, requestDetails) {
+    return await this.processServiceRequest(
+      tab,
+      requestDetails,
+      CONTAINER_CONFIG.MESSAGES.TUNNEL,
+      true
+    );
+  }
+
+  static async handleTorrentRequest(tab, requestDetails) {
+    const url = URLManager.fixTorrentURL(requestDetails.url);
+    return await this.processServiceRequest(
+      tab,
+      { ...requestDetails, url },
+      CONTAINER_CONFIG.MESSAGES.TORRENT,
+      true
+    );
+  }
+
+  static async handleMailRequest(tab, requestDetails) {
+    return await this.processServiceRequest(
+      tab,
+      requestDetails,
+      CONTAINER_CONFIG.MESSAGES.MAIL,
+      true
+    );
+  }
+
+  static async handleBoteRequest(tab, requestDetails) {
+    return await this.processServiceRequest(
+      tab,
+      requestDetails,
+      CONTAINER_CONFIG.MESSAGES.BOTE,
+      true
+    );
+  }
+
+  static async handleConsoleRequest(tab, requestDetails) {
+    return await this.processServiceRequest(
+      tab,
+      requestDetails,
+      CONTAINER_CONFIG.MESSAGES.ROUTER,
+      true
+    );
+  }
+
+  static async handleBlogRequest(tab, requestDetails) {
+    return await this.processServiceRequest(
+      tab,
+      requestDetails,
+      CONTAINER_CONFIG.MESSAGES.BLOG,
+      true
+    );
+  }
+
+  static async handleIRCRequest(tab, requestDetails) {
+    return await this.processServiceRequest(
+      tab,
+      requestDetails,
+      CONTAINER_CONFIG.MESSAGES.IRC,
+      true
+    );
+  }
+
+  static async handleTorRequest(tab, requestDetails) {
+    return await this.processServiceRequest(
+      tab,
+      requestDetails,
+      CONTAINER_CONFIG.MESSAGES.TOR,
+      true
+    );
+  }
+
+  /**
+   * Process service request
+   * @private
+   * @param {Object} tab Browser tab
+   * @param {Object} requestDetails Request details
+   * @param {string} containerName Container name
+   * @param {boolean} pin Whether to pin tab
+   * @returns {Promise<Object>} Modified request
+   */
+  /**
+   * Process service request
+   * @private
+   * @param {Object} tab Browser tab
+   * @param {Object} requestDetails Request details
+   * @param {string} containerName Container name
+   * @param {boolean} pin Whether to pin tab
+   * @returns {Promise<Object>} Modified request
+   */
+  static async processServiceRequest(tab, requestDetails, containerName, pin) {
+    try {
+      // Only containerize if not already in a container
+      if (!ContainerManager.isInContainer(tab)) {
+        const containerTab = await UITabManager.processContainerTab(
+          tab,
+          containerName,
+          pin
+        );
+
+        if (containerTab) {
+          await UITabManager.updateTab(containerTab, requestDetails.url);
+        }
+      }
+
+      return requestDetails;
+    } catch (error) {
+      console.error("Service request processing failed:", error);
+      return requestDetails;
+    }
+  }
+
+  /**
+   * Utility methods
+   */
+  static isProxyRequest(details) {
+    if (details.url) {
+      let url = new URL(details.url);
+      return url.hostname === "proxy.i2p";
+    }
+    return false;
+  }
+
+  static isI2PHost(details) {
+    if (details.url) {
+      let url = new URL(details.url);
+      return url.hostname.endsWith(".i2p");
+    }
+    return false;
+  }
+
+  static getI2PHostname(url) {
+    try {
+      return new URL(url).hostname;
+    } catch (error) {
+      return "";
+    }
+  }
+
+  /**
+   * Get local host type
+   * @private
+   * @param {string} url URL to check
+   * @returns {string|null} Local host type
+   */
+  static getLocalHostType(url) {
+    try {
+      const urlObj = new URL(url);
+      const isLocalhost =
+        urlObj.hostname === "127.0.0.1" || urlObj.hostname === "localhost";
+
+      if (!isLocalhost) {
+        return null;
+      }
+
+      // Map local service ports to container types
+      const localServices = {
+        7669: "irc", // I2P IRC
+        7695: "tor", // Tor proxy
+        8084: "blog", // Local blog
+      };
+
+      return localServices[urlObj.port] || null;
+    } catch (error) {
+      console.error("Local host type check failed:", error);
+      return null;
+    }
   }
 }
 
-const filter = {
-  url: [{ hostContains: ".i2p" }],
-};
+// Initialize event listeners
+EventManager.initializeListeners();
 
-function logOnDOMContentLoaded(details) {
-  console.log(`onDOMContentLoaded: ${details.url}`);
-}
-
-browser.tabs.onActivated.addListener(getClearTab);
-browser.tabs.onAttached.addListener(getClearTab);
-browser.tabs.onCreated.addListener(getClearTab);
-browser.tabs.onDetached.addListener(getClearTab);
-browser.tabs.onHighlighted.addListener(getClearTab);
-browser.tabs.onMoved.addListener(getClearTab);
-browser.tabs.onReplaced.addListener(getClearTab);
-
-browser.pageAction.onClicked.addListener(getClearTab);
-
-function reloadTabs(tabs) {
-  for (let tab of tabs) {
-    browser.tabs.reload(tab.id);
-  }
-}
-
-function reloadError(error) {
-  console.log(`Error: ${error}`);
-}
-
-let querying = browser.tabs.query({});
-querying.then(reloadTabs, onScrubError);
-
-/* Listen for onHeaderReceived for the target page.
-   Set "blocking" and "responseHeaders". */
-browser.webRequest.onHeadersReceived.addListener(
-  coolheadersSetup,
-  { urls: ["*://*.i2p/*", "https://*/*"] },
-  ["responseHeaders"]
-);
-
-browser.webNavigation.onDOMContentLoaded.addListener(getClearTab, filter);
-browser.webNavigation.onDOMContentLoaded.addListener(
-  logOnDOMContentLoaded,
-  filter
-);
-
-browser.webRequest.onBeforeRequest.addListener(contextSetup, {
-  urls: ["*://*.i2p/*", "*://localhost/*", "*://127.0.0.1/*", "*://*/*i2p*"],
-});
-
-browser.webRequest.onBeforeSendHeaders.addListener(
-  contextScrub,
-  { urls: ["*://*.i2p/*"] },
-  ["requestHeaders"]
-);
-
-function onScrubError(err) {
-  console.error(err);
-}
-
-function onContextGotLog(log) {
-  console.log(log);
-}
-
-function onContextError(err) {
-  console.error("Context launcher error:", err);
+// Export for testing
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = {
+    HeaderManager,
+    UITabManager,
+    ContainerManager,
+    URLManager,
+    PageActionManager,
+    EventManager,
+    RequestManager,
+    CONTAINER_CONFIG,
+  };
 }

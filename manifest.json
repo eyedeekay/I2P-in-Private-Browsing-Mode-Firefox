@@ -66,8 +66,6 @@
     "scripts": [
       "options/options.js",
       "config.js",
-      "torrent/common.js",
-      "torrent/background.js",
       "host.js",
       "privacy.js",
       "platform.js",
