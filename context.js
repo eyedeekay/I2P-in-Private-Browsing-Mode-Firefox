@@ -5,25 +5,26 @@
 
 // Constants
 const UI_STRINGS = {
-  TITLE_PREFACE: chrome.i18n.getMessage('titlePreface'),
-  API_ERROR_MESSAGE: 'browser.contextualIdentities not available. Check that the privacy.userContext.enabled pref is set to true, and reload the add-on.',
-  NO_IDENTITIES_MESSAGE: 'No identities returned from the API.'
+  TITLE_PREFACE: chrome.i18n.getMessage("titlePreface"),
+  API_ERROR_MESSAGE:
+    "browser.contextualIdentities not available. Check that the privacy.userContext.enabled pref is set to true, and reload the add-on.",
+  NO_IDENTITIES_MESSAGE: "No identities returned from the API.",
 };
 
 const TAB_ACTIONS = {
-  NEW_TAB: 'new-i2p browser tab',
-  CLOSE_ALL: 'close-all i2p browser tabs'
+  NEW_TAB: "new-i2p browser tab",
+  CLOSE_ALL: "close-all i2p browser tabs",
 };
 
 const TAB_OPTIONS = [
   {
-    text: 'New I2P Browser Tab',
-    action: TAB_ACTIONS.NEW_TAB
+    text: "New I2P Browser Tab",
+    action: TAB_ACTIONS.NEW_TAB,
   },
   {
-    text: 'Close All I2P Browser Tabs',
-    action: TAB_ACTIONS.CLOSE_ALL
-  }
+    text: "Close All I2P Browser Tabs",
+    action: TAB_ACTIONS.CLOSE_ALL,
+  },
 ];
 
 /**
@@ -31,7 +32,7 @@ const TAB_OPTIONS = [
  * @param {Error} error - Browser operation error
  */
 function handleError(error) {
-  console.error('Container operation failed:', error);
+  console.error("Container operation failed:", error);
 }
 
 /**
@@ -43,10 +44,10 @@ async function createContainerTab(windowInfo, cookieStoreId) {
   try {
     await browser.tabs.create({
       windowId: windowInfo.id,
-      url: 'about:blank',
-      cookieStoreId: cookieStoreId
+      url: "about:blank",
+      cookieStoreId: cookieStoreId,
     });
-    console.info(`Created container tab in window: ${windowInfo.id}`);
+    console.info(`Created container tab in window : ${windowInfo.id}`);
   } catch (error) {
     handleError(error);
   }
@@ -69,11 +70,11 @@ async function handleContainerAction(event) {
 
       case TAB_ACTIONS.CLOSE_ALL:
         const tabs = await browser.tabs.query({ cookieStoreId: identity });
-        await browser.tabs.remove(tabs.map(tab => tab.id));
+        await browser.tabs.remove(tabs.map((tab) => tab.id));
         break;
 
       default:
-        console.warn('Unknown container action:', action);
+        console.warn("Unknown container action:", action);
     }
   } catch (error) {
     handleError(error);
@@ -86,18 +87,18 @@ async function handleContainerAction(event) {
  * @param {Object} identity - Container identity
  */
 function createContainerOptions(parentNode, identity) {
-  TAB_OPTIONS.forEach(option => {
-    const link = document.createElement('a');
+  TAB_OPTIONS.forEach((option) => {
+    const link = document.createElement("a");
     Object.assign(link, {
-      href: '#',
+      href: "#",
       innerText: option.text,
       dataset: {
         action: option.action,
-        identity: identity.cookieStoreId
-      }
+        identity: identity.cookieStoreId,
+      },
     });
-    
-    link.addEventListener('click', handleContainerAction);
+
+    link.addEventListener("click", handleContainerAction);
     parentNode.appendChild(link);
   });
 }
@@ -108,15 +109,15 @@ function createContainerOptions(parentNode, identity) {
  * @returns {HTMLElement}
  */
 function createIdentityElement(identity) {
-  const row = document.createElement('div');
-  const span = document.createElement('div');
-  
-  span.className = 'identity';
+  const row = document.createElement("div");
+  const span = document.createElement("div");
+
+  span.className = "identity";
   span.innerText = identity.name;
-  
+
   row.appendChild(span);
   createContainerOptions(row, identity);
-  
+
   return row;
 }
 
@@ -132,7 +133,7 @@ async function initializeContainerUI(containerList) {
 
   try {
     const identities = await browser.contextualIdentities.query({
-      name: UI_STRINGS.TITLE_PREFACE
+      name: UI_STRINGS.TITLE_PREFACE,
     });
 
     if (!identities.length) {
@@ -140,10 +141,10 @@ async function initializeContainerUI(containerList) {
       return;
     }
 
-    identities.forEach(identity => {
+    identities.forEach((identity) => {
       const element = createIdentityElement(identity);
       containerList.appendChild(element);
-      console.debug('Added container identity:', identity.name);
+      console.debug("Added container identity:", identity.name);
     });
   } catch (error) {
     handleError(error);
@@ -152,9 +153,9 @@ async function initializeContainerUI(containerList) {
 }
 
 // Initialize container management
-const identityList = document.getElementById('identity-list');
+const identityList = document.getElementById("identity-list");
 if (identityList) {
   initializeContainerUI(identityList);
 } else {
-  console.error('Identity list container not found');
+  console.error("Identity list container not found");
 }
