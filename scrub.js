@@ -57,10 +57,11 @@ class HeaderManager {
    * @param {Object} tabInfo Tab information
    * @return {Promise<Object>} Container context or null for default contexts
    */
+
   static async getContext(tabInfo) {
     try {
       if (!tabInfo || !tabInfo.cookieStoreId) {
-        return null;
+        return null; // Return null for missing context info
       }
 
       // Handle default and private contexts
@@ -68,7 +69,7 @@ class HeaderManager {
         tabInfo.cookieStoreId === "firefox-default" ||
         tabInfo.cookieStoreId === "firefox-private"
       ) {
-        return null;
+        return null; // Return null for default/private contexts
       }
 
       // Only lookup context for container tabs
@@ -77,8 +78,8 @@ class HeaderManager {
       );
       return context;
     } catch (error) {
-      console.debug("Tab is using default context");
-      return null;
+      console.debug("Tab is using default context"); // More descriptive message
+      return null; // Return null on error
     }
   }
 
@@ -370,11 +371,8 @@ class URLManager {
     return details && details.url && details.url.startsWith("moz-extension://");
   }
 
-  /**
-   * Check if URL is router URL
-   * @param {string} url URL to check
-   * @returns {string|null} Router host type or null
-   */
+  // In scrub.js, URLManager class
+
   static getRouterHostType(url) {
     try {
       const urlObj = new URL(url);
@@ -389,10 +387,14 @@ class URLManager {
       // Map router console paths to container types
       const routerPaths = {
         "/i2ptunnel/": "i2ptunnelmgr",
+        "/i2ptunnelmgr": "i2ptunnelmgr",
         "/i2psnark/": "i2psnark",
+        "/torrents": "i2psnark",
+        "/susimail/": "webmail",
         "/webmail": "webmail",
         "/i2pbote/": "i2pbote",
         "/console": "routerconsole",
+        "/home": "routerconsole",
       };
 
       for (const [path, type] of Object.entries(routerPaths)) {
@@ -600,44 +602,11 @@ class EventManager {
   /**
    * Initialize event listeners
    */
+
   static initializeListeners() {
-    // Tab events
-    const tabEvents = [
-      "onActivated",
-      "onAttached",
-      "onCreated",
-      "onDetached",
-      "onHighlighted",
-      "onMoved",
-      "onReplaced",
-    ];
-
-    tabEvents.forEach((event) => {
-      browser.tabs[event].addListener(EventManager.handleTabEvent);
-    });
-
-    // Page action events
-    browser.pageAction.onClicked.addListener(EventManager.handleTabEvent);
-
-    // Web request events
-    browser.webRequest.onHeadersReceived.addListener(
-      EventManager.handleHeaders,
-      { urls: ["*://*.i2p/*", "https://*/*"] },
-      ["responseHeaders"]
-    );
-
-    // Navigation events
-    const navFilter = {
-      url: [{ hostContains: ".i2p" }],
-    };
-
-    browser.webNavigation.onDOMContentLoaded.addListener(
-      EventManager.handleTabEvent,
-      navFilter
-    );
-
+    // Web request events with proper binding
     browser.webRequest.onBeforeRequest.addListener(
-      RequestManager.handleRequest,
+      (requestDetails) => RequestManager.handleRequest(requestDetails), // Use arrow function to preserve context
       {
         urls: [
           "*://*.i2p/*",
@@ -649,11 +618,27 @@ class EventManager {
     );
 
     browser.webRequest.onBeforeSendHeaders.addListener(
-      // Bind the handler explicitly to preserve context
-      (requestDetails) => HeaderManager.processHeaders(requestDetails),
+      (requestDetails) => HeaderManager.processHeaders(requestDetails), // Use arrow function to preserve context
       { urls: ["*://*.i2p/*"] },
-      ["requestHeaders", "blocking"] // Add blocking to ensure headers are processed
+      ["requestHeaders", "blocking"]
     );
+
+    // Tab events with proper binding
+    const tabEvents = [
+      "onActivated",
+      "onAttached",
+      "onCreated",
+      "onDetached",
+      "onHighlighted",
+      "onMoved",
+      "onReplaced",
+    ];
+
+    tabEvents.forEach((event) => {
+      browser.tabs[event].addListener(
+        async (info) => await EventManager.handleTabEvent(info) // Use arrow function to preserve context
+      );
+    });
   }
 
   /**
