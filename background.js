@@ -58,6 +58,8 @@ function onContextsGot(contexts) {
   });
 }
 
+browser.windows.onCreated.addListener(onContextsGot);
+
 // every time a window opens, call onContextsGot
 browser.tabs.onCreated.addListener(onContextsGot);
 
