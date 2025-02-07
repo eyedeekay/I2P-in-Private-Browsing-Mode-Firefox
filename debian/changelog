@@ -1,3 +1,9 @@
+i2psetproxy.js (2.8.1-1) UNRELEASED; urgency=low
+
+  * Make `Referer:` header handling more fine-grained
+
+ -- idk <hankhill19580@gmail.com> Fri, 07 Feb 2025 12:00:00 -0000
+
 i2psetproxy.js (2.7.1-1) UNRELEASED; urgency=low
 
   * Make `Referer:` header handling more fine-grained
