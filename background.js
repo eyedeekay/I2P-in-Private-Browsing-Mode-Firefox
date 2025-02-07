@@ -58,6 +58,9 @@ function onContextsGot(contexts) {
   });
 }
 
+// every time a window opens, call onContextsGot
+browser.tabs.onCreated.addListener(onContextsGot);
+
 function onContextsError() {
   console.log("Error finding contextual identities, is the API enabled?");
 }
@@ -327,10 +330,11 @@ async function onOpenedWindowCheck() {
 }
 
 onOpenedWindowCheck();
+onContextsGot();
 
 browser.tabs.onRemoved.addListener(onClosedWindowCheck);
 
-if (browser.windows != undefined) {
+if (browser.windows === undefined) {
   console.log("windows unavailable on android", browser.runtime.PlatformOs);
   browser.windows.onRemoved.addListener(onClosedWindowCheck);
   browser.windows.onCreated.addListener(onOpenedWindowCheck);
