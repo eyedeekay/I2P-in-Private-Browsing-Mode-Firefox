@@ -97,17 +97,14 @@ torrenthelp:
 xpi: getxpi
 
 version:
-	sed -i 's|7647|7657|g' *.js* torrent/*.js*
 	find . -name '*.json' -exec sed -i 's|$(LAST_VERSION)|$(VERSION)|g' {} \;
 	find . -name '*.json' -exec sed -i 's|$(MOZ_VERSION)|$(VERSION)|g' {} \;
 
 moz-version:
-	sed -i 's|7647|7657|g' *.js* torrent/*.js*
 	find . -name '*.json' -exec sed -i 's|$(LAST_VERSION)|$(MOZ_VERSION)|g' {} \;
 	find . -name '*.json' -exec sed -i 's|$(VERSION)|$(MOZ_VERSION)|g' {} \;
 
 rhz-version:
-	sed -i 's|7657|7647|g' *.js* torrent/*.js*
 
 zip: version
 	zip --exclude="./i2ppb@eyedeekay.github.io.xpi" \
@@ -249,8 +246,8 @@ fmt-html:
 fmt-js:
 	fixjsstyle *.js
 	fixjsstyle options/*.js
-	fixjsstyle torrent/*.js
-	fixjsstyle i2pcontrol/*.js
+	#fixjsstyle torrent/*.js
+	#fixjsstyle i2pcontrol/*.js
 	fixjsstyle manifest.json
 	#work around fixjsstyle issue
 	sed -i 's|= >|=>|g' *.js */*.js
