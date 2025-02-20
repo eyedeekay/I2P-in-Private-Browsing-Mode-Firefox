@@ -317,6 +317,8 @@ async function onOpenedWindowCheck() {
     if (tabs.length == 0 && context != 0) {
       browser.contextualIdentities.remove(context.cookieStoreId);
     }
+    // once we're done, re-create all the contexts
+    browser.contextualIdentities.query({}).then(onContextsGot, onContextsError);
   }
 
   async function checkTabs(context) {
