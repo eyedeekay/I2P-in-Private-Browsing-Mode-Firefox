@@ -1,6 +1,12 @@
+i2psetproxy.js (2.8.3-1) UNRELEASED; urgency=low
+
+  * Fix context recreation bug
+
+ -- idk <hankhill19580@gmail.com> Fri, 20 Feb 2025 12:00:00 -0000
+
 i2psetproxy.js (2.8.1-1) UNRELEASED; urgency=low
 
-  * Make `Referer:` header handling more fine-grained
+  * 2.8.0/1 release
 
  -- idk <hankhill19580@gmail.com> Fri, 07 Feb 2025 12:00:00 -0000
 
